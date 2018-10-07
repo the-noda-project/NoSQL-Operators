@@ -2,6 +2,7 @@ package com.github.unipi.trackandknow;
 
 public interface DatabaseConnectivity {
 
-    void connect();
+    private void connect();
+
     void disconnect();
 }
