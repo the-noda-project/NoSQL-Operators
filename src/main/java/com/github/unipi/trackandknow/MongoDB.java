@@ -30,6 +30,31 @@ public final class MongoDB implements NoSqlDbConnectivity {
 
     }
 
+    @Override
+    public void disconnect() {
+
+    }
+
+    @Override
+    public int getDefaultPort() {
+        return 27017;
+    }
+
+    @Override
+    public String getDefaultDatabase() {
+        return "";
+    }
+
+    @Override
+    public String getDefaultUsername() {
+        return "";
+    }
+
+    @Override
+    public String getDefaultPassword() {
+        return "";
+    }
+
     public static MongoDB newMongoDB(String username, char[] password, String database, int port){
         return new MongoDB(username, password, database, port);
     }

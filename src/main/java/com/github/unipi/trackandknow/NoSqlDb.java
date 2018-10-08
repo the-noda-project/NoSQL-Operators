@@ -7,16 +7,18 @@ public class NoSqlDb<? extends NoSqlDbConnectivity> {
     private final String database; // the name of the database in which the user is defined
     private final String username; // the user name
     private final char[] password; // the password as a character array
+    private NoSqlDbConnectivity n =  n;
 
     public static class Builder {
 
-        private String host;
+        private String host = new ?.NoSqlDbOperators();
         private int port;
         private String database; // the name of the database in which the user is defined
         private String username; // the user name
         private char[] password; // the password as a character array
 
         public Builder() {
+
 
         }
 
@@ -48,13 +50,11 @@ public class NoSqlDb<? extends NoSqlDbConnectivity> {
     }
 
     private NoSqlDb(Builder builder){
-
         host = builder.host;
         port = builder.port;
         database = builder.database;
         username = builder.username;
         password = builder.password;
-
     }
 
 }
