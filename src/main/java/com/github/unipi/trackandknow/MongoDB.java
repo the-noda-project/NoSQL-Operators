@@ -1,21 +1,18 @@
 package com.github.unipi.trackandknow;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 import com.mongodb.ServerAddress;
 import com.mongodb.MongoCredential;
 import com.mongodb.MongoClientOptions;
 
-import java.util.Arrays;
-
-public final class MongoDB implements DatabaseConnectivity {
+public final class MongoDB implements NoSqlDbConnectivity {
 
     private final String username; // the user name
     private final char[] password; // the password as a character array
     private final String database; // the name of the database in which the user is defined
     private final int port;
 
-    private MongoDB(String username, char[] password, String database, int port){
+    private MongoDB(String host, String username, char[] password, String database, int port){
         this.username = username;
         this.password = password;
         this.database = database;
@@ -29,7 +26,7 @@ public final class MongoDB implements DatabaseConnectivity {
 
     }
 
-    private void connect(){
+    protected void connect(){
 
     }
 
