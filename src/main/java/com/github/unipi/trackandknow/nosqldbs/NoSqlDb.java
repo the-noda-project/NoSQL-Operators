@@ -3,6 +3,7 @@ package com.github.unipi.trackandknow.nosqldbs;
 import com.github.unipi.trackandknow.nosqldbs.mongodb.MongoDBConnection;
 import com.github.unipi.trackandknow.nosqldbs.mongodb.MongoDBOperators;
 import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoDatabase;
 
 public enum NoSqlDb {
 
@@ -14,7 +15,7 @@ public enum NoSqlDb {
 
         @Override
         public NoSqlDbOperators noSqlDbOperators(Object o, String e){
-            return MongoDBOperators.newMongoDBOperators((MongoClient) o, e);
+            return MongoDBOperators.newMongoDBOperators((MongoDatabase) o, e);
         }
 
         @Override

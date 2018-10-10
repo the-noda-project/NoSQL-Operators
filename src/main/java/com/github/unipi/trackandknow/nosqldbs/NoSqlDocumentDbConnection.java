@@ -2,6 +2,7 @@ package com.github.unipi.trackandknow.nosqldbs;
 
 public interface NoSqlDocumentDbConnection extends NoSqlDbConnection {
 
-    NoSqlDbOperators operateOnCollection();
+//    NoSqlDbOperators operateOnCollection();
+    NoSqlDbManager getNoSqlDbManager();
 
 }

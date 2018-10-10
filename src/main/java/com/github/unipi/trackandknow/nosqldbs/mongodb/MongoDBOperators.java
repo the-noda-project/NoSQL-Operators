@@ -2,23 +2,24 @@ package com.github.unipi.trackandknow.nosqldbs.mongodb;
 
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
 import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoDatabase;
 
-public class MongoDBOperators<T> implements NoSqlDbOperators<T> {
+public class MongoDBOperators<T> implements NoSqlDbOperators {
 
-    private final MongoClient mongoClient;
+    private final MongoDatabase mongoDatabase;
     private final String collection;
 
-    private MongoDBOperators(MongoClient mongoClient, String collection){
-        this.mongoClient = mongoClient;
+    private MongoDBOperators(MongoDatabase mongoDatabase, String collection){
+        this.mongoDatabase = mongoDatabase;
         this.collection = collection;
     }
 
-    public static MongoDBOperators newMongoDBOperators(MongoClient mongoClient, String collection){
-        return new MongoDBOperators(mongoClient, collection);
+    public static MongoDBOperators newMongoDBOperators(MongoDatabase mongoDatabase, String collection){
+        return new MongoDBOperators(mongoDatabase, collection);
     }
 
     @Override
-    public T scan(String column) {
-        return null;
+    public void scan(String column) {
+        System.out.println(mongoDatabase.getCollection(collection).);
     }
 }

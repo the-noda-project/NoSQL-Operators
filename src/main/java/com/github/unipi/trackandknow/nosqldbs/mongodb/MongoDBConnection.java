@@ -5,16 +5,23 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import com.mongodb.MongoCredential;
 import com.mongodb.MongoClientOptions;
+import com.mongodb.client.MongoDatabase;
 
 public final class MongoDBConnection implements NoSqlDocumentDbConnection {
 
+    private MongoDatabase mongoDatabase;
     private NoSqlDbManager<MongoClient> manager;
 
     private MongoDBConnection(String host, int port, String username, String password, String database) {
 
         MongoCredential credential = MongoCredential.createCredential(username, database, password.toCharArray());
-        MongoClientOptions options = MongoClientOptions.builder().sslEnabled(true).build();
-        MongoClient mongoClient = new MongoClient(new ServerAddress("host1", port), credential, options);
+        MongoClientOptions options = MongoClientOptions.builder()/*.sslEnabled(true)*/.build();
+        MongoClient mongoClient = new MongoClient(new ServerAddress(host, port), credential, options);
+
+        mongoDatabase = mongoClient.getDatabase(database);
+
+        System.out.println(mongoClient.listDatabaseNames().first());
+        
     }
 
 //    public MongoDBConnection connect() {
@@ -23,7 +30,7 @@ public final class MongoDBConnection implements NoSqlDocumentDbConnection {
 //    }
 
     public NoSqlDbManager getNoSqlDbManager(){
-        return manager = NoSqlDbManager.newNoSqlManager(new MongoClient(),NoSqlDb.MONGODB);
+        return manager = NoSqlDbManager.newNoSqlManager(mongoDatabase,NoSqlDb.MONGODB);
     }
 
 
@@ -31,8 +38,8 @@ public final class MongoDBConnection implements NoSqlDocumentDbConnection {
         return new MongoDBConnection(host, port, username, password, database);
     }
 
-    @Override
-    public NoSqlDbOperators operateOnCollection() {
-        return null;
-    }
+//    @Override
+//    public NoSqlDbOperators operateOnCollection() {
+//        return null;
+//    }
 }
