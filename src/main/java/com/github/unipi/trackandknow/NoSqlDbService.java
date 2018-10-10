@@ -1,21 +1,21 @@
 package com.github.unipi.trackandknow;
 
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDb;
-import com.github.unipi.trackandknow.nosqldbs.NoSqlDbConnectivity;
+import com.github.unipi.trackandknow.nosqldbs.NoSqlDbConnection;
 
-public class TemporaryName {
+public class NoSqlDbService {
 
-    private final String host;
-    private final int port;
-    private final String database; // the name of the database in which the user is defined
-    private final String username; // the user name
-    private final String password; // the password as a character array
+//    private final String host;
+//    private final int port;
+//    private final String database; // the name of the database in which the user is defined
+//    private final String username; // the user name
+//    private final String password; // the password as a character array
 
     public static class Builder {
 
         private final NoSqlDb nsdb;
 
-        private String host ;
+        private String host;
         private int port;
         private String database; // the name of the database in which the user is defined
         private String username; // the user name
@@ -57,22 +57,22 @@ public class TemporaryName {
             return this;
         }
 
-        public NoSqlDbConnectivity connect(){
+        public NoSqlDbConnection connect(){
             return nsdb.noSqlDbConnectivity(host, port, username, password, database);
         }
 
     }
 
-    private TemporaryName(Builder builder){
-        host = builder.host;
-        port = builder.port;
-        database = builder.database;
-        username = builder.username;
-        password = builder.password;
-    }
+//    private NoSqlDbService(Builder builder){
+//        host = builder.host;
+//        port = builder.port;
+//        database = builder.database;
+//        username = builder.username;
+//        password = builder.password;
+//    }
 
     public static Builder MongoDB(){
-        return new TemporaryName.Builder(NoSqlDb.MONGODB);
+        return new NoSqlDbService.Builder(NoSqlDb.MONGODB);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.github.unipi.trackandknow.nosqldbs;
 
-public interface NoSqlDocumentDbConnectivity extends NoSqlDbConnectivity {
+public interface NoSqlDocumentDbConnection extends NoSqlDbConnection {
 
     NoSqlDbOperators operateOnCollection();
 
