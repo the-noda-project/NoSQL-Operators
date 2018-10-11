@@ -22,7 +22,10 @@ public class NoSqlDbServiceTest {
         operateOnSpecificCollection.scan();
         operateOnSpecificCollection.project("aColumn","bColumn");
 
-        manager.disconnect();
+        manager..disconnect();
+
+        NoSqlDbService v = new NoSqlDbService();
+        v.
     }
 
 }

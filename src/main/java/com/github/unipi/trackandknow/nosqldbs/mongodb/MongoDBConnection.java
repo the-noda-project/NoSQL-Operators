@@ -15,13 +15,13 @@ public final class MongoDBConnection implements NoSqlDocumentDbConnection {
     private MongoDBConnection(String host, int port, String username, String password, String database) {
 
         MongoCredential credential = MongoCredential.createCredential(username, database, password.toCharArray());
-        MongoClientOptions options = MongoClientOptions.builder()/*.sslEnabled(true)*/.build();
+        MongoClientOptions options = MongoClientOptions.builder()./*.sslEnabled(true)*/.build();
         MongoClient mongoClient = new MongoClient(new ServerAddress(host, port), credential, options);
 
         mongoDatabase = mongoClient.getDatabase(database);
 
         System.out.println(mongoClient.listDatabaseNames().first());
-        
+        this.;
     }
 
 //    public MongoDBConnection connect() {

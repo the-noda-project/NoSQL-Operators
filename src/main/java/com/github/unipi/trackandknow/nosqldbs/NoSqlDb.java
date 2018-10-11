@@ -13,6 +13,10 @@ public enum NoSqlDb {
             return MongoDBConnection.newMongoDBConnection(host, port, username, password, database);
         }
 
+        public void asdasdds(){
+
+        }
+
         @Override
         public NoSqlDbOperators noSqlDbOperators(Object o, String e){
             return MongoDBOperators.newMongoDBOperators((MongoDatabase) o, e);
