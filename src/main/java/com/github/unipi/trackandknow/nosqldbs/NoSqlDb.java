@@ -1,6 +1,6 @@
 package com.github.unipi.trackandknow.nosqldbs;
 
-import com.github.unipi.trackandknow.nosqldbs.mongodb.MongoDBConnection;
+import com.github.unipi.trackandknow.nosqldbs.mongodb.MongoDBConnector;
 import com.github.unipi.trackandknow.nosqldbs.mongodb.MongoDBOperators;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
@@ -9,22 +9,18 @@ public enum NoSqlDb {
 
     MONGODB{
         @Override
-        public NoSqlDbConnection noSqlDbConnectivity(String host, int port, String username, String password, String database){
-            return MongoDBConnection.newMongoDBConnection(host, port, username, password, database);
-        }
-
-        public void asdasdds(){
-
+        public NoSqlDbConnector noSqlDbConnector(String host, int port, String username, String password, String database){
+            return MongoDBConnector.newMongoDBConnector(host, port, username, password, database);
         }
 
         @Override
-        public NoSqlDbOperators noSqlDbOperators(Object o, String e){
-            return MongoDBOperators.newMongoDBOperators((MongoDatabase) o, e);
+        public NoSqlDbOperators noSqlDbOperators(Object client, String database, String s){
+            return MongoDBOperators.newMongoDBOperators(((MongoClient) client).getDatabase(database).getCollection(s));
         }
 
         @Override
-        public void disconnect(Object t){
-
+        public void disconnect(Object o){
+            ((MongoClient) o).close();
         }
 
         @Override
@@ -49,9 +45,9 @@ public enum NoSqlDb {
 
     };
 
-    public abstract NoSqlDbConnection noSqlDbConnectivity(String host, int port, String username, String password, String database);
+    public abstract NoSqlDbConnector noSqlDbConnector(String host, int port, String username, String password, String database);
 
-    public abstract NoSqlDbOperators noSqlDbOperators(Object t, String e);
+    public abstract NoSqlDbOperators noSqlDbOperators(Object client, String database, String s);
 
     public abstract void disconnect(Object t);
 

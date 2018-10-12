@@ -1,9 +1,9 @@
 package com.github.unipi.trackandknow;
 
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDb;
-import com.github.unipi.trackandknow.nosqldbs.NoSqlDbConnection;
+import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
 
-public class NoSqlDbService {
+public class NoSqlDbSystem {
 
 //    private final String host;
 //    private final int port;
@@ -57,13 +57,31 @@ public class NoSqlDbService {
             return this;
         }
 
-        public NoSqlDbConnection connect(){
-            return nsdb.noSqlDbConnectivity(host, port, username, password, database);
+        public NoSqlDbSystem connect(){
+            return new NoSqlDbSystem(nsdb, nsdb.noSqlDbConnector(host, port, username, password, database), database);
         }
 
     }
 
-//    private NoSqlDbService(Builder builder){
+    private final NoSqlDb nsdb;
+    private final Object client;
+    private final String database;
+
+    private NoSqlDbSystem(NoSqlDb nsdb, Object client, String database){
+        this.nsdb = nsdb;
+        this.client = client;
+        this.database = database;
+    }
+
+    public void disconnect(){
+        nsdb.disconnect(client);
+    }
+
+    public NoSqlDbOperators operateOn(String s){
+        return nsdb.noSqlDbOperators(client, database, s);
+    }
+
+//    private NoSqlDbSystem(Builder builder){
 //        host = builder.host;
 //        port = builder.port;
 //        database = builder.database;
@@ -72,7 +90,7 @@ public class NoSqlDbService {
 //    }
 
     public static Builder MongoDB(){
-        return new NoSqlDbService.Builder(NoSqlDb.MONGODB);
+        return new NoSqlDbSystem.Builder(NoSqlDb.MONGODB);
     }
 
 }

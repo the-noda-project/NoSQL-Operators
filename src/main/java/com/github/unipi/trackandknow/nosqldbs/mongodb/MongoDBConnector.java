@@ -7,16 +7,18 @@ import com.mongodb.MongoCredential;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.client.MongoDatabase;
 
-public final class MongoDBConnection implements NoSqlDocumentDbConnection {
+public final class MongoDBConnector implements NoSqlDocumentDbConnector {
 
     private MongoDatabase mongoDatabase;
     private NoSqlDbManager<MongoClient> manager;
 
-    private MongoDBConnection(String host, int port, String username, String password, String database) {
+    private MongoDBConnector(String host, int port, String username, String password, String database) {
 
         MongoCredential credential = MongoCredential.createCredential(username, database, password.toCharArray());
-        MongoClientOptions options = MongoClientOptions.builder()./*.sslEnabled(true)*/.build();
+        MongoClientOptions options = MongoClientOptions.builder()/*.sslEnabled(true)*/.build();
         MongoClient mongoClient = new MongoClient(new ServerAddress(host, port), credential, options);
+
+        mongoClient.getDatabase("").
 
         mongoDatabase = mongoClient.getDatabase(database);
 
@@ -24,9 +26,9 @@ public final class MongoDBConnection implements NoSqlDocumentDbConnection {
         this.;
     }
 
-//    public MongoDBConnection connect() {
+//    public MongoDBConnector connect() {
 //
-//        return (NoSqlDbOperators) MongoDBConnection.newMongoDB("", "", "", 9).connect();
+//        return (NoSqlDbOperators) MongoDBConnector.newMongoDB("", "", "", 9).connect();
 //    }
 
     public NoSqlDbManager getNoSqlDbManager(){
@@ -34,8 +36,8 @@ public final class MongoDBConnection implements NoSqlDocumentDbConnection {
     }
 
 
-    public static NoSqlDbConnection newMongoDBConnection(String host, int port, String username, String password, String database) {
-        return new MongoDBConnection(host, port, username, password, database);
+    public static NoSqlDbConnector newMongoDBConnector(String host, int port, String username, String password, String database) {
+        return new MongoDBConnector(host, port, username, password, database);
     }
 
 //    @Override

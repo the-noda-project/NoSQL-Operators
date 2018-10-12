@@ -1,11 +1,15 @@
 package com.github.unipi.trackandknow.nosqldbs;
 
+import com.mongodb.Function;
+
 public interface NoSqlDbOperators {
 
-    void scan(String column);
+
+    void project();
 
     void project(String... column);
 
-    void filter();
+    NoSqlDbOperators filter();
+
 
 }
