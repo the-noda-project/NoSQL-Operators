@@ -1,7 +1,11 @@
 package com.github.unipi.trackandknow.nosqldbs;
 
-public interface NoSqlDbOperators<T> {
+public interface NoSqlDbOperators {
 
-    T scan(String column);
+    void scan(String column);
+
+    void project(String... column);
+
+    void filter();
 
 }
