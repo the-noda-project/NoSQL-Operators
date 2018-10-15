@@ -11,5 +11,6 @@ public interface NoSqlDbOperators {
 
     NoSqlDbOperators filter();
 
+    NoSqlDocumentDbConnector filter();
 
 }

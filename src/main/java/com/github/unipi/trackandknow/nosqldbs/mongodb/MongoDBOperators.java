@@ -5,6 +5,9 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.conversions.Bson;
+import com.mongodb.client.model.Filters;
+
+import static com.mongodb.client.model.Filters.eq;
 
 public class MongoDBOperators<T> implements NoSqlDbOperators {
 
@@ -20,6 +23,6 @@ public class MongoDBOperators<T> implements NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(){
-        mongoCollection.find().filter()
+        mongoCollection.find(eq("h",3)).filter()
     }
 }

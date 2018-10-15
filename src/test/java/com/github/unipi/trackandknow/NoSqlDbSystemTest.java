@@ -24,7 +24,7 @@ public class NoSqlDbSystemTest {
 
         NoSqlDbSystem v = new NoSqlDbSystem();
 
-        NoSqlDbSystem<Json> dbSystem = NoSqlDbSystem.MongoDB().host("83.212.104.92").database("test").username("myUserAdmin").password("abc123")..connect();
+        NoSqlDbSystem dbSystem = NoSqlDbSystem.MongoDB().host("83.212.104.92").database("test").username("myUserAdmin").password("abc123").connect();
 
         dbSystem.operateOn(Collection).filter(ColumnName,f->f>3).filter(ColumnName,lambda).projectFilteredColumns();
         dbSystem.operateOn(Collection).filter(ColumnName,lambda).filter(ColumnName,lambda).project();
@@ -40,6 +40,15 @@ public class NoSqlDbSystemTest {
 
         dbSystem.disconnect();
         SparkConf.load(r);
+
+
+        dbSystem.operateOn(Collection).filter()
+                .greaterThan(ColumnName,3)
+                .and()
+                .lessThan(ColumnName,100)
+                .or()
+                .equals(ColumnName,342)
+                .project();
 
     }
 
