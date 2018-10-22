@@ -49,10 +49,10 @@ public class QueryGeopoints {
 //
 //        long d = m.count(and(f,and(and(and(gte("location.coordinates.0",21),gte("location.coordinates.1",35)),lte("location.coordinates.0",25)),lte("location.coordinates.1",38))));
 
-        Polygon polygon = new Polygon(Arrays.asList(new Position(21, 35),new Position(25, 35),new Position(25, 38),new Position(21, 38),new Position(21, 35)));
-        long d = m.count(Filters.geoWithin("location.coordinates", polygon));
+        //Polygon polygon = new Polygon(Arrays.asList(new Position(21, 35),new Position(25, 35),new Position(25, 38),new Position(21, 38),new Position(21, 35)));
+        //long d = m.count(Filters.geoWithin("location.coordinates", polygon));
 
-        //long d = m.count(Filters.geoWithinCenterSphere("location.coordinates",23,36.5,1.5));
+        long d = m.count(Filters.nearSphere("location",23D,36.5D,166800D,0D));
 
         System.out.println("geoPoints");
         System.out.println((System.currentTimeMillis()-start)/1000);
@@ -61,4 +61,5 @@ public class QueryGeopoints {
         mongoClient.close();
 
     }
+
 }
