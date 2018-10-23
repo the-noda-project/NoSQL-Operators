@@ -21,19 +21,19 @@ public class QueryGeopoints {
     public static void main(String[] args){
 
         MongoCredential credential = MongoCredential.createCredential("myUserAdmin", "test", "abc123".toCharArray());
-        MongoClientOptions options = MongoClientOptions.builder()/*.sslEnabled(true)*/.build();
+        MongoClientOptions options = MongoClientOptions.builder().build();
         MongoClient mongoClient = new MongoClient(new ServerAddress("83.212.102.163", 28017), credential, options);
 
         MongoCollection m = mongoClient.getDatabase("test").getCollection("geoPoints");
 
         long start = System.currentTimeMillis();
 
-        //long d = m.count(and(and(and(gte("location.coordinates.0",21),gte("location.coordinates.1",35)),lte("location.coordinates.0",25)),lte("location.coordinates.1",38)));
+//        long d = m.countDocuments(and(and(and(gte("location.coordinates.0",21),gte("location.coordinates.1",35)),lte("location.coordinates.0",25)),lte("location.coordinates.1",38)));
 
 //        Bson f = Filters.expr(
 //
 //                Document.parse(
-//                      "{$gt:[ "+
+//                      "{$lte:[ "+
 //                        "{$sqrt:["+
 //                          "{$add: ["+
 //                                "{$pow: [" +
@@ -46,17 +46,19 @@ public class QueryGeopoints {
 //                                ",2]}"+ "]}"+"]}"+",1.5]}"
 //                )
 //        );
-//
-//        long d = m.count(and(f,and(and(and(gte("location.coordinates.0",21),gte("location.coordinates.1",35)),lte("location.coordinates.0",25)),lte("location.coordinates.1",38))));
 
-        //Polygon polygon = new Polygon(Arrays.asList(new Position(21, 35),new Position(25, 35),new Position(25, 38),new Position(21, 38),new Position(21, 35)));
-        //long d = m.count(Filters.geoWithin("location.coordinates", polygon));
+//        long d = m.countDocuments(f);
 
-        long d = m.count(Filters.nearSphere("location",23D,36.5D,166800D,0D));
+//        long d = m.countDocuments(and(f,and(and(and(gte("location.coordinates.0",21),gte("location.coordinates.1",35)),lte("location.coordinates.0",25)),lte("location.coordinates.1",38))));
 
-        System.out.println("geoPoints");
-        System.out.println((System.currentTimeMillis()-start)/1000);
-        System.out.println("d "+ d);
+        Polygon polygon = new Polygon(Arrays.asList(new Position(21, 35),new Position(25, 35),new Position(25, 38),new Position(21, 38),new Position(21, 35)));
+        long d = m.countDocuments(Filters.geoWithin("location", polygon));
+
+        //long d = m.countDocuments(Filters.nearSphere("location",23D,36.5D,166800D,0D));
+
+        System.out.println("geoPoints collection");
+        System.out.println("Time Elapsed: "+(System.currentTimeMillis()-start)/1000);
+        System.out.println("Number Of Records: "+ d);
 
         mongoClient.close();
 
