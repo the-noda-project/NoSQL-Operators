@@ -65,6 +65,11 @@ public class QueryPoints {
 
         //long d = m.countDocuments(f);
 
+        Filters.
+        m.countDocuments(Filters.and(Filters.nearSphere()));
+
+
+
         long d = m.countDocuments(Filters.near("coordinates",23,36.5,new Double(2),new Double(0)));
 
         System.out.println("points collection");
