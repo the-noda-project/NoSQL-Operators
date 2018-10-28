@@ -31,11 +31,6 @@ public final class MongoDBConnector implements NoSqlDocumentDbConnector {
 //        return (NoSqlDbOperators) MongoDBConnector.newMongoDB("", "", "", 9).connect();
 //    }
 
-    public NoSqlDbManager getNoSqlDbManager(){
-        return manager = NoSqlDbManager.newNoSqlManager(mongoDatabase,NoSqlDb.MONGODB);
-    }
-
-
     public static NoSqlDbConnector newMongoDBConnector(String host, int port, String username, String password, String database) {
         return new MongoDBConnector(host, port, username, password, database);
     }

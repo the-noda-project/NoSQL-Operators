@@ -1,6 +1,5 @@
 package com.github.unipi.trackandknow;
 
-import com.github.unipi.trackandknow.nosqldbs.NoSqlDbManager;
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
 import org.junit.Test;
 

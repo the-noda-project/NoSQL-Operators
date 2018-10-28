@@ -9,8 +9,7 @@ public interface NoSqlDbOperators {
 
     void project(String... column);
 
-    NoSqlDbOperators filter();
+    NoSqlDbOperators filter(ConditionOperator conditionOperator);
 
-    NoSqlDocumentDbConnector filter();
 
 }
