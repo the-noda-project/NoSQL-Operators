@@ -11,25 +11,26 @@ public enum ConditionOperatorType {
 
     private final int value;
 
-    private ConditionOperatorType(int value){
+    ConditionOperatorType(int value){
         this.value = value;
     }
 
-    public Bson getOperatorForMongoDb(){
-        new Document().;
-        Bson bson = Filters.and();
+    public String getStringOperatorMongoDb(){
+
+        String operator = null;
+
         switch (value){
             case 1:
-                bson = ;
-
+                operator = "$lt";
                 break;
             case 2:
-
+                operator = "$lt";
                 break;
             default:
-                bson = null;
+                operator = "$lt";
         }
-        return null;
+
+        return operator;
 
     }
 }

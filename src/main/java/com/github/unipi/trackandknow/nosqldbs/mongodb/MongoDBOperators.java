@@ -6,6 +6,7 @@ import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 import org.bson.conversions.Bson;
 import com.mongodb.client.model.Filters;
 
@@ -25,9 +26,18 @@ public class MongoDBOperators<T> implements NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(ConditionOperator conditionOperator) {
-        if (conditionOperator.getConditionOperatorType() == ConditionOperatorType.AND ||
-                conditionOperator.getConditionOperatorType() == ConditionOperatorType.AND) {
 
+        Document document;
+        if (conditionOperator.getConditionOperatorType() == ConditionOperatorType.AND ||
+                conditionOperator.getConditionOperatorType() == ConditionOperatorType.OR) {
+
+            for(ConditionOperator cop: conditionOperator.getConditionOperatorChildren()){
+
+            }
+
+            document = new Document(conditionOperator.getConditionOperatorType().getStringOperatorMongoDb(),
+                    new Document().a
+                    );
         }
 
 
