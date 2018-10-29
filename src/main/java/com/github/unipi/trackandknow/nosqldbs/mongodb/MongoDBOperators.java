@@ -3,6 +3,7 @@ package com.github.unipi.trackandknow.nosqldbs.mongodb;
 import com.github.unipi.trackandknow.nosqldbs.ConditionOperator;
 import com.github.unipi.trackandknow.nosqldbs.ConditionOperatorType;
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
+import com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperator;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -25,37 +26,8 @@ public class MongoDBOperators<T> implements NoSqlDbOperators {
     }
 
     @Override
-    public NoSqlDbOperators filter(ConditionOperator conditionOperator) {
-
-        Document document;
-        if (conditionOperator.getConditionOperatorType() == ConditionOperatorType.AND ||
-                conditionOperator.getConditionOperatorType() == ConditionOperatorType.OR) {
-
-            for(ConditionOperator cop: conditionOperator.getConditionOperatorChildren()){
-
-            }
-
-            document = new Document(conditionOperator.getConditionOperatorType().getStringOperatorMongoDb(),
-                    new Document().a
-                    );
-        }
-
-
-        ConditionOperatorType conditionOperatorType = conditionOperator.getConditionOperatorType();
-
-        if(conditionOperator.getConditionOperatorChildren() == null){
-
-        }
-        else{
-
-        }
-
-        else(){
-            conditionOperator.getConditionOperatorType().getOperatorForMongoDb();
-        }
-
-        conditionOperator.getConditionOperatorType()
-        mongoCollection.find(eq("h", 3)).filter()
+    public NoSqlDbOperators filter(FilterOperator filterOperator) {
+        filterOperator.getJsonString();
     }
 
 

@@ -1,6 +1,7 @@
 package com.github.unipi.trackandknow.nosqldbs;
 
 
+import com.mongodb.client.model.Filters;
 import com.sun.istack.internal.Nullable;
 
 import java.util.Arrays;
@@ -18,7 +19,7 @@ public class ConditionOperator {
     public ConditionOperatorType getConditionOperatorType() {
         return conditionOperatorType;
     }
-
+Filters.all()
     public List<ConditionOperator> getConditionOperatorChildren() {
         return conditionOperatorChildren;
     }
