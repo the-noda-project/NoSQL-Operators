@@ -14,7 +14,8 @@ public class OperatorInGeographicalBox<T extends Number> implements Geographical
     }
 
     private OperatorInGeographicalBox(String fieldName, T lowerLongitude, T lowerLatitude, T upperLongitude, T upperLatitude) {
-        checkLonLatRange(lowerLongitude, lowerLatitude, upperLongitude, upperLatitude);
+        checkLonLatRange(lowerLongitude, lowerLatitude);
+        checkLonLatRange(upperLongitude, upperLatitude);
         this.fieldName = fieldName;
         this.lowerLongitude = lowerLongitude;
         this.lowerLatitude = lowerLatitude;
@@ -31,7 +32,8 @@ public class OperatorInGeographicalBox<T extends Number> implements Geographical
     public String getJsonString() {
 
         return "{ " + ((!fieldName.contains(".")) ? fieldName : "\"" + fieldName + "\"") +
-                ": { $geoWithin: { $polygon: [ ["+lowerLongitude+", "+lowerLatitude+"], ["+upperLongitude+", "+lowerLatitude+"], ["+upperLongitude+", "+upperLatitude+"], ["+lowerLongitude+", "+upperLatitude+"] ]} } }";
+                ": { $geoWithin: { $geometry: { type:\"Polygon\", coordinates:[ [ ["+lowerLongitude+", "+lowerLatitude+"], ["+upperLongitude+", "+lowerLatitude+"], ["+upperLongitude+", "+upperLatitude+"], ["+lowerLongitude+", "+upperLatitude+"],["+lowerLongitude+", "+lowerLatitude+"] ] ] } } } }";
     }
+
 
 }
