@@ -15,4 +15,6 @@ public class FilterOperatorsTest {
     public void geoOperator() {
         System.out.println(FilterOperators.inGeoBox("location",3,4,5,6).getJsonString());
     }
+
+
 }

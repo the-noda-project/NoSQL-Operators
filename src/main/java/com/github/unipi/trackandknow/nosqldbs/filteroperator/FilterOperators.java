@@ -2,6 +2,7 @@ package com.github.unipi.trackandknow.nosqldbs.filteroperator;
 
 import com.github.unipi.trackandknow.nosqldbs.filteroperator.comparison.*;
 import com.github.unipi.trackandknow.nosqldbs.filteroperator.geographical.OperatorInGeographicalBox;
+import com.github.unipi.trackandknow.nosqldbs.filteroperator.geographical.OperatorInGeographicalRange;
 import com.github.unipi.trackandknow.nosqldbs.filteroperator.logical.OperatorAnd;
 import com.github.unipi.trackandknow.nosqldbs.filteroperator.logical.OperatorOr;
 
@@ -151,24 +152,84 @@ public class FilterOperators {
         return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
     }
 
-    public static FilterOperator inGeoBox(String fieldName, double lowerLon, double lowerLat, double upperLon, double upperLat) {
-        return OperatorInGeographicalBox.newOperatorInGeographicalBox(fieldName, lowerLon, lowerLat, upperLon, upperLat);
+    public static FilterOperator inGeoBox(String fieldName, double lowerLongitude, double lowerLatitude, double upperLongitude, double upperLatitude) {
+        return OperatorInGeographicalBox.newOperatorInGeographicalBox(fieldName, lowerLongitude, lowerLatitude, upperLongitude, upperLatitude);
     }
 
-    public static FilterOperator inGeoBox(String fieldName, int lowerLon, int lowerLat, int upperLon, int upperLat) {
-        return OperatorInGeographicalBox.newOperatorInGeographicalBox(fieldName, lowerLon, lowerLat, upperLon, upperLat);
+    public static FilterOperator inGeoBox(String fieldName, int lowerLongitude, int lowerLatitude, int upperLongitude, int upperLatitude) {
+        return OperatorInGeographicalBox.newOperatorInGeographicalBox(fieldName, lowerLongitude, lowerLatitude, upperLongitude, upperLatitude);
     }
 
-    public static FilterOperator inGeoBox(String fieldName, float lowerLon, float lowerLat, float upperLon, float upperLat) {
-        return OperatorInGeographicalBox.newOperatorInGeographicalBox(fieldName, lowerLon, lowerLat, upperLon, upperLat);
+    public static FilterOperator inGeoBox(String fieldName, float lowerLongitude, float lowerLatitude, float upperLongitude, float upperLatitude) {
+        return OperatorInGeographicalBox.newOperatorInGeographicalBox(fieldName, lowerLongitude, lowerLatitude, upperLongitude, upperLatitude);
     }
 
-    public static FilterOperator inGeoBox(String fieldName, short lowerLon, short lowerLat, short upperLon, short upperLat) {
-        return OperatorInGeographicalBox.newOperatorInGeographicalBox(fieldName, lowerLon, lowerLat, upperLon, upperLat);
+    public static FilterOperator inGeoBox(String fieldName, short lowerLongitude, short lowerLatitude, short upperLongitude, short upperLatitude) {
+        return OperatorInGeographicalBox.newOperatorInGeographicalBox(fieldName, lowerLongitude, lowerLatitude, upperLongitude, upperLatitude);
     }
 
-    public static FilterOperator inGeoBox(String fieldName, long lowerLon, long lowerLat, long upperLon, long upperLat) {
-        return OperatorInGeographicalBox.newOperatorInGeographicalBox(fieldName, lowerLon, lowerLat, upperLon, upperLat);
+    public static FilterOperator inGeoBox(String fieldName, long lowerLongitude, long lowerLatitude, long upperLongitude, long upperLatitude) {
+        return OperatorInGeographicalBox.newOperatorInGeographicalBox(fieldName, lowerLongitude, lowerLatitude, upperLongitude, upperLatitude);
+    }
+
+    public static FilterOperator inGeoRangeKm(String fieldName, double longitude, double latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/6378.1);
+    }
+
+    public static FilterOperator inGeoRangeKm(String fieldName, int longitude, int latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/6378.1);
+    }
+
+    public static FilterOperator inGeoRangeKm(String fieldName, float longitude, float latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/6378.1);
+    }
+
+    public static FilterOperator inGeoRangeKm(String fieldName, short longitude, short latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/6378.1);
+    }
+
+    public static FilterOperator inGeoRangeKm(String fieldName, long longitude, long latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/6378.1);
+    }
+
+    public static FilterOperator inGeoRangeMeters(String fieldName, double longitude, double latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/6378100);
+    }
+
+    public static FilterOperator inGeoRangeMeters(String fieldName, int longitude, int latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/6378100);
+    }
+
+    public static FilterOperator inGeoRangeMeters(String fieldName, float longitude, float latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/6378100);
+    }
+
+    public static FilterOperator inGeoRangeMeters(String fieldName, short longitude, short latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/6378100);
+    }
+
+    public static FilterOperator inGeoRangeMeters(String fieldName, long longitude, long latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/6378100);
+    }
+
+    public static FilterOperator inGeoRangeMiles(String fieldName, double longitude, double latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/3963.2);
+    }
+
+    public static FilterOperator inGeoRangeMiles(String fieldName, int longitude, int latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/3963.2);
+    }
+
+    public static FilterOperator inGeoRangeMiles(String fieldName, float longitude, float latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/3963.2);
+    }
+
+    public static FilterOperator inGeoRangeMiles(String fieldName, short longitude, short latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/3963.2);
+    }
+
+    public static FilterOperator inGeoRangeMiles(String fieldName, long longitude, long latitude, double radius) {
+        return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/3963.2);
     }
 
 }

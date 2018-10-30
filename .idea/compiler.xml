@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="NoSQL-Operators" />
+        <module name="nosql-operators" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="nosql-operators" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
