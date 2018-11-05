@@ -2,8 +2,6 @@ package com.github.unipi.trackandknow.nosqldbs.filteroperator;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class FilterOperatorsTest {
 
     @Test

@@ -1,6 +1,6 @@
 package com.github.unipi.trackandknow.nosqldbs;
 
-import com.mongodb.Function;
+import com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperator;
 
 public interface NoSqlDbOperators {
 
@@ -9,7 +9,9 @@ public interface NoSqlDbOperators {
 
     void project(String... column);
 
-    NoSqlDbOperators filter(ConditionOperator conditionOperator);
+    NoSqlDbOperators filter(FilterOperator filterOperator);
+
+    NoSqlDbOperators aggregation(String field);
 
 
 }

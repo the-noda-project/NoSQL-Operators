@@ -10,7 +10,6 @@ import com.mongodb.client.MongoDatabase;
 public final class MongoDBConnector implements NoSqlDocumentDbConnector {
 
     private MongoDatabase mongoDatabase;
-    private NoSqlDbManager<MongoClient> manager;
 
     private MongoDBConnector(String host, int port, String username, String password, String database) {
 

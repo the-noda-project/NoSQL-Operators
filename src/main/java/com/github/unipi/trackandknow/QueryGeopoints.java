@@ -5,21 +5,15 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.geojson.Point;
 import com.mongodb.client.model.geojson.Polygon;
 import com.mongodb.client.model.geojson.Position;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperators.inGeoBox;
 import static com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperators.inGeoRangeKm;
-import static com.mongodb.client.model.Filters.*;
 
 
 public class QueryGeopoints {
