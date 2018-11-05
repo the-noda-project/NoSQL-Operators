@@ -7,7 +7,7 @@ import com.mongodb.MongoCredential;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.client.MongoDatabase;
 
-public final class MongoDBConnector implements NoSqlDocumentDbConnector {
+public final class MongoDBConnector implements NoSqlDbConnector {
 
     private MongoDatabase mongoDatabase;
 
