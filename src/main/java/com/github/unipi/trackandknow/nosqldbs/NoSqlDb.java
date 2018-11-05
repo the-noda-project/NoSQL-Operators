@@ -14,8 +14,8 @@ public enum NoSqlDb {
         }
 
         @Override
-        public NoSqlDbOperators noSqlDbOperators(Object client, String database, String s){
-            return MongoDBOperators.newMongoDBOperators(((MongoClient) client).getDatabase(database).getCollection(s));
+        public NoSqlDbOperators noSqlDbOperators(Object connector, String database, String s){
+            return MongoDBOperators.newMongoDBOperators(((MongoClient) connector).getDatabase(database).getCollection(s));
         }
 
         @Override
@@ -47,9 +47,9 @@ public enum NoSqlDb {
 
     public abstract NoSqlDbConnector noSqlDbConnector(String host, int port, String username, String password, String database);
 
-    public abstract NoSqlDbOperators noSqlDbOperators(Object client, String database, String s);
+    public abstract NoSqlDbOperators noSqlDbOperators(Object connector, String database, String s);
 
-    public abstract void disconnect(Object t);
+    public abstract void disconnect(Object o);
 
     public String getDefaultHost(){
         return "localhost";
