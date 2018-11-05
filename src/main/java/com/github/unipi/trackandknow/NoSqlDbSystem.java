@@ -5,12 +5,6 @@ import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
 
 public class NoSqlDbSystem {
 
-//    private final String host;
-//    private final int port;
-//    private final String database; // the name of the database in which the user is defined
-//    private final String username; // the user name
-//    private final String password; // the password as a character array
-
     public static class Builder {
 
         private final NoSqlDb nsdb;
@@ -80,14 +74,6 @@ public class NoSqlDbSystem {
     public NoSqlDbOperators operateOn(String s){
         return nsdb.noSqlDbOperators(client, database, s);
     }
-
-//    private NoSqlDbSystem(Builder builder){
-//        host = builder.host;
-//        port = builder.port;
-//        database = builder.database;
-//        username = builder.username;
-//        password = builder.password;
-//    }
 
     public static Builder MongoDB(){
         return new NoSqlDbSystem.Builder(NoSqlDb.MONGODB);

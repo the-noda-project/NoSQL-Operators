@@ -19,23 +19,11 @@ public final class MongoDBConnector implements NoSqlDbConnector {
 
         mongoClient.getDatabase("").
 
-        mongoDatabase = mongoClient.getDatabase(database);
-
         System.out.println(mongoClient.listDatabaseNames().first());
-        this.;
     }
-
-//    public MongoDBConnector connect() {
-//
-//        return (NoSqlDbOperators) MongoDBConnector.newMongoDB("", "", "", 9).connect();
-//    }
 
     public static NoSqlDbConnector newMongoDBConnector(String host, int port, String username, String password, String database) {
         return new MongoDBConnector(host, port, username, password, database);
     }
 
-//    @Override
-//    public NoSqlDbOperators operateOnCollection() {
-//        return null;
-//    }
 }
