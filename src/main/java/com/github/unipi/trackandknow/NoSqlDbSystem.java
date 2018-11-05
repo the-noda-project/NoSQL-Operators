@@ -52,27 +52,27 @@ public class NoSqlDbSystem {
         }
 
         public NoSqlDbSystem connect(){
-            return new NoSqlDbSystem(nsdb, nsdb.noSqlDbConnector(host, port, username, password, database), database);
+            return new NoSqlDbSystem(nsdb, nsdb.noSqlDbConnector(host, port, username, password, database).getConnector(), database);
         }
 
     }
 
     private final NoSqlDb nsdb;
-    private final Object client;
+    private final Object connector;
     private final String database;
 
-    private NoSqlDbSystem(NoSqlDb nsdb, Object client, String database){
+    private NoSqlDbSystem(NoSqlDb nsdb, Object connector, String database){
         this.nsdb = nsdb;
-        this.client = client;
+        this.connector = connector;
         this.database = database;
     }
 
     public void disconnect(){
-        nsdb.disconnect(client);
+        nsdb.disconnect(connector);
     }
 
     public NoSqlDbOperators operateOn(String s){
-        return nsdb.noSqlDbOperators(client, database, s);
+        return nsdb.noSqlDbOperators(connector, database, s);
     }
 
     public static Builder MongoDB(){

@@ -6,7 +6,7 @@ import com.mongodb.client.MongoCollection;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public class MongoDBOperators<T> implements NoSqlDbOperators {
+public class MongoDBOperators implements NoSqlDbOperators {
 
     private final MongoCollection mongoCollection;
 
@@ -21,6 +21,7 @@ public class MongoDBOperators<T> implements NoSqlDbOperators {
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator) {
         filterOperator.getJsonString();
+        return this;
     }
 
 
