@@ -2,8 +2,7 @@ package com.github.unipi.trackandknow.nosqldbs;
 
 import com.github.unipi.trackandknow.nosqldbs.mongodb.MongoDBConnector;
 import com.github.unipi.trackandknow.nosqldbs.mongodb.MongoDBOperators;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.MongoClient;
 
 public enum NoSqlDb {
 
