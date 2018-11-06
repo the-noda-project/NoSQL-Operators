@@ -3,15 +3,19 @@ package com.github.unipi.trackandknow;
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
 import org.junit.Test;
 
+import static com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperators.inGeoBox;
+
 public class NoSqlDbSystemTest {
 
     @Test
     public void makeAConnection(){
 
-        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.MongoDB().host("83.212.104.92").database("test").username("myUserAdmin").password("abc123").connect();
+        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.MongoDB().host("83.212.102.163").database("test").username("myUserAdmin").password("abc123").port(28017).connect();
 
-        noSqlDbSystem.operateOn("gfgffgfg").project();
+        noSqlDbSystem.operateOn("geoPoints").filter(inGeoBox("location",22.5, 36,23, 36.3));
 
+
+        noSqlDbSystem.disconnect();
 //        NoSqlDbManager manager = NoSqlDbSystem.MongoDB().host("83.212.104.92").database("test").username("myUserAdmin").password("abc123").connect()
 //                .getNoSqlDbManager();
 //

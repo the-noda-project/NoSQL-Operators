@@ -1,5 +1,6 @@
 package com.github.unipi.trackandknow.nosqldbs.filteroperator;
 
-public interface FilterOperator {
-    String getJsonString();
+import com.github.unipi.trackandknow.nosqldbs.Operator;
+
+public interface FilterOperator extends Operator {
 }
