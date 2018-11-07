@@ -25,6 +25,7 @@ public class QueryGeopoints {
 
         MongoCollection m = mongoClient.getDatabase("test").getCollection("geoPoints");
 
+
         long start = System.currentTimeMillis();
 
 //        long d = m.countDocuments(and(and(and(gte("location.coordinates.0",21),gte("location.coordinates.1",35)),lte("location.coordinates.0",25)),lte("location.coordinates.1",38)));
