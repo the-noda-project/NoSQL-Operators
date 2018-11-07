@@ -7,8 +7,12 @@ public interface NoSqlDbOperators {
 
     NoSqlDbOperators filter(FilterOperator filterOperator);
 
-    void aggregate(AggregateOperator... aggregateOperator);
+    //void aggregate(AggregateOperator... aggregateOperator);
 
-    void groupBy(String fieldName, AggregateOperator... aggregateOperator);
+    NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator);
+
+    double max(String fieldName);
+
+    void project();
 
 }
