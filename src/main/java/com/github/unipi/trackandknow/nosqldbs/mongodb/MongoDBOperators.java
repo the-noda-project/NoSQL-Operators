@@ -4,8 +4,11 @@ import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
 import com.github.unipi.trackandknow.nosqldbs.aggregate.AggregateOperator;
 import com.github.unipi.trackandknow.nosqldbs.aggregate.AggregateOperators;
 import com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperator;
+import com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperators;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -37,11 +40,21 @@ public class MongoDBOperators implements NoSqlDbOperators {
     @Override
     public double max(String fieldName){
 
-        //stagesList.add(Document.parse("$project : {$max: \"id\"}"));
+        //System.out.println(Aggregates.match(Filter.parse(FilterOperators.gte("categories", 6).getJsonString())));
+        //System.out.println(Aggregates.match(Filters.eq("categories", "Bakery")).toString());
 
-        stagesList.add(Document.parse(new Document("$project", AggregateOperators.max(fieldName).getJsonString()).toJson()));
+        //stagesList.add(Document.parse(" { $project : {$max: \"id\"} }"));
+        //mongoCollection.aggregate(stagesList).first();
+
+        //stagesList.add(Aggregates.project(Document.parse("{$max: \"id\"}")));
+        stagesList.add(Filters.expr(Document.parse("{ $project: {$max: \"id\"} }")));
+
+
+        //Aggregates.project()
+        //stagesList.add(Document.parse(new Document("$project", AggregateOperators.max(fieldName).getJsonString()).toJson()));
         //System.out.println(new Document("$project", AggregateOperators.max(fieldName).getJsonString()));
         return ((Document)   mongoCollection.aggregate(stagesList).first()).getDouble(fieldName);
+        //return 4;
     }
 
 //    private FilterOperator getFilter(){
