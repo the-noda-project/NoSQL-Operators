@@ -3,10 +3,12 @@ package com.github.unipi.trackandknow.nosqldbs.mongodb;
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
 import com.github.unipi.trackandknow.nosqldbs.aggregate.AggregateOperator;
 import com.github.unipi.trackandknow.nosqldbs.aggregate.AggregateOperators;
+import com.github.unipi.trackandknow.nosqldbs.aggregate.OperatorMax;
 import com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperator;
 import com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperators;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.gte;
 
 public class MongoDBOperators implements NoSqlDbOperators {
 
@@ -33,7 +36,7 @@ public class MongoDBOperators implements NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator) {
-        stagesList.add(new Document("$match",filterOperator.getJsonString()));
+        stagesList.add(Document.parse(" { $match: { " + filterOperator.getJsonString() + " } } "));
         return this;
     }
 
@@ -47,13 +50,38 @@ public class MongoDBOperators implements NoSqlDbOperators {
         //mongoCollection.aggregate(stagesList).first();
 
         //stagesList.add(Aggregates.project(Document.parse("{$max: \"id\"}")));
-        stagesList.add(Filters.expr(Document.parse("{ $project: {$max: \"id\"} }")));
+        //stagesList.add(Filters.expr(Document.parse("{ $project: {$max: \"id\"} }")));
 
+        //stagesList.add(new Document("$match", Document.parse(FilterOperators.eq("r",4).getJsonString())));
+
+        //stagesList.add(Document.parse("{ $group: { _id:null, max: { $max: \"$location.coordinates.1\" }} }"));
+
+        stagesList.add(Document.parse("{ $group: { _id:null, max: { $max: { $arrayElemAt: [ \"$location.coordinates\", 0 ] } }} }"));
+
+        //System.out.println(Document.parse(" { $project: " + OperatorMax.newOperatorMax(fieldName,"max_"+fieldName).getJsonString() + " } "));
+//        stagesList.add(Document.parse(" { $project: " + OperatorMax.newOperatorMax(fieldName,"maxf").getJsonString() + " } "));
+//        stagesList.add(Document.parse("{ $count: \"maxf\" }"));
+        //System.out.println(((Document) mongoCollection.aggregate(stagesList).first()).getString("maxf"));
+
+        //System.out.println(new Document("$match", FilterOperators.eq("r",4).getJsonString()).toString());
+
+
+        MongoCursor<Document> cursor = mongoCollection.aggregate(stagesList).iterator();
+        try {
+            while (cursor.hasNext()) {
+                System.out.println(cursor.next().toJson());
+            }
+        } finally {
+            cursor.close();
+        }
+        System.out.println("dfddffdfd");
 
         //Aggregates.project()
         //stagesList.add(Document.parse(new Document("$project", AggregateOperators.max(fieldName).getJsonString()).toJson()));
+
         //System.out.println(new Document("$project", AggregateOperators.max(fieldName).getJsonString()));
-        return ((Document)   mongoCollection.aggregate(stagesList).first()).getDouble(fieldName);
+
+        return ((Document) mongoCollection.aggregate(stagesList).first()).getDouble("maxf");
         //return 4;
     }
 
