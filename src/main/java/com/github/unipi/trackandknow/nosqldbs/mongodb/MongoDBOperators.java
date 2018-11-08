@@ -36,8 +36,27 @@ public class MongoDBOperators implements NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator) {
-        stagesList.add(Document.parse(" { $match: { " + filterOperator.getJsonString() + " } } "));
+        System.out.println(filterOperator.getJsonString());
+        stagesList.add(Document.parse(" { $match: " + filterOperator.getJsonString() + " } "));
         return this;
+    }
+
+    @Override
+    public void execute(){
+        MongoCursor<Document> cursor = mongoCollection.aggregate(stagesList).iterator();
+        try {
+            while (cursor.hasNext()) {
+                System.out.println(cursor.next().toJson());
+            }
+        } finally {
+            cursor.close();
+        }
+    }
+
+    @Override
+    public int count(){
+        stagesList.add(Document.parse("{ $count: \"count\" }"));
+        return ((Document) mongoCollection.aggregate(stagesList).first()).getInteger("count",-10);
     }
 
     @Override
@@ -50,13 +69,17 @@ public class MongoDBOperators implements NoSqlDbOperators {
         //mongoCollection.aggregate(stagesList).first();
 
         //stagesList.add(Aggregates.project(Document.parse("{$max: \"id\"}")));
-        //stagesList.add(Filters.expr(Document.parse("{ $project: {$max: \"id\"} }")));
-
         //stagesList.add(new Document("$match", Document.parse(FilterOperators.eq("r",4).getJsonString())));
 
         //stagesList.add(Document.parse("{ $group: { _id:null, max: { $max: \"$location.coordinates.1\" }} }"));
 
-        stagesList.add(Document.parse("{ $group: { _id:null, max: { $max: { $arrayElemAt: [ \"$location.coordinates\", 0 ] } }} }"));
+
+        stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorMax.newOperatorMax(fieldName,"max").getJsonString() +" } }"));
+
+
+
+//        stagesList.add(Document.parse("{ $group: { _id:null, max: { $min: { $arrayElemAt: [ \"$location.coordinates\", 0 ] } }} }"));
+//        stagesList.add(Document.parse("{ $project: { dfd: { $min: { $arrayElemAt: [ \"$location.coordinates\", 0 ] } }} }"));
 
         //System.out.println(Document.parse(" { $project: " + OperatorMax.newOperatorMax(fieldName,"max_"+fieldName).getJsonString() + " } "));
 //        stagesList.add(Document.parse(" { $project: " + OperatorMax.newOperatorMax(fieldName,"maxf").getJsonString() + " } "));
@@ -121,6 +144,12 @@ public class MongoDBOperators implements NoSqlDbOperators {
     public NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator){
 
         StringBuilder sb =  new StringBuilder();
+
+        sb.append("{ $group: { ");
+
+
+
+
         sb.append("{ _id:");
         sb.append("\"" + "$" + fieldName + "\", ");
 
