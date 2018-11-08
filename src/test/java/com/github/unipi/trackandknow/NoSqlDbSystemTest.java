@@ -1,6 +1,7 @@
 package com.github.unipi.trackandknow;
 
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
+import com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperators;
 import org.junit.Test;
 
 import static com.github.unipi.trackandknow.nosqldbs.aggregate.AggregateOperators.max;
@@ -14,7 +15,9 @@ public class NoSqlDbSystemTest {
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.MongoDB().host("83.212.102.163").database("test").username("myUserAdmin").password("abc123").port(28017).connect();
 
         //noSqlDbSystem.operateOn("geoPoints").filter(inGeoBox("location",22.5, 36,23, 36.3)).groupBy("theColumn",max("s","adsasd")).project();
-        System.out.println(noSqlDbSystem.operateOn("geoPoints").max("location.coordinates"));
+        //System.out.println(noSqlDbSystem.operateOn("geoPoints").max("location.coordinates"));
+
+        System.out.println(noSqlDbSystem.operateOn("geoPoints").filter(FilterOperators.inGeoRangeKm("location",23,36.5,55.6)).count());
 
 
         noSqlDbSystem.disconnect();

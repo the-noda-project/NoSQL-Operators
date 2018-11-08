@@ -22,7 +22,7 @@ public class OperatorMax implements AggregateOperator {
             return s;
         }
         else{
-            return "{ " + newFieldName + ": " + s + " }";
+            return newFieldName + ": " + s;
         }
     }
 
