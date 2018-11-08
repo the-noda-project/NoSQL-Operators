@@ -14,7 +14,7 @@ public class NoSqlDbSystemTest {
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.MongoDB().host("83.212.102.163").database("test").username("myUserAdmin").password("abc123").port(28017).connect();
 
         //noSqlDbSystem.operateOn("geoPoints").filter(inGeoBox("location",22.5, 36,23, 36.3)).groupBy("theColumn",max("s","adsasd")).project();
-        noSqlDbSystem.operateOn("geoPoints").max("id");
+        System.out.println(noSqlDbSystem.operateOn("geoPoints").max("location.coordinates"));
 
 
         noSqlDbSystem.disconnect();
