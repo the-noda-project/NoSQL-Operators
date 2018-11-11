@@ -1,37 +1,27 @@
 package com.github.unipi.trackandknow.nosqldbs.aggregate;
 
-public class OperatorMax implements AggregateOperator {
+class OperatorMax implements AggregateOperator {
 
     private final String fieldName;
-    private final String newFieldName;
-
-    private OperatorMax(String fieldName, String newFieldName){
-        this.fieldName = fieldName;
-        this.newFieldName = newFieldName;
-    }
+    private String alias;
 
     private OperatorMax(String fieldName){
         this.fieldName = fieldName;
-        this.newFieldName = null;
+        this.alias = "max("+fieldName+")";
     }
 
     @Override
     public String getJsonString() {
-        String s = "{ $max: " + "\"" + "$"+ fieldName +"\""+  " }";
-        if(newFieldName == null){
-            return s;
-        }
-        else{
-            return newFieldName + ": " + s;
-        }
+        return alias + ": { $max: " + "\"" + "$"+ fieldName +"\""+  " }";
     }
 
     public static OperatorMax newOperatorMax(String fieldName){
         return new OperatorMax(fieldName);
     }
 
-    public static OperatorMax newOperatorMax(String fieldName, String newfieldName){
-        return new OperatorMax(fieldName, newfieldName);
+    @Override
+    public AggregateOperator as(String alias) {
+        this.alias = alias;
+        return this;
     }
-
 }
