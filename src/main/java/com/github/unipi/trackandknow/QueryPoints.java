@@ -52,15 +52,24 @@ public class QueryPoints {
 //        long d = m.countDocuments(Filters.geoWithinBox("coordinates",21,35,25,38));
 
 
-                Bson f = Filters.expr(
-
-                      "{coordinates: {\n" +
-                              "  $near: [ 23, 36.5 ],\n" +
-                              "  $minDistance: 0,\n" +
-                              "  $maxDistance: 1.5\n" +
-                              "}}"
-
-        );
+//                Bson f = Filters.expr(
+//
+//                        Document.parse(
+//                                "{" +
+//                                        "location: {" +
+//                                        "     $near: {" +
+//                                        "       $geometry: {" +
+//                                        "          type: \"Point\" ," +
+//                                        "          coordinates: [ 23, 36.5 ]" +
+//                                        "       }," +
+//                                        "       $maxDistance: 16680," +
+//                                        "       $minDistance: 1" +
+//                                        "     }" +
+//                                        "   }" +
+//                                        "}"
+//                        )
+//
+//        );
 
 
         //long d = m.countDocuments(f);
