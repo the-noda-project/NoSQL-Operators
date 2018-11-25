@@ -1,6 +1,6 @@
 package com.github.unipi.trackandknow.nosqldbs.aggregate;
 
-class OperatorMax implements AggregateOperator {
+public class OperatorMax implements AggregateOperator {
 
     private final String fieldName;
     private String alias;
