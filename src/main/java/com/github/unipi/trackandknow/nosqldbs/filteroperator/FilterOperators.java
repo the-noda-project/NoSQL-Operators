@@ -3,6 +3,7 @@ package com.github.unipi.trackandknow.nosqldbs.filteroperator;
 import com.github.unipi.trackandknow.nosqldbs.filteroperator.comparison.*;
 import com.github.unipi.trackandknow.nosqldbs.filteroperator.geographical.OperatorInGeographicalBox;
 import com.github.unipi.trackandknow.nosqldbs.filteroperator.geographical.OperatorInGeographicalRange;
+import com.github.unipi.trackandknow.nosqldbs.filteroperator.geographical.OperatorNearestNeighbors;
 import com.github.unipi.trackandknow.nosqldbs.filteroperator.logical.OperatorAnd;
 import com.github.unipi.trackandknow.nosqldbs.filteroperator.logical.OperatorOr;
 
@@ -231,5 +232,42 @@ public class FilterOperators {
     public static FilterOperator inGeoRangeMiles(String fieldName, long longitude, long latitude, double radius) {
         return OperatorInGeographicalRange.newOperatorInGeographicalRange(fieldName, longitude, latitude, radius/3963.2);
     }
+
+    public static FilterOperator nearestNeighbors(String fieldName, double longitude, double latitude, int neighbors) {
+        return OperatorNearestNeighbors.newOperatorNearestNeighbors(fieldName, longitude, latitude, neighbors);
+    }
+
+    public static FilterOperator nearestNeighbors(String fieldName, int longitude, int latitude, int neighbors) {
+        return OperatorNearestNeighbors.newOperatorNearestNeighbors(fieldName, longitude, latitude, neighbors);
+    }
+
+    public static FilterOperator nearestNeighbors(String fieldName, float longitude, float latitude, int neighbors) {
+        return OperatorNearestNeighbors.newOperatorNearestNeighbors(fieldName, longitude, latitude, neighbors);
+    }
+
+    public static FilterOperator nearestNeighbors(String fieldName, short longitude, short latitude, int neighbors) {
+        return OperatorNearestNeighbors.newOperatorNearestNeighbors(fieldName, longitude, latitude, neighbors);
+    }
+
+    public static FilterOperator nearestNeighbors(String fieldName, long longitude, long latitude, int neighbors) {
+        return OperatorNearestNeighbors.newOperatorNearestNeighbors(fieldName, longitude, latitude, neighbors);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

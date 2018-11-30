@@ -10,18 +10,33 @@ public class OperatorMax implements AggregateOperator {
         this.alias = "max("+fieldName+")";
     }
 
-    @Override
-    public String getJsonString() {
-        return alias + ": { $max: " + "\"" + "$"+ fieldName +"\""+  " }";
-    }
+//    @Override
+//    public String getJsonString() {
+//        return alias + ": { $max: " + "\"" + "$"+ fieldName +"\""+  " }";
+//    }
 
     public static OperatorMax newOperatorMax(String fieldName){
         return new OperatorMax(fieldName);
     }
 
     @Override
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    @Override
+    public String getAlias() {
+        return alias;
+    }
+
+    @Override
     public AggregateOperator as(String alias) {
         this.alias = alias;
         return this;
+    }
+
+    @Override
+    public int getAggregateOperatorId() {
+        return 0;
     }
 }

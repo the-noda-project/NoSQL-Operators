@@ -16,17 +16,28 @@ public class OperatorOr implements LogicalOperator {
     }
 
     @Override
-    public String getJsonString() {
-
-        StringBuilder sb = new StringBuilder();
-
-        for(FilterOperator fop: filterOperatorChildren){
-            sb.append(fop.getJsonString()+", ");
-        }
-
-        sb.deleteCharAt(sb.lastIndexOf(", "));
-        
-        return "{ $or: [ "+sb.toString()+"] }";
+    public FilterOperator[] getfilterOperatorChildren() {
+        return filterOperatorChildren;
     }
+
+    @Override
+    public int getLogicalOperatorId() {
+        return 0;
+    }
+
+//    @Override
+//    public String getJsonString() {
+//
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(sb);
+//
+//        for(FilterOperator fop: filterOperatorChildren){
+//            sb.append(fop.getJsonString()+", ");
+//        }
+//
+//        sb.deleteCharAt(sb.lastIndexOf(", "));
+//
+//        return "{ $or: [ "+sb.toString()+"] }";
+//    }
 
 }

@@ -15,6 +15,11 @@ public class OperatorNotEqual<T> implements ComparisonOperator<T> {
         return fieldValue;
     }
 
+    @Override
+    public int getComparisonOperatorId() {
+        return 5;
+    }
+
     private OperatorNotEqual(String fieldName, T fieldValue) {
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
@@ -25,11 +30,11 @@ public class OperatorNotEqual<T> implements ComparisonOperator<T> {
         return new OperatorNotEqual(fieldName, fieldValue);
     }
 
-    @Override
-    public String getJsonString() {
-
-        return "{ " + ((!fieldName.contains(".")) ? fieldName : "\"" + fieldName + "\"") +
-                ": { $ne: " + ((fieldValue.getClass() == String.class) ? "\"" + fieldValue + "\"" : fieldValue) + " } }";
-    }
+//    @Override
+//    public StringBuilder getJsonString() {
+//
+//        return "{ " + ((!fieldName.contains(".")) ? fieldName : "\"" + fieldName + "\"") +
+//                ": { $ne: " + ((fieldValue.getClass() == String.class) ? "\"" + fieldValue + "\"" : fieldValue) + " } }";
+//    }
 
 }
