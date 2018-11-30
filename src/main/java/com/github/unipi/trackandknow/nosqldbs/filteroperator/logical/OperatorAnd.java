@@ -16,17 +16,27 @@ public class OperatorAnd implements LogicalOperator {
     }
 
     @Override
-    public String getJsonString() {
-
-        StringBuilder sb = new StringBuilder();
-
-        for(FilterOperator fop: filterOperatorChildren){
-            sb.append(fop.getJsonString()+", ");
-        }
-
-        sb.deleteCharAt(sb.lastIndexOf(","));
-
-        return "{ $and: [ "+sb.toString()+"] }";
+    public FilterOperator[] getfilterOperatorChildren() {
+        return filterOperatorChildren;
     }
+
+    @Override
+    public int getLogicalOperatorId() {
+        return 1;
+    }
+
+//    @Override
+//    public String getJsonString() {
+//
+//        StringBuilder sb = new StringBuilder();
+//
+//        for(FilterOperator fop: filterOperatorChildren){
+//            sb.append(fop.getJsonString()+", ");
+//        }
+//
+//        sb.deleteCharAt(sb.lastIndexOf(","));
+//
+//        return "{ $and: [ "+sb.toString()+"] }";
+//    }
 
 }

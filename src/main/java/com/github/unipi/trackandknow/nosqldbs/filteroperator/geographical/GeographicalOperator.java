@@ -2,6 +2,8 @@ package com.github.unipi.trackandknow.nosqldbs.filteroperator.geographical;
 
 import com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperator;
 
+import java.util.function.Predicate;
+
 public interface GeographicalOperator<T extends Number> extends FilterOperator {
 
     String getFieldName();
@@ -19,4 +21,7 @@ public interface GeographicalOperator<T extends Number> extends FilterOperator {
             }
         }
     }
+
+    final Predicate<Double> longitudeOutOfRange = (double longitude) -> ((Float.compare(longitude, 180) == 1) || (Float.compare(longitude, -180) == -1));
+    final Predicate<Double> latitudeOutOfRange = (double latitude) -> ((Float.compare(latitude, 90) == 1) || (Float.compare(latitude, -90) == -1));
 }

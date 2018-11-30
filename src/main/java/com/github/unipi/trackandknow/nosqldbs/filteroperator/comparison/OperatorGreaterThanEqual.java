@@ -15,6 +15,11 @@ public class OperatorGreaterThanEqual<T extends Number> implements ComparisonOpe
         return fieldValue;
     }
 
+    @Override
+    public int getComparisonOperatorId() {
+        return 2;
+    }
+
     private OperatorGreaterThanEqual(String fieldName, T fieldValue) {
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
@@ -25,11 +30,11 @@ public class OperatorGreaterThanEqual<T extends Number> implements ComparisonOpe
         return new OperatorGreaterThanEqual(fieldName, fieldValue);
     }
 
-    @Override
-    public String getJsonString() {
-
-        return "{ " + ((!fieldName.contains(".")) ? fieldName : "\"" + fieldName + "\"") +
-                ": { $gte: " + fieldValue + " } }";
-    }
+//    @Override
+//    public StringBuilder getJsonString() {
+//
+//        return "{ " + ((!fieldName.contains(".")) ? fieldName : "\"" + fieldName + "\"") +
+//                ": { $gte: " + fieldValue + " } }";
+//    }
 
 }

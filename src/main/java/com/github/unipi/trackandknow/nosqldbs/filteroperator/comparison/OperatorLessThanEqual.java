@@ -15,6 +15,11 @@ public class OperatorLessThanEqual<T extends Number> implements ComparisonOperat
         return fieldValue;
     }
 
+    @Override
+    public int getComparisonOperatorId() {
+        return 4;
+    }
+
     private OperatorLessThanEqual(String fieldName, T fieldValue) {
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
@@ -25,10 +30,10 @@ public class OperatorLessThanEqual<T extends Number> implements ComparisonOperat
         return new OperatorLessThanEqual(fieldName, fieldValue);
     }
 
-    @Override
-    public String getJsonString() {
-        return "{ " + ((!fieldName.contains(".")) ? fieldName : "\"" + fieldName + "\"") +
-                ": { $lte: " + fieldValue + " } }";
-    }
+//    @Override
+//    public StringBuilder getJsonString() {
+//        return "{ " + ((!fieldName.contains(".")) ? fieldName : "\"" + fieldName + "\"") +
+//                ": { $lte: " + fieldValue + " } }";
+//    }
 
 }

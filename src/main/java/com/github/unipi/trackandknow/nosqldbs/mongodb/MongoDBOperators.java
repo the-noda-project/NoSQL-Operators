@@ -36,8 +36,8 @@ public class MongoDBOperators implements NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator) {
-        System.out.println(filterOperator.getJsonString());
-        stagesList.add(Document.parse(" { $match: " + filterOperator.getJsonString() + " } "));
+        System.out.println(filterOperator.getJsonStringBuilder());
+        stagesList.add(Document.parse(" { $match: " + filterOperator.getJsonStringBuilder() + " } "));
         return this;
     }
 
@@ -74,7 +74,7 @@ public class MongoDBOperators implements NoSqlDbOperators {
         //stagesList.add(Document.parse("{ $group: { _id:null, max: { $max: \"$location.coordinates.1\" }} }"));
 
 
-        stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorMax.newOperatorMax(fieldName,"max").getJsonString() +" } }"));
+        stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorMax.newOperatorMax(fieldName,"max").getJsonStringBuilder() +" } }"));
 
 
 
@@ -154,7 +154,7 @@ public class MongoDBOperators implements NoSqlDbOperators {
         sb.append("\"" + "$" + fieldName + "\", ");
 
         for(AggregateOperator aop : aggregateOperator){
-            sb.append(aop.getJsonString()+", ");
+            sb.append(aop.getJsonStringBuilder()+", ");
         }
 
         sb.deleteCharAt(sb.lastIndexOf(","));
