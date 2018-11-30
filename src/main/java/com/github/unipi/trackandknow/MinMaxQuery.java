@@ -22,9 +22,6 @@ public class MinMaxQuery {
 
         MongoCollection m = mongoClient.getDatabase("test").getCollection("geoPoints");
 
-
-
-
         List<Bson> b = new ArrayList<>();
         b.add(                   Document.parse(
                 "{ $group:\n" +
