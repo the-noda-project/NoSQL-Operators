@@ -1,7 +1,7 @@
 package com.github.unipi.trackandknow.nosqldbs;
 
-import com.github.unipi.trackandknow.nosqldbs.aggregate.AggregateOperator;
-import com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperator;
+import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.AggregateOperator;
+import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperator;
 
 public interface NoSqlDbOperators {
 

@@ -1,8 +1,6 @@
-package com.github.unipi.trackandknow.nosqldbs.aggregate;
+package com.github.unipi.trackandknow.nosqldbs.aggregateOperator;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class OperatorMaxTest {
 

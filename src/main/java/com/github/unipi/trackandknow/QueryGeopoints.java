@@ -1,6 +1,6 @@
 package com.github.unipi.trackandknow;
 
-import com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperators;
+import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperators;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
@@ -12,8 +12,8 @@ import org.bson.Document;
 
 import java.util.Arrays;
 
-import static com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperators.inGeoBox;
-import static com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperators.inGeoRangeKm;
+import static com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperators.inGeoBox;
+import static com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperators.inGeoRangeKm;
 
 
 public class QueryGeopoints {

@@ -1,4 +1,4 @@
-package com.github.unipi.trackandknow.nosqldbs.filteroperator;
+package com.github.unipi.trackandknow.nosqldbs.filterOperator;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.github.unipi.trackandknow.nosqldbs.filteroperator.geographical;
+package com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator;
 
 public class OperatorInGeographicalRange<T extends Number> implements GeographicalOperator<T> {
 
@@ -26,6 +26,8 @@ public class OperatorInGeographicalRange<T extends Number> implements Geographic
 
     @Override
     public String getJsonString() {
+
+
 
         return "{ " + ((!fieldName.contains(".")) ? fieldName : "\"" + fieldName + "\"") +
                 ": { $geoWithin : { $centerSphere : [ ["+longitude+", "+latitude+"], "+ radius +" ] } } }";

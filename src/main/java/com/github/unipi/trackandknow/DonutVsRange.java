@@ -1,13 +1,11 @@
 package com.github.unipi.trackandknow;
 
-import com.github.unipi.trackandknow.nosqldbs.filteroperator.geographical.GeographicalOperator;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
