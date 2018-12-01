@@ -1,11 +1,9 @@
 package com.github.unipi.trackandknow;
 
-import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
-import com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperators;
+import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperators;
 import org.junit.Test;
 
-import static com.github.unipi.trackandknow.nosqldbs.aggregate.AggregateOperators.max;
-import static com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperators.inGeoBox;
+import static com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperators.inGeoBox;
 
 public class NoSqlDbSystemTest {
 

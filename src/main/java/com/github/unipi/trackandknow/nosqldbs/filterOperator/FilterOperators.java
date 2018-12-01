@@ -1,11 +1,11 @@
-package com.github.unipi.trackandknow.nosqldbs.filteroperator;
+package com.github.unipi.trackandknow.nosqldbs.filterOperator;
 
-import com.github.unipi.trackandknow.nosqldbs.filteroperator.comparison.*;
-import com.github.unipi.trackandknow.nosqldbs.filteroperator.geographical.OperatorInGeographicalBox;
-import com.github.unipi.trackandknow.nosqldbs.filteroperator.geographical.OperatorInGeographicalRange;
-import com.github.unipi.trackandknow.nosqldbs.filteroperator.geographical.OperatorNearestNeighbors;
-import com.github.unipi.trackandknow.nosqldbs.filteroperator.logical.OperatorAnd;
-import com.github.unipi.trackandknow.nosqldbs.filteroperator.logical.OperatorOr;
+import com.github.unipi.trackandknow.nosqldbs.filterOperator.comparisonOperator.*;
+import com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator.OperatorInGeographicalBox;
+import com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator.OperatorInGeographicalRange;
+import com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator.OperatorNearestNeighbors;
+import com.github.unipi.trackandknow.nosqldbs.filterOperator.logicalOperator.OperatorAnd;
+import com.github.unipi.trackandknow.nosqldbs.filterOperator.logicalOperator.OperatorOr;
 
 public class FilterOperators {
 

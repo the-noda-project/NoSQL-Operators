@@ -1,16 +1,11 @@
 package com.github.unipi.trackandknow.nosqldbs.mongodb;
 
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
-import com.github.unipi.trackandknow.nosqldbs.aggregate.AggregateOperator;
-import com.github.unipi.trackandknow.nosqldbs.aggregate.AggregateOperators;
-import com.github.unipi.trackandknow.nosqldbs.aggregate.OperatorMax;
-import com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperator;
-import com.github.unipi.trackandknow.nosqldbs.filteroperator.FilterOperators;
-import com.mongodb.client.AggregateIterable;
+import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.AggregateOperator;
+import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.OperatorMax;
+import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperator;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import com.mongodb.client.model.Aggregates;
-import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -18,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.gte;
 
 public class MongoDBOperators implements NoSqlDbOperators {
 
