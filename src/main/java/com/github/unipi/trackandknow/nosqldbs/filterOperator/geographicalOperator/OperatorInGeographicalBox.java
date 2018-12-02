@@ -1,13 +1,13 @@
 package com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator;
 
-public class OperatorInGeographicalBox extends GeographicalOperatorBasedOnShape {
+public class OperatorInGeographicalBox<Τ> extends GeographicalOperatorBasedOnShape {
 
-    private final double lowerLongitude;
-    private final double lowerLatitude;
-    private final double upperLongitude;
-    private final double upperLatitude;
+    private final Τ lowerLongitude;
+    private final Τ lowerLatitude;
+    private final Τ upperLongitude;
+    private final Τ upperLatitude;
 
-    private OperatorInGeographicalBox(String fieldName, double lowerLongitude, double lowerLatitude, double upperLongitude, double upperLatitude) {
+    public OperatorInGeographicalBox(String fieldName, Τ lowerLongitude, Τ lowerLatitude, Τ upperLongitude, Τ upperLatitude) {
         super(fieldName, Coordinates.newCoordinates(lowerLongitude, lowerLatitude),Coordinates.newCoordinates(upperLongitude, lowerLatitude),Coordinates.newCoordinates(upperLongitude, upperLatitude),Coordinates.newCoordinates(lowerLongitude, upperLatitude),Coordinates.newCoordinates(lowerLongitude, lowerLatitude ));
         this.lowerLongitude = lowerLongitude;
         this.lowerLatitude = lowerLatitude;
@@ -15,13 +15,14 @@ public class OperatorInGeographicalBox extends GeographicalOperatorBasedOnShape 
         this.upperLatitude = upperLatitude;
     }
 
-    public static OperatorInGeographicalBox newOperatorInGeographicalBox(String fieldName, double lowerLongitude, double lowerLatitude, double upperLongitude, double upperLatitude){
+
+    public static OperatorInGeographicalBox<Float> newOperatorInGeographicalBox(String fieldName, Float lowerLongitude, Float lowerLatitude, Float upperLongitude, Float upperLatitude){
         return new OperatorInGeographicalBox(fieldName, lowerLongitude, lowerLatitude, upperLongitude, upperLatitude);
     }
 
-
-
-
+    public static OperatorInGeographicalBox<Double> newOperatorInGeographicalBox(String fieldName, Double lowerLongitude, Double lowerLatitude, Double upperLongitude, Double upperLatitude){
+        return new OperatorInGeographicalBox(fieldName, lowerLongitude, lowerLatitude, upperLongitude, upperLatitude);
+    }
 
 
 //    @Override
