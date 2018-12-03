@@ -4,14 +4,13 @@ public class OperatorNearestNeighbors extends GeographicalOperatorBasedOnPoint {
 
     private final int neighbors;
 
-    private OperatorNearestNeighbors(String fieldName, double longitude, double latitude, int neighbors) {
-
-        super(fieldName, longitude, latitude);
+    private OperatorNearestNeighbors(String fieldName, Coordinates point, int neighbors) {
+        super(fieldName, point);
         this.neighbors = neighbors;
     }
 
-    public static OperatorNearestNeighbors newOperatorNearestNeighbors(String fieldName, double longitude, double latitude, int neighbors) {
-        return new OperatorNearestNeighbors(fieldName, longitude, latitude, neighbors);
+    public static OperatorNearestNeighbors newOperatorNearestNeighbors(String fieldName, Coordinates point, int neighbors) {
+        return new OperatorNearestNeighbors(fieldName, point, neighbors);
     }
 
     @Override

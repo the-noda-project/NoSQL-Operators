@@ -7,19 +7,11 @@ import java.util.function.Predicate;
 public abstract class GeographicalOperator implements FilterOperator {
 
     private final String fieldName;
-    private final Coordinates[] coordinatesArray;
+    private final Coordinates[] coordinatesArray;//Contains all the points for a shape. For example, the array contains three points if the shape is triangle.
 
     protected GeographicalOperator(String fieldName, Coordinates... coordinatesArray) {
+        checkCoordinates();
         this.fieldName = fieldName;
-        for(Coordinates c : coordinatesArray){
-            if(longitudeOutOfRange.test(c.getLongitude()) || latitudeOutOfRange.test(c.getLatitude())){
-                try {
-                    throw new Exception("Longitude - Latitude values are incorrect");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
         this.coordinatesArray = coordinatesArray;
     }
 
@@ -29,6 +21,19 @@ public abstract class GeographicalOperator implements FilterOperator {
 
     protected String getFieldName(){
         return fieldName;
+    }
+
+    protected void checkCoordinates()
+    {
+        for(Coordinates c : coordinatesArray){
+        if(longitudeOutOfRange.test(c.getLongitude()) || latitudeOutOfRange.test(c.getLatitude())){
+            try {
+                throw new Exception("Longitude - Latitude values are incorrect");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
     }
 
 

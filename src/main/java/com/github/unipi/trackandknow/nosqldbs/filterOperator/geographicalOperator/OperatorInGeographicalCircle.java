@@ -4,13 +4,13 @@ public class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnPoi
 
     private final double radius;
 
-    private OperatorInGeographicalCircle(String fieldName, double longitude, double latitude, double radius) {
-        super(fieldName, longitude, latitude);
+    private OperatorInGeographicalCircle(String fieldName, Coordinates point, double radius) {
+        super(fieldName, point);
         this.radius = radius;
     }
 
-    public static OperatorInGeographicalCircle newOperatorInGeographicalCircle(String fieldName, double longitude, double latitude, double radius){
-        return new OperatorInGeographicalCircle(fieldName, longitude, latitude, radius);
+    public static OperatorInGeographicalCircle newOperatorInGeographicalCircle(String fieldName, Coordinates point, double radius){
+        return new OperatorInGeographicalCircle(fieldName, point, radius);
     }
 
     @Override

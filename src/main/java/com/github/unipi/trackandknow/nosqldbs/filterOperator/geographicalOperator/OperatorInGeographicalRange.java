@@ -1,10 +1,10 @@
 package com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator;
 
-public class OperatorInGeographicalRange<T extends Number> implements GeographicalOperator<T> {
+public class OperatorInGeographicalRange implements GeographicalOperator {
 
     private final String fieldName;
-    private final T longitude;
-    private final T latitude;
+    private final double longitude;
+    private final double latitude;
     private final double radius;
 
     @Override
