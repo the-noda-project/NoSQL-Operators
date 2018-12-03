@@ -7,9 +7,12 @@ public interface NoSqlDbOperators {
 
     NoSqlDbOperators filter(FilterOperator filterOperator);
 
-    void execute();
-
     NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator);
+
+    NoSqlDbOperators distinct(String fieldName);
+
+    void printScreen();
+
 
     double max(String fieldName);
 

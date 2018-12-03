@@ -1,29 +1,24 @@
 package com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator;
 
-public class Coordinates<T> {
+public class Coordinates {
 
-    private final T longitude;
-    private final T latitude;
+    private final double longitude;
+    private final double latitude;
 
-    private Coordinates(T longitude, T latitude) {
+    private Coordinates(double longitude, double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
     }
 
-    public static Coordinates<Float> newCoordinates( Float longitude, Float latitude) {
+    public static Coordinates newCoordinates( double longitude, double latitude) {
         return new Coordinates(longitude, latitude);
     }
 
-    public static Coordinates<Double> newCoordinates( Double longitude, Double latitude) {
-        return new Coordinates(longitude, latitude);
-    }
-
-
-    public T getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public T getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 

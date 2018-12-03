@@ -2,40 +2,44 @@ package com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperat
 
 public abstract class GeographicalOperatorBasedOnShape extends GeographicalOperator {
 
-    protected GeographicalOperatorBasedOnShape(String fieldName, Coordinates... coordinates){
+    protected GeographicalOperatorBasedOnShape(String fieldName, Coordinates... coordinates) {
         super(fieldName, coordinates);
     }
 
     @Override
-    public StringBuilder getJsonStringBuilder(){
+    public StringBuilder getJsonStringBuilder() {
 
-       StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append("{ ");
 
-                if(!getFieldName().contains(".")){
-                    sb.append(getFieldName());
-                }
-                else{
-                    sb.append("\"" + getFieldName() + "\"");
-                }
+        if (!getFieldName().contains(".")) {
+            sb.append(getFieldName());
+        } else {
+            sb.append("\"" + getFieldName() + "\"");
+        }
 
-                sb.append(": { $geoWithin: { $geometry: { type:\"Polygon\", coordinates:[ [");
+        sb.append(": { $geoWithin: { $geometry: { type:\"Polygon\", coordinates:[ [");
 
-                for(Coordinates c : getCoordinatesArray()){
-                    sb.append(" [");
-                    sb.append(c.getLongitude());
-                    sb.append(",");
-                    sb.append(c.getLatitude());
+        for (Coordinates c : getCoordinatesArray()) {
+            sb.append(" [");
+            sb.append(c.getLongitude());
+            sb.append(",");
+            sb.append(c.getLatitude());
 
-                    sb.append("]");
-                    sb.append(",");
-                }
+            sb.append("]");
+            sb.append(",");
+        }
 
-                sb.deleteCharAt(sb.lastIndexOf(", "));
+        //In MongoDB the last point should coincide with the coordinates of the starting point
+        sb.append(" [");
+        sb.append(getCoordinatesArray()[0].getLongitude());
+        sb.append(",");
+        sb.append(getCoordinatesArray()[0].getLatitude());
+        sb.append("]");
 
-                sb.append("] ] } } } }");
+        sb.append("] ] } } } }");
 
-                return sb;
+        return sb;
 
     }
 

@@ -143,7 +143,6 @@ public class MongoDBOperators implements NoSqlDbOperators {
 
 
 
-
         sb.append("{ _id:");
         sb.append("\"" + "$" + fieldName + "\", ");
 

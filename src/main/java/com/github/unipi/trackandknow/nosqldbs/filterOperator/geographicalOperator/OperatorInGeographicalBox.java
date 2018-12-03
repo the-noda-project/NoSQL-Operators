@@ -1,27 +1,19 @@
 package com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator;
 
-public class OperatorInGeographicalBox<Τ> extends GeographicalOperatorBasedOnShape {
+public class OperatorInGeographicalBox extends GeographicalOperatorBasedOnShape {
 
-    private final Τ lowerLongitude;
-    private final Τ lowerLatitude;
-    private final Τ upperLongitude;
-    private final Τ upperLatitude;
+    private final Coordinates lowerBound;
+    private final Coordinates upperBound;
 
-    public OperatorInGeographicalBox(String fieldName, Τ lowerLongitude, Τ lowerLatitude, Τ upperLongitude, Τ upperLatitude) {
-        super(fieldName, Coordinates.newCoordinates(lowerLongitude, lowerLatitude),Coordinates.newCoordinates(upperLongitude, lowerLatitude),Coordinates.newCoordinates(upperLongitude, upperLatitude),Coordinates.newCoordinates(lowerLongitude, upperLatitude),Coordinates.newCoordinates(lowerLongitude, lowerLatitude ));
-        this.lowerLongitude = lowerLongitude;
-        this.lowerLatitude = lowerLatitude;
-        this.upperLongitude = upperLongitude;
-        this.upperLatitude = upperLatitude;
+    public OperatorInGeographicalBox(String fieldName, Coordinates lowerBound, Coordinates upperBound) {
+
+        super(fieldName, lowerBound,Coordinates.newCoordinates(upperBound.getLongitude(), lowerBound.getLatitude()),upperBound,Coordinates.newCoordinates(lowerBound.getLongitude(), upperBound.getLatitude()));
+        this.lowerBound = lowerBound;
+        this.upperBound = upperBound;
     }
 
-
-    public static OperatorInGeographicalBox<Float> newOperatorInGeographicalBox(String fieldName, Float lowerLongitude, Float lowerLatitude, Float upperLongitude, Float upperLatitude){
-        return new OperatorInGeographicalBox(fieldName, lowerLongitude, lowerLatitude, upperLongitude, upperLatitude);
-    }
-
-    public static OperatorInGeographicalBox<Double> newOperatorInGeographicalBox(String fieldName, Double lowerLongitude, Double lowerLatitude, Double upperLongitude, Double upperLatitude){
-        return new OperatorInGeographicalBox(fieldName, lowerLongitude, lowerLatitude, upperLongitude, upperLatitude);
+    public static OperatorInGeographicalBox newOperatorInGeographicalBox(String fieldName, Coordinates lowerBound, Coordinates upperBound){
+        return new OperatorInGeographicalBox(fieldName, lowerBound, upperBound);
     }
 
 
