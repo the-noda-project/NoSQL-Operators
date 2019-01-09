@@ -7,6 +7,7 @@ import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperator;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.spark.MongoSpark;
+import com.mongodb.spark.config.ReadConfig;
 import com.mongodb.spark.rdd.api.java.JavaMongoRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.Dataset;
@@ -16,7 +17,9 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -170,7 +173,14 @@ public class MongoDBOperators implements NoSqlDbOperators {
 
     @Override
     public void printScreen() {
-
+        MongoCursor<Document> cursor = mongoCollection.aggregate(stagesList).iterator();
+        try {
+            while (cursor.hasNext()) {
+                System.out.println(cursor.next().toJson());
+            }
+        } finally {
+            cursor.close();
+        }
     }
 
     @Override
@@ -178,23 +188,45 @@ public class MongoDBOperators implements NoSqlDbOperators {
         System.out.println(stagesList.toString());
     }
 
-    SparkSession spark = SparkSession.builder()
-            .master("local")
-            .appName("MongoSparkConnectorIntro")
-            .config("spark.mongodb.input.uri", "mongodb://127.0.0.1/test.myCollection")
-            .getOrCreate();
+//    SparkSession spark = SparkSession.builder()
+//            .master("local")
+//            .appName("MongoSparkConnectorIntro")
+//            .config("spark.mongodb.input.uri", "mongodb://127.0.0.1/test.myCollection")
+//            .getOrCreate();
 
     @Override
     public Dataset<Row> toDataframe() {
 
-
+        SparkSession spark = SparkSession.builder()
+                .master("local")
+                .appName("MongoSparkConnectorIntro")
+                .config("spark.mongodb.input.uri", /*"mongodb://83.212.102.163:27017/test.points"*/" ")
+                .getOrCreate();
 
         JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
 
+        Map<String, String> readOverrides = new HashMap<>();
+        readOverrides.put("uri", "mongodb://localhost:27017");
+        readOverrides.put("database", "test");
+        readOverrides.put("collection", "points");
+        ReadConfig readConfig = ReadConfig.create(jsc).withOptions(readOverrides);
+//
+        JavaMongoRDD<Document> customRdd = MongoSpark.load(jsc, readConfig);
 
-        JavaMongoRDD<Document> rdd = MongoSpark.load(jsc).withPipeline(stagesList);
+        return customRdd.toDF();
 
-        return aggregatedRdd.toDF();
+//
+//
+//        JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
+//
+//        MongoSpark.load(spark,readConfig);
+//        MongoSpark.load
+//
+//        JavaMongoRDD<Document> rdd = MongoSpark.load(jsc).withPipeline(stagesList);
+//
+//
+//
+//        return aggregatedRdd.toDF();
 
 
     }

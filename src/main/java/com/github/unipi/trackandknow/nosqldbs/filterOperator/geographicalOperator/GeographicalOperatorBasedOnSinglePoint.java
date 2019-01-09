@@ -1,8 +1,8 @@
 package com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator;
 
-public abstract class GeographicalOperatorBasedOnPoint extends GeographicalOperator {
+public abstract class GeographicalOperatorBasedOnSinglePoint extends GeographicalOperator {
 
-    protected GeographicalOperatorBasedOnPoint(String fieldName, Coordinates point){
+    protected GeographicalOperatorBasedOnSinglePoint(String fieldName, Coordinates point){
         super(fieldName, point);
     }
 

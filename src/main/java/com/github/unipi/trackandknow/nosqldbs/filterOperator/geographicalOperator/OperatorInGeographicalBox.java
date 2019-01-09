@@ -1,6 +1,6 @@
 package com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator;
 
-public class OperatorInGeographicalBox extends GeographicalOperatorBasedOnShape {
+public class OperatorInGeographicalBox extends GeographicalOperatorBasedOnPoints {
 
     private final Coordinates lowerBound;
     private final Coordinates upperBound;

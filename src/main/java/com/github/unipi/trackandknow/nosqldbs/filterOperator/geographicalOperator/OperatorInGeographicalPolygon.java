@@ -1,6 +1,6 @@
 package com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator;
 
-public class OperatorInGeographicalPolygon extends GeographicalOperatorBasedOnShape {
+public class OperatorInGeographicalPolygon extends GeographicalOperatorBasedOnPoints {
 
     private OperatorInGeographicalPolygon(String fieldName, Coordinates... coordinates) {
         super(fieldName, coordinates);
