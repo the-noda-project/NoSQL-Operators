@@ -2,6 +2,8 @@ package com.github.unipi.trackandknow.nosqldbs;
 
 import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.AggregateOperator;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperator;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 
 public interface NoSqlDbOperators {
 
@@ -19,5 +21,7 @@ public interface NoSqlDbOperators {
     int count();
 
     void project();
+
+    Dataset<Row> toDataframe();
 
 }

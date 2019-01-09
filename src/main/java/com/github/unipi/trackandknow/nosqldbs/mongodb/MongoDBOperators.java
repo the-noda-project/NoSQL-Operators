@@ -6,6 +6,12 @@ import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.OperatorMax;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperator;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.spark.MongoSpark;
+import com.mongodb.spark.rdd.api.java.JavaMongoRDD;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -35,17 +41,17 @@ public class MongoDBOperators implements NoSqlDbOperators {
         return this;
     }
 
-    @Override
-    public void execute(){
-        MongoCursor<Document> cursor = mongoCollection.aggregate(stagesList).iterator();
-        try {
-            while (cursor.hasNext()) {
-                System.out.println(cursor.next().toJson());
-            }
-        } finally {
-            cursor.close();
-        }
-    }
+//    @Override
+//    public void execute(){
+//        MongoCursor<Document> cursor = mongoCollection.aggregate(stagesList).iterator();
+//        try {
+//            while (cursor.hasNext()) {
+//                System.out.println(cursor.next().toJson());
+//            }
+//        } finally {
+//            cursor.close();
+//        }
+//    }
 
     @Override
     public int count(){
@@ -68,7 +74,7 @@ public class MongoDBOperators implements NoSqlDbOperators {
         //stagesList.add(Document.parse("{ $group: { _id:null, max: { $max: \"$location.coordinates.1\" }} }"));
 
 
-        stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorMax.newOperatorMax(fieldName,"max").getJsonStringBuilder() +" } }"));
+        stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorMax.newOperatorMax(fieldName).getJsonStringBuilder() +" } }"));
 
 
 
@@ -83,22 +89,22 @@ public class MongoDBOperators implements NoSqlDbOperators {
         //System.out.println(new Document("$match", FilterOperators.eq("r",4).getJsonString()).toString());
 
 
-        MongoCursor<Document> cursor = mongoCollection.aggregate(stagesList).iterator();
-        try {
-            while (cursor.hasNext()) {
-                System.out.println(cursor.next().toJson());
-            }
-        } finally {
-            cursor.close();
-        }
-        System.out.println("dfddffdfd");
+//        MongoCursor<Document> cursor = mongoCollection.aggregate(stagesList).iterator();
+//        try {
+//            while (cursor.hasNext()) {
+//                System.out.println(cursor.next().toJson());
+//            }
+//        } finally {
+//            cursor.close();
+//        }
+//        System.out.println("dfddffdfd");
 
         //Aggregates.project()
         //stagesList.add(Document.parse(new Document("$project", AggregateOperators.max(fieldName).getJsonString()).toJson()));
 
         //System.out.println(new Document("$project", AggregateOperators.max(fieldName).getJsonString()));
 
-        return ((Document) mongoCollection.aggregate(stagesList).first()).getDouble("maxf");
+        return ((Document) mongoCollection.aggregate(stagesList).first()).getDouble("max("+fieldName+")");
         //return 4;
     }
 
@@ -139,29 +145,58 @@ public class MongoDBOperators implements NoSqlDbOperators {
 
         StringBuilder sb =  new StringBuilder();
 
-        sb.append("{ $group: { ");
-
-
+        sb.append("{ $group: ");
 
         sb.append("{ _id:");
-        sb.append("\"" + "$" + fieldName + "\", ");
+        sb.append("\"" + "$" + fieldName + "\"");
 
-        for(AggregateOperator aop : aggregateOperator){
-            sb.append(aop.getJsonStringBuilder()+", ");
+        if(aggregateOperator.length != 0){
+            for(AggregateOperator aop : aggregateOperator){
+                sb.append(", " + aop.getJsonStringBuilder());
+            }
         }
 
-        sb.deleteCharAt(sb.lastIndexOf(","));
-        sb.append(" }");
+        sb.append(" } }");
 
-
-        stagesList.add(new Document("$group",sb.toString()));
+        stagesList.add(Document.parse(sb.toString()));
 
         return this;
     }
 
     @Override
+    public NoSqlDbOperators distinct(String fieldName) {
+        return groupBy(fieldName);
+    }
+
+    @Override
+    public void printScreen() {
+
+    }
+
+    @Override
     public void project() {
         System.out.println(stagesList.toString());
+    }
+
+    SparkSession spark = SparkSession.builder()
+            .master("local")
+            .appName("MongoSparkConnectorIntro")
+            .config("spark.mongodb.input.uri", "mongodb://127.0.0.1/test.myCollection")
+            .getOrCreate();
+
+    @Override
+    public Dataset<Row> toDataframe() {
+
+
+
+        JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
+
+
+        JavaMongoRDD<Document> rdd = MongoSpark.load(jsc).withPipeline(stagesList);
+
+        return aggregatedRdd.toDF();
+
+
     }
 
 }
