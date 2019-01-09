@@ -81,11 +81,11 @@ public class QueryGeopoints {
         //long d = m.countDocuments(Filters.geoWithinCenterSphere("location",23,36.5,55.6/6378.1));
         Polygon polygon = new Polygon(Arrays.asList(new Position(22.5, 36),new Position(23, 36),new Position(23, 36.3),new Position(22.5, 36.3),new Position(22.5, 36)));
         //long d = m.countDocuments(Filters.geoWithin("location", polygon));
-        System.out.println(FilterOperators.lte("objectId",0).getJsonString());
+        System.out.println(FilterOperators.lte("objectId",0).getJsonStringBuilder());
 
 
         //long d = m.countDocuments(Document.parse(FilterOperators.or(inGeoRangeKm("location",23, 36.5,55.6),FilterOperators.lte("objectId",400)).getJsonString()));
-        long d = m.countDocuments(Document.parse(FilterOperators.eq("objectId","15320_135320").getJsonString()));
+        long d = m.countDocuments(Document.parse(FilterOperators.eq("objectId","15320_135320").getJsonStringBuilder().toString()));
 
         //System.out.println(inGeoBox("location",22.5, 36,23, 36.3));
 

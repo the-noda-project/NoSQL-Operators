@@ -1,6 +1,6 @@
 package com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator;
 
-public class OperatorNearestNeighbors extends GeographicalOperatorBasedOnPoint {
+public class OperatorNearestNeighbors extends GeographicalOperatorBasedOnSinglePoint {
 
     private final int neighbors;
 
@@ -16,11 +16,12 @@ public class OperatorNearestNeighbors extends GeographicalOperatorBasedOnPoint {
     @Override
     public StringBuilder getJsonStringBuilder() {
 
-
-
-        return "{ $geoNear: { near: {type: \"Point\", coordinates: ["+getLongitude()+", "+getLatitude()+"]}," +
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ $geoNear: { near: {type: \"Point\", coordinates: ["+getLongitude()+", "+getLatitude()+"]}," +
                 "key: "+ ((!getFieldName().contains(".")) ? getFieldName() : "\"" + getFieldName() + "\"") +" ," +
-                "maxDistance: "+ +"," + "num: "+ neighbors+" ," + "distanceField: \"distance\" ," + "spherical: true" + "} }";
+                "maxDistance: "+ 5 +"," + "num: "+ neighbors+" ," + "distanceField: \"distance\" ," + "spherical: true" + "} }");
+
+        return sb;
 
     }
 }
