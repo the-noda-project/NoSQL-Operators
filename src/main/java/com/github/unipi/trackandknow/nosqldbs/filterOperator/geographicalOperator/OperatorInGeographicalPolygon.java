@@ -17,7 +17,7 @@ public class OperatorInGeographicalPolygon extends GeographicalOperatorBasedOnSh
 
         if(getCoordinatesArray().length<3){
             try {
-                throw new Exception("Three points-coordinates should to be defined at least for Polygon formation");
+                throw new Exception("Three points-coordinates should be defined at least for Polygon formation");
             } catch (Exception e) {
                 e.printStackTrace();
             }
