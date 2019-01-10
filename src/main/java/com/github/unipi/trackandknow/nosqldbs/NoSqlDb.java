@@ -4,9 +4,20 @@ import com.github.unipi.trackandknow.nosqldbs.mongodb.MongoDBConnector;
 import com.github.unipi.trackandknow.nosqldbs.mongodb.MongoDBOperators;
 import com.mongodb.MongoClient;
 
-public enum NoSqlDb {
+import java.util.HashSet;
+import java.util.Set;
+
+enum NoSqlDb {
 
     MONGODB{
+
+         private final Set<String> connections = new HashSet<String>();
+
+        @Override
+        public Set<String> connections(){
+            return connections;
+        }
+
         @Override
         public NoSqlDbConnector noSqlDbConnector(String host, int port, String username, String password, String database){
             return MongoDBConnector.newMongoDBConnector(host, port, username, password, database);
@@ -43,6 +54,8 @@ public enum NoSqlDb {
         }
 
     };
+
+    public abstract Set<String> connections();
 
     public abstract NoSqlDbConnector noSqlDbConnector(String host, int port, String username, String password, String database);
 
