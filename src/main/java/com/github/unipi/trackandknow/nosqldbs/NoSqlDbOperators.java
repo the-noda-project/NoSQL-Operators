@@ -15,7 +15,6 @@ public interface NoSqlDbOperators {
 
     void printScreen();
 
-
     double max(String fieldName);
 
     int count();

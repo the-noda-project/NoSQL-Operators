@@ -2,6 +2,10 @@ package com.github.unipi.trackandknow;
 
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDb;
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
+import com.github.unipi.trackandknow.nosqldbs.connection.Connector;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NoSqlDbSystem {
 
@@ -52,19 +56,20 @@ public class NoSqlDbSystem {
         }
 
         public NoSqlDbSystem connect(){
-            return new NoSqlDbSystem(nsdb, nsdb.noSqlDbConnector(host, port, username, password, database).getConnector(), database);
+
+            return new NoSqlDbSystem(nsdb,nsdb.createNoSqlDbConnector());
+            //return new NoSqlDbSystem(nsdb, nsdb.noSqlDbConnector(host, port, username, password, database).getConnector(), database);
         }
 
     }
 
     private final NoSqlDb nsdb;
-    private final Object connector;
-    private final String database;
+    private final Connector connector;
 
-    private NoSqlDbSystem(NoSqlDb nsdb, Object connector, String database){
+
+    private NoSqlDbSystem(NoSqlDb nsdb, Connector connector){
         this.nsdb = nsdb;
         this.connector = connector;
-        this.database = database;
     }
 
     public void disconnect(){
@@ -72,11 +77,17 @@ public class NoSqlDbSystem {
     }
 
     public NoSqlDbOperators operateOn(String s){
-        return nsdb.noSqlDbOperators(connector, database, s);
+        return nsdb.noSqlDbOperators(connector,s);
     }
 
     public static Builder MongoDB(){
         return new NoSqlDbSystem.Builder(NoSqlDb.MONGODB);
     }
+
+    public static void cleanUp(){
+        toBeCleaned.forEach(noSqlDb -> );
+    }
+
+    private static final List<NoSqlDb> toBeCleaned = new ArrayList<>();
 
 }

@@ -1,8 +1,10 @@
 package com.github.unipi.trackandknow.nosqldbs.mongodb;
 
+import com.github.unipi.trackandknow.nosqldbs.NoSqlDb;
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
 import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.AggregateOperator;
 import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.OperatorMax;
+import com.github.unipi.trackandknow.nosqldbs.connection.Connector;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperator;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -22,16 +24,22 @@ import static com.mongodb.client.model.Filters.eq;
 
 public class MongoDBOperators implements NoSqlDbOperators {
 
-    private final MongoCollection mongoCollection;
+    private final NoSqlDb mongoDB;
+    private final Connector connector;
+    private final String s;
+    //private final MongoCollection mongoCollection;
     private final List<Bson> stagesList;
 
-    private MongoDBOperators(MongoCollection mongoCollection){
-        this.mongoCollection = mongoCollection;
+    private MongoDBOperators(NoSqlDb mongoDB, Connector connector, String s){
+        this.mongoDB = mongoDB;
+        this.connector = connector;
+        this.s = s;
+        //this.mongoCollection = mongoCollection;
         stagesList = new ArrayList<>();
     }
 
-    public static MongoDBOperators newMongoDBOperators(MongoCollection mongoCollection){
-        return new MongoDBOperators(mongoCollection);
+    public static MongoDBOperators newMongoDBOperators(NoSqlDb mongoDB, Connector connector, String s){
+        return new MongoDBOperators(mongoDB, connector, s);
     }
 
     @Override
