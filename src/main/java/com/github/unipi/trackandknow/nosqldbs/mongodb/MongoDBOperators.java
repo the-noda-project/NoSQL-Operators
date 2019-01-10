@@ -16,10 +16,7 @@ import org.apache.spark.sql.SparkSession;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -197,21 +194,24 @@ public class MongoDBOperators implements NoSqlDbOperators {
     @Override
     public Dataset<Row> toDataframe() {
 
+        System.setProperty("spark.mongodb.input.uri", "mongodb://1.1.1.1:27017/test.points");
+
         SparkSession spark = SparkSession.builder()
                 .master("local")
                 .appName("MongoSparkConnectorIntro")
-                .config("spark.mongodb.input.uri", /*"mongodb://83.212.102.163:27017/test.points"*/" ")
+                //.config("spark.mongodb.input.uri", "mongodb://1.1.1.1:27017/test.points ")
                 .getOrCreate();
 
         JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
 
         Map<String, String> readOverrides = new HashMap<>();
-        readOverrides.put("uri", "mongodb://localhost:27017");
-        readOverrides.put("database", "test");
-        readOverrides.put("collection", "points");
+        readOverrides.put("spark.mongodb.input.uri", "mongodb://myUserAdmin:abc123@83.212.102.163:27017/test.points/");
+//        readOverrides.put("collection", "points");
+
         ReadConfig readConfig = ReadConfig.create(jsc).withOptions(readOverrides);
 //
         JavaMongoRDD<Document> customRdd = MongoSpark.load(jsc, readConfig);
+
 
         return customRdd.toDF();
 

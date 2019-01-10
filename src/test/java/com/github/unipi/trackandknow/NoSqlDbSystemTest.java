@@ -15,7 +15,7 @@ public class NoSqlDbSystemTest {
         //noSqlDbSystem.operateOn("geoPoints").filter(inGeoBox("location",22.5, 36,23, 36.3)).groupBy("theColumn",max("s","adsasd")).project();
         //System.out.println(noSqlDbSystem.operateOn("geoPoints").max("location.coordinates"));
 
-        noSqlDbSystem.operateOn("points").toDataframe();
+        System.out.println(noSqlDbSystem.operateOn("points").toDataframe().count());
 
 
         noSqlDbSystem.disconnect();
