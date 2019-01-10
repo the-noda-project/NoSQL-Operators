@@ -6,24 +6,50 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 
-public final class MongoDBConnector implements NoSqlDbConnector {
+import java.util.Objects;
 
-    private final MongoClient mongoClient;
+public final class MongoDBConnector extends Connector {
 
-    private MongoDBConnector(String host, int port, String username, String password, String database) {
+    private final String host;
+    private final int port;
+    private final String username;
+    private final String password;
+    private final String database;
 
-        MongoCredential credential = MongoCredential.createCredential(username, database, password.toCharArray());
-        MongoClientOptions options = MongoClientOptions.builder()/*.sslEnabled(true)*/.build();
-        mongoClient = new MongoClient(new ServerAddress(host, port), credential, options);
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MongoDBConnector that = (MongoDBConnector) o;
+        return port == that.port &&
+                Objects.equals(host, that.host) &&
+                Objects.equals(username, that.username) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(database, that.database);
     }
 
     @Override
-    public Object getConnector(){
-        return mongoClient;
+    public int hashCode() {
+        return Objects.hash(host, port, username, password, database);
     }
 
-    public static NoSqlDbConnector newMongoDBConnector(String host, int port, String username, String password, String database) {
+    private MongoDBConnector(String host, int port, String username, String password, String database) {
+        this.host = host;
+        this.port = port;
+        this.username = username;
+        this.password = password;
+        this.database = database;
+    }
+
+    @Override
+    public Object createConnection(){
+
+        MongoCredential credential = MongoCredential.createCredential(username, database, password.toCharArray());
+        MongoClientOptions options = MongoClientOptions.builder()/*.sslEnabled(true)*/.build();
+        return new MongoClient(new ServerAddress(host, port), credential, options);
+    }
+
+    public static Connector newMongoDBConnector(String host, int port, String username, String password, String database) {
         return new MongoDBConnector(host, port, username, password, database);
     }
 

@@ -2,7 +2,7 @@ package com.github.unipi.trackandknow.nosqldbs.connection;
 
 public abstract class Connector {
 
-    private final Credentials credentials;
+    public abstract Object createConnection();
 
     public abstract int hashCode();
 
