@@ -1,6 +1,6 @@
 package com.github.unipi.trackandknow.nosqldbs.connection;
 
-import com.github.unipi.trackandknow.nosqldbs.NoSqlDbConnector;
+import com.github.unipi.trackandknow.nosqldbs.connection.NoSqlDbConnector;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
@@ -8,7 +8,7 @@ import com.mongodb.ServerAddress;
 
 import java.util.Objects;
 
-public final class MongoDBConnector extends Connector {
+public final class MongoDBConnector extends NoSqlDbConnector {
 
     private final String host;
     private final int port;
@@ -49,7 +49,7 @@ public final class MongoDBConnector extends Connector {
         return new MongoClient(new ServerAddress(host, port), credential, options);
     }
 
-    public static Connector newMongoDBConnector(String host, int port, String username, String password, String database) {
+    public static NoSqlDbConnector newMongoDBConnector(String host, int port, String username, String password, String database) {
         return new MongoDBConnector(host, port, username, password, database);
     }
 

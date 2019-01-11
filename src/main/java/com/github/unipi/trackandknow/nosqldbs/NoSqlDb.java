@@ -1,21 +1,18 @@
 package com.github.unipi.trackandknow.nosqldbs;
 
-import com.github.unipi.trackandknow.nosqldbs.connection.Connector;
-import com.github.unipi.trackandknow.nosqldbs.mongodb.MongoDBConnector;
+import com.github.unipi.trackandknow.nosqldbs.connection.NoSqlDbConnector;
+import com.github.unipi.trackandknow.nosqldbs.connection.MongoDBConnector;
 import com.github.unipi.trackandknow.nosqldbs.mongodb.MongoDBOperators;
 import com.mongodb.MongoClient;
-import com.mongodb.spark.MongoConnector;
+import org.apache.spark.sql.SparkSession;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public enum NoSqlDb {
 
     MONGODB{
 
-         private final Map<MongoConnector,MongoClient> connections = new HashMap<>();
+        private final Map<MongoDBConnector,MongoClient> connections = new HashMap<>();
 
         @Override
         public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database){
@@ -23,8 +20,8 @@ public enum NoSqlDb {
         }
 
         @Override
-        public NoSqlDbOperators noSqlDbOperators(Connector connector, String s){
-            return MongoDBOperators.newMongoDBOperators(MONGODB, connector, s);
+        public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession){
+            return MongoDBOperators.newMongoDBOperators(MONGODB, connector, s, sparkSession);
         }
 
         @Override
@@ -53,19 +50,17 @@ public enum NoSqlDb {
         }
 
         @Override
-        public boolean hasOpenConnection(Connector connector) {
-            return connections.containsKey(connector);
-        }
+        public Object getConnectionOfConnector(NoSqlDbConnector connector) {
 
-        @Override
-        public Object getConnectionOfConnector(Connector connector) {
-            return connections.get(connector);
-        }
+            if(connections.containsKey(connector)){
+                return connections.get(connector);
+            }
 
-        @Override
-        public boolean createConnection(Connector connector) {
+            MongoClient c = (MongoClient) connector.createConnection();
 
-            return connections.put(connector,);
+            connections.put((MongoDBConnector) connector,c);
+
+            return c;
         }
 
         @Override
@@ -73,15 +68,14 @@ public enum NoSqlDb {
             connections.forEach((k,v)->{
                 v.close();
             });
-            connections.remove()
+            connections.clear();
             return true;
         }
-
     };
 
     public abstract NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database);
 
-    public abstract NoSqlDbOperators noSqlDbOperators(Connector connector, String s);
+    public abstract NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession);
 
     public abstract void disconnect(Object o);
 
@@ -97,11 +91,7 @@ public enum NoSqlDb {
 
     public abstract String getDefaultPassword();
 
-    public abstract boolean hasOpenConnection(Connector connector);
-
-    public abstract Object getConnectionOfConnector(Connector connector);
-
-    public abstract boolean createConnection(Connector connector);
+    public abstract Object getConnectionOfConnector(NoSqlDbConnector connector);
 
     public abstract boolean closeConnections();
 
