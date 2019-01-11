@@ -1,6 +1,6 @@
 package com.github.unipi.trackandknow.nosqldbs.connection;
 
-public abstract class Connector {
+public abstract class NoSqlDbConnector {
 
     public abstract Object createConnection();
 

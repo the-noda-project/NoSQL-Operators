@@ -4,9 +4,8 @@ import com.github.unipi.trackandknow.nosqldbs.NoSqlDb;
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
 import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.AggregateOperator;
 import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.OperatorMax;
-import com.github.unipi.trackandknow.nosqldbs.connection.Connector;
+import com.github.unipi.trackandknow.nosqldbs.connection.NoSqlDbConnector;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperator;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.spark.MongoSpark;
 import com.mongodb.spark.config.ReadConfig;
@@ -25,12 +24,11 @@ import static com.mongodb.client.model.Filters.eq;
 public class MongoDBOperators implements NoSqlDbOperators {
 
     private final NoSqlDb mongoDB;
-    private final Connector connector;
     private final String s;
     //private final MongoCollection mongoCollection;
     private final List<Bson> stagesList;
 
-    private MongoDBOperators(NoSqlDb mongoDB, Connector connector, String s){
+    private MongoDBOperators(NoSqlDb mongoDB, NoSqlDbConnector connector, String s){
         this.mongoDB = mongoDB;
         this.connector = connector;
         this.s = s;
@@ -38,8 +36,8 @@ public class MongoDBOperators implements NoSqlDbOperators {
         stagesList = new ArrayList<>();
     }
 
-    public static MongoDBOperators newMongoDBOperators(NoSqlDb mongoDB, Connector connector, String s){
-        return new MongoDBOperators(mongoDB, connector, s);
+    public static MongoDBOperators newMongoDBOperators(NoSqlDb mongoDB, NoSqlDbConnector connector, String s, SparkSession sparkSession){
+        return new MongoDBOperators(mongoDB, connector, s, sparkSession);
     }
 
     @Override
@@ -216,9 +214,9 @@ public class MongoDBOperators implements NoSqlDbOperators {
         readOverrides.put("spark.mongodb.input.uri", "mongodb://myUserAdmin:abc123@83.212.102.163:27017/test.points/");
 //        readOverrides.put("collection", "points");
 
-        ReadConfig readConfig = ReadConfig.create(jsc).withOptions(readOverrides);
+        ReadConfig readConfig = ReadConfig..create(jsc).withOptions(readOverrides);
 //
-        JavaMongoRDD<Document> customRdd = MongoSpark.load(jsc, readConfig);
+        JavaMongoRDD<Document> customRdd = MongoSpark..load(jsc, readConfig);
 
 
         return customRdd.toDF();

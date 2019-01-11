@@ -2,7 +2,8 @@ package com.github.unipi.trackandknow;
 
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDb;
 import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
-import com.github.unipi.trackandknow.nosqldbs.connection.Connector;
+import com.github.unipi.trackandknow.nosqldbs.connection.NoSqlDbConnector;
+import org.apache.spark.sql.SparkSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,15 +62,19 @@ public class NoSqlDbSystem {
             //return new NoSqlDbSystem(nsdb, nsdb.noSqlDbConnector(host, port, username, password, database).getConnector(), database);
         }
 
+
+
     }
 
     private final NoSqlDb nsdb;
-    private final Connector connector;
+    private final NoSqlDbConnector connector;
+    private final SparkSession sparkSession;
 
 
-    private NoSqlDbSystem(NoSqlDb nsdb, Connector connector){
+    private NoSqlDbSystem(NoSqlDb nsdb, NoSqlDbConnector connector, SparkSession sparkSession){
         this.nsdb = nsdb;
         this.connector = connector;
+        this.sparkSession = sparkSession;
     }
 
     public void disconnect(){
@@ -77,7 +82,7 @@ public class NoSqlDbSystem {
     }
 
     public NoSqlDbOperators operateOn(String s){
-        return nsdb.noSqlDbOperators(connector,s);
+        return nsdb.noSqlDbOperators(connector,s,sparkSession);
     }
 
     public static Builder MongoDB(){
