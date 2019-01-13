@@ -13,10 +13,13 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import scala.collection.JavaConverters;
+import scala.collection.Seq;
 
 import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
+import static java.util.Collections.singletonList;
 
 final class MongoDBOperators implements NoSqlDbOperators {
 
@@ -200,23 +203,37 @@ final class MongoDBOperators implements NoSqlDbOperators {
     @Override
     public Dataset<Row> toDataframe() {
 
-        System.setProperty("spark.mongodb.input.uri", "mongodb://1.1.1.1:27017/test.points");
+        //System.setProperty("spark.mongodb.input.uri", "mongodb://1.1.1.1:27017/test.points");
 
-        SparkSession spark = SparkSession.builder()
-                .master("local")
-                .appName("MongoSparkConnectorIntro")
-                //.config("spark.mongodb.input.uri", "mongodb://1.1.1.1:27017/test.points ")
-                .getOrCreate();
+//        SparkSession spark = SparkSession.builder()
+//                .master("local")
+//                .appName("MongoSparkConnectorIntro")
+//                //.config("spark.mongodb.input.uri", "mongodb://1.1.1.1:27017/test.points ")
+//                .getOrCreate();
 
-        JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
+        //JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
+
+//        System.setProperty("spark.mongodb.input.uri", "mongodb://localhost:27017/");
+//        System.setProperty("spark.mongodb.input.database", "test");
+//        System.setProperty("spark.mongodb.input.collection", "points");
 
         Map<String, String> readOverrides = new HashMap<>();
-        readOverrides.put("spark.mongodb.input.uri", "mongodb://myUserAdmin:abc123@83.212.102.163:27017/test.points/");
+
+        readOverrides.put("spark.mongodb.input.uri", "mongodb://"+connector.getHost() + ":" + connector.getPort() + "/");
+        readOverrides.put("spark.mongodb.input.database", connector.getDatabase());
+        readOverrides.put("spark.mongodb.input.collection", s);
+
 //        readOverrides.put("collection", "points");
+
+
+
+
 
 //        ReadConfig readConfig = ReadConfig.create(jsc).withOptions(readOverrides);
 //        JavaMongoRDD<Document> customRdd = MongoSpark.load(jsc, readConfig);
-        ReadConfig readConfig = ReadConfig.create(sparkSession).withOptions(readOverrides);
+        ReadConfig readConfig = ReadConfig.create(sparkSession).withOptions(readOverrides);//.withPipeline(JavaConverters.asScalaIteratorConverter(stagesList.iterator()).asScala().toSeq());
+
+
 
 
         return MongoSpark.loadAndInferSchema(sparkSession,readConfig);

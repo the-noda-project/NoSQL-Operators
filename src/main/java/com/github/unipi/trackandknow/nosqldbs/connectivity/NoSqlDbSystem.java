@@ -98,7 +98,10 @@ public final class NoSqlDbSystem {
     private static final List<NoSqlDb> toBeCleaned = new ArrayList<>();
 
     public static void initialize(){
-        System.setProperty("spark.mongodb.input.uri", "mongodb://1.1.1.1:27017/test.points");
+        //System.setProperty("spark.mongodb.input.uri", "mongodb://localhost:27017/database.collection");
+        System.setProperty("spark.mongodb.input.uri", "mongodb://localhost:27017/");
+        System.setProperty("spark.mongodb.input.database", "data");
+        System.setProperty("spark.mongodb.input.collection", "colle");
     }
 
 }
