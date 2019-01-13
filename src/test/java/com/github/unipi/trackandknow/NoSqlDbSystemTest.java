@@ -1,6 +1,8 @@
 package com.github.unipi.trackandknow;
 
 import com.github.unipi.trackandknow.nosqldbs.connectivity.NoSqlDbSystem;
+import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperators;
+import com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator.Coordinates;
 import org.apache.spark.sql.SparkSession;
 import org.junit.Test;
 
@@ -22,11 +24,15 @@ public class NoSqlDbSystemTest {
         //noSqlDbSystem.operateOn("geoPoints").filter(inGeoBox("location",22.5, 36,23, 36.3)).groupBy("theColumn",max("s","adsasd")).project();
         //System.out.println(noSqlDbSystem.operateOn("geoPoints").max("location.coordinates"));
 
-        System.out.println(noSqlDbSystem.operateOn("points").toDataframe());
+        System.out.println("COUNT: "+noSqlDbSystem.operateOn("points").filter(FilterOperators.inGeoRangeMeters("coordinates",Coordinates.newCoordinates(23.76,37.99),500)).toDataframe().count());
 
+        //System.out.println(noSqlDbSystem.operateOn("points").filter(FilterOperators.inGeoRangeMeters("coordinates",Coordinates.newCoordinates(23.76,37.99),500)).count());
+
+        //noSqlDbSystem.operateOn("points").filter(FilterOperators.inGeoRangeMeters("coordinates",Coordinates.newCoordinates(23.76,37.99),500)).printScreen();
+        //System.out.println(noSqlDbSystem.operateOn("points").filter(FilterOperators.eq("objectId","15320_135320")).count());
         noSqlDbSystem.closeConnection();
 
-        spark.close();
+        //spark.close();
 //        NoSqlDbManager manager = NoSqlDbSystem.MongoDB().host("83.212.104.92").database("test").username("myUserAdmin").password("abc123").connect()
 //                .getNoSqlDbManager();
 //

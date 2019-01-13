@@ -100,8 +100,8 @@ public final class NoSqlDbSystem {
     public static void initialize(){
         //System.setProperty("spark.mongodb.input.uri", "mongodb://localhost:27017/database.collection");
         System.setProperty("spark.mongodb.input.uri", "mongodb://localhost:27017/");
-        System.setProperty("spark.mongodb.input.database", "data");
-        System.setProperty("spark.mongodb.input.collection", "colle");
+        System.setProperty("spark.mongodb.input.database", "database");
+        System.setProperty("spark.mongodb.input.collection", "collection");
     }
 
 }

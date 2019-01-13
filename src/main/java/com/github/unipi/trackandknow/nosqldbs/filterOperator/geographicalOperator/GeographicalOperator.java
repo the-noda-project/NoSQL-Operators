@@ -10,9 +10,9 @@ public abstract class GeographicalOperator implements FilterOperator {
     private final Coordinates[] coordinatesArray;//Contains all the points for a shape. For example, the array contains three points if the shape is triangle.
 
     protected GeographicalOperator(String fieldName, Coordinates... coordinatesArray) {
-        checkCoordinates();
         this.fieldName = fieldName;
         this.coordinatesArray = coordinatesArray;
+        checkCoordinates();
     }
 
     protected Coordinates[] getCoordinatesArray() {
@@ -25,6 +25,11 @@ public abstract class GeographicalOperator implements FilterOperator {
 
     protected void checkCoordinates()
     {
+
+        if(coordinatesArray==null){
+            System.out.println("coordinatesArray is NULL");
+        }
+        System.out.println("coordinatesArray"+coordinatesArray.length);
         for(Coordinates c : coordinatesArray){
         if(longitudeOutOfRange.test(c.getLongitude()) || latitudeOutOfRange.test(c.getLatitude())){
             try {

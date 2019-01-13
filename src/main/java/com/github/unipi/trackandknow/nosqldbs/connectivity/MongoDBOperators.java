@@ -218,8 +218,7 @@ final class MongoDBOperators implements NoSqlDbOperators {
 //        System.setProperty("spark.mongodb.input.collection", "points");
 
         Map<String, String> readOverrides = new HashMap<>();
-
-        readOverrides.put("spark.mongodb.input.uri", "mongodb://"+connector.getHost() + ":" + connector.getPort() + "/");
+        readOverrides.put("spark.mongodb.input.uri", connector.getMongoURIForSparkSession());
         readOverrides.put("spark.mongodb.input.database", connector.getDatabase());
         readOverrides.put("spark.mongodb.input.collection", s);
 
@@ -231,7 +230,7 @@ final class MongoDBOperators implements NoSqlDbOperators {
 
 //        ReadConfig readConfig = ReadConfig.create(jsc).withOptions(readOverrides);
 //        JavaMongoRDD<Document> customRdd = MongoSpark.load(jsc, readConfig);
-        ReadConfig readConfig = ReadConfig.create(sparkSession).withOptions(readOverrides);//.withPipeline(JavaConverters.asScalaIteratorConverter(stagesList.iterator()).asScala().toSeq());
+        ReadConfig readConfig = ReadConfig.create(sparkSession).withOptions(readOverrides).withPipeline(JavaConverters.asScalaIteratorConverter(stagesList.iterator()).asScala().toSeq());
 
 
 
