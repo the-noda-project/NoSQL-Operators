@@ -20,8 +20,8 @@ final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MongoDBConnector that = (MongoDBConnector) o;
-        return port == that.port &&
-                Objects.equals(host, that.host) &&
+        return getPort() == that.getPort() &&
+                Objects.equals(getHost(), that.getHost()) &&
                 Objects.equals(username, that.username) &&
                 Objects.equals(password, that.password) &&
                 Objects.equals(getDatabase(), that.getDatabase());
@@ -29,7 +29,7 @@ final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(host, port, username, password, getDatabase());
+        return Objects.hash(getHost(), getPort(), username, password, getDatabase());
     }
 
     private MongoDBConnector(String host, int port, String username, String password, String database) {
@@ -46,7 +46,7 @@ final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
         System.out.println("create connection");
         MongoCredential credential = MongoCredential.createCredential(username, getDatabase(), password.toCharArray());
         MongoClientOptions options = MongoClientOptions.builder()/*.sslEnabled(true)*/.build();
-        return new MongoClient(new ServerAddress(host, port), credential, options);
+        return new MongoClient(new ServerAddress(getHost(), getPort()), credential, options);
     }
 
     public static MongoDBConnector newMongoDBConnector(String host, int port, String username, String password, String database) {
@@ -54,10 +54,18 @@ final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
     }
 
     public String getURIForSparkSession(){
-        return "mongodb://"+username + ":"+password+"@"+host+":"+port+"/"+ getDatabase() +".";
+        return "mongodb://"+username + ":"+password+"@"+ getHost() +":"+ getPort() +"/"+ getDatabase() +".";
     }
 
     public String getDatabase() {
         return database;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public int getPort() {
+        return port;
     }
 }
