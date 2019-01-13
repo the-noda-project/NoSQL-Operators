@@ -1,6 +1,5 @@
-package com.github.unipi.trackandknow.nosqldbs.connection;
+package com.github.unipi.trackandknow.nosqldbs.connectivity;
 
-import com.github.unipi.trackandknow.nosqldbs.connection.NoSqlDbConnector;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
@@ -8,7 +7,7 @@ import com.mongodb.ServerAddress;
 
 import java.util.Objects;
 
-public final class MongoDBConnector extends NoSqlDbConnector {
+final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
 
     private final String host;
     private final int port;
@@ -25,12 +24,12 @@ public final class MongoDBConnector extends NoSqlDbConnector {
                 Objects.equals(host, that.host) &&
                 Objects.equals(username, that.username) &&
                 Objects.equals(password, that.password) &&
-                Objects.equals(database, that.database);
+                Objects.equals(getDatabase(), that.getDatabase());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(host, port, username, password, database);
+        return Objects.hash(host, port, username, password, getDatabase());
     }
 
     private MongoDBConnector(String host, int port, String username, String password, String database) {
@@ -42,15 +41,23 @@ public final class MongoDBConnector extends NoSqlDbConnector {
     }
 
     @Override
-    public Object createConnection(){
+    public MongoClient createConnection(){
 
-        MongoCredential credential = MongoCredential.createCredential(username, database, password.toCharArray());
+        System.out.println("create connection");
+        MongoCredential credential = MongoCredential.createCredential(username, getDatabase(), password.toCharArray());
         MongoClientOptions options = MongoClientOptions.builder()/*.sslEnabled(true)*/.build();
         return new MongoClient(new ServerAddress(host, port), credential, options);
     }
 
-    public static NoSqlDbConnector newMongoDBConnector(String host, int port, String username, String password, String database) {
+    public static MongoDBConnector newMongoDBConnector(String host, int port, String username, String password, String database) {
         return new MongoDBConnector(host, port, username, password, database);
     }
 
+    public String getURIForSparkSession(){
+        return "mongodb://"+username + ":"+password+"@"+host+":"+port+"/"+ getDatabase() +".";
+    }
+
+    public String getDatabase() {
+        return database;
+    }
 }

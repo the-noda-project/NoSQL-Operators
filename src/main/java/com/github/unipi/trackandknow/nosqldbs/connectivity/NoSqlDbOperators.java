@@ -1,4 +1,4 @@
-package com.github.unipi.trackandknow.nosqldbs;
+package com.github.unipi.trackandknow.nosqldbs.connectivity;
 
 import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.AggregateOperator;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperator;

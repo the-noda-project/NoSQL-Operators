@@ -1,14 +1,11 @@
-package com.github.unipi.trackandknow;
+package com.github.unipi.trackandknow.nosqldbs.connectivity;
 
-import com.github.unipi.trackandknow.nosqldbs.NoSqlDb;
-import com.github.unipi.trackandknow.nosqldbs.NoSqlDbOperators;
-import com.github.unipi.trackandknow.nosqldbs.connection.NoSqlDbConnector;
 import org.apache.spark.sql.SparkSession;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoSqlDbSystem {
+public final class NoSqlDbSystem {
 
     public static class Builder {
 
@@ -19,6 +16,7 @@ public class NoSqlDbSystem {
         private String database; // the name of the database in which the user is defined
         private String username; // the user name
         private String password; // the password as a character array
+        private SparkSession sparkSession;
 
         public Builder(NoSqlDb nsdb) {
 
@@ -28,7 +26,7 @@ public class NoSqlDbSystem {
             this.database = nsdb.getDefaultDatabase();
             this.username = nsdb.getDefaultUsername();
             this.password = nsdb.getDefaultPassword();
-
+            this.sparkSession = null;
         }
 
         public Builder host(String host) {
@@ -56,13 +54,16 @@ public class NoSqlDbSystem {
             return this;
         }
 
-        public NoSqlDbSystem connect(){
-
-            return new NoSqlDbSystem(nsdb,nsdb.createNoSqlDbConnector());
-            //return new NoSqlDbSystem(nsdb, nsdb.noSqlDbConnector(host, port, username, password, database).getConnector(), database);
+        public Builder sparkSession(SparkSession sparkSession){
+            this.sparkSession = sparkSession;
+            return this;
         }
 
+        public NoSqlDbSystem connect(){
 
+            return new NoSqlDbSystem(nsdb,nsdb.createNoSqlDbConnector(host,port,username,password,database),sparkSession);
+            //return new NoSqlDbSystem(nsdb, nsdb.noSqlDbConnector(host, port, username, password, database).getConnector(), database);
+        }
 
     }
 
@@ -75,10 +76,11 @@ public class NoSqlDbSystem {
         this.nsdb = nsdb;
         this.connector = connector;
         this.sparkSession = sparkSession;
+
     }
 
-    public void disconnect(){
-        nsdb.disconnect(connector);
+    public void closeConnection(){
+        nsdb.closeConnection(connector);
     }
 
     public NoSqlDbOperators operateOn(String s){
@@ -89,10 +91,14 @@ public class NoSqlDbSystem {
         return new NoSqlDbSystem.Builder(NoSqlDb.MONGODB);
     }
 
-    public static void cleanUp(){
-        toBeCleaned.forEach(noSqlDb -> );
+    public static void closeConnections(){
+        toBeCleaned.forEach(noSqlDb -> noSqlDb.closeConnections());
     }
 
     private static final List<NoSqlDb> toBeCleaned = new ArrayList<>();
+
+    public static void initialize(){
+        System.setProperty("spark.mongodb.input.uri", "mongodb://1.1.1.1:27017/test.points");
+    }
 
 }
