@@ -226,7 +226,7 @@ final class MongoDBOperators implements NoSqlDbOperators {
         //System.out.println("The count"+(MongoSpark.builder().readConfig(readConfig).sparkSession(sparkSession).build()));
 
         //return MongoSpark.builder().readConfig(readConfig).sparkSession(sparkSession).build().toJavaRDD().toDF();
-        return MongoSpark.loadAndInferSchema(sparkSession,readConfig).toDF();
+        return MongoSpark.loadAndInferSchema(sparkSession,readConfig);
         //return customRdd.toDF();
 
 //
