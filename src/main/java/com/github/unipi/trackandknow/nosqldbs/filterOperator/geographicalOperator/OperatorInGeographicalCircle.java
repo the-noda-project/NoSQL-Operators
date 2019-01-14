@@ -2,7 +2,7 @@ package com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperat
 
 public class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnSinglePoint {
 
-    private final double radius;
+    private final double radius;//radius is in meters
 
     private OperatorInGeographicalCircle(String fieldName, Coordinates point, double radius) {
         super(fieldName, point);
@@ -14,29 +14,39 @@ public class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnSin
     }
 
     @Override
-    public StringBuilder getJsonStringBuilder()
-    {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("{ ");
-
-        if(!getFieldName().contains(".")){
-            sb.append(getFieldName());
-        }
-        else{
-            sb.append("\"" + getFieldName() + "\"");
-        }
-
-        sb.append(": { $geoWithin : { $centerSphere : [ [");
-        sb.append(getLongitude());
-        sb.append(", ");
-        sb.append(getLatitude());
-        sb.append("], ");
-        sb.append(radius);
-        sb.append(" ] } } }");
-
-        return sb;
+    int getNumberOfResultsForJsonStringBuilder() {
+        return Integer.MAX_VALUE;
     }
+
+    @Override
+    double getRadiusForJsonStringBuilder() {
+        return radius;
+    }
+
+//    @Override
+//    public StringBuilder getJsonStringBuilder()
+//    {
+//
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("{ ");
+//
+//        if(!getFieldName().contains(".")){
+//            sb.append(getFieldName());
+//        }
+//        else{
+//            sb.append("\"" + getFieldName() + "\"");
+//        }
+//
+//        sb.append(": { $geoWithin : { $centerSphere : [ [");
+//        sb.append(getLongitude());
+//        sb.append(", ");
+//        sb.append(getLatitude());
+//        sb.append("], ");
+//        sb.append(radius);
+//        sb.append(" ] } } }");
+//
+//        return sb;
+//    }
 }
 
 
