@@ -14,14 +14,24 @@ public class OperatorNearestNeighbors extends GeographicalOperatorBasedOnSingleP
     }
 
     @Override
-    public StringBuilder getJsonStringBuilder() {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("{ $geoNear: { near: {type: \"Point\", coordinates: ["+getLongitude()+", "+getLatitude()+"]}," +
-                "key: "+ ((!getFieldName().contains(".")) ? getFieldName() : "\"" + getFieldName() + "\"") +" ," +
-                "maxDistance: "+ 5 +"," + "num: "+ neighbors+" ," + "distanceField: \"distance\" ," + "spherical: true" + "} }");
-
-        return sb;
-
+    int getNumberOfResultsForJsonStringBuilder() {
+        return neighbors;
     }
+
+    @Override
+    double getRadiusForJsonStringBuilder() {
+        return 5;
+    }
+
+//    @Override
+//    public StringBuilder getJsonStringBuilder() {
+//
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("{ $geoNear: { near: {type: \"Point\", coordinates: ["+getLongitude()+", "+getLatitude()+"]}," +
+//                "key: "+ ((!getFieldName().contains(".")) ? getFieldName() : "\"" + getFieldName() + "\"") +" ," +
+//                "maxDistance: "+ 5 +"," + "num: "+ neighbors+" ," + "distanceField: \"distance\" ," + "spherical: true" + "} }");
+//
+//        return sb;
+//
+//    }
 }

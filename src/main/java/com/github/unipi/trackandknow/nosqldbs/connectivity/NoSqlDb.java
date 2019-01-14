@@ -9,8 +9,6 @@ enum NoSqlDb {
 
     MONGODB{
 
-        //private final Map<MongoDBConnector,MongoClient> connections = new HashMap<>();
-
         @Override
         public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database){
             return MongoDBConnector.newMongoDBConnector(host, port, username, password, database);
@@ -46,20 +44,6 @@ enum NoSqlDb {
             return "";
         }
 
-//        @Override
-//        public Object getConnectionOfConnector(NoSqlDbConnector connector) {
-//
-//            if(connections.containsKey(connector)){
-//                return connections.get(connector);
-//            }
-//
-//            MongoClient c = (MongoClient) connector.createConnection();
-//
-//            connections.put((MongoDBConnector) connector,c);
-//
-//            return c;
-//        }
-
         @Override
         public boolean closeConnections() {
             return MongoDBConnectionManager.getInstance().closeConnections();
@@ -83,8 +67,6 @@ enum NoSqlDb {
     public abstract String getDefaultUsername();
 
     public abstract String getDefaultPassword();
-
-    //public abstract Object getConnectionOfConnector(NoSqlDbConnector connector);
 
     public abstract boolean closeConnections();
 

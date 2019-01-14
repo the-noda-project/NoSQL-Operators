@@ -3,6 +3,7 @@ package com.github.unipi.trackandknow.nosqldbs.connectivity;
 import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.AggregateOperator;
 import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.OperatorMax;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperator;
+import com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator.GeographicalOperatorBasedOnSinglePoint;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.spark.MongoSpark;
 import com.mongodb.spark.config.ReadConfig;
@@ -13,6 +14,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import scala.collection.JavaConversions;
 import scala.collection.JavaConverters;
 import scala.collection.Seq;
 
@@ -43,27 +45,20 @@ final class MongoDBOperators implements NoSqlDbOperators {
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator) {
         System.out.println(filterOperator.getJsonStringBuilder());
-        stagesList.add(Document.parse(" { $match: " + filterOperator.getJsonStringBuilder() + " } "));
+        if(filterOperator instanceof GeographicalOperatorBasedOnSinglePoint)
+        {
+            stagesList.add(Document.parse(filterOperator.getJsonStringBuilder().toString()));
+        }
+        else{
+            stagesList.add(Document.parse(" { $match: " + filterOperator.getJsonStringBuilder() + " } "));
+        }
         return this;
     }
-
-//    @Override
-//    public void execute(){
-//        MongoCursor<Document> cursor = mongoCollection.aggregate(stagesList).iterator();
-//        try {
-//            while (cursor.hasNext()) {
-//                System.out.println(cursor.next().toJson());
-//            }
-//        } finally {
-//            cursor.close();
-//        }
-//    }
 
     @Override
     public int count(){
         stagesList.add(Document.parse("{ $count: \"count\" }"));
         System.out.println("Database Name "+connector.getDatabase());
-        System.out.println("111111111 "+connector.getDatabase());
         //System.out.println("mongoDBConnectionManager.getConnection(connector) "+mongoDBConnectionManager.getConnection(connector));
         return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getInteger("count",-10);
     }
@@ -194,12 +189,6 @@ final class MongoDBOperators implements NoSqlDbOperators {
         System.out.println(stagesList.toString());
     }
 
-//    SparkSession spark = SparkSession.builder()
-//            .master("local")
-//            .appName("MongoSparkConnectorIntro")
-//            .config("spark.mongodb.input.uri", "mongodb://127.0.0.1/test.myCollection")
-//            .getOrCreate();
-
     @Override
     public Dataset<Row> toDataframe() {
 
@@ -225,17 +214,19 @@ final class MongoDBOperators implements NoSqlDbOperators {
 //        readOverrides.put("collection", "points");
 
 
-
-
-
 //        ReadConfig readConfig = ReadConfig.create(jsc).withOptions(readOverrides);
 //        JavaMongoRDD<Document> customRdd = MongoSpark.load(jsc, readConfig);
-        ReadConfig readConfig = ReadConfig.create(sparkSession).withOptions(readOverrides).withPipeline(JavaConverters.asScalaIteratorConverter(stagesList.iterator()).asScala().toSeq());
+        ReadConfig readConfig = ReadConfig.create(sparkSession).withOptions(readOverrides).withPipeline(JavaConversions.asScalaBuffer(Collections.unmodifiableList(stagesList)).toSeq());
 
 
+        System.out.println(readConfig.pipelineIncludeFiltersAndProjections());
+        System.out.println(readConfig.pipeline());
+        //System.out.println("the list "+readConfig.pipeline().length());
 
+        //System.out.println("The count"+(MongoSpark.builder().readConfig(readConfig).sparkSession(sparkSession).build()));
 
-        return MongoSpark.loadAndInferSchema(sparkSession,readConfig);
+        //return MongoSpark.builder().readConfig(readConfig).sparkSession(sparkSession).build().toJavaRDD().toDF();
+        return MongoSpark.loadAndInferSchema(sparkSession,readConfig).toDF();
         //return customRdd.toDF();
 
 //

@@ -159,16 +159,16 @@ public class FilterOperators {
         return OperatorInGeographicalBox.newOperatorInGeographicalBox(fieldName, lowerBoundPoint, upperBoundPoint);
     }
 
-    public static FilterOperator inGeoRangeKm(String fieldName, Coordinates point, double radius) {
-        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, point, radius/6378.1);
+    public static FilterOperator inGeoCircleKm(String fieldName, Coordinates point, double radius) {
+        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, point, radius*1000);
     }
 
-    public static FilterOperator inGeoRangeMeters(String fieldName, Coordinates point, double radius) {
-        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, point, radius/6378100);
+    public static FilterOperator inGeoCircleMeters(String fieldName, Coordinates point, double radius) {
+        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, point, radius);
     }
 
-    public static FilterOperator inGeoRangeMiles(String fieldName, Coordinates point, double radius) {
-        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, point, radius/3963.2);
+    public static FilterOperator inGeoCircleMiles(String fieldName, Coordinates point, double radius) {
+        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, point, radius*1609.344);
     }
 
     public static FilterOperator nearestNeighbors(String fieldName, Coordinates point, int neighbors) {
