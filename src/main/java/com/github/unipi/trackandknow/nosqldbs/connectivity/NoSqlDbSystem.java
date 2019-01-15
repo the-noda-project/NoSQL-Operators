@@ -102,6 +102,7 @@ public final class NoSqlDbSystem {
         System.setProperty("spark.mongodb.input.uri", "mongodb://localhost:27017/");
         System.setProperty("spark.mongodb.input.database", "database");
         System.setProperty("spark.mongodb.input.collection", "collection");
+        System.setProperty("spark.mongodb.input.partitioner", "MongoSinglePartitioner");
     }
 
 }

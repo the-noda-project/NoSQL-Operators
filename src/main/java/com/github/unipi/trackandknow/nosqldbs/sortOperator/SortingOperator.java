@@ -12,14 +12,6 @@ public abstract class SortingOperator implements Operator {
         this.order = order;
     }
 
-    public String getFieldName() {
-        return fieldName;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
     @Override
     public StringBuilder getJsonStringBuilder() {
         StringBuilder sb = new StringBuilder();

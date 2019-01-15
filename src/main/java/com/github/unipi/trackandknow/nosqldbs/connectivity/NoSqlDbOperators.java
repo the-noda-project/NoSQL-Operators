@@ -26,11 +26,11 @@ public interface NoSqlDbOperators {
 
     int count();
 
-    NoSqlDbOperators sort(SortingOperator sop1, SortingOperator... sop2);
+    NoSqlDbOperators sort(SortingOperator sortingOperator, SortingOperator... sortingOperators);
 
     NoSqlDbOperators limit(int limit);
 
-    void project();
+    NoSqlDbOperators project(String fieldName, String... fieldNames);
 
     Dataset<Row> toDataframe();
 
