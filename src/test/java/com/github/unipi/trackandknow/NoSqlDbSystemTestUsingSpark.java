@@ -1,6 +1,5 @@
 package com.github.unipi.trackandknow;
 
-import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.AggregateOperators;
 import com.github.unipi.trackandknow.nosqldbs.connectivity.NoSqlDbSystem;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperators;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator.Coordinates;
@@ -9,12 +8,20 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.junit.Test;
 
-public class NoSqlDbSystemTest {
+import static org.junit.Assert.*;
+
+public class NoSqlDbSystemTestUsingSpark {
 
     @Test
     public void makeAConnection(){
 
         NoSqlDbSystem.initialize();
+
+        SparkSession spark = SparkSession.builder()
+                .master("local")
+                .appName("MongoSparkConnectorIntro")
+                //.config("spark.mongodb.input.uri", "mongodb://1.1.1.1:27017/test.points ")
+                .getOrCreate();
 
         //NoSqlDbSystem noSqlDbSystem1 = NoSqlDbSystem.MongoDB().host("83.212.102.163").database("test").username("myUserAdmin").password("abc123").port(27017).sparkSession(spark).connect();
 
@@ -23,29 +30,11 @@ public class NoSqlDbSystemTest {
 
         //System.out.println("points COUNT: "+noSqlDbSystem1.operateOn("points").filter(FilterOperators.inGeoCircleMeters("coordinates",Coordinates.newCoordinates(23.76,37.99),500)).toDataframe().count());
 
-        NoSqlDbSystem noSqlDbSystem2 = NoSqlDbSystem.MongoDB().host("83.212.102.163").database("test").username("myUserAdmin").password("abc123").port(28017).connect();
-
-        System.out.println("count "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).count());
-        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).printScreen();
-
-        System.out.println("Max "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).max("distance"));
-        System.out.println("Min "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).min("distance"));
-        System.out.println("Sum "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).sum("distance"));
-        System.out.println("Avg "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).avg("distance"));
-
-        System.out.println("GroupBy and count "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).groupBy("objectId").count());
-
-        System.out.println("GroupBy with All");
-        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).groupBy("objectId", AggregateOperators.max("distance").as("ma"),AggregateOperators.min("distance").as("mi"),AggregateOperators.sum("distance").as("su"),AggregateOperators.avg("distance").as("av"),AggregateOperators.count().as("c")).printScreen();
-
-        System.out.println("GroupBy Only");
-        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).groupBy("objectId").printScreen();
-
-        System.out.println("Distinct");
-        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).distinct("objectId").printScreen();
+        NoSqlDbSystem noSqlDbSystem2 = NoSqlDbSystem.MongoDB().host("83.212.102.163").database("test").username("myUserAdmin").password("abc123").port(28017).sparkSession(spark).connect();
+        Dataset<Row> d = noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location", Coordinates.newCoordinates(23.76,37.99),500)).toDataframe();
 
         System.out.println("OK!");
-
+        d.count();
 
         //System.out.println(noSqlDbSystem.operateOn("points").filter(FilterOperators.inGeoRangeMeters("coordinates",Coordinates.newCoordinates(23.76,37.99),500)).count());
 
@@ -53,7 +42,7 @@ public class NoSqlDbSystemTest {
         //System.out.println(noSqlDbSystem.operateOn("points").filter(FilterOperators.eq("objectId","15320_135320")).count());
         //noSqlDbSystem1.closeConnection();
         noSqlDbSystem2.closeConnection();
-
+        spark.close();
         //spark.close();
 //        NoSqlDbManager manager = NoSqlDbSystem.MongoDB().host("83.212.104.92").database("test").username("myUserAdmin").password("abc123").connect()
 //                .getNoSqlDbManager();
@@ -98,5 +87,4 @@ public class NoSqlDbSystemTest {
 //                .project();
 
     }
-
 }
