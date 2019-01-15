@@ -9,6 +9,9 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.junit.Test;
 
+import static com.github.unipi.trackandknow.nosqldbs.sortOperator.SortingOperators.asc;
+import static com.github.unipi.trackandknow.nosqldbs.sortOperator.SortingOperators.desc;
+
 public class NoSqlDbSystemTest {
 
     @Test
@@ -25,24 +28,35 @@ public class NoSqlDbSystemTest {
 
         NoSqlDbSystem noSqlDbSystem2 = NoSqlDbSystem.MongoDB().host("83.212.102.163").database("test").username("myUserAdmin").password("abc123").port(28017).connect();
 
-        System.out.println("count "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).count());
-        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).printScreen();
-
-        System.out.println("Max "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).max("distance"));
-        System.out.println("Min "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).min("distance"));
-        System.out.println("Sum "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).sum("distance"));
-        System.out.println("Avg "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).avg("distance"));
-
-        System.out.println("GroupBy and count "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).groupBy("objectId").count());
-
+//        System.out.println("count "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).count());
+//        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).printScreen();
+//
+//        System.out.println("Max "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).max("distance"));
+//        System.out.println("Min "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).min("distance"));
+//        System.out.println("Sum "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).sum("distance"));
+//        System.out.println("Avg "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).avg("distance"));
+//
+//        System.out.println("GroupBy and count "+noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).groupBy("objectId").count());
+//
         System.out.println("GroupBy with All");
         noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).groupBy("objectId", AggregateOperators.max("distance").as("ma"),AggregateOperators.min("distance").as("mi"),AggregateOperators.sum("distance").as("su"),AggregateOperators.avg("distance").as("av"),AggregateOperators.count().as("c")).printScreen();
+//
+//        System.out.println("GroupBy Only");
+//        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).groupBy("objectId").printScreen();
+//
+//        System.out.println("Distinct");
+//        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).distinct("objectId").printScreen();
 
-        System.out.println("GroupBy Only");
-        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).groupBy("objectId").printScreen();
+//        System.out.println("sort by");
+//        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).sort(desc("distance")).limit(1).printScreen();
+//
+//        System.out.println("limit");
+//        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).limit(1).printScreen();
 
-        System.out.println("Distinct");
-        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).distinct("objectId").printScreen();
+        System.out.println("project");
+        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).project("date").printScreen();
+
+
 
         System.out.println("OK!");
 

@@ -8,6 +8,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.spark.MongoSpark;
 import com.mongodb.spark.config.ReadConfig;
 import com.mongodb.spark.rdd.api.java.JavaMongoRDD;
+import com.mongodb.spark.rdd.partitioner.MongoSinglePartitioner;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -64,16 +65,16 @@ final class MongoDBOperators implements NoSqlDbOperators {
     }
 
     @Override
-    public NoSqlDbOperators sort(SortingOperator sop1, SortingOperator... sop2) {
+    public NoSqlDbOperators sort(SortingOperator sortingOperator, SortingOperator... sortingOperators) {
 
         StringBuilder sb =  new StringBuilder();
 
         sb.append("{ $sort : ");
         sb.append("{ ");
 
-        sb.append(sop1.getJsonStringBuilder());
+        sb.append(sortingOperator.getJsonStringBuilder());
 
-        for(SortingOperator so :sop2){
+        for(SortingOperator so :sortingOperators){
             sb.append(", ");
             sb.append(so.getJsonStringBuilder());
         }
@@ -87,39 +88,32 @@ final class MongoDBOperators implements NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators limit(int limit) {
-        return null;
+        stagesList.add(Document.parse("{ $limit: " + limit + " }"));
+        return this;
     }
 
     @Override
     public double max(String fieldName){
-
         stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorMax.newOperatorMax(fieldName).getJsonStringBuilder() +" } }"));
         return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getDouble("max_"+fieldName);
-
     }
 
     @Override
     public double min(String fieldName){
-
         stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorMin.newOperatorMin(fieldName).getJsonStringBuilder() +" } }"));
         return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getDouble("min_"+fieldName);
-
     }
 
     @Override
     public double sum(String fieldName){
-
         stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorSum.newOperatorSum(fieldName).getJsonStringBuilder() +" } }"));
         return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getDouble("sum_"+fieldName);
-
     }
 
     @Override
     public double avg(String fieldName){
-
         stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorAvg.newOperatorAvg(fieldName).getJsonStringBuilder() +" } }"));
         return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getDouble("avg_"+fieldName);
-
     }
 
     @Override
@@ -163,8 +157,26 @@ final class MongoDBOperators implements NoSqlDbOperators {
     }
 
     @Override
-    public void project() {
-        System.out.println(stagesList.toString());
+    public NoSqlDbOperators project(String fieldName, String... fieldNames) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ $project : { ");
+
+        sb.append("_id : 0, ");
+
+        sb.append(fieldName + " : 1");
+
+        for(String s : fieldNames){
+            sb.append(", ");
+            sb.append(fieldName + " : 1");
+        }
+
+        sb.append(" } }");
+
+        stagesList.add(Document.parse(sb.toString()));
+
+        return this;
+
     }
 
     @Override
@@ -197,12 +209,14 @@ final class MongoDBOperators implements NoSqlDbOperators {
         ReadConfig readConfig = ReadConfig.create(sparkSession).withOptions(readOverrides).withPipeline(JavaConversions.asScalaBuffer(Collections.unmodifiableList(stagesList)).toSeq());
 
 
+
         System.out.println(readConfig.pipelineIncludeFiltersAndProjections());
         System.out.println(readConfig.pipeline());
         //System.out.println("the list "+readConfig.pipeline().length());
 
-        //System.out.println("The count"+(MongoSpark.builder().readConfig(readConfig).sparkSession(sparkSession).build()));
 
+
+        //System.out.println("The count"+(MongoSpark.builder().readConfig(readConfig).sparkSession(sparkSession).build()));
         //return MongoSpark.builder().readConfig(readConfig).sparkSession(sparkSession).build().toJavaRDD().toDF();
         return MongoSpark.loadAndInferSchema(sparkSession,readConfig);
         //return customRdd.toDF();
