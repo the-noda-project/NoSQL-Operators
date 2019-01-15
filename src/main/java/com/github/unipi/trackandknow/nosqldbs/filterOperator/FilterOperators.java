@@ -5,6 +5,8 @@ import com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperato
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.logicalOperator.OperatorAnd;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.logicalOperator.OperatorOr;
 
+import java.util.Date;
+
 public class FilterOperators {
 
     public static FilterOperator and(FilterOperator... filterOperator) {
@@ -35,6 +37,10 @@ public class FilterOperators {
         return OperatorGreaterThanEqual.newOperatorGreaterThanEqual(fieldName, fieldValue);
     }
 
+    public static FilterOperator gte(String fieldName, Date fieldValue) {
+        return OperatorGreaterThanEqual.newOperatorGreaterThanEqual(fieldName, fieldValue);
+    }
+
     public static FilterOperator gt(String fieldName, double fieldValue) {
         return OperatorGreaterThan.newOperatorGreaterThan(fieldName, fieldValue);
     }
@@ -52,6 +58,10 @@ public class FilterOperators {
     }
 
     public static FilterOperator gt(String fieldName, long fieldValue) {
+        return OperatorGreaterThan.newOperatorGreaterThan(fieldName, fieldValue);
+    }
+
+    public static FilterOperator gt(String fieldName, Date fieldValue) {
         return OperatorGreaterThan.newOperatorGreaterThan(fieldName, fieldValue);
     }
 
@@ -75,6 +85,10 @@ public class FilterOperators {
         return OperatorLessThanEqual.newOperatorLessThanEqual(fieldName, fieldValue);
     }
 
+    public static FilterOperator lte(String fieldName, Date fieldValue) {
+        return OperatorLessThanEqual.newOperatorLessThanEqual(fieldName, fieldValue);
+    }
+
     public static FilterOperator lt(String fieldName, double fieldValue) {
         return OperatorLessThan.newOperatorLessThan(fieldName, fieldValue);
     }
@@ -92,6 +106,10 @@ public class FilterOperators {
     }
 
     public static FilterOperator lt(String fieldName, long fieldValue) {
+        return OperatorLessThan.newOperatorLessThan(fieldName, fieldValue);
+    }
+
+    public static FilterOperator lt(String fieldName, Date fieldValue) {
         return OperatorLessThan.newOperatorLessThan(fieldName, fieldValue);
     }
 
@@ -123,6 +141,10 @@ public class FilterOperators {
         return OperatorEqual.newOperatorEqual(fieldName, fieldValue);
     }
 
+    public static FilterOperator eq(String fieldName, Date fieldValue) {
+        return OperatorEqual.newOperatorEqual(fieldName, fieldValue);
+    }
+
     public static FilterOperator ne(String fieldName, double fieldValue) {
         return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
     }
@@ -151,6 +173,10 @@ public class FilterOperators {
         return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
     }
 
+    public static FilterOperator ne(String fieldName, Date fieldValue) {
+        return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
+    }
+
     public static FilterOperator inGeoPolygon(String fieldName, Coordinates... coordinates) {
         return OperatorInGeographicalPolygon.newOperatorInGeographicalPolygon(fieldName, coordinates);
     }
@@ -160,7 +186,7 @@ public class FilterOperators {
     }
 
     public static FilterOperator inGeoCircleKm(String fieldName, Coordinates point, double radius) {
-        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, point, radius*1000);
+        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, point, radius * 1000);
     }
 
     public static FilterOperator inGeoCircleMeters(String fieldName, Coordinates point, double radius) {
@@ -168,7 +194,7 @@ public class FilterOperators {
     }
 
     public static FilterOperator inGeoCircleMiles(String fieldName, Coordinates point, double radius) {
-        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, point, radius*1609.344);
+        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, point, radius * 1609.344);
     }
 
     public static FilterOperator nearestNeighbors(String fieldName, Coordinates point, int neighbors) {

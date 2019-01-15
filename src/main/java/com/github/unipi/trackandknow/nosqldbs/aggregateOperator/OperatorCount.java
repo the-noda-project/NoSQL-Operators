@@ -2,11 +2,11 @@ package com.github.unipi.trackandknow.nosqldbs.aggregateOperator;
 
 public class OperatorCount extends AggregateOperator {
 
-    private OperatorCount(String fieldName){
+    private OperatorCount(String fieldName) {
         super(fieldName, "count");
     }
 
-    public static OperatorCount newOperatorCount(){
+    public static OperatorCount newOperatorCount() {
         return new OperatorCount("");
     }
 
@@ -16,7 +16,7 @@ public class OperatorCount extends AggregateOperator {
     }
 
     @Override
-    public StringBuilder getJsonStringBuilder(){
+    public StringBuilder getJsonStringBuilder() {
         StringBuilder sb = new StringBuilder();
         sb.append(getAlias());
 

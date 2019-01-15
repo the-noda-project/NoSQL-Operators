@@ -1,4 +1,4 @@
-package com.github.unipi.trackandknow.nosqldbs.connectivity;
+package com.github.unipi.trackandknow.nosqldbs.nosqldbs;
 
 import org.apache.spark.sql.SparkSession;
 
@@ -54,14 +54,14 @@ public final class NoSqlDbSystem {
             return this;
         }
 
-        public Builder sparkSession(SparkSession sparkSession){
+        public Builder sparkSession(SparkSession sparkSession) {
             this.sparkSession = sparkSession;
             return this;
         }
 
-        public NoSqlDbSystem connect(){
+        public NoSqlDbSystem build() {
 
-            return new NoSqlDbSystem(nsdb,nsdb.createNoSqlDbConnector(host,port,username,password,database),sparkSession);
+            return new NoSqlDbSystem(nsdb, nsdb.createNoSqlDbConnector(host, port, username, password, database), sparkSession);
             //return new NoSqlDbSystem(nsdb, nsdb.noSqlDbConnector(host, port, username, password, database).getConnector(), database);
         }
 
@@ -72,32 +72,32 @@ public final class NoSqlDbSystem {
     private final SparkSession sparkSession;
 
 
-    private NoSqlDbSystem(NoSqlDb nsdb, NoSqlDbConnector connector, SparkSession sparkSession){
+    private NoSqlDbSystem(NoSqlDb nsdb, NoSqlDbConnector connector, SparkSession sparkSession) {
         this.nsdb = nsdb;
         this.connector = connector;
         this.sparkSession = sparkSession;
 
     }
 
-    public void closeConnection(){
+    public void closeConnection() {
         nsdb.closeConnection(connector);
     }
 
-    public NoSqlDbOperators operateOn(String s){
-        return nsdb.noSqlDbOperators(connector,s,sparkSession);
+    public NoSqlDbOperators operateOn(String s) {
+        return nsdb.noSqlDbOperators(connector, s, sparkSession);
     }
 
-    public static Builder MongoDB(){
+    public static Builder MongoDB() {
         return new NoSqlDbSystem.Builder(NoSqlDb.MONGODB);
     }
 
-    public static void closeConnections(){
+    public static void closeConnections() {
         toBeCleaned.forEach(noSqlDb -> noSqlDb.closeConnections());
     }
 
     private static final List<NoSqlDb> toBeCleaned = new ArrayList<>();
 
-    public static void initialize(){
+    public static void initialize() {
         //System.setProperty("spark.mongodb.input.uri", "mongodb://localhost:27017/database.collection");
         System.setProperty("spark.mongodb.input.uri", "mongodb://localhost:27017/");
         System.setProperty("spark.mongodb.input.database", "database");

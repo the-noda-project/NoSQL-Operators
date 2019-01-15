@@ -1,4 +1,4 @@
-package com.github.unipi.trackandknow.nosqldbs.connectivity;
+package com.github.unipi.trackandknow.nosqldbs.nosqldbs;
 
 import com.mongodb.MongoClient;
 
@@ -6,12 +6,12 @@ final class MongoDBConnectionManager extends NoSqlDbConnectionManager<MongoClien
 
     private static final MongoDBConnectionManager INSTANCE = new MongoDBConnectionManager();
 
-    private MongoDBConnectionManager(){
+    private MongoDBConnectionManager() {
 
     }
 
-    public boolean closeConnection(NoSqlDbConnector noSqlDbConnector){
-        if(getConnections().containsKey(noSqlDbConnector)){
+    public boolean closeConnection(NoSqlDbConnector noSqlDbConnector) {
+        if (getConnections().containsKey(noSqlDbConnector)) {
             getConnections().get(noSqlDbConnector).close();
             getConnections().remove(noSqlDbConnector);
         }
@@ -19,8 +19,8 @@ final class MongoDBConnectionManager extends NoSqlDbConnectionManager<MongoClien
         return true;
     }
 
-    public boolean closeConnections(){
-        getConnections().forEach((k,v)->{
+    public boolean closeConnections() {
+        getConnections().forEach((k, v) -> {
             v.close();
         });
         getConnections().clear();
@@ -36,6 +36,8 @@ final class MongoDBConnectionManager extends NoSqlDbConnectionManager<MongoClien
 //        return addConnection(noSqlDbConnector,(MongoClient) noSqlDbConnector.createConnection());
 //    }
 
-    public static MongoDBConnectionManager getInstance(){return INSTANCE;}
+    public static MongoDBConnectionManager getInstance() {
+        return INSTANCE;
+    }
 
 }

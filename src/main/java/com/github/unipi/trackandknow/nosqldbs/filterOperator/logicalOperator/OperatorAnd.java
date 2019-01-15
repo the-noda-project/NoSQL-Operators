@@ -4,7 +4,7 @@ import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperator;
 
 public class OperatorAnd extends LogicalOperator {
 
-    private OperatorAnd(FilterOperator... filterOperatorChildren){
+    private OperatorAnd(FilterOperator... filterOperatorChildren) {
         super(filterOperatorChildren);
     }
 
@@ -13,7 +13,7 @@ public class OperatorAnd extends LogicalOperator {
         return "and";
     }
 
-    public static OperatorAnd newOperatorAnd(FilterOperator... filterOperator){
+    public static OperatorAnd newOperatorAnd(FilterOperator... filterOperator) {
         return new OperatorAnd(filterOperator);
     }
 

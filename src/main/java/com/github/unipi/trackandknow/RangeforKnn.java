@@ -32,7 +32,7 @@ public class RangeforKnn {
         b1.add(Document.parse(
                 "{ $match: { \"location\": { $geoWithin : { $centerSphere : [ [" + longitude + ", " + latitude + "], " + radius1 + " ] } } } }"));
 
-                b1.add(Document.parse(" {" +
+        b1.add(Document.parse(" {" +
                 "      $addFields: { \"nikosField\":  \"sddsd\"  }" +
                 "      $addFields: { \"nikosField\":  $Math.cos(1)  }" +
                 "    }"));

@@ -1,9 +1,10 @@
 package com.github.unipi.trackandknow.nosqldbs.filterOperator.comparisonOperator;
 
-public class OperatorGreaterThanEqual<T extends Number> extends ComparisonOperator<T> {
+import java.util.Date;
+
+public class OperatorGreaterThanEqual<T> extends ComparisonOperator<T> {
 
     private OperatorGreaterThanEqual(String fieldName, T fieldValue) {
-
         super(fieldName, fieldValue);
     }
 
@@ -12,15 +13,28 @@ public class OperatorGreaterThanEqual<T extends Number> extends ComparisonOperat
         return "gte";
     }
 
-    public static <T extends Number> OperatorGreaterThanEqual newOperatorGreaterThanEqual(String fieldName, T fieldValue) {
+    public static OperatorGreaterThanEqual<Double> newOperatorGreaterThanEqual(String fieldName, Double fieldValue) {
         return new OperatorGreaterThanEqual(fieldName, fieldValue);
     }
 
-//    @Override
-//    public StringBuilder getJsonString() {
-//
-//        return "{ " + ((!fieldName.contains(".")) ? fieldName : "\"" + fieldName + "\"") +
-//                ": { $gte: " + fieldValue + " } }";
-//    }
+    public static OperatorGreaterThanEqual<Integer> newOperatorGreaterThanEqual(String fieldName, Integer fieldValue) {
+        return new OperatorGreaterThanEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorGreaterThanEqual<Float> newOperatorGreaterThanEqual(String fieldName, Float fieldValue) {
+        return new OperatorGreaterThanEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorGreaterThanEqual<Short> newOperatorGreaterThanEqual(String fieldName, Short fieldValue) {
+        return new OperatorGreaterThanEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorGreaterThanEqual<Long> newOperatorGreaterThanEqual(String fieldName, Long fieldValue) {
+        return new OperatorGreaterThanEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorGreaterThanEqual<Date> newOperatorGreaterThanEqual(String fieldName, Date fieldValue) {
+        return new OperatorGreaterThanEqual(fieldName, fieldValue);
+    }
 
 }

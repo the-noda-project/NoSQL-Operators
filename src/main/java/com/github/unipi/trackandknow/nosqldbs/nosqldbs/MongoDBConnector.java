@@ -1,4 +1,4 @@
-package com.github.unipi.trackandknow.nosqldbs.connectivity;
+package com.github.unipi.trackandknow.nosqldbs.nosqldbs;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
@@ -41,7 +41,7 @@ final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
     }
 
     @Override
-    public MongoClient createConnection(){
+    public MongoClient createConnection() {
 
         System.out.println("create connection");
         MongoCredential credential = MongoCredential.createCredential(username, getDatabase(), password.toCharArray());
@@ -53,8 +53,8 @@ final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
         return new MongoDBConnector(host, port, username, password, database);
     }
 
-    public String getMongoURIForSparkSession(){
-        return "mongodb://"+username + ":"+password+"@"+ getHost() +":"+ getPort() +"/"+ getDatabase() +".";
+    public String getMongoURIForSparkSession() {
+        return "mongodb://" + username + ":" + password + "@" + getHost() + ":" + getPort() + "/" + getDatabase() + ".";
     }
 
     public String getDatabase() {

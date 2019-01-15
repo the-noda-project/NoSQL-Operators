@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DonutVsRange {
-    public static void main(String args[]){
+    public static void main(String args[]) {
 
         double longitude = 23f;
         double latitude = 36.5f;
         int radius2 = 45000;
-        double radius1 = (radius2/1000f)/6378.1f;
+        double radius1 = (radius2 / 1000f) / 6378.1f;
         System.out.println(radius1);
 
         MongoCredential credential = MongoCredential.createCredential("myUserAdmin", "test", "abc123".toCharArray());
@@ -30,7 +30,7 @@ public class DonutVsRange {
 
         List<Bson> b1 = new ArrayList<>();
         b1.add(Document.parse(
-                "{ $match: { \"location\": { $geoWithin : { $centerSphere : [ ["+longitude+", "+latitude+"], "+ radius1 +" ] } } } }"));
+                "{ $match: { \"location\": { $geoWithin : { $centerSphere : [ [" + longitude + ", " + latitude + "], " + radius1 + " ] } } } }"));
         b1.add(Document.parse("    {\n" +
                 "      $count: \"passing_scores\"\n" +
                 "    }"));
@@ -46,19 +46,13 @@ public class DonutVsRange {
             cursor.close();
         }
 
-        System.out.println("Calculation Time: "+(System.currentTimeMillis()-t1));
+        System.out.println("Calculation Time: " + (System.currentTimeMillis() - t1));
 
         mongoClient.close();
 
 
-
-
-
-
-
         mongoClient = new MongoClient(new ServerAddress("83.212.102.163", 28017), credential, options);
         m = mongoClient.getDatabase("test").getCollection("geoPoints");
-
 
 
         List<Bson> b2 = new ArrayList<>();
@@ -83,9 +77,9 @@ public class DonutVsRange {
                 " { $match:  { location: {" +
                         "  $near: {\n" +
 
-                        "        $geometry: { type: \"Point\", coordinates: [ "+longitude+", "+latitude+" ] },\n" +
-                        "        $maxDistance: "+radius2+",\n" +
-                        "        $minDistance: "+0+",\n" +
+                        "        $geometry: { type: \"Point\", coordinates: [ " + longitude + ", " + latitude + " ] },\n" +
+                        "        $maxDistance: " + radius2 + ",\n" +
+                        "        $minDistance: " + 0 + ",\n" +
 
                         " } } } }"));
 
@@ -102,7 +96,7 @@ public class DonutVsRange {
             cursor.close();
         }
         //System.out.println(i);
-        System.out.println("Calculation Time: "+(System.currentTimeMillis()-t1));
+        System.out.println("Calculation Time: " + (System.currentTimeMillis() - t1));
 
         mongoClient.close();
 

@@ -1,4 +1,4 @@
-package com.github.unipi.trackandknow.nosqldbs.connectivity;
+package com.github.unipi.trackandknow.nosqldbs.nosqldbs;
 
 public interface NoSqlDbConnector<T> {
 
