@@ -1,4 +1,4 @@
-package com.github.unipi.trackandknow.nosqldbs.connectivity;
+package com.github.unipi.trackandknow.nosqldbs.nosqldbs;
 
 import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.AggregateOperator;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperator;
@@ -8,7 +8,7 @@ import org.apache.spark.sql.Row;
 
 public interface NoSqlDbOperators {
 
-    NoSqlDbOperators filter(FilterOperator filterOperator);
+    NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators);
 
     NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator);
 

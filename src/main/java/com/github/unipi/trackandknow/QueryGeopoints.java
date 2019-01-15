@@ -12,12 +12,9 @@ import org.bson.Document;
 
 import java.util.Arrays;
 
-import static com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperators.inGeoBox;
-import static com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperators.inGeoCircleKm;
-
 
 public class QueryGeopoints {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         MongoCredential credential = MongoCredential.createCredential("myUserAdmin", "test", "abc123".toCharArray());
         MongoClientOptions options = MongoClientOptions.builder().maxConnectionIdleTime(90000).build();
@@ -79,19 +76,19 @@ public class QueryGeopoints {
 
         //long d = m.countDocuments(Filters.geoWithinCenterSphere("coordinates",23,36.5,166.8/6378.1));
         //long d = m.countDocuments(Filters.geoWithinCenterSphere("location",23,36.5,55.6/6378.1));
-        Polygon polygon = new Polygon(Arrays.asList(new Position(22.5, 36),new Position(23, 36),new Position(23, 36.3),new Position(22.5, 36.3),new Position(22.5, 36)));
+        Polygon polygon = new Polygon(Arrays.asList(new Position(22.5, 36), new Position(23, 36), new Position(23, 36.3), new Position(22.5, 36.3), new Position(22.5, 36)));
         //long d = m.countDocuments(Filters.geoWithin("location", polygon));
-        System.out.println(FilterOperators.lte("objectId",0).getJsonStringBuilder());
+        System.out.println(FilterOperators.lte("objectId", 0).getJsonStringBuilder());
 
 
         //long d = m.countDocuments(Document.parse(FilterOperators.or(inGeoRangeKm("location",23, 36.5,55.6),FilterOperators.lte("objectId",400)).getJsonString()));
-        long d = m.countDocuments(Document.parse(FilterOperators.eq("objectId","15320_135320").getJsonStringBuilder().toString()));
+        long d = m.countDocuments(Document.parse(FilterOperators.eq("objectId", "15320_135320").getJsonStringBuilder().toString()));
 
         //System.out.println(inGeoBox("location",22.5, 36,23, 36.3));
 
         System.out.println("geoPoints collection");
-        System.out.println("Time Elapsed: "+(System.currentTimeMillis()-start)/1000);
-        System.out.println("Number Of Records: "+ d);
+        System.out.println("Time Elapsed: " + (System.currentTimeMillis() - start) / 1000);
+        System.out.println("Number Of Records: " + d);
 
         mongoClient.close();
 

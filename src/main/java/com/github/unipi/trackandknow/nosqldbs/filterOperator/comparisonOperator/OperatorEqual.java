@@ -1,5 +1,7 @@
 package com.github.unipi.trackandknow.nosqldbs.filterOperator.comparisonOperator;
 
+import java.util.Date;
+
 public class OperatorEqual<T> extends ComparisonOperator<T> {
 
     private OperatorEqual(String fieldName, T fieldValue) {
@@ -12,9 +14,36 @@ public class OperatorEqual<T> extends ComparisonOperator<T> {
         return "eq";
     }
 
-    public static <T> OperatorEqual newOperatorEqual(String fieldName, T fieldValue) {
+    public static OperatorEqual<Double> newOperatorEqual(String fieldName, Double fieldValue) {
         return new OperatorEqual(fieldName, fieldValue);
     }
 
+    public static OperatorEqual<Integer> newOperatorEqual(String fieldName, Integer fieldValue) {
+        return new OperatorEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorEqual<Float> newOperatorEqual(String fieldName, Float fieldValue) {
+        return new OperatorEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorEqual<Short> newOperatorEqual(String fieldName, Short fieldValue) {
+        return new OperatorEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorEqual<Long> newOperatorEqual(String fieldName, Long fieldValue) {
+        return new OperatorEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorEqual<Date> newOperatorEqual(String fieldName, Date fieldValue) {
+        return new OperatorEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorEqual<Boolean> newOperatorEqual(String fieldName, Boolean fieldValue) {
+        return new OperatorEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorEqual<String> newOperatorEqual(String fieldName, String fieldValue) {
+        return new OperatorEqual(fieldName, fieldValue);
+    }
 
 }

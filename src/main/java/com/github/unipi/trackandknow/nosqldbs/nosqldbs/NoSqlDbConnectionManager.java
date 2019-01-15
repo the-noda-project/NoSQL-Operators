@@ -1,21 +1,21 @@
-package com.github.unipi.trackandknow.nosqldbs.connectivity;
+package com.github.unipi.trackandknow.nosqldbs.nosqldbs;
 
 import java.util.HashMap;
 import java.util.Map;
 
 abstract class NoSqlDbConnectionManager<T> {
 
-    private final Map<NoSqlDbConnector,T> connections;
+    private final Map<NoSqlDbConnector, T> connections;
 
-    protected NoSqlDbConnectionManager(){
+    protected NoSqlDbConnectionManager() {
         connections = new HashMap<>();
     }
 
-    protected Map<NoSqlDbConnector,T> getConnections(){
+    protected Map<NoSqlDbConnector, T> getConnections() {
         return connections;
     }
 
-    public T getConnection(NoSqlDbConnector noSqlDbConnector){
+    public T getConnection(NoSqlDbConnector noSqlDbConnector) {
 
         if (connections.containsKey(noSqlDbConnector)) {
             System.out.println("Connection found");

@@ -1,15 +1,15 @@
 package com.github.unipi.trackandknow;
 
-import com.github.unipi.trackandknow.nosqldbs.connectivity.NoSqlDbSystem;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperators;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator.Coordinates;
+import com.github.unipi.trackandknow.nosqldbs.nosqldbs.NoSqlDbSystem;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 public class Sample {
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         NoSqlDbSystem.initialize();
 
         SparkSession spark = SparkSession.builder()
@@ -25,8 +25,8 @@ public class Sample {
 
         //System.out.println("points COUNT: "+noSqlDbSystem1.operateOn("points").filter(FilterOperators.inGeoCircleMeters("coordinates",Coordinates.newCoordinates(23.76,37.99),500)).toDataframe().count());
 
-        NoSqlDbSystem noSqlDbSystem2 = NoSqlDbSystem.MongoDB().host("83.212.102.163").database("test").username("myUserAdmin").password("abc123").port(28017).sparkSession(spark).connect();
-        Dataset<Row> d = noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location", Coordinates.newCoordinates(23.76,37.99),100)).toDataframe();
+        NoSqlDbSystem noSqlDbSystem2 = NoSqlDbSystem.MongoDB().host("83.212.102.163").database("test").username("myUserAdmin").password("abc123").port(28017).sparkSession(spark).build();
+        Dataset<Row> d = noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location", Coordinates.newCoordinates(23.76, 37.99), 100)).toDataframe();
 
         System.out.println(d.count());
         System.out.println("OK!");

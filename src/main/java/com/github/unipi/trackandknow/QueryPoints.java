@@ -6,16 +6,10 @@ import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
-import org.bson.Document;
-import org.bson.conversions.Bson;
-
-import static com.mongodb.client.model.Filters.and;
-import static com.mongodb.client.model.Filters.gte;
-import static com.mongodb.client.model.Filters.lte;
 
 
 public class QueryPoints {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         MongoCredential credential = MongoCredential.createCredential("myUserAdmin", "test", "abc123".toCharArray());
         MongoClientOptions options = MongoClientOptions.builder().build();
@@ -75,11 +69,11 @@ public class QueryPoints {
         //long d = m.countDocuments(f);
 
 
-        long d = m.countDocuments(Filters.near("coordinates",23,36.5,new Double(2),new Double(0)));
+        long d = m.countDocuments(Filters.near("coordinates", 23, 36.5, new Double(2), new Double(0)));
 
         System.out.println("points collection");
-        System.out.println("Time Elapsed: "+(System.currentTimeMillis()-start)/1000);
-        System.out.println("Number Of Records: "+ d);
+        System.out.println("Time Elapsed: " + (System.currentTimeMillis() - start) / 1000);
+        System.out.println("Number Of Records: " + d);
 
         mongoClient.close();
 

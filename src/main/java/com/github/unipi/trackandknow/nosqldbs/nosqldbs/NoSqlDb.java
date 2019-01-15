@@ -1,46 +1,42 @@
-package com.github.unipi.trackandknow.nosqldbs.connectivity;
+package com.github.unipi.trackandknow.nosqldbs.nosqldbs;
 
-import com.mongodb.MongoClient;
 import org.apache.spark.sql.SparkSession;
-
-import java.util.*;
 
 enum NoSqlDb {
 
-    MONGODB{
-
+    MONGODB {
         @Override
-        public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database){
+        public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {
             return MongoDBConnector.newMongoDBConnector(host, port, username, password, database);
         }
 
         @Override
-        public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession){
+        public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
             return MongoDBOperators.newMongoDBOperators((MongoDBConnector) connector, s, sparkSession);
         }
 
         @Override
-        public void closeConnection(NoSqlDbConnector noSqlDbConnector){
+        public void closeConnection(NoSqlDbConnector noSqlDbConnector) {
             MongoDBConnectionManager.getInstance().closeConnection(noSqlDbConnector);
         }
 
         @Override
-        public int getDefaultPort(){
+        public int getDefaultPort() {
             return 27017;
         }
 
         @Override
-        public String getDefaultDatabase(){
+        public String getDefaultDatabase() {
             return "";
         }
 
         @Override
-        public String getDefaultUsername(){
+        public String getDefaultUsername() {
             return "";
         }
 
         @Override
-        public String getDefaultPassword(){
+        public String getDefaultPassword() {
             return "";
         }
 
@@ -56,7 +52,7 @@ enum NoSqlDb {
 
     public abstract void closeConnection(NoSqlDbConnector noSqlDbConnector);
 
-    public String getDefaultHost(){
+    public String getDefaultHost() {
         return "localhost";
     }
 

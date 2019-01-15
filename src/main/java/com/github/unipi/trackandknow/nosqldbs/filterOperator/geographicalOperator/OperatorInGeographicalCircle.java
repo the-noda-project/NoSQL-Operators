@@ -9,7 +9,7 @@ public class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnSin
         this.radius = radius;
     }
 
-    public static OperatorInGeographicalCircle newOperatorInGeographicalCircle(String fieldName, Coordinates point, double radius){
+    public static OperatorInGeographicalCircle newOperatorInGeographicalCircle(String fieldName, Coordinates point, double radius) {
         return new OperatorInGeographicalCircle(fieldName, point, radius);
     }
 
@@ -48,8 +48,6 @@ public class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnSin
 //        return sb;
 //    }
 }
-
-
 
 
 //package com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator;

@@ -11,20 +11,20 @@ public abstract class LogicalOperator implements FilterOperator {
         this.filterOperatorChildren = filterOperatorChildren;
     }
 
-    protected FilterOperator[] getFilterOperatorChildren(){
+    protected FilterOperator[] getFilterOperatorChildren() {
         return filterOperatorChildren;
     }
 
     protected abstract String getOperatorJsonField();
 
-    public StringBuilder getJsonStringBuilder(){
+    public StringBuilder getJsonStringBuilder() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("{ $");
         sb.append(getOperatorJsonField());
         sb.append(": [ ");
 
-        for(FilterOperator fop: getFilterOperatorChildren()){
+        for (FilterOperator fop : getFilterOperatorChildren()) {
 
             sb.append(fop.getJsonStringBuilder());
             sb.append(", ");
@@ -37,9 +37,8 @@ public abstract class LogicalOperator implements FilterOperator {
         return sb;
     }
 
-    private void checkNumberOfChildrenCondition(FilterOperator... filterOperatorChildren)
-    {
-        if(filterOperatorChildren.length < 2){
+    private void checkNumberOfChildrenCondition(FilterOperator... filterOperatorChildren) {
+        if (filterOperatorChildren.length < 2) {
             try {
                 throw new Exception("Less than two children");
             } catch (Exception e) {

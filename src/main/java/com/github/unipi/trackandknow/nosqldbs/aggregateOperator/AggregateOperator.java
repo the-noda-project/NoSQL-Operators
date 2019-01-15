@@ -12,7 +12,7 @@ public abstract class AggregateOperator implements Operator {
         this.alias = alias;
     }
 
-    public AggregateOperator as(String alias){
+    public AggregateOperator as(String alias) {
         this.alias = alias;
         return this;
     }
@@ -20,7 +20,7 @@ public abstract class AggregateOperator implements Operator {
     protected abstract String getOperatorJsonField();
 
     @Override
-    public StringBuilder getJsonStringBuilder(){
+    public StringBuilder getJsonStringBuilder() {
         StringBuilder sb = new StringBuilder();
         sb.append(getAlias());
 

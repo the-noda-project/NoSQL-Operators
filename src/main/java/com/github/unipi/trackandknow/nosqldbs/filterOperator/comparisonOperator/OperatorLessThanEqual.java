@@ -1,6 +1,8 @@
 package com.github.unipi.trackandknow.nosqldbs.filterOperator.comparisonOperator;
 
-public class OperatorLessThanEqual<T extends Number> extends ComparisonOperator<T> {
+import java.util.Date;
+
+public class OperatorLessThanEqual<T> extends ComparisonOperator<T> {
 
     private OperatorLessThanEqual(String fieldName, T fieldValue) {
 
@@ -12,14 +14,28 @@ public class OperatorLessThanEqual<T extends Number> extends ComparisonOperator<
         return "lte";
     }
 
-    public static <T extends Number> OperatorLessThanEqual newOperatorLessThanEqual(String fieldName, T fieldValue) {
+    public static OperatorLessThanEqual<Double> newOperatorLessThanEqual(String fieldName, Double fieldValue) {
         return new OperatorLessThanEqual(fieldName, fieldValue);
     }
 
-//    @Override
-//    public StringBuilder getJsonString() {
-//        return "{ " + ((!fieldName.contains(".")) ? fieldName : "\"" + fieldName + "\"") +
-//                ": { $lte: " + fieldValue + " } }";
-//    }
+    public static OperatorLessThanEqual<Integer> newOperatorLessThanEqual(String fieldName, Integer fieldValue) {
+        return new OperatorLessThanEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorLessThanEqual<Float> newOperatorLessThanEqual(String fieldName, Float fieldValue) {
+        return new OperatorLessThanEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorLessThanEqual<Short> newOperatorLessThanEqual(String fieldName, Short fieldValue) {
+        return new OperatorLessThanEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorLessThanEqual<Long> newOperatorLessThanEqual(String fieldName, Long fieldValue) {
+        return new OperatorLessThanEqual(fieldName, fieldValue);
+    }
+
+    public static OperatorLessThanEqual<Date> newOperatorLessThanEqual(String fieldName, Date fieldValue) {
+        return new OperatorLessThanEqual(fieldName, fieldValue);
+    }
 
 }

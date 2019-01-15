@@ -19,30 +19,29 @@ public abstract class GeographicalOperator implements FilterOperator {
         return coordinatesArray;
     }
 
-    protected String getFieldName(){
+    protected String getFieldName() {
         return fieldName;
     }
 
-    protected void checkCoordinates()
-    {
+    protected void checkCoordinates() {
 
-        if(coordinatesArray==null){
+        if (coordinatesArray == null) {
             System.out.println("coordinatesArray is NULL");
         }
-        System.out.println("coordinatesArray"+coordinatesArray.length);
-        for(Coordinates c : coordinatesArray){
-        if(longitudeOutOfRange.test(c.getLongitude()) || latitudeOutOfRange.test(c.getLatitude())){
-            try {
-                throw new Exception("Longitude - Latitude values are incorrect");
-            } catch (Exception e) {
-                e.printStackTrace();
+        System.out.println("coordinatesArray" + coordinatesArray.length);
+        for (Coordinates c : coordinatesArray) {
+            if (longitudeOutOfRange.test(c.getLongitude()) || latitudeOutOfRange.test(c.getLatitude())) {
+                try {
+                    throw new Exception("Longitude - Latitude values are incorrect");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
-    }
 
 
-//
+    //
 //
 //    Coordinates[] getCoordinatesArray();
 //    String getFieldName();
