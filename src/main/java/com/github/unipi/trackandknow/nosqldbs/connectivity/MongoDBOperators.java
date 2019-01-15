@@ -1,9 +1,9 @@
 package com.github.unipi.trackandknow.nosqldbs.connectivity;
 
-import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.AggregateOperator;
-import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.OperatorMax;
+import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.*;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperator;
 import com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator.GeographicalOperatorBasedOnSinglePoint;
+import com.github.unipi.trackandknow.nosqldbs.sortOperator.SortingOperator;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.spark.MongoSpark;
 import com.mongodb.spark.config.ReadConfig;
@@ -64,85 +64,63 @@ final class MongoDBOperators implements NoSqlDbOperators {
     }
 
     @Override
-    public double max(String fieldName){
+    public NoSqlDbOperators sort(SortingOperator sop1, SortingOperator... sop2) {
 
-        //System.out.println(Aggregates.match(Filter.parse(FilterOperators.gte("categories", 6).getJsonString())));
-        //System.out.println(Aggregates.match(Filters.eq("categories", "Bakery")).toString());
+        StringBuilder sb =  new StringBuilder();
 
-        //stagesList.add(Document.parse(" { $project : {$max: \"id\"} }"));
-        //mongoCollection.aggregate(stagesList).first();
+        sb.append("{ $sort : ");
+        sb.append("{ ");
 
-        //stagesList.add(Aggregates.project(Document.parse("{$max: \"id\"}")));
-        //stagesList.add(new Document("$match", Document.parse(FilterOperators.eq("r",4).getJsonString())));
+        sb.append(sop1.getJsonStringBuilder());
 
-        //stagesList.add(Document.parse("{ $group: { _id:null, max: { $max: \"$location.coordinates.1\" }} }"));
+        for(SortingOperator so :sop2){
+            sb.append(", ");
+            sb.append(so.getJsonStringBuilder());
+        }
 
+        sb.append(" } }");
 
-        stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorMax.newOperatorMax(fieldName).getJsonStringBuilder() +" } }"));
+        stagesList.add(Document.parse(sb.toString()));
 
-
-
-//        stagesList.add(Document.parse("{ $group: { _id:null, max: { $min: { $arrayElemAt: [ \"$location.coordinates\", 0 ] } }} }"));
-//        stagesList.add(Document.parse("{ $project: { dfd: { $min: { $arrayElemAt: [ \"$location.coordinates\", 0 ] } }} }"));
-
-        //System.out.println(Document.parse(" { $project: " + OperatorMax.newOperatorMax(fieldName,"max_"+fieldName).getJsonString() + " } "));
-//        stagesList.add(Document.parse(" { $project: " + OperatorMax.newOperatorMax(fieldName,"maxf").getJsonString() + " } "));
-//        stagesList.add(Document.parse("{ $count: \"maxf\" }"));
-        //System.out.println(((Document) mongoCollection.aggregate(stagesList).first()).getString("maxf"));
-
-        //System.out.println(new Document("$match", FilterOperators.eq("r",4).getJsonString()).toString());
-
-
-//        MongoCursor<Document> cursor = mongoCollection.aggregate(stagesList).iterator();
-//        try {
-//            while (cursor.hasNext()) {
-//                System.out.println(cursor.next().toJson());
-//            }
-//        } finally {
-//            cursor.close();
-//        }
-//        System.out.println("dfddffdfd");
-
-        //Aggregates.project()
-        //stagesList.add(Document.parse(new Document("$project", AggregateOperators.max(fieldName).getJsonString()).toJson()));
-
-        //System.out.println(new Document("$project", AggregateOperators.max(fieldName).getJsonString()));
-
-        return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getDouble("max("+fieldName+")");
-        //return 4;
+        return this;
     }
 
-//    private FilterOperator getFilter(){
-//
-//        if(filterOperatorList.size()==0){
-//            return null;
-//        }
-//        else if(filterOperatorList.size()==1){
-//            return filterOperatorList.get(0);
-//        }
-//        else{
-//            return FilterOperators.and((FilterOperator[]) filterOperatorList.stream().toArray());
-//        }
-//
-//    }
+    @Override
+    public NoSqlDbOperators limit(int limit) {
+        return null;
+    }
 
-//    @Override
-//    public void aggregate(AggregateOperator... aggregateOperator){
-//
-//        List<Bson> bsonList = new ArrayList<>();
-//        FilterOperator fop = getFilter();
-//
-//        if(fop != null){
-//            bsonList.add(Document.parse("{ $match: {" + getFilter().getJsonString() + "} }"));
-//        }
-//
-//        for(AggregateOperator aop : aggregateOperator){
-//            bsonList.add(Document.parse(aop.getJsonString()));
-//        }
-//
-//        mongoCollection.aggregate(bsonList);
-//
-//    }
+    @Override
+    public double max(String fieldName){
+
+        stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorMax.newOperatorMax(fieldName).getJsonStringBuilder() +" } }"));
+        return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getDouble("max_"+fieldName);
+
+    }
+
+    @Override
+    public double min(String fieldName){
+
+        stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorMin.newOperatorMin(fieldName).getJsonStringBuilder() +" } }"));
+        return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getDouble("min_"+fieldName);
+
+    }
+
+    @Override
+    public double sum(String fieldName){
+
+        stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorSum.newOperatorSum(fieldName).getJsonStringBuilder() +" } }"));
+        return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getDouble("sum_"+fieldName);
+
+    }
+
+    @Override
+    public double avg(String fieldName){
+
+        stagesList.add(Document.parse("{ $group: { _id:null, "+ OperatorAvg.newOperatorAvg(fieldName).getJsonStringBuilder() +" } }"));
+        return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getDouble("avg_"+fieldName);
+
+    }
 
     @Override
     public NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator){

@@ -26,7 +26,7 @@ public class Sample {
         //System.out.println("points COUNT: "+noSqlDbSystem1.operateOn("points").filter(FilterOperators.inGeoCircleMeters("coordinates",Coordinates.newCoordinates(23.76,37.99),500)).toDataframe().count());
 
         NoSqlDbSystem noSqlDbSystem2 = NoSqlDbSystem.MongoDB().host("83.212.102.163").database("test").username("myUserAdmin").password("abc123").port(28017).sparkSession(spark).connect();
-        Dataset<Row> d = noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location", Coordinates.newCoordinates(23.76,37.99),250)).toDataframe().limit(2);
+        Dataset<Row> d = noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location", Coordinates.newCoordinates(23.76,37.99),1)).toDataframe();
 
         System.out.println(d.count());
         System.out.println("OK!");

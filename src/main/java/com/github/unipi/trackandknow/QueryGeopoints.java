@@ -13,7 +13,7 @@ import org.bson.Document;
 import java.util.Arrays;
 
 import static com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperators.inGeoBox;
-import static com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperators.inGeoRangeKm;
+import static com.github.unipi.trackandknow.nosqldbs.filterOperator.FilterOperators.inGeoCircleKm;
 
 
 public class QueryGeopoints {
