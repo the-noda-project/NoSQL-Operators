@@ -49,8 +49,6 @@ final class MongoDBOperators implements NoSqlDbOperators {
             if (fops instanceof GeographicalOperatorBasedOnSinglePoint) {
                 stagesList.add(Document.parse(fops.getJsonStringBuilder().toString()));
             } else {
-                System.out.println(" { $match: " + fops.getJsonStringBuilder() + " } ");
-
                 stagesList.add(Document.parse(" { $match: " + fops.getJsonStringBuilder() + " } "));
             }
 
