@@ -43,7 +43,6 @@ final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
     @Override
     public MongoClient createConnection() {
 
-        System.out.println("create connection");
         MongoCredential credential = MongoCredential.createCredential(username, getDatabase(), password.toCharArray());
         MongoClientOptions options = MongoClientOptions.builder()/*.sslEnabled(true)*/.build();
         return new MongoClient(new ServerAddress(getHost(), getPort()), credential, options);

@@ -18,17 +18,13 @@ abstract class NoSqlDbConnectionManager<T> {
     public T getConnection(NoSqlDbConnector noSqlDbConnector) {
 
         if (connections.containsKey(noSqlDbConnector)) {
-            System.out.println("Connection found");
             return connections.get(noSqlDbConnector);
         }
 
-        System.out.println("Connector was not inside map");
         connections.put(noSqlDbConnector, (T) noSqlDbConnector.createConnection());
 
         return connections.get(noSqlDbConnector);
 
-//        return addConnection(noSqlDbConnector,);
-//        return connections.get(noSqlDbConnector);
     }
 
     public abstract boolean closeConnection(NoSqlDbConnector noSqlDbConnector);

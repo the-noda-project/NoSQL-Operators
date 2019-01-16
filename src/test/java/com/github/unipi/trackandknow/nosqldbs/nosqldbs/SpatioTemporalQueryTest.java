@@ -19,7 +19,7 @@ public class SpatioTemporalQueryTest {
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.MongoDB().host("83.212.102.163").database("test").username("myUserAdmin").password("abc123").port(28017).build();
 
         System.out.println("count "+noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location", Coordinates.newCoordinates(23.76,37.99),50)).count());
-        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50), gte("date",Date.from(Instant.parse("2018-01-08T17:00:08.000Z")))).printScreen();
+        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50), gte("date",Date.from(Instant.parse("2013-10-01T00:00:00.000Z")))).printScreen();
 
 
 

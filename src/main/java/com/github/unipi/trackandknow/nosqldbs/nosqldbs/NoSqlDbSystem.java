@@ -62,7 +62,6 @@ public final class NoSqlDbSystem {
         public NoSqlDbSystem build() {
 
             return new NoSqlDbSystem(nsdb, nsdb.createNoSqlDbConnector(host, port, username, password, database), sparkSession);
-            //return new NoSqlDbSystem(nsdb, nsdb.noSqlDbConnector(host, port, username, password, database).getConnector(), database);
         }
 
     }
@@ -98,7 +97,6 @@ public final class NoSqlDbSystem {
     private static final List<NoSqlDb> toBeCleaned = new ArrayList<>();
 
     public static void initialize() {
-        //System.setProperty("spark.mongodb.input.uri", "mongodb://localhost:27017/database.collection");
         System.setProperty("spark.mongodb.input.uri", "mongodb://localhost:27017/");
         System.setProperty("spark.mongodb.input.database", "database");
         System.setProperty("spark.mongodb.input.collection", "collection");
