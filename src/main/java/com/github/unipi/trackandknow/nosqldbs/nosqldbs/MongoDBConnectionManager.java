@@ -26,15 +26,6 @@ final class MongoDBConnectionManager extends NoSqlDbConnectionManager<MongoClien
         getConnections().clear();
         return true;
     }
-//    @Override
-//    public MongoClient getConnection(NoSqlDbConnector noSqlDbConnector) {
-//
-//        if (containsConnection(noSqlDbConnector)) {
-//            return super.getConnection(noSqlDbConnector);
-//        }
-//
-//        return addConnection(noSqlDbConnector,(MongoClient) noSqlDbConnector.createConnection());
-//    }
 
     public static MongoDBConnectionManager getInstance() {
         return INSTANCE;

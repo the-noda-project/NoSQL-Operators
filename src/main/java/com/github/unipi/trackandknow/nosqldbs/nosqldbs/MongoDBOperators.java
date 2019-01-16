@@ -60,8 +60,6 @@ final class MongoDBOperators implements NoSqlDbOperators {
     @Override
     public int count() {
         stagesList.add(Document.parse("{ $count: \"count\" }"));
-        System.out.println("Database Name " + connector.getDatabase());
-        //System.out.println("mongoDBConnectionManager.getConnection(connector) "+mongoDBConnectionManager.getConnection(connector));
         return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getInteger("count", -10);
     }
 
@@ -183,56 +181,14 @@ final class MongoDBOperators implements NoSqlDbOperators {
     @Override
     public Dataset<Row> toDataframe() {
 
-        //System.setProperty("spark.mongodb.input.uri", "mongodb://1.1.1.1:27017/test.points");
-
-//        SparkSession spark = SparkSession.builder()
-//                .master("local")
-//                .appName("MongoSparkConnectorIntro")
-//                //.config("spark.mongodb.input.uri", "mongodb://1.1.1.1:27017/test.points ")
-//                .getOrCreate();
-
-        //JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
-
-//        System.setProperty("spark.mongodb.input.uri", "mongodb://localhost:27017/");
-//        System.setProperty("spark.mongodb.input.database", "test");
-//        System.setProperty("spark.mongodb.input.collection", "points");
-
         Map<String, String> readOverrides = new HashMap<>();
         readOverrides.put("spark.mongodb.input.uri", connector.getMongoURIForSparkSession());
         readOverrides.put("spark.mongodb.input.database", connector.getDatabase());
         readOverrides.put("spark.mongodb.input.collection", s);
 
-//        readOverrides.put("collection", "points");
-
-
-//        ReadConfig readConfig = ReadConfig.create(jsc).withOptions(readOverrides);
-//        JavaMongoRDD<Document> customRdd = MongoSpark.load(jsc, readConfig);
         ReadConfig readConfig = ReadConfig.create(sparkSession).withOptions(readOverrides).withPipeline(JavaConversions.asScalaBuffer(Collections.unmodifiableList(stagesList)).toSeq());
 
-
-        System.out.println(readConfig.pipelineIncludeFiltersAndProjections());
-        System.out.println(readConfig.pipeline());
-        //System.out.println("the list "+readConfig.pipeline().length());
-
-
-        //System.out.println("The count"+(MongoSpark.builder().readConfig(readConfig).sparkSession(sparkSession).build()));
-        //return MongoSpark.builder().readConfig(readConfig).sparkSession(sparkSession).build().toJavaRDD().toDF();
         return MongoSpark.loadAndInferSchema(sparkSession, readConfig);
-        //return customRdd.toDF();
-
-//
-//
-//        JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
-//
-//        MongoSpark.load(spark,readConfig);
-//        MongoSpark.load
-//
-//        JavaMongoRDD<Document> rdd = MongoSpark.load(jsc).withPipeline(stagesList);
-//
-//
-//
-//        return aggregatedRdd.toDF();
-
 
     }
 
