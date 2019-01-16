@@ -28,6 +28,9 @@ public class Sample {
         NoSqlDbSystem noSqlDbSystem2 = NoSqlDbSystem.MongoDB().host("83.212.102.163").database("test").username("myUserAdmin").password("abc123").port(28017).sparkSession(spark).build();
         Dataset<Row> d = noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location", Coordinates.newCoordinates(23.76, 37.99), 100)).toDataframe();
 
+        noSqlDbSystem2.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location", Coordinates.newCoordinates(23.76, 37.99), 100)).sum("");
+
+
         System.out.println(d.count());
         System.out.println("OK!");
         d.count();

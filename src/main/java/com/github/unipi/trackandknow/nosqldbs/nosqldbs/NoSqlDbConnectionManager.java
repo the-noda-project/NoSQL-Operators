@@ -31,13 +31,4 @@ abstract class NoSqlDbConnectionManager<T> {
 
     public abstract boolean closeConnections();
 
-
-//    protected T addConnection(NoSqlDbConnector noSqlDbConnector,T t){
-//        return connections.put(noSqlDbConnector, t);
-//    }
-//
-//    protected boolean containsConnection(NoSqlDbConnector noSqlDbConnector){
-//        return connections.containsKey(noSqlDbConnector);
-//    }
-
 }

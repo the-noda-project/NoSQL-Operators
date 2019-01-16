@@ -49,6 +49,8 @@ final class MongoDBOperators implements NoSqlDbOperators {
             if (fops instanceof GeographicalOperatorBasedOnSinglePoint) {
                 stagesList.add(Document.parse(fops.getJsonStringBuilder().toString()));
             } else {
+                System.out.println(" { $match: " + fops.getJsonStringBuilder() + " } ");
+
                 stagesList.add(Document.parse(" { $match: " + fops.getJsonStringBuilder() + " } "));
             }
 
@@ -60,7 +62,11 @@ final class MongoDBOperators implements NoSqlDbOperators {
     @Override
     public int count() {
         stagesList.add(Document.parse("{ $count: \"count\" }"));
-        return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getInteger("count", -10);
+        MongoCursor mc = mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).iterator();
+        if(mc.hasNext()){
+            return ((Document) mc.next()).getInteger("count", -10);
+        }
+        return 0;
     }
 
     @Override
@@ -92,28 +98,41 @@ final class MongoDBOperators implements NoSqlDbOperators {
     }
 
     @Override
-    public double max(String fieldName) {
+    public Optional<Double> max(String fieldName) {
         stagesList.add(Document.parse("{ $group: { _id:null, " + OperatorMax.newOperatorMax(fieldName).getJsonStringBuilder() + " } }"));
-        return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getDouble("max_" + fieldName);
+        MongoCursor mc = mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).iterator();
+        if(mc.hasNext()){
+            return Optional.of(((Document) mc.next()).getDouble("max_" + fieldName));
+        }
+        return Optional.empty();
     }
 
     @Override
-    public double min(String fieldName) {
+    public Optional<Double> min(String fieldName) {
         stagesList.add(Document.parse("{ $group: { _id:null, " + OperatorMin.newOperatorMin(fieldName).getJsonStringBuilder() + " } }"));
-        return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getDouble("min_" + fieldName);
-    }
+        MongoCursor mc = mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).iterator();
+        if(mc.hasNext()){
+            return Optional.of(((Document) mc.next()).getDouble("min_" + fieldName));
+        }
+        return Optional.empty();    }
 
     @Override
-    public double sum(String fieldName) {
+    public Optional<Double> sum(String fieldName) {
         stagesList.add(Document.parse("{ $group: { _id:null, " + OperatorSum.newOperatorSum(fieldName).getJsonStringBuilder() + " } }"));
-        return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getDouble("sum_" + fieldName);
-    }
+        MongoCursor mc = mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).iterator();
+        if(mc.hasNext()){
+            return Optional.of(((Document) mc.next()).getDouble("sum_" + fieldName));
+        }
+        return Optional.empty();    }
 
     @Override
-    public double avg(String fieldName) {
+    public Optional<Double> avg(String fieldName) {
         stagesList.add(Document.parse("{ $group: { _id:null, " + OperatorAvg.newOperatorAvg(fieldName).getJsonStringBuilder() + " } }"));
-        return ((Document) mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).first()).getDouble("avg_" + fieldName);
-    }
+        MongoCursor mc = mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).iterator();
+        if(mc.hasNext()){
+            return Optional.of(((Document) mc.next()).getDouble("avg_" + fieldName));
+        }
+        return Optional.empty();    }
 
     @Override
     public NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator) {

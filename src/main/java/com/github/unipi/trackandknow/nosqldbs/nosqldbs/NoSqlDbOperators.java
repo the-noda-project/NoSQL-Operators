@@ -6,6 +6,8 @@ import com.github.unipi.trackandknow.nosqldbs.sortOperator.SortingOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
+import java.util.Optional;
+
 public interface NoSqlDbOperators {
 
     NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators);
@@ -16,13 +18,13 @@ public interface NoSqlDbOperators {
 
     void printScreen();
 
-    double max(String fieldName);
+    Optional<Double> max(String fieldName);
 
-    double min(String fieldName);
+    Optional<Double> min(String fieldName);
 
-    double sum(String fieldName);
+    Optional<Double> sum(String fieldName);
 
-    double avg(String fieldName);
+    Optional<Double> avg(String fieldName);
 
     int count();
 
