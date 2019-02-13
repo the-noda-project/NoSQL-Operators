@@ -1,6 +1,6 @@
 package gr.unipi.trackandknow.api.nosqldb;
 
-import com.github.unipi.trackandknow.nosqldbs.aggregateOperator.*;
+import gr.unipi.trackandknow.api.aggregateOperator.*;
 import gr.unipi.trackandknow.api.aggregateOperator.*;
 import gr.unipi.trackandknow.api.filterOperator.FilterOperator;
 import gr.unipi.trackandknow.api.filterOperator.geographicalOperator.GeographicalOperatorBasedOnSinglePoint;

@@ -1,7 +1,7 @@
 package gr.unipi.trackandknow.api.filterOperator;
 
-import com.github.unipi.trackandknow.nosqldbs.filterOperator.comparisonOperator.*;
-import com.github.unipi.trackandknow.nosqldbs.filterOperator.geographicalOperator.*;
+import gr.unipi.trackandknow.api.filterOperator.comparisonOperator.*;
+import gr.unipi.trackandknow.api.filterOperator.geographicalOperator.*;
 import gr.unipi.trackandknow.api.filterOperator.logicalOperator.OperatorAnd;
 import gr.unipi.trackandknow.api.filterOperator.logicalOperator.OperatorOr;
 import gr.unipi.trackandknow.api.filterOperator.comparisonOperator.*;
@@ -122,7 +122,7 @@ public class FilterOperators {
     public static FilterOperator eq(String fieldName, boolean fieldValue) {
         return OperatorEqual.newOperatorEqual(fieldName, fieldValue);
     }
-""
+
     public static FilterOperator eq(String fieldName, String fieldValue) {
         return OperatorEqual.newOperatorEqual(fieldName, fieldValue);
     }
