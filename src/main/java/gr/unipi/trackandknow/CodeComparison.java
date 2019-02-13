@@ -47,7 +47,7 @@ public static void main(String args[]){
     b1.add(Document.parse("{ $group: { _id:null, max_val: { $max:\"$aField\"} } }"));
 
     MongoCursor<Document> cursor1 = (MongoCursor<Document>) mongoCollection.aggregate(b1).iterator();
-    int max =  cursor1.next().getInteger("max_val");
+    //int max =  cursor1.next().getInteger("max_val");
 
     cursor1.close();
 
@@ -55,7 +55,7 @@ public static void main(String args[]){
     b2.add(Document.parse("{ $count: \"totalRecords\" }"));
 
     MongoCursor<Document> cursor2 = (MongoCursor<Document>) mongoCollection.aggregate(b1).iterator();
-    int count =  cursor2.next().getInteger("totalRecords");
+    //int count =  cursor2.next().getInteger("totalRecords");
 
     cursor2.close();
 
