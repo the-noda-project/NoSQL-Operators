@@ -35,7 +35,6 @@ public class QueryGeopoints {
 
         long d = m.countDocuments(and(and(and(gte("location.coordinates.0",23.6266),gte("location.coordinates.1",37.9262)),lte("location.coordinates.0",23.6682)),lte("location.coordinates.1",37.9477)));
 
-
         System.out.println("Number of docs" + d);
 
 
