@@ -42,8 +42,11 @@ final class MongoDBOperators implements NoSqlDbOperators {
         if (filterOperator instanceof GeographicalOperatorBasedOnSinglePoint) {
             stagesList.add(Document.parse(filterOperator.getJsonStringBuilder().toString()));
         } else {
+            System.out.println(" { $match: " + filterOperator.getJsonStringBuilder() + " } ");
             stagesList.add(Document.parse(" { $match: " + filterOperator.getJsonStringBuilder() + " } "));
         }
+
+
 
         for (FilterOperator fops : filterOperators) {
 
@@ -62,9 +65,12 @@ final class MongoDBOperators implements NoSqlDbOperators {
     public int count() {
         stagesList.add(Document.parse("{ $count: \"count\" }"));
         MongoCursor mc = mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).iterator();
+
         if(mc.hasNext()){
+            //System.out.println(mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).find(stagesList.get(0)).modifiers(new Document("$explain", true)).first());
             return ((Document) mc.next()).getInteger("count", -10);
         }
+
         return 0;
     }
 
