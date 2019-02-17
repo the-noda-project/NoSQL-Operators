@@ -26,7 +26,7 @@ public class IndexConstruction {
         private static void constructIndex(String userName, String database, String password){
             MongoCredential credential = MongoCredential.createCredential(userName, database, password.toCharArray());
             MongoClientOptions options = MongoClientOptions.builder().build();
-            MongoClient mc = new MongoClient(new ServerAddress("", 27010), credential, options);
+            MongoClient mc = new MongoClient(new ServerAddress("localhost", 27017), credential, options);
 
             long t = System.currentTimeMillis();
             mc.getDatabase(database).getCollection("geoPoints").createIndex(Indexes.geo2dsphere("location"));
