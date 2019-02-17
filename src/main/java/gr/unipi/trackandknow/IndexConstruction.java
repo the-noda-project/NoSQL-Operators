@@ -13,7 +13,7 @@ import static gr.unipi.trackandknow.api.filterOperator.FilterOperators.inGeoBox;
 import gr.unipi.trackandknow.api.nosqldb.NoSqlDbOperators;
 
 public class IndexConstruction {
-        public static void doOperations(NoSqlDbOperators noSqlDbOp) {
+        public static void main() {
 
             constructIndex("synthetic2", "synthetic2", "synthetic2");
 
