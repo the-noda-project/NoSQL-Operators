@@ -8,10 +8,12 @@ import com.mongodb.ServerAddress;
 public class Connection {
     public static void main(String args[]){
 
-        MongoCredential credential = MongoCredential.createCredential("christos.doulkeridis1", "dataset1", "Yhx8ypJ,".toCharArray());
+        MongoCredential credential = MongoCredential.createCredential("christos.doulkeridis2", "admin", "D1h0uJFX".toCharArray());
         MongoClientOptions options = MongoClientOptions.builder().build();
-        MongoClient mc = new MongoClient(new ServerAddress("93.46.200.55", 27010), credential, options);
+        MongoClient mc = new MongoClient(new ServerAddress("93.46.200.55", 27017), credential, options);
 
-        mc.getDatabase("dataset1").listCollections().iterator().forEachRemaining(v -> System.out.println(v));
+        mc.listDatabaseNames().iterator().forEachRemaining(v-> System.out.println(v.toString()));
+
+        mc.close();
     }
 }
