@@ -39,6 +39,7 @@ public class QueryGeopoints {
         mongoClient1.close();
 
 
+
         MongoCredential credential2 = MongoCredential.createCredential("synthetic1", "synthetic1", "synthetic1".toCharArray());
         MongoClientOptions options2 = MongoClientOptions.builder().maxConnectionIdleTime(90000).build();
         MongoClient mongoClient2 = new MongoClient(new ServerAddress("localhost", 27017), credential2, options2);
@@ -51,6 +52,7 @@ public class QueryGeopoints {
         System.out.print("Time Elapsed: "+(System.currentTimeMillis()-start2)/1000);
         System.out.println("Number of docs" + d2);
         mongoClient2.close();
+
 
 
         MongoCredential credential3 = MongoCredential.createCredential("synthetic2", "synthetic2", "synthetic2".toCharArray());
