@@ -23,4 +23,30 @@ public class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnSin
         return radius;
     }
 
+    @Override
+    public StringBuilder getJsonStringBuilder() {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ ");
+
+        if (!getFieldName().contains(".")) {
+            sb.append(getFieldName());
+        } else {
+            sb.append("\"" + getFieldName() + "\"");
+        }
+
+        sb.append(": { $geoWithin: { $centerSphere: [");
+
+         sb.append(" [");
+         sb.append(getLongitude());
+         sb.append(", ");
+         sb.append(getLatitude());
+         sb.append("], ");
+         sb.append(radius/6378137);
+         sb.append(" ] } } }");
+
+        return sb;
+
+    }
+
 }
