@@ -4,6 +4,7 @@ import gr.unipi.trackandknow.api.aggregateOperator.*;
 import gr.unipi.trackandknow.api.aggregateOperator.*;
 import gr.unipi.trackandknow.api.filterOperator.FilterOperator;
 import gr.unipi.trackandknow.api.filterOperator.geographicalOperator.GeographicalOperatorBasedOnSinglePoint;
+import gr.unipi.trackandknow.api.filterOperator.geographicalOperator.OperatorNearestNeighbors;
 import gr.unipi.trackandknow.api.sortOperator.SortOperator;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.spark.MongoSpark;
@@ -39,16 +40,14 @@ final class MongoDBOperators implements NoSqlDbOperators {
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
 
-
-
-        if (filterOperator instanceof GeographicalOperatorBasedOnSinglePoint) {
+        if (filterOperator instanceof OperatorNearestNeighbors) {
             stagesList.add(Document.parse(filterOperator.getJsonStringBuilder().toString()));
         } else {
             stagesList.add(Document.parse(" { $match: " + filterOperator.getJsonStringBuilder() + " } "));
         }
 
         for (FilterOperator fops : filterOperators) {
-            if (fops instanceof GeographicalOperatorBasedOnSinglePoint) {
+            if (fops instanceof OperatorNearestNeighbors) {
                 stagesList.add(Document.parse(fops.getJsonStringBuilder().toString()));
             } else {
                 stagesList.add(Document.parse(" { $match: " + fops.getJsonStringBuilder() + " } "));
