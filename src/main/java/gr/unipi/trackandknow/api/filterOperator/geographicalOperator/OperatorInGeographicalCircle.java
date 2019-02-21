@@ -13,15 +13,15 @@ public class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnSin
         return new OperatorInGeographicalCircle(fieldName, point, radius);
     }
 
-    @Override
-    int getNumberOfResultsForJsonStringBuilder() {
-        return Integer.MAX_VALUE;
-    }
+//    @Override
+//    int getNumberOfResultsForJsonStringBuilder() {
+//        return Integer.MAX_VALUE;
+//    }
 
-    @Override
-    double getRadiusForJsonStringBuilder() {
-        return radius;
-    }
+//    @Override
+//    double getRadiusForJsonStringBuilder() {
+//        return radius;
+//    }
 
     @Override
     public StringBuilder getJsonStringBuilder() {
