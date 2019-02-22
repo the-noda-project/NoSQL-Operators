@@ -1,10 +1,5 @@
 package gr.unipi.trackandknow;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
-import com.mongodb.client.MongoCollection;
 import gr.unipi.trackandknow.api.filterOperator.FilterOperators;
 import gr.unipi.trackandknow.api.filterOperator.geographicalOperator.Coordinates;
 import gr.unipi.trackandknow.api.nosqldb.NoSqlDbSystem;
