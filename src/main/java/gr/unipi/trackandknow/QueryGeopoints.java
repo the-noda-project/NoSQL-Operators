@@ -25,49 +25,59 @@ import static com.mongodb.client.model.Filters.lte;
 public class QueryGeopoints {
     public static void main(String[] args) {
 
-        MongoCredential credential1 = MongoCredential.createCredential("real", "real", "real".toCharArray());
-        MongoClientOptions options1 = MongoClientOptions.builder().maxConnectionIdleTime(90000).build();
-        MongoClient mongoClient1 = new MongoClient(new ServerAddress("localhost", 27017), credential1, options1);
+        if(Integer.valueOf(args[0])==0) {
+            MongoCredential credential1 = MongoCredential.createCredential("real", "real", "real".toCharArray());
+            MongoClientOptions options1 = MongoClientOptions.builder().maxConnectionIdleTime(90000).build();
+            MongoClient mongoClient1 = new MongoClient(new ServerAddress("localhost", 27017), credential1, options1);
 
-        MongoCollection m1 = mongoClient1.getDatabase("real").getCollection("geoPoints");
+            MongoCollection m1 = mongoClient1.getDatabase("real").getCollection("geoPoints");
 
-        long start1 = System.currentTimeMillis();
+            for (int i = 0; i < 3; i++) {
+                long start1 = System.currentTimeMillis();
 
-        long d1 = m1.countDocuments(and(and(and(gte("location.coordinates.0",23.6266),gte("location.coordinates.1",37.9262)),lte("location.coordinates.0",23.6682)),lte("location.coordinates.1",37.9477)));
-        System.out.print("Time Elapsed: "+(System.currentTimeMillis()-start1)/1000);
-        System.out.println("Number of docs" + d1);
-        mongoClient1.close();
+                long d1 = m1.countDocuments(and(and(and(gte("location.coordinates.0", 23.6266), gte("location.coordinates.1", 37.9262)), lte("location.coordinates.0", 23.6682)), lte("location.coordinates.1", 37.9477)));
+                System.out.print("Time Elapsed: " + (System.currentTimeMillis() - start1) / 1000);
+                System.out.println("Number of docs" + d1);
+            }
+            mongoClient1.close();
 
+        }
 
+        if(Integer.valueOf(args[0])==1) {
+            MongoCredential credential2 = MongoCredential.createCredential("synthetic1", "synthetic1", "synthetic1".toCharArray());
+            MongoClientOptions options2 = MongoClientOptions.builder().maxConnectionIdleTime(90000).build();
+            MongoClient mongoClient2 = new MongoClient(new ServerAddress("localhost", 27017), credential2, options2);
 
-        MongoCredential credential2 = MongoCredential.createCredential("synthetic1", "synthetic1", "synthetic1".toCharArray());
-        MongoClientOptions options2 = MongoClientOptions.builder().maxConnectionIdleTime(90000).build();
-        MongoClient mongoClient2 = new MongoClient(new ServerAddress("localhost", 27017), credential2, options2);
+            MongoCollection m2 = mongoClient2.getDatabase("synthetic1").getCollection("geoPoints");
 
-        MongoCollection m2 = mongoClient2.getDatabase("synthetic1").getCollection("geoPoints");
+            for (int i = 0; i < 3; i++) {
+                long start2 = System.currentTimeMillis();
 
-        long start2 = System.currentTimeMillis();
+                long d2 = m2.countDocuments(and(and(and(gte("location.coordinates.0", 23.5500), gte("location.coordinates.1", 37.9262)), lte("location.coordinates.0", 23.95)), lte("location.coordinates.1", 38.30)));
+                System.out.print("Time Elapsed: " + (System.currentTimeMillis() - start2) / 1000);
+                System.out.println("Number of docs" + d2);
+            }
+            mongoClient2.close();
 
-        long d2 = m2.countDocuments(and(and(and(gte("location.coordinates.0",23.5500),gte("location.coordinates.1",37.9262)),lte("location.coordinates.0",23.95)),lte("location.coordinates.1",38.30)));
-        System.out.print("Time Elapsed: "+(System.currentTimeMillis()-start2)/1000);
-        System.out.println("Number of docs" + d2);
-        mongoClient2.close();
+        }
 
+        if(Integer.valueOf(args[0])==2) {
 
+            MongoCredential credential3 = MongoCredential.createCredential("synthetic2", "synthetic2", "synthetic2".toCharArray());
+            MongoClientOptions options3 = MongoClientOptions.builder().maxConnectionIdleTime(90000).build();
+            MongoClient mongoClient3 = new MongoClient(new ServerAddress("localhost", 27017), credential3, options3);
 
-        MongoCredential credential3 = MongoCredential.createCredential("synthetic2", "synthetic2", "synthetic2".toCharArray());
-        MongoClientOptions options3 = MongoClientOptions.builder().maxConnectionIdleTime(90000).build();
-        MongoClient mongoClient3 = new MongoClient(new ServerAddress("localhost", 27017), credential3, options3);
+            MongoCollection m3 = mongoClient3.getDatabase("synthetic2").getCollection("geoPoints");
 
-        MongoCollection m3 = mongoClient3.getDatabase("synthetic2").getCollection("geoPoints");
+            for (int i = 0; i < 3; i++) {
+                long start3 = System.currentTimeMillis();
 
-        long start3 = System.currentTimeMillis();
-
-        long d3 = m3.countDocuments(and(and(and(gte("location.coordinates.0",23.5500),gte("location.coordinates.1",37.9262)),lte("location.coordinates.0",23.95)),lte("location.coordinates.1",38.30)));
-        System.out.print("Time Elapsed: "+(System.currentTimeMillis()-start3)/1000);
-        System.out.println("Number of docs" + d3);
-        mongoClient3.close();
-
+                long d3 = m3.countDocuments(and(and(and(gte("location.coordinates.0", 23.5500), gte("location.coordinates.1", 37.9262)), lte("location.coordinates.0", 23.95)), lte("location.coordinates.1", 38.30)));
+                System.out.print("Time Elapsed: " + (System.currentTimeMillis() - start3) / 1000);
+                System.out.println("Number of docs" + d3);
+            }
+            mongoClient3.close();
+        }
 //        MongoCredential credential = MongoCredential.createCredential("myUserAdmin", "test", "abc123".toCharArray());
 //        MongoClientOptions options = MongoClientOptions.builder().maxConnectionIdleTime(90000).build();
 //        MongoClient mongoClient = new MongoClient(new ServerAddress("83.212.102.163", 27017), credential, options);
