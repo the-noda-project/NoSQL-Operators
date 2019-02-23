@@ -26,7 +26,7 @@ public class QueryGeopoints {
                 long start1 = System.currentTimeMillis();
 
                 long d1 = m1.countDocuments(and(and(and(gte("location.coordinates.0", 23.6266), gte("location.coordinates.1", 37.9262)), lte("location.coordinates.0", 23.6682)), lte("location.coordinates.1", 37.9477)));
-                System.out.print("Time Elapsed: " + (System.currentTimeMillis() - start1) / 1000);
+                System.out.print("Time Elapsed: " + (System.currentTimeMillis() - start1) / 1000f);
                 System.out.println("Number of docs" + d1);
             }
             mongoClient1.close();
@@ -44,7 +44,7 @@ public class QueryGeopoints {
                 long start2 = System.currentTimeMillis();
 
                 long d2 = m2.countDocuments(and(and(and(gte("location.coordinates.0", 23.5500), gte("location.coordinates.1", 37.9262)), lte("location.coordinates.0", 23.95)), lte("location.coordinates.1", 38.30)));
-                System.out.print("Time Elapsed: " + (System.currentTimeMillis() - start2) / 1000);
+                System.out.print("Time Elapsed: " + (System.currentTimeMillis() - start2) / 1000f);
                 System.out.println("Number of docs" + d2);
             }
             mongoClient2.close();
@@ -63,7 +63,7 @@ public class QueryGeopoints {
                 long start3 = System.currentTimeMillis();
 
                 long d3 = m3.countDocuments(and(and(and(gte("location.coordinates.0", 23.5500), gte("location.coordinates.1", 37.9262)), lte("location.coordinates.0", 23.95)), lte("location.coordinates.1", 38.30)));
-                System.out.print("Time Elapsed: " + (System.currentTimeMillis() - start3) / 1000);
+                System.out.print("Time Elapsed: " + (System.currentTimeMillis() - start3) / 1000f);
                 System.out.println("Number of docs" + d3);
             }
             mongoClient3.close();
