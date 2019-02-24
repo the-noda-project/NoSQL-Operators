@@ -61,8 +61,6 @@ final class MongoDBOperators implements NoSqlDbOperators {
         stagesList.add(Document.parse("{ $count: \"count\" }"));
         MongoCursor mc = mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).iterator();
 
-        stagesList.forEach(v-> System.out.println(v.toString()));
-
         if(mc.hasNext()){
             return ((Document) mc.next()).getInteger("count", -10);
         }
