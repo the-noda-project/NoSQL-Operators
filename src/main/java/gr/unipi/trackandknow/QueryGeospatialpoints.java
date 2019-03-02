@@ -62,6 +62,5 @@ public class QueryGeospatialpoints {
             noSqlDbSystem1.closeConnection();
         }
 
-
     }
 }
