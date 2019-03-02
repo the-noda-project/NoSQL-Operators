@@ -66,6 +66,5 @@ public class QueryGeospatialRange {
         noSqlDbSystem3.closeConnection();
 
         System.out.println();
-
     }
 }
