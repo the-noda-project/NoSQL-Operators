@@ -8,6 +8,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static gr.unipi.trackandknow.api.filterOperator.FilterOperators.gte;
+import static gr.unipi.trackandknow.api.filterOperator.FilterOperators.lte;
+
 public class QueryGeospatialRange {
 
     public static void main(String args[]) throws Exception {
@@ -47,7 +50,7 @@ public class QueryGeospatialRange {
         }
     }
 
-    private static void rangeQuery(String userName, String database, String password, double initialRadius, int o,Date minDate,Date maxDate){
+    private static void rangeQuery(String userName, String database, String password, double initialRadius, int o, Date minDate,Date maxDate){
 
         System.out.println(userName);
 
@@ -55,7 +58,7 @@ public class QueryGeospatialRange {
 
         for (int i = 0; i < 3; i++) {
             long start = System.currentTimeMillis();
-            int j = noSqlDbSystem3.operateOn("geoPoints").filter(FilterOperators.inGeoCircleKm("location", Coordinates.newCoordinates(23.7613, 37.9864), initialRadius * o)).count();
+            int j = noSqlDbSystem3.operateOn("geoPoints").filter(FilterOperators.inGeoCircleKm("location", Coordinates.newCoordinates(23.7613, 37.9864), initialRadius * o),gte("date",minDate),lte("date",maxDate)).count();
             System.out.println(((System.currentTimeMillis() - start) / 1000f) + " sec");
             System.out.println("Number of results: " + j);
         }
