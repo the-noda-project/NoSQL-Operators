@@ -29,6 +29,7 @@ public class SmallQuery {
             System.out.println(((System.currentTimeMillis() - start) / 1000f) + " sec");
             System.out.println("Number of results: " + j);
         }
+        noSqlDbSystem3.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location", Coordinates.newCoordinates(25.751467,35.023487), 0.02)).printScreen();
         noSqlDbSystem3.closeConnection();
         System.out.println();
     }
@@ -44,6 +45,7 @@ public class SmallQuery {
             System.out.println(((System.currentTimeMillis() - start) / 1000f) + " sec");
             System.out.println("Number of results: " + j);
         }
+        noSqlDbSystem3.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location", Coordinates.newCoordinates(22.317873,38.565775), 0.02)).printScreen();
         noSqlDbSystem3.closeConnection();
         System.out.println();
     }
