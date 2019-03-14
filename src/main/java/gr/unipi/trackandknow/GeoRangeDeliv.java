@@ -9,11 +9,11 @@ public class GeoRangeDeliv {
     public static void main(String args[]){
 
         if(Integer.valueOf(args[0])==0){
-                rangeQuery("real", "real", "real", 2.18, Integer.valueOf(args[1]));
+                rangeQuery("real", "real", "real", 2.18, Double.valueOf(args[1]));
         }
     }
 
-    private static void rangeQuery(String userName, String database, String password, double initialRadius, int o){
+    private static void rangeQuery(String userName, String database, String password, double initialRadius, double o){
 
         System.out.println(userName);
 
