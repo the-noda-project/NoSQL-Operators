@@ -11,7 +11,6 @@ public class GeoRangeDeliv {
         if(Integer.valueOf(args[0])==0){
                 rangeQuery("real", "real", "real", 2.18, Integer.valueOf(args[1]));
         }
-
     }
 
     private static void rangeQuery(String userName, String database, String password, double initialRadius, int o){
