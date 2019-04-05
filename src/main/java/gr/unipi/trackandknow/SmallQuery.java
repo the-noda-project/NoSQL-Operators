@@ -25,7 +25,7 @@ public class SmallQuery {
 
         for (int i = 0; i < 3; i++) {
             long start = System.currentTimeMillis();
-            int j = noSqlDbSystem3.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location", Coordinates.newCoordinates(25.751467,35.023487), 0.02)).count();
+            int j = noSqlDbSystem3.operateOn("geoPoints").filter(FilterOperators.inGeoCircleMeters("location", Coordinates.newCoordinates(25.751467, 35.023487), 0.02)).count();
             System.out.println(((System.currentTimeMillis() - start) / 1000f) + " sec");
             System.out.println("Number of results: " + j);
         }
