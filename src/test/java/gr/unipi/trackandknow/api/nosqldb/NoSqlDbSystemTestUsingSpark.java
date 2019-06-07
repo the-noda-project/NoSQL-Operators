@@ -1,17 +1,27 @@
 package gr.unipi.trackandknow.api.nosqldb;
 
 import gr.unipi.trackandknow.api.aggregateOperator.AggregateOperators;
+import gr.unipi.trackandknow.api.filterOperator.FilterOperator;
 import gr.unipi.trackandknow.api.filterOperator.geographicalOperator.Coordinates;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.junit.Test;
 
-import static gr.unipi.trackandknow.api.filterOperator.FilterOperators.inGeoCircleMeters;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import static gr.unipi.trackandknow.api.filterOperator.FilterOperators.*;
 import static gr.unipi.trackandknow.api.sortOperator.SortOperators.desc;
 
 public class NoSqlDbSystemTestUsingSpark {
 
     @Test
     public void test(){
+
+        long timeWindow = 1000 * 60 * 7;
 
         NoSqlDbSystem.initialize();
 
@@ -21,35 +31,27 @@ public class NoSqlDbSystemTestUsingSpark {
                 .getOrCreate();
 
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.MongoDB().host("83.212.102.163").database("test").username("myUserAdmin").password("abc123").port(28017).sparkSession(spark).build();
+        NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("aCollection");
 
-        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location", Coordinates.newCoordinates(23.76,37.99),50)).count();
-        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).printScreen();
+        Dataset<Row> events = noSqlDbOperators.filter(eq("theColumnEvent",1)).toDataframe();
 
-        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).toDataframe().groupBy().max("distance");
-        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).toDataframe().groupBy().min("distance");
-        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).toDataframe().groupBy().sum("distance");
-        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).toDataframe().groupBy().avg("distance");
+        List<FilterOperator> filterOperatorList = new ArrayList<>();
 
+        events.foreach(row -> {
+                    Date d =  row.getAs("theDate");
+                    String trajectoryId =row.getAs("idTrajectory");
 
-        System.out.println("GroupBy with All");
-        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).groupBy("objectId", AggregateOperators.max("distance").as("ma"),AggregateOperators.min("distance").as("mi"),AggregateOperators.sum("distance").as("su"),AggregateOperators.avg("distance").as("av"),AggregateOperators.count().as("c")).toDataframe().show();
+            FilterOperator fop1 = gte("theDate", new Date(d.getTime() - timeWindow));
+            FilterOperator fop2 = lte("theDate", new Date(d.getTime() + timeWindow));
+            FilterOperator fop3 = eq("idTrajectory", trajectoryId);
 
-        System.out.println("GroupBy Only");
-        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).groupBy("objectId").toDataframe().show();
+            filterOperatorList.add(and(fop1, fop2, fop3));
 
-        System.out.println("Distinct");
-        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).distinct("objectId").toDataframe().show();
+        });
 
-        System.out.println("sort by");
-        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).sort(desc("distance")).limit(1).toDataframe().show();
+        FilterOperator[] fops = filterOperatorList.toArray(new FilterOperator[filterOperatorList.size()]);
 
-        System.out.println("limit");
-        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).limit(1).toDataframe().show();
-
-        System.out.println("project");
-        noSqlDbSystem.operateOn("geoPoints").filter(inGeoCircleMeters("location",Coordinates.newCoordinates(23.76,37.99),50)).project("date").toDataframe().show();
-
-        System.out.println("OK!");
+        noSqlDbOperators.filter(or(fops)).toDataframe();
 
         noSqlDbSystem.closeConnection();
 
