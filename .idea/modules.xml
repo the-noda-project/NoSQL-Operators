@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/nosql-operators.iml" filepath="$PROJECT_DIR$/nosql-operators.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/NoSQL-Operators.iml" filepath="$PROJECT_DIR$/.idea/NoSQL-Operators.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nosql-core/nosql-operators-core.iml" filepath="$PROJECT_DIR$/nosql-core/nosql-operators-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nosql-mongo/nosql-operators-mongo.iml" filepath="$PROJECT_DIR$/nosql-mongo/nosql-operators-mongo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nosql-redis/nosql-operators-redis.iml" filepath="$PROJECT_DIR$/nosql-redis/nosql-operators-redis.iml" />
     </modules>
   </component>
 </project>
