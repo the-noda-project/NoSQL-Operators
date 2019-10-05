@@ -1,7 +1,10 @@
-package gr.unipi.noda.api.core.nosqldb;
+package gr.unipi.noda.api.client;
 
 import gr.unipi.noda.api.mongo.MongoDbConnectionFactory;
 import gr.unipi.noda.api.redis.RedisConnectionFactory;
+import gr.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
+import gr.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
+import gr.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import org.apache.spark.sql.SparkSession;
 
 import java.util.ArrayList;
