@@ -6,15 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="nosql-operators" />
+        <module name="nosql-operators-client" />
         <module name="nosql-operators-core" />
         <module name="nosql-operators-mongo" />
         <module name="nosql-operators-redis" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="nosql-operators" target="8" />
       <module name="NoSQL-Operators" target="8" />
+      <module name="nosql-operators-client" target="8" />
       <module name="nosql-operators-core" target="8" />
       <module name="nosql-operators-mongo" target="8" />
       <module name="nosql-operators-redis" target="8" />
