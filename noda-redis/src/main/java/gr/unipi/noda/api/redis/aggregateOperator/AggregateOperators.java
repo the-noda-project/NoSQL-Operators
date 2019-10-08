@@ -1,7 +1,5 @@
 package gr.unipi.noda.api.redis.aggregateOperator;
 
-import gr.unipi.noda.api.core.operators.AggregateOperator;
-
 public class AggregateOperators {
     public static AggregateOperator avg(String fieldName) {
         return OperatorAvg.newOperatorAvg(fieldName);
