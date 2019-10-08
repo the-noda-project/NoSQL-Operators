@@ -1,4 +1,6 @@
-package gr.unipi.noda.api.core.operators;
+package gr.unipi.noda.api.core.operators.aggregateOperators;
+
+import gr.unipi.noda.api.core.operators.Operator;
 
 public abstract class AggregateOperator<T> implements Operator<T> {
 

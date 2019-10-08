@@ -3,9 +3,11 @@ package gr.unipi.noda.api.mongo;
 import gr.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import gr.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
+import gr.unipi.noda.api.mongo.aggregateOperator.MongoAggregateOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
-public final class MongoDbConnectionFactory implements NoSqlConnectionFactory {
+public final class MongoDbConnectionFactory extends NoSqlConnectionFactory {
     @Override
     public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {
         return MongoDBConnector.newMongoDBConnector(host, port, username, password, database);
@@ -44,5 +46,10 @@ public final class MongoDbConnectionFactory implements NoSqlConnectionFactory {
     @Override
     public boolean closeConnections() {
         return MongoDBConnectionManager.getInstance().closeConnections();
+    }
+
+    @Override
+    protected BaseAggregateOperatorFactory getAggregateOperatorFactory() {
+        return new MongoAggregateOperatorFactory<StringBuilder>();
     }
 }

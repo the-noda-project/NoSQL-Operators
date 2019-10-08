@@ -1,6 +1,6 @@
 package gr.unipi.noda.api.core.nosqldb;
 
-import gr.unipi.noda.api.core.operators.AggregateOperator;
+import gr.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.unipi.noda.api.core.operators.FilterOperator;
 import gr.unipi.noda.api.core.operators.SortOperator;
 import org.apache.spark.sql.Dataset;
@@ -14,9 +14,9 @@ public interface NoSqlDbOperators {
         throw new UnsupportedOperationException("Filter primitive is not supported");
     }
 
-    default NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator) {
-        throw new UnsupportedOperationException("Groupby primitive is not supported");
-    }
+    NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator);// {
+//        throw new UnsupportedOperationException("Groupby primitive is not supported");
+    //}
 
     default NoSqlDbOperators distinct(String fieldName) {
         throw new UnsupportedOperationException("Distinct primitive is not supported");

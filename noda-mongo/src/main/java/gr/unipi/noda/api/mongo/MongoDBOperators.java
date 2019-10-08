@@ -4,7 +4,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.spark.MongoSpark;
 import com.mongodb.spark.config.ReadConfig;
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
-import gr.unipi.noda.api.core.operators.AggregateOperator;
+import gr.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.unipi.noda.api.core.operators.FilterOperator;
 import gr.unipi.noda.api.core.operators.SortOperator;
 import gr.unipi.noda.api.mongo.aggregateOperator.OperatorAvg;

@@ -1,7 +1,7 @@
 package gr.unipi.noda.api.redis;
 
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
-import gr.unipi.noda.api.core.operators.AggregateOperator;
+import gr.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.unipi.noda.api.core.operators.FilterOperator;
 import gr.unipi.noda.api.core.operators.SortOperator;
 import io.redisearch.Query;
