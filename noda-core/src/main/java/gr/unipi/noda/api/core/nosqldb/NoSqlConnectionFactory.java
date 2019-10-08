@@ -1,25 +1,38 @@
 package gr.unipi.noda.api.core.nosqldb;
 
+import gr.unipi.noda.api.core.operators.Operators;
+import gr.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
-public interface NoSqlConnectionFactory {
-    NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database);
+public abstract class NoSqlConnectionFactory {
 
-    NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession);
+    protected NoSqlConnectionFactory() {
+        setBaseAggregateOperator();
+    }
 
-    void closeConnection(NoSqlDbConnector noSqlDbConnector);
+    public abstract NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database);
 
-    default String getDefaultHost() {
+    public abstract NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession);
+
+    public abstract void closeConnection(NoSqlDbConnector noSqlDbConnector);
+
+    public String getDefaultHost() {
         return "localhost";
     }
 
-    int getDefaultPort();
+    public abstract int getDefaultPort();
 
-    String getDefaultDatabase();
+    public abstract String getDefaultDatabase();
 
-    String getDefaultUsername();
+    public abstract String getDefaultUsername();
 
-    String getDefaultPassword();
+    public abstract String getDefaultPassword();
 
-    boolean closeConnections();
+    public abstract boolean closeConnections();
+
+    private void setBaseAggregateOperator() {
+        Operators.aggregateOperator = getAggregateOperatorFactory();
+    }
+
+    protected abstract BaseAggregateOperatorFactory getAggregateOperatorFactory();
 }

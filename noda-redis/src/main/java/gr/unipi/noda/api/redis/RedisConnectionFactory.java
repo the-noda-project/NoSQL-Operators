@@ -3,9 +3,12 @@ package gr.unipi.noda.api.redis;
 import gr.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import gr.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
+import gr.unipi.noda.api.redis.aggregateOperator.RedisAggregateOperatorFactory;
+import io.redisearch.aggregation.reducers.Reducer;
 import org.apache.spark.sql.SparkSession;
 
-public final class RedisConnectionFactory implements NoSqlConnectionFactory {
+public final class RedisConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {
@@ -45,5 +48,10 @@ public final class RedisConnectionFactory implements NoSqlConnectionFactory {
     @Override
     public boolean closeConnections() {
         return RedisConnectionManager.getInstance().closeConnections();
+    }
+
+    @Override
+    protected BaseAggregateOperatorFactory getAggregateOperatorFactory() {
+        return new RedisAggregateOperatorFactory();
     }
 }
