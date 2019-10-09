@@ -1,6 +1,6 @@
 package gr.unipi.noda.api.mongo.aggregateOperator;
 
-public class OperatorCount extends AggregateOperator {
+class OperatorCount extends AggregateOperator {
 
     private OperatorCount(String fieldName) {
         super(fieldName, "count");

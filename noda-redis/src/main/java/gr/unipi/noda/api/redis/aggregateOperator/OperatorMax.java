@@ -3,7 +3,7 @@ package gr.unipi.noda.api.redis.aggregateOperator;
 import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.aggregation.reducers.Reducers;
 
-public class OperatorMax extends AggregateOperator {
+class OperatorMax extends AggregateOperator {
 
     private OperatorMax(String fieldName) {
         super(fieldName, "max_" + fieldName);

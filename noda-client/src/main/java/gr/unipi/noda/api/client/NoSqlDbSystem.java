@@ -1,16 +1,18 @@
 package gr.unipi.noda.api.client;
 
-import gr.unipi.noda.api.mongo.MongoDbConnectionFactory;
-import gr.unipi.noda.api.redis.RedisConnectionFactory;
 import gr.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import org.apache.spark.sql.SparkSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class NoSqlDbSystem {
+
+    private static final Logger logger = LoggerFactory.getLogger(NoSqlDbSystem.class);
 
     public static class Builder {
 
@@ -84,11 +86,27 @@ public final class NoSqlDbSystem {
     }
 
     public static Builder MongoDB() {
-        return new NoSqlDbSystem.Builder(new MongoDbConnectionFactory());
+        NoSqlConnectionFactory noSqlConnectionFactory = null;
+        try {
+            Class<?> mongoClass = Class.forName("gr.unipi.noda.api.mongo.MongoDBConnectionFactory");
+            noSqlConnectionFactory = (NoSqlConnectionFactory) mongoClass.newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            logger.error("noda-mongo dependency is missing. \n {}", e.toString());
+        }
+
+        return new NoSqlDbSystem.Builder(noSqlConnectionFactory);
     }
 
     public static Builder Redis() {
-        return new NoSqlDbSystem.Builder(new RedisConnectionFactory());
+        NoSqlConnectionFactory noSqlConnectionFactory = null;
+        try {
+            Class<?> mongoClass = Class.forName("gr.unipi.noda.api.redis.RedisConnectionFactory");
+            noSqlConnectionFactory = (NoSqlConnectionFactory) mongoClass.newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            logger.error("noda-redis dependency is missing. \n {}", e.toString());
+        }
+
+        return new NoSqlDbSystem.Builder(noSqlConnectionFactory);
     }
 
     public void closeConnection() {

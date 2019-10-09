@@ -2,7 +2,7 @@ package gr.unipi.noda.api.mongo.filterOperator.geographicalOperator;
 
 import gr.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 
-public class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnSinglePoint {
+class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnSinglePoint {
 
     private final double radius;//radius is in meters
 

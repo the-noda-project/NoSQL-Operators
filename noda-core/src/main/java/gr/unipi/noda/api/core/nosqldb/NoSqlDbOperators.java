@@ -1,8 +1,8 @@
 package gr.unipi.noda.api.core.nosqldb;
 
 import gr.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
-import gr.unipi.noda.api.core.operators.FilterOperator;
-import gr.unipi.noda.api.core.operators.SortOperator;
+import gr.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
@@ -10,56 +10,31 @@ import java.util.Optional;
 
 public interface NoSqlDbOperators {
 
-    default NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        throw new UnsupportedOperationException("Filter primitive is not supported");
-    }
+    NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators);
 
-    NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator);// {
-//        throw new UnsupportedOperationException("Groupby primitive is not supported");
-    //}
+    NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator);
 
-    default NoSqlDbOperators distinct(String fieldName) {
-        throw new UnsupportedOperationException("Distinct primitive is not supported");
-    }
+    NoSqlDbOperators distinct(String fieldName);
 
-    default void printScreen() {
-        throw new UnsupportedOperationException("PrintScreen primitive is not supported");
-    }
+    void printScreen();
 
-    default Optional<Double> max(String fieldName) {
-        throw new UnsupportedOperationException("Max primitive is not supported");
-    }
+    Optional<Double> max(String fieldName);
 
-    default Optional<Double> min(String fieldName) {
-        throw new UnsupportedOperationException("Min primitive is not supported");
-    }
+    Optional<Double> min(String fieldName);
 
-    default Optional<Double> sum(String fieldName) {
-        throw new UnsupportedOperationException("Sum primitive is not supported");
-    }
+    Optional<Double> sum(String fieldName);
 
-    default Optional<Double> avg(String fieldName) {
-        throw new UnsupportedOperationException("Average primitive is not supported");
-    }
+    Optional<Double> avg(String fieldName);
 
-    default int count() {
-        throw new UnsupportedOperationException("Count primitive is not supported");
-    }
+    int count();
 
-    default NoSqlDbOperators sort(SortOperator sortOperator, SortOperator... sortingOperators) {
-        throw new UnsupportedOperationException("Sort primitive is not supported");
-    }
+    NoSqlDbOperators sort(SortOperator sortOperator, SortOperator... sortingOperators);
 
-    default NoSqlDbOperators limit(int limit) {
-        throw new UnsupportedOperationException("Limit primitive is not supported");
-    }
+    NoSqlDbOperators limit(int limit);
 
-    default NoSqlDbOperators project(String fieldName, String... fieldNames) {
-        throw new UnsupportedOperationException("Project primitive is not supported");
-    }
+    NoSqlDbOperators project(String fieldName, String... fieldNames);
 
-    default Dataset<Row> toDataframe() {
+    Dataset<Row> toDataframe(); /*{
         throw new UnsupportedOperationException("ToDataframe primitive is not supported");
-    }
-
+    }*/
 }

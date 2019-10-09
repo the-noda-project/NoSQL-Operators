@@ -2,7 +2,7 @@ package gr.unipi.noda.api.mongo.filterOperator.comparisonOperator;
 
 import java.util.Date;
 
-public class OperatorNotEqual<T> extends ComparisonOperator<T> {
+class OperatorNotEqual<T> extends ComparisonOperator<T> {
 
     private OperatorNotEqual(String fieldName, T fieldValue) {
 

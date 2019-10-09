@@ -2,7 +2,7 @@ package gr.unipi.noda.api.mongo.filterOperator.geographicalOperator;
 
 import gr.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 
-public class OperatorNearestNeighbors extends GeographicalOperatorBasedOnSinglePoint {
+class OperatorNearestNeighbors extends GeographicalOperatorBasedOnSinglePoint {
 
     private final int neighbors;
 

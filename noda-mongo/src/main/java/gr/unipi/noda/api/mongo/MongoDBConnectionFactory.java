@@ -1,4 +1,4 @@
-package gr.unipi.noda.api.redis;
+package gr.unipi.noda.api.mongo;
 
 import gr.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
@@ -8,29 +8,32 @@ import gr.unipi.noda.api.core.operators.filterOperators.comparisonOperators.Base
 import gr.unipi.noda.api.core.operators.filterOperators.geographicalOperators.BaseGeographicalOperatorFactory;
 import gr.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
-import gr.unipi.noda.api.redis.aggregateOperator.RedisAggregateOperatorFactory;
+import gr.unipi.noda.api.mongo.aggregateOperator.MongoDBAggregateOperatorFactory;
+import gr.unipi.noda.api.mongo.filterOperator.comparisonOperator.MongoDBComparisonOperatorFactory;
+import gr.unipi.noda.api.mongo.filterOperator.geographicalOperator.MongoDBGeographicalOperatorFactory;
+import gr.unipi.noda.api.mongo.filterOperator.logicalOperator.MongoDBLogicalOperatorFactory;
+import gr.unipi.noda.api.mongo.sortOperator.MongoDBSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
-public final class RedisConnectionFactory extends NoSqlConnectionFactory {
-
+public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
     @Override
     public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {
-        return RedisDBConnector.newRedisDBConnector(host, port, username, password, database);
+        return MongoDBConnector.newMongoDBConnector(host, port, username, password, database);
     }
 
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
-        return RedisDBOperators.newRedisDBOperators((RedisDBConnector) connector, s);
+        return MongoDBOperators.newMongoDBOperators((MongoDBConnector) connector, s, sparkSession);
     }
 
     @Override
     public void closeConnection(NoSqlDbConnector noSqlDbConnector) {
-        RedisConnectionManager.getInstance().closeConnection(noSqlDbConnector);
+        MongoDBConnectionManager.getInstance().closeConnection(noSqlDbConnector);
     }
 
     @Override
     public int getDefaultPort() {
-        return 6379;
+        return 27017;
     }
 
     @Override
@@ -50,31 +53,32 @@ public final class RedisConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     public boolean closeConnections() {
-        return RedisConnectionManager.getInstance().closeConnections();
-    }
-
-    @Override
-    protected BaseSortOperatorFactory getBaseSortOperatorFactory() {
-        return null;
+        return MongoDBConnectionManager.getInstance().closeConnections();
     }
 
     @Override
     protected BaseAggregateOperatorFactory getBaseAggregateOperatorFactory() {
-        return new RedisAggregateOperatorFactory();
+        return new MongoDBAggregateOperatorFactory();
     }
 
     @Override
     protected BaseComparisonOperatorFactory getBaseComparisonOperatorFactory() {
-        return null;
+        return new MongoDBComparisonOperatorFactory();
     }
 
     @Override
     protected BaseGeographicalOperatorFactory getBaseGeographicalOperatorFactory() {
-        return null;
+        return new MongoDBGeographicalOperatorFactory();
     }
 
     @Override
     protected BaseLogicalOperatorFactory getBaseLogicalOperatorFactory() {
-        return null;
+        return new MongoDBLogicalOperatorFactory();
     }
+
+    @Override
+    protected BaseSortOperatorFactory getBaseSortOperatorFactory() {
+        return new MongoDBSortOperatorFactory();
+    }
+
 }

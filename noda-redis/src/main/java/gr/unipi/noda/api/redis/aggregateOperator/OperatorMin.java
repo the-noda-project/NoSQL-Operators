@@ -3,7 +3,7 @@ package gr.unipi.noda.api.redis.aggregateOperator;
 import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.aggregation.reducers.Reducers;
 
-public class OperatorMin extends AggregateOperator {
+class OperatorMin extends AggregateOperator {
 
     private OperatorMin(String fieldName) {
         super(fieldName, "min_" + fieldName);

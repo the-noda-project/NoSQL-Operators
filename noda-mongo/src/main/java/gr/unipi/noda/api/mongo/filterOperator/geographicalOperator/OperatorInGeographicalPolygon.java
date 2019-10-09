@@ -2,7 +2,7 @@ package gr.unipi.noda.api.mongo.filterOperator.geographicalOperator;
 
 import gr.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 
-public class OperatorInGeographicalPolygon extends GeographicalOperatorBasedOnPoints {
+class OperatorInGeographicalPolygon extends GeographicalOperatorBasedOnPoints {
 
     private OperatorInGeographicalPolygon(String fieldName, Coordinates[] coordinates) {
         super(fieldName, coordinates);

@@ -2,7 +2,7 @@ package gr.unipi.noda.api.redis.aggregateOperator;
 
 import io.redisearch.aggregation.reducers.Reducer;
 
-public abstract class AggregateOperator extends gr.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator<Reducer> {
+abstract class AggregateOperator extends gr.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator<Reducer> {
 
     protected AggregateOperator(String fieldName, String alias) {
         super(fieldName, alias);

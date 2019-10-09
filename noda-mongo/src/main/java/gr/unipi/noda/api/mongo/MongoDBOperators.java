@@ -5,13 +5,9 @@ import com.mongodb.spark.MongoSpark;
 import com.mongodb.spark.config.ReadConfig;
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
-import gr.unipi.noda.api.core.operators.FilterOperator;
-import gr.unipi.noda.api.core.operators.SortOperator;
-import gr.unipi.noda.api.mongo.aggregateOperator.OperatorAvg;
-import gr.unipi.noda.api.mongo.aggregateOperator.OperatorMax;
-import gr.unipi.noda.api.mongo.aggregateOperator.OperatorMin;
-import gr.unipi.noda.api.mongo.aggregateOperator.OperatorSum;
-import gr.unipi.noda.api.mongo.filterOperator.geographicalOperator.OperatorNearestNeighbors;
+import gr.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.unipi.noda.api.core.operators.sortOperators.SortOperator;
+import gr.unipi.noda.api.mongo.filterOperator.geographicalOperator.MongoDBGeographicalOperatorFactory;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -43,14 +39,14 @@ public final class MongoDBOperators implements NoSqlDbOperators {
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
 
-        if (filterOperator instanceof OperatorNearestNeighbors) {
+        if (MongoDBGeographicalOperatorFactory.isOperatorNearestNeighbor(filterOperator)) {
             stagesList.add(Document.parse(filterOperator.getOperatorExpression().toString()));
         } else {
             stagesList.add(Document.parse(" { $match: " + filterOperator.getOperatorExpression() + " } "));
         }
 
         for (FilterOperator fops : filterOperators) {
-            if (fops instanceof OperatorNearestNeighbors) {
+            if (MongoDBGeographicalOperatorFactory.isOperatorNearestNeighbor(fops)) {
                 stagesList.add(Document.parse(fops.getOperatorExpression().toString()));
             } else {
                 stagesList.add(Document.parse(" { $match: " + fops.getOperatorExpression() + " } "));
@@ -101,7 +97,7 @@ public final class MongoDBOperators implements NoSqlDbOperators {
 
     @Override
     public Optional<Double> max(String fieldName) {
-        stagesList.add(Document.parse("{ $group: { _id:null, " + OperatorMax.newOperatorMax(fieldName).getOperatorExpression() + " } }"));
+        stagesList.add(Document.parse("{ $group: { _id:null, " + AggregateOperator.aggregateOperator.newOperatorMax(fieldName).getOperatorExpression() + " } }"));
         MongoCursor mc = mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).iterator();
         if (mc.hasNext()) {
             return Optional.of(((Document) mc.next()).getDouble("max_" + fieldName));
@@ -111,7 +107,7 @@ public final class MongoDBOperators implements NoSqlDbOperators {
 
     @Override
     public Optional<Double> min(String fieldName) {
-        stagesList.add(Document.parse("{ $group: { _id:null, " + OperatorMin.newOperatorMin(fieldName).getOperatorExpression() + " } }"));
+        stagesList.add(Document.parse("{ $group: { _id:null, " + AggregateOperator.aggregateOperator.newOperatorMin(fieldName).getOperatorExpression() + " } }"));
         MongoCursor mc = mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).iterator();
         if (mc.hasNext()) {
             return Optional.of(((Document) mc.next()).getDouble("min_" + fieldName));
@@ -121,7 +117,7 @@ public final class MongoDBOperators implements NoSqlDbOperators {
 
     @Override
     public Optional<Double> sum(String fieldName) {
-        stagesList.add(Document.parse("{ $group: { _id:null, " + OperatorSum.newOperatorSum(fieldName).getOperatorExpression() + " } }"));
+        stagesList.add(Document.parse("{ $group: { _id:null, " + AggregateOperator.aggregateOperator.newOperatorSum(fieldName).getOperatorExpression() + " } }"));
         MongoCursor mc = mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).iterator();
         if (mc.hasNext()) {
             return Optional.of(((Document) mc.next()).getDouble("sum_" + fieldName));
@@ -131,7 +127,7 @@ public final class MongoDBOperators implements NoSqlDbOperators {
 
     @Override
     public Optional<Double> avg(String fieldName) {
-        stagesList.add(Document.parse("{ $group: { _id:null, " + OperatorAvg.newOperatorAvg(fieldName).getOperatorExpression() + " } }"));
+        stagesList.add(Document.parse("{ $group: { _id:null, " + AggregateOperator.aggregateOperator.newOperatorAvg(fieldName).getOperatorExpression() + " } }"));
         MongoCursor mc = mongoDBConnectionManager.getConnection(connector).getDatabase(connector.getDatabase()).getCollection(s).aggregate(stagesList).iterator();
         if (mc.hasNext()) {
             return Optional.of(((Document) mc.next()).getDouble("avg_" + fieldName));

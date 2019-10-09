@@ -1,6 +1,6 @@
 package gr.unipi.noda.api.mongo.aggregateOperator;
 
-public class OperatorSum extends AggregateOperator {
+class OperatorSum extends AggregateOperator {
 
     private OperatorSum(String fieldName) {
         super(fieldName, "sum_" + fieldName);

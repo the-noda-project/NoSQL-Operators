@@ -14,14 +14,19 @@
 
     <dependencies>
         <dependency>
-        <groupId>com.github.unipi.noda</groupId>
-        <artifactId>nosql-operators-mongo</artifactId>
-        <version>1.0-SNAPSHOT</version>
+            <groupId>com.github.unipi.noda</groupId>
+            <artifactId>nosql-operators-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-        <groupId>com.github.unipi.noda</groupId>
-        <artifactId>nosql-operators-redis</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.github.unipi.noda</groupId>-->
+        <!--<artifactId>nosql-operators-mongo</artifactId>-->
+        <!--<version>1.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.unipi.noda</groupId>-->
+            <!--<artifactId>nosql-operators-redis</artifactId>-->
+            <!--<version>1.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
     </dependencies>
 </project>
