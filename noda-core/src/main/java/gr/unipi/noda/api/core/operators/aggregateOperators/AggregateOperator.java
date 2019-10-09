@@ -25,4 +25,6 @@ public abstract class AggregateOperator<T> implements Operator<T> {
         return alias;
     }
 
+    public static BaseAggregateOperatorFactory aggregateOperator;
+
 }

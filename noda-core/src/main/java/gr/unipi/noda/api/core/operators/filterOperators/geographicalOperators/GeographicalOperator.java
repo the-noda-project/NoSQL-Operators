@@ -1,6 +1,6 @@
 package gr.unipi.noda.api.core.operators.filterOperators.geographicalOperators;
 
-import gr.unipi.noda.api.core.operators.FilterOperator;
+import gr.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 
 import java.util.function.Predicate;
 
@@ -38,4 +38,7 @@ public abstract class GeographicalOperator<T> implements FilterOperator<T> {
 
     Predicate<Double> longitudeOutOfRange = (longitude) -> ((Double.compare(longitude.doubleValue(), 180) == 1) || (Double.compare(longitude.doubleValue(), -180) == -1));
     Predicate<Double> latitudeOutOfRange = (latitude) -> ((Double.compare(latitude.doubleValue(), 90) == 1) || (Double.compare(latitude.doubleValue(), -90) == -1));
+
+    public static BaseGeographicalOperatorFactory geographicalOperator;
+
 }

@@ -1,6 +1,6 @@
-package gr.unipi.noda.api.core.operators.filterOperators;
+package gr.unipi.noda.api.core.operators.filterOperators.comparisonOperators;
 
-import gr.unipi.noda.api.core.operators.FilterOperator;
+import gr.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 
 public abstract class ComparisonOperator<T, U> implements FilterOperator<T> {
 
@@ -19,4 +19,7 @@ public abstract class ComparisonOperator<T, U> implements FilterOperator<T> {
     protected U getFieldValue() {
         return fieldValue;
     }
+
+    public static BaseComparisonOperatorFactory comparisonOperator;
+
 }

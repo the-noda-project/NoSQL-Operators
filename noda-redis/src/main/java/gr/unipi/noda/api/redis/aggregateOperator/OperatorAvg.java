@@ -3,7 +3,7 @@ package gr.unipi.noda.api.redis.aggregateOperator;
 import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.aggregation.reducers.Reducers;
 
-public class OperatorAvg extends AggregateOperator {
+class OperatorAvg extends AggregateOperator {
 
     private OperatorAvg(String fieldName) {
         super(fieldName, "avg_" + fieldName);

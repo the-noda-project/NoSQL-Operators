@@ -1,4 +1,6 @@
-package gr.unipi.noda.api.core.operators;
+package gr.unipi.noda.api.core.operators.sortOperators;
+
+import gr.unipi.noda.api.core.operators.Operator;
 
 public abstract class SortOperator<T> implements Operator<T> {
 
@@ -17,5 +19,8 @@ public abstract class SortOperator<T> implements Operator<T> {
     public int getOrder() {
         return order;
     }
+
+    public static BaseSortOperatorFactory sortOperator;
+
 }
 

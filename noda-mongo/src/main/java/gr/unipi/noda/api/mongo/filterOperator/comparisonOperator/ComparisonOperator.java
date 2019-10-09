@@ -3,7 +3,7 @@ package gr.unipi.noda.api.mongo.filterOperator.comparisonOperator;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract class ComparisonOperator<U> extends gr.unipi.noda.api.core.operators.filterOperators.ComparisonOperator<StringBuilder, U> {
+abstract class ComparisonOperator<U> extends gr.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator<StringBuilder, U> {
 
     protected ComparisonOperator(String fieldName, U fieldValue) {
         super(fieldName, fieldValue);

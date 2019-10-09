@@ -1,6 +1,6 @@
 package gr.unipi.noda.api.mongo.aggregateOperator;
 
-public abstract class AggregateOperator extends gr.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator<StringBuilder> {
+abstract class AggregateOperator extends gr.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator<StringBuilder> {
 
     protected AggregateOperator(String fieldName, String alias) {
         super(fieldName, alias);

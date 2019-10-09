@@ -7,7 +7,7 @@ import io.redisearch.client.Client;
 public final class RedisConnectionManager extends NoSqlDbConnectionManager<Client> {
     private static final RedisConnectionManager INSTANCE = new RedisConnectionManager();
 
-    private RedisConnectionManager(){
+    private RedisConnectionManager() {
 
     }
 

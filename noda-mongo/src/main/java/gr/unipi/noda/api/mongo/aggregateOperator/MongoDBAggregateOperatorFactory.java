@@ -1,29 +1,9 @@
 package gr.unipi.noda.api.mongo.aggregateOperator;
 
-import gr.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 import gr.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
+import gr.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 
-public class MongoAggregateOperatorFactory<T> extends BaseAggregateOperatorFactory<T> {
-
-    /*public static AggregateOperator max(String fieldName) {
-        return OperatorMax.newOperatorMax(fieldName);
-    }
-
-    public static AggregateOperator min(String fieldName) {
-        return OperatorMin.newOperatorMin(fieldName);
-    }
-
-    public static AggregateOperator avg(String fieldName) {
-        return OperatorAvg.newOperatorAvg(fieldName);
-    }
-
-    public static AggregateOperator sum(String fieldName) {
-        return OperatorSum.newOperatorSum(fieldName);
-    }
-
-    public static AggregateOperator count() {
-        return OperatorCount.newOperatorCount();
-    }*/
+public class MongoDBAggregateOperatorFactory extends BaseAggregateOperatorFactory {
 
     @Override
     public AggregateOperator newOperatorMax(String fieldName) {

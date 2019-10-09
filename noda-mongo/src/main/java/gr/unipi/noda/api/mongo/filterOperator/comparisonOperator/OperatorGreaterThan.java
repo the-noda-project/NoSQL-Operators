@@ -2,7 +2,7 @@ package gr.unipi.noda.api.mongo.filterOperator.comparisonOperator;
 
 import java.util.Date;
 
-public class OperatorGreaterThan<T> extends ComparisonOperator<T> {
+class OperatorGreaterThan<T> extends ComparisonOperator<T> {
 
     private OperatorGreaterThan(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);

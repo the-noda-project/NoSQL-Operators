@@ -1,6 +1,6 @@
 package gr.unipi.noda.api.mongo.sortOperator;
 
-public class OperatorAsc extends SortOperator {
+class OperatorAsc extends SortOperator {
 
     private OperatorAsc(String fieldName) {
         super(fieldName, 1);

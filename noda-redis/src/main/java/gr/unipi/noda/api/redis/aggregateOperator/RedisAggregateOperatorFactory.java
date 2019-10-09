@@ -2,7 +2,6 @@ package gr.unipi.noda.api.redis.aggregateOperator;
 
 import gr.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
-import io.redisearch.aggregation.reducers.Reducer;
 
 public class RedisAggregateOperatorFactory extends BaseAggregateOperatorFactory {
     @Override

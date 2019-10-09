@@ -1,6 +1,6 @@
-package gr.unipi.noda.api.core.operators.filterOperators;
+package gr.unipi.noda.api.core.operators.filterOperators.logicalOperators;
 
-import gr.unipi.noda.api.core.operators.FilterOperator;
+import gr.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 
 public abstract class LogicalOperator<T> implements FilterOperator<T> {
 
@@ -28,6 +28,8 @@ public abstract class LogicalOperator<T> implements FilterOperator<T> {
     protected FilterOperator[] getFilterOperatorChildren() {
         return filterOperatorChildren;
     }
+
+    public static BaseLogicalOperatorFactory logicalOperator;
 
 //    private void checkNumberOfChildrenCondition(FilterOperator... filterOperatorChildren) {
 //        if (filterOperatorChildren.length < 2) {
