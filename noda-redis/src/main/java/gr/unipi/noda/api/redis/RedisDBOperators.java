@@ -9,6 +9,8 @@ import io.redisearch.aggregation.AggregationBuilder;
 import io.redisearch.aggregation.SortedField;
 import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.aggregation.reducers.Reducers;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,5 +96,15 @@ public final class RedisDBOperators implements NoSqlDbOperators {
     @Override
     public NoSqlDbOperators limit(int limit) {
         return this;
+    }
+
+    @Override
+    public NoSqlDbOperators project(String fieldName, String... fieldNames) {
+        return null;
+    }
+
+    @Override
+    public Dataset<Row> toDataframe() {
+        return null;
     }
 }
