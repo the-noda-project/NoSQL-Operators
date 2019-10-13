@@ -1,0 +1,45 @@
+package gr.unipi.noda.api.redisearch.geographicalOperator;
+
+import gr.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.unipi.noda.api.core.operators.filterOperators.geographicalOperators.BaseGeographicalOperatorFactory;
+import gr.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
+import gr.unipi.noda.api.core.operators.filterOperators.geographicalOperators.GeographicalOperator;
+
+/**
+ * @author adimo on 11/10/2019
+ */
+public class RediSearchGeographicalOperatorFactory extends BaseGeographicalOperatorFactory {
+    @Override
+    public GeographicalOperator newOperatorInGeoPolygon(String fieldName, Coordinates coordinates1, Coordinates coordinates2, Coordinates coordinates3, Coordinates... coordinates) {
+        throw new UnsupportedOperationException("InGeoPolygon primitive is not supported");
+    }
+
+    @Override
+    public GeographicalOperator newOperatorInGeoBox(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint) {
+        throw new UnsupportedOperationException("InGeoBox primitive is not supported");
+    }
+
+    @Override
+    public GeographicalOperator newOperatorInGeoCircleKm(String fieldName, Coordinates point, double radius) {
+        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, point, radius, RediSearchGeographicalOperatorBasedOnSinglePoint.Unit.km);
+    }
+
+    @Override
+    public GeographicalOperator newOperatorInGeoCircleMeters(String fieldName, Coordinates point, double radius) {
+        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, point, radius, RediSearchGeographicalOperatorBasedOnSinglePoint.Unit.m);
+    }
+
+    @Override
+    public GeographicalOperator newOperatorInGeoCircleMiles(String fieldName, Coordinates point, double radius) {
+        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, point, radius, RediSearchGeographicalOperatorBasedOnSinglePoint.Unit.mi);
+    }
+
+    @Override
+    public GeographicalOperator newOperatorNearestNeighbors(String fieldName, Coordinates point, int neighborsCount) {
+        return OperatorNearestNeighbors.newOperatorNearestNeighbors(fieldName, point, 5, neighborsCount);
+    }
+
+    public static boolean isOperatorNearestNeighbor(FilterOperator filterOperator) {
+        return filterOperator instanceof OperatorNearestNeighbors;
+    }
+}
