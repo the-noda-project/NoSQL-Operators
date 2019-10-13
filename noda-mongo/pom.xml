@@ -9,13 +9,12 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>nosql-operators-mongo</artifactId>
-    <version>1.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <groupId>gr.unipi.noda</groupId>
             <artifactId>nosql-operators-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>

@@ -91,7 +91,7 @@ public final class NoSqlDbSystem {
             Class<?> mongoClass = Class.forName("gr.unipi.noda.api.mongo.MongoDBConnectionFactory");
             noSqlConnectionFactory = (NoSqlConnectionFactory) mongoClass.newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            logger.error("noda-mongo dependency is missing. \n {}", e.toString());
+            logger.error("noda-mongo dependency is missing from the classpath. \n {}", e.toString());
         }
 
         return new NoSqlDbSystem.Builder(noSqlConnectionFactory);
@@ -103,7 +103,7 @@ public final class NoSqlDbSystem {
             Class<?> mongoClass = Class.forName("gr.unipi.noda.api.redis.RedisConnectionFactory");
             noSqlConnectionFactory = (NoSqlConnectionFactory) mongoClass.newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            logger.error("noda-redis dependency is missing. \n {}", e.toString());
+            logger.error("noda-redis dependency is missing from the classpath. \n {}", e.toString());
         }
 
         return new NoSqlDbSystem.Builder(noSqlConnectionFactory);
