@@ -1,4 +1,4 @@
-package gr.unipi.noda.api.mongo;
+package gr.unipi.noda.api.redisearch;
 
 import gr.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
@@ -8,32 +8,32 @@ import gr.unipi.noda.api.core.operators.filterOperators.comparisonOperators.Base
 import gr.unipi.noda.api.core.operators.filterOperators.geographicalOperators.BaseGeographicalOperatorFactory;
 import gr.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
-import gr.unipi.noda.api.mongo.aggregateOperator.MongoDBAggregateOperatorFactory;
-import gr.unipi.noda.api.mongo.filterOperator.comparisonOperator.MongoDBComparisonOperatorFactory;
-import gr.unipi.noda.api.mongo.filterOperator.geographicalOperator.MongoDBGeographicalOperatorFactory;
-import gr.unipi.noda.api.mongo.filterOperator.logicalOperator.MongoDBLogicalOperatorFactory;
-import gr.unipi.noda.api.mongo.sortOperator.MongoDBSortOperatorFactory;
+import gr.unipi.noda.api.redisearch.aggregateOperator.RediSearchAggregateOperatorFactory;
+import gr.unipi.noda.api.redisearch.filterOperator.comparisonOperator.RediSearchComparisonOperatorFactory;
+import gr.unipi.noda.api.redisearch.filterOperator.logicalOperator.RediSearchLogicalOperatorFactory;
+import gr.unipi.noda.api.redisearch.sortOperator.RediSearchSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
-public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
+public class RediSearchConnectionFactory extends NoSqlConnectionFactory {
+
     @Override
     public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {
-        return MongoDBConnector.newMongoDBConnector(host, port, username, password, database);
+        return RediSearchDBConnector.newRedisDBConnector(host, port, username, password, database);
     }
 
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
-        return MongoDBOperators.newMongoDBOperators((MongoDBConnector) connector, s, sparkSession);
+        return RediSearchDBOperators.newRedisDBOperators((RediSearchDBConnector) connector, s);
     }
 
     @Override
     public void closeConnection(NoSqlDbConnector noSqlDbConnector) {
-        MongoDBConnectionManager.getInstance().closeConnection(noSqlDbConnector);
+        RediSearchConnectionManager.getInstance().closeConnection(noSqlDbConnector);
     }
 
     @Override
     public int getDefaultPort() {
-        return 27017;
+        return 6379;
     }
 
     @Override
@@ -48,37 +48,36 @@ public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     public String getDefaultPassword() {
-        return "";
+        return null;
     }
 
     @Override
     public boolean closeConnections() {
-        return MongoDBConnectionManager.getInstance().closeConnections();
+        return RediSearchConnectionManager.getInstance().closeConnections();
     }
 
     @Override
     protected BaseAggregateOperatorFactory getBaseAggregateOperatorFactory() {
-        return new MongoDBAggregateOperatorFactory();
+        return new RediSearchAggregateOperatorFactory();
     }
 
     @Override
     protected BaseComparisonOperatorFactory getBaseComparisonOperatorFactory() {
-        return new MongoDBComparisonOperatorFactory();
+        return new RediSearchComparisonOperatorFactory();
     }
 
     @Override
     protected BaseGeographicalOperatorFactory getBaseGeographicalOperatorFactory() {
-        return new MongoDBGeographicalOperatorFactory();
+        return null;
     }
 
     @Override
     protected BaseLogicalOperatorFactory getBaseLogicalOperatorFactory() {
-        return new MongoDBLogicalOperatorFactory();
+        return new RediSearchLogicalOperatorFactory();
     }
 
     @Override
     protected BaseSortOperatorFactory getBaseSortOperatorFactory() {
-        return new MongoDBSortOperatorFactory();
+        return new RediSearchSortOperatorFactory();
     }
-
 }
