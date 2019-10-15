@@ -100,8 +100,8 @@ public final class NoSqlDbSystem {
     public static Builder Redis() {
         NoSqlConnectionFactory noSqlConnectionFactory = null;
         try {
-            Class<?> mongoClass = Class.forName("gr.unipi.noda.api.redis.RedisConnectionFactory");
-            noSqlConnectionFactory = (NoSqlConnectionFactory) mongoClass.newInstance();
+            Class<?> redisClass = Class.forName("gr.unipi.noda.api.redis.RedisConnectionFactory");
+            noSqlConnectionFactory = (NoSqlConnectionFactory) redisClass.newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             logger.error("noda-redis dependency is missing from the classpath. \n {}", e.toString());
         }

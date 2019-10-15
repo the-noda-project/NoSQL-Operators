@@ -3,14 +3,14 @@ package gr.unipi.noda.api.redis;
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import io.redisearch.client.Client;
 
-public final class RedisDBConnector implements NoSqlDbConnector<Client> {
+public class RedisConnector implements NoSqlDbConnector<Client> {
     private final String host;
     private final int port;
     private final String username;
     private final String password;
     private String indexName;
 
-    public RedisDBConnector(String host, int port, String username, String password, String indexName) {
+    private RedisConnector(String host, int port, String username, String password, String indexName) {
         this.host = host;
         this.port = port;
         this.username = username;
@@ -20,14 +20,14 @@ public final class RedisDBConnector implements NoSqlDbConnector<Client> {
 
     @Override
     public Client createConnection() {
-        return new Client(indexName, host, port);
+        return new Client(indexName, host, port, 500, 100, password);
     }
 
-    public static RedisDBConnector newRedisDBConnector(String host, int port, String username, String password, String database) {
-        return new RedisDBConnector(host, port, username, password, database);
+    static RedisConnector newRedisConnector(String host, int port, String username, String password, String database) {
+        return new RedisConnector(host, port, username, password, database);
     }
 
-    public void setIndexName(String indexName) {
+    void setIndexName(String indexName) {
         this.indexName = indexName;
     }
 }

@@ -1,12 +1,14 @@
 package gr.unipi.noda.api.redis.aggregateOperator;
 
+import gr.unipi.noda.api.core.nosqldb.Keywords;
+import gr.unipi.noda.api.redis.StringPool;
 import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.aggregation.reducers.Reducers;
 
 class OperatorSum extends AggregateOperator {
 
     private OperatorSum(String fieldName) {
-        super(fieldName, "sum_" + fieldName);
+        super(fieldName, Keywords.SUM.toString().concat(fieldName));
     }
 
     public static OperatorSum newOperatorSum(String fieldName) {
@@ -15,6 +17,6 @@ class OperatorSum extends AggregateOperator {
 
     @Override
     protected Reducer getOperatorField() {
-        return Reducers.sum(getFieldName());
+        return Reducers.sum(StringPool.AT.concat(getFieldName()));
     }
 }
