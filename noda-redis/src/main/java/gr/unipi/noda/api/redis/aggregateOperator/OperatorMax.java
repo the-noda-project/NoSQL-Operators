@@ -1,7 +1,7 @@
 package gr.unipi.noda.api.redis.aggregateOperator;
 
-import gr.unipi.noda.api.core.nosqldb.Keywords;
-import gr.unipi.noda.api.redis.StringPool;
+import gr.unipi.noda.api.core.constants.Keywords;
+import gr.unipi.noda.api.core.constants.StringPool;
 import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.aggregation.reducers.Reducers;
 

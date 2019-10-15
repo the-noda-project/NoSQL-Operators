@@ -1,6 +1,6 @@
 package gr.unipi.noda.api.redis.sortOperator;
 
-import gr.unipi.noda.api.redis.StringPool;
+import gr.unipi.noda.api.core.constants.StringPool;
 import io.redisearch.aggregation.SortedField;
 
 class OperatorDesc extends SortOperator {
