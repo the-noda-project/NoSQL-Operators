@@ -12,7 +12,7 @@
     <modules>
         <module>noda-core</module>
         <module>noda-mongo</module>
-        <module>noda-redisearch</module>
+        <module>noda-redis</module>
         <module>noda-client</module>
     </modules>
     <properties>
