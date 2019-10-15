@@ -4,7 +4,7 @@ import io.redisearch.aggregation.reducers.Reducer;
 
 abstract class AggregateOperator extends gr.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator<Reducer> {
 
-    protected AggregateOperator(String fieldName, String alias) {
+    AggregateOperator(String fieldName, String alias) {
         super(fieldName, alias);
     }
 
@@ -13,5 +13,4 @@ abstract class AggregateOperator extends gr.unipi.noda.api.core.operators.aggreg
     public Reducer getOperatorExpression() {
         return getOperatorField().as(getAlias());
     }
-
 }

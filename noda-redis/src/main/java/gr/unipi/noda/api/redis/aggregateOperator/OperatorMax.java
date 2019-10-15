@@ -1,12 +1,14 @@
 package gr.unipi.noda.api.redis.aggregateOperator;
 
+import gr.unipi.noda.api.core.nosqldb.Keywords;
+import gr.unipi.noda.api.redis.StringPool;
 import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.aggregation.reducers.Reducers;
 
 class OperatorMax extends AggregateOperator {
 
     private OperatorMax(String fieldName) {
-        super(fieldName, "max_" + fieldName);
+        super(fieldName, Keywords.MAX.toString().concat(fieldName));
     }
 
     public static OperatorMax newOperatorMax(String fieldName) {
@@ -15,6 +17,6 @@ class OperatorMax extends AggregateOperator {
 
     @Override
     protected Reducer getOperatorField() {
-        return Reducers.max(getFieldName());
+        return Reducers.max(StringPool.AT.concat(getFieldName()));
     }
 }

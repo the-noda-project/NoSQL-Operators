@@ -4,11 +4,10 @@ import gr.unipi.noda.api.core.nosqldb.NoSqlDbConnectionManager;
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import io.redisearch.client.Client;
 
-public final class RedisConnectionManager extends NoSqlDbConnectionManager<Client> {
+public class RedisConnectionManager extends NoSqlDbConnectionManager<Client> {
     private static final RedisConnectionManager INSTANCE = new RedisConnectionManager();
 
     private RedisConnectionManager() {
-
     }
 
     @Override
@@ -25,7 +24,7 @@ public final class RedisConnectionManager extends NoSqlDbConnectionManager<Clien
         return false;
     }
 
-    public static RedisConnectionManager getInstance() {
+    static RedisConnectionManager getInstance() {
         return INSTANCE;
     }
 }

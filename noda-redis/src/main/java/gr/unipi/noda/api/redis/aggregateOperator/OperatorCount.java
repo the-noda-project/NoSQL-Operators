@@ -1,5 +1,6 @@
 package gr.unipi.noda.api.redis.aggregateOperator;
 
+import gr.unipi.noda.api.core.nosqldb.Keywords;
 import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.aggregation.reducers.Reducers;
 
@@ -9,7 +10,7 @@ import io.redisearch.aggregation.reducers.Reducers;
 class OperatorCount extends AggregateOperator {
 
     private OperatorCount(String fieldName) {
-        super(fieldName, "count");
+        super(fieldName, Keywords.COUNT.toString());
     }
 
     public static OperatorCount newOperatorCount() {
