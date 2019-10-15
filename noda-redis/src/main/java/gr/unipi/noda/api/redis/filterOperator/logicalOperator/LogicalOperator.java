@@ -1,6 +1,6 @@
 package gr.unipi.noda.api.redis.filterOperator.logicalOperator;
 
-import gr.unipi.noda.api.redis.StringPool;
+import gr.unipi.noda.api.core.constants.StringPool;
 import gr.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.unipi.noda.api.redis.filterOperator.RedisPostFilterOperator;
 

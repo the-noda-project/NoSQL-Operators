@@ -1,4 +1,4 @@
-package gr.unipi.noda.api.core.nosqldb;
+package gr.unipi.noda.api.core.constants;
 
 /**
  * @author adimo on 4/10/2019
