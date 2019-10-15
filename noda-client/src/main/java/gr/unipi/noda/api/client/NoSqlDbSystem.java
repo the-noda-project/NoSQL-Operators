@@ -97,13 +97,13 @@ public final class NoSqlDbSystem {
         return new NoSqlDbSystem.Builder(noSqlConnectionFactory);
     }
 
-    public static Builder RediSearch() {
+    public static Builder Redis() {
         NoSqlConnectionFactory noSqlConnectionFactory = null;
         try {
-            Class<?> redisClass = Class.forName("gr.unipi.noda.api.redisearch.RediSearchConnectionFactory");
+            Class<?> redisClass = Class.forName("gr.unipi.noda.api.redis.RedisConnectionFactory");
             noSqlConnectionFactory = (NoSqlConnectionFactory) redisClass.newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            logger.error("noda-redisearch dependency is missing from the classpath. \n {}", e.toString());
+            logger.error("noda-redis dependency is missing from the classpath. \n {}", e.toString());
         }
 
         return new NoSqlDbSystem.Builder(noSqlConnectionFactory);

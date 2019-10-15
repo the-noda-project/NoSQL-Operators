@@ -62,7 +62,7 @@
         </dependency>
         <dependency>
             <groupId>gr.unipi.noda</groupId>
-            <artifactId>nosql-operators-redisearch</artifactId>
+            <artifactId>nosql-operators-redis</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
