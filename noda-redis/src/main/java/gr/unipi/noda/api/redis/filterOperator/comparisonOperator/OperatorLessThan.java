@@ -1,6 +1,6 @@
 package gr.unipi.noda.api.redis.filterOperator.comparisonOperator;
 
-import gr.unipi.noda.api.redis.StringPool;
+import gr.unipi.noda.api.core.constants.StringPool;
 
 /**
  * @author adimo on 7/10/2019

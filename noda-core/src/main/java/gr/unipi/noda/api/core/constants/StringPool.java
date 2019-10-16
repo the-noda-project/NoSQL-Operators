@@ -1,4 +1,4 @@
-package gr.unipi.noda.api.redis;
+package gr.unipi.noda.api.core.constants;
 
 import java.nio.charset.Charset;
 

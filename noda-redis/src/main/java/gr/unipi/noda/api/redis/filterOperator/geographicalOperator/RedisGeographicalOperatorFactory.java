@@ -1,4 +1,4 @@
-package gr.unipi.noda.api.redis.geographicalOperator;
+package gr.unipi.noda.api.redis.filterOperator.geographicalOperator;
 
 import gr.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.unipi.noda.api.core.operators.filterOperators.geographicalOperators.BaseGeographicalOperatorFactory;
