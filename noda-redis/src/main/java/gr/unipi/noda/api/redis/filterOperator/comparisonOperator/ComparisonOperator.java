@@ -1,6 +1,6 @@
 package gr.unipi.noda.api.redis.filterOperator.comparisonOperator;
 
-import gr.unipi.noda.api.redis.StringPool;
+import gr.unipi.noda.api.core.constants.StringPool;
 import gr.unipi.noda.api.redis.filterOperator.RedisPostFilterOperator;
 
 abstract class ComparisonOperator<T> extends gr.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator<StringBuilder, T> implements RedisPostFilterOperator {

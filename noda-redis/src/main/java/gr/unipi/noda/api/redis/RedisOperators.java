@@ -1,13 +1,14 @@
 package gr.unipi.noda.api.redis;
 
-import gr.unipi.noda.api.core.nosqldb.Keywords;
+import gr.unipi.noda.api.core.constants.Keywords;
+import gr.unipi.noda.api.core.constants.StringPool;
 import gr.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import gr.unipi.noda.api.redis.filterOperator.RedisPostFilterOperator;
-import gr.unipi.noda.api.redis.geographicalOperator.OperatorNearestNeighbors;
-import gr.unipi.noda.api.redis.geographicalOperator.RedisGeographicalOperatorFactory;
+import gr.unipi.noda.api.redis.filterOperator.geographicalOperator.OperatorNearestNeighbors;
+import gr.unipi.noda.api.redis.filterOperator.geographicalOperator.RedisGeographicalOperatorFactory;
 import io.redisearch.AggregationResult;
 import io.redisearch.aggregation.AggregationBuilder;
 import io.redisearch.aggregation.SortedField;

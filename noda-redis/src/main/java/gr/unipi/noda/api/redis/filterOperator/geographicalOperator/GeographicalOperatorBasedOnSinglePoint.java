@@ -1,6 +1,6 @@
-package gr.unipi.noda.api.redis.geographicalOperator;
+package gr.unipi.noda.api.redis.filterOperator.geographicalOperator;
 
-import gr.unipi.noda.api.redis.StringPool;
+import gr.unipi.noda.api.core.constants.StringPool;
 import gr.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 
 /**
