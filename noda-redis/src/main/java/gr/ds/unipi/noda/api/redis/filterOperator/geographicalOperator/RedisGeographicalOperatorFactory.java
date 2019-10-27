@@ -36,7 +36,7 @@ public class RedisGeographicalOperatorFactory extends BaseGeographicalOperatorFa
 
     @Override
     public GeographicalOperator newOperatorNearestNeighbors(String fieldName, Coordinates point, int neighborsCount) {
-        return OperatorNearestNeighbors.newOperatorNearestNeighbors(fieldName, point, 5, neighborsCount);
+        return OperatorNearestNeighbors.newOperatorNearestNeighbors(fieldName, point, neighborsCount);
     }
 
     public static boolean isOperatorNearestNeighbor(FilterOperator filterOperator) {
