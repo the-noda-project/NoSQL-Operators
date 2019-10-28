@@ -6,7 +6,7 @@ import gr.ds.unipi.noda.api.core.constants.StringPool;
  * @author adimo on 7/10/2019
  */
 class OperatorLessThan<T> extends ComparisonOperator<T> {
-    protected OperatorLessThan(String fieldName, T fieldValue) {
+    private OperatorLessThan(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
     }
 
@@ -20,23 +20,23 @@ class OperatorLessThan<T> extends ComparisonOperator<T> {
         return StringPool.LESS_THAN;
     }
 
-    public static OperatorLessThan<Double> newOperatorLessThan(String fieldName, Double fieldValue) {
+    static OperatorLessThan<Double> newOperatorLessThan(String fieldName, Double fieldValue) {
         return new OperatorLessThan<>(fieldName, fieldValue);
     }
 
-    public static OperatorLessThan<Integer> newOperatorLessThan(String fieldName, Integer fieldValue) {
+    static OperatorLessThan<Integer> newOperatorLessThan(String fieldName, Integer fieldValue) {
         return new OperatorLessThan<>(fieldName, fieldValue);
     }
 
-    public static OperatorLessThan<Float> newOperatorLessThan(String fieldName, Float fieldValue) {
+    static OperatorLessThan<Float> newOperatorLessThan(String fieldName, Float fieldValue) {
         return new OperatorLessThan<>(fieldName, fieldValue);
     }
 
-    public static OperatorLessThan<Short> newOperatorLessThan(String fieldName, Short fieldValue) {
+    static OperatorLessThan<Short> newOperatorLessThan(String fieldName, Short fieldValue) {
         return new OperatorLessThan<>(fieldName, fieldValue);
     }
 
-    public static OperatorLessThan<Long> newOperatorLessThan(String fieldName, Long fieldValue) {
+    static OperatorLessThan<Long> newOperatorLessThan(String fieldName, Long fieldValue) {
         return new OperatorLessThan<>(fieldName, fieldValue);
     }
 }

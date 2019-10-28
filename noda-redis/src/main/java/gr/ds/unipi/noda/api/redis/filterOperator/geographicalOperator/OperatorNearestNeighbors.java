@@ -22,7 +22,7 @@ public class OperatorNearestNeighbors extends GeographicalOperatorBasedOnSingleP
         this.radius = radius;
     }
 
-    public static OperatorNearestNeighbors newOperatorNearestNeighbors(String fieldName, Coordinates point, int neighborsCount) {
+    static OperatorNearestNeighbors newOperatorNearestNeighbors(String fieldName, Coordinates point, int neighborsCount) {
         LoadHistogram histogram = LoadHistogram.newLoadHistogram(OperatorNearestNeighbors.class.getProtectionDomain().getCodeSource().getLocation().getPath());
         RadiusDetermination radiusDetermination = RadiusDetermination.newRadiusDetermination(histogram.getHistogram(),
                 histogram.getNumberOfCellsxAxis(), histogram.getNumberOfCellsyAxis(), histogram.getMinx(),
