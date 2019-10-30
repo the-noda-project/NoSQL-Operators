@@ -11,7 +11,7 @@ class OperatorMin extends AggregateOperator {
         super(fieldName, Keywords.MIN.toString().concat(fieldName));
     }
 
-    public static OperatorMin newOperatorMin(String fieldName) {
+    static OperatorMin newOperatorMin(String fieldName) {
         return new OperatorMin(fieldName);
     }
 

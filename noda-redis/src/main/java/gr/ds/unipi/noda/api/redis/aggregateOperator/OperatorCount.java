@@ -13,7 +13,7 @@ class OperatorCount extends AggregateOperator {
         super(fieldName, Keywords.COUNT.toString());
     }
 
-    public static OperatorCount newOperatorCount() {
+    static OperatorCount newOperatorCount() {
         return new OperatorCount("");
     }
 

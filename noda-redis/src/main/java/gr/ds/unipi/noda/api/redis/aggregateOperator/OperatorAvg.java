@@ -11,7 +11,7 @@ class OperatorAvg extends AggregateOperator {
         super(fieldName, Keywords.AVG.toString().concat(fieldName));
     }
 
-    public static OperatorAvg newOperatorAvg(String fieldName) {
+    static OperatorAvg newOperatorAvg(String fieldName) {
         return new OperatorAvg(fieldName);
     }
 

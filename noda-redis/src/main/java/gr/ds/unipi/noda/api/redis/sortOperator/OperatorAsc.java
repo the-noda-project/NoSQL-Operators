@@ -14,7 +14,7 @@ class OperatorAsc extends SortOperator {
         return SortedField.asc(StringPool.AT.concat(getFieldName()));
     }
 
-    public static OperatorAsc newOperatorAsc(String fieldName) {
+    static OperatorAsc newOperatorAsc(String fieldName) {
         return new OperatorAsc(fieldName);
     }
 }

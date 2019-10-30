@@ -20,23 +20,23 @@ class OperatorLessThanEqual<T> extends ComparisonOperator<T> {
         return StringPool.LESS_THAN_OR_EQUAL;
     }
 
-    public static OperatorLessThanEqual<Double> newOperatorLessThanEqual(String fieldName, Double fieldValue) {
+    static OperatorLessThanEqual<Double> newOperatorLessThanEqual(String fieldName, Double fieldValue) {
         return new OperatorLessThanEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorLessThanEqual<Integer> newOperatorLessThanEqual(String fieldName, Integer fieldValue) {
+    static OperatorLessThanEqual<Integer> newOperatorLessThanEqual(String fieldName, Integer fieldValue) {
         return new OperatorLessThanEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorLessThanEqual<Float> newOperatorLessThanEqual(String fieldName, Float fieldValue) {
+    static OperatorLessThanEqual<Float> newOperatorLessThanEqual(String fieldName, Float fieldValue) {
         return new OperatorLessThanEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorLessThanEqual<Short> newOperatorLessThanEqual(String fieldName, Short fieldValue) {
+    static OperatorLessThanEqual<Short> newOperatorLessThanEqual(String fieldName, Short fieldValue) {
         return new OperatorLessThanEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorLessThanEqual<Long> newOperatorLessThanEqual(String fieldName, Long fieldValue) {
+    static OperatorLessThanEqual<Long> newOperatorLessThanEqual(String fieldName, Long fieldValue) {
         return new OperatorLessThanEqual<>(fieldName, fieldValue);
     }
 }

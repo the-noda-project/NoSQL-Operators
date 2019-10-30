@@ -11,7 +11,7 @@ class OperatorSum extends AggregateOperator {
         super(fieldName, Keywords.SUM.toString().concat(fieldName));
     }
 
-    public static OperatorSum newOperatorSum(String fieldName) {
+    static OperatorSum newOperatorSum(String fieldName) {
         return new OperatorSum(fieldName);
     }
 

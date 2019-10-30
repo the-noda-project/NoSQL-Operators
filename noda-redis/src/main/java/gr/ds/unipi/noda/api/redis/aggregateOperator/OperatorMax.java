@@ -11,7 +11,7 @@ class OperatorMax extends AggregateOperator {
         super(fieldName, Keywords.MAX.toString().concat(fieldName));
     }
 
-    public static OperatorMax newOperatorMax(String fieldName) {
+    static OperatorMax newOperatorMax(String fieldName) {
         return new OperatorMax(fieldName);
     }
 
