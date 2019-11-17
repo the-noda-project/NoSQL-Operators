@@ -12,7 +12,10 @@ class OperatorNotEqual<T> extends ComparisonOperator<T> {
 
     @Override
     protected String getOperatorField() {
-        return StringPool.OPEN_BRACKET + getFieldValue() + StringPool.SPACE + getFieldValue() + StringPool.CLOSE_BRACKET;
+        if(getFieldValue() instanceof String)
+            return getFieldValue().toString();
+        else
+            return StringPool.OPEN_BRACKET + getFieldValue() + StringPool.SPACE + getFieldValue() + StringPool.CLOSE_BRACKET;
     }
 
     @Override

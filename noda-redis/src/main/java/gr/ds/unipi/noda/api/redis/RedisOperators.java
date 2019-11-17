@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.redis;
 
-import gr.ds.unipi.noda.api.core.constants.Keywords;
+import gr.ds.unipi.noda.api.core.constants.AggregationKeywords;
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
@@ -41,7 +41,11 @@ public class RedisOperators implements NoSqlDbOperators {
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
         if (RedisGeographicalOperatorFactory.isOperatorNearestNeighbor(filterOperator)) {
-            aggregationBuilder.filter(filterOperator.getOperatorExpression().toString()).limit(((OperatorNearestNeighbors) filterOperator).getNeighborsCount());
+            if (aggregationBuilder.getArgs().size() == 1) {
+                aggregationBuilder = new AggregationBuilder(filterOperator.getOperatorExpression().toString()).limit(((OperatorNearestNeighbors) filterOperator).getNeighborsCount());
+            } else {
+                throw new UnsupportedOperationException("RedisGeographicalOperator is not supported as post filter query.");
+            }
         }
         if (aggregationBuilder.getArgs().size() == 1) {
             String s = filterOperator.getOperatorExpression().toString();
@@ -82,35 +86,35 @@ public class RedisOperators implements NoSqlDbOperators {
     public Optional<Double> max(String fieldName) {
         aggregationBuilder.groupBy(StringPool.AT_AND_STAR, (Reducer) AggregateOperator.aggregateOperator.newOperatorMax(fieldName).getOperatorExpression());
         AggregationResult aggregate = redisConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
-        return Optional.of(aggregate.getRow(0).getDouble(Keywords.MAX.toString().concat(fieldName)));
+        return Optional.of(aggregate.getRow(0).getDouble(AggregationKeywords.MAX.toString().concat(fieldName)));
     }
 
     @Override
     public Optional<Double> min(String fieldName) {
         aggregationBuilder.groupBy(StringPool.AT_AND_STAR, (Reducer) AggregateOperator.aggregateOperator.newOperatorMin(fieldName).getOperatorExpression());
         AggregationResult aggregate = redisConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
-        return Optional.of(aggregate.getRow(0).getDouble(Keywords.MIN.toString().concat(fieldName)));
+        return Optional.of(aggregate.getRow(0).getDouble(AggregationKeywords.MIN.toString().concat(fieldName)));
     }
 
     @Override
     public Optional<Double> sum(String fieldName) {
         aggregationBuilder.groupBy(StringPool.AT_AND_STAR, (Reducer) AggregateOperator.aggregateOperator.newOperatorSum(fieldName).getOperatorExpression());
         AggregationResult aggregate = redisConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
-        return Optional.of(aggregate.getRow(0).getDouble(Keywords.SUM.toString().concat(fieldName)));
+        return Optional.of(aggregate.getRow(0).getDouble(AggregationKeywords.SUM.toString().concat(fieldName)));
     }
 
     @Override
     public Optional<Double> avg(String fieldName) {
         aggregationBuilder.groupBy(StringPool.AT_AND_STAR, (Reducer) AggregateOperator.aggregateOperator.newOperatorAvg(fieldName).getOperatorExpression());
         AggregationResult aggregate = redisConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
-        return Optional.of(aggregate.getRow(0).getDouble(Keywords.AVG.toString().concat(fieldName)));
+        return Optional.of(aggregate.getRow(0).getDouble(AggregationKeywords.AVG.toString().concat(fieldName)));
     }
 
     @Override
     public int count() {
         aggregationBuilder.groupBy(StringPool.AT_AND_STAR, (Reducer) AggregateOperator.aggregateOperator.newOperatorCount().getOperatorExpression());
         AggregationResult aggregate = redisConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
-        return (int) aggregate.getRow(0).getDouble(Keywords.COUNT.toString());
+        return (int) aggregate.getRow(0).getDouble(AggregationKeywords.COUNT.toString());
     }
 
     @Override

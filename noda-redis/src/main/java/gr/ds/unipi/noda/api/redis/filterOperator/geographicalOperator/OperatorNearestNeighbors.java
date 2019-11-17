@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator;
 
+import gr.ds.unipi.noda.api.core.constants.Commons;
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 import gr.ds.unipi.sttk.kNNOverRangeQueries.gridPartitioning.LoadHistogram;
@@ -23,7 +24,7 @@ public class OperatorNearestNeighbors extends GeographicalOperatorBasedOnSingleP
     }
 
     static OperatorNearestNeighbors newOperatorNearestNeighbors(String fieldName, Coordinates point, int neighborsCount) {
-        LoadHistogram histogram = LoadHistogram.newLoadHistogram(OperatorNearestNeighbors.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        LoadHistogram histogram = LoadHistogram.newLoadHistogram(Commons.BASE_PATH);
         RadiusDetermination radiusDetermination = RadiusDetermination.newRadiusDetermination(histogram.getHistogram(),
                 histogram.getNumberOfCellsxAxis(), histogram.getNumberOfCellsyAxis(), histogram.getMinx(),
                 histogram.getMiny(), histogram.getMaxx(), histogram.getMaxy());

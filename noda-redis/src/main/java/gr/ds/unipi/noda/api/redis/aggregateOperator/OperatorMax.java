@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.redis.aggregateOperator;
 
-import gr.ds.unipi.noda.api.core.constants.Keywords;
+import gr.ds.unipi.noda.api.core.constants.AggregationKeywords;
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.aggregation.reducers.Reducers;
@@ -8,7 +8,7 @@ import io.redisearch.aggregation.reducers.Reducers;
 class OperatorMax extends AggregateOperator {
 
     private OperatorMax(String fieldName) {
-        super(fieldName, Keywords.MAX.toString().concat(fieldName));
+        super(fieldName, AggregationKeywords.MAX.toString().concat(fieldName));
     }
 
     static OperatorMax newOperatorMax(String fieldName) {
