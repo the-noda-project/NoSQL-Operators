@@ -9,17 +9,16 @@ import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import gr.ds.unipi.noda.api.redis.filterOperator.RedisPostFilterOperator;
 import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.OperatorNearestNeighbors;
 import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.RedisGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.ZRangeInfo;
 import io.redisearch.AggregationResult;
 import io.redisearch.aggregation.AggregationBuilder;
 import io.redisearch.aggregation.SortedField;
 import io.redisearch.aggregation.reducers.Reducer;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import redis.clients.jedis.GeoCoordinate;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -27,6 +26,7 @@ public class RedisOperators implements NoSqlDbOperators {
     private final RedisConnectionManager redisConnectionManager = RedisConnectionManager.getInstance();
     private final RedisConnector connector;
     private AggregationBuilder aggregationBuilder;
+    private List<GeoCoordinate> geopos;
 
     private RedisOperators(RedisConnector connector) {
         this.connector = connector;
@@ -46,6 +46,10 @@ public class RedisOperators implements NoSqlDbOperators {
             } else {
                 throw new UnsupportedOperationException("RedisGeographicalOperator is not supported as post filter query.");
             }
+        } else if (RedisGeographicalOperatorFactory.isOperatorGeoRecatangle(filterOperator)) {
+            ZRangeInfo zRangeInfo = (ZRangeInfo) filterOperator.getOperatorExpression();
+            Set<String> rectangleSearchMembers = redisConnectionManager.getConnection(connector)._conn().zrangeByScore(zRangeInfo.getKey(), zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore());
+            geopos = redisConnectionManager.getConnection(connector)._conn().geopos(zRangeInfo.getKey(), rectangleSearchMembers.toArray(new String[0]));
         }
         if (aggregationBuilder.getArgs().size() == 1) {
             String s = filterOperator.getOperatorExpression().toString();

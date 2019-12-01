@@ -6,7 +6,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 /**
  * @author adimo on 11/10/2019
  */
-public class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnSinglePoint {
+class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnSinglePoint {
     @Override
     protected String getOperatorField() {
         return StringPool.OPEN_BRACKET + getLongitude() + StringPool.SPACE + getLatitude() + StringPool.SPACE + radius + StringPool.SPACE + unit.toString() + StringPool.CLOSE_BRACKET;

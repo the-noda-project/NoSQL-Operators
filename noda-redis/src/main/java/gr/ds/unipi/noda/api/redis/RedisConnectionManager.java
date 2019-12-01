@@ -24,7 +24,7 @@ public class RedisConnectionManager extends NoSqlDbConnectionManager<Client> {
         return false;
     }
 
-    static RedisConnectionManager getInstance() {
+    public static RedisConnectionManager getInstance() {
         return INSTANCE;
     }
 }
