@@ -4,7 +4,6 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import io.redisearch.client.Client;
 
 public class RedisConnector implements NoSqlDbConnector<Client> {
-    private static RedisConnector REDIS_CONNECTOR;
     private final String host;
     private final int port;
     private final String username;
@@ -25,18 +24,14 @@ public class RedisConnector implements NoSqlDbConnector<Client> {
     }
 
     static RedisConnector newRedisConnector(String host, int port, String username, String password, String database) {
-        return REDIS_CONNECTOR = new RedisConnector(host, port, username, password, database);
+        return new RedisConnector(host, port, username, password, database);
     }
 
     void setIndexName(String indexName) {
         this.indexName = indexName;
     }
 
-    public String getIndexName() {
+    String getIndexName() {
         return this.indexName;
-    }
-
-    public static RedisConnector getRedisConnector() {
-        return REDIS_CONNECTOR;
     }
 }

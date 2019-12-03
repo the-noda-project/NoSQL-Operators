@@ -7,9 +7,7 @@ import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import gr.ds.unipi.noda.api.redis.filterOperator.RedisPostFilterOperator;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.OperatorNearestNeighbors;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.RedisGeographicalOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.ZRangeInfo;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.*;
 import io.redisearch.AggregationResult;
 import io.redisearch.aggregation.AggregationBuilder;
 import io.redisearch.aggregation.SortedField;
@@ -26,7 +24,7 @@ public class RedisOperators implements NoSqlDbOperators {
     private final RedisConnectionManager redisConnectionManager = RedisConnectionManager.getInstance();
     private final RedisConnector connector;
     private AggregationBuilder aggregationBuilder;
-    private List<GeoCoordinate> geopos;
+    private ZRangeInfo zRangeInfo;
 
     private RedisOperators(RedisConnector connector) {
         this.connector = connector;
@@ -46,10 +44,9 @@ public class RedisOperators implements NoSqlDbOperators {
             } else {
                 throw new UnsupportedOperationException("RedisGeographicalOperator is not supported as post filter query.");
             }
-        } else if (RedisGeographicalOperatorFactory.isOperatorGeoRecatangle(filterOperator)) {
-            ZRangeInfo zRangeInfo = (ZRangeInfo) filterOperator.getOperatorExpression();
-            Set<String> rectangleSearchMembers = redisConnectionManager.getConnection(connector)._conn().zrangeByScore(zRangeInfo.getKey(), zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore());
-            geopos = redisConnectionManager.getConnection(connector)._conn().geopos(zRangeInfo.getKey(), rectangleSearchMembers.toArray(new String[0]));
+        } else if (RedisGeographicalOperatorFactory.isOperatorGeoBox(filterOperator)) {
+            zRangeInfo = ((RedisGeographicalOperatorBasedOnPoints)filterOperator)
+                    .getOperatorExpression(redisConnectionManager.getConnection(connector)._conn(), connector.getIndexName());
         }
         if (aggregationBuilder.getArgs().size() == 1) {
             String s = filterOperator.getOperatorExpression().toString();
@@ -75,15 +72,21 @@ public class RedisOperators implements NoSqlDbOperators {
 
     @Override
     public void printScreen() {
-        AggregationResult aggregate = redisConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
-        List<Map<String, Object>> results = aggregate.getResults();
-        int index = 0;
-        for (Map<String, Object> t : results) {
-            int finalIndex = index;
-            t.keySet().forEach(k -> System.out.println(k + StringPool.COLON + aggregate.getRow(finalIndex).getString(k)));
-            index++;
+        if (Objects.nonNull(zRangeInfo)) {
+            Set<String> rectangleSearchMembers = redisConnectionManager.getConnection(connector)._conn().zrangeByScore(zRangeInfo.getKey(), zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore());
+            List<GeoCoordinate> geopos = redisConnectionManager.getConnection(connector)._conn().geopos(zRangeInfo.getKey(), rectangleSearchMembers.toArray(StringPool.EMPTY_ARRAY));
+            geopos.forEach(pos -> System.out.println(pos.toString()));
+        } else {
+            AggregationResult aggregate = redisConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
+            List<Map<String, Object>> results = aggregate.getResults();
+            int index = 0;
+            for (Map<String, Object> t : results) {
+                int finalIndex = index;
+                t.keySet().forEach(k -> System.out.println(k + StringPool.COLON + aggregate.getRow(finalIndex).getString(k)));
+                index++;
+            }
+            System.out.println(aggregate.getResults());
         }
-        System.out.println(aggregate.getResults());
     }
 
     @Override
