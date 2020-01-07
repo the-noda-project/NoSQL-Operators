@@ -3,7 +3,7 @@ package gr.ds.unipi.noda.api.core.constants;
 /**
  * @author adimo on 4/10/2019
  */
-public enum Keywords {
+public enum AggregationKeywords {
     SUM("sum_"),
     MIN("min_"),
     MAX("max_"),
@@ -12,7 +12,7 @@ public enum Keywords {
 
     private final String name;
 
-    Keywords(String s) {
+    AggregationKeywords(String s) {
         name = s;
     }
 

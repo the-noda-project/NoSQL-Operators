@@ -21,31 +21,31 @@ class OperatorEqual<T> extends ComparisonOperator<T> {
         return StringPool.DOUBLE_EQUAL;
     }
 
-    public static OperatorEqual<Double> newOperatorEqual(String fieldName, Double fieldValue) {
+    static OperatorEqual<Double> newOperatorEqual(String fieldName, Double fieldValue) {
         return new OperatorEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorEqual<Integer> newOperatorEqual(String fieldName, Integer fieldValue) {
+    static OperatorEqual<Integer> newOperatorEqual(String fieldName, Integer fieldValue) {
         return new OperatorEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorEqual<Float> newOperatorEqual(String fieldName, Float fieldValue) {
+    static OperatorEqual<Float> newOperatorEqual(String fieldName, Float fieldValue) {
         return new OperatorEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorEqual<Short> newOperatorEqual(String fieldName, Short fieldValue) {
+    static OperatorEqual<Short> newOperatorEqual(String fieldName, Short fieldValue) {
         return new OperatorEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorEqual<Long> newOperatorEqual(String fieldName, Long fieldValue) {
+    static OperatorEqual<Long> newOperatorEqual(String fieldName, Long fieldValue) {
         return new OperatorEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorEqual<Boolean> newOperatorEqual(String fieldName, Boolean fieldValue) {
+    static OperatorEqual<Boolean> newOperatorEqual(String fieldName, Boolean fieldValue) {
         return new OperatorEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorEqual<String> newOperatorEqual(String fieldName, String fieldValue) {
+    static OperatorEqual<String> newOperatorEqual(String fieldName, String fieldValue) {
         return new OperatorEqual<>(fieldName, fieldValue);
     }
 

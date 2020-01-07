@@ -14,7 +14,7 @@ class OperatorDesc extends SortOperator {
         return SortedField.desc(StringPool.AT.concat(getFieldName()));
     }
 
-    public static OperatorDesc newOperatorDesc(String fieldName) {
+    static OperatorDesc newOperatorDesc(String fieldName) {
         return new OperatorDesc(fieldName);
     }
 

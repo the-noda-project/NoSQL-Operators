@@ -17,7 +17,7 @@ class OperatorAnd extends LogicalOperator {
         return StringPool.DOUBLE_AMPERSAND;
     }
 
-    public static OperatorAnd newOperatorAnd(FilterOperator filterOperator1, FilterOperator filterOperator2, FilterOperator... filterOperators) {
+    static OperatorAnd newOperatorAnd(FilterOperator filterOperator1, FilterOperator filterOperator2, FilterOperator... filterOperators) {
         return new OperatorAnd(filterOperator1, filterOperator2, filterOperators);
     }
 }

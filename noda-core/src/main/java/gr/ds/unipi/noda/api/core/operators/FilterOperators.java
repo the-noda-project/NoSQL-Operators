@@ -187,7 +187,7 @@ public class FilterOperators {
     }
 
     public static FilterOperator inGeoCircleKm(String fieldName, Coordinates point, double radius) {
-        return GeographicalOperator.geographicalOperator.newOperatorInGeoCircleKm(fieldName, point, radius * 1000);
+        return GeographicalOperator.geographicalOperator.newOperatorInGeoCircleKm(fieldName, point, radius);
     }
 
     public static FilterOperator inGeoCircleMeters(String fieldName, Coordinates point, double radius) {
@@ -195,7 +195,7 @@ public class FilterOperators {
     }
 
     public static FilterOperator inGeoCircleMiles(String fieldName, Coordinates point, double radius) {
-        return GeographicalOperator.geographicalOperator.newOperatorInGeoCircleMiles(fieldName, point, radius * 1609.344);
+        return GeographicalOperator.geographicalOperator.newOperatorInGeoCircleMiles(fieldName, point, radius);
     }
 
     public static FilterOperator nearestNeighbors(String fieldName, Coordinates point, int neighbors) {

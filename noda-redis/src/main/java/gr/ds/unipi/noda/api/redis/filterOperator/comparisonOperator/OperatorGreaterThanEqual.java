@@ -20,23 +20,23 @@ class OperatorGreaterThanEqual<T> extends ComparisonOperator<T> {
         return StringPool.GREATER_THAN_OR_EQUAL;
     }
 
-    public static OperatorGreaterThanEqual<Double> newOperatorGreaterThanEqual(String fieldName, Double fieldValue) {
+    static OperatorGreaterThanEqual<Double> newOperatorGreaterThanEqual(String fieldName, Double fieldValue) {
         return new OperatorGreaterThanEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorGreaterThanEqual<Integer> newOperatorGreaterThanEqual(String fieldName, Integer fieldValue) {
+    static OperatorGreaterThanEqual<Integer> newOperatorGreaterThanEqual(String fieldName, Integer fieldValue) {
         return new OperatorGreaterThanEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorGreaterThanEqual<Float> newOperatorGreaterThanEqual(String fieldName, Float fieldValue) {
+    static OperatorGreaterThanEqual<Float> newOperatorGreaterThanEqual(String fieldName, Float fieldValue) {
         return new OperatorGreaterThanEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorGreaterThanEqual<Short> newOperatorGreaterThanEqual(String fieldName, Short fieldValue) {
+    static OperatorGreaterThanEqual<Short> newOperatorGreaterThanEqual(String fieldName, Short fieldValue) {
         return new OperatorGreaterThanEqual<>(fieldName, fieldValue);
     }
 
-    public static OperatorGreaterThanEqual<Long> newOperatorGreaterThanEqual(String fieldName, Long fieldValue) {
+    static OperatorGreaterThanEqual<Long> newOperatorGreaterThanEqual(String fieldName, Long fieldValue) {
         return new OperatorGreaterThanEqual<>(fieldName, fieldValue);
     }
 }

@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.redis.aggregateOperator;
 
-import gr.ds.unipi.noda.api.core.constants.Keywords;
+import gr.ds.unipi.noda.api.core.constants.AggregationKeywords;
 import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.aggregation.reducers.Reducers;
 
@@ -10,10 +10,10 @@ import io.redisearch.aggregation.reducers.Reducers;
 class OperatorCount extends AggregateOperator {
 
     private OperatorCount(String fieldName) {
-        super(fieldName, Keywords.COUNT.toString());
+        super(fieldName, AggregationKeywords.COUNT.toString());
     }
 
-    public static OperatorCount newOperatorCount() {
+    static OperatorCount newOperatorCount() {
         return new OperatorCount("");
     }
 
