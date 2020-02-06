@@ -10,8 +10,4 @@ class OperatorMax extends AggregateOperator {
         return new OperatorMax(fieldName);
     }
 
-    @Override
-    protected String getOperatorJsonField() {
-        return "max";
-    }
 }

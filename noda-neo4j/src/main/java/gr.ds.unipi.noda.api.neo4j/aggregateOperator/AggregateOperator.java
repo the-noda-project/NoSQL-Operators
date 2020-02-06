@@ -6,8 +6,6 @@ abstract class AggregateOperator extends gr.ds.unipi.noda.api.core.operators.agg
         super(fieldName, alias);
     }
 
-    protected abstract String getOperatorJsonField();
-
     @Override
     public T getOperatorExpression() {
         return null;

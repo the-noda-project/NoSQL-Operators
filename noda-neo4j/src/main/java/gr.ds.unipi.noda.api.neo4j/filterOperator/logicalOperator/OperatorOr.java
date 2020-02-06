@@ -12,9 +12,5 @@ class OperatorOr extends LogicalOperator {
         return new OperatorOr(filterOperator1, filterOperator2, filterOperators);
     }
 
-    @Override
-    protected String getOperatorJsonField() {
-        return "or";
-    }
 
 }

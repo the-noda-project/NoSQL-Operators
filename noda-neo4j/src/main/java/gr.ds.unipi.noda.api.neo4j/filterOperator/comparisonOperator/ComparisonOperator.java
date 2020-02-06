@@ -9,12 +9,8 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
         super(fieldName, fieldValue);
     }
 
-    protected abstract String getOperatorJsonField();
-
     @Override
     public T getOperatorExpression() {
-
         return null;
-
     }
 }

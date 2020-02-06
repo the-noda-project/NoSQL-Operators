@@ -8,11 +8,6 @@ class OperatorGreaterThanEqual<T> extends ComparisonOperator<T> {
         super(fieldName, fieldValue);
     }
 
-    @Override
-    protected String getOperatorJsonField() {
-        return "gte";
-    }
-
     public static OperatorGreaterThanEqual<Double> newOperatorGreaterThanEqual(String fieldName, Double fieldValue) {
         return new OperatorGreaterThanEqual(fieldName, fieldValue);
     }

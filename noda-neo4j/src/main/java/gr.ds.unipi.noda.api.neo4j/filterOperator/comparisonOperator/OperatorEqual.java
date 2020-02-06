@@ -9,11 +9,6 @@ class OperatorEqual<T> extends ComparisonOperator<T> {
         super(fieldName, fieldValue);
     }
 
-    @Override
-    protected String getOperatorJsonField() {
-        return "eq";
-    }
-
     public static OperatorEqual<Double> newOperatorEqual(String fieldName, Double fieldValue) {
         return new OperatorEqual(fieldName, fieldValue);
     }

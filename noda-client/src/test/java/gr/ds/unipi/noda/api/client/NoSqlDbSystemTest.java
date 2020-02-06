@@ -9,7 +9,7 @@ public class NoSqlDbSystemTest {
 
     @Test
     public void neo4j() {
-        NoSqlDbSystem.Neo4j().build().operateOn("coll1").groupBy("", max(""));
+        NoSqlDbSystem.Neo4j().username("myUsername").password("myPass").host("192.168.1.1").port(5000).database("myDatabase").build().operateOn("table").groupBy("field", max("anotherField"));
 
     }
 }

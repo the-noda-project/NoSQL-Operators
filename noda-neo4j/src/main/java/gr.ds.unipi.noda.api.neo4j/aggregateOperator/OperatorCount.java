@@ -11,20 +11,7 @@ class OperatorCount extends AggregateOperator {
     }
 
     @Override
-    protected String getOperatorJsonField() {
-        return "sum";
-    }
-
-    @Override
-    public StringBuilder getOperatorExpression() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getAlias());
-
-        sb.append(": { $");
-        sb.append(getOperatorJsonField());
-        sb.append(": 1");
-        sb.append(" }");
-
-        return sb;
+    public T getOperatorExpression() {
+        return null;
     }
 }

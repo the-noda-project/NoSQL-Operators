@@ -8,8 +8,6 @@ abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operators.filte
         super(filterOperator1, filterOperator2, filterOperators);
     }
 
-    protected abstract String getOperatorJsonField();
-
     public T getOperatorExpression() {
 
         return null;

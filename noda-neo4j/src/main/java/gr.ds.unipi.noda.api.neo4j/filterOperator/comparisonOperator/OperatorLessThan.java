@@ -9,11 +9,6 @@ class OperatorLessThan<T> extends ComparisonOperator<T> {
         super(fieldName, fieldValue);
     }
 
-    @Override
-    protected String getOperatorJsonField() {
-        return "lt";
-    }
-
     public static OperatorLessThan<Double> newOperatorLessThan(String fieldName, Double fieldValue) {
         return new OperatorLessThan(fieldName, fieldValue);
     }

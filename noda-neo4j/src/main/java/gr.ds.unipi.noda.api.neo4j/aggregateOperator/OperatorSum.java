@@ -10,8 +10,4 @@ class OperatorSum extends AggregateOperator {
         return new OperatorSum(fieldName);
     }
 
-    @Override
-    protected String getOperatorJsonField() {
-        return "sum";
-    }
 }

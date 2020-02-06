@@ -10,8 +10,4 @@ class OperatorAvg extends AggregateOperator {
         return new OperatorAvg(fieldName);
     }
 
-    @Override
-    protected String getOperatorJsonField() {
-        return "avg";
-    }
 }

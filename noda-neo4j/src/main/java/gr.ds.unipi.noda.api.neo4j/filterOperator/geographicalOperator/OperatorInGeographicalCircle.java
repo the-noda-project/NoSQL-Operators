@@ -17,9 +17,7 @@ class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnSinglePoin
 
     @Override
     public T getOperatorExpression() {
-
         return null;
-
     }
 
 }
