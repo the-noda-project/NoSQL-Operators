@@ -2,8 +2,9 @@ package gr.ds.unipi.noda.api.neo4j;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnectionManager;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
+import org.neo4j.driver.Driver;
 
-public final class Neo4jConnectionManager extends NoSqlDbConnectionManager<T> {
+public final class Neo4jConnectionManager extends NoSqlDbConnectionManager<Driver> {
 
     private static final Neo4jConnectionManager INSTANCE = new Neo4jConnectionManager();
 
@@ -13,7 +14,7 @@ public final class Neo4jConnectionManager extends NoSqlDbConnectionManager<T> {
 
     public boolean closeConnection(NoSqlDbConnector noSqlDbConnector) {
         if (getConnections().containsKey(noSqlDbConnector)) {
-            getConnections().get(noSqlDbConnector) //close it with Neo4j library method - for example in MongoDB it is .close()
+            getConnections().get(noSqlDbConnector).close(); //close it with Neo4j library method - for example in MongoDB it is .close()
             getConnections().remove(noSqlDbConnector);
         }
         return true;
@@ -21,7 +22,7 @@ public final class Neo4jConnectionManager extends NoSqlDbConnectionManager<T> {
 
     public boolean closeConnections() {
         getConnections().forEach((k, v) -> {
-            v //close it with Neo4j library method - for example in MongoDB it is .close()
+            v.close(); //close it with Neo4j library method - for example in MongoDB it is .close()
         });
         getConnections().clear();
         return true;

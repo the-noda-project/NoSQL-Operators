@@ -1,10 +1,13 @@
 package gr.ds.unipi.noda.api.neo4j;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
+import org.neo4j.driver.AuthTokens;
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.GraphDatabase;
 
 import java.util.Objects;
 
-public final class Neo4jConnector implements NoSqlDbConnector<T> {
+public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
 
     private final String host;
     private final int port;
@@ -38,8 +41,8 @@ public final class Neo4jConnector implements NoSqlDbConnector<T> {
     }
 
     @Override
-    public T createConnection() {
-        return T;
+    public Driver createConnection() {
+        return GraphDatabase.driver("bolt://"+host+":"+port, AuthTokens.basic(username,password));
     }
 
     public static Neo4jConnector newNeo4jConnector(String host, int port, String username, String password, String database) {
