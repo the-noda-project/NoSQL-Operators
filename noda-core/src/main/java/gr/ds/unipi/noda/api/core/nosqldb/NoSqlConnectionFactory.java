@@ -8,6 +8,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.SparkSession;
@@ -55,4 +56,8 @@ public abstract class NoSqlConnectionFactory {
     protected abstract BaseLogicalOperatorFactory getBaseLogicalOperatorFactory();
 
     protected abstract BaseSortOperatorFactory getBaseSortOperatorFactory();
+
+    protected abstract BaseTextualOperatorFactory getBaseTextualOperatorFactory();
+
+
 }
