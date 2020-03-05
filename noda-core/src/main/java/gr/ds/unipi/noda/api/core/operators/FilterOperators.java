@@ -5,6 +5,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.C
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator;
 
 import java.util.Date;
 
@@ -202,19 +203,12 @@ public class FilterOperators {
         return GeographicalOperator.geographicalOperator.newOperatorNearestNeighbors(fieldName, point, neighbors);
     }
 
-    public static FilterOperator keyword(String fieldName, String keyword){
-        return null;
+    public static FilterOperator anyKeywords(String fieldName, String keyword, String... keywords){
+        return TextualOperator.textualOperator.newOperatorAnyKeywords(fieldName, keyword, keywords);
     }
 
-    public static FilterOperator onlyKeyword(String fieldName, String keyword){
-        return null;
+    public static FilterOperator allKeywords(String fieldName, String keyword1, String keyword2, String... keywords){
+        return TextualOperator.textualOperator.newOperatorAllKeywords(fieldName, keyword1, keyword2, keywords);
     }
 
-    public static FilterOperator allKeywords(String fieldName, String keyword){
-        return null;
-    }
-
-    public static FilterOperator anyKeywords(String fieldName, String keyword){
-        return null;
-    }
 }
