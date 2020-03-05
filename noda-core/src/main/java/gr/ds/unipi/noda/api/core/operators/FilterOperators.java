@@ -201,4 +201,20 @@ public class FilterOperators {
     public static FilterOperator nearestNeighbors(String fieldName, Coordinates point, int neighbors) {
         return GeographicalOperator.geographicalOperator.newOperatorNearestNeighbors(fieldName, point, neighbors);
     }
+
+    public static FilterOperator keyword(String fieldName, String keyword){
+        return null;
+    }
+
+    public static FilterOperator onlyKeyword(String fieldName, String keyword){
+        return null;
+    }
+
+    public static FilterOperator allKeywords(String fieldName, String keyword){
+        return null;
+    }
+
+    public static FilterOperator anyKeywords(String fieldName, String keyword){
+        return null;
+    }
 }
