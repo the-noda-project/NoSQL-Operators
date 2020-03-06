@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator;
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.HistogramInstance;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.QuadTreeInstance;
 
 /**
  * @author adimo on 11/10/2019
@@ -26,6 +26,7 @@ public class OperatorNearestNeighbors extends GeographicalOperatorBasedOnSingleP
     @Override
     protected String getOperatorField() {
         return StringPool.OPEN_BRACKET + getLongitude() + StringPool.SPACE + getLatitude() + StringPool.SPACE +
-                HistogramInstance.getHistogram().findRadius(getLongitude(), getLatitude(), neighborsCount) + StringPool.SPACE + Unit.km.toString() + StringPool.CLOSE_BRACKET;
+                QuadTreeInstance.getQuadTree().findRadius(getLongitude(), getLatitude(), neighborsCount)
+                + StringPool.SPACE + Unit.km.toString() + StringPool.CLOSE_BRACKET;
     }
 }
