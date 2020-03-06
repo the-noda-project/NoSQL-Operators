@@ -13,8 +13,8 @@ public class MongoDBGeographicalOperatorFactory extends BaseGeographicalOperator
     }
 
     @Override
-    public GeographicalOperator newOperatorInGeoBox(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint) {
-        return OperatorInGeographicalRectangle.newOperatorInGeographicalBox(fieldName, lowerBoundPoint, upperBoundPoint);
+    public GeographicalOperator newOperatorInGeoRectangle(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint) {
+        return OperatorInGeographicalRectangle.newOperatorInGeographicalRectangle(fieldName, lowerBoundPoint, upperBoundPoint);
     }
 
     @Override
@@ -33,11 +33,11 @@ public class MongoDBGeographicalOperatorFactory extends BaseGeographicalOperator
     }
 
     @Override
-    public GeographicalOperator newOperatorNearestNeighbors(String fieldName, Coordinates point, int neighbors) {
-        return OperatorNearestNeighbors.newOperatorNearestNeighbors(fieldName, point, neighbors);
+    public GeographicalOperator newOperatorGeoNearestNeighbors(String fieldName, Coordinates point, int neighbors) {
+        return OperatorGeoNearestNeighbors.newOperatorGeoNearestNeighbors(fieldName, point, neighbors);
     }
 
-    public static boolean isOperatorNearestNeighbor(FilterOperator filterOperator) {
-        return filterOperator instanceof OperatorNearestNeighbors;
+    public static boolean isOperatorGeoNearestNeighbor(FilterOperator filterOperator) {
+        return filterOperator instanceof OperatorGeoNearestNeighbors;
     }
 }
