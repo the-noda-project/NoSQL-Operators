@@ -38,9 +38,9 @@ public class RedisOperators implements NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        if (RedisGeographicalOperatorFactory.isOperatorNearestNeighbor(filterOperator)) {
+        if (RedisGeographicalOperatorFactory.isOperatorGeoNearestNeighbor(filterOperator)) {
             if (aggregationBuilder.getArgs().size() == 1) {
-                aggregationBuilder = new AggregationBuilder(filterOperator.getOperatorExpression().toString()).limit(((OperatorNearestNeighbors) filterOperator).getNeighborsCount());
+                aggregationBuilder = new AggregationBuilder(filterOperator.getOperatorExpression().toString()).limit(((OperatorGeoNearestNeighbors) filterOperator).getNeighborsCount());
             } else {
                 throw new UnsupportedOperationException("RedisGeographicalOperator is not supported as post filter query.");
             }

@@ -15,7 +15,7 @@ public class RedisGeographicalOperatorFactory extends BaseGeographicalOperatorFa
     }
 
     @Override
-    public GeographicalOperator newOperatorInGeoBox(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint) {
+    public GeographicalOperator newOperatorInGeoRectangle(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint) {
         return OperatorInGeographicalBox.newOperatorInGeographicalBox(fieldName, lowerBoundPoint, upperBoundPoint);
     }
 
@@ -35,12 +35,12 @@ public class RedisGeographicalOperatorFactory extends BaseGeographicalOperatorFa
     }
 
     @Override
-    public GeographicalOperator newOperatorNearestNeighbors(String fieldName, Coordinates point, int neighborsCount) {
-        return OperatorNearestNeighbors.newOperatorNearestNeighbors(fieldName, point, neighborsCount);
+    public GeographicalOperator newOperatorGeoNearestNeighbors(String fieldName, Coordinates point, int neighborsCount) {
+        return OperatorGeoNearestNeighbors.newOperatorGeoNearestNeighbors(fieldName, point, neighborsCount);
     }
 
-    public static boolean isOperatorNearestNeighbor(FilterOperator filterOperator) {
-        return filterOperator instanceof OperatorNearestNeighbors;
+    public static boolean isOperatorGeoNearestNeighbor(FilterOperator filterOperator) {
+        return filterOperator instanceof OperatorGeoNearestNeighbors;
     }
 
     public static boolean isOperatorGeoBox(FilterOperator filterOperator) {

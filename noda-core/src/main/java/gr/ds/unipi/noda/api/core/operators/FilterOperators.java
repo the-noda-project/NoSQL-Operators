@@ -235,4 +235,8 @@ public class FilterOperators {
         return TextualOperator.textualOperator.newOperatorAllKeywords(fieldName, keyword1, keyword2, keywords);
     }
 
+    public static FilterOperator noneKeywords(String fieldName, String keyword1, String keyword2, String... keywords){
+        return TextualOperator.textualOperator.newOperatorNoneKeywords(fieldName, keyword1, keyword2, keywords);
+    }
+
 }
