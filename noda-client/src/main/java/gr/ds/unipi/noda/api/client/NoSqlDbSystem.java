@@ -109,6 +109,18 @@ public final class NoSqlDbSystem {
         return new NoSqlDbSystem.Builder(noSqlConnectionFactory);
     }
 
+    public static Builder Neo4j() {
+        NoSqlConnectionFactory noSqlConnectionFactory = null;
+        try {
+            Class<?> redisClass = Class.forName("gr.ds.unipi.noda.api.neo4j.Neo4jConnectionFactory");
+            noSqlConnectionFactory = (NoSqlConnectionFactory) redisClass.newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            logger.error("noda-neo4j dependency is missing from the classpath. \n {}", e.toString());
+        }
+
+        return new NoSqlDbSystem.Builder(noSqlConnectionFactory);
+    }
+
     public void closeConnection() {
         nsdb.closeConnection(connector);
     }

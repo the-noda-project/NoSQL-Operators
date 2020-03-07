@@ -1,4 +1,4 @@
-package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator;
+package gr.ds.unipi.noda.api.neo4j.filterOperator.geographicalOperator;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 
