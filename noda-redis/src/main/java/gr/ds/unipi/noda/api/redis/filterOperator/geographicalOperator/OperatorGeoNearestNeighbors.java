@@ -7,20 +7,20 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 /**
  * @author adimo on 11/10/2019
  */
-public class OperatorNearestNeighbors extends GeographicalOperatorBasedOnSinglePoint {
+public class OperatorGeoNearestNeighbors extends GeographicalOperatorBasedOnSinglePoint {
     private final int neighborsCount;
 
     public int getNeighborsCount() {
         return neighborsCount;
     }
 
-    private OperatorNearestNeighbors(String fieldName, Coordinates point, int neighborsCount) {
+    private OperatorGeoNearestNeighbors(String fieldName, Coordinates point, int neighborsCount) {
         super(fieldName, point);
         this.neighborsCount = neighborsCount;
     }
 
-    static OperatorNearestNeighbors newOperatorNearestNeighbors(String fieldName, Coordinates point, int neighborsCount) {
-        return new OperatorNearestNeighbors(fieldName, point, neighborsCount);
+    static OperatorGeoNearestNeighbors newOperatorGeoNearestNeighbors(String fieldName, Coordinates point, int neighborsCount) {
+        return new OperatorGeoNearestNeighbors(fieldName, point, neighborsCount);
     }
 
     @Override

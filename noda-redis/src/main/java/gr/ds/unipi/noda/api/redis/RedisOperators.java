@@ -7,7 +7,7 @@ import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import gr.ds.unipi.noda.api.redis.filterOperator.RedisPostFilterOperator;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.OperatorNearestNeighbors;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.OperatorGeoNearestNeighbors;
 import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.RedisGeographicalOperatorFactory;
 import io.redisearch.AggregationResult;
 import io.redisearch.aggregation.AggregationBuilder;
@@ -40,9 +40,9 @@ public class RedisOperators implements NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        if (RedisGeographicalOperatorFactory.isOperatorNearestNeighbor(filterOperator)) {
+        if (RedisGeographicalOperatorFactory.isOperatorGeoNearestNeighbor(filterOperator)) {
             if (aggregationBuilder.getArgs().size() == 1) {
-                aggregationBuilder = new AggregationBuilder(filterOperator.getOperatorExpression().toString()).limit(((OperatorNearestNeighbors) filterOperator).getNeighborsCount());
+                aggregationBuilder = new AggregationBuilder(filterOperator.getOperatorExpression().toString()).limit(((OperatorGeoNearestNeighbors) filterOperator).getNeighborsCount());
             } else {
                 throw new UnsupportedOperationException("RedisGeographicalOperator is not supported as post filter query.");
             }

@@ -39,14 +39,14 @@ public final class MongoDBOperators implements NoSqlDbOperators {
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
 
-        if (MongoDBGeographicalOperatorFactory.isOperatorNearestNeighbor(filterOperator)) {
+        if (MongoDBGeographicalOperatorFactory.isOperatorGeoNearestNeighbor(filterOperator)) {
             stagesList.add(Document.parse(filterOperator.getOperatorExpression().toString()));
         } else {
             stagesList.add(Document.parse(" { $match: " + filterOperator.getOperatorExpression() + " } "));
         }
 
         for (FilterOperator fops : filterOperators) {
-            if (MongoDBGeographicalOperatorFactory.isOperatorNearestNeighbor(fops)) {
+            if (MongoDBGeographicalOperatorFactory.isOperatorGeoNearestNeighbor(fops)) {
                 stagesList.add(Document.parse(fops.getOperatorExpression().toString()));
             } else {
                 stagesList.add(Document.parse(" { $match: " + fops.getOperatorExpression() + " } "));

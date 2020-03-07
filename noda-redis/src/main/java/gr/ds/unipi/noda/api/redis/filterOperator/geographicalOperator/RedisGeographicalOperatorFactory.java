@@ -15,8 +15,8 @@ public class RedisGeographicalOperatorFactory extends BaseGeographicalOperatorFa
     }
 
     @Override
-    public GeographicalOperator newOperatorInGeoBox(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint) {
-        throw new UnsupportedOperationException("InGeoBox primitive is not supported");
+    public GeographicalOperator newOperatorInGeoRectangle(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint) {
+        throw new UnsupportedOperationException("InGeoRectangle primitive is not supported");
     }
 
     @Override
@@ -35,11 +35,11 @@ public class RedisGeographicalOperatorFactory extends BaseGeographicalOperatorFa
     }
 
     @Override
-    public GeographicalOperator newOperatorNearestNeighbors(String fieldName, Coordinates point, int neighborsCount) {
-        return OperatorNearestNeighbors.newOperatorNearestNeighbors(fieldName, point, neighborsCount);
+    public GeographicalOperator newOperatorGeoNearestNeighbors(String fieldName, Coordinates point, int neighborsCount) {
+        return OperatorGeoNearestNeighbors.newOperatorGeoNearestNeighbors(fieldName, point, neighborsCount);
     }
 
-    public static boolean isOperatorNearestNeighbor(FilterOperator filterOperator) {
-        return filterOperator instanceof OperatorNearestNeighbors;
+    public static boolean isOperatorGeoNearestNeighbor(FilterOperator filterOperator) {
+        return filterOperator instanceof OperatorGeoNearestNeighbors;
     }
 }

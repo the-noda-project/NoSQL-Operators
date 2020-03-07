@@ -5,6 +5,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.C
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator;
 
 import java.util.Date;
 
@@ -182,8 +183,8 @@ public class FilterOperators {
         return GeographicalOperator.geographicalOperator.newOperatorInGeoPolygon(fieldName, coordinates1, coordinates2, coordinates3, coordinates);
     }
 
-    public static FilterOperator inGeoBox(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint) {
-        return GeographicalOperator.geographicalOperator.newOperatorInGeoBox(fieldName, lowerBoundPoint, upperBoundPoint);
+    public static FilterOperator inGeoRectangle(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint) {
+        return GeographicalOperator.geographicalOperator.newOperatorInGeoRectangle(fieldName, lowerBoundPoint, upperBoundPoint);
     }
 
     public static FilterOperator inGeoCircleKm(String fieldName, Coordinates point, double radius) {
@@ -198,7 +199,40 @@ public class FilterOperators {
         return GeographicalOperator.geographicalOperator.newOperatorInGeoCircleMiles(fieldName, point, radius);
     }
 
-    public static FilterOperator nearestNeighbors(String fieldName, Coordinates point, int neighbors) {
-        return GeographicalOperator.geographicalOperator.newOperatorNearestNeighbors(fieldName, point, neighbors);
+    public static FilterOperator geoNearestNeighbors(String fieldName, Coordinates point, int neighbors) {
+        return GeographicalOperator.geographicalOperator.newOperatorGeoNearestNeighbors(fieldName, point, neighbors);
     }
+
+    public static FilterOperator inGeoTemporalPolyhedron(String fieldName, Coordinates coordinates1, Coordinates coordinates2, Coordinates coordinates3, Coordinates... coordinates, String i) {
+        return GeographicalOperator.geographicalOperator.newOperatorInGeoTemporalPolyhedron(fieldName,  coordinates1, coordinates2, coordinates3, coordinates);
+    }
+
+    public static FilterOperator inGeoTemporalBox(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint, String fieldTemporalName, Date lowerBoundDate, Date upperBoundDate) {
+        return GeographicalOperator.geographicalOperator.newOperatorInGeoTemporalBox(fieldName, lowerBoundPoint, upperBoundPoint);
+    }
+
+    public static FilterOperator inGeoTemporalCylinderKm(String fieldName, Coordinates point, double radius, String fieldTemporalName, Date lowerBoundDate, Date upperBoundDate) {
+        return GeographicalOperator.geographicalOperator.newOperatorInGeoTemporalCylinderKm(fieldName, point, radius);
+    }
+
+    public static FilterOperator inGeoTemporalCylinderMeters(String fieldName, Coordinates point, double radius, String fieldTemporalName, Date lowerBoundDate, Date upperBoundDate) {
+        return GeographicalOperator.geographicalOperator.newOperatorInGeoTemporalCylinderMeters(fieldName, point, radius);
+    }
+
+    public static FilterOperator inGeoTemporalCylinderMiles(String fieldName, Coordinates point, double radius, String fieldTemporalName, Date lowerBoundDate, Date upperBoundDate) {
+        return GeographicalOperator.geographicalOperator.newOperatorInGeoTemporalCylinderMiles(fieldName, point, radius);
+    }
+
+    public static FilterOperator geoTemporalNearestNeighbors(String fieldName, Coordinates point, String fieldTemporalName, Date date, int neighbors) {
+        return GeographicalOperator.geographicalOperator.newOperatorGeoTemporalNearestNeighbors(fieldName, point, neighbors);
+    }
+
+    public static FilterOperator anyKeywords(String fieldName, String keyword, String... keywords){
+        return TextualOperator.textualOperator.newOperatorAnyKeywords(fieldName, keyword, keywords);
+    }
+
+    public static FilterOperator allKeywords(String fieldName, String keyword1, String keyword2, String... keywords){
+        return TextualOperator.textualOperator.newOperatorAllKeywords(fieldName, keyword1, keyword2, keywords);
+    }
+
 }

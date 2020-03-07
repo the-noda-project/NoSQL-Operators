@@ -1,11 +1,11 @@
-package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator;
+package gr.ds.unipi.noda.api.neo4j.filterOperator.geographicalOperator;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.BaseGeographicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.GeographicalOperator;
 
-public class MongoDBGeographicalOperatorFactory extends BaseGeographicalOperatorFactory {
+public class Neo4jGeographicalOperatorFactory extends BaseGeographicalOperatorFactory {
 
     @Override
     public GeographicalOperator newOperatorInGeoPolygon(String fieldName, Coordinates coordinates1, Coordinates coordinates2, Coordinates coordinates3, Coordinates... coordinates) {
