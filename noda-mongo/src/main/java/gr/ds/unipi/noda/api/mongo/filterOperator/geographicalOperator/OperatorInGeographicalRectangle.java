@@ -1,15 +1,20 @@
 package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Rectangle;
 
-class OperatorInGeographicalRectangle extends GeographicalOperatorBasedOnPoints {
+class OperatorInGeographicalRectangle extends GeoSpatialOperator<Rectangle> {
 
-    public OperatorInGeographicalRectangle(String fieldName, Coordinates lowerBound, Coordinates upperBound) {
-        super(fieldName, new Coordinates[]{lowerBound, Coordinates.newCoordinates(upperBound.getLongitude(), lowerBound.getLatitude()), upperBound, Coordinates.newCoordinates(lowerBound.getLongitude(), upperBound.getLatitude())});
+    private OperatorInGeographicalRectangle(String fieldName, Rectangle rectangle) {
+        super(fieldName, rectangle);
     }
 
-    public static OperatorInGeographicalRectangle newOperatorInGeographicalRectangle(String fieldName, Coordinates lowerBound, Coordinates upperBound) {
-        return new OperatorInGeographicalRectangle(fieldName, lowerBound, upperBound);
+    public static OperatorInGeographicalRectangle newOperatorInGeographicalRectangle(String fieldName, Rectangle rectangle) {
+        return new OperatorInGeographicalRectangle(fieldName, rectangle);
     }
 
+    @Override
+    public StringBuilder getOperatorExpression() {
+        return getOperatorExpressionForPolygonAndRectangle();
+    }
 }

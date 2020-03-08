@@ -1,18 +1,16 @@
 package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Circle;
 
-class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnSinglePoint {
+class OperatorInGeographicalCircle extends GeoSpatialOperator<Circle> {
 
-    private final double radius;//radius is in meters
-
-    private OperatorInGeographicalCircle(String fieldName, Coordinates point, double radius) {
-        super(fieldName, point);
-        this.radius = radius;
+    private OperatorInGeographicalCircle(String fieldName, Circle circle) {
+        super(fieldName, circle);
     }
 
-    public static OperatorInGeographicalCircle newOperatorInGeographicalCircle(String fieldName, Coordinates point, double radius) {
-        return new OperatorInGeographicalCircle(fieldName, point, radius);
+    public static OperatorInGeographicalCircle newOperatorInGeographicalCircle(String fieldName, Circle circle) {
+        return new OperatorInGeographicalCircle(fieldName, circle);
     }
 
 //    @Override
@@ -40,11 +38,11 @@ class OperatorInGeographicalCircle extends GeographicalOperatorBasedOnSinglePoin
         sb.append(": { $geoWithin: { $centerSphere: [");
 
         sb.append(" [");
-        sb.append(getLongitude());
+        sb.append(getGeometry().getCircleCenter().getLongitude());
         sb.append(", ");
-        sb.append(getLatitude());
+        sb.append(getGeometry().getCircleCenter().getLatitude());
         sb.append("], ");
-        sb.append(radius / 6378137);
+        sb.append(getGeometry().getRadius() / 6378137);
         sb.append(" ] } } }");
 
         return sb;

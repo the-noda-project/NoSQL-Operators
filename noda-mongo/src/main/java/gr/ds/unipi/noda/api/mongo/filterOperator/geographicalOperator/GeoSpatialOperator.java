@@ -1,16 +1,14 @@
 package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Geometry;
 
-abstract class GeographicalOperatorBasedOnPoints extends gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.GeographicalOperatorBasedOnPoints<StringBuilder> {
-
-    protected GeographicalOperatorBasedOnPoints(String fieldName, Coordinates[] coordinates) {
-        super(fieldName, coordinates);
+abstract class GeoSpatialOperator<T extends Geometry> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoSpatialOperators.GeoSpatialOperator<StringBuilder, T> {
+    protected GeoSpatialOperator(String fieldName, T geometry) {
+        super(fieldName, geometry);
     }
 
-    @Override
-    public StringBuilder getOperatorExpression() {
-
+    public StringBuilder getOperatorExpressionForPolygonAndRectangle(){
         StringBuilder sb = new StringBuilder();
         sb.append("{ ");
 
@@ -22,7 +20,7 @@ abstract class GeographicalOperatorBasedOnPoints extends gr.ds.unipi.noda.api.co
 
         sb.append(": { $geoWithin: { $geometry: { type:\"Polygon\", coordinates:[ [");
 
-        for (Coordinates c : getCoordinatesArray()) {
+        for (Coordinates c : getGeometry().getCoordinatesArray()) {
             sb.append(" [");
             sb.append(c.getLongitude());
             sb.append(",");
@@ -34,15 +32,14 @@ abstract class GeographicalOperatorBasedOnPoints extends gr.ds.unipi.noda.api.co
 
         //In MongoDB the last point should coincide with the coordinates of the starting point
         sb.append(" [");
-        sb.append(getCoordinatesArray()[0].getLongitude());
+        sb.append(getGeometry().getCoordinatesArray()[0].getLongitude());
         sb.append(",");
-        sb.append(getCoordinatesArray()[0].getLatitude());
+        sb.append(getGeometry().getCoordinatesArray()[0].getLatitude());
         sb.append("]");
 
         sb.append("] ] } } } }");
 
         return sb;
-
     }
 
 }
