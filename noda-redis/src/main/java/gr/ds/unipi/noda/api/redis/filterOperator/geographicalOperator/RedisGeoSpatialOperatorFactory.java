@@ -1,14 +1,14 @@
 package gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.BaseGeographicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.GeographicalOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoSpatialOperators.BaseGeoSpatialOperatorFactory;
 
 /**
  * @author adimo on 11/10/2019
  */
-public class RedisGeographicalOperatorFactory extends BaseGeographicalOperatorFactory {
+public class RedisGeoSpatialOperatorFactory extends BaseGeoSpatialOperatorFactory {
     @Override
     public GeographicalOperator newOperatorInGeoPolygon(String fieldName, Coordinates coordinates1, Coordinates coordinates2, Coordinates coordinates3, Coordinates... coordinates) {
         throw new UnsupportedOperationException("InGeoPolygon primitive is not supported");

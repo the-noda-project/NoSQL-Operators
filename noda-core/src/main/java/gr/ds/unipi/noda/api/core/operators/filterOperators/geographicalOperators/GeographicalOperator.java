@@ -1,44 +1,24 @@
 package gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Geometry;
 
-import java.util.function.Predicate;
-
-public abstract class GeographicalOperator<T> implements FilterOperator<T> {
+public abstract class GeographicalOperator<T,U extends Geometry> implements FilterOperator<T> {
 
     private final String fieldName;
-    private final Coordinates[] coordinatesArray;//Contains all the points for a shape. For example, the array contains three points if the shape is triangle.
+    private final U geometry;
 
-    protected GeographicalOperator(String fieldName, Coordinates[] coordinatesArray) {
+    protected GeographicalOperator(String fieldName, U geometry) {
         this.fieldName = fieldName;
-        this.coordinatesArray = coordinatesArray;
-        checkCoordinates();
-    }
-
-    protected Coordinates[] getCoordinatesArray() {
-        return coordinatesArray;
+        this.geometry = geometry;
     }
 
     protected String getFieldName() {
         return fieldName;
     }
 
-    protected void checkCoordinates() {
-
-        for (Coordinates c : coordinatesArray) {
-            if (longitudeOutOfRange.test(c.getLongitude()) || latitudeOutOfRange.test(c.getLatitude())) {
-                try {
-                    throw new Exception("Longitude - Latitude values are incorrect");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    public U getGeometry() {
+        return geometry;
     }
-
-    Predicate<Double> longitudeOutOfRange = (longitude) -> ((Double.compare(longitude.doubleValue(), 180) == 1) || (Double.compare(longitude.doubleValue(), -180) == -1));
-    Predicate<Double> latitudeOutOfRange = (latitude) -> ((Double.compare(latitude.doubleValue(), 90) == 1) || (Double.compare(latitude.doubleValue(), -90) == -1));
-
-    public static BaseGeographicalOperatorFactory geographicalOperator;
 
 }
