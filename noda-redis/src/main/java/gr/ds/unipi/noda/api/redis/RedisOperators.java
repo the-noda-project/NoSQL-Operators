@@ -7,7 +7,10 @@ import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import gr.ds.unipi.noda.api.redis.filterOperator.RedisPostFilterOperator;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.*;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.geoSpatialOperators.OperatorGeoNearestNeighbors;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.geoSpatialOperators.RedisGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.geoSpatialOperators.RedisGeoSpatialOperator;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.geoSpatialOperators.ZRangeInfo;
 import io.redisearch.AggregationResult;
 import io.redisearch.aggregation.AggregationBuilder;
 import io.redisearch.aggregation.SortedField;
@@ -38,15 +41,17 @@ public class RedisOperators implements NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        if (RedisGeographicalOperatorFactory.isOperatorGeoNearestNeighbor(filterOperator)) {
+        if (RedisGeoSpatialOperatorFactory.isOperatorGeoNearestNeighbor(filterOperator)) {
             if (aggregationBuilder.getArgs().size() == 1) {
                 aggregationBuilder = new AggregationBuilder(filterOperator.getOperatorExpression().toString()).limit(((OperatorGeoNearestNeighbors) filterOperator).getNeighborsCount());
             } else {
                 throw new UnsupportedOperationException("RedisGeographicalOperator is not supported as post filter query.");
             }
-        } else if (RedisGeographicalOperatorFactory.isOperatorGeoBox(filterOperator)) {
-            zRangeInfo = ((RedisGeographicalOperatorBasedOnPoints)filterOperator)
-                    .getOperatorExpression(redisConnectionManager.getConnection(connector)._conn(), connector.getIndexName());
+        } else if (RedisGeoSpatialOperatorFactory.isOperatorGeoBox(filterOperator)) {
+            /*zRangeInfo = ((RedisGeoSpatialOperator)filterOperator)
+                    .getOperatorExpression(redisConnectionManager.getConnection(connector)._conn(), connector.getIndexName());*/
+            zRangeInfo = ((RedisGeoSpatialOperator)filterOperator)
+                    .getZRangeInfo().apply(redisConnectionManager.getConnection(connector)._conn(), connector.getIndexName());
         }
         if (aggregationBuilder.getArgs().size() == 1) {
             String s = filterOperator.getOperatorExpression().toString();

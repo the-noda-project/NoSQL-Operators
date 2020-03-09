@@ -1,4 +1,4 @@
-package gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator;
+package gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.geoSpatialOperators;
 
 public class ZRangeInfo {
     private final String key;
