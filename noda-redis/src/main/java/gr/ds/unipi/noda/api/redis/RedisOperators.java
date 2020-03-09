@@ -48,8 +48,6 @@ public class RedisOperators implements NoSqlDbOperators {
                 throw new UnsupportedOperationException("RedisGeographicalOperator is not supported as post filter query.");
             }
         } else if (RedisGeoSpatialOperatorFactory.isOperatorGeoBox(filterOperator)) {
-            /*zRangeInfo = ((RedisGeoSpatialOperator)filterOperator)
-                    .getOperatorExpression(redisConnectionManager.getConnection(connector)._conn(), connector.getIndexName());*/
             zRangeInfo = ((RedisGeoSpatialOperator)filterOperator)
                     .getZRangeInfo().apply(redisConnectionManager.getConnection(connector)._conn(), connector.getIndexName());
         }
