@@ -1,7 +1,7 @@
-package gr.ds.unipi.noda.api.core.operators.filterOperators.geoTemporalOperators;
+package gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators;
 
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoTemporalOperators.geoTemporalGeometry.Temporal;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.GeographicalOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.temporal.Temporal;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Geometry;
 
 public abstract class GeoTemporalOperator<T, U extends Geometry, S extends Temporal> extends GeographicalOperator<T,U> {
@@ -14,4 +14,7 @@ public abstract class GeoTemporalOperator<T, U extends Geometry, S extends Tempo
         this.temporalFieldName = temporalFieldName;
         this.temporalType = temporalType;
     }
+
+    public static BaseGeoTemporalOperatorFactory geoTemporalOperator;
+
 }

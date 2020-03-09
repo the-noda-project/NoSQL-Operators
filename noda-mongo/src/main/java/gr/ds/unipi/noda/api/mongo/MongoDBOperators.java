@@ -7,7 +7,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
-import gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.MongoDBGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoSpatialOperators.MongoDBGeoSpatialOperatorFactory;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -39,14 +39,14 @@ public final class MongoDBOperators implements NoSqlDbOperators {
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
 
-        if (MongoDBGeographicalOperatorFactory.isOperatorGeoNearestNeighbor(filterOperator)) {
+        if (MongoDBGeoSpatialOperatorFactory.isOperatorGeoNearestNeighbor(filterOperator)) {
             stagesList.add(Document.parse(filterOperator.getOperatorExpression().toString()));
         } else {
             stagesList.add(Document.parse(" { $match: " + filterOperator.getOperatorExpression() + " } "));
         }
 
         for (FilterOperator fops : filterOperators) {
-            if (MongoDBGeographicalOperatorFactory.isOperatorGeoNearestNeighbor(fops)) {
+            if (MongoDBGeoSpatialOperatorFactory.isOperatorGeoNearestNeighbor(fops)) {
                 stagesList.add(Document.parse(fops.getOperatorExpression().toString()));
             } else {
                 stagesList.add(Document.parse(" { $match: " + fops.getOperatorExpression() + " } "));

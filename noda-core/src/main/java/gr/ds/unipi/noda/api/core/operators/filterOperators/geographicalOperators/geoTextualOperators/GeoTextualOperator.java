@@ -1,4 +1,4 @@
-package gr.ds.unipi.noda.api.core.operators.filterOperators.geoTextualOperators;
+package gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTextualOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Geometry;
@@ -12,4 +12,7 @@ public abstract class GeoTextualOperator<T, U extends Geometry, S extends Textua
         super(fieldName, geometry);
         this.textualOperator = textualOperator;
     }
+
+    public static BaseGeoTextualOperatorFactory geoTextualOperator;
+
 }

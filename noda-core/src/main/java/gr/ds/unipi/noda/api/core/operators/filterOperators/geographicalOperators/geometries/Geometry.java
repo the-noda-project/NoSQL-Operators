@@ -17,7 +17,7 @@ public abstract class Geometry {
         return coordinatesArray;
     }
 
-    private void checkCoordinates() {
+    protected void checkCoordinates() {
 
         for (Coordinates c : coordinatesArray) {
             if (longitudeOutOfRange.test(c.getLongitude()) || latitudeOutOfRange.test(c.getLatitude())) {

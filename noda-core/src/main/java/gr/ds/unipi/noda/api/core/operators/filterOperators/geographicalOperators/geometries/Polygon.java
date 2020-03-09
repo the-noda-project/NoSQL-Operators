@@ -6,6 +6,7 @@ public class Polygon extends Geometry {
 
     protected Polygon(Coordinates[] coordinatesArray) {
         super(coordinatesArray);
+        checkCoordinates();
     }
 
     public static Polygon newPolygon(Coordinates coordinates1, Coordinates coordinates2, Coordinates coordinates3, Coordinates... coordinates){
@@ -28,4 +29,17 @@ public class Polygon extends Geometry {
 
         return new Polygon(coordinatesArray);
     }
+
+    @Override
+    protected void checkCoordinates() {
+        if (getCoordinatesArray().length < 3) {
+            try {
+                throw new Exception("Three points-coordinates should be defined at least for the formation of Polygon");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }

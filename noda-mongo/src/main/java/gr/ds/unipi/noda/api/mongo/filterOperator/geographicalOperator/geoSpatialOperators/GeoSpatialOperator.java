@@ -1,9 +1,9 @@
-package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator;
+package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoSpatialOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Geometry;
 
-abstract class GeoSpatialOperator<T extends Geometry> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoSpatialOperators.GeoSpatialOperator<StringBuilder, T> {
+abstract class GeoSpatialOperator<T extends Geometry> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoSpatialOperators.GeoSpatialOperator<StringBuilder, T> {
     protected GeoSpatialOperator(String fieldName, T geometry) {
         super(fieldName, geometry);
     }

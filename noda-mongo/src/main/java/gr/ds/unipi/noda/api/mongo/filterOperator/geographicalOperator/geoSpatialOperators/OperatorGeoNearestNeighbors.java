@@ -1,6 +1,5 @@
-package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator;
+package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoSpatialOperators;
 
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Point;
 
 class OperatorGeoNearestNeighbors extends GeoSpatialOperator<Point> {

@@ -21,6 +21,4 @@ public abstract class GeographicalOperator<T,U extends Geometry> implements Filt
         return geometry;
     }
 
-    public static BaseGeographicalOperatorFactory geographicalOperator;
-
 }
