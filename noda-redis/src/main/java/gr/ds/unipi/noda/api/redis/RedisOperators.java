@@ -8,7 +8,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import gr.ds.unipi.noda.api.redis.filterOperator.RedisPostFilterOperator;
 import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.OperatorGeoNearestNeighbors;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.RedisGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.RedisGeoSpatialOperatorFactory;
 import io.redisearch.AggregationResult;
 import io.redisearch.aggregation.AggregationBuilder;
 import io.redisearch.aggregation.SortedField;
@@ -40,7 +40,7 @@ public class RedisOperators implements NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        if (RedisGeographicalOperatorFactory.isOperatorGeoNearestNeighbor(filterOperator)) {
+        if (RedisGeoSpatialOperatorFactory.isOperatorGeoNearestNeighbor(filterOperator)) {
             if (aggregationBuilder.getArgs().size() == 1) {
                 aggregationBuilder = new AggregationBuilder(filterOperator.getOperatorExpression().toString()).limit(((OperatorGeoNearestNeighbors) filterOperator).getNeighborsCount());
             } else {

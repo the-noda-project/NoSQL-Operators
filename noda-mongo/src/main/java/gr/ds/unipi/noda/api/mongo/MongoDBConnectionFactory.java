@@ -5,13 +5,19 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.BaseGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoSpatialOperators.BaseGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTextualOperators.BaseGeoTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.mongo.aggregateOperator.MongoDBAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.mongo.filterOperator.comparisonOperator.MongoDBComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.MongoDBGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoSpatialOperators.MongoDBGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoTemporalOperators.MongoDBGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoTextualOperators.MongoDBGeoTextualOperatorFactory;
 import gr.ds.unipi.noda.api.mongo.filterOperator.logicalOperator.MongoDBLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.filterOperator.textualOperators.MongoDBTextualOperatorFactory;
 import gr.ds.unipi.noda.api.mongo.sortOperator.MongoDBSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
@@ -67,8 +73,18 @@ public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
     }
 
     @Override
-    protected BaseGeographicalOperatorFactory getBaseGeographicalOperatorFactory() {
-        return new MongoDBGeographicalOperatorFactory();
+    protected BaseGeoSpatialOperatorFactory getBaseGeoSpatialOperatorFactory() {
+        return new MongoDBGeoSpatialOperatorFactory();
+    }
+
+    @Override
+    protected BaseGeoTemporalOperatorFactory getBaseGeoTemporalOperatorFactory() {
+        return new MongoDBGeoTemporalOperatorFactory();
+    }
+
+    @Override
+    protected BaseGeoTextualOperatorFactory getBaseGeoTextualOperatorFactory() {
+        return new MongoDBGeoTextualOperatorFactory();
     }
 
     @Override
@@ -79,6 +95,11 @@ public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
     @Override
     protected BaseSortOperatorFactory getBaseSortOperatorFactory() {
         return new MongoDBSortOperatorFactory();
+    }
+
+    @Override
+    protected BaseTextualOperatorFactory getBaseTextualOperatorFactory() {
+        return new MongoDBTextualOperatorFactory();
     }
 
 }

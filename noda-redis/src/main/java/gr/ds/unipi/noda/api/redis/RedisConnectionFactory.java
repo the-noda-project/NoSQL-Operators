@@ -5,12 +5,12 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.BaseGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoSpatialOperators.BaseGeoSpatialOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.redis.aggregateOperator.RedisAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperator.RedisComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.RedisGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.RedisGeoSpatialOperatorFactory;
 import gr.ds.unipi.noda.api.redis.filterOperator.logicalOperator.RedisLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.redis.sortOperator.RedisSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
@@ -68,8 +68,8 @@ public class RedisConnectionFactory extends NoSqlConnectionFactory {
     }
 
     @Override
-    protected BaseGeographicalOperatorFactory getBaseGeographicalOperatorFactory() {
-        return new RedisGeographicalOperatorFactory();
+    protected BaseGeoSpatialOperatorFactory getBaseGeographicalOperatorFactory() {
+        return new RedisGeoSpatialOperatorFactory();
     }
 
     @Override
