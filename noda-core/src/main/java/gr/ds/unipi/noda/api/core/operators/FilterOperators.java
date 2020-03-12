@@ -6,10 +6,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoSpatialOperators.GeoSpatialOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.GeoTemporalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.temporal.TemporalBounds;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Circle;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Point;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Polygon;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Rectangle;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.*;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator;
 
@@ -194,15 +191,15 @@ public class FilterOperators {
     }
 
     public static FilterOperator inGeoCircleKm(String fieldName, Coordinates point, double radius) {
-        return GeoSpatialOperator.geoSpatialOperator.newOperatorInGeoCircleKm(fieldName, Circle.newCircleKm(point, radius));
+        return GeoSpatialOperator.geoSpatialOperator.newOperatorInGeoCircleKm(fieldName, Circle.newCircle(point, radius, Unit.KM));
     }
 
     public static FilterOperator inGeoCircleMeters(String fieldName, Coordinates point, double radius) {
-        return GeoSpatialOperator.geoSpatialOperator.newOperatorInGeoCircleMeters(fieldName, Circle.newCircleMeters(point, radius));
+        return GeoSpatialOperator.geoSpatialOperator.newOperatorInGeoCircleMeters(fieldName, Circle.newCircle(point, radius, Unit.M));
     }
 
     public static FilterOperator inGeoCircleMiles(String fieldName, Coordinates point, double radius) {
-        return GeoSpatialOperator.geoSpatialOperator.newOperatorInGeoCircleMiles(fieldName, Circle.newCircleMiles(point, radius));
+        return GeoSpatialOperator.geoSpatialOperator.newOperatorInGeoCircleMiles(fieldName, Circle.newCircle(point, radius, Unit.MI));
     }
 
     public static FilterOperator geoNearestNeighbors(String fieldName, Coordinates point, int neighbors) {
@@ -218,15 +215,15 @@ public class FilterOperators {
     }
 
     public static FilterOperator inGeoTemporalCircleKm(String fieldName, Coordinates point, double radius, String fieldTemporalName, Date lowerBoundDate, Date upperBoundDate) {
-        return GeoTemporalOperator.geoTemporalOperator.newOperatorInGeoTemporalCircleKm(fieldName, Circle.newCircleKm(point, radius), fieldTemporalName, TemporalBounds.newTemporalBounds(lowerBoundDate, upperBoundDate));
+        return GeoTemporalOperator.geoTemporalOperator.newOperatorInGeoTemporalCircleKm(fieldName, Circle.newCircle(point, radius, Unit.KM), fieldTemporalName, TemporalBounds.newTemporalBounds(lowerBoundDate, upperBoundDate));
     }
 
     public static FilterOperator inGeoTemporalCircleMeters(String fieldName, Coordinates point, double radius, String fieldTemporalName, Date lowerBoundDate, Date upperBoundDate) {
-        return GeoTemporalOperator.geoTemporalOperator.newOperatorInGeoTemporalCircleMeters(fieldName, Circle.newCircleMeters(point, radius), fieldTemporalName, TemporalBounds.newTemporalBounds(lowerBoundDate, upperBoundDate));
+        return GeoTemporalOperator.geoTemporalOperator.newOperatorInGeoTemporalCircleMeters(fieldName, Circle.newCircle(point, radius, Unit.M), fieldTemporalName, TemporalBounds.newTemporalBounds(lowerBoundDate, upperBoundDate));
     }
 
     public static FilterOperator inGeoTemporalCircleMiles(String fieldName, Coordinates point, double radius, String fieldTemporalName, Date lowerBoundDate, Date upperBoundDate) {
-        return GeoTemporalOperator.geoTemporalOperator.newOperatorInGeoTemporalCircleMiles(fieldName, Circle.newCircleMiles(point, radius), fieldTemporalName, TemporalBounds.newTemporalBounds(lowerBoundDate, upperBoundDate));
+        return GeoTemporalOperator.geoTemporalOperator.newOperatorInGeoTemporalCircleMiles(fieldName, Circle.newCircle(point, radius, Unit.MI), fieldTemporalName, TemporalBounds.newTemporalBounds(lowerBoundDate, upperBoundDate));
     }
 
     public static FilterOperator geoTemporalNearestNeighbors(String fieldName, Coordinates point, String fieldTemporalName, Date date, int neighbors) {

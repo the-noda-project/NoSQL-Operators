@@ -5,28 +5,31 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 public class Circle extends Geometry {
 
     private final double radius; //stored in meters unit
-    private Circle(Coordinates[] coordinatesArray, double radius) {
+    private final Unit unit;
+
+    private Circle(Coordinates[] coordinatesArray, double radius, Unit unit) {
         super(coordinatesArray);
         this.radius = radius;
+        this.unit = unit;
     }
 
-    public static Circle newCircleKm(Coordinates coordinates, double radius){
-        return new Circle(new Coordinates[]{coordinates}, radius * 1000);
+    public static Circle newCircle(Coordinates coordinates, double radius, Unit unit) {
+        return new Circle(new Coordinates[]{coordinates}, radius, unit);
     }
 
-    public static Circle newCircleMeters(Coordinates coordinates, double radius){
-        return new Circle(new Coordinates[]{coordinates}, radius);
-    }
-
-    public static Circle newCircleMiles(Coordinates coordinates, double radius){
-        return new Circle(new Coordinates[]{coordinates}, radius * 1609.344);
-    }
-
-    public Coordinates getCircleCenter(){
+    public Coordinates getCircleCenter() {
         return getCoordinatesArray()[0];
     }
 
     public double getRadius() {
         return radius;
+    }
+
+    public double getRadiusInUnit() {
+        return radius * unit.metersEquivalent;
+    }
+
+    public Unit getUnit() {
+        return unit;
     }
 }

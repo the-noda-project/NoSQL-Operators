@@ -11,17 +11,14 @@ class OperatorInGeographicalCircle extends GeoSpatialOperator<Circle> {
     protected String getOperatorField() {
         return StringPool.OPEN_BRACKET + getGeometry().getCircleCenter().getLongitude()
                 + StringPool.SPACE + getGeometry().getCircleCenter().getLatitude() + StringPool.SPACE
-                + getGeometry().getRadius() + StringPool.SPACE + unit.toString() + StringPool.CLOSE_BRACKET;
+                + getGeometry().getRadius() + StringPool.SPACE + getGeometry().getUnit().toString() + StringPool.CLOSE_BRACKET;
     }
 
-    private final Unit unit;
-
-    private OperatorInGeographicalCircle(String fieldName, Circle circle, Unit unit) {
+    private OperatorInGeographicalCircle(String fieldName, Circle circle) {
         super(fieldName, circle);
-        this.unit = unit;
     }
 
-    static OperatorInGeographicalCircle newOperatorInGeographicalCircle(String fieldName, Circle circle, Unit unit) {
-        return new OperatorInGeographicalCircle(fieldName, circle, unit);
+    static OperatorInGeographicalCircle newOperatorInGeographicalCircle(String fieldName, Circle circle) {
+        return new OperatorInGeographicalCircle(fieldName, circle);
     }
 }

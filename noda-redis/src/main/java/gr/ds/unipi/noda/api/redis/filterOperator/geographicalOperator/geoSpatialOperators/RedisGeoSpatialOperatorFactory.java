@@ -24,17 +24,17 @@ public class RedisGeoSpatialOperatorFactory extends BaseGeoSpatialOperatorFactor
 
     @Override
     public GeographicalOperator newOperatorInGeoCircleKm(String fieldName, Circle circle) {
-        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, circle, GeoSpatialOperator.Unit.km);
+        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, circle);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoCircleMeters(String fieldName, Circle circle) {
-        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, circle, GeoSpatialOperator.Unit.m);
+        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, circle);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoCircleMiles(String fieldName, Circle circle) {
-        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, circle, GeoSpatialOperator.Unit.mi);
+        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, circle);
     }
 
     @Override

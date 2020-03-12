@@ -41,7 +41,7 @@ class OperatorInGeographicalCircle extends GeoSpatialOperator<Circle> {
         sb.append(", ");
         sb.append(getGeometry().getCircleCenter().getLatitude());
         sb.append("], ");
-        sb.append(getGeometry().getRadius() / 6378137);
+        sb.append(getGeometry().getRadiusInUnit() / 6378137);
         sb.append(" ] } } }");
 
         return sb;
