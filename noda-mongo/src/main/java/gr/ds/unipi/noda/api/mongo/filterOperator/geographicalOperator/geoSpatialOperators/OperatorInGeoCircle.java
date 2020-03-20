@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoSpatia
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Circle;
 
-class OperatorInGeoCircle extends GeoSpatialOperator<Circle> {
+public class OperatorInGeoCircle extends GeoSpatialOperator<Circle> {
 
     private OperatorInGeoCircle(String fieldName, Circle circle) {
         super(fieldName, circle);

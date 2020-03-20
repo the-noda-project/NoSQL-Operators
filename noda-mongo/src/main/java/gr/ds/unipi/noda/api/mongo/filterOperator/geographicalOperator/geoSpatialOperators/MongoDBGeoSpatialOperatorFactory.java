@@ -44,7 +44,4 @@ public class MongoDBGeoSpatialOperatorFactory extends BaseGeoSpatialOperatorFact
         return filterOperator instanceof OperatorGeoNearestNeighbors;
     }
 
-    public static GeoSpatialOperator getOperatorInGeoRectangle(String fieldName, Rectangle rectangle){
-        return OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName, rectangle);
-    }
 }

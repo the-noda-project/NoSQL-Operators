@@ -13,13 +13,13 @@ public class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangl
 
     private final OperatorInGeoRectangle operatorInGeoRectangle;
 
-    protected OperatorInGeoTemporalRectangle(String fieldName, Rectangle geometry, String temporalFieldName, TemporalBounds temporalType) {
-        super(fieldName, geometry, temporalFieldName, temporalType);
-        operatorInGeoRectangle = OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName, geometry);
+    protected OperatorInGeoTemporalRectangle(String fieldName, Rectangle rectangle, String temporalFieldName, TemporalBounds temporalType) {
+        super(fieldName, rectangle, temporalFieldName, temporalType);
+        operatorInGeoRectangle = OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName, rectangle);
     }
 
-    public static OperatorInGeoTemporalRectangle newOperatorInGeoTemporalRectangle(String fieldName, Rectangle geometry, String temporalFieldName, TemporalBounds temporalType){
-        return new OperatorInGeoTemporalRectangle(fieldName, geometry, temporalFieldName, temporalType);
+    public static OperatorInGeoTemporalRectangle newOperatorInGeoTemporalRectangle(String fieldName, Rectangle rectangle, String temporalFieldName, TemporalBounds temporalType){
+        return new OperatorInGeoTemporalRectangle(fieldName, rectangle, temporalFieldName, temporalType);
     }
 
     @Override

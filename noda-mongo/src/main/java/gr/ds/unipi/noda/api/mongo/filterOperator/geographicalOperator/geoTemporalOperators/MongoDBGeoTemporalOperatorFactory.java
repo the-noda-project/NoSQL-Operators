@@ -11,27 +11,27 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 public class MongoDBGeoTemporalOperatorFactory extends BaseGeoTemporalOperatorFactory {
     @Override
     public GeographicalOperator newOperatorInGeoTemporalPolygon(String fieldName, Polygon polygon, String temporalFieldName, TemporalBounds temporalBounds) {
-        return null;
+        return OperatorInGeoTemporalPolygon.newOperatorInGeoTemporalPolygon(fieldName,polygon,temporalFieldName,temporalBounds);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoTemporalRectangle(String fieldName, Rectangle rectangle, String temporalFieldName, TemporalBounds temporalBounds) {
-        return null;
+        return OperatorInGeoTemporalRectangle.newOperatorInGeoTemporalRectangle(fieldName,rectangle,temporalFieldName,temporalBounds);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoTemporalCircleKm(String fieldName, Circle circle, String temporalFieldName, TemporalBounds temporalBounds) {
-        return null;
+        return OperatorInGeoTemporalCircle.newOperatorInGeoTemporalCircle(fieldName,circle,temporalFieldName,temporalBounds);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoTemporalCircleMeters(String fieldName, Circle circle, String temporalFieldName, TemporalBounds temporalBounds) {
-        return null;
+        return OperatorInGeoTemporalCircle.newOperatorInGeoTemporalCircle(fieldName,circle,temporalFieldName,temporalBounds);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoTemporalCircleMiles(String fieldName, Circle circle, String temporalFieldName, TemporalBounds temporalBounds) {
-        return null;
+        return OperatorInGeoTemporalCircle.newOperatorInGeoTemporalCircle(fieldName,circle,temporalFieldName,temporalBounds);
     }
 
     @Override

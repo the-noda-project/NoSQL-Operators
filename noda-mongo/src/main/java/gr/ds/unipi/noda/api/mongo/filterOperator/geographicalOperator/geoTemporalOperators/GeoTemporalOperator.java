@@ -1,12 +1,10 @@
 package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoTemporalOperators;
 
-import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.temporal.Temporal;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Geometry;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.GeoTemporalOperator<StringBuilder, T, U> {
     protected GeoTemporalOperator(String fieldName, T geometry, String temporalFieldName, U temporalType) {

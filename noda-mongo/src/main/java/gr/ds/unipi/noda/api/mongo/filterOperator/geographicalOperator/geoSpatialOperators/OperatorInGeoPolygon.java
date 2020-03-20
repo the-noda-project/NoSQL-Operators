@@ -2,11 +2,10 @@ package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoSpatia
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Polygon;
 
-class OperatorInGeoPolygon extends GeoSpatialOperator<Polygon> {
+public class OperatorInGeoPolygon extends GeoSpatialOperator<Polygon> {
 
     private OperatorInGeoPolygon(String fieldName, Polygon polygon) {
         super(fieldName, polygon);
-
     }
 
     public static OperatorInGeoPolygon newOperatorInGeoPolygon(String fieldName, Polygon polygon) {
@@ -15,6 +14,6 @@ class OperatorInGeoPolygon extends GeoSpatialOperator<Polygon> {
 
     @Override
     public StringBuilder getOperatorExpression() {
-        return getOperatorExpressionForPolygonAndRectangle();
+        return formOperatorExpressionForMultiPointGeometry(getFieldName(), getGeometry().getCoordinatesArray());
     }
 }

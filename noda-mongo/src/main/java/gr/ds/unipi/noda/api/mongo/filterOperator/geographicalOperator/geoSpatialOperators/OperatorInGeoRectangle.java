@@ -14,6 +14,6 @@ public class OperatorInGeoRectangle extends GeoSpatialOperator<Rectangle> {
 
     @Override
     public StringBuilder getOperatorExpression() {
-        return getOperatorExpressionForPolygonAndRectangle();
+        return formOperatorExpressionForMultiPointGeometry(getFieldName(), getGeometry().getCoordinatesArray());
     }
 }
