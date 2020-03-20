@@ -6,14 +6,16 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.max;
+import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 
 public class NoSqlDbSystemTest {
 
     @Test
     public void neo4j() {
-        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().username("myUsername").password("myPass").host("192.168.1.1").port(5000).database("myDatabase").build();
-        noSqlDbSystem.operateOn("table").groupBy("field", max("anotherField"));
+        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().username("neo4j").password("nikos").host("localhost").port(7687).database("graph").build();
+        noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).printScreen();
         noSqlDbSystem.closeConnection();
+
 
     }
 

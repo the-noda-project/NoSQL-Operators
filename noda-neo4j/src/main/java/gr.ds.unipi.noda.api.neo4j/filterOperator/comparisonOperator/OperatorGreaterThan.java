@@ -8,6 +8,11 @@ class OperatorGreaterThan<T> extends ComparisonOperator<T> {
         super(fieldName, fieldValue);
     }
 
+    @Override
+    protected String getComparisonType() {
+        return " > ";
+    }
+
     public static OperatorGreaterThan<Double> newOperatorGreaterThan(String fieldName, Double fieldValue) {
         return new OperatorGreaterThan(fieldName, fieldValue);
     }

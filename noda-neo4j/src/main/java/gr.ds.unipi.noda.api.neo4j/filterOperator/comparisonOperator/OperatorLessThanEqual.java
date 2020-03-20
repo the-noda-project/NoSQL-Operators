@@ -9,6 +9,11 @@ class OperatorLessThanEqual<T> extends ComparisonOperator<T> {
         super(fieldName, fieldValue);
     }
 
+    @Override
+    protected String getComparisonType() {
+        return " <= ";
+    }
+
     public static OperatorLessThanEqual<Double> newOperatorLessThanEqual(String fieldName, Double fieldValue) {
         return new OperatorLessThanEqual(fieldName, fieldValue);
     }
