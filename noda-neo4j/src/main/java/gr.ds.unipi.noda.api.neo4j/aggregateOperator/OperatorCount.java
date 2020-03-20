@@ -11,7 +11,7 @@ class OperatorCount extends AggregateOperator {
     }
 
     @Override
-    public T getOperatorExpression() {
+    public String getOperatorExpression() {
         return null;
     }
 }

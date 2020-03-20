@@ -4,9 +4,11 @@ import java.util.Date;
 
 class OperatorEqual<T> extends ComparisonOperator<T> {
 
-    private OperatorEqual(String fieldName, T fieldValue) {
+    private OperatorEqual(String fieldName, T fieldValue) { super(fieldName, fieldValue); }
 
-        super(fieldName, fieldValue);
+    @Override
+    protected String getComparisonType() {
+        return " = ";
     }
 
     public static OperatorEqual<Double> newOperatorEqual(String fieldName, Double fieldValue) {
