@@ -12,27 +12,27 @@ public class MongoDBGeoSpatialOperatorFactory extends BaseGeoSpatialOperatorFact
 
     @Override
     public GeographicalOperator newOperatorInGeoPolygon(String fieldName, Polygon polygon) {
-        return OperatorInGeographicalPolygon.newOperatorInGeographicalPolygon(fieldName, polygon);
+        return OperatorInGeoPolygon.newOperatorInGeoPolygon(fieldName, polygon);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoRectangle(String fieldName, Rectangle rectangle) {
-        return OperatorInGeographicalRectangle.newOperatorInGeographicalRectangle(fieldName, rectangle);
+        return OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName, rectangle);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoCircleKm(String fieldName, Circle circle) {
-        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, circle);
+        return OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoCircleMeters(String fieldName, Circle circle) {
-        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, circle);
+        return OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoCircleMiles(String fieldName, Circle circle) {
-        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, circle);
+        return OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle);
     }
 
     @Override
@@ -42,5 +42,9 @@ public class MongoDBGeoSpatialOperatorFactory extends BaseGeoSpatialOperatorFact
 
     public static boolean isOperatorGeoNearestNeighbor(FilterOperator filterOperator) {
         return filterOperator instanceof OperatorGeoNearestNeighbors;
+    }
+
+    public static GeoSpatialOperator getOperatorInGeoRectangle(String fieldName, Rectangle rectangle){
+        return OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName, rectangle);
     }
 }
