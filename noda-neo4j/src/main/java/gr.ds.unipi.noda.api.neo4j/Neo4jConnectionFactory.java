@@ -33,7 +33,7 @@ public final class Neo4jConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     public int getDefaultPort() {
-        return 27017;
+        return 7687;
     }
 
     @Override
@@ -43,12 +43,12 @@ public final class Neo4jConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     public String getDefaultUsername() {
-        return "";
+        return "neo4j";
     }
 
     @Override
     public String getDefaultPassword() {
-        return "";
+        return "neo4j";
     }
 
     @Override

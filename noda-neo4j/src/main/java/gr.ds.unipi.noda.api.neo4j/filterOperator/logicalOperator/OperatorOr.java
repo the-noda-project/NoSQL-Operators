@@ -13,4 +13,11 @@ class OperatorOr extends LogicalOperator {
     }
 
 
+    @Override
+    protected String getLogicalOperatorType() {
+
+        return " OR ";
+
+    }
+
 }

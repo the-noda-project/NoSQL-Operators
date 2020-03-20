@@ -1,0 +1,12 @@
+14-03-2020 19:21:58 ERROR g.d.u.noda.api.client.NoSqlDbSystem - noda-neo4j dependency is missing from the classpath. 
+ java.lang.ClassNotFoundException: gr.ds.unipi.noda.api.neo4j.Neo4jConnectionFactory
+20-03-2020 02:12:44 ERROR g.d.u.noda.api.client.NoSqlDbSystem - noda-neo4j dependency is missing from the classpath. 
+ java.lang.ClassNotFoundException: gr.ds.unipi.noda.api.neo4j.Neo4jConnectionFactory
+20-03-2020 02:16:37 ERROR g.d.u.noda.api.client.NoSqlDbSystem - noda-neo4j dependency is missing from the classpath. 
+ java.lang.ClassNotFoundException: gr.ds.unipi.noda.api.neo4j.Neo4jConnectionFactory
+20-03-2020 02:17:11 ERROR g.d.u.noda.api.client.NoSqlDbSystem - noda-neo4j dependency is missing from the classpath. 
+ java.lang.ClassNotFoundException: gr.ds.unipi.noda.api.neo4j.Neo4jConnectionFactory
+20-03-2020 02:28:45 ERROR g.d.u.noda.api.client.NoSqlDbSystem - noda-neo4j dependency is missing from the classpath. 
+ java.lang.ClassNotFoundException: gr.ds.unipi.noda.api.neo4j.Neo4jConnectionFactory
+20-03-2020 02:33:13 ERROR g.d.u.noda.api.client.NoSqlDbSystem - noda-neo4j dependency is missing from the classpath. 
+ java.lang.ClassNotFoundException: gr.ds.unipi.noda.api.neo4j.Neo4jConnectionFactory

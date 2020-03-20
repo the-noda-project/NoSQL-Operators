@@ -1,13 +1,17 @@
 package gr.ds.unipi.noda.api.neo4j.filterOperator.comparisonOperator;
 
-abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator<T, U> {
+abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator<String, U> {
 
     protected ComparisonOperator(String fieldName, U fieldValue) {
         super(fieldName, fieldValue);
     }
 
     @Override
-    public T getOperatorExpression() {
-        return null;
+    public String getOperatorExpression() {
+
+        return  getFieldName() + getComparisonType() + getFieldValue()  ;
+
     }
+
+    abstract String getComparisonType();
 }

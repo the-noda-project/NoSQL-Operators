@@ -5,6 +5,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 abstract class GeographicalOperatorBasedOnSinglePoint extends gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.GeographicalOperatorBasedOnSinglePoint<StringBuilder> {
 
     protected GeographicalOperatorBasedOnSinglePoint(String fieldName, Coordinates point) {
+
         super(fieldName, point);
     }
 

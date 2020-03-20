@@ -7,7 +7,13 @@ import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.neo4j.driver.Record;
+import org.neo4j.driver.Result;
+import org.neo4j.driver.Session;
+import org.neo4j.driver.Transaction;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public final class Neo4jOperators implements NoSqlDbOperators {
@@ -17,10 +23,15 @@ public final class Neo4jOperators implements NoSqlDbOperators {
     private final String s;
     private final SparkSession sparkSession;
 
+    private final StringBuilder sb;
+    private final String matchConstant;
+
     private Neo4jOperators(Neo4jConnector connector, String s, SparkSession sparkSession) {
         this.connector = connector;
         this.s = s;
         this.sparkSession = sparkSession;
+        this.sb = new StringBuilder().append("MATCH " + s);
+        this.matchConstant = "";
     }
 
     public static Neo4jOperators newNeo4jOperators(Neo4jConnector connector, String s, SparkSession sparkSession) {
@@ -30,6 +41,7 @@ public final class Neo4jOperators implements NoSqlDbOperators {
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
 
+        sb.append(" WHERE " +  s + '.').append(filterOperator.getOperatorExpression() + " WITH " + s).append(" RETURN " + s);
         return this;
     }
 
@@ -41,6 +53,8 @@ public final class Neo4jOperators implements NoSqlDbOperators {
     @Override
     public NoSqlDbOperators sort(SortOperator sortOperator, SortOperator... sortingOperators) {
 
+
+        sb.append("#$#");
         return this;
     }
 
@@ -81,6 +95,19 @@ public final class Neo4jOperators implements NoSqlDbOperators {
 
     @Override
     public void printScreen() {
+
+        try(Session session = neo4jConnectionManager.getConnection(connector).session()) {
+
+            Result result = session.run(sb.toString());
+
+            while (result.hasNext())
+            {
+                Record record = result.next();
+                // Values can be extracted from a record by index or name.
+                System.out.println(record);
+            }
+
+        }
 
     }
 
