@@ -2,15 +2,15 @@ package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoSpatia
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Polygon;
 
-class OperatorInGeographicalPolygon extends GeoSpatialOperator<Polygon> {
+class OperatorInGeoPolygon extends GeoSpatialOperator<Polygon> {
 
-    private OperatorInGeographicalPolygon(String fieldName, Polygon polygon) {
+    private OperatorInGeoPolygon(String fieldName, Polygon polygon) {
         super(fieldName, polygon);
 
     }
 
-    public static OperatorInGeographicalPolygon newOperatorInGeographicalPolygon(String fieldName, Polygon polygon) {
-        return new OperatorInGeographicalPolygon(fieldName, polygon);
+    public static OperatorInGeoPolygon newOperatorInGeoPolygon(String fieldName, Polygon polygon) {
+        return new OperatorInGeoPolygon(fieldName, polygon);
     }
 
     @Override

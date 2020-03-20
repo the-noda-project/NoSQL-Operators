@@ -8,7 +8,7 @@ abstract class GeoSpatialOperator<T extends Geometry> extends gr.ds.unipi.noda.a
         super(fieldName, geometry);
     }
 
-    public StringBuilder getOperatorExpressionForPolygonAndRectangle(){
+    protected StringBuilder getOperatorExpressionForPolygonAndRectangle(){
         StringBuilder sb = new StringBuilder();
         sb.append("{ ");
 
