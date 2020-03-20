@@ -30,7 +30,7 @@ public final class Neo4jOperators implements NoSqlDbOperators {
         this.connector = connector;
         this.s = s;
         this.sparkSession = sparkSession;
-        this.sb = new StringBuilder().append("MATCH " + s);
+        this.sb = new StringBuilder().append("MATCH " + '(' + s + ')');
         this.matchConstant = "";
     }
 

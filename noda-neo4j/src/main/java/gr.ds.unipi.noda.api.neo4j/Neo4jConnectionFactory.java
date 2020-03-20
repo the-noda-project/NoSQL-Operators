@@ -6,11 +6,14 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoSpatialOperators.BaseGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTextualOperators.BaseGeoTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.neo4j.aggregateOperator.Neo4jAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.neo4j.filterOperator.comparisonOperator.Neo4jComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.neo4j.filterOperator.geographicalOperator.Neo4JGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.neo4j.filterOperator.geographicalOperator.geoSpatialOperators.Neo4JGeoSpatialOperatorFactory;
 import gr.ds.unipi.noda.api.neo4j.filterOperator.logicalOperator.Neo4jLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.neo4j.sortOperator.Neo4jSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
@@ -67,8 +70,18 @@ public final class Neo4jConnectionFactory extends NoSqlConnectionFactory {
     }
 
     @Override
-    protected BaseGeoSpatialOperatorFactory getBaseGeographicalOperatorFactory() {
+    protected BaseGeoSpatialOperatorFactory getBaseGeoSpatialOperatorFactory() {
         return new Neo4JGeoSpatialOperatorFactory();
+    }
+
+    @Override
+    protected BaseGeoTemporalOperatorFactory getBaseGeoTemporalOperatorFactory() {
+        return null;
+    }
+
+    @Override
+    protected BaseGeoTextualOperatorFactory getBaseGeoTextualOperatorFactory() {
+        return null;
     }
 
     @Override
@@ -79,6 +92,11 @@ public final class Neo4jConnectionFactory extends NoSqlConnectionFactory {
     @Override
     protected BaseSortOperatorFactory getBaseSortOperatorFactory() {
         return new Neo4jSortOperatorFactory();
+    }
+
+    @Override
+    protected BaseTextualOperatorFactory getBaseTextualOperatorFactory() {
+        return null;
     }
 
 }
