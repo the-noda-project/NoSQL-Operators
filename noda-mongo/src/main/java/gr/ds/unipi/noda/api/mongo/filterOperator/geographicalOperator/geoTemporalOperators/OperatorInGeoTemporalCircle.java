@@ -12,7 +12,7 @@ public class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, Tem
         operatorInGeoCircle = OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle);
     }
 
-    public static OperatorInGeoTemporalCircle newOperatorInGeoTemporalCircle(String fieldName, Circle circle, String temporalFieldName, TemporalBounds temporalType){
+    public static OperatorInGeoTemporalCircle newOperatorInGeoTemporalCircle(String fieldName, Circle circle, String temporalFieldName, TemporalBounds temporalType) {
         return new OperatorInGeoTemporalCircle(fieldName, circle, temporalFieldName, temporalType);
     }
 

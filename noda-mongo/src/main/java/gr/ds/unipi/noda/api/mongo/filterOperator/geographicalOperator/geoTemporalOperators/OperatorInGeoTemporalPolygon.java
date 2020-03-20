@@ -13,7 +13,7 @@ public class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, T
         operatorInGeoPolygon = OperatorInGeoPolygon.newOperatorInGeoPolygon(fieldName, polygon);
     }
 
-    public static OperatorInGeoTemporalPolygon newOperatorInGeoTemporalPolygon(String fieldName, Polygon polygon, String temporalFieldName, TemporalBounds temporalType){
+    public static OperatorInGeoTemporalPolygon newOperatorInGeoTemporalPolygon(String fieldName, Polygon polygon, String temporalFieldName, TemporalBounds temporalType) {
         return new OperatorInGeoTemporalPolygon(fieldName, polygon, temporalFieldName, temporalType);
     }
 

@@ -11,7 +11,7 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
         super(fieldName, geometry, temporalFieldName, temporalType);
     }
 
-    static StringBuilder formGeometryAndTemporalBoundsExpression(StringBuilder geometryExpr, String temporalFieldName, TemporalBounds temporalBounds){
+    static StringBuilder formGeometryAndTemporalBoundsExpression(StringBuilder geometryExpr, String temporalFieldName, TemporalBounds temporalBounds) {
         StringBuilder sb = new StringBuilder();
 
         sb.append("{ $");

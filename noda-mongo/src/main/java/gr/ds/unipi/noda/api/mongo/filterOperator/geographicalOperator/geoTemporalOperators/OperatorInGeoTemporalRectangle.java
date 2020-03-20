@@ -1,12 +1,8 @@
 package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoTemporalOperators;
 
 
-import gr.ds.unipi.noda.api.core.operators.FilterOperators;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.GeographicalOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoSpatialOperators.GeoSpatialOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Rectangle;
-import gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoSpatialOperators.MongoDBGeoSpatialOperatorFactory;
 import gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoSpatialOperators.OperatorInGeoRectangle;
 
 public class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangle, TemporalBounds> {
@@ -18,7 +14,7 @@ public class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangl
         operatorInGeoRectangle = OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName, rectangle);
     }
 
-    public static OperatorInGeoTemporalRectangle newOperatorInGeoTemporalRectangle(String fieldName, Rectangle rectangle, String temporalFieldName, TemporalBounds temporalType){
+    public static OperatorInGeoTemporalRectangle newOperatorInGeoTemporalRectangle(String fieldName, Rectangle rectangle, String temporalFieldName, TemporalBounds temporalType) {
         return new OperatorInGeoTemporalRectangle(fieldName, rectangle, temporalFieldName, temporalType);
     }
 

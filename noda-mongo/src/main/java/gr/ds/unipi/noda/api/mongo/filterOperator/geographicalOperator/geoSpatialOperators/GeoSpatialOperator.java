@@ -8,7 +8,7 @@ abstract class GeoSpatialOperator<T extends Geometry> extends gr.ds.unipi.noda.a
         super(fieldName, geometry);
     }
 
-    protected static StringBuilder formOperatorExpressionForMultiPointGeometry(String fieldName, Coordinates[] coordinates){
+    protected static StringBuilder formOperatorExpressionForMultiPointGeometry(String fieldName, Coordinates[] coordinates) {
         StringBuilder sb = new StringBuilder();
         sb.append("{ ");
 
