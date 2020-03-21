@@ -4,6 +4,18 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 
 public class Circle extends Geometry {
 
+    public enum Unit {
+        M(1),
+        KM(1000),
+        MI(1609.344),
+        FT(3.280839895);
+        public double metersEquivalent;
+
+        Unit(double i) {
+            this.metersEquivalent = i;
+        }
+    }
+
     private final double radius; //stored in meters unit
     private final Unit unit;
 

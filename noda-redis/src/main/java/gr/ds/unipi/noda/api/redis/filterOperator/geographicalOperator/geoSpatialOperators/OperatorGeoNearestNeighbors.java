@@ -3,7 +3,7 @@ package gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.geoSpatia
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.QuadTreeInstance;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Point;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Unit;
+import io.redisearch.Query;
 
 /**
  * @author adimo on 11/10/2019
@@ -28,6 +28,6 @@ public class OperatorGeoNearestNeighbors extends GeoSpatialOperator<Point> {
     protected String getOperatorField() {
         return StringPool.OPEN_BRACKET + getGeometry().getPoint().getLongitude() + StringPool.SPACE + getGeometry().getPoint().getLongitude() + StringPool.SPACE +
                 QuadTreeInstance.getQuadTree().findRadius(getGeometry().getPoint().getLongitude(), getGeometry().getPoint().getLongitude(), neighborsCount)
-                + StringPool.SPACE + Unit.KM.toString() + StringPool.CLOSE_BRACKET;
+                + StringPool.SPACE + Query.GeoFilter.KILOMETERS + StringPool.CLOSE_BRACKET;
     }
 }
