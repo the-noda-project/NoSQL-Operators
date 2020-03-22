@@ -11,6 +11,7 @@ import org.apache.spark.sql.SparkSession;
 import org.neo4j.driver.*;
 import org.neo4j.driver.summary.ResultSummary;
 
+import javax.swing.text.Document;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public final class Neo4jOperators implements NoSqlDbOperators {
         this.connector = connector;
         this.s = s;
         this.sparkSession = sparkSession;
-        this.sb = new StringBuilder().append("MATCH " + '(' + s + ')');
+        this.sb = new StringBuilder().append("MATCH " + "(s:" + s + ")");
         this.matchConstant = "";
     }
 
@@ -41,11 +42,22 @@ public final class Neo4jOperators implements NoSqlDbOperators {
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
 
-        sb.append(" WHERE " +  s + '.').append(filterOperator.getOperatorExpression() + " WITH " + s).append(" RETURN " + s);
+        sb.append(" WHERE ");
 
-//        for (FilterOperator operator : filterOperators) {
-//
-//        }
+        if(filterOperators.length > 1) {
+            for (FilterOperator fops : filterOperators) {
+
+                sb.append( fops.getOperatorExpression() + " WITH s");
+
+            }
+            } else {
+
+                sb.append( filterOperator.getOperatorExpression() + " WITH s");
+
+            }
+
+
+
 
         return this;
     }
@@ -100,6 +112,8 @@ public final class Neo4jOperators implements NoSqlDbOperators {
 
     @Override
     public void printScreen() {
+
+        sb.append(" RETURN s");
 
         System.out.println(sb);
 
