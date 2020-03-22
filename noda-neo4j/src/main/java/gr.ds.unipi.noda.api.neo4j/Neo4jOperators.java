@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.neo4j;
 
+import com.google.gson.internal.$Gson$Types;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
@@ -7,13 +8,12 @@ import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.neo4j.driver.Record;
-import org.neo4j.driver.Result;
-import org.neo4j.driver.Session;
-import org.neo4j.driver.Transaction;
+import org.neo4j.driver.*;
+import org.neo4j.driver.summary.ResultSummary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public final class Neo4jOperators implements NoSqlDbOperators {
@@ -42,6 +42,11 @@ public final class Neo4jOperators implements NoSqlDbOperators {
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
 
         sb.append(" WHERE " +  s + '.').append(filterOperator.getOperatorExpression() + " WITH " + s).append(" RETURN " + s);
+
+//        for (FilterOperator operator : filterOperators) {
+//
+//        }
+
         return this;
     }
 
@@ -96,19 +101,30 @@ public final class Neo4jOperators implements NoSqlDbOperators {
     @Override
     public void printScreen() {
 
+        System.out.println(sb);
+
         try(Session session = neo4jConnectionManager.getConnection(connector).session()) {
 
             Result result = session.run(sb.toString());
 
+            System.out.println(result);
+
+            List<Map<String,Object>> nodeList=  new ArrayList<>();
+
+
             while (result.hasNext())
             {
                 Record record = result.next();
-                // Values can be extracted from a record by index or name.
-                System.out.println(record);
+                nodeList.add(record.fields().get(0).value().asMap());
             }
 
-        }
+            System.out.println("Results: ");
 
+            nodeList.forEach((key) -> System.out.println(key));
+
+            System.out.println("Number of results: " + nodeList.size());
+
+}
     }
 
     @Override
