@@ -6,12 +6,17 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoSpatialOperators.BaseGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTextualOperators.BaseGeoTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.redis.aggregateOperator.RedisAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperator.RedisComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.RedisGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.geoSpatialOperators.RedisGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperator.geoTextualOperators.RedisGeoTextualOperatorFactory;
 import gr.ds.unipi.noda.api.redis.filterOperator.logicalOperator.RedisLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.textualOperator.RedisTextualOperatorFactory;
 import gr.ds.unipi.noda.api.redis.sortOperator.RedisSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
@@ -68,8 +73,18 @@ public class RedisConnectionFactory extends NoSqlConnectionFactory {
     }
 
     @Override
-    protected BaseGeoSpatialOperatorFactory getBaseGeographicalOperatorFactory() {
+    protected BaseGeoSpatialOperatorFactory getBaseGeoSpatialOperatorFactory() {
         return new RedisGeoSpatialOperatorFactory();
+    }
+
+    @Override
+    protected BaseGeoTemporalOperatorFactory getBaseGeoTemporalOperatorFactory() {
+        return null;
+    }
+
+    @Override
+    protected BaseGeoTextualOperatorFactory getBaseGeoTextualOperatorFactory() {
+        return new RedisGeoTextualOperatorFactory();
     }
 
     @Override
@@ -80,5 +95,10 @@ public class RedisConnectionFactory extends NoSqlConnectionFactory {
     @Override
     protected BaseSortOperatorFactory getBaseSortOperatorFactory() {
         return new RedisSortOperatorFactory();
+    }
+
+    @Override
+    protected BaseTextualOperatorFactory getBaseTextualOperatorFactory() {
+        return new RedisTextualOperatorFactory();
     }
 }

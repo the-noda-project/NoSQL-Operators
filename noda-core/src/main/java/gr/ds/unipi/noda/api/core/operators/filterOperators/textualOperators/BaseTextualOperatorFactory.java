@@ -6,4 +6,6 @@ public abstract class BaseTextualOperatorFactory {
 
     public abstract TextualOperator newOperatorAllKeywords(String fieldName, String keyword1, String keyword2, String... keywords);
 
+    public abstract TextualOperator newOperatorNoneKeywords(String fieldName, String keyword1, String keyword2, String... keywords);
+
 }
