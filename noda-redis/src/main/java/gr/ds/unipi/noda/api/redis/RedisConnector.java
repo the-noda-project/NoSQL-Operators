@@ -30,4 +30,8 @@ public class RedisConnector implements NoSqlDbConnector<Client> {
     void setIndexName(String indexName) {
         this.indexName = indexName;
     }
+
+    String getIndexName() {
+        return this.indexName;
+    }
 }

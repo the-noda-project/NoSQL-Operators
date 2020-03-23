@@ -8,19 +8,19 @@ abstract class GeoSpatialOperator<T extends Geometry> extends gr.ds.unipi.noda.a
         super(fieldName, geometry);
     }
 
-    public StringBuilder getOperatorExpressionForPolygonAndRectangle(){
+    protected static StringBuilder formOperatorExpressionForMultiPointGeometry(String fieldName, Coordinates[] coordinates) {
         StringBuilder sb = new StringBuilder();
         sb.append("{ ");
 
-        if (!getFieldName().contains(".")) {
-            sb.append(getFieldName());
+        if (!fieldName.contains(".")) {
+            sb.append(fieldName);
         } else {
-            sb.append("\"" + getFieldName() + "\"");
+            sb.append("\"" + fieldName + "\"");
         }
 
         sb.append(": { $geoWithin: { $geometry: { type:\"Polygon\", coordinates:[ [");
 
-        for (Coordinates c : getGeometry().getCoordinatesArray()) {
+        for (Coordinates c : coordinates) {
             sb.append(" [");
             sb.append(c.getLongitude());
             sb.append(",");
@@ -32,9 +32,9 @@ abstract class GeoSpatialOperator<T extends Geometry> extends gr.ds.unipi.noda.a
 
         //In MongoDB the last point should coincide with the coordinates of the starting point
         sb.append(" [");
-        sb.append(getGeometry().getCoordinatesArray()[0].getLongitude());
+        sb.append(coordinates[0].getLongitude());
         sb.append(",");
-        sb.append(getGeometry().getCoordinatesArray()[0].getLatitude());
+        sb.append(coordinates[0].getLatitude());
         sb.append("]");
 
         sb.append("] ] } } } }");

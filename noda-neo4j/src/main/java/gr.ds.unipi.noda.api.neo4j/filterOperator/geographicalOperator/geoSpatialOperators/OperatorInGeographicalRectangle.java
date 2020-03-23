@@ -1,5 +1,6 @@
-package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoSpatialOperators;
+package gr.ds.unipi.noda.api.neo4j.filterOperator.geographicalOperator.geoSpatialOperators;
 
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Rectangle;
 
 class OperatorInGeographicalRectangle extends GeoSpatialOperator<Rectangle> {
@@ -14,6 +15,7 @@ class OperatorInGeographicalRectangle extends GeoSpatialOperator<Rectangle> {
 
     @Override
     public StringBuilder getOperatorExpression() {
-        return getOperatorExpressionForPolygonAndRectangle();
+        return null;
     }
+
 }

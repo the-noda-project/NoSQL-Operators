@@ -2,14 +2,14 @@ package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoSpatia
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Circle;
 
-class OperatorInGeographicalCircle extends GeoSpatialOperator<Circle> {
+public class OperatorInGeoCircle extends GeoSpatialOperator<Circle> {
 
-    private OperatorInGeographicalCircle(String fieldName, Circle circle) {
+    private OperatorInGeoCircle(String fieldName, Circle circle) {
         super(fieldName, circle);
     }
 
-    public static OperatorInGeographicalCircle newOperatorInGeographicalCircle(String fieldName, Circle circle) {
-        return new OperatorInGeographicalCircle(fieldName, circle);
+    public static OperatorInGeoCircle newOperatorInGeoCircle(String fieldName, Circle circle) {
+        return new OperatorInGeoCircle(fieldName, circle);
     }
 
 //    @Override
@@ -41,7 +41,7 @@ class OperatorInGeographicalCircle extends GeoSpatialOperator<Circle> {
         sb.append(", ");
         sb.append(getGeometry().getCircleCenter().getLatitude());
         sb.append("], ");
-        sb.append(getGeometry().getRadius() / 6378137);
+        sb.append(getGeometry().getRadiusInUnit() / 6378137);
         sb.append(" ] } } }");
 
         return sb;

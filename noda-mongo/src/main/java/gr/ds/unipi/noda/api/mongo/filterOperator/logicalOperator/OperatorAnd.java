@@ -17,19 +17,4 @@ class OperatorAnd extends LogicalOperator {
         return new OperatorAnd(filterOperator1, filterOperator2, filterOperators);
     }
 
-
-//    @Override
-//    public String getJsonString() {
-//
-//        StringBuilder sb = new StringBuilder();
-//
-//        for(FilterOperator fop: filterOperatorChildren){
-//            sb.append(fop.getJsonString()+", ");
-//        }
-//
-//        sb.deleteCharAt(sb.lastIndexOf(","));
-//
-//        return "{ $and: [ "+sb.toString()+"] }";
-//    }
-
 }

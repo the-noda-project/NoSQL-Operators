@@ -1,4 +1,4 @@
-package gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoSpatialOperators;
+package gr.ds.unipi.noda.api.neo4j.filterOperator.geographicalOperator.geoSpatialOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Polygon;
 
@@ -6,7 +6,6 @@ class OperatorInGeographicalPolygon extends GeoSpatialOperator<Polygon> {
 
     private OperatorInGeographicalPolygon(String fieldName, Polygon polygon) {
         super(fieldName, polygon);
-
     }
 
     public static OperatorInGeographicalPolygon newOperatorInGeographicalPolygon(String fieldName, Polygon polygon) {
@@ -15,6 +14,6 @@ class OperatorInGeographicalPolygon extends GeoSpatialOperator<Polygon> {
 
     @Override
     public StringBuilder getOperatorExpression() {
-        return getOperatorExpressionForPolygonAndRectangle();
+        return null;
     }
 }

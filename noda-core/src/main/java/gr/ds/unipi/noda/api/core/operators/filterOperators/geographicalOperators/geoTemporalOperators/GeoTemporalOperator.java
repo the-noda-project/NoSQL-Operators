@@ -17,4 +17,11 @@ public abstract class GeoTemporalOperator<T, U extends Geometry, S extends Tempo
 
     public static BaseGeoTemporalOperatorFactory geoTemporalOperator;
 
+    protected String getTemporalFieldName() {
+        return temporalFieldName;
+    }
+
+    protected S getTemporalType() {
+        return temporalType;
+    }
 }
