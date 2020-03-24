@@ -9,8 +9,8 @@ import java.util.stream.Stream;
 
 class OperatorAnyKeywords extends TextualOperator {
 
-    private OperatorAnyKeywords(String fieldName, String[] elements, int condition){
-        super(fieldName, elements, condition);
+    private OperatorAnyKeywords(String fieldName, String[] elements){
+        super(fieldName, elements);
     }
 
     public static OperatorAnyKeywords newOperatorAnyKeywords(String fieldName, String keyword, String... keywords){
@@ -28,7 +28,7 @@ class OperatorAnyKeywords extends TextualOperator {
             }
         }
 
-        return new OperatorAnyKeywords(fieldName, keywordsArray, 0);
+        return new OperatorAnyKeywords(fieldName, keywordsArray);
     }
 
     @Override
