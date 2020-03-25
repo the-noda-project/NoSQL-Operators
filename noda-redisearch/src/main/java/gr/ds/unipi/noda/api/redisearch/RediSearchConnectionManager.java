@@ -21,7 +21,11 @@ public class RediSearchConnectionManager extends NoSqlDbConnectionManager<JedisP
 
     @Override
     public boolean closeConnections() {
-        return false;
+        getConnections().forEach((k, v) -> {
+            v.close();
+        });
+        getConnections().clear();
+        return true;
     }
 
     static RediSearchConnectionManager getInstance() {
