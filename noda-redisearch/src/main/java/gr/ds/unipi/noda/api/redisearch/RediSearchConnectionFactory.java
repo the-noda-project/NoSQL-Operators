@@ -24,7 +24,7 @@ public class RediSearchConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {
-        return RediSearchConnector.newRedisConnector(host, port, username, password, database);
+        return RediSearchConnector.newRedisConnector(host, port, username, password);
     }
 
     @Override

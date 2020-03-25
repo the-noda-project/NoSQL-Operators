@@ -2,36 +2,62 @@ package gr.ds.unipi.noda.api.redisearch;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import io.redisearch.client.Client;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
+import scala.Tuple2;
 
-public class RediSearchConnector implements NoSqlDbConnector<Client> {
+import java.util.Objects;
+
+public class RediSearchConnector implements NoSqlDbConnector<JedisPool> {
     private final String host;
     private final int port;
     private final String username;
     private final String password;
-    private String indexName;
 
-    private RediSearchConnector(String host, int port, String username, String password, String indexName) {
+    private RediSearchConnector(String host, int port, String username, String password) {
         this.host = host;
         this.port = port;
         this.username = username;
         this.password = password;
-        this.indexName = indexName;
     }
 
     @Override
-    public Client createConnection() {
-        return new Client(indexName, host, port, 500, 100, password);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RediSearchConnector that = (RediSearchConnector) o;
+        return port == that.port &&
+                Objects.equals(host, that.host) &&
+                Objects.equals(username, that.username) &&
+                Objects.equals(password, that.password);
     }
 
-    static RediSearchConnector newRedisConnector(String host, int port, String username, String password, String database) {
-        return new RediSearchConnector(host, port, username, password, database);
+    @Override
+    public int hashCode() {
+        return Objects.hash(host, port, username, password);
     }
 
-    void setIndexName(String indexName) {
-        this.indexName = indexName;
+    @Override
+    public JedisPool createConnection() {
+        return new JedisPool(initPoolConfig(100), host, port, 500, password);
     }
 
-    String getIndexName() {
-        return this.indexName;
+    static RediSearchConnector newRedisConnector(String host, int port, String username, String password) {
+        return new RediSearchConnector(host, port, username, password);
+    }
+
+    private static JedisPoolConfig initPoolConfig(int poolSize) {
+        JedisPoolConfig conf = new JedisPoolConfig();
+        conf.setMaxTotal(poolSize);
+        conf.setTestOnBorrow(false);
+        conf.setTestOnReturn(false);
+        conf.setTestOnCreate(false);
+        conf.setTestWhileIdle(false);
+        conf.setMinEvictableIdleTimeMillis(60000L);
+        conf.setTimeBetweenEvictionRunsMillis(30000L);
+        conf.setNumTestsPerEvictionRun(-1);
+        conf.setFairness(true);
+        return conf;
     }
 }

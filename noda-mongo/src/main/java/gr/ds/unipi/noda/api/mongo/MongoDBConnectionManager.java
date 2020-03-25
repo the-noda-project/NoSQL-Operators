@@ -12,6 +12,7 @@ public final class MongoDBConnectionManager extends NoSqlDbConnectionManager<Mon
 
     }
 
+    @Override
     public boolean closeConnection(NoSqlDbConnector noSqlDbConnector) {
         if (getConnections().containsKey(noSqlDbConnector)) {
             getConnections().get(noSqlDbConnector).close();
@@ -20,6 +21,7 @@ public final class MongoDBConnectionManager extends NoSqlDbConnectionManager<Mon
         return true;
     }
 
+    @Override
     public boolean closeConnections() {
         getConnections().forEach((k, v) -> {
             v.close();
