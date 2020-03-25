@@ -11,13 +11,13 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
-import gr.ds.unipi.noda.api.redisearch.aggregateOperator.RediSearchAggregateOperatorFactory;
-import gr.ds.unipi.noda.api.redisearch.filterOperator.comparisonOperator.RediSearchComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.redisearch.filterOperator.geographicalOperator.geoSpatialOperators.RediSearchGeoSpatialOperatorFactory;
-import gr.ds.unipi.noda.api.redisearch.filterOperator.geographicalOperator.geoTextualOperators.RediSearchGeoTextualOperatorFactory;
-import gr.ds.unipi.noda.api.redisearch.filterOperator.logicalOperator.RediSearchLogicalOperatorFactory;
-import gr.ds.unipi.noda.api.redisearch.filterOperator.textualOperator.RediSearchTextualOperatorFactory;
-import gr.ds.unipi.noda.api.redisearch.sortOperator.RedisSortOperatorFactory;
+import gr.ds.unipi.noda.api.redisearch.aggregateOperators.RediSearchAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.comparisonOperators.RediSearchComparisonOperatorFactory;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.geoSpatialOperators.RediSearchGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.geoTextualOperators.RediSearchGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.logicalOperators.RediSearchLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.textualOperators.RediSearchTextualOperatorFactory;
+import gr.ds.unipi.noda.api.redisearch.sortOperators.RedisSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
 public class RediSearchConnectionFactory extends NoSqlConnectionFactory {
