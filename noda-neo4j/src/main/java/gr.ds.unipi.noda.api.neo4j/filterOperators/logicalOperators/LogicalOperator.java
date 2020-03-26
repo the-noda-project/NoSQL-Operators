@@ -18,9 +18,8 @@ abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operators.filte
 
         }
 
-        String logicalType = getLogicalOperatorType();
-        System.out.println(sb.lastIndexOf(logicalType));
-        sb.delete( sb.length() - 4 , sb.length());
+        sb.deleteCharAt(sb.lastIndexOf(getLogicalOperatorType()));
+
         return sb.toString();
 
     }

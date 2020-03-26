@@ -9,7 +9,7 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
     @Override
     public String getOperatorExpression() {
 
-        return "s." + getFieldName() + getComparisonType() + getFieldValue()  ;
+        return  getFieldName() + getComparisonType() + getFieldValue()  ;
 
     }
 
