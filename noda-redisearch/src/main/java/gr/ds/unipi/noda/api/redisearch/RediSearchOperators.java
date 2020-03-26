@@ -6,15 +6,16 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
-import gr.ds.unipi.noda.api.redisearch.filterOperator.RediSearchPostFilterOperator;
-import gr.ds.unipi.noda.api.redisearch.filterOperator.geographicalOperator.geoSpatialOperators.OperatorGeoNearestNeighbors;
-import gr.ds.unipi.noda.api.redisearch.filterOperator.geographicalOperator.geoSpatialOperators.RediSearchGeoSpatialOperatorFactory;
-import gr.ds.unipi.noda.api.redisearch.filterOperator.geographicalOperator.geoSpatialOperators.RediSearchGeoSpatialOperator;
-import gr.ds.unipi.noda.api.redisearch.filterOperator.geographicalOperator.geoSpatialOperators.ZRangeInfo;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.RediSearchPostFilterOperator;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.geoSpatialOperators.OperatorGeoNearestNeighbors;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.geoSpatialOperators.RediSearchGeoSpatialOperator;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.geoSpatialOperators.RediSearchGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.geoSpatialOperators.ZRangeInfo;
 import io.redisearch.AggregationResult;
 import io.redisearch.aggregation.AggregationBuilder;
 import io.redisearch.aggregation.SortedField;
 import io.redisearch.aggregation.reducers.Reducer;
+import io.redisearch.client.Client;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import redis.clients.jedis.GeoCoordinate;
@@ -26,17 +27,26 @@ import java.util.stream.Stream;
 public class RediSearchOperators implements NoSqlDbOperators {
     private final RediSearchConnectionManager rediSearchConnectionManager = RediSearchConnectionManager.getInstance();
     private final RediSearchConnector connector;
+    private final String indexName;
+    private Client client;
     private AggregationBuilder aggregationBuilder;
     private ZRangeInfo zRangeInfo;
 
-    private RediSearchOperators(RediSearchConnector connector) {
+    private RediSearchOperators(RediSearchConnector connector,String indexName) {
         this.connector = connector;
+        this.indexName = indexName;
         aggregationBuilder = new AggregationBuilder();
     }
 
     static RediSearchOperators newRedisOperators(RediSearchConnector connector, String indexName) {
-        connector.setIndexName(indexName);
-        return new RediSearchOperators(connector);
+        return new RediSearchOperators(connector,indexName);
+    }
+
+    Client getClient(){
+        if(client == null){
+            client = new Client(indexName, rediSearchConnectionManager.getConnection(connector));
+        }
+            return client;
     }
 
     @Override
@@ -49,7 +59,7 @@ public class RediSearchOperators implements NoSqlDbOperators {
             }
         } else if (RediSearchGeoSpatialOperatorFactory.isOperatorGeoBox(filterOperator)) {
             zRangeInfo = ((RediSearchGeoSpatialOperator)filterOperator)
-                    .getZRangeInfo().apply(rediSearchConnectionManager.getConnection(connector)._conn(), connector.getIndexName());
+                    .getZRangeInfo().apply(rediSearchConnectionManager.getConnection(connector).getResource(), indexName);
         }
         if (aggregationBuilder.getArgs().size() == 1) {
             String s = filterOperator.getOperatorExpression().toString();
@@ -76,11 +86,11 @@ public class RediSearchOperators implements NoSqlDbOperators {
     @Override
     public void printScreen() {
         if (Objects.nonNull(zRangeInfo)) {
-            Set<String> rectangleSearchMembers = rediSearchConnectionManager.getConnection(connector)._conn().zrangeByScore(zRangeInfo.getKey(), zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore());
-            List<GeoCoordinate> geopos = rediSearchConnectionManager.getConnection(connector)._conn().geopos(zRangeInfo.getKey(), rectangleSearchMembers.toArray(StringPool.EMPTY_ARRAY));
+            Set<String> rectangleSearchMembers = rediSearchConnectionManager.getConnection(connector).getResource().zrangeByScore(zRangeInfo.getKey(), zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore());
+            List<GeoCoordinate> geopos = rediSearchConnectionManager.getConnection(connector).getResource().geopos(zRangeInfo.getKey(), rectangleSearchMembers.toArray(StringPool.EMPTY_ARRAY));
             geopos.forEach(pos -> System.out.println(pos.toString()));
         } else {
-            AggregationResult aggregate = rediSearchConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
+            AggregationResult aggregate = getClient().aggregate(aggregationBuilder);
             List<Map<String, Object>> results = aggregate.getResults();
             int index = 0;
             for (Map<String, Object> t : results) {
@@ -95,35 +105,35 @@ public class RediSearchOperators implements NoSqlDbOperators {
     @Override
     public Optional<Double> max(String fieldName) {
         aggregationBuilder.groupBy(StringPool.AT_AND_STAR, (Reducer) AggregateOperator.aggregateOperator.newOperatorMax(fieldName).getOperatorExpression());
-        AggregationResult aggregate = rediSearchConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
+        AggregationResult aggregate = getClient().aggregate(aggregationBuilder);
         return Optional.of(aggregate.getRow(0).getDouble(AggregationKeywords.MAX.toString().concat(fieldName)));
     }
 
     @Override
     public Optional<Double> min(String fieldName) {
         aggregationBuilder.groupBy(StringPool.AT_AND_STAR, (Reducer) AggregateOperator.aggregateOperator.newOperatorMin(fieldName).getOperatorExpression());
-        AggregationResult aggregate = rediSearchConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
+        AggregationResult aggregate = getClient().aggregate(aggregationBuilder);
         return Optional.of(aggregate.getRow(0).getDouble(AggregationKeywords.MIN.toString().concat(fieldName)));
     }
 
     @Override
     public Optional<Double> sum(String fieldName) {
         aggregationBuilder.groupBy(StringPool.AT_AND_STAR, (Reducer) AggregateOperator.aggregateOperator.newOperatorSum(fieldName).getOperatorExpression());
-        AggregationResult aggregate = rediSearchConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
+        AggregationResult aggregate = getClient().aggregate(aggregationBuilder);
         return Optional.of(aggregate.getRow(0).getDouble(AggregationKeywords.SUM.toString().concat(fieldName)));
     }
 
     @Override
     public Optional<Double> avg(String fieldName) {
         aggregationBuilder.groupBy(StringPool.AT_AND_STAR, (Reducer) AggregateOperator.aggregateOperator.newOperatorAvg(fieldName).getOperatorExpression());
-        AggregationResult aggregate = rediSearchConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
+        AggregationResult aggregate = getClient().aggregate(aggregationBuilder);
         return Optional.of(aggregate.getRow(0).getDouble(AggregationKeywords.AVG.toString().concat(fieldName)));
     }
 
     @Override
     public int count() {
         aggregationBuilder.groupBy(StringPool.AT_AND_STAR, (Reducer) AggregateOperator.aggregateOperator.newOperatorCount().getOperatorExpression());
-        AggregationResult aggregate = rediSearchConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
+        AggregationResult aggregate = getClient().aggregate(aggregationBuilder);
         return (int) aggregate.getRow(0).getDouble(AggregationKeywords.COUNT.toString());
     }
 

@@ -2,9 +2,9 @@ package gr.ds.unipi.noda.api.redisearch;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnectionManager;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
-import io.redisearch.client.Client;
+import redis.clients.jedis.JedisPool;
 
-public class RediSearchConnectionManager extends NoSqlDbConnectionManager<Client> {
+public class RediSearchConnectionManager extends NoSqlDbConnectionManager<JedisPool> {
     private static final RediSearchConnectionManager INSTANCE = new RediSearchConnectionManager();
 
     private RediSearchConnectionManager() {
@@ -21,7 +21,11 @@ public class RediSearchConnectionManager extends NoSqlDbConnectionManager<Client
 
     @Override
     public boolean closeConnections() {
-        return false;
+        getConnections().forEach((k, v) -> {
+            v.close();
+        });
+        getConnections().clear();
+        return true;
     }
 
     static RediSearchConnectionManager getInstance() {

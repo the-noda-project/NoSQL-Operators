@@ -15,6 +15,9 @@
         <module>noda-redisearch</module>
         <module>noda-client</module>
         <module>noda-neo4j</module>
+        <module>nosql-operators-YYYBase</module>
+        <module>noda-YYYBase</module>
+        <module>noda-YYYDataBase</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

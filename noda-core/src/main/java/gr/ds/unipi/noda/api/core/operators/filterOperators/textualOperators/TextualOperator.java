@@ -6,12 +6,10 @@ public abstract class TextualOperator<T> implements FilterOperator<T> {
 
     private final String fieldName;
     private final String[] elements;
-    private final int condition;//0 for or (any), 1 for and (all)
 
-    protected TextualOperator(String fieldName, String[] elements, int condition){
+    protected TextualOperator(String fieldName, String[] elements){
         this.fieldName = fieldName;
         this.elements = elements;
-        this.condition = condition;
     }
 
     protected String[] getElements() {
@@ -22,11 +20,6 @@ public abstract class TextualOperator<T> implements FilterOperator<T> {
         return fieldName;
     }
 
-    protected int getCondition() {
-        return condition;
-    }
-
     public static BaseTextualOperatorFactory textualOperator;
-
 
 }
