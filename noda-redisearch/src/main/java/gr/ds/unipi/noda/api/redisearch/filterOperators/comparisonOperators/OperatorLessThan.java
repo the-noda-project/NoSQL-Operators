@@ -5,7 +5,7 @@ import gr.ds.unipi.noda.api.core.constants.StringPool;
 /**
  * @author adimo on 7/10/2019
  */
-class OperatorLessThan<T> extends ComparisonOperator<T> {
+final class OperatorLessThan<T> extends ComparisonOperator<T> {
     private OperatorLessThan(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
     }

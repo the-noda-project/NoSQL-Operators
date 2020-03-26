@@ -24,7 +24,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RediSearchOperators implements NoSqlDbOperators {
+public final class RediSearchOperators implements NoSqlDbOperators {
     private final RediSearchConnectionManager rediSearchConnectionManager = RediSearchConnectionManager.getInstance();
     private final RediSearchConnector connector;
     private final String indexName;

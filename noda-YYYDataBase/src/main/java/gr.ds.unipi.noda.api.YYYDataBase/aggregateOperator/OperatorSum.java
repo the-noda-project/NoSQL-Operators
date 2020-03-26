@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.YYYDataBase.aggregateOperator;
 
-class OperatorSum extends AggregateOperator {
+final class OperatorSum extends AggregateOperator {
 
     private OperatorSum(String fieldName) {
         super(fieldName, "sum_" + fieldName);

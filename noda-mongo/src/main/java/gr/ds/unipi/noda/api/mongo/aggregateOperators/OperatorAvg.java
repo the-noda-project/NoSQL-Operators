@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.mongo.aggregateOperators;
 
-class OperatorAvg extends AggregateOperator {
+final class OperatorAvg extends AggregateOperator {
 
     private OperatorAvg(String fieldName) {
         super(fieldName, "avg_" + fieldName);

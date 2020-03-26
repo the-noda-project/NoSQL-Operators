@@ -8,7 +8,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Polygon;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Rectangle;
 
-public class MongoDBGeoSpatialOperatorFactory extends BaseGeoSpatialOperatorFactory {
+public final class MongoDBGeoSpatialOperatorFactory extends BaseGeoSpatialOperatorFactory {
 
     @Override
     public GeographicalOperator newOperatorInGeoPolygon(String fieldName, Polygon polygon) {

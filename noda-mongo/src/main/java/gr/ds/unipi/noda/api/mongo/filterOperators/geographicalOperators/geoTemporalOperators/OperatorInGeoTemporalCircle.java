@@ -4,7 +4,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Circle;
 import gr.ds.unipi.noda.api.mongo.filterOperators.geographicalOperators.geoSpatialOperators.OperatorInGeoCircle;
 
-public class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, TemporalBounds> {
+public final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, TemporalBounds> {
     private final OperatorInGeoCircle operatorInGeoCircle;
 
     protected OperatorInGeoTemporalCircle(String fieldName, Circle circle, String temporalFieldName, TemporalBounds temporalType) {

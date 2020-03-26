@@ -7,7 +7,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Polygon;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Rectangle;
 
-public class Neo4JGeoSpatialOperatorFactory extends BaseGeoSpatialOperatorFactory {
+public final class Neo4JGeoSpatialOperatorFactory extends BaseGeoSpatialOperatorFactory {
 
     @Override
     public GeographicalOperator newOperatorInGeoPolygon(String fieldName, Polygon polygon) {

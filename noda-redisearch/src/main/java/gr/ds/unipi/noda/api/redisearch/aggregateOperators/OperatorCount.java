@@ -7,7 +7,7 @@ import io.redisearch.aggregation.reducers.Reducers;
 /**
  * @author adimo on 24/9/2019
  */
-class OperatorCount extends AggregateOperator {
+final class OperatorCount extends AggregateOperator {
 
     private OperatorCount(String fieldName) {
         super(fieldName, AggregationKeywords.COUNT.toString());

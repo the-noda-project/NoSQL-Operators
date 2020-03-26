@@ -8,7 +8,7 @@ import io.redisearch.Query;
 /**
  * @author adimo on 11/10/2019
  */
-public class OperatorGeoNearestNeighbors extends GeoSpatialOperator<Point> {
+public final class OperatorGeoNearestNeighbors extends GeoSpatialOperator<Point> {
     private final int neighborsCount;
 
     public int getNeighborsCount() {

@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.neo4j.filterOperators.geographicalOperators.geoSpat
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Rectangle;
 
-class OperatorInGeographicalRectangle extends GeoSpatialOperator<Rectangle> {
+final class OperatorInGeographicalRectangle extends GeoSpatialOperator<Rectangle> {
 
     private OperatorInGeographicalRectangle(String fieldName, Rectangle rectangle) {
         super(fieldName, rectangle);

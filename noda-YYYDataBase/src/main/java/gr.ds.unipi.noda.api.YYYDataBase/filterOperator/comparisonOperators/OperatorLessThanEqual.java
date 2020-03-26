@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.YYYDataBase.filterOperator.comparisonOperators;
 
 import java.util.Date;
 
-class OperatorLessThanEqual<T> extends ComparisonOperator<T> {
+final class OperatorLessThanEqual<T> extends ComparisonOperator<T> {
 
     private OperatorLessThanEqual(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);

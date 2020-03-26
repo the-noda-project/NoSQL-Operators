@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.mongo.filterOperators.geographicalOperators.geoSpat
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Point;
 
-class OperatorGeoNearestNeighbors extends GeoSpatialOperator<Point> {
+final class OperatorGeoNearestNeighbors extends GeoSpatialOperator<Point> {
 
     private final int neighbors;
 

@@ -5,7 +5,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Rectangle;
 import gr.ds.unipi.noda.api.mongo.filterOperators.geographicalOperators.geoSpatialOperators.OperatorInGeoRectangle;
 
-public class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangle, TemporalBounds> {
+public final class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangle, TemporalBounds> {
 
     private final OperatorInGeoRectangle operatorInGeoRectangle;
 

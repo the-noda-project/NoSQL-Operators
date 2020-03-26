@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.mongo.aggregateOperators;
 
-class OperatorMin extends AggregateOperator {
+final class OperatorMin extends AggregateOperator {
 
     private OperatorMin(String fieldName) {
         super(fieldName, "min_" + fieldName);

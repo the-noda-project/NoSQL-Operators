@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.mongo.aggregateOperators;
 
-class OperatorMax extends AggregateOperator {
+final class OperatorMax extends AggregateOperator {
 
     private OperatorMax(String fieldName) {
         super(fieldName, "max_" + fieldName);

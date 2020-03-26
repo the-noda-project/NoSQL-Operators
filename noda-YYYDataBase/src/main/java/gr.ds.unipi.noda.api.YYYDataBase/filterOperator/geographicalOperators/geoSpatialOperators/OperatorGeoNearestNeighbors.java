@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.YYYDataBase.filterOperator.geographicalOperators.ge
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Point;
 
-class OperatorGeoNearestNeighbors extends GeoSpatialOperator<Point> {
+final class OperatorGeoNearestNeighbors extends GeoSpatialOperator<Point> {
 
     private final int neighbors;
 

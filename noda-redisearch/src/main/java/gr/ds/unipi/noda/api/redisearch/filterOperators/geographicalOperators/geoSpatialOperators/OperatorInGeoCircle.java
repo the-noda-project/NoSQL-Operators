@@ -7,7 +7,7 @@ import io.redisearch.Query;
 /**
  * @author adimo on 11/10/2019
  */
-class OperatorInGeoCircle extends GeoSpatialOperator<Circle> {
+final class OperatorInGeoCircle extends GeoSpatialOperator<Circle> {
     @Override
     protected String getOperatorField() {
         return StringPool.OPEN_BRACKET + getGeometry().getCircleCenter().getLongitude()

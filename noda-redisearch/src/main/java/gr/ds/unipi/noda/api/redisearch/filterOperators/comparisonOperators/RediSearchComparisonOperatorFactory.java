@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @author adimo on 10/10/2019
  */
-public class RediSearchComparisonOperatorFactory extends BaseComparisonOperatorFactory {
+public final class RediSearchComparisonOperatorFactory extends BaseComparisonOperatorFactory {
     @Override
     public ComparisonOperator newOperatorGte(String fieldName, double fieldValue) {
         return OperatorGreaterThanEqual.newOperatorGreaterThanEqual(fieldName, fieldValue);

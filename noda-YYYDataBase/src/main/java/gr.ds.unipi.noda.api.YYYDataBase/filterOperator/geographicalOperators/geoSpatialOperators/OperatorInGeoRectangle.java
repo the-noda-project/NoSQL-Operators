@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.YYYDataBase.filterOperator.geographicalOperators.ge
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Rectangle;
 
-public class OperatorInGeoRectangle extends GeoSpatialOperator<Rectangle> {
+final class OperatorInGeoRectangle extends GeoSpatialOperator<Rectangle> {
 
     private OperatorInGeoRectangle(String fieldName, Rectangle rectangle) {
         super(fieldName, rectangle);

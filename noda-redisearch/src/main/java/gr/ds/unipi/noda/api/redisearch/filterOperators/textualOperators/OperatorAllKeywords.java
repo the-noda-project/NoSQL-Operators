@@ -7,7 +7,7 @@ import gr.ds.unipi.noda.api.redisearch.filterOperators.RediSearchPostFilterOpera
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-class OperatorAllKeywords extends TextualOperator {
+final class OperatorAllKeywords extends TextualOperator {
 
     private OperatorAllKeywords(String fieldName, String[] elements){
         super(fieldName, elements);

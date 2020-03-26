@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.neo4j.filterOperators.geographicalOperators.geoSpat
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Polygon;
 
-class OperatorInGeographicalPolygon extends GeoSpatialOperator<Polygon> {
+final class OperatorInGeographicalPolygon extends GeoSpatialOperator<Polygon> {
 
     private OperatorInGeographicalPolygon(String fieldName, Polygon polygon) {
         super(fieldName, polygon);

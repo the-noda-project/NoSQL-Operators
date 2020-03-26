@@ -3,7 +3,7 @@ package gr.ds.unipi.noda.api.mongo.aggregateOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 
-public class MongoDBAggregateOperatorFactory extends BaseAggregateOperatorFactory {
+public final class MongoDBAggregateOperatorFactory extends BaseAggregateOperatorFactory {
 
     @Override
     public AggregateOperator newOperatorMax(String fieldName) {

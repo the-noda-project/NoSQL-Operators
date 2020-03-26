@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators;
 
 import java.util.Date;
 
-class OperatorLessThan<T> extends ComparisonOperator<T> {
+final class OperatorLessThan<T> extends ComparisonOperator<T> {
 
     private OperatorLessThan(String fieldName, T fieldValue) {
 

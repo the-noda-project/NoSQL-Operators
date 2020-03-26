@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.geoSpatialOperators;
 
-public class ZRangeInfo {
+public final class ZRangeInfo {
     private final String key;
     private final Double lowerBoundScore;
     private final Double upperBoundScore;

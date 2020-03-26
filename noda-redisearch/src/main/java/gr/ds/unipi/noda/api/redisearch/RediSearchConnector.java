@@ -6,7 +6,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 import java.util.Objects;
 
-public class RediSearchConnector implements NoSqlDbConnector<JedisPool> {
+public final class RediSearchConnector implements NoSqlDbConnector<JedisPool> {
     private final String host;
     private final int port;
     private final String username;

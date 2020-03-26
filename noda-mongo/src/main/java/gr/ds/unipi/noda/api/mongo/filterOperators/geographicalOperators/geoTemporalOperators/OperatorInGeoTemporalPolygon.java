@@ -4,7 +4,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Polygon;
 import gr.ds.unipi.noda.api.mongo.filterOperators.geographicalOperators.geoSpatialOperators.OperatorInGeoPolygon;
 
-public class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, TemporalBounds> {
+public final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, TemporalBounds> {
 
     private final OperatorInGeoPolygon operatorInGeoPolygon;
 

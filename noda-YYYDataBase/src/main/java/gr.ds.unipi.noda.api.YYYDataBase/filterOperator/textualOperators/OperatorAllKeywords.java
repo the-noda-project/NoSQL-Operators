@@ -1,11 +1,6 @@
 package gr.ds.unipi.noda.api.YYYDataBase.filterOperator.textualOperators;
 
-import gr.ds.unipi.noda.api.core.constants.StringPool;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator;
-import java.util.Arrays;
-import java.util.stream.Stream;
-
-class OperatorAllKeywords extends TextualOperator {
+final class OperatorAllKeywords extends TextualOperator {
 
     private OperatorAllKeywords(String fieldName, String[] elements){
         super(fieldName, elements);

@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.YYYDataBase.filterOperator.comparisonOperators;
 
 import java.util.Date;
 
-class OperatorGreaterThanEqual<T> extends ComparisonOperator<T> {
+final class OperatorGreaterThanEqual<T> extends ComparisonOperator<T> {
 
     private OperatorGreaterThanEqual(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
