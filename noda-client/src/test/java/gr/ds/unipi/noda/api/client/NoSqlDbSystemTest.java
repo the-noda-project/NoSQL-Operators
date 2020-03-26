@@ -21,9 +21,9 @@ public class NoSqlDbSystemTest {
     }
 
     @Test
-    public void sortingExample() {
+    public void groupingAndsortingExample() {
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().username("neo4j").password("nikos").host("localhost").port(7687).database("graph").build();
-        noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).sort(asc("field")).printScreen();
+        noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).groupBy("fieldA", max("fieldB")).sort(asc("fieldC")).printScreen();
         noSqlDbSystem.closeConnection();
     }
 
