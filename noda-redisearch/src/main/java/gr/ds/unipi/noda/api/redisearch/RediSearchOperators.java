@@ -49,7 +49,7 @@ public class RediSearchOperators implements NoSqlDbOperators {
             }
         } else if (RediSearchGeoSpatialOperatorFactory.isOperatorGeoBox(filterOperator)) {
             zRangeInfo = ((RediSearchGeoSpatialOperator)filterOperator)
-                    .getZRangeInfo().apply(connector.getJedisConn(), connector.getIndexName());
+                    .getZRangeInfo().apply(rediSearchConnectionManager.getConnection(connector)._conn(), connector.getIndexName());
         }
         if (aggregationBuilder.getArgs().size() == 1) {
             String s = filterOperator.getOperatorExpression().toString();
@@ -76,8 +76,8 @@ public class RediSearchOperators implements NoSqlDbOperators {
     @Override
     public void printScreen() {
         if (Objects.nonNull(zRangeInfo)) {
-            Set<String> rectangleSearchMembers = connector.getJedisConn().zrangeByScore(zRangeInfo.getKey(), zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore());
-            List<GeoCoordinate> geopos = connector.getJedisConn().geopos(zRangeInfo.getKey(), rectangleSearchMembers.toArray(StringPool.EMPTY_ARRAY));
+            Set<String> rectangleSearchMembers = rediSearchConnectionManager.getConnection(connector)._conn().zrangeByScore(zRangeInfo.getKey(), zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore());
+            List<GeoCoordinate> geopos = rediSearchConnectionManager.getConnection(connector)._conn().geopos(zRangeInfo.getKey(), rectangleSearchMembers.toArray(StringPool.EMPTY_ARRAY));
             geopos.forEach(pos -> System.out.println(pos.toString()));
         } else {
             AggregationResult aggregate = rediSearchConnectionManager.getConnection(connector).aggregate(aggregationBuilder);
