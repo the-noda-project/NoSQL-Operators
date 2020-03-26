@@ -3,7 +3,7 @@ package gr.ds.unipi.noda.api.neo4j.sortOperators;
 class OperatorDesc extends SortOperator {
 
     private OperatorDesc(String fieldName) {
-        super(fieldName, -1);
+        super(fieldName);
     }
 
     public static SortOperator newOperatorDesc(String fieldName) {

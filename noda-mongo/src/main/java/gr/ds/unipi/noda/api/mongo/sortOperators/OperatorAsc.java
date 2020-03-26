@@ -3,10 +3,15 @@ package gr.ds.unipi.noda.api.mongo.sortOperators;
 class OperatorAsc extends SortOperator {
 
     private OperatorAsc(String fieldName) {
-        super(fieldName, 1);
+        super(fieldName);
     }
 
     public static SortOperator newOperatorAsc(String fieldName) {
         return new OperatorAsc(fieldName);
+    }
+
+    @Override
+    protected String getSortConditionNum() {
+        return "1";
     }
 }

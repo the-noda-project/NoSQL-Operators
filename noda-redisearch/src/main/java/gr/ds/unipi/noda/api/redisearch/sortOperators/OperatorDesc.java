@@ -6,7 +6,7 @@ import io.redisearch.aggregation.SortedField;
 class OperatorDesc extends SortOperator {
 
     private OperatorDesc(String fieldName) {
-        super(fieldName, -1);
+        super(fieldName);
     }
 
     @Override

@@ -7,8 +7,8 @@ import io.redisearch.aggregation.SortedField;
  */
 abstract class SortOperator extends gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator<SortedField> {
 
-    SortOperator(String fieldName, int order) {
-        super(fieldName, order);
+    SortOperator(String fieldName) {
+        super(fieldName);
     }
 
     protected abstract SortedField getOperatorField();
