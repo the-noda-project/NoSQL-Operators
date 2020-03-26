@@ -8,201 +8,200 @@ import java.util.Date;
 public final class YYYDataBaseComparisonOperatorFactory extends BaseComparisonOperatorFactory {
     @Override
     public ComparisonOperator newOperatorGte(String fieldName, double fieldValue) {
-        return null;
+        return OperatorGreaterThanEqual.newOperatorGreaterThanEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorGte(String fieldName, int fieldValue) {
-        return null;
+        return OperatorGreaterThanEqual.newOperatorGreaterThanEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorGte(String fieldName, float fieldValue) {
-        return null;
+        return OperatorGreaterThanEqual.newOperatorGreaterThanEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorGte(String fieldName, short fieldValue) {
-        return null;
+        return OperatorGreaterThanEqual.newOperatorGreaterThanEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorGte(String fieldName, long fieldValue) {
-        return null;
+        return OperatorGreaterThanEqual.newOperatorGreaterThanEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorGte(String fieldName, Date fieldValue) {
-        return null;
+        return OperatorGreaterThanEqual.newOperatorGreaterThanEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorGt(String fieldName, double fieldValue) {
-        return null;
+        return OperatorGreaterThan.newOperatorGreaterThan(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorGt(String fieldName, int fieldValue) {
-        return null;
+        return OperatorGreaterThan.newOperatorGreaterThan(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorGt(String fieldName, float fieldValue) {
-        return null;
+        return OperatorGreaterThan.newOperatorGreaterThan(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorGt(String fieldName, short fieldValue) {
-        return null;
+        return OperatorGreaterThan.newOperatorGreaterThan(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorGt(String fieldName, long fieldValue) {
-        return null;
+        return OperatorGreaterThan.newOperatorGreaterThan(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorGt(String fieldName, Date fieldValue) {
-        return null;
+        return OperatorGreaterThan.newOperatorGreaterThan(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorLte(String fieldName, double fieldValue) {
-        return null;
+        return OperatorLessThanEqual.newOperatorLessThanEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorLte(String fieldName, int fieldValue) {
-        return null;
+        return OperatorLessThanEqual.newOperatorLessThanEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorLte(String fieldName, float fieldValue) {
-        return null;
+        return OperatorLessThanEqual.newOperatorLessThanEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorLte(String fieldName, short fieldValue) {
-        return null;
+        return OperatorLessThanEqual.newOperatorLessThanEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorLte(String fieldName, long fieldValue) {
-        return null;
+        return OperatorLessThanEqual.newOperatorLessThanEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorLte(String fieldName, Date fieldValue) {
-        return null;
+        return OperatorLessThanEqual.newOperatorLessThanEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorLt(String fieldName, double fieldValue) {
-        return null;
+        return OperatorLessThan.newOperatorLessThan(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorLt(String fieldName, int fieldValue) {
-        return null;
+        return OperatorLessThan.newOperatorLessThan(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorLt(String fieldName, float fieldValue) {
-        return null;
+        return OperatorLessThan.newOperatorLessThan(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorLt(String fieldName, short fieldValue) {
-        return null;
+        return OperatorLessThan.newOperatorLessThan(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorLt(String fieldName, long fieldValue) {
-        return null;
+        return OperatorLessThan.newOperatorLessThan(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorLt(String fieldName, Date fieldValue) {
-        return null;
+        return OperatorLessThan.newOperatorLessThan(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorEq(String fieldName, double fieldValue) {
-        return null;
+        return OperatorEqual.newOperatorEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorEq(String fieldName, boolean fieldValue) {
-        return null;
+        return OperatorEqual.newOperatorEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorEq(String fieldName, String fieldValue) {
-        return null;
+        return OperatorEqual.newOperatorEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorEq(String fieldName, int fieldValue) {
-        return null;
+        return OperatorEqual.newOperatorEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorEq(String fieldName, float fieldValue) {
-        return null;
+        return OperatorEqual.newOperatorEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorEq(String fieldName, short fieldValue) {
-        return null;
+        return OperatorEqual.newOperatorEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorEq(String fieldName, long fieldValue) {
-        return null;
+        return OperatorEqual.newOperatorEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorEq(String fieldName, Date fieldValue) {
-        return null;
+        return OperatorEqual.newOperatorEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorNe(String fieldName, double fieldValue) {
-        return null;
+        return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorNe(String fieldName, boolean fieldValue) {
-        return null;
+        return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorNe(String fieldName, String fieldValue) {
-        return null;
+        return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorNe(String fieldName, int fieldValue) {
-        return null;
+        return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorNe(String fieldName, float fieldValue) {
-        return null;
+        return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorNe(String fieldName, short fieldValue) {
-        return null;
+        return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorNe(String fieldName, long fieldValue) {
-        return null;
+        return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
     }
 
     @Override
     public ComparisonOperator newOperatorNe(String fieldName, Date fieldValue) {
-        return null;
-    }
-}
+        return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
+    }}

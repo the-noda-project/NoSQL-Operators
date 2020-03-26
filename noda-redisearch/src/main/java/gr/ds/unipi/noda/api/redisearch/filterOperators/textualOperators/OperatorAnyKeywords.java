@@ -14,21 +14,7 @@ class OperatorAnyKeywords extends TextualOperator {
     }
 
     public static OperatorAnyKeywords newOperatorAnyKeywords(String fieldName, String keyword, String... keywords){
-        String[] keywordsArray;
-
-        if (keywords.length == 0) {
-            keywordsArray = new String[]{keyword};
-        } else {
-            keywordsArray = new String[keywords.length + 1];
-            keywordsArray[0] = keyword;
-
-            int i = 1;
-            for (String kwrds : keywords) {
-                keywordsArray[i++] = kwrds;
-            }
-        }
-
-        return new OperatorAnyKeywords(fieldName, keywordsArray);
+        return new OperatorAnyKeywords(fieldName, TextualOperator.anyKeywordsToArray(keyword, keywords));
     }
 
     @Override

@@ -6,26 +6,26 @@ import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOpera
 public final class YYYDataBaseAggregateOperatorFactory extends BaseAggregateOperatorFactory {
     @Override
     public AggregateOperator newOperatorMax(String fieldName) {
-        return null;
+        return OperatorMax.newOperatorMax(fieldName);
     }
 
     @Override
     public AggregateOperator newOperatorMin(String fieldName) {
-        return null;
+        return OperatorMin.newOperatorMin(fieldName);
     }
 
     @Override
     public AggregateOperator newOperatorAvg(String fieldName) {
-        return null;
+        return OperatorAvg.newOperatorAvg(fieldName);
     }
 
     @Override
     public AggregateOperator newOperatorSum(String fieldName) {
-        return null;
+        return OperatorSum.newOperatorSum(fieldName);
     }
 
     @Override
     public AggregateOperator newOperatorCount() {
-        return null;
+        return OperatorCount.newOperatorCount();
     }
 }

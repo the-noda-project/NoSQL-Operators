@@ -10,31 +10,31 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 public final class YYYDataBaseGeoSpatialOperatorFactory extends BaseGeoSpatialOperatorFactory {
     @Override
     public GeographicalOperator newOperatorInGeoPolygon(String fieldName, Polygon polygon) {
-        return null;
+        return OperatorInGeoPolygon.newOperatorInGeoPolygon(fieldName, polygon);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoRectangle(String fieldName, Rectangle rectangle) {
-        return null;
+        return OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName, rectangle);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoCircleKm(String fieldName, Circle circle) {
-        return null;
+        return OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoCircleMeters(String fieldName, Circle circle) {
-        return null;
+        return OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoCircleMiles(String fieldName, Circle circle) {
-        return null;
+        return OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle);
     }
 
     @Override
     public GeographicalOperator newOperatorGeoNearestNeighbors(String fieldName, Point point, int neighbors) {
-        return null;
+        return OperatorGeoNearestNeighbors.newOperatorGeoNearestNeighbors(fieldName, point, neighbors);
     }
 }

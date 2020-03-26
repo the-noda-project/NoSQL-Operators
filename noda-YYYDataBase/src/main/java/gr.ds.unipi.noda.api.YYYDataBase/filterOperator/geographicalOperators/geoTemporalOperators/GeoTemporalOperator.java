@@ -7,4 +7,9 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
     protected GeoTemporalOperator(String fieldName, T geometry, String temporalFieldName, U temporalType) {
         super(fieldName, geometry, temporalFieldName, temporalType);
     }
+
+    @Override
+    public Object getOperatorExpression(){
+        return null;
+    }
 }

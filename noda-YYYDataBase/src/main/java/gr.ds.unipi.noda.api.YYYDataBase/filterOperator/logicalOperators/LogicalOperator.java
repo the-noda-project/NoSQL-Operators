@@ -6,4 +6,9 @@ abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operators.filte
     protected LogicalOperator(FilterOperator filterOperator1, FilterOperator filterOperator2, FilterOperator... filterOperators) {
         super(filterOperator1, filterOperator2, filterOperators);
     }
+
+    @Override
+    public Object getOperatorExpression() {
+        return null;
+    }
 }

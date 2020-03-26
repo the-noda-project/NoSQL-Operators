@@ -4,4 +4,9 @@ abstract class SortOperator extends gr.ds.unipi.noda.api.core.operators.sortOper
     protected SortOperator(String fieldName) {
         super(fieldName);
     }
+
+    @Override
+    public Object getOperatorExpression() {
+        return null;
+    }
 }
