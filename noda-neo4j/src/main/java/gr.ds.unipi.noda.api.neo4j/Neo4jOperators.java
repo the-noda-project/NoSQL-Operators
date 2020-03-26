@@ -1,6 +1,5 @@
 package gr.ds.unipi.noda.api.neo4j;
 
-import com.google.gson.internal.$Gson$Types;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
@@ -8,13 +7,13 @@ import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.neo4j.driver.*;
-import org.neo4j.driver.summary.ResultSummary;
+import org.neo4j.driver.Record;
+import org.neo4j.driver.Result;
+import org.neo4j.driver.Session;
+import org.neo4j.driver.Transaction;
 
-import javax.swing.text.Document;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public final class Neo4jOperators implements NoSqlDbOperators {
@@ -31,7 +30,7 @@ public final class Neo4jOperators implements NoSqlDbOperators {
         this.connector = connector;
         this.s = s;
         this.sparkSession = sparkSession;
-        this.sb = new StringBuilder().append("MATCH " + "(s:" + s + ")");
+        this.sb = new StringBuilder().append("MATCH " + '(' + s + ')');
         this.matchConstant = "";
     }
 
@@ -42,23 +41,7 @@ public final class Neo4jOperators implements NoSqlDbOperators {
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
 
-        sb.append(" WHERE ");
-
-        if(filterOperators.length > 1) {
-            for (FilterOperator fops : filterOperators) {
-
-                sb.append( fops.getOperatorExpression() + " WITH s");
-
-            }
-            } else {
-
-                sb.append( filterOperator.getOperatorExpression() + " WITH s");
-
-            }
-
-
-
-
+        sb.append(" WHERE " +  s + '.').append(filterOperator.getOperatorExpression() + " WITH " + s).append(" RETURN " + s);
         return this;
     }
 
@@ -113,32 +96,19 @@ public final class Neo4jOperators implements NoSqlDbOperators {
     @Override
     public void printScreen() {
 
-        sb.append(" RETURN s");
-
-        System.out.println(sb);
-
         try(Session session = neo4jConnectionManager.getConnection(connector).session()) {
 
             Result result = session.run(sb.toString());
 
-            System.out.println(result);
-
-            List<Map<String,Object>> nodeList=  new ArrayList<>();
-
-
             while (result.hasNext())
             {
                 Record record = result.next();
-                nodeList.add(record.fields().get(0).value().asMap());
+                // Values can be extracted from a record by index or name.
+                System.out.println(record);
             }
 
-            System.out.println("Results: ");
+        }
 
-            nodeList.forEach((key) -> System.out.println(key));
-
-            System.out.println("Number of results: " + nodeList.size());
-
-}
     }
 
     @Override

@@ -11,14 +11,14 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
-import gr.ds.unipi.noda.api.mongo.aggregateOperator.MongoDBAggregateOperatorFactory;
-import gr.ds.unipi.noda.api.mongo.filterOperator.comparisonOperator.MongoDBComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoSpatialOperators.MongoDBGeoSpatialOperatorFactory;
-import gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoTemporalOperators.MongoDBGeoTemporalOperatorFactory;
-import gr.ds.unipi.noda.api.mongo.filterOperator.geographicalOperator.geoTextualOperators.MongoDBGeoTextualOperatorFactory;
-import gr.ds.unipi.noda.api.mongo.filterOperator.logicalOperator.MongoDBLogicalOperatorFactory;
-import gr.ds.unipi.noda.api.mongo.filterOperator.textualOperators.MongoDBTextualOperatorFactory;
-import gr.ds.unipi.noda.api.mongo.sortOperator.MongoDBSortOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.aggregateOperators.MongoDBAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.MongoDBComparisonOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.filterOperators.geographicalOperators.geoSpatialOperators.MongoDBGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.filterOperators.geographicalOperators.geoTemporalOperators.MongoDBGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.filterOperators.geographicalOperators.geoTextualOperators.MongoDBGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.filterOperators.logicalOperators.MongoDBLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.filterOperators.textualOperators.MongoDBTextualOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.sortOperators.MongoDBSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
 public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {

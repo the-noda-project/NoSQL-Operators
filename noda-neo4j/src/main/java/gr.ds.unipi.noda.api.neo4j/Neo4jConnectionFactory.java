@@ -11,11 +11,11 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
-import gr.ds.unipi.noda.api.neo4j.aggregateOperator.Neo4jAggregateOperatorFactory;
-import gr.ds.unipi.noda.api.neo4j.filterOperator.comparisonOperator.Neo4jComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.neo4j.filterOperator.geographicalOperator.geoSpatialOperators.Neo4JGeoSpatialOperatorFactory;
-import gr.ds.unipi.noda.api.neo4j.filterOperator.logicalOperator.Neo4jLogicalOperatorFactory;
-import gr.ds.unipi.noda.api.neo4j.sortOperator.Neo4jSortOperatorFactory;
+import gr.ds.unipi.noda.api.neo4j.aggregateOperators.Neo4jAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.Neo4jComparisonOperatorFactory;
+import gr.ds.unipi.noda.api.neo4j.filterOperators.geographicalOperators.geoSpatialOperators.Neo4JGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.neo4j.filterOperators.logicalOperators.Neo4jLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.neo4j.sortOperators.Neo4jSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
 public final class Neo4jConnectionFactory extends NoSqlConnectionFactory {
