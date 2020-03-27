@@ -15,8 +15,8 @@
         <module>noda-redisearch</module>
         <module>noda-client</module>
         <module>noda-neo4j</module>
-        <module>nosql-operators-YYYBase</module>
-        <module>noda-YYYBase</module>
+        <module>noda-hbase</module>
+        <module>noda-redis</module>
         <module>noda-YYYDataBase</module>
     </modules>
     <properties>
