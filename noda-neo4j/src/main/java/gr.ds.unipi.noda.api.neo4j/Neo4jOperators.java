@@ -69,7 +69,15 @@ public final class Neo4jOperators implements NoSqlDbOperators {
     public NoSqlDbOperators sort(SortOperator sortOperator, SortOperator... sortingOperators) {
 
 
-        sb.append("#$#");
+        sb.append(" ");
+        if(sortingOperators.length > 1) {
+            for (SortOperator sops : sortingOperators) {
+                sb.append(sops.getOperatorExpression() + " WITH s");
+            }
+        } else {
+                sb.append(sortOperator.getOperatorExpression() + " WITH s");
+            }
+
         return this;
     }
 

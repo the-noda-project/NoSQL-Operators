@@ -6,9 +6,14 @@ abstract class SortOperator extends gr.ds.unipi.noda.api.core.operators.sortOper
         super(fieldName);
     }
 
+    protected abstract String getSortCondition();
+
     @Override
     public StringBuilder getOperatorExpression() {
 
-        return null;
+        StringBuilder sb = new StringBuilder();
+        sb.append("ORDER BY s." + getFieldName() + getSortCondition())  ;
+        return sb;
+
     }
 }
