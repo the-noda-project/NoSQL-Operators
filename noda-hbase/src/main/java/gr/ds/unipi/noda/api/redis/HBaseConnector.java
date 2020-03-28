@@ -1,11 +1,12 @@
 package gr.ds.unipi.noda.api.redis;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
+import org.apache.hadoop.hbase.client.ConnectionFactory;
 
 public final class HBaseConnector implements NoSqlDbConnector<Object> {
     @Override
     public Object createConnection() {
-        return null;
+        return ConnectionFactory.createConnection();
     }
 
     @Override
