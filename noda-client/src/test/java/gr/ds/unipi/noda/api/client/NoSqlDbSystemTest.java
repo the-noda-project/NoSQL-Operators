@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.count;
 import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.max;
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 import static gr.ds.unipi.noda.api.core.operators.SortOperators.asc;
@@ -27,6 +28,15 @@ public class NoSqlDbSystemTest {
     public void groupingAndsortingExample() {
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().username("neo4j").password("nikos").host("localhost").port(7687).database("graph").build();
         noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).groupBy("fieldA", max("fieldB")).sort(asc("fieldC")).printScreen();
+        noSqlDbSystem.closeConnection();
+    }
+
+    @Test
+    public void countExample() {
+        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().username("neo4j").password("nikos").host("localhost").port(7687).database("graph").build();
+        noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).groupBy("fieldA", count()).printScreen();
+        noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).count();
+
         noSqlDbSystem.closeConnection();
     }
 

@@ -19,7 +19,7 @@ public class AggregateOperators {
         return AggregateOperator.aggregateOperator.newOperatorSum(fieldName);
     }
 
-    public static AggregateOperator sum() {
+    public static AggregateOperator count() {
         return AggregateOperator.aggregateOperator.newOperatorCount();
     }
 }
