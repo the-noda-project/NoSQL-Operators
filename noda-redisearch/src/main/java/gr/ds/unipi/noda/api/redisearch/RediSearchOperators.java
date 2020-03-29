@@ -86,8 +86,15 @@ public class RediSearchOperators implements NoSqlDbOperators {
     @Override
     public void printScreen() {
         if (Objects.nonNull(zRangeInfo)) {
-            Set<String> rectangleSearchMembers = rediSearchConnectionManager.getConnection(connector).getResource().zrangeByScore(zRangeInfo.getKey(), zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore());
-            List<GeoCoordinate> geopos = rediSearchConnectionManager.getConnection(connector).getResource().geopos(zRangeInfo.getKey(), rectangleSearchMembers.toArray(StringPool.EMPTY_ARRAY));
+            /*Set<String> rectangleSearchMembers = zRangeInfo.getKeys().stream().map(key -> rediSearchConnectionManager.getConnection(connector).getResource().zrangeByScore(key, zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore()))
+                    .flatMap(Set::stream)
+                    .collect(Collectors.toSet());*/
+            Map<String, Set<String>> rectangleSearchMember = zRangeInfo.getKeys().stream()
+                    .collect(Collectors.toMap(o -> o, o -> rediSearchConnectionManager.getConnection(connector).getResource().zrangeByScore(o, zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore())));
+            List<GeoCoordinate> geopos = rectangleSearchMember.entrySet().stream()
+            .map(key -> rediSearchConnectionManager.getConnection(connector).getResource().geopos(key.getKey(), key.getValue().toArray(StringPool.EMPTY_ARRAY)))
+            .flatMap(List::stream)
+            .collect(Collectors.toList());
             geopos.forEach(pos -> System.out.println(pos.toString()));
         } else {
             AggregationResult aggregate = getClient().aggregate(aggregationBuilder);
