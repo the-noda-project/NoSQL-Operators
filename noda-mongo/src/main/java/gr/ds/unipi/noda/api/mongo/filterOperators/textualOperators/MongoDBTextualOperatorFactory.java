@@ -3,7 +3,7 @@ package gr.ds.unipi.noda.api.mongo.filterOperators.textualOperators;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator;
 
-public class MongoDBTextualOperatorFactory extends BaseTextualOperatorFactory {
+public final class MongoDBTextualOperatorFactory extends BaseTextualOperatorFactory {
     @Override
     public TextualOperator newOperatorAnyKeywords(String fieldName, String keyword, String... keywords) {
         return null;

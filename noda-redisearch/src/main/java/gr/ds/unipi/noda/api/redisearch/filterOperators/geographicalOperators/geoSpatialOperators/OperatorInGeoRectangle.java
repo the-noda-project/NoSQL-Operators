@@ -7,7 +7,7 @@ import redis.clients.jedis.Jedis;
 
 import java.util.function.BiFunction;
 
-class OperatorInGeoRectangle extends GeoSpatialOperator<Rectangle> implements RediSearchGeoSpatialOperator {
+final class OperatorInGeoRectangle extends GeoSpatialOperator<Rectangle> implements RediSearchGeoSpatialOperator {
     private final static String LOWER_BOUND_NAME = "lowerBound";
     private final static String UPPER_BOUND_NAME = "upperBound";
     private final static String TEMP_ZSET_NAME = "tempSet";

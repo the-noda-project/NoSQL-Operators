@@ -6,11 +6,11 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.Text
 public final class YYYDataBaseTextualOperatorFactory extends BaseTextualOperatorFactory {
     @Override
     public TextualOperator newOperatorAnyKeywords(String fieldName, String keyword, String... keywords) {
-        return null;
+        return OperatorAnyKeywords.newOperatorAnyKeywords(fieldName, keyword, keywords);
     }
 
     @Override
     public TextualOperator newOperatorAllKeywords(String fieldName, String keyword1, String keyword2, String... keywords) {
-        return null;
+        return OperatorAllKeywords.newOperatorAllKeywords(fieldName, keyword1, keyword2, keywords);
     }
 }

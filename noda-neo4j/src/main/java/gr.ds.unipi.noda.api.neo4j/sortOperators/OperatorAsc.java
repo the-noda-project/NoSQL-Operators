@@ -1,9 +1,9 @@
 package gr.ds.unipi.noda.api.neo4j.sortOperators;
 
-class OperatorAsc extends SortOperator {
+final class OperatorAsc extends SortOperator {
 
     private OperatorAsc(String fieldName) {
-        super(fieldName, 1);
+        super(fieldName);
     }
 
     public static SortOperator newOperatorAsc(String fieldName) {

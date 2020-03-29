@@ -6,4 +6,9 @@ abstract class GeoSpatialOperator<T extends Geometry> extends gr.ds.unipi.noda.a
     protected GeoSpatialOperator(String fieldName, T geometry) {
         super(fieldName, geometry);
     }
+
+    @Override
+    public Object getOperatorExpression(){
+        return null;
+    }
 }

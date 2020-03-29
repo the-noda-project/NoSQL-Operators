@@ -5,7 +5,7 @@ import gr.ds.unipi.noda.api.core.constants.StringPool;
 import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.aggregation.reducers.Reducers;
 
-class OperatorAvg extends AggregateOperator {
+final class OperatorAvg extends AggregateOperator {
 
     private OperatorAvg(String fieldName) {
         super(fieldName, AggregationKeywords.AVG.toString().concat(fieldName));

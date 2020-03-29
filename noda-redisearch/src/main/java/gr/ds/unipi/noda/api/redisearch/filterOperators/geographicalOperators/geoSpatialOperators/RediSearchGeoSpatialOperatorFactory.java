@@ -11,7 +11,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 /**
  * @author adimo on 11/10/2019
  */
-public class RediSearchGeoSpatialOperatorFactory extends BaseGeoSpatialOperatorFactory {
+public final class RediSearchGeoSpatialOperatorFactory extends BaseGeoSpatialOperatorFactory {
     @Override
     public GeographicalOperator newOperatorInGeoPolygon(String fieldName, Polygon polygon) {
         throw new UnsupportedOperationException("InGeoPolygon primitive is not supported");

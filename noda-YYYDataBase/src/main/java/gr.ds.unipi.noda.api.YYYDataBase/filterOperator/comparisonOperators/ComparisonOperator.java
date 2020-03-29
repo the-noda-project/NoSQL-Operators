@@ -4,4 +4,9 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
     protected ComparisonOperator(String fieldName, U fieldValue) {
         super(fieldName, fieldValue);
     }
+
+    @Override
+    public Object getOperatorExpression() {
+        return null;
+    }
 }

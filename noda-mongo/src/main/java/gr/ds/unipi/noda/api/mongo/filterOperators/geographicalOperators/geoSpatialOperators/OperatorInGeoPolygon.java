@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.mongo.filterOperators.geographicalOperators.geoSpat
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Polygon;
 
-public class OperatorInGeoPolygon extends GeoSpatialOperator<Polygon> {
+public final class OperatorInGeoPolygon extends GeoSpatialOperator<Polygon> {
 
     private OperatorInGeoPolygon(String fieldName, Polygon polygon) {
         super(fieldName, polygon);

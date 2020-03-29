@@ -4,7 +4,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.B
 
 import java.util.Date;
 
-public class Neo4jComparisonOperatorFactory extends BaseComparisonOperatorFactory {
+public final class Neo4jComparisonOperatorFactory extends BaseComparisonOperatorFactory {
 
     @Override
     public ComparisonOperator newOperatorGte(String fieldName, double fieldValue) {

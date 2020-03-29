@@ -3,7 +3,7 @@ package gr.ds.unipi.noda.api.redisearch.filterOperators.logicalOperators;
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 
-class OperatorAnd extends LogicalOperator {
+final class OperatorAnd extends LogicalOperator {
 
     private OperatorAnd(FilterOperator filterOperator1, FilterOperator filterOperator2, FilterOperator... filterOperators) {
         super(filterOperator1, filterOperator2, filterOperators);

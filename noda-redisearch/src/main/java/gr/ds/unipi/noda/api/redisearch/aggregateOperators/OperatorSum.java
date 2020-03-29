@@ -5,7 +5,7 @@ import gr.ds.unipi.noda.api.core.constants.StringPool;
 import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.aggregation.reducers.Reducers;
 
-class OperatorSum extends AggregateOperator {
+final class OperatorSum extends AggregateOperator {
 
     private OperatorSum(String fieldName) {
         super(fieldName, AggregationKeywords.SUM.toString().concat(fieldName));

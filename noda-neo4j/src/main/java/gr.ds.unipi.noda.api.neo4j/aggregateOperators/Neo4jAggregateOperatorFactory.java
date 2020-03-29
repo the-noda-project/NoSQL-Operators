@@ -3,7 +3,7 @@ package gr.ds.unipi.noda.api.neo4j.aggregateOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 
-public class Neo4jAggregateOperatorFactory extends BaseAggregateOperatorFactory {
+public final class Neo4jAggregateOperatorFactory extends BaseAggregateOperatorFactory {
 
     @Override
     public AggregateOperator newOperatorMax(String fieldName) {

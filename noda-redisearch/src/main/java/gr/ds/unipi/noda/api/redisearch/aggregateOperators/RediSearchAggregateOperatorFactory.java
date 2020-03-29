@@ -3,7 +3,7 @@ package gr.ds.unipi.noda.api.redisearch.aggregateOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 
-public class RediSearchAggregateOperatorFactory extends BaseAggregateOperatorFactory {
+public final class RediSearchAggregateOperatorFactory extends BaseAggregateOperatorFactory {
     @Override
     public AggregateOperator newOperatorMax(String fieldName) {
         return OperatorMax.newOperatorMax(fieldName);

@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.neo4j.filterOperators.geographicalOperators.geoSpat
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Circle;
 
-class OperatorInGeographicalCircle extends GeoSpatialOperator<Circle> {
+final class OperatorInGeographicalCircle extends GeoSpatialOperator<Circle> {
 
     private OperatorInGeographicalCircle(String fieldName, Circle circle) {
         super(fieldName, circle);

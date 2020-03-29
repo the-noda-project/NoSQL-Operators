@@ -4,13 +4,15 @@ import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 
 public final class YYYDataBaseSortOperatorFactory extends BaseSortOperatorFactory {
+
     @Override
     public SortOperator newOperatorAsc(String fieldName) {
-        return null;
+        return OperatorAsc.newOperatorAsc(fieldName);
     }
 
     @Override
     public SortOperator newOperatorDesc(String fieldName) {
-        return null;
+        return OperatorDesc.newOperatorDesc(fieldName);
     }
+
 }

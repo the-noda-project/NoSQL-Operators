@@ -206,5 +206,4 @@ public class MongoDBComparisonOperatorFactory extends BaseComparisonOperatorFact
         return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
     }
 
-
 }

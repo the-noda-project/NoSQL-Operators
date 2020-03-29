@@ -4,4 +4,8 @@ abstract class TextualOperator extends gr.ds.unipi.noda.api.core.operators.filte
     protected TextualOperator(String fieldName, String[] elements) {
         super(fieldName, elements);
     }
+
+     public Object getOperatorExpression(){
+        return null;
+     }
 }

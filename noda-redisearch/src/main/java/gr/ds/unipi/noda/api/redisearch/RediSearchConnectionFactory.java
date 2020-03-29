@@ -20,7 +20,7 @@ import gr.ds.unipi.noda.api.redisearch.filterOperators.textualOperators.RediSear
 import gr.ds.unipi.noda.api.redisearch.sortOperators.RedisSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
-public class RediSearchConnectionFactory extends NoSqlConnectionFactory {
+public final class RediSearchConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {

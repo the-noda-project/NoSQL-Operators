@@ -7,29 +7,14 @@ import gr.ds.unipi.noda.api.redisearch.filterOperators.RediSearchPostFilterOpera
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-class OperatorAllKeywords extends TextualOperator {
+final class OperatorAllKeywords extends TextualOperator {
 
     private OperatorAllKeywords(String fieldName, String[] elements){
         super(fieldName, elements);
     }
 
     public static OperatorAllKeywords newOperatorAllKeywords(String fieldName, String keyword1, String keyword2, String... keywords){
-        String[] keywordsArray;
-
-        if (keywords.length == 0) {
-            keywordsArray = new String[]{keyword1, keyword2};
-        } else {
-            keywordsArray = new String[keywords.length + 2];
-            keywordsArray[0] = keyword1;
-            keywordsArray[1] = keyword2;
-
-            int i = 2;
-            for (String kwrds : keywords) {
-                keywordsArray[i++] = kwrds;
-            }
-        }
-
-        return new OperatorAllKeywords(fieldName, keywordsArray);
+        return new OperatorAllKeywords(fieldName, TextualOperator.allKeywordsToArray(keyword1, keyword2, keywords));
     }
 
     @Override

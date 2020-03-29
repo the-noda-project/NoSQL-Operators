@@ -5,7 +5,7 @@ import gr.ds.unipi.noda.api.core.constants.StringPool;
 import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.aggregation.reducers.Reducers;
 
-class OperatorMin extends AggregateOperator {
+final class OperatorMin extends AggregateOperator {
 
     private OperatorMin(String fieldName) {
         super(fieldName, AggregationKeywords.MIN.toString().concat(fieldName));

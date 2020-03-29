@@ -3,10 +3,10 @@ package gr.ds.unipi.noda.api.redisearch.sortOperators;
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import io.redisearch.aggregation.SortedField;
 
-class OperatorDesc extends SortOperator {
+final class OperatorDesc extends SortOperator {
 
     private OperatorDesc(String fieldName) {
-        super(fieldName, -1);
+        super(fieldName);
     }
 
     @Override

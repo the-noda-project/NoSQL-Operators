@@ -1,13 +1,17 @@
 package gr.ds.unipi.noda.api.mongo.sortOperators;
 
-class OperatorDesc extends SortOperator {
+final class OperatorDesc extends SortOperator {
 
     private OperatorDesc(String fieldName) {
-        super(fieldName, -1);
+        super(fieldName);
     }
 
     public static SortOperator newOperatorDesc(String fieldName) {
         return new OperatorDesc(fieldName);
     }
 
+    @Override
+    protected String getSortConditionNum() {
+        return "-1";
+    }
 }

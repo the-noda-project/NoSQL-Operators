@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.ge
 
 import java.util.Set;
 
-public class ZRangeInfo {
+public final class ZRangeInfo {
     private final Set<String> keys;
     private final Double lowerBoundScore;
     private final Double upperBoundScore;
