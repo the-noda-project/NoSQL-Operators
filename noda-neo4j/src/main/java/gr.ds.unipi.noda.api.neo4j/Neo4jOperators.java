@@ -13,6 +13,7 @@ import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
 import org.neo4j.driver.Transaction;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +63,8 @@ public final class Neo4jOperators implements NoSqlDbOperators {
 
     @Override
     public int count() {
+        sb.append(" RETURN count(*)");
+//        System.out.println(sb);
         return 0;
     }
 
@@ -83,32 +86,56 @@ public final class Neo4jOperators implements NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators limit(int limit) {
+        sb.append(" WITH * LIMIT " + limit);
+//        System.out.println(sb);
         return this;
     }
 
     @Override
     public Optional<Double> max(String fieldName) {
+        sb.append(" RETURN max(s." + fieldName + ")");
+//        System.out.println(sb);
         return Optional.empty();
     }
 
     @Override
     public Optional<Double> min(String fieldName) {
+        sb.append(" RETURN min(s." + fieldName + ")");
+//        System.out.println(sb);
         return Optional.empty();
     }
 
     @Override
     public Optional<Double> sum(String fieldName) {
+        sb.append(" RETURN sum(s." + fieldName + ")");
+//        System.out.println(sb);
         return Optional.empty();
     }
 
     @Override
     public Optional<Double> avg(String fieldName) {
+        sb.append(" RETURN avg(s." + fieldName + ")");
+//        System.out.println(sb);
         return Optional.empty();
     }
 
     @Override
     public NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator) {
-        return null;
+        sb.append(" WITH s." + fieldName + " as " + fieldName );
+        if(aggregateOperator.length != 0) {
+            Integer i = 0;
+            for (AggregateOperator aop : aggregateOperator) {
+                i++;
+                if(aop.getOperatorExpression() != "count" ){
+                    sb.append(", " + aop.getOperatorExpression() + " AS M" + i);
+                } else {
+                    sb.append(", " + aop.getOperatorExpression() + "(s." + fieldName + ")" + " AS M" + i);
+                }
+
+            }
+        }
+
+        return this;
     }
 
     @Override
@@ -119,7 +146,7 @@ public final class Neo4jOperators implements NoSqlDbOperators {
     @Override
     public void printScreen() {
 
-        sb.append(" RETURN s");
+        sb.append(" RETURN *");
 
         System.out.println(sb);
 
@@ -127,15 +154,16 @@ public final class Neo4jOperators implements NoSqlDbOperators {
 
             Result result = session.run(sb.toString());
 
-            System.out.println(result);
+//            System.out.println("edw" +result);
 
-            List<Map<String,Object>> nodeList=  new ArrayList<>();
+            List<Object> nodeList=  new ArrayList<>();
 
 
             while (result.hasNext())
             {
                 Record record = result.next();
-                nodeList.add(record.fields().get(0).value().asMap());
+                nodeList.add(record.fields());
+//                nodeList.add(record.fields().get(0).value().asMap());
             }
 
             System.out.println("Results: ");
@@ -145,6 +173,7 @@ public final class Neo4jOperators implements NoSqlDbOperators {
             System.out.println("Number of results: " + nodeList.size());
 
         }
+
 
     }
 

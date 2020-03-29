@@ -10,4 +10,10 @@ final class OperatorMax extends AggregateOperator {
         return new OperatorMax(fieldName);
     }
 
+    @Override
+    protected String getAggregateOperatorField() {
+
+        return "max";
+    }
+
 }

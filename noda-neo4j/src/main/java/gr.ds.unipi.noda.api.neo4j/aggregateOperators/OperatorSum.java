@@ -10,4 +10,10 @@ final class OperatorSum extends AggregateOperator {
         return new OperatorSum(fieldName);
     }
 
+    @Override
+    protected String getAggregateOperatorField() {
+
+        return "sum";
+    }
+
 }
