@@ -1,10 +1,19 @@
 package gr.ds.unipi.noda.api.hbase;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
+import org.apache.hadoop.hbase.client.Connection;
+import org.apache.hadoop.hbase.client.ConnectionFactory;
 
-public final class HBaseConnector implements NoSqlDbConnector<Object> {
+import java.io.IOException;
+
+public final class HBaseConnector implements NoSqlDbConnector<Connection> {
     @Override
-    public Object createConnection() {
+    public Connection createConnection() {
+        try {
+            return ConnectionFactory.createConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

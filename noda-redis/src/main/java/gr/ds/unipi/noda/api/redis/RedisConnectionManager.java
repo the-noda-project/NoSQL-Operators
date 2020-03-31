@@ -1,14 +1,13 @@
-package gr.ds.unipi.noda.api.hbase;
+package gr.ds.unipi.noda.api.redis;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnectionManager;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
-import org.apache.hadoop.hbase.client.Connection;
 
-public final class HBaseConnectionManager extends NoSqlDbConnectionManager<Connection> {
+public final class RedisConnectionManager extends NoSqlDbConnectionManager<Object> {
 
-    private static final HBaseConnectionManager INSTANCE = new HBaseConnectionManager();
+    private static final RedisConnectionManager INSTANCE = new RedisConnectionManager();
 
-    private HBaseConnectionManager() {
+    private RedisConnectionManager() {
 
     }
 
