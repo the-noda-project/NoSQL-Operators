@@ -24,7 +24,7 @@ import org.apache.spark.sql.SparkSession;
 public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
     @Override
     public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {
-        return MongoDBConnector.newMongoDBConnector(host, port, username, password, database);
+        return null;
     }
 
     @Override
