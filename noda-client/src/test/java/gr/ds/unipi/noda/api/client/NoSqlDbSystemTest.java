@@ -18,8 +18,6 @@ public class NoSqlDbSystemTest {
         noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).printScreen();
         noSqlDbSystem.closeConnection();
 
-        NoSqlDbSys.MongoDB().Builder("", "", "").build().;
-
     }
 
     @Test
