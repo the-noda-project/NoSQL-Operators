@@ -10,4 +10,10 @@ final class OperatorMin extends AggregateOperator {
         return new OperatorMin(fieldName);
     }
 
+    @Override
+    protected String getAggregateOperatorField() {
+
+        return "min";
+    }
+
 }

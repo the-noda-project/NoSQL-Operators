@@ -10,4 +10,9 @@ final class OperatorDesc extends SortOperator {
         return new OperatorDesc(fieldName);
     }
 
+    @Override
+    protected String getSortCondition() {
+        return " DESC ";
+    }
+
 }
