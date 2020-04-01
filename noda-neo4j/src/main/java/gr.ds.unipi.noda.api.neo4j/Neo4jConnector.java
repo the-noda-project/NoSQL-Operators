@@ -42,7 +42,7 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
 
     @Override
     public Driver createConnection() {
-        return GraphDatabase.driver("bolt://"+host+":"+port, AuthTokens.basic(username,password));
+        return GraphDatabase.driver("neo4j://"+host+":"+port, AuthTokens.basic(username,password));
     }
 
     public static Neo4jConnector newNeo4jConnector(String host, int port, String username, String password, String database) {
