@@ -20,6 +20,7 @@ public class NoSqlDbSystemTest {
          noSqlDbSystem.operateOn("Ship").filter(gt("LAT",-38.31416)).sum("COURSE");
         noSqlDbSystem.closeConnection();
 
+        NoSqlDbSys.MongoDB().Builder("", "", "").build().;
 
     }
 
