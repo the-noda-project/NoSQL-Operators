@@ -6,10 +6,28 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public final class HBaseOperators implements NoSqlDbOperators {
+
+    private final HBaseConnectionManager hbaseConnectionManager = HBaseConnectionManager.getInstance();
+    private final HBaseConnector connector;
+    private final String s;
+    private final SparkSession sparkSession;
+
+    private HBaseOperators(HBaseConnector connector, String s, SparkSession sparkSession) {
+        this.connector = connector;
+        this.s = s;
+        this.sparkSession = sparkSession;
+    }
+
+    public static HBaseOperators newHBaseOperators(HBaseConnector connector, String s, SparkSession sparkSession) {
+        return new HBaseOperators(connector, s, sparkSession);
+    }
+
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
         return null;

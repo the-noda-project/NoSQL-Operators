@@ -29,12 +29,12 @@ public final class HBaseConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
-        return null;
+        return HBaseOperators.newHBaseOperators((HBaseConnector) connector, s, sparkSession);
     }
 
     @Override
     public void closeConnection(NoSqlDbConnector noSqlDbConnector) {
-
+        HBaseConnectionManager.getInstance().closeConnection(noSqlDbConnector);
     }
 
     @Override
@@ -59,7 +59,7 @@ public final class HBaseConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     public boolean closeConnections() {
-        return false;
+        return HBaseConnectionManager.getInstance().closeConnections();
     }
 
     @Override
