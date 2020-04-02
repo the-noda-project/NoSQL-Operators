@@ -1,6 +1,8 @@
 package gr.ds.unipi.noda.api.client;
 
+import gr.ds.unipi.noda.api.client.hbase.HBaseBuilderFactory;
 import gr.ds.unipi.noda.api.client.mongo.MongoDBBuilderFactory;
+import gr.ds.unipi.noda.api.client.neo4j.Neo4jBuilderFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
@@ -79,6 +81,10 @@ public abstract class NoSqlDbSys {
            }
        }
 
+       if(getAddresses().size()==0){
+           builder.addresses.add(new Pair<>(noSqlConnectionFactory.getDefaultHost(),noSqlConnectionFactory.getDefaultPort()));
+       }
+
        addresses = Collections.unmodifiableList(builder.addresses.stream().distinct().collect(Collectors.toList()));//list is sorted
     }
 
@@ -102,15 +108,16 @@ public abstract class NoSqlDbSys {
 
     private static final List<NoSqlConnectionFactory> toBeCleaned = new ArrayList<>();
 
-    public static void initialize() {
-        System.setProperty("spark.mongodb.input.uri", "mongodb://localhost:27017/");
-        System.setProperty("spark.mongodb.input.database", "database");
-        System.setProperty("spark.mongodb.input.collection", "collection");
-        System.setProperty("spark.mongodb.input.partitioner", "MongoSinglePartitioner");
-    }
-
     public static MongoDBBuilderFactory MongoDB(){
         return new MongoDBBuilderFactory();
+    }
+
+    public static Neo4jBuilderFactory Neo4j(){
+        return new Neo4jBuilderFactory();
+    }
+
+    public static HBaseBuilderFactory HBase(){
+        return new HBaseBuilderFactory();
     }
 
 }
