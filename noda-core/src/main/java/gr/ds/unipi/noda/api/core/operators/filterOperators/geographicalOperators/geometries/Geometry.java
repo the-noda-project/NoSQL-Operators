@@ -9,8 +9,8 @@ public abstract class Geometry {
     private final Coordinates[] coordinatesArray;//Contains all the points for a shape. For example, the array contains three points if the shape is triangle.
 
     protected Geometry(Coordinates[] coordinatesArray) {
-        checkCoordinates();
         this.coordinatesArray = coordinatesArray;
+        checkCoordinates();
     }
 
     public Coordinates[] getCoordinatesArray() {
