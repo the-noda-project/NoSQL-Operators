@@ -71,7 +71,6 @@ public final class NoSqlDbSystem {
 
             return new NoSqlDbSystem(nsdb, nsdb.createNoSqlDbConnector(host, port, username, password, database), sparkSession);
         }
-
     }
 
     private final NoSqlConnectionFactory nsdb;
