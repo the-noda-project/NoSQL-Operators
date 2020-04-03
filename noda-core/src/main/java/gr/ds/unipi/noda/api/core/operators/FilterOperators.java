@@ -6,7 +6,10 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoSpatialOperators.GeoSpatialOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.GeoTemporalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.temporal.TemporalBounds;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.*;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Circle;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Point;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Polygon;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Rectangle;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator;
 

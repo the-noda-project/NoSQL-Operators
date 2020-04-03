@@ -3,7 +3,6 @@ package gr.ds.unipi.noda.api.client.mongo;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
 import gr.ds.unipi.noda.api.client.NoSqlDbSys;
-import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.mongo.MongoDBConnectionFactory;
 import gr.ds.unipi.noda.api.mongo.MongoDBConnector;
@@ -48,7 +47,7 @@ public class MongoDBSys extends NoSqlDbSys {
 
     private MongoDBSys(Builder builder) {
         super(builder, new MongoDBConnectionFactory());
-        connector = MongoDBConnector.newMongoDBConnector(addresses, builder.mongoCredential, builder.mongoClientOptions);
+        connector = MongoDBConnector.newMongoDBConnector(getAddresses(), builder.mongoCredential, builder.mongoClientOptions);
     }
 
     public static void initialize() {

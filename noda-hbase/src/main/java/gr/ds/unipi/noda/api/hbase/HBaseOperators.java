@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.hbase;
 
+import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
@@ -8,23 +9,17 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
-public final class HBaseOperators implements NoSqlDbOperators {
+final class HBaseOperators extends NoSqlDbOperators {
 
     private final HBaseConnectionManager hbaseConnectionManager = HBaseConnectionManager.getInstance();
-    private final HBaseConnector connector;
-    private final String s;
-    private final SparkSession sparkSession;
 
-    private HBaseOperators(HBaseConnector connector, String s, SparkSession sparkSession) {
-        this.connector = connector;
-        this.s = s;
-        this.sparkSession = sparkSession;
+    private HBaseOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
+        super(connector, s, sparkSession);
     }
 
-    public static HBaseOperators newHBaseOperators(HBaseConnector connector, String s, SparkSession sparkSession) {
+    static HBaseOperators newHBaseOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         return new HBaseOperators(connector, s, sparkSession);
     }
 

@@ -1,15 +1,10 @@
 package gr.ds.unipi.noda.api.client;
 
-import javassist.runtime.Desc;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
-import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.*;
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
-import static gr.ds.unipi.noda.api.core.operators.SortOperators.asc;
-import static gr.ds.unipi.noda.api.core.operators.SortOperators.desc;
+import static gr.ds.unipi.noda.api.core.operators.FilterOperators.eq;
 
 public class NoSqlDbSystemTest {
 

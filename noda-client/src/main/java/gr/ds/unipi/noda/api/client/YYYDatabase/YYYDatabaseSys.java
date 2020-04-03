@@ -1,8 +1,6 @@
 package gr.ds.unipi.noda.api.client.YYYDatabase;
 
 import gr.ds.unipi.noda.api.client.NoSqlDbSys;
-import gr.ds.unipi.noda.api.client.mongo.MongoDBSys;
-import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 
 public class YYYDatabaseSys extends NoSqlDbSys{

@@ -24,8 +24,6 @@ public abstract class NoSqlConnectionFactory {
         setBaseOperators();
     }
 
-    public abstract NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database);
-
     public abstract NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession);
 
     public abstract void closeConnection(NoSqlDbConnector noSqlDbConnector);
@@ -35,12 +33,6 @@ public abstract class NoSqlConnectionFactory {
     }
 
     public abstract int getDefaultPort();
-
-    public abstract String getDefaultDatabase();
-
-    public abstract String getDefaultUsername();
-
-    public abstract String getDefaultPassword();
 
     public abstract boolean closeConnections();
 

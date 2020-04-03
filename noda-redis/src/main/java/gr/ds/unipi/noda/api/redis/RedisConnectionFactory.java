@@ -1,13 +1,5 @@
 package gr.ds.unipi.noda.api.redis;
 
-import gr.ds.unipi.noda.api.redis.aggregateOperator.RedisAggregateOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.RedisComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperators.geoSpatialOperators.RedisGeoSpatialOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperators.geoTemporalOperators.RedisGeoTemporalOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperators.geoTextualOperators.RedisGeoTextualOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.RedisLogicalOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.textualOperators.RedisTextualOperatorFactory;
-import gr.ds.unipi.noda.api.redis.sortOperator.RedisSortOperatorFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
@@ -19,13 +11,17 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
+import gr.ds.unipi.noda.api.redis.aggregateOperator.RedisAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.RedisComparisonOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperators.geoSpatialOperators.RedisGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperators.geoTemporalOperators.RedisGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperators.geoTextualOperators.RedisGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.RedisLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.textualOperators.RedisTextualOperatorFactory;
+import gr.ds.unipi.noda.api.redis.sortOperator.RedisSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
 public final class RedisConnectionFactory extends NoSqlConnectionFactory {
-    @Override
-    public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {
-        return null;
-    }
 
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
@@ -40,21 +36,6 @@ public final class RedisConnectionFactory extends NoSqlConnectionFactory {
     @Override
     public int getDefaultPort() {
         return 0;
-    }
-
-    @Override
-    public String getDefaultDatabase() {
-        return null;
-    }
-
-    @Override
-    public String getDefaultUsername() {
-        return null;
-    }
-
-    @Override
-    public String getDefaultPassword() {
-        return null;
     }
 
     @Override

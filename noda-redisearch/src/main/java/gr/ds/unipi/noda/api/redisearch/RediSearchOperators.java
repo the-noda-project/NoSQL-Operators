@@ -2,6 +2,7 @@ package gr.ds.unipi.noda.api.redisearch;
 
 import gr.ds.unipi.noda.api.core.constants.AggregationKeywords;
 import gr.ds.unipi.noda.api.core.constants.StringPool;
+import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
@@ -18,33 +19,31 @@ import io.redisearch.aggregation.reducers.Reducer;
 import io.redisearch.client.Client;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 import redis.clients.jedis.GeoCoordinate;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public final class RediSearchOperators implements NoSqlDbOperators {
+final class RediSearchOperators extends NoSqlDbOperators {
     private final RediSearchConnectionManager rediSearchConnectionManager = RediSearchConnectionManager.getInstance();
-    private final RediSearchConnector connector;
-    private final String indexName;
     private Client client;
     private AggregationBuilder aggregationBuilder;
     private ZRangeInfo zRangeInfo;
 
-    private RediSearchOperators(RediSearchConnector connector,String indexName) {
-        this.connector = connector;
-        this.indexName = indexName;
+    private RediSearchOperators(NoSqlDbConnector connector, String indexName, SparkSession sparkSession) {
+        super(connector, indexName, sparkSession);
         aggregationBuilder = new AggregationBuilder();
     }
 
-    static RediSearchOperators newRedisOperators(RediSearchConnector connector, String indexName) {
-        return new RediSearchOperators(connector,indexName);
+    static RediSearchOperators newRedisOperators(NoSqlDbConnector connector, String indexName, SparkSession sparkSession) {
+        return new RediSearchOperators(connector, indexName, sparkSession);
     }
 
     Client getClient(){
         if(client == null){
-            client = new Client(indexName, rediSearchConnectionManager.getConnection(connector));
+            client = new Client(getDataCollection(), rediSearchConnectionManager.getConnection(getNoSqlDbConnector()));
         }
             return client;
     }
@@ -59,7 +58,7 @@ public final class RediSearchOperators implements NoSqlDbOperators {
             }
         } else if (RediSearchGeoSpatialOperatorFactory.isOperatorGeoBox(filterOperator)) {
             zRangeInfo = ((RediSearchGeoSpatialOperator)filterOperator)
-                    .getZRangeInfo().apply(rediSearchConnectionManager.getConnection(connector).getResource(), indexName);
+                    .getZRangeInfo().apply(rediSearchConnectionManager.getConnection(getNoSqlDbConnector()).getResource(), getDataCollection());
         }
         if (aggregationBuilder.getArgs().size() == 1) {
             String s = filterOperator.getOperatorExpression().toString();
@@ -86,8 +85,8 @@ public final class RediSearchOperators implements NoSqlDbOperators {
     @Override
     public void printScreen() {
         if (Objects.nonNull(zRangeInfo)) {
-            Set<String> rectangleSearchMembers = rediSearchConnectionManager.getConnection(connector).getResource().zrangeByScore(zRangeInfo.getKey(), zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore());
-            List<GeoCoordinate> geopos = rediSearchConnectionManager.getConnection(connector).getResource().geopos(zRangeInfo.getKey(), rectangleSearchMembers.toArray(StringPool.EMPTY_ARRAY));
+            Set<String> rectangleSearchMembers = rediSearchConnectionManager.getConnection(getNoSqlDbConnector()).getResource().zrangeByScore(zRangeInfo.getKey(), zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore());
+            List<GeoCoordinate> geopos = rediSearchConnectionManager.getConnection(getNoSqlDbConnector()).getResource().geopos(zRangeInfo.getKey(), rectangleSearchMembers.toArray(StringPool.EMPTY_ARRAY));
             geopos.forEach(pos -> System.out.println(pos.toString()));
         } else {
             AggregationResult aggregate = getClient().aggregate(aggregationBuilder);

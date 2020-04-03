@@ -6,7 +6,7 @@ import org.apache.hadoop.hbase.client.Connection;
 
 import java.io.IOException;
 
-public final class HBaseConnectionManager extends NoSqlDbConnectionManager<Connection> {
+final class HBaseConnectionManager extends NoSqlDbConnectionManager<Connection> {
 
     private static final HBaseConnectionManager INSTANCE = new HBaseConnectionManager();
 
