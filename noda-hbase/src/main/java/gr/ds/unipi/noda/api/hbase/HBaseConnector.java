@@ -1,10 +1,9 @@
 package gr.ds.unipi.noda.api.hbase;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
-import org.apache.hadoop.conf.Configuration;
-
 
 import java.io.IOException;
 import java.util.Objects;

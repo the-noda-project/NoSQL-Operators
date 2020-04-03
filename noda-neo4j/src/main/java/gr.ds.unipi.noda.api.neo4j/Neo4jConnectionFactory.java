@@ -19,14 +19,10 @@ import gr.ds.unipi.noda.api.neo4j.sortOperators.Neo4jSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
 public final class Neo4jConnectionFactory extends NoSqlConnectionFactory {
-    @Override
-    public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {
-        return Neo4jConnector.newNeo4jConnector(host, port, username, password, database);
-    }
 
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
-        return Neo4jOperators.newNeo4jOperators((Neo4jConnector) connector, s, sparkSession);
+        return Neo4jOperators.newNeo4jOperators(connector, s, sparkSession);
     }
 
     @Override
@@ -37,21 +33,6 @@ public final class Neo4jConnectionFactory extends NoSqlConnectionFactory {
     @Override
     public int getDefaultPort() {
         return 7687;
-    }
-
-    @Override
-    public String getDefaultDatabase() {
-        return "";
-    }
-
-    @Override
-    public String getDefaultUsername() {
-        return "neo4j";
-    }
-
-    @Override
-    public String getDefaultPassword() {
-        return "neo4j";
     }
 
     @Override

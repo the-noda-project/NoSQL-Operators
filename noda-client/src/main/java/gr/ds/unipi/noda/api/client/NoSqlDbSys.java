@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public abstract class NoSqlDbSys {
 
-    protected final List<Pair<String,Integer>> addresses;
+    private final List<Pair<String,Integer>> addresses;
     private final SparkSession sparkSession;
     private final NoSqlConnectionFactory nsdb;
 

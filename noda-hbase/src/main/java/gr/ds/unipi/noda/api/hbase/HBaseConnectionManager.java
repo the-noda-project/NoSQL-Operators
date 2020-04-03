@@ -4,7 +4,9 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnectionManager;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import org.apache.hadoop.hbase.client.Connection;
 
-public final class HBaseConnectionManager extends NoSqlDbConnectionManager<Connection> {
+import java.io.IOException;
+
+final class HBaseConnectionManager extends NoSqlDbConnectionManager<Connection> {
 
     private static final HBaseConnectionManager INSTANCE = new HBaseConnectionManager();
 
@@ -14,11 +16,32 @@ public final class HBaseConnectionManager extends NoSqlDbConnectionManager<Conne
 
     @Override
     public boolean closeConnection(NoSqlDbConnector noSqlDbConnector) {
-        return false;
+        if (getConnections().containsKey(noSqlDbConnector)) {
+            try {
+                getConnections().get(noSqlDbConnector).close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            getConnections().remove(noSqlDbConnector);
+        }
+        return true;
     }
 
     @Override
     public boolean closeConnections() {
-        return false;
+        getConnections().forEach((k, v) -> {
+            try {
+                v.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        getConnections().clear();
+        return true;
     }
+
+    public static HBaseConnectionManager getInstance() {
+        return INSTANCE;
+    }
+
 }

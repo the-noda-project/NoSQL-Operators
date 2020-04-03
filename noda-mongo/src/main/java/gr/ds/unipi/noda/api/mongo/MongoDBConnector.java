@@ -7,7 +7,8 @@ import com.mongodb.ServerAddress;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import javafx.util.Pair;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
 

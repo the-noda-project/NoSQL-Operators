@@ -23,13 +23,8 @@ import org.apache.spark.sql.SparkSession;
 public final class RediSearchConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
-    public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {
-        return RediSearchConnector.newRedisConnector(host, port, username, password);
-    }
-
-    @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
-        return RediSearchOperators.newRedisOperators((RediSearchConnector) connector, s);
+        return RediSearchOperators.newRedisOperators(connector, s, sparkSession);
     }
 
     @Override
@@ -40,21 +35,6 @@ public final class RediSearchConnectionFactory extends NoSqlConnectionFactory {
     @Override
     public int getDefaultPort() {
         return 6379;
-    }
-
-    @Override
-    public String getDefaultDatabase() {
-        return "";
-    }
-
-    @Override
-    public String getDefaultUsername() {
-        return "";
-    }
-
-    @Override
-    public String getDefaultPassword() {
-        return null;
     }
 
     @Override

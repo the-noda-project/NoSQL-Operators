@@ -5,36 +5,60 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 
 import java.util.Optional;
 
-public interface NoSqlDbOperators {
+public abstract class NoSqlDbOperators {
 
-    NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators);
+    private final NoSqlDbConnector noSqlDbConnector;
+    private final String dataCollection;
+    private final SparkSession sparkSession;
 
-    NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator);
+    protected NoSqlDbOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
+        this.noSqlDbConnector = noSqlDbConnector;
+        this.dataCollection = dataCollection;
+        this.sparkSession = sparkSession;
+    }
 
-    NoSqlDbOperators distinct(String fieldName);
 
-    void printScreen();
+    abstract public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators);
 
-    Optional<Double> max(String fieldName);
+    abstract public NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator);
 
-    Optional<Double> min(String fieldName);
+    abstract public NoSqlDbOperators distinct(String fieldName);
 
-    Optional<Double> sum(String fieldName);
+    abstract public void printScreen();
 
-    Optional<Double> avg(String fieldName);
+    abstract public Optional<Double> max(String fieldName);
 
-    int count();
+    abstract public Optional<Double> min(String fieldName);
 
-    NoSqlDbOperators sort(SortOperator sortOperator, SortOperator... sortingOperators);
+    abstract public Optional<Double> sum(String fieldName);
 
-    NoSqlDbOperators limit(int limit);
+    abstract public Optional<Double> avg(String fieldName);
 
-    NoSqlDbOperators project(String fieldName, String... fieldNames);
+    abstract public int count();
 
-    Dataset<Row> toDataframe(); /*{
+    abstract public NoSqlDbOperators sort(SortOperator sortOperator, SortOperator... sortingOperators);
+
+    abstract public NoSqlDbOperators limit(int limit);
+
+    abstract public NoSqlDbOperators project(String fieldName, String... fieldNames);
+
+    abstract public Dataset<Row> toDataframe(); /*{
         throw new UnsupportedOperationException("ToDataframe primitive is not supported");
     }*/
+
+    public NoSqlDbConnector getNoSqlDbConnector() {
+        return noSqlDbConnector;
+    }
+
+    public String getDataCollection() {
+        return dataCollection;
+    }
+
+    public SparkSession getSparkSession() {
+        return sparkSession;
+    }
 }

@@ -1,7 +1,7 @@
 package gr.ds.unipi.noda.api.neo4j;
 
+import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
-import javax.swing.text.Document;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
@@ -11,33 +11,25 @@ import org.apache.spark.sql.SparkSession;
 import org.neo4j.driver.Record;
 import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
-import org.neo4j.driver.Transaction;
 
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-public final class Neo4jOperators implements NoSqlDbOperators {
+final class Neo4jOperators extends NoSqlDbOperators {
 
     private final Neo4jConnectionManager neo4jConnectionManager = Neo4jConnectionManager.getInstance();
-    private final Neo4jConnector connector;
-    private final String s;
-    private final SparkSession sparkSession;
 
     private final StringBuilder sb;
     private final String matchConstant;
 
-    private Neo4jOperators(Neo4jConnector connector, String s, SparkSession sparkSession) {
-        this.connector = connector;
-        this.s = s;
-        this.sparkSession = sparkSession;
+    private Neo4jOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
+        super(connector, s, sparkSession);
         this.sb = new StringBuilder().append("MATCH " + "(s:" + s + ")");
         this.matchConstant = "";
     }
 
-    public static Neo4jOperators newNeo4jOperators(Neo4jConnector connector, String s, SparkSession sparkSession) {
+    static Neo4jOperators newNeo4jOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         return new Neo4jOperators(connector, s, sparkSession);
     }
 
@@ -150,7 +142,7 @@ public final class Neo4jOperators implements NoSqlDbOperators {
 
         System.out.println(sb);
 
-        try(Session session = neo4jConnectionManager.getConnection(connector).session()) {
+        try(Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session()) {
 
             Result result = session.run(sb.toString());
 

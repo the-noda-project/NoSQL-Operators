@@ -40,7 +40,7 @@ public final class RediSearchConnector implements NoSqlDbConnector<JedisPool> {
         return new JedisPool(initPoolConfig(100), host, port, 500, password);
     }
 
-    static RediSearchConnector newRedisConnector(String host, int port, String username, String password) {
+    public static RediSearchConnector newRediSearchConnector(String host, int port, String username, String password) {
         return new RediSearchConnector(host, port, username, password);
     }
 

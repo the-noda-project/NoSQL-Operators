@@ -1,15 +1,26 @@
 package gr.ds.unipi.noda.api.redis;
 
+import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 
 import java.util.Optional;
 
-public final class RedisOperators implements NoSqlDbOperators {
+final class RedisOperators extends NoSqlDbOperators {
+
+    private RedisOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
+        super(noSqlDbConnector, dataCollection, sparkSession);
+    }
+
+    static RedisOperators newRedisOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession){
+        return new RedisOperators(noSqlDbConnector, dataCollection, sparkSession);
+    }
+
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
         return null;
