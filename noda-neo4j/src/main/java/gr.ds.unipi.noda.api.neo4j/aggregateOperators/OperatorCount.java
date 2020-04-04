@@ -10,8 +10,15 @@ final class OperatorCount extends AggregateOperator {
         return new OperatorCount("");
     }
 
+//    @Override
+//    public String getOperatorExpression() {
+//        return getAggregateOperatorField() + "(s." + getFieldName() + ")";
+//
+//    }
+
     @Override
-    public String getOperatorExpression() {
-        return null;
+    protected String getAggregateOperatorField() {
+
+        return "count";
     }
 }

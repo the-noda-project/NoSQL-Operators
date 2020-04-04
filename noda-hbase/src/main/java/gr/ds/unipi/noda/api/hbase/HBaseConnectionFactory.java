@@ -1,13 +1,5 @@
 package gr.ds.unipi.noda.api.hbase;
 
-import gr.ds.unipi.noda.api.hbase.aggregateOperator.HBaseAggregateOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.comparisonOperators.HBaseComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.HBaseGeoSpatialOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoTemporalOperators.HBaseGeoTemporalOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoTextualOperators.HBaseGeoTextualOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.logicalOperators.HBaseLogicalOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.textualOperators.HBaseTextualOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.sortOperator.HBaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
@@ -19,22 +11,26 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.aggregateOperator.HBaseAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperator.comparisonOperators.HBaseComparisonOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.HBaseGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoTemporalOperators.HBaseGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoTextualOperators.HBaseGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperator.logicalOperators.HBaseLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperator.textualOperators.HBaseTextualOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.sortOperator.HBaseSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
 public final class HBaseConnectionFactory extends NoSqlConnectionFactory {
-    @Override
-    public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {
-        return null;
-    }
 
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
-        return null;
+        return HBaseOperators.newHBaseOperators(connector, s, sparkSession);
     }
 
     @Override
     public void closeConnection(NoSqlDbConnector noSqlDbConnector) {
-
+        HBaseConnectionManager.getInstance().closeConnection(noSqlDbConnector);
     }
 
     @Override
@@ -42,24 +38,10 @@ public final class HBaseConnectionFactory extends NoSqlConnectionFactory {
         return 0;
     }
 
-    @Override
-    public String getDefaultDatabase() {
-        return null;
-    }
-
-    @Override
-    public String getDefaultUsername() {
-        return null;
-    }
-
-    @Override
-    public String getDefaultPassword() {
-        return null;
-    }
 
     @Override
     public boolean closeConnections() {
-        return false;
+        return HBaseConnectionManager.getInstance().closeConnections();
     }
 
     @Override

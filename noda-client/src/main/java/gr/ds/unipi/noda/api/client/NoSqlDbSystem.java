@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.client;
 
+import com.mongodb.MongoClient;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
@@ -70,13 +71,11 @@ public final class NoSqlDbSystem {
 
             return new NoSqlDbSystem(nsdb, nsdb.createNoSqlDbConnector(host, port, username, password, database), sparkSession);
         }
-
     }
 
     private final NoSqlConnectionFactory nsdb;
     private final NoSqlDbConnector connector;
     private final SparkSession sparkSession;
-
 
     private NoSqlDbSystem(NoSqlConnectionFactory nsdb, NoSqlDbConnector connector, SparkSession sparkSession) {
         this.nsdb = nsdb;
@@ -85,7 +84,7 @@ public final class NoSqlDbSystem {
 
     }
 
-    public static Builder MongoDB() {
+    public static Builder MongoDB(MongoClient mc) {
         NoSqlConnectionFactory noSqlConnectionFactory = null;
         try {
             Class<?> mongoClass = Class.forName("gr.ds.unipi.noda.api.mongo.MongoDBConnectionFactory");
@@ -127,10 +126,6 @@ public final class NoSqlDbSystem {
 
     public NoSqlDbOperators operateOn(String s) {
         return nsdb.noSqlDbOperators(connector, s, sparkSession);
-    }
-
-    public static Builder builder(NoSqlConnectionFactory dbType) {
-        return new NoSqlDbSystem.Builder(dbType);
     }
 
     public static void closeConnections() {

@@ -58,19 +58,25 @@
             <groupId>gr.unipi.noda</groupId>
             <artifactId>nosql-operators-mongo</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>gr.unipi.noda</groupId>
             <artifactId>nosql-operators-redisearch</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>gr.unipi.noda</groupId>
+            <artifactId>nosql-operators-hbase</artifactId>
+            <version>${project.version}</version>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>gr.unipi.noda</groupId>
             <artifactId>nosql-operators-neo4j</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
     </dependencies>

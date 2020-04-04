@@ -22,14 +22,10 @@ import gr.ds.unipi.noda.api.mongo.sortOperators.MongoDBSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
 public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
-    @Override
-    public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {
-        return MongoDBConnector.newMongoDBConnector(host, port, username, password, database);
-    }
 
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
-        return MongoDBOperators.newMongoDBOperators((MongoDBConnector) connector, s, sparkSession);
+        return MongoDBOperators.newMongoDBOperators(connector, s, sparkSession);
     }
 
     @Override
@@ -40,21 +36,6 @@ public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
     @Override
     public int getDefaultPort() {
         return 27017;
-    }
-
-    @Override
-    public String getDefaultDatabase() {
-        return "";
-    }
-
-    @Override
-    public String getDefaultUsername() {
-        return "";
-    }
-
-    @Override
-    public String getDefaultPassword() {
-        return "";
     }
 
     @Override

@@ -4,7 +4,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnectionManager;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import org.neo4j.driver.Driver;
 
-public final class Neo4jConnectionManager extends NoSqlDbConnectionManager<Driver> {
+final class Neo4jConnectionManager extends NoSqlDbConnectionManager<Driver> {
 
     private static final Neo4jConnectionManager INSTANCE = new Neo4jConnectionManager();
 

@@ -3,39 +3,34 @@ package gr.ds.unipi.noda.api.client;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
-import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.count;
-import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.max;
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
-import static gr.ds.unipi.noda.api.core.operators.SortOperators.asc;
+import static gr.ds.unipi.noda.api.core.operators.FilterOperators.eq;
 
 public class NoSqlDbSystemTest {
 
     @Test
     public void neo4j() {
-        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().username("neo4j").password("nikos").host("localhost").port(7687).database("graph").build();
-        noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).printScreen();
-        noSqlDbSystem.closeConnection();
-
-
-    }
-
-    @Test
-    public void groupingAndsortingExample() {
-        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().username("neo4j").password("nikos").host("localhost").port(7687).database("graph").build();
-        noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).groupBy("fieldA", max("fieldB")).sort(asc("fieldC")).printScreen();
+        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().username("neo4j").password("nikos").host("127.0.0.1").port(7687).database("graph").build();
+//        noSqlDbSystem.operateOn("Ship").filter(or(eq("LAT",-38.31416), eq("LON",145.004403333), gt("SPEED", 20))).filter(eq("LAT",-38.31416)).sort(desc("COURSE")).sort(asc("LON")).printScreen();
+         noSqlDbSystem.operateOn("Ship").filter(eq("LAT",-38.31416)).printScreen();
         noSqlDbSystem.closeConnection();
     }
 
-    @Test
-    public void countExample() {
-        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().username("neo4j").password("nikos").host("localhost").port(7687).database("graph").build();
-        noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).groupBy("fieldA", count()).printScreen();
-        noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).count();
-
-        noSqlDbSystem.closeConnection();
-    }
+//    @Test
+//    public void groupingAndsortingExample() {
+//        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().username("neo4j").password("nikos").host("localhost").port(7687).database("graph").build();
+//        noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).groupBy("fieldA", max("fieldB")).sort(asc("fieldC")).printScreen();
+//        noSqlDbSystem.closeConnection();
+//    }
+//
+//    @Test
+//    public void countExample() {
+//        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().username("neo4j").password("nikos").host("localhost").port(7687).database("graph").build();
+//        noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).groupBy("fieldA", count()).printScreen();
+//        noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).count();
+//
+//        noSqlDbSystem.closeConnection();
+//    }
 
     @Test
     public void check(){

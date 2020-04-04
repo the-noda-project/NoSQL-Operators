@@ -1,13 +1,5 @@
 package gr.ds.unipi.noda.api.hbase;
 
-import gr.ds.unipi.noda.api.hbase.aggregateOperator.YYYDataBaseAggregateOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.comparisonOperators.YYYDataBaseComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.YYYDataBaseGeoSpatialOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoTemporalOperators.YYYDataBaseGeoTemporalOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoTextualOperators.YYYDataBaseGeoTextualOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.logicalOperators.YYYDataBaseLogicalOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.textualOperators.YYYDataBaseTextualOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.sortOperator.YYYDataBaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
@@ -19,13 +11,17 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.aggregateOperator.YYYDataBaseAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperator.comparisonOperators.YYYDataBaseComparisonOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.YYYDataBaseGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoTemporalOperators.YYYDataBaseGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoTextualOperators.YYYDataBaseGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperator.logicalOperators.YYYDataBaseLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperator.textualOperators.YYYDataBaseTextualOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.sortOperator.YYYDataBaseSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
 public final class YYYDataBaseConnectionFactory extends NoSqlConnectionFactory {
-    @Override
-    public NoSqlDbConnector createNoSqlDbConnector(String host, int port, String username, String password, String database) {
-        return null;
-    }
 
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
@@ -40,21 +36,6 @@ public final class YYYDataBaseConnectionFactory extends NoSqlConnectionFactory {
     @Override
     public int getDefaultPort() {
         return 0;
-    }
-
-    @Override
-    public String getDefaultDatabase() {
-        return null;
-    }
-
-    @Override
-    public String getDefaultUsername() {
-        return null;
-    }
-
-    @Override
-    public String getDefaultPassword() {
-        return null;
     }
 
     @Override

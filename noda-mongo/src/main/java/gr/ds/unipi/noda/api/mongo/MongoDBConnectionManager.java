@@ -4,7 +4,7 @@ import com.mongodb.MongoClient;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnectionManager;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 
-public final class MongoDBConnectionManager extends NoSqlDbConnectionManager<MongoClient> {
+final class MongoDBConnectionManager extends NoSqlDbConnectionManager<MongoClient> {
 
     private static final MongoDBConnectionManager INSTANCE = new MongoDBConnectionManager();
 

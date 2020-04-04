@@ -6,9 +6,18 @@ abstract class AggregateOperator extends gr.ds.unipi.noda.api.core.operators.agg
         super(fieldName, alias);
     }
 
+    protected abstract String getAggregateOperatorField();
+
     @Override
     public String getOperatorExpression() {
-        return null;
-    }
+        String exp;
+        if (getAggregateOperatorField() == "count") {
+            exp = getAggregateOperatorField();
+        } else {
+            exp = getAggregateOperatorField() + "(s." + getFieldName() + ")";
+        }
 
-}
+        return exp;
+
+        }
+    }

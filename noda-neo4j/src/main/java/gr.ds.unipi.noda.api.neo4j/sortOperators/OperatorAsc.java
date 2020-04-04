@@ -9,4 +9,10 @@ final class OperatorAsc extends SortOperator {
     public static SortOperator newOperatorAsc(String fieldName) {
         return new OperatorAsc(fieldName);
     }
+
+    @Override
+    protected String getSortCondition() {
+        return " ASC ";
+    }
+
 }
