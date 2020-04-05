@@ -1,11 +1,18 @@
 package gr.ds.unipi.noda.api.hbase.filterOperator.comparisonOperators;
 
+import org.apache.hadoop.hbase.CompareOperator;
+
 import java.util.Date;
 
 final class OperatorLessThan<T> extends ComparisonOperator<T> {
 
     private OperatorLessThan(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
+    }
+
+    @Override
+    protected CompareOperator getComparisonExpression() {
+        return CompareOperator.LESS;
     }
 
     public static OperatorLessThan<Double> newOperatorLessThan(String fieldName, Double fieldValue) {

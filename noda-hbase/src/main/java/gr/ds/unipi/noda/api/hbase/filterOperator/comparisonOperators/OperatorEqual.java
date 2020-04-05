@@ -1,11 +1,18 @@
 package gr.ds.unipi.noda.api.hbase.filterOperator.comparisonOperators;
 
+import org.apache.hadoop.hbase.CompareOperator;
+
 import java.util.Date;
 
 final class OperatorEqual<T> extends ComparisonOperator<T> {
 
     private OperatorEqual(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
+    }
+
+    @Override
+    protected CompareOperator getComparisonExpression() {
+        return CompareOperator.EQUAL;
     }
 
     public static OperatorEqual<Double> newOperatorEqual(String fieldName, Double fieldValue) {
