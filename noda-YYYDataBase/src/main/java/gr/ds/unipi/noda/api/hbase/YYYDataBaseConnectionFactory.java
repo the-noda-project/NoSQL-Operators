@@ -23,6 +23,8 @@ import org.apache.spark.sql.SparkSession;
 
 public final class YYYDataBaseConnectionFactory extends NoSqlConnectionFactory {
 
+    private final YYYDataBaseConnectionManager yYYDataBaseConnectionManager = YYYDataBaseConnectionManager.getInstance();
+
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         return null;

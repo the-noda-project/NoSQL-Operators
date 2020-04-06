@@ -1,5 +1,7 @@
 package gr.ds.unipi.noda.api.hbase.filterOperator.comparisonOperators;
 
+import org.apache.hadoop.hbase.CompareOperator;
+
 import java.util.Date;
 
 final class OperatorNotEqual<T> extends ComparisonOperator<T> {
@@ -7,6 +9,11 @@ final class OperatorNotEqual<T> extends ComparisonOperator<T> {
     private OperatorNotEqual(String fieldName, T fieldValue) {
 
         super(fieldName, fieldValue);
+    }
+
+    @Override
+    protected CompareOperator getComparisonExpression() {
+        return CompareOperator.NOT_EQUAL;
     }
 
     public static OperatorNotEqual<Double> newOperatorNotEqual(String fieldName, Double fieldValue) {

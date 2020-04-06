@@ -1,11 +1,18 @@
 package gr.ds.unipi.noda.api.hbase.filterOperator.comparisonOperators;
 
+import org.apache.hadoop.hbase.CompareOperator;
+
 import java.util.Date;
 
 final class OperatorGreaterThan<T> extends ComparisonOperator<T> {
 
     private OperatorGreaterThan(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
+    }
+
+    @Override
+    protected CompareOperator getComparisonExpression() {
+        return CompareOperator.GREATER;
     }
 
     public static OperatorGreaterThan<Double> newOperatorGreaterThan(String fieldName, Double fieldValue) {

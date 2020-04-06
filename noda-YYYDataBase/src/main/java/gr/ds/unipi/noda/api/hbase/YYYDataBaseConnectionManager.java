@@ -11,6 +11,10 @@ final class YYYDataBaseConnectionManager extends NoSqlDbConnectionManager<Object
 
     }
 
+    public static YYYDataBaseConnectionManager getInstance() {
+        return INSTANCE;
+    }
+
     @Override
     public boolean closeConnection(NoSqlDbConnector noSqlDbConnector) {
         return false;

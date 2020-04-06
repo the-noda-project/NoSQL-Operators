@@ -5,6 +5,10 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
+import org.apache.hadoop.hbase.client.Scan;
+import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.filter.FilterList;
+import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -14,6 +18,8 @@ import java.util.Optional;
 final class HBaseOperators extends NoSqlDbOperators {
 
     private final HBaseConnectionManager hbaseConnectionManager = HBaseConnectionManager.getInstance();
+    private final Scan scan = new Scan();
+    FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
 
     private HBaseOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
@@ -78,9 +84,35 @@ final class HBaseOperators extends NoSqlDbOperators {
         return null;
     }
 
+
+    private void scanProjection(String fieldName){
+        String[] names = fieldName.split(":");
+
+        if(names.length == 1){
+            scan.addFamily(Bytes.toBytes(names[0]));
+        }
+        else if(names.length ==2 ){
+            scan.addColumn(Bytes.toBytes(names[0]),Bytes.toBytes(names[1]));
+        }
+        else{
+            try {
+                throw new Exception("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public NoSqlDbOperators project(String fieldName, String... fieldNames) {
-        return null;
+
+        scanProjection(fieldName);
+
+        for(int i=0;i<fieldNames.length;i++){
+            scanProjection(fieldNames[i]);
+        }
+
+        return this;
     }
 
     @Override
