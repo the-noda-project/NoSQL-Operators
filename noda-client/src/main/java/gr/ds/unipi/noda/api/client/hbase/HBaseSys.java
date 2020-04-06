@@ -50,7 +50,7 @@ public class HBaseSys extends NoSqlDbSys {
         super(builder, new HBaseConnectionFactory());
 
         StringBuilder sb = new StringBuilder();
-        for(Pair<String,Integer> pair : addresses){
+        for(Pair<String,Integer> pair : getAddresses()){
             sb.append(pair.getKey()).append(":").append(pair.getValue()).append(",");
         }
 

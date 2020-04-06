@@ -85,8 +85,12 @@ final class RediSearchOperators extends NoSqlDbOperators {
     @Override
     public void printScreen() {
         if (Objects.nonNull(zRangeInfo)) {
-            Set<String> rectangleSearchMembers = rediSearchConnectionManager.getConnection(getNoSqlDbConnector()).getResource().zrangeByScore(zRangeInfo.getKey(), zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore());
-            List<GeoCoordinate> geopos = rediSearchConnectionManager.getConnection(getNoSqlDbConnector()).getResource().geopos(zRangeInfo.getKey(), rectangleSearchMembers.toArray(StringPool.EMPTY_ARRAY));
+            Map<String, Set<String>> rectangleSearchMember = zRangeInfo.getKeys().stream()
+                    .collect(Collectors.toMap(o -> o, o -> rediSearchConnectionManager.getConnection(getNoSqlDbConnector()).getResource().zrangeByScore(o, zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore())));
+            List<GeoCoordinate> geopos = rectangleSearchMember.entrySet().stream()
+            .map(key -> rediSearchConnectionManager.getConnection(getNoSqlDbConnector()).getResource().geopos(key.getKey(), key.getValue().toArray(StringPool.EMPTY_ARRAY)))
+            .flatMap(List::stream)
+            .collect(Collectors.toList());
             geopos.forEach(pos -> System.out.println(pos.toString()));
         } else {
             AggregationResult aggregate = getClient().aggregate(aggregationBuilder);

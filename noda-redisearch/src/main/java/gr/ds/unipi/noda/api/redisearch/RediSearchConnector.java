@@ -1,22 +1,25 @@
 package gr.ds.unipi.noda.api.redisearch;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
+import javafx.util.Pair;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.JedisSentinelPool;
+import redis.clients.jedis.util.Pool;
 
+import java.util.List;
 import java.util.Objects;
 
-public final class RediSearchConnector implements NoSqlDbConnector<JedisPool> {
-    private final String host;
-    private final int port;
-    private final String username;
-    private final String password;
+public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> {
+    private final List<Pair<String,Integer>> addresses;
+    private final RediSearchOptions rediSearchOptions;
+    private final Pool<Jedis> jedisPool;
 
-    private RediSearchConnector(String host, int port, String username, String password) {
-        this.host = host;
-        this.port = port;
-        this.username = username;
-        this.password = password;
+    private RediSearchConnector(List<Pair<String,Integer>> addresses, RediSearchOptions rediSearchOptions, Pool<Jedis> jedisPool) {
+        this.addresses = addresses;
+        this.rediSearchOptions = rediSearchOptions;
+        this.jedisPool = jedisPool;
     }
 
     @Override
@@ -24,24 +27,35 @@ public final class RediSearchConnector implements NoSqlDbConnector<JedisPool> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RediSearchConnector that = (RediSearchConnector) o;
-        return port == that.port &&
-                Objects.equals(host, that.host) &&
-                Objects.equals(username, that.username) &&
-                Objects.equals(password, that.password);
+        return (addresses.containsAll(that.addresses) && addresses.size()==that.addresses.size()) &&
+                rediSearchOptions.equals(that.rediSearchOptions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(host, port, username, password);
+        return Objects.hash(addresses, rediSearchOptions);
     }
 
     @Override
-    public JedisPool createConnection() {
-        return new JedisPool(initPoolConfig(100), host, port, 500, password);
+    public Pool<Jedis> createConnection() {
+        if (Objects.isNull(jedisPool)) {
+            if(!Objects.isNull(rediSearchOptions)) {
+                return getJedisPool();
+            } else return new JedisPool(initPoolConfig(100), getHost(), getPort(), 500, null);
+        } else return this.jedisPool;
     }
 
-    public static RediSearchConnector newRediSearchConnector(String host, int port, String username, String password) {
-        return new RediSearchConnector(host, port, username, password);
+    private Pool<Jedis> getJedisPool() {
+        if (rediSearchOptions.isWithSentinels())
+            return new JedisSentinelPool(rediSearchOptions.getMaster(), rediSearchOptions.getSentinels(),
+                    initPoolConfig(rediSearchOptions.getPoolSize()), rediSearchOptions.getTimeout(), rediSearchOptions.getPassword());
+        else
+            return new JedisPool(initPoolConfig(rediSearchOptions.getPoolSize()), getHost(), getPort(),
+                    rediSearchOptions.getTimeout(), rediSearchOptions.getPassword());
+    }
+
+    public static RediSearchConnector newRediSearchConnector(List<Pair<String,Integer>> addresses, RediSearchOptions rediSearchOptions, Pool<Jedis> jedisPool) {
+        return new RediSearchConnector(addresses, rediSearchOptions, jedisPool);
     }
 
     private static JedisPoolConfig initPoolConfig(int poolSize) {
@@ -56,5 +70,14 @@ public final class RediSearchConnector implements NoSqlDbConnector<JedisPool> {
         conf.setNumTestsPerEvictionRun(-1);
         conf.setFairness(true);
         return conf;
+    }
+
+    public int getPort() {
+        return addresses.get(0).getValue();
+    }
+
+
+    public String getHost() {
+        return addresses.get(0).getKey();
     }
 }
