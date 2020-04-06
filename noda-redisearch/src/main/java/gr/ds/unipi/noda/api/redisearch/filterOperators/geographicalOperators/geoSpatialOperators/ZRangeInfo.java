@@ -1,22 +1,24 @@
 package gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.geoSpatialOperators;
 
+import java.util.Set;
+
 public final class ZRangeInfo {
-    private final String key;
+    private final Set<String> keys;
     private final Double lowerBoundScore;
     private final Double upperBoundScore;
 
-    private ZRangeInfo(String key, Double lowerBoundScore, Double upperBoundScore) {
-        this.key = key;
+    private ZRangeInfo(Set<String> keys, Double lowerBoundScore, Double upperBoundScore) {
+        this.keys = keys;
         this.lowerBoundScore = lowerBoundScore;
         this.upperBoundScore = upperBoundScore;
     }
 
-    static ZRangeInfo of(String key, Double lowerBoundScore, Double upperBoundScore) {
-        return new ZRangeInfo(key, lowerBoundScore, upperBoundScore);
+    static ZRangeInfo of(Set<String> keys, Double lowerBoundScore, Double upperBoundScore) {
+        return new ZRangeInfo(keys, lowerBoundScore, upperBoundScore);
     }
 
-    public String getKey() {
-        return key;
+    public Set<String> getKeys() {
+        return keys;
     }
 
     public Double getLowerBoundScore() {

@@ -3,6 +3,7 @@ package gr.ds.unipi.noda.api.client;
 import gr.ds.unipi.noda.api.client.hbase.HBaseBuilderFactory;
 import gr.ds.unipi.noda.api.client.mongo.MongoDBBuilderFactory;
 import gr.ds.unipi.noda.api.client.neo4j.Neo4jBuilderFactory;
+import gr.ds.unipi.noda.api.client.redisearch.RediSearchBuilderFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
@@ -118,6 +119,10 @@ public abstract class NoSqlDbSys {
 
     public static HBaseBuilderFactory HBase(){
         return new HBaseBuilderFactory();
+    }
+
+    public static RediSearchBuilderFactory RediSearch(){
+        return new RediSearchBuilderFactory();
     }
 
 }

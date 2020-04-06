@@ -37,7 +37,7 @@ final class OperatorInGeoRectangle extends GeoSpatialOperator<Rectangle> impleme
             jedis.geoadd(TEMP_ZSET_NAME, getGeometry().getUpperBound().getLongitude(), getGeometry().getUpperBound().getLatitude(), UPPER_BOUND_NAME);
             Double lowerBoundScore = jedis.zscore(TEMP_ZSET_NAME, LOWER_BOUND_NAME);
             Double upperBoundScore = jedis.zscore(TEMP_ZSET_NAME, UPPER_BOUND_NAME);
-            ZRangeInfo zRangeInfo = ZRangeInfo.of(GEO_KEY_PREFIX + index + StringPool.FORWARD_SLASH + getFieldName(), lowerBoundScore, upperBoundScore);
+            ZRangeInfo zRangeInfo = ZRangeInfo.of(jedis.keys(GEO_KEY_PREFIX + index + StringPool.STAR + StringPool.FORWARD_SLASH + getFieldName()), lowerBoundScore, upperBoundScore);
             jedis.zrem(TEMP_ZSET_NAME, LOWER_BOUND_NAME, UPPER_BOUND_NAME);
             return zRangeInfo;
         };
