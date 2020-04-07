@@ -5,16 +5,24 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.eq;
+import static org.junit.Assert.*;
 
-public class NoSqlDbSystemTest {
+public class NoSqlDbSysTest {
+
+//    public void neo4j(){
+//        NoSqlDbSys noSqlDbSys =  NoSqlDbSys.Neo4j().Builder("neo4j","nikos","graph").host("127.0.0.1").port(7687).build();
+//        //noSqlDbSys.operateOn("Ship").filter(or(eq("LAT",-38.31416), eq("LON",145.004403333), gt("SPEED", 20))).filter(eq("LAT",-38.31416)).sort(desc("COURSE")).sort(asc("LON")).printScreen();
+//        noSqlDbSys.operateOn("Ship").filter(eq("LAT",-38.31416)).printScreen();
+//        noSqlDbSys.closeConnection();
+//    }
 
     @Test
-    public void neo4j() {
-        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().username("neo4j").password("nikos").host("127.0.0.1").port(7687).database("graph").build();
-//        noSqlDbSystem.operateOn("Ship").filter(or(eq("LAT",-38.31416), eq("LON",145.004403333), gt("SPEED", 20))).filter(eq("LAT",-38.31416)).sort(desc("COURSE")).sort(asc("LON")).printScreen();
-         noSqlDbSystem.operateOn("Ship").filter(eq("LAT",-38.31416)).printScreen();
-        noSqlDbSystem.closeConnection();
+    public void neo4jTest() {
+        NoSqlDbSys noSqlDbSys = NoSqlDbSys.Neo4j().Builder("neo4j", "nikos", "graph").host("127.0.0.1").port(7687).build();
+        noSqlDbSys.operateOn("Ship").filter(eq("LAT", -38.31416)).printScreen();
+        noSqlDbSys.closeConnection();
     }
+
 
 //    @Test
 //    public void groupingAndsortingExample() {
