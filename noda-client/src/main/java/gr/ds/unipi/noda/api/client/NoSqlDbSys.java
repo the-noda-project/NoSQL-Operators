@@ -82,7 +82,7 @@ public abstract class NoSqlDbSys {
            }
        }
 
-       if(getAddresses().size()==0){
+       if(builder.addresses.size()==0){
            builder.addresses.add(new Pair<>(noSqlConnectionFactory.getDefaultHost(),noSqlConnectionFactory.getDefaultPort()));
        }
 
