@@ -17,6 +17,11 @@ public class HBaseSys extends NoSqlDbSys {
         return connector;
     }
 
+    @Override
+    public int getDefaultPort() {
+        return 8020;
+    }
+
     public static class Builder extends NoSqlDbSys.Builder<Builder>{
 
         private Configuration config = HBaseConfiguration.create();

@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 
 public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> {
 
-    private final Pair<String, Integer> master;
-    private final List<Pair<String, Integer>> sentinels;
+    private final List<Pair<String, Integer>> addresses;
+    private final String masterName;
     private final JedisPoolConfig poolConfig;
     private final int connectionTimeout;
     private final int soTimeout;
@@ -33,9 +33,9 @@ public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> 
     private final HostnameVerifier hostnameVerifier;
 
 
-    public RediSearchConnector(Pair<String, Integer> master, List<Pair<String, Integer>> sentinels, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
-        this.master = master;
-        this.sentinels = sentinels;
+    public RediSearchConnector(List<Pair<String, Integer>> addresses, String masterName, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
+        this.addresses = addresses;
+        this.masterName = masterName;
         this.poolConfig = poolConfig;
         this.connectionTimeout = connectionTimeout;
         this.soTimeout = soTimeout;
@@ -57,8 +57,8 @@ public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> 
                 soTimeout == that.soTimeout &&
                 database == that.database &&
                 ssl == that.ssl &&
-                Objects.equals(master, that.master) &&
-                (sentinels.containsAll(that.sentinels) && sentinels.size()==that.sentinels.size()) &&
+                (addresses.containsAll(that.addresses) && addresses.size()==that.addresses.size()) &&
+                Objects.equals(masterName, that.masterName) &&
                 Objects.equals(poolConfig, that.poolConfig) &&
                 Objects.equals(password, that.password) &&
                 Objects.equals(clientName, that.clientName) &&
@@ -70,27 +70,25 @@ public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> 
     @Override
     public int hashCode() {
         int hashCode = 0;
-        for(Pair<String,Integer> e : sentinels){
+        for(Pair<String,Integer> e : addresses){
             hashCode = 31*hashCode+(e==null ?0:e.hashCode());
         }
-        return 31*hashCode+ Objects.hash(master, poolConfig, connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
+        return 31*hashCode+ Objects.hash(masterName, poolConfig, connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
     }
 
     @Override
     public Pool<Jedis> createConnection() {
-        if (sentinels.isEmpty())
-            return new JedisPool(poolConfig, master.getKey(), master.getValue(), connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
+        if (masterName == null)
+            return new JedisPool(poolConfig, addresses.get(0).getKey(), addresses.get(0).getValue(), connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
         else
-            return new JedisSentinelPool(master.getKey()+ ":" + master.getValue(), getSentinels(), poolConfig, connectionTimeout, soTimeout, password, database, clientName );
+            return new JedisSentinelPool(masterName, getSentinels(), poolConfig, connectionTimeout, soTimeout, password, database, clientName );
     }
 
-
-
-    public static RediSearchConnector newRediSearchConnector(Pair<String, Integer> master, List<Pair<String, Integer>> sentinels, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
-        return new RediSearchConnector(master, sentinels, poolConfig, connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
+    public static RediSearchConnector newRediSearchConnector(List<Pair<String, Integer>> addresses, String masterName, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
+        return new RediSearchConnector(addresses, masterName, poolConfig, connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
     }
 
     private Set<String> getSentinels() {
-        return sentinels.stream().map(pair -> String.join(StringPool.COLON, pair.getKey(), pair.getValue().toString())).collect(Collectors.toSet());
+        return addresses.stream().map(pair -> String.join(StringPool.COLON, pair.getKey(), pair.getValue().toString())).collect(Collectors.toSet());
     }
 }

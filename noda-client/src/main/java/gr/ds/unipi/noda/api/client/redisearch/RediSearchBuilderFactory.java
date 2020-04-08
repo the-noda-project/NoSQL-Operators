@@ -16,4 +16,17 @@ public class RediSearchBuilderFactory {
     public RediSearchSys.Builder Builder(JedisPoolConfig poolConfig) {
         return new RediSearchSys.Builder(poolConfig);
     }
+
+    public RediSearchSysSentinels.Builder Builder(String masterName) {
+        return new RediSearchSysSentinels.Builder(masterName);
+    }
+
+    public RediSearchSysSentinels.Builder Builder(String masterName, int poolSize) {
+        return new RediSearchSysSentinels.Builder(masterName, poolSize);
+    }
+
+    public RediSearchSysSentinels.Builder Builder(String masterName, JedisPoolConfig poolConfig) {
+        return new RediSearchSysSentinels.Builder(masterName, poolConfig);
+    }
+
 }

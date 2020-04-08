@@ -28,12 +28,6 @@ public abstract class NoSqlConnectionFactory {
 
     public abstract void closeConnection(NoSqlDbConnector noSqlDbConnector);
 
-    public String getDefaultHost() {
-        return "localhost";
-    }
-
-    public abstract int getDefaultPort();
-
     public abstract boolean closeConnections();
 
     private void setBaseOperators() {

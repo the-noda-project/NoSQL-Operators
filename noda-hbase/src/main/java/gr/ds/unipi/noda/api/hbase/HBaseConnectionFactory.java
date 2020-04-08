@@ -34,12 +34,6 @@ public final class HBaseConnectionFactory extends NoSqlConnectionFactory {
     }
 
     @Override
-    public int getDefaultPort() {
-        return 0;
-    }
-
-
-    @Override
     public boolean closeConnections() {
         return HBaseConnectionManager.getInstance().closeConnections();
     }

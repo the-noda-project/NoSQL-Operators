@@ -34,11 +34,6 @@ public final class RedisConnectionFactory extends NoSqlConnectionFactory {
     }
 
     @Override
-    public int getDefaultPort() {
-        return 0;
-    }
-
-    @Override
     public boolean closeConnections() {
         return false;
     }

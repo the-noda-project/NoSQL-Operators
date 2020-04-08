@@ -75,15 +75,15 @@ public abstract class NoSqlDbSys {
 
        for(int i=0;i<builder.addresses.size();i++){
            if(builder.addresses.get(i).getKey()==null){
-               builder.addresses.set(i,new Pair<>(noSqlConnectionFactory.getDefaultHost(),builder.addresses.get(i).getValue()));
+               builder.addresses.set(i,new Pair<>(getDefaultHost(),builder.addresses.get(i).getValue()));
            }
            if(builder.addresses.get(i).getValue()==null){
-               builder.addresses.set(i,new Pair<>(builder.addresses.get(i).getKey(),noSqlConnectionFactory.getDefaultPort()));
+               builder.addresses.set(i,new Pair<>(builder.addresses.get(i).getKey(),getDefaultPort()));
            }
        }
 
        if(builder.addresses.size()==0){
-           builder.addresses.add(new Pair<>(noSqlConnectionFactory.getDefaultHost(),noSqlConnectionFactory.getDefaultPort()));
+           builder.addresses.add(new Pair<>(getDefaultHost(),getDefaultPort()));
        }
 
        addresses = Collections.unmodifiableList(builder.addresses.stream().distinct().collect(Collectors.toList()));//list is sorted
@@ -124,5 +124,11 @@ public abstract class NoSqlDbSys {
     public static RediSearchBuilderFactory RediSearch(){
         return new RediSearchBuilderFactory();
     }
+
+    public String getDefaultHost(){
+        return "localhost";
+    }
+
+    public abstract int getDefaultPort();
 
 }

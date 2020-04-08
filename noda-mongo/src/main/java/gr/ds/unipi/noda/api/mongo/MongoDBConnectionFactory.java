@@ -34,11 +34,6 @@ public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
     }
 
     @Override
-    public int getDefaultPort() {
-        return 27017;
-    }
-
-    @Override
     public boolean closeConnections() {
         return MongoDBConnectionManager.getInstance().closeConnections();
     }

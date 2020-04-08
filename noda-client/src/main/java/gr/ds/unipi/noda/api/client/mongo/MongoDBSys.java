@@ -16,6 +16,11 @@ public class MongoDBSys extends NoSqlDbSys {
         return connector;
     }
 
+    @Override
+    public int getDefaultPort() {
+        return 27017;
+    }
+
     public static class Builder extends NoSqlDbSys.Builder<Builder>{
 
         private final MongoCredential mongoCredential;
