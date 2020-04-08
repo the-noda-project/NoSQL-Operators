@@ -9,6 +9,9 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.util.Pool;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLParameters;
+import javax.net.ssl.SSLSocketFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,35 +27,82 @@ public class RediSearchSys extends NoSqlDbSys {
     }
 
     public static class Builder extends NoSqlDbSys.Builder<Builder> {
-        private Pool<Jedis> jedisPool;
-        private JedisPoolConfig poolConfig;
+        private final JedisPoolConfig poolConfig;
         private List<Pair<String, Integer>> sentinels = new ArrayList<>();
-        private int timeout;
+
+        private int connectionTimeout = 2000;
+        private int soTimeout = 2000;
+        private String password = null;
+        private int database = 0;
+        private String clientName = null;
+        private boolean ssl = false;
+        private SSLSocketFactory sslSocketFactory = null;
+        private SSLParameters sslParameters = null;
+        private HostnameVerifier hostnameVerifier = null;
+
         private int poolSize;
-        private String password;
-        private String masterName;
 
 
         public Builder() {
+            this.poolConfig = initPoolConfig(8);
         }
 
-        public Builder(Pool<Jedis> jedisPool) {
-            this.jedisPool = jedisPool;
+        public Builder(int poolSize) {
+            this.poolConfig = initPoolConfig(poolSize);
         }
 
         public Builder(JedisPoolConfig poolConfig) {
             this.poolConfig = poolConfig;
         }
 
-        public Builder options(int timeout, int poolSize, String password) {
-            this.timeout = timeout;
-            this.poolSize = poolSize;
+        public Builder timeout(int timeout){
+            this.connectionTimeout = timeout;
+            this.soTimeout = timeout;
+            return this;
+        }
+
+        public Builder connectionTimeout(int connectionTimeout){
+            this.connectionTimeout = connectionTimeout;
+            return this;
+        }
+
+        public Builder soTimeout(int soTimeout){
+            this.soTimeout = soTimeout;
+            return this;
+        }
+
+        public Builder password(String password){
             this.password = password;
             return this;
         }
 
-        public Builder masterName(String masterName) {
-            this.masterName = masterName;
+        public Builder database(int database){
+            this.database = database;
+            return this;
+        }
+
+        public Builder clientName(String clientName){
+            this.clientName = clientName;
+            return this;
+        }
+
+        public Builder ssl(boolean ssl){
+            this.ssl = ssl;
+            return this;
+        }
+
+        public Builder sslSocketFactory(SSLSocketFactory sslSocketFactory){
+            this.sslSocketFactory = sslSocketFactory;
+            return this;
+        }
+
+        public Builder sslParameters(SSLParameters sslParameters){
+            this.sslParameters = sslParameters;
+            return this;
+        }
+
+        public Builder hostnameVerifier(HostnameVerifier hostnameVerifier){
+            this.hostnameVerifier = hostnameVerifier;
             return this;
         }
 
@@ -113,7 +163,37 @@ public class RediSearchSys extends NoSqlDbSys {
         }
 
         List<Pair<String, Integer>> sentinels = Collections.unmodifiableList(builder.sentinels.stream().distinct().collect(Collectors.toList()));
-        connector = RediSearchConnector.newRediSearchConnector(getAddresses(), sentinels, builder.jedisPool, builder.poolConfig,
-                builder.timeout, builder.poolSize, builder.password, builder.masterName);
+
+        if(sentinels.isEmpty()){
+            builder.ssl = false;
+            builder.sslSocketFactory = null;
+            builder.sslParameters = null;
+            builder.hostnameVerifier = null;
+        }
+
+        if(getAddresses().size()>1){
+            try {
+                throw new Exception("Up to one master has been defined. One master should be defined");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        connector = RediSearchConnector.newRediSearchConnector(getAddresses().get(0), sentinels, builder.poolConfig, builder.connectionTimeout, builder.soTimeout,builder.password,builder.database,builder.clientName,builder.ssl,builder.sslSocketFactory,builder.sslParameters,builder.hostnameVerifier);
+    }
+
+    private static JedisPoolConfig initPoolConfig(int poolSize) {
+
+        JedisPoolConfig conf = new JedisPoolConfig();
+        conf.setMaxTotal(poolSize);
+        conf.setTestOnBorrow(false);
+        conf.setTestOnReturn(false);
+        conf.setTestOnCreate(false);
+        conf.setTestWhileIdle(false);
+        conf.setMinEvictableIdleTimeMillis(60000L);
+        conf.setTimeBetweenEvictionRunsMillis(30000L);
+        conf.setNumTestsPerEvictionRun(-1);
+        conf.setFairness(true);
+        return conf;
     }
 }

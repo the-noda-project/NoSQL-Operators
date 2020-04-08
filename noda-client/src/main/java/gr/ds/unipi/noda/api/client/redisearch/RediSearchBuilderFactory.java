@@ -9,8 +9,8 @@ public class RediSearchBuilderFactory {
         return new RediSearchSys.Builder();
     }
 
-    public RediSearchSys.Builder Builder(Pool<Jedis> jedisPool) {
-        return new RediSearchSys.Builder(jedisPool);
+    public RediSearchSys.Builder Builder(int poolSize) {
+        return new RediSearchSys.Builder(poolSize);
     }
 
     public RediSearchSys.Builder Builder(JedisPoolConfig poolConfig) {
