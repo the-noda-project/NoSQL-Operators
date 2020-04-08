@@ -96,11 +96,11 @@ public abstract class NoSqlDbSys {
     protected abstract NoSqlDbConnector getConnector();
 
     public NoSqlDbOperators operateOn(String s) {
-        return nsdb.noSqlDbOperators(this::getConnector, s, sparkSession);
+        return nsdb.noSqlDbOperators(getConnector(), s, sparkSession);
     }
 
     public void closeConnection() {
-        nsdb.closeConnection(this::getConnector);
+        nsdb.closeConnection(getConnector());
     }
 
     public static void closeConnections() {
