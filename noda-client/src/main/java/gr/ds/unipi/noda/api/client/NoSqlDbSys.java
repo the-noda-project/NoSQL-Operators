@@ -3,7 +3,7 @@ package gr.ds.unipi.noda.api.client;
 import gr.ds.unipi.noda.api.client.hbase.HBaseBuilderFactory;
 import gr.ds.unipi.noda.api.client.mongo.MongoDBBuilderFactory;
 import gr.ds.unipi.noda.api.client.neo4j.Neo4jBuilderFactory;
-import gr.ds.unipi.noda.api.client.redisearch.RediSearchBuilderFactory;
+//import gr.ds.unipi.noda.api.client.redisearch.RediSearchBuilderFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
@@ -96,11 +96,11 @@ public abstract class NoSqlDbSys {
     protected abstract NoSqlDbConnector getConnector();
 
     public NoSqlDbOperators operateOn(String s) {
-        return nsdb.noSqlDbOperators(this::getConnector, s, sparkSession);
+        return nsdb.noSqlDbOperators(getConnector(), s, sparkSession);
     }
 
     public void closeConnection() {
-        nsdb.closeConnection(this::getConnector);
+        nsdb.closeConnection(getConnector());
     }
 
     public static void closeConnections() {
@@ -121,9 +121,9 @@ public abstract class NoSqlDbSys {
         return new HBaseBuilderFactory();
     }
 
-    public static RediSearchBuilderFactory RediSearch(){
-        return new RediSearchBuilderFactory();
-    }
+//    public static RediSearchBuilderFactory RediSearch(){
+//        return new RediSearchBuilderFactory();
+//    }
 
     public String getDefaultHost(){
         return "localhost";

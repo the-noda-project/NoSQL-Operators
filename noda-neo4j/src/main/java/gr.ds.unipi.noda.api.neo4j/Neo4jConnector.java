@@ -1,63 +1,88 @@
 package gr.ds.unipi.noda.api.neo4j;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
-import org.neo4j.driver.AuthTokens;
-import org.neo4j.driver.Driver;
-import org.neo4j.driver.GraphDatabase;
+import javafx.util.Pair;
+import org.neo4j.driver.*;
+import org.neo4j.driver.net.ServerAddress;
 
+import java.sql.Array;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
 public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
 
-    private final String host;
-    private final int port;
-    private final String username;
-    private final String password;
-    private final String database;
+    private final List<Pair<String,Integer>> addresses;
+    private final AuthToken authToken;
+    private final Config config;
+    private String typeOfConnection;
+
+
+    private Neo4jConnector(List<Pair<String,Integer>> addresses, AuthToken authToken, Config config) {
+        System.out.println("eimai edw???");
+        this.addresses = addresses;
+        this.authToken = authToken;
+        this.config = config;
+        System.out.println(addresses.get(0).getValue());
+        System.out.println(authToken);
+    }
+
+    @Override
+    public Driver createConnection() {
+        System.out.println("eimai edw 2");
+        //typeOfConnection => neo4j means server connection
+        //typeOfConnection => bolt means localhost
+        StringBuilder sb = new StringBuilder();
+        typeOfConnection = "neo4j";
+        String firstHost = addresses.get(0).getKey();
+        String firstPort = addresses.get(0).getValue().toString();
+
+        System.out.println("eimai edw 3");
+
+        for (Pair<String, Integer> address : addresses) {
+            if (address.getKey().equals("localhost") || address.getKey().equals("127.0.0.1")) {
+                typeOfConnection = "bolt";
+                break;
+            }
+        }
+
+        List<ServerAddress> serverAddresses = null;
+
+        for (Pair<String, Integer> address : addresses) {
+//            sb.append(ServerAddress.of(address.getKey(), address.getValue() ));
+//            sb.append(address.getKey()).append(":").append(address.getValue()).append(",");
+            if(address.getKey() != addresses.get(0).getKey() && address.getValue() != addresses.get(0).getValue()) {
+                serverAddresses.add(ServerAddress.of(address.getKey(), address.getValue()));
+            }
+        }
+
+//        Config config = Config.builder().withResolver( address -> new HashSet( Arrays.asList( addresses ) ) ).build();
+
+//        config.builder().withResolver( address -> new HashSet( Arrays.asList( addresses ) ) ).build();
+
+        System.out.println(typeOfConnection + "://" + firstHost + ":" + firstPort);
+
+
+        return GraphDatabase.driver(typeOfConnection + "://" + firstHost + ":" + firstPort, authToken, config);
+    }
+
+    public static Neo4jConnector newNeo4jConnector(List<Pair<String,Integer>> addresses, AuthToken authToken, Config config) {
+        return new Neo4jConnector(addresses, authToken, config);
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Neo4jConnector that = (Neo4jConnector) o;
-        return getPort() == that.getPort() &&
-                Objects.equals(getHost(), that.getHost()) &&
-                Objects.equals(username, that.username) &&
-                Objects.equals(password, that.password) &&
-                Objects.equals(getDatabase(), that.getDatabase());
+        return addresses.equals(that.addresses) &&
+                authToken.equals(that.authToken) &&
+                config.equals(that.config);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getHost(), getPort(), username, password, getDatabase());
-    }
-
-    private Neo4jConnector(String host, int port, String username, String password, String database) {
-        this.host = host;
-        this.port = port;
-        this.username = username;
-        this.password = password;
-        this.database = database;
-    }
-
-    @Override
-    public Driver createConnection() {
-        return GraphDatabase.driver("bolt://"+host+":"+port, AuthTokens.basic(username,password));
-    }
-
-    public static Neo4jConnector newNeo4jConnector(String host, int port, String username, String password, String database) {
-        return new Neo4jConnector(host, port, username, password, database);
-    }
-
-    public String getDatabase() {
-        return database;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public int getPort() {
-        return port;
+        return Objects.hash(addresses, authToken, config);
     }
 }

@@ -142,30 +142,39 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
         System.out.println(sb);
 
-        try(Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session()) {
+
+        if(getNoSqlDbConnector() instanceof Neo4jConnector){
+            System.out.println("true");
+        }
+        else{
+            System.out.println("false");
+        }
+
+        try {
+
+            Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session();
 
             Result result = session.run(sb.toString());
 
 //            System.out.println("edw" +result);
 
-            List<Object> nodeList=  new ArrayList<>();
+            List<Object> nodeList = new ArrayList<>();
 
 
-            while (result.hasNext())
-            {
+            while (result.hasNext()) {
                 Record record = result.next();
                 nodeList.add(record.fields());
 //                nodeList.add(record.fields().get(0).value().asMap());
             }
-
+            session.close();
             System.out.println("Results: ");
 
             nodeList.forEach((key) -> System.out.println(key));
 
             System.out.println("Number of results: " + nodeList.size());
 
-        }
 
+        }finally {}
 
     }
 
