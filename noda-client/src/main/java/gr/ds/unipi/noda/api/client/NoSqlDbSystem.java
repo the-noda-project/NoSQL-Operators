@@ -1,131 +1,106 @@
 package gr.ds.unipi.noda.api.client;
 
-import com.mongodb.MongoClient;
+import gr.ds.unipi.noda.api.client.hbase.HBaseBuilderFactory;
+import gr.ds.unipi.noda.api.client.mongo.MongoDBBuilderFactory;
+import gr.ds.unipi.noda.api.client.neo4j.Neo4jBuilderFactory;
+import gr.ds.unipi.noda.api.client.redisearch.RediSearchBuilderFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import javafx.util.Pair;
 import org.apache.spark.sql.SparkSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public final class NoSqlDbSystem {
+public abstract class NoSqlDbSystem {
 
-    private static final Logger logger = LoggerFactory.getLogger(NoSqlDbSystem.class);
-
-    public static class Builder {
-
-        private final NoSqlConnectionFactory nsdb;
-
-        private String host;
-        private int port;
-        private String database; // the name of the database in which the user is defined
-        private String username; // the user name
-        private String password; // the password as a character array
-        private SparkSession sparkSession;
-
-        public Builder(NoSqlConnectionFactory nsdb) {
-
-            this.nsdb = nsdb;
-            this.host = nsdb.getDefaultHost();
-            this.port = nsdb.getDefaultPort();
-            this.database = nsdb.getDefaultDatabase();
-            this.username = nsdb.getDefaultUsername();
-            this.password = nsdb.getDefaultPassword();
-            this.sparkSession = null;
-        }
-
-        public Builder host(String host) {
-            this.host = host;
-            return this;
-        }
-
-        public Builder port(int port) {
-            this.port = port;
-            return this;
-        }
-
-        public Builder database(String database) {
-            this.database = database;
-            return this;
-        }
-
-        public Builder username(String username) {
-            this.username = username;
-            return this;
-        }
-
-        public Builder password(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public Builder sparkSession(SparkSession sparkSession) {
-            this.sparkSession = sparkSession;
-            return this;
-        }
-
-        public NoSqlDbSystem build() {
-
-            return new NoSqlDbSystem(nsdb, nsdb.createNoSqlDbConnector(host, port, username, password, database), sparkSession);
-        }
-    }
-
-    private final NoSqlConnectionFactory nsdb;
-    private final NoSqlDbConnector connector;
+    private final List<Pair<String,Integer>> addresses;
     private final SparkSession sparkSession;
+    private final NoSqlConnectionFactory nsdb;
 
-    private NoSqlDbSystem(NoSqlConnectionFactory nsdb, NoSqlDbConnector connector, SparkSession sparkSession) {
-        this.nsdb = nsdb;
-        this.connector = connector;
-        this.sparkSession = sparkSession;
+    protected abstract static class Builder<T extends Builder<T>>{
 
-    }
+        List<Pair<String,Integer>> addresses = new ArrayList<>();
+        SparkSession sparkSession = null;
 
-    public static Builder MongoDB(MongoClient mc) {
-        NoSqlConnectionFactory noSqlConnectionFactory = null;
-        try {
-            Class<?> mongoClass = Class.forName("gr.ds.unipi.noda.api.mongo.MongoDBConnectionFactory");
-            noSqlConnectionFactory = (NoSqlConnectionFactory) mongoClass.newInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            logger.error("noda-mongo dependency is missing from the classpath. \n {}", e.toString());
+        public T host(String host){
+
+            int i = 0;
+            while(i<addresses.size()){
+                if(addresses.get(i).getKey() == null){
+                    addresses.set(i,new Pair<>(host, addresses.get(i).getValue()));
+                    break;
+                }
+                i++;
+            }
+            if(i == addresses.size()){
+                addresses.add(new Pair<>(host,null));
+            }
+
+            return self();
         }
 
-        return new NoSqlDbSystem.Builder(noSqlConnectionFactory);
-    }
+        public T port(int port){
 
-    public static Builder RediSearch() {
-        NoSqlConnectionFactory noSqlConnectionFactory = null;
-        try {
-            Class<?> rediSearchClass = Class.forName("gr.ds.unipi.noda.api.redisearch.RediSearchConnectionFactory");
-            noSqlConnectionFactory = (NoSqlConnectionFactory) rediSearchClass.newInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            logger.error("noda-redisearch dependency is missing from the classpath. \n {}", e.toString());
+            int i = 0;
+            while(i<addresses.size()){
+                if(addresses.get(i).getValue() == null){
+                    addresses.set(i,new Pair<>(addresses.get(i).getKey(), port));
+                    break;
+                }
+                i++;
+            }
+            if(i == addresses.size()){
+                addresses.add(new Pair<>(null,port));
+            }
+            return self();
         }
 
-        return new NoSqlDbSystem.Builder(noSqlConnectionFactory);
-    }
-
-    public static Builder Neo4j() {
-        NoSqlConnectionFactory noSqlConnectionFactory = null;
-        try {
-            Class<?> redisClass = Class.forName("gr.ds.unipi.noda.api.neo4j.Neo4jConnectionFactory");
-            noSqlConnectionFactory = (NoSqlConnectionFactory) redisClass.newInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            logger.error("noda-neo4j dependency is missing from the classpath. \n {}", e.toString());
+        public T sparkSession(SparkSession sparkSession){
+            this.sparkSession = sparkSession;
+            return self();
         }
 
-        return new NoSqlDbSystem.Builder(noSqlConnectionFactory);
+        protected abstract NoSqlDbSystem build();
+
+        protected abstract T self();
+    }
+
+    protected NoSqlDbSystem(Builder<?> builder, NoSqlConnectionFactory noSqlConnectionFactory){
+       sparkSession = builder.sparkSession;
+       nsdb = noSqlConnectionFactory;
+
+       for(int i=0;i<builder.addresses.size();i++){
+           if(builder.addresses.get(i).getKey()==null){
+               builder.addresses.set(i,new Pair<>(getDefaultHost(),builder.addresses.get(i).getValue()));
+           }
+           if(builder.addresses.get(i).getValue()==null){
+               builder.addresses.set(i,new Pair<>(builder.addresses.get(i).getKey(),getDefaultPort()));
+           }
+       }
+
+       if(builder.addresses.size()==0){
+           builder.addresses.add(new Pair<>(getDefaultHost(),getDefaultPort()));
+       }
+
+       addresses = Collections.unmodifiableList(builder.addresses.stream().distinct().collect(Collectors.toList()));//list is sorted
+    }
+
+    protected List<Pair<String, Integer>> getAddresses(){
+        return addresses;
+    }
+
+    protected abstract NoSqlDbConnector getConnector();
+
+    public NoSqlDbOperators operateOn(String s) {
+        return nsdb.noSqlDbOperators(getConnector(), s, sparkSession);
     }
 
     public void closeConnection() {
-        nsdb.closeConnection(connector);
-    }
-
-    public NoSqlDbOperators operateOn(String s) {
-        return nsdb.noSqlDbOperators(connector, s, sparkSession);
+        nsdb.closeConnection(getConnector());
     }
 
     public static void closeConnections() {
@@ -134,11 +109,26 @@ public final class NoSqlDbSystem {
 
     private static final List<NoSqlConnectionFactory> toBeCleaned = new ArrayList<>();
 
-    public static void initialize() {
-        System.setProperty("spark.mongodb.input.uri", "mongodb://localhost:27017/");
-        System.setProperty("spark.mongodb.input.database", "database");
-        System.setProperty("spark.mongodb.input.collection", "collection");
-        System.setProperty("spark.mongodb.input.partitioner", "MongoSinglePartitioner");
+    public static MongoDBBuilderFactory MongoDB(){
+        return new MongoDBBuilderFactory();
     }
+
+    public static Neo4jBuilderFactory Neo4j(){
+        return new Neo4jBuilderFactory();
+    }
+
+    public static HBaseBuilderFactory HBase(){
+        return new HBaseBuilderFactory();
+    }
+
+    public static RediSearchBuilderFactory RediSearch(){
+        return new RediSearchBuilderFactory();
+    }
+
+    public String getDefaultHost(){
+        return "localhost";
+    }
+
+    public abstract int getDefaultPort();
 
 }

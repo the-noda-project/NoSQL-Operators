@@ -5,12 +5,11 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.eq;
-import static org.junit.Assert.*;
 
-public class NoSqlDbSysTest {
+public class NoSqlDbSystemTest {
 
 //    public void neo4j(){
-//        NoSqlDbSys noSqlDbSys =  NoSqlDbSys.Neo4j().Builder("neo4j","nikos","graph").host("127.0.0.1").port(7687).build();
+//        NoSqlDbSystem noSqlDbSys =  NoSqlDbSystem.Neo4j().Builder("neo4j","nikos","graph").host("127.0.0.1").port(7687).build();
 //        //noSqlDbSys.operateOn("Ship").filter(or(eq("LAT",-38.31416), eq("LON",145.004403333), gt("SPEED", 20))).filter(eq("LAT",-38.31416)).sort(desc("COURSE")).sort(asc("LON")).printScreen();
 //        noSqlDbSys.operateOn("Ship").filter(eq("LAT",-38.31416)).printScreen();
 //        noSqlDbSys.closeConnection();
@@ -18,9 +17,9 @@ public class NoSqlDbSysTest {
 
     @Test
     public void neo4jTest() {
-        NoSqlDbSys noSqlDbSys = NoSqlDbSys.Neo4j().Builder("neo4j", "nikos", "graph").host("127.0.0.1").port(7687).build();
-        noSqlDbSys.operateOn("Ship").filter(eq("LAT", -38.31416)).printScreen();
-        noSqlDbSys.closeConnection();
+        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos", "graph").host("127.0.0.1").port(7687).build();
+        noSqlDbSystem.operateOn("Ship").filter(eq("LAT", -38.31416)).printScreen();
+        noSqlDbSystem.closeConnection();
     }
 
 

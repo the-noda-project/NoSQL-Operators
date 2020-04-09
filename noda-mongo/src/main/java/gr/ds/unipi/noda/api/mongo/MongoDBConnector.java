@@ -7,7 +7,7 @@ import com.mongodb.ServerAddress;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import javafx.util.Pair;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
@@ -28,12 +28,12 @@ public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
 
     @Override
     public int hashCode() {
-        int hashCode;
+        int hashCode = 0;
         for(Pair<String,Integer> e : addresses){
-            hashCode = 31*hashCode()+(e==null ?0:e.hashCode());
+            hashCode = 31*hashCode+(e==null ?0:e.hashCode());
         }
-        hashCode = 31*hashCode()+ mongoCredential.hashCode();
-        hashCode = 31*hashCode()+mongoClientOptions.hashCode();
+        hashCode = 31*hashCode+ mongoCredential.hashCode();
+        hashCode = 31*hashCode+mongoClientOptions.hashCode();
 
         return hashCode;
     }
@@ -50,7 +50,7 @@ public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
             return new MongoClient(new ServerAddress(addresses.get(0).getKey(), addresses.get(0).getValue()), mongoCredential, mongoClientOptions);
         }
         else{
-            List servers = Arrays.asList();
+            List<ServerAddress> servers = new ArrayList<>();
             for(Pair<String,Integer> pair : addresses){
                 servers.add(new ServerAddress(pair.getKey(),pair.getValue()));
             }

@@ -31,11 +31,6 @@ public final class Neo4jConnectionFactory extends NoSqlConnectionFactory {
     }
 
     @Override
-    public int getDefaultPort() {
-        return 7687;
-    }
-
-    @Override
     public boolean closeConnections() {
         return Neo4jConnectionManager.getInstance().closeConnections();
     }

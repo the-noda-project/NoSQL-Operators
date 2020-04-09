@@ -36,11 +36,6 @@ public final class YYYDataBaseConnectionFactory extends NoSqlConnectionFactory {
     }
 
     @Override
-    public int getDefaultPort() {
-        return 0;
-    }
-
-    @Override
     public boolean closeConnections() {
         return false;
     }

@@ -2,12 +2,12 @@ package gr.ds.unipi.noda.api.client.mongo;
 
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
-import gr.ds.unipi.noda.api.client.NoSqlDbSys;
+import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.mongo.MongoDBConnectionFactory;
 import gr.ds.unipi.noda.api.mongo.MongoDBConnector;
 
-public class MongoDBSys extends NoSqlDbSys {
+public class MongoDBSystem extends NoSqlDbSystem {
 
     private final MongoDBConnector connector;
 
@@ -16,7 +16,12 @@ public class MongoDBSys extends NoSqlDbSys {
         return connector;
     }
 
-    public static class Builder extends NoSqlDbSys.Builder<Builder>{
+    @Override
+    public int getDefaultPort() {
+        return 27017;
+    }
+
+    public static class Builder extends NoSqlDbSystem.Builder<Builder>{
 
         private final MongoCredential mongoCredential;
         private MongoClientOptions mongoClientOptions = MongoClientOptions.builder().build();
@@ -35,8 +40,8 @@ public class MongoDBSys extends NoSqlDbSys {
         }
 
         @Override
-        public NoSqlDbSys build() {
-            return new MongoDBSys(this);
+        public NoSqlDbSystem build() {
+            return new MongoDBSystem(this);
         }
 
         @Override
@@ -45,7 +50,7 @@ public class MongoDBSys extends NoSqlDbSys {
         }
     }
 
-    private MongoDBSys(Builder builder) {
+    private MongoDBSystem(Builder builder) {
         super(builder, new MongoDBConnectionFactory());
         connector = MongoDBConnector.newMongoDBConnector(getAddresses(), builder.mongoCredential, builder.mongoClientOptions);
     }

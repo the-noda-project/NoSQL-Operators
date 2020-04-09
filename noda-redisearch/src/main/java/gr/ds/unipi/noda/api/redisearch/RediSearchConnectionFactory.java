@@ -33,11 +33,6 @@ public final class RediSearchConnectionFactory extends NoSqlConnectionFactory {
     }
 
     @Override
-    public int getDefaultPort() {
-        return 6379;
-    }
-
-    @Override
     public boolean closeConnections() {
         return RediSearchConnectionManager.getInstance().closeConnections();
     }

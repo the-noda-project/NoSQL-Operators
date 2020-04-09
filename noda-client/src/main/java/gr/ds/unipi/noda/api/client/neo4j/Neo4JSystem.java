@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.client.neo4j;
 
-import gr.ds.unipi.noda.api.client.NoSqlDbSys;
+import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.neo4j.Neo4jConnectionFactory;
 import gr.ds.unipi.noda.api.neo4j.Neo4jConnector;
@@ -8,7 +8,7 @@ import org.neo4j.driver.AuthToken;
 import org.neo4j.driver.AuthTokens;
 import org.neo4j.driver.Config;
 
-public class Neo4jSys extends NoSqlDbSys{
+public class Neo4JSystem extends NoSqlDbSystem {
 
     private final Neo4jConnector connector;
 
@@ -17,15 +17,20 @@ public class Neo4jSys extends NoSqlDbSys{
         return connector;
     }
 
-    public static class Builder extends NoSqlDbSys.Builder<Builder>{
+    @Override
+    public int getDefaultPort() {
+        return 7687;
+    }
+
+    public static class Builder extends NoSqlDbSystem.Builder<Builder>{
 
         private final AuthToken authToken;
 
         private Config config = Config.defaultConfig();
 
         @Override
-        public NoSqlDbSys build() {
-            return new Neo4jSys(this);
+        public NoSqlDbSystem build() {
+            return new Neo4JSystem(this);
         }
 
         @Override
@@ -48,7 +53,7 @@ public class Neo4jSys extends NoSqlDbSys{
 
     }
 
-    private Neo4jSys(Builder builder) {
+    private Neo4JSystem(Builder builder) {
         super(builder, new Neo4jConnectionFactory());
         connector = Neo4jConnector.newNeo4jConnector(getAddresses(),builder.authToken,builder.config);
     }
