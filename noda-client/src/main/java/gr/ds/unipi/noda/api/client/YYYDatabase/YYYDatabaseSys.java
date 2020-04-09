@@ -12,6 +12,11 @@ public class YYYDatabaseSys extends NoSqlDbSys{
         return connector;
     }
 
+    @Override
+    public int getDefaultPort() {
+        return 0;
+    }
+
     public static class Builder extends NoSqlDbSys.Builder<Builder>{
 
         @Override
