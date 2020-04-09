@@ -1,9 +1,9 @@
 package gr.ds.unipi.noda.api.client.YYYDatabase;
 
-import gr.ds.unipi.noda.api.client.NoSqlDbSys;
+import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 
-public class YYYDatabaseSys extends NoSqlDbSys{
+public class YYYDatabaseSystem extends NoSqlDbSystem {
 
     private final NoSqlDbConnector connector;
 
@@ -17,11 +17,11 @@ public class YYYDatabaseSys extends NoSqlDbSys{
         return 0;
     }
 
-    public static class Builder extends NoSqlDbSys.Builder<Builder>{
+    public static class Builder extends NoSqlDbSystem.Builder<Builder>{
 
         @Override
-        public NoSqlDbSys build() {
-            return new YYYDatabaseSys(this);
+        public NoSqlDbSystem build() {
+            return new YYYDatabaseSystem(this);
         }
 
         @Override
@@ -30,7 +30,7 @@ public class YYYDatabaseSys extends NoSqlDbSys{
         }
     }
 
-    private YYYDatabaseSys(Builder builder) {
+    private YYYDatabaseSystem(Builder builder) {
         super(builder, null);
         connector = null;
     }

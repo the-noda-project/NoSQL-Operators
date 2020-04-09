@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.client.hbase;
 
-import gr.ds.unipi.noda.api.client.NoSqlDbSys;
+import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.hbase.HBaseConnectionFactory;
 import gr.ds.unipi.noda.api.hbase.HBaseConnector;
@@ -8,7 +8,7 @@ import javafx.util.Pair;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 
-public class HBaseSys extends NoSqlDbSys {
+public class HBaseSystem extends NoSqlDbSystem {
 
     private final HBaseConnector connector;
 
@@ -22,7 +22,7 @@ public class HBaseSys extends NoSqlDbSys {
         return 8020;
     }
 
-    public static class Builder extends NoSqlDbSys.Builder<Builder>{
+    public static class Builder extends NoSqlDbSystem.Builder<Builder>{
 
         private Configuration config = HBaseConfiguration.create();
 
@@ -41,8 +41,8 @@ public class HBaseSys extends NoSqlDbSys {
         }
 
         @Override
-        public NoSqlDbSys build() {
-            return new HBaseSys(this);
+        public NoSqlDbSystem build() {
+            return new HBaseSystem(this);
         }
 
         @Override
@@ -51,7 +51,7 @@ public class HBaseSys extends NoSqlDbSys {
         }
     }
 
-    private HBaseSys(Builder builder) {
+    private HBaseSystem(Builder builder) {
         super(builder, new HBaseConnectionFactory());
 
         StringBuilder sb = new StringBuilder();

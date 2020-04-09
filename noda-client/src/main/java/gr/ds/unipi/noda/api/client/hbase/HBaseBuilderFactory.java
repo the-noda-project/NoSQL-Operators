@@ -2,8 +2,8 @@ package gr.ds.unipi.noda.api.client.hbase;
 
 public class HBaseBuilderFactory {
 
-    public HBaseSys.Builder Builder(){
-        return new HBaseSys.Builder();
+    public HBaseSystem.Builder Builder(){
+        return new HBaseSystem.Builder();
     }
 
 }

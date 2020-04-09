@@ -1,21 +1,12 @@
 package gr.ds.unipi.noda.api.client.redisearch;
 
-import gr.ds.unipi.noda.api.client.NoSqlDbSys;
+import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.redisearch.RediSearchConnectionFactory;
 import gr.ds.unipi.noda.api.redisearch.RediSearchConnector;
-import javafx.util.Pair;
 import redis.clients.jedis.JedisPoolConfig;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLParameters;
-import javax.net.ssl.SSLSocketFactory;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
-public class RediSearchSysSentinels extends NoSqlDbSys {
+public class RediSearchSystemSentinels extends NoSqlDbSystem {
 
     private final RediSearchConnector connector;
 
@@ -29,7 +20,7 @@ public class RediSearchSysSentinels extends NoSqlDbSys {
         return 26379;
     }
 
-    public static class Builder extends NoSqlDbSys.Builder<Builder> {
+    public static class Builder extends NoSqlDbSystem.Builder<Builder> {
         private final JedisPoolConfig poolConfig;
         private final String masterName;
 
@@ -44,12 +35,12 @@ public class RediSearchSysSentinels extends NoSqlDbSys {
 
         public Builder(String masterName) {
             this.masterName = masterName;
-            this.poolConfig = RediSearchSys.initPoolConfig(8);
+            this.poolConfig = RediSearchSystem.initPoolConfig(8);
         }
 
         public Builder(String masterName, int poolSize) {
             this.masterName = masterName;
-            this.poolConfig = RediSearchSys.initPoolConfig(poolSize);
+            this.poolConfig = RediSearchSystem.initPoolConfig(poolSize);
         }
 
         public Builder(String masterName, JedisPoolConfig poolConfig) {
@@ -89,8 +80,8 @@ public class RediSearchSysSentinels extends NoSqlDbSys {
         }
 
         @Override
-        public NoSqlDbSys build() {
-            return new RediSearchSysSentinels(this);
+        public NoSqlDbSystem build() {
+            return new RediSearchSystemSentinels(this);
         }
 
         @Override
@@ -99,7 +90,7 @@ public class RediSearchSysSentinels extends NoSqlDbSys {
         }
     }
 
-    private RediSearchSysSentinels(Builder builder) {
+    private RediSearchSystemSentinels(Builder builder) {
         super(builder, new RediSearchConnectionFactory());
         connector = RediSearchConnector.newRediSearchConnector(getAddresses(), builder.masterName, builder.poolConfig, builder.connectionTimeout, builder.soTimeout,builder.password,builder.database,builder.clientName,false,null,null,null);
     }

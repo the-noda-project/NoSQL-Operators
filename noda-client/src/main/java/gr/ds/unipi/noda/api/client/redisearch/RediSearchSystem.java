@@ -1,23 +1,16 @@
 package gr.ds.unipi.noda.api.client.redisearch;
 
-import gr.ds.unipi.noda.api.client.NoSqlDbSys;
+import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.redisearch.RediSearchConnectionFactory;
 import gr.ds.unipi.noda.api.redisearch.RediSearchConnector;
-import javafx.util.Pair;
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.util.Pool;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocketFactory;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
-public class RediSearchSys extends NoSqlDbSys {
+public class RediSearchSystem extends NoSqlDbSystem {
 
     private final RediSearchConnector connector;
 
@@ -31,7 +24,7 @@ public class RediSearchSys extends NoSqlDbSys {
         return 6379;
     }
 
-    public static class Builder extends NoSqlDbSys.Builder<Builder> {
+    public static class Builder extends NoSqlDbSystem.Builder<Builder> {
         private final JedisPoolConfig poolConfig;
 
         private int connectionTimeout = 2000;
@@ -111,8 +104,8 @@ public class RediSearchSys extends NoSqlDbSys {
         }
 
         @Override
-        public NoSqlDbSys build() {
-            return new RediSearchSys(this);
+        public NoSqlDbSystem build() {
+            return new RediSearchSystem(this);
         }
 
         @Override
@@ -121,7 +114,7 @@ public class RediSearchSys extends NoSqlDbSys {
         }
     }
 
-    private RediSearchSys(Builder builder) {
+    private RediSearchSystem(Builder builder) {
         super(builder, new RediSearchConnectionFactory());
 
         if(getAddresses().size()>1){

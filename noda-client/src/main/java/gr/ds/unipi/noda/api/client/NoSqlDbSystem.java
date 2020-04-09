@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class NoSqlDbSys {
+public abstract class NoSqlDbSystem {
 
     private final List<Pair<String,Integer>> addresses;
     private final SparkSession sparkSession;
@@ -64,12 +64,12 @@ public abstract class NoSqlDbSys {
             return self();
         }
 
-        protected abstract NoSqlDbSys build();
+        protected abstract NoSqlDbSystem build();
 
         protected abstract T self();
     }
 
-    protected NoSqlDbSys(Builder<?> builder, NoSqlConnectionFactory noSqlConnectionFactory){
+    protected NoSqlDbSystem(Builder<?> builder, NoSqlConnectionFactory noSqlConnectionFactory){
        sparkSession = builder.sparkSession;
        nsdb = noSqlConnectionFactory;
 
