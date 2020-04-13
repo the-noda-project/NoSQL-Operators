@@ -1,33 +1,31 @@
 package gr.ds.unipi.noda.api.redisearch.filterOperators.textualOperators;
 
-import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.redisearch.filterOperators.RediSearchPostFilterOperator;
+import io.redisearch.querybuilder.Node;
+import io.redisearch.querybuilder.QueryBuilder;
 
-abstract class TextualOperator extends gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator<StringBuilder> implements RediSearchPostFilterOperator {
+abstract class TextualOperator extends gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator<Node> implements RediSearchPostFilterOperator {
     private final boolean isNotEqual;
     TextualOperator(String fieldName, String[] elements) {
         super(fieldName, elements);
         this.isNotEqual = false;
     }
 
-    protected abstract String getOperatorField();
+    protected abstract Node getOperatorField();
 
     protected abstract StringBuilder getPostOperatorField();
 
     @Override
-    public StringBuilder getPostOperatorExpression() {
-        StringBuilder sb = new StringBuilder();
+    public Node getOperatorExpression() {
         if (isNotEqual) {
-            sb.append(StringPool.DASH).append(StringPool.AT);
+            return QueryBuilder.disjunct(getOperatorField());
         } else {
-            sb.append(StringPool.AT);
+            return getOperatorField();
         }
-        sb.append(getFieldName()).append(StringPool.COLON).append(getOperatorField());
-        return sb;
     }
 
     @Override
-    public StringBuilder getOperatorExpression() {
+    public StringBuilder getPostOperatorExpression() {
         StringBuilder sb = getPostOperatorField();
         return sb.delete(sb.length() - 2, sb.length());
     }

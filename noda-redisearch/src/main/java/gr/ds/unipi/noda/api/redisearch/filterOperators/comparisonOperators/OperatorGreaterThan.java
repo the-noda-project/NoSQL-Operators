@@ -1,6 +1,8 @@
 package gr.ds.unipi.noda.api.redisearch.filterOperators.comparisonOperators;
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
+import io.redisearch.querybuilder.Value;
+import io.redisearch.querybuilder.Values;
 
 /**
  * @author adimo on 7/10/2019
@@ -11,8 +13,8 @@ final class OperatorGreaterThan<T> extends ComparisonOperator<T> {
     }
 
     @Override
-    protected String getOperatorField() {
-        return StringPool.OPEN_BRACKET + StringPool.OPEN_PARENTHESIS + getFieldValue() + StringPool.SPACE + "+inf" + StringPool.CLOSE_BRACKET;
+    protected Value getOperatorField() {
+        return Values.gt((double)getFieldValue());
     }
 
     @Override

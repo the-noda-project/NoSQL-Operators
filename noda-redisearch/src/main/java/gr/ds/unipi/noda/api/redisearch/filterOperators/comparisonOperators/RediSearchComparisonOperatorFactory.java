@@ -136,7 +136,7 @@ public final class RediSearchComparisonOperatorFactory extends BaseComparisonOpe
 
     @Override
     public ComparisonOperator newOperatorEq(String fieldName, boolean fieldValue) {
-        throw new UnsupportedOperationException("RediSearch boolean filtering is not supported");
+        return OperatorEqual.newOperatorEqual(fieldName, fieldValue);
     }
 
     @Override
@@ -176,7 +176,7 @@ public final class RediSearchComparisonOperatorFactory extends BaseComparisonOpe
 
     @Override
     public ComparisonOperator newOperatorNe(String fieldName, boolean fieldValue) {
-        throw new UnsupportedOperationException("RediSearch boolean filtering is not supported");
+        return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package gr.ds.unipi.noda.api.redisearch.filterOperators.comparisonOperators;
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
+import io.redisearch.querybuilder.Value;
+import io.redisearch.querybuilder.Values;
 
 /**
  * @author adimo on 7/10/2019
@@ -11,8 +13,8 @@ final class OperatorLessThan<T> extends ComparisonOperator<T> {
     }
 
     @Override
-    protected String getOperatorField() {
-        return StringPool.OPEN_BRACKET + "-inf" + StringPool.SPACE + StringPool.OPEN_PARENTHESIS + getFieldValue() + StringPool.CLOSE_BRACKET;
+    protected Value getOperatorField() {
+        return Values.lt((double)getFieldValue());
     }
 
     @Override
