@@ -15,4 +15,8 @@ public class Point extends Geometry {
     public Coordinates getPoint(){
         return getCoordinatesArray()[0];
     }
+
+    public Rectangle getMbr(){
+        return Rectangle.newRectangle(this.getPoint(),this.getPoint());
+    }
 }

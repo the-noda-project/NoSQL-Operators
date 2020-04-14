@@ -41,5 +41,44 @@ public class Polygon extends Geometry {
         }
     }
 
+    public boolean contains(Point point) {
+        int i;
+        int j;
+        boolean result = false;
+        for (i = 0, j = getCoordinatesArray().length - 1; i < getCoordinatesArray().length; j = i++) {
+            if ((getCoordinatesArray()[i].getLatitude() > point.getPoint().getLatitude()) != (getCoordinatesArray()[j].getLatitude() > point.getPoint().getLatitude()) &&
+                    (point.getPoint().getLongitude() < (getCoordinatesArray()[j].getLongitude() - getCoordinatesArray()[i].getLongitude()) * (point.getPoint().getLatitude() - getCoordinatesArray()[i].getLatitude()) / (getCoordinatesArray()[j].getLatitude()-getCoordinatesArray()[i].getLatitude()) + getCoordinatesArray()[i].getLongitude())) {
+                result = !result;
+            }
+        }
+        return result;
+    }
+
+    public Rectangle getMbr(){
+
+        double minLon = Integer.MAX_VALUE;
+        double minLat = Integer.MAX_VALUE;
+        double maxLon = Integer.MIN_VALUE;
+        double maxLat = Integer.MIN_VALUE;
+
+        for(int i=0;i<getCoordinatesArray().length;i++){
+
+            if(Double.compare(getCoordinatesArray()[i].getLongitude(), minLon) == -1){
+                minLon = getCoordinatesArray()[i].getLongitude();
+            }
+            if(Double.compare(getCoordinatesArray()[i].getLatitude(), minLat) == -1){
+                minLat = getCoordinatesArray()[i].getLatitude();
+            }
+            if(Double.compare(getCoordinatesArray()[i].getLongitude(), maxLon) == 1){
+                maxLon = getCoordinatesArray()[i].getLongitude();
+            }
+            if(Double.compare(getCoordinatesArray()[i].getLatitude(), maxLat) == 1){
+                maxLat = getCoordinatesArray()[i].getLatitude();
+            }
+
+        }
+
+        return Rectangle.newRectangle(Coordinates.newCoordinates(minLon, minLat), Coordinates.newCoordinates(maxLon, maxLat));
+    }
 
 }
