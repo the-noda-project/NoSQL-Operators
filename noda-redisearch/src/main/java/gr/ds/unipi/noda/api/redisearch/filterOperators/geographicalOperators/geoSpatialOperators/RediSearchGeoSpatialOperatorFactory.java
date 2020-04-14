@@ -8,6 +8,8 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Polygon;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Rectangle;
 
+import java.util.function.Predicate;
+
 /**
  * @author adimo on 11/10/2019
  */
@@ -19,22 +21,22 @@ public final class RediSearchGeoSpatialOperatorFactory extends BaseGeoSpatialOpe
 
     @Override
     public GeographicalOperator newOperatorInGeoRectangle(String fieldName, Rectangle rectangle) {
-        return OperatorInGeoRectangle.newOperatorInGeographicalRectangle(fieldName, rectangle);
+        return OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName, rectangle);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoCircleKm(String fieldName, Circle circle) {
-        return OperatorInGeoCircle.newOperatorInGeographicalCircle(fieldName, circle);
+        return OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoCircleMeters(String fieldName, Circle circle) {
-        return OperatorInGeoCircle.newOperatorInGeographicalCircle(fieldName, circle);
+        return OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle);
     }
 
     @Override
     public GeographicalOperator newOperatorInGeoCircleMiles(String fieldName, Circle circle) {
-        return OperatorInGeoCircle.newOperatorInGeographicalCircle(fieldName, circle);
+        return OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle);
     }
 
     @Override
@@ -49,4 +51,15 @@ public final class RediSearchGeoSpatialOperatorFactory extends BaseGeoSpatialOpe
     public static boolean isOperatorGeoBox(FilterOperator filterOperator) {
         return filterOperator instanceof OperatorInGeoRectangle;
     }
+
+    public static boolean isOperatorGeoCircle(FilterOperator filterOperator) {
+        return filterOperator instanceof OperatorInGeoCircle;
+    }
+
+    public static boolean isOperatorGeoRectangle(FilterOperator filterOperator) {
+        return filterOperator instanceof OperatorInGeoRectangle;
+    }
+
+    public static Predicate<FilterOperator> isGeo = filterOperator -> isOperatorGeoBox(filterOperator) || isOperatorGeoCircle(filterOperator)
+            || isOperatorGeoNearestNeighbor(filterOperator) || isOperatorGeoRectangle(filterOperator);
 }
