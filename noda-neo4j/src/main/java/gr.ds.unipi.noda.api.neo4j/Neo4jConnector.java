@@ -1,7 +1,6 @@
 package gr.ds.unipi.noda.api.neo4j;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
-import org.javatuples.Pair;
 import org.neo4j.driver.AuthToken;
 import org.neo4j.driver.Config;
 import org.neo4j.driver.Driver;
@@ -9,22 +8,23 @@ import org.neo4j.driver.GraphDatabase;
 import org.neo4j.driver.net.ServerAddress;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
 
-    private final List<Pair<String,Integer>> addresses;
+    private final List<Map.Entry<String,Integer>> addresses;
     private final AuthToken authToken;
     private final Config config;
     private String typeOfConnection;
 
 
-    private Neo4jConnector(List<Pair<String,Integer>> addresses, AuthToken authToken, Config config) {
+    private Neo4jConnector(List<Map.Entry<String,Integer>> addresses, AuthToken authToken, Config config) {
         System.out.println("eimai edw???");
         this.addresses = addresses;
         this.authToken = authToken;
         this.config = config;
-        System.out.println(addresses.get(0).getValue1());
+        System.out.println(addresses.get(0).getValue());
         System.out.println(authToken);
     }
 
@@ -35,13 +35,13 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
         //typeOfConnection => bolt means localhost
         StringBuilder sb = new StringBuilder();
         typeOfConnection = "neo4j";
-        String firstHost = addresses.get(0).getValue0();
-        String firstPort = addresses.get(0).getValue1().toString();
+        String firstHost = addresses.get(0).getKey();
+        String firstPort = addresses.get(0).getValue().toString();
 
         System.out.println("eimai edw 3");
 
-        for (Pair<String, Integer> address : addresses) {
-            if (address.getValue0().equals("localhost") || address.getValue0().equals("127.0.0.1")) {
+        for (Map.Entry<String, Integer> address : addresses) {
+            if (address.getKey().equals("localhost") || address.getKey().equals("127.0.0.1")) {
                 typeOfConnection = "bolt";
                 break;
             }
@@ -49,11 +49,11 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
 
         List<ServerAddress> serverAddresses = null;
 
-        for (Pair<String, Integer> address : addresses) {
+        for (Map.Entry<String, Integer> address : addresses) {
 //            sb.append(ServerAddress.of(address.getKey(), address.getValue() ));
 //            sb.append(address.getKey()).append(":").append(address.getValue()).append(",");
-            if(address.getValue0() != addresses.get(0).getValue0() && address.getValue1() != addresses.get(0).getValue1()) {
-                serverAddresses.add(ServerAddress.of(address.getValue0(), address.getValue1()));
+            if(address.getKey() != addresses.get(0).getKey() && address.getValue() != addresses.get(0).getValue()) {
+                serverAddresses.add(ServerAddress.of(address.getKey(), address.getValue()));
             }
         }
 
@@ -67,7 +67,7 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
         return GraphDatabase.driver(typeOfConnection + "://" + firstHost + ":" + firstPort, authToken, config);
     }
 
-    public static Neo4jConnector newNeo4jConnector(List<Pair<String,Integer>> addresses, AuthToken authToken, Config config) {
+    public static Neo4jConnector newNeo4jConnector(List<Map.Entry<String,Integer>> addresses, AuthToken authToken, Config config) {
         return new Neo4jConnector(addresses, authToken, config);
     }
 

@@ -10,7 +10,6 @@ public class HBaseSystemTest {
 
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.HBase().Builder().host("localhost").build();
         noSqlDbSystem.operateOn("test").filter(eq("cf:name", "George")).project("cf:surname").printScreen();
-
         noSqlDbSystem.closeConnection();
     }
 

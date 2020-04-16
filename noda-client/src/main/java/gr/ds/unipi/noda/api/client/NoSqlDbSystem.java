@@ -8,53 +8,48 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import org.apache.spark.sql.SparkSession;
-import org.javatuples.Pair;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class NoSqlDbSystem {
 
-    private final List<Pair<String, Integer>> addresses;
+    private final List<Map.Entry<String, Integer>> addresses;
     private final SparkSession sparkSession;
     private final NoSqlConnectionFactory nsdb;
 
     protected abstract static class Builder<T extends Builder<T>> {
 
-        List<Pair<String, Integer>> addresses = new ArrayList<>();
+        List<Map.Entry<String, Integer>> addresses = new ArrayList<>();
         SparkSession sparkSession = null;
 
         public T host(String host) {
-
             int i = 0;
             while (i < addresses.size()) {
-                if (addresses.get(i).getValue0() == null) {
-                    addresses.set(i, new Pair<>(host, addresses.get(i).getValue1()));
+                if (addresses.get(i).getKey() == null) {
+                    addresses.set(i, new AbstractMap.SimpleImmutableEntry<>(host, addresses.get(i).getValue()));
                     break;
                 }
                 i++;
             }
             if (i == addresses.size()) {
-                addresses.add(new Pair<>(host, null));
+                addresses.add(new AbstractMap.SimpleImmutableEntry<>(host, null));
             }
 
             return self();
         }
 
         public T port(int port) {
-
             int i = 0;
             while (i < addresses.size()) {
-                if (addresses.get(i).getValue1() == null) {
-                    addresses.set(i, new Pair<>(addresses.get(i).getValue0(), port));
+                if (addresses.get(i).getValue() == null) {
+                    addresses.set(i, new AbstractMap.SimpleImmutableEntry<>(addresses.get(i).getKey(), port));
                     break;
                 }
                 i++;
             }
             if (i == addresses.size()) {
-                addresses.add(new Pair<>(null, port));
+                addresses.add(new AbstractMap.SimpleImmutableEntry<>(null, port));
             }
             return self();
         }
@@ -74,22 +69,22 @@ public abstract class NoSqlDbSystem {
         nsdb = noSqlConnectionFactory;
 
         for (int i = 0; i < builder.addresses.size(); i++) {
-            if (builder.addresses.get(i).getValue0() == null) {
-                builder.addresses.set(i, new Pair<>(getDefaultHost(), builder.addresses.get(i).getValue1()));
+            if (builder.addresses.get(i).getKey() == null) {
+                builder.addresses.set(i, new AbstractMap.SimpleImmutableEntry<>(getDefaultHost(), builder.addresses.get(i).getValue()));
             }
-            if (builder.addresses.get(i).getValue1() == null) {
-                builder.addresses.set(i, new Pair<>(builder.addresses.get(i).getValue0(), getDefaultPort()));
+            if (builder.addresses.get(i).getValue() == null) {
+                builder.addresses.set(i, new AbstractMap.SimpleImmutableEntry<>(builder.addresses.get(i).getKey(), getDefaultPort()));
             }
         }
 
         if (builder.addresses.size() == 0) {
-            builder.addresses.add(new Pair<>(getDefaultHost(), getDefaultPort()));
+            builder.addresses.add(new AbstractMap.SimpleImmutableEntry<>(getDefaultHost(), getDefaultPort()));
         }
 
         addresses = Collections.unmodifiableList(builder.addresses.stream().distinct().collect(Collectors.toList()));//list is sorted
     }
 
-    protected List<Pair<String, Integer>> getAddresses() {
+    protected List<Map.Entry<String, Integer>> getAddresses() {
         return addresses;
     }
 

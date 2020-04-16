@@ -13,13 +13,14 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocketFactory;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> {
 
-    private final List<Pair<String, Integer>> addresses;
+    private final List<Map.Entry<String, Integer>> addresses;
     private final String masterName;
     private final JedisPoolConfig poolConfig;
     private final int connectionTimeout;
@@ -33,7 +34,7 @@ public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> 
     private final HostnameVerifier hostnameVerifier;
 
 
-    public RediSearchConnector(List<Pair<String, Integer>> addresses, String masterName, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
+    public RediSearchConnector(List<Map.Entry<String, Integer>> addresses, String masterName, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
         this.addresses = addresses;
         this.masterName = masterName;
         this.poolConfig = poolConfig;
@@ -70,7 +71,7 @@ public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> 
     @Override
     public int hashCode() {
         int hashCode = 0;
-        for(Pair<String,Integer> e : addresses){
+        for(Map.Entry<String,Integer> e : addresses){
             hashCode = 31*hashCode+(e==null ?0:e.hashCode());
         }
         return 31*hashCode+ Objects.hash(masterName, poolConfig, connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
@@ -79,16 +80,16 @@ public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> 
     @Override
     public Pool<Jedis> createConnection() {
         if (masterName == null)
-            return new JedisPool(poolConfig, addresses.get(0).getValue0(), addresses.get(0).getValue1(), connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
+            return new JedisPool(poolConfig, addresses.get(0).getKey(), addresses.get(0).getValue(), connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
         else
             return new JedisSentinelPool(masterName, getSentinels(), poolConfig, connectionTimeout, soTimeout, password, database, clientName );
     }
 
-    public static RediSearchConnector newRediSearchConnector(List<Pair<String, Integer>> addresses, String masterName, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
+    public static RediSearchConnector newRediSearchConnector(List<Map.Entry<String, Integer>> addresses, String masterName, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
         return new RediSearchConnector(addresses, masterName, poolConfig, connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
     }
 
     private Set<String> getSentinels() {
-        return addresses.stream().map(pair -> String.join(StringPool.COLON, pair.getValue0(), pair.getValue1().toString())).collect(Collectors.toSet());
+        return addresses.stream().map(pair -> String.join(StringPool.COLON, pair.getKey(), pair.getValue().toString())).collect(Collectors.toSet());
     }
 }

@@ -6,7 +6,8 @@ import gr.ds.unipi.noda.api.hbase.HBaseConnectionFactory;
 import gr.ds.unipi.noda.api.hbase.HBaseConnector;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.javatuples.Pair;
+
+import java.util.Map;
 
 public class HBaseSystem extends NoSqlDbSystem {
 
@@ -55,8 +56,8 @@ public class HBaseSystem extends NoSqlDbSystem {
         super(builder, new HBaseConnectionFactory());
 
         StringBuilder sb = new StringBuilder();
-        for (Pair<String, Integer> pair : getAddresses()) {
-            sb.append(pair.getValue0()).append(":").append(pair.getValue1()).append(",");
+        for (Map.Entry<String, Integer> entry : getAddresses()) {
+            sb.append(entry.getKey()).append(":").append(entry.getValue()).append(",");
         }
 
         sb.deleteCharAt(sb.lastIndexOf(","));

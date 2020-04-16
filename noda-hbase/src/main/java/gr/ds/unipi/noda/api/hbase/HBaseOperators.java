@@ -18,13 +18,14 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 import java.io.IOException;
-import java.util.Optional;
+import java.util.*;
 
 final class HBaseOperators extends NoSqlDbOperators {
 
     private final HBaseConnectionManager hbaseConnectionManager = HBaseConnectionManager.getInstance();
     private final Scan scan = new Scan();
-    FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
+    private final FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
+    private final List<Map.Entry<byte[],byte[]>> projection = new ArrayList<>();
 
     private HBaseOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
@@ -58,6 +59,14 @@ final class HBaseOperators extends NoSqlDbOperators {
         Table table = null;
         ResultScanner resultScanner = null;
         scan.setFilter(filterList);
+        projection.forEach(entry -> {
+            if(entry.getValue()==null){
+                scan.addFamily(entry.getKey());
+            }
+            else{
+                scan.addColumn(entry.getKey(),entry.getValue());
+            }
+        });
         try {
 
             table = hbaseConnectionManager.getConnection(getNoSqlDbConnector()).getTable(TableName.valueOf(getDataCollection()));
@@ -113,9 +122,9 @@ final class HBaseOperators extends NoSqlDbOperators {
         String[] names = fieldName.split(":");
 
         if (names.length == 1) {
-            scan.addFamily(Bytes.toBytes(names[0]));
+            projection.add(new AbstractMap.SimpleImmutableEntry(Bytes.toBytes(names[0]),null));
         } else if (names.length == 2) {
-            scan.addColumn(Bytes.toBytes(names[0]), Bytes.toBytes(names[1]));
+            projection.add(new AbstractMap.SimpleImmutableEntry(Bytes.toBytes(names[0]),Bytes.toBytes(names[1])));
         } else {
             try {
                 throw new Exception("");
