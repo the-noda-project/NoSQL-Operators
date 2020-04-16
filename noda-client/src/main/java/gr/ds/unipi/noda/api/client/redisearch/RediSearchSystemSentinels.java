@@ -48,33 +48,33 @@ public class RediSearchSystemSentinels extends NoSqlDbSystem {
             this.poolConfig = poolConfig;
         }
 
-        public Builder timeout(int timeout){
+        public Builder timeout(int timeout) {
             this.connectionTimeout = timeout;
             this.soTimeout = timeout;
             return this;
         }
 
-        public Builder connectionTimeout(int connectionTimeout){
+        public Builder connectionTimeout(int connectionTimeout) {
             this.connectionTimeout = connectionTimeout;
             return this;
         }
 
-        public Builder soTimeout(int soTimeout){
+        public Builder soTimeout(int soTimeout) {
             this.soTimeout = soTimeout;
             return this;
         }
 
-        public Builder password(String password){
+        public Builder password(String password) {
             this.password = password;
             return this;
         }
 
-        public Builder database(int database){
+        public Builder database(int database) {
             this.database = database;
             return this;
         }
 
-        public Builder clientName(String clientName){
+        public Builder clientName(String clientName) {
             this.clientName = clientName;
             return this;
         }
@@ -92,7 +92,7 @@ public class RediSearchSystemSentinels extends NoSqlDbSystem {
 
     private RediSearchSystemSentinels(Builder builder) {
         super(builder, new RediSearchConnectionFactory());
-        connector = RediSearchConnector.newRediSearchConnector(getAddresses(), builder.masterName, builder.poolConfig, builder.connectionTimeout, builder.soTimeout,builder.password,builder.database,builder.clientName,false,null,null,null);
+        connector = RediSearchConnector.newRediSearchConnector(getAddresses(), builder.masterName, builder.poolConfig, builder.connectionTimeout, builder.soTimeout, builder.password, builder.database, builder.clientName, false, null, null, null);
     }
 
 }

@@ -5,7 +5,7 @@ abstract class TextualOperator extends gr.ds.unipi.noda.api.core.operators.filte
         super(fieldName, elements);
     }
 
-     public Object getOperatorExpression(){
+    public Object getOperatorExpression() {
         return null;
-     }
+    }
 }

@@ -4,1004 +4,1119 @@
 package gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated;
 
 public final class FilterProtos {
-  private FilterProtos() {}
-  public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistryLite registry) {
-  }
-
-  public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
-    registerAllExtensions(
-        (com.google.protobuf.ExtensionRegistryLite) registry);
-  }
-  public interface PolygonFilterOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:PolygonFilter)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>required bytes value = 1;</code>
-     * @return Whether the value field is set.
-     */
-    boolean hasValue();
-    /**
-     * <code>required bytes value = 1;</code>
-     * @return The value.
-     */
-    com.google.protobuf.ByteString getValue();
-
-    /**
-     * <code>required bytes columnFamily = 2;</code>
-     * @return Whether the columnFamily field is set.
-     */
-    boolean hasColumnFamily();
-    /**
-     * <code>required bytes columnFamily = 2;</code>
-     * @return The columnFamily.
-     */
-    com.google.protobuf.ByteString getColumnFamily();
-
-    /**
-     * <code>required bytes longitudeColumnQualifier = 3;</code>
-     * @return Whether the longitudeColumnQualifier field is set.
-     */
-    boolean hasLongitudeColumnQualifier();
-    /**
-     * <code>required bytes longitudeColumnQualifier = 3;</code>
-     * @return The longitudeColumnQualifier.
-     */
-    com.google.protobuf.ByteString getLongitudeColumnQualifier();
-
-    /**
-     * <code>required bytes latitudeColumnQualifier = 4;</code>
-     * @return Whether the latitudeColumnQualifier field is set.
-     */
-    boolean hasLatitudeColumnQualifier();
-    /**
-     * <code>required bytes latitudeColumnQualifier = 4;</code>
-     * @return The latitudeColumnQualifier.
-     */
-    com.google.protobuf.ByteString getLatitudeColumnQualifier();
-
-    /**
-     * <code>required bytes polygon = 5;</code>
-     * @return Whether the polygon field is set.
-     */
-    boolean hasPolygon();
-    /**
-     * <code>required bytes polygon = 5;</code>
-     * @return The polygon.
-     */
-    com.google.protobuf.ByteString getPolygon();
-  }
-  /**
-   * Protobuf type {@code PolygonFilter}
-   */
-  public  static final class PolygonFilter extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:PolygonFilter)
-      PolygonFilterOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use PolygonFilter.newBuilder() to construct.
-    private PolygonFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private PolygonFilter() {
-      value_ = com.google.protobuf.ByteString.EMPTY;
-      columnFamily_ = com.google.protobuf.ByteString.EMPTY;
-      longitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
-      latitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
-      polygon_ = com.google.protobuf.ByteString.EMPTY;
+    private FilterProtos() {
     }
 
-    @Override
-    @SuppressWarnings({"unused"})
-    protected Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new PolygonFilter();
+    public static void registerAllExtensions(
+            com.google.protobuf.ExtensionRegistryLite registry) {
     }
 
-    @Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private PolygonFilter(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              bitField0_ |= 0x00000001;
-              value_ = input.readBytes();
-              break;
-            }
-            case 18: {
-              bitField0_ |= 0x00000002;
-              columnFamily_ = input.readBytes();
-              break;
-            }
-            case 26: {
-              bitField0_ |= 0x00000004;
-              longitudeColumnQualifier_ = input.readBytes();
-              break;
-            }
-            case 34: {
-              bitField0_ |= 0x00000008;
-              latitudeColumnQualifier_ = input.readBytes();
-              break;
-            }
-            case 42: {
-              bitField0_ |= 0x00000010;
-              polygon_ = input.readBytes();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return FilterProtos.internal_static_PolygonFilter_descriptor;
+    public static void registerAllExtensions(
+            com.google.protobuf.ExtensionRegistry registry) {
+        registerAllExtensions(
+                (com.google.protobuf.ExtensionRegistryLite) registry);
     }
 
-    @Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return FilterProtos.internal_static_PolygonFilter_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              PolygonFilter.class, Builder.class);
+    public interface PolygonFilterOrBuilder extends
+            // @@protoc_insertion_point(interface_extends:PolygonFilter)
+            com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>required bytes value = 1;</code>
+         *
+         * @return Whether the value field is set.
+         */
+        boolean hasValue();
+
+        /**
+         * <code>required bytes value = 1;</code>
+         *
+         * @return The value.
+         */
+        com.google.protobuf.ByteString getValue();
+
+        /**
+         * <code>required bytes columnFamily = 2;</code>
+         *
+         * @return Whether the columnFamily field is set.
+         */
+        boolean hasColumnFamily();
+
+        /**
+         * <code>required bytes columnFamily = 2;</code>
+         *
+         * @return The columnFamily.
+         */
+        com.google.protobuf.ByteString getColumnFamily();
+
+        /**
+         * <code>required bytes longitudeColumnQualifier = 3;</code>
+         *
+         * @return Whether the longitudeColumnQualifier field is set.
+         */
+        boolean hasLongitudeColumnQualifier();
+
+        /**
+         * <code>required bytes longitudeColumnQualifier = 3;</code>
+         *
+         * @return The longitudeColumnQualifier.
+         */
+        com.google.protobuf.ByteString getLongitudeColumnQualifier();
+
+        /**
+         * <code>required bytes latitudeColumnQualifier = 4;</code>
+         *
+         * @return Whether the latitudeColumnQualifier field is set.
+         */
+        boolean hasLatitudeColumnQualifier();
+
+        /**
+         * <code>required bytes latitudeColumnQualifier = 4;</code>
+         *
+         * @return The latitudeColumnQualifier.
+         */
+        com.google.protobuf.ByteString getLatitudeColumnQualifier();
+
+        /**
+         * <code>required bytes polygon = 5;</code>
+         *
+         * @return Whether the polygon field is set.
+         */
+        boolean hasPolygon();
+
+        /**
+         * <code>required bytes polygon = 5;</code>
+         *
+         * @return The polygon.
+         */
+        com.google.protobuf.ByteString getPolygon();
     }
 
-    private int bitField0_;
-    public static final int VALUE_FIELD_NUMBER = 1;
-    private com.google.protobuf.ByteString value_;
-    /**
-     * <code>required bytes value = 1;</code>
-     * @return Whether the value field is set.
-     */
-    public boolean hasValue() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required bytes value = 1;</code>
-     * @return The value.
-     */
-    public com.google.protobuf.ByteString getValue() {
-      return value_;
-    }
-
-    public static final int COLUMNFAMILY_FIELD_NUMBER = 2;
-    private com.google.protobuf.ByteString columnFamily_;
-    /**
-     * <code>required bytes columnFamily = 2;</code>
-     * @return Whether the columnFamily field is set.
-     */
-    public boolean hasColumnFamily() {
-      return ((bitField0_ & 0x00000002) != 0);
-    }
-    /**
-     * <code>required bytes columnFamily = 2;</code>
-     * @return The columnFamily.
-     */
-    public com.google.protobuf.ByteString getColumnFamily() {
-      return columnFamily_;
-    }
-
-    public static final int LONGITUDECOLUMNQUALIFIER_FIELD_NUMBER = 3;
-    private com.google.protobuf.ByteString longitudeColumnQualifier_;
-    /**
-     * <code>required bytes longitudeColumnQualifier = 3;</code>
-     * @return Whether the longitudeColumnQualifier field is set.
-     */
-    public boolean hasLongitudeColumnQualifier() {
-      return ((bitField0_ & 0x00000004) != 0);
-    }
-    /**
-     * <code>required bytes longitudeColumnQualifier = 3;</code>
-     * @return The longitudeColumnQualifier.
-     */
-    public com.google.protobuf.ByteString getLongitudeColumnQualifier() {
-      return longitudeColumnQualifier_;
-    }
-
-    public static final int LATITUDECOLUMNQUALIFIER_FIELD_NUMBER = 4;
-    private com.google.protobuf.ByteString latitudeColumnQualifier_;
-    /**
-     * <code>required bytes latitudeColumnQualifier = 4;</code>
-     * @return Whether the latitudeColumnQualifier field is set.
-     */
-    public boolean hasLatitudeColumnQualifier() {
-      return ((bitField0_ & 0x00000008) != 0);
-    }
-    /**
-     * <code>required bytes latitudeColumnQualifier = 4;</code>
-     * @return The latitudeColumnQualifier.
-     */
-    public com.google.protobuf.ByteString getLatitudeColumnQualifier() {
-      return latitudeColumnQualifier_;
-    }
-
-    public static final int POLYGON_FIELD_NUMBER = 5;
-    private com.google.protobuf.ByteString polygon_;
-    /**
-     * <code>required bytes polygon = 5;</code>
-     * @return Whether the polygon field is set.
-     */
-    public boolean hasPolygon() {
-      return ((bitField0_ & 0x00000010) != 0);
-    }
-    /**
-     * <code>required bytes polygon = 5;</code>
-     * @return The polygon.
-     */
-    public com.google.protobuf.ByteString getPolygon() {
-      return polygon_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      if (!hasValue()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasColumnFamily()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasLongitudeColumnQualifier()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasLatitudeColumnQualifier()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPolygon()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeBytes(1, value_);
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeBytes(2, columnFamily_);
-      }
-      if (((bitField0_ & 0x00000004) != 0)) {
-        output.writeBytes(3, longitudeColumnQualifier_);
-      }
-      if (((bitField0_ & 0x00000008) != 0)) {
-        output.writeBytes(4, latitudeColumnQualifier_);
-      }
-      if (((bitField0_ & 0x00000010) != 0)) {
-        output.writeBytes(5, polygon_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, value_);
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, columnFamily_);
-      }
-      if (((bitField0_ & 0x00000004) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, longitudeColumnQualifier_);
-      }
-      if (((bitField0_ & 0x00000008) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, latitudeColumnQualifier_);
-      }
-      if (((bitField0_ & 0x00000010) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, polygon_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof PolygonFilter)) {
-        return super.equals(obj);
-      }
-      PolygonFilter other = (PolygonFilter) obj;
-
-      if (hasValue() != other.hasValue()) return false;
-      if (hasValue()) {
-        if (!getValue()
-            .equals(other.getValue())) return false;
-      }
-      if (hasColumnFamily() != other.hasColumnFamily()) return false;
-      if (hasColumnFamily()) {
-        if (!getColumnFamily()
-            .equals(other.getColumnFamily())) return false;
-      }
-      if (hasLongitudeColumnQualifier() != other.hasLongitudeColumnQualifier()) return false;
-      if (hasLongitudeColumnQualifier()) {
-        if (!getLongitudeColumnQualifier()
-            .equals(other.getLongitudeColumnQualifier())) return false;
-      }
-      if (hasLatitudeColumnQualifier() != other.hasLatitudeColumnQualifier()) return false;
-      if (hasLatitudeColumnQualifier()) {
-        if (!getLatitudeColumnQualifier()
-            .equals(other.getLatitudeColumnQualifier())) return false;
-      }
-      if (hasPolygon() != other.hasPolygon()) return false;
-      if (hasPolygon()) {
-        if (!getPolygon()
-            .equals(other.getPolygon())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasValue()) {
-        hash = (37 * hash) + VALUE_FIELD_NUMBER;
-        hash = (53 * hash) + getValue().hashCode();
-      }
-      if (hasColumnFamily()) {
-        hash = (37 * hash) + COLUMNFAMILY_FIELD_NUMBER;
-        hash = (53 * hash) + getColumnFamily().hashCode();
-      }
-      if (hasLongitudeColumnQualifier()) {
-        hash = (37 * hash) + LONGITUDECOLUMNQUALIFIER_FIELD_NUMBER;
-        hash = (53 * hash) + getLongitudeColumnQualifier().hashCode();
-      }
-      if (hasLatitudeColumnQualifier()) {
-        hash = (37 * hash) + LATITUDECOLUMNQUALIFIER_FIELD_NUMBER;
-        hash = (53 * hash) + getLatitudeColumnQualifier().hashCode();
-      }
-      if (hasPolygon()) {
-        hash = (37 * hash) + POLYGON_FIELD_NUMBER;
-        hash = (53 * hash) + getPolygon().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static PolygonFilter parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static PolygonFilter parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static PolygonFilter parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static PolygonFilter parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static PolygonFilter parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static PolygonFilter parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static PolygonFilter parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static PolygonFilter parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static PolygonFilter parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static PolygonFilter parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static PolygonFilter parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static PolygonFilter parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(PolygonFilter prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
     /**
      * Protobuf type {@code PolygonFilter}
      */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:PolygonFilter)
-        PolygonFilterOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return FilterProtos.internal_static_PolygonFilter_descriptor;
-      }
+    public static final class PolygonFilter extends
+            com.google.protobuf.GeneratedMessageV3 implements
+            // @@protoc_insertion_point(message_implements:PolygonFilter)
+            PolygonFilterOrBuilder {
+        private static final long serialVersionUID = 0L;
 
-      @Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return FilterProtos.internal_static_PolygonFilter_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                PolygonFilter.class, Builder.class);
-      }
+        // Use PolygonFilter.newBuilder() to construct.
+        private PolygonFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+            super(builder);
+        }
 
-      // Construct using gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
+        private PolygonFilter() {
+            value_ = com.google.protobuf.ByteString.EMPTY;
+            columnFamily_ = com.google.protobuf.ByteString.EMPTY;
+            longitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
+            latitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
+            polygon_ = com.google.protobuf.ByteString.EMPTY;
+        }
 
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        @Override
+        @SuppressWarnings({"unused"})
+        protected Object newInstance(
+                UnusedPrivateParameter unused) {
+            return new PolygonFilter();
         }
-      }
-      @Override
-      public Builder clear() {
-        super.clear();
-        value_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        columnFamily_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000002);
-        longitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000004);
-        latitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000008);
-        polygon_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000010);
-        return this;
-      }
 
-      @Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return FilterProtos.internal_static_PolygonFilter_descriptor;
-      }
+        @Override
+        public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+            return this.unknownFields;
+        }
 
-      @Override
-      public PolygonFilter getDefaultInstanceForType() {
-        return PolygonFilter.getDefaultInstance();
-      }
+        private PolygonFilter(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            this();
+            if (extensionRegistry == null) {
+                throw new NullPointerException();
+            }
+            int mutable_bitField0_ = 0;
+            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                    com.google.protobuf.UnknownFieldSet.newBuilder();
+            try {
+                boolean done = false;
+                while (!done) {
+                    int tag = input.readTag();
+                    switch (tag) {
+                        case 0:
+                            done = true;
+                            break;
+                        case 10: {
+                            bitField0_ |= 0x00000001;
+                            value_ = input.readBytes();
+                            break;
+                        }
+                        case 18: {
+                            bitField0_ |= 0x00000002;
+                            columnFamily_ = input.readBytes();
+                            break;
+                        }
+                        case 26: {
+                            bitField0_ |= 0x00000004;
+                            longitudeColumnQualifier_ = input.readBytes();
+                            break;
+                        }
+                        case 34: {
+                            bitField0_ |= 0x00000008;
+                            latitudeColumnQualifier_ = input.readBytes();
+                            break;
+                        }
+                        case 42: {
+                            bitField0_ |= 0x00000010;
+                            polygon_ = input.readBytes();
+                            break;
+                        }
+                        default: {
+                            if (!parseUnknownField(
+                                    input, unknownFields, extensionRegistry, tag)) {
+                                done = true;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                throw e.setUnfinishedMessage(this);
+            } catch (java.io.IOException e) {
+                throw new com.google.protobuf.InvalidProtocolBufferException(
+                        e).setUnfinishedMessage(this);
+            } finally {
+                this.unknownFields = unknownFields.build();
+                makeExtensionsImmutable();
+            }
+        }
 
-      @Override
-      public PolygonFilter build() {
-        PolygonFilter result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+            return FilterProtos.internal_static_PolygonFilter_descriptor;
         }
-        return result;
-      }
 
-      @Override
-      public PolygonFilter buildPartial() {
-        PolygonFilter result = new PolygonFilter(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          to_bitField0_ |= 0x00000001;
+        @Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return FilterProtos.internal_static_PolygonFilter_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            PolygonFilter.class, Builder.class);
         }
-        result.value_ = value_;
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.columnFamily_ = columnFamily_;
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        result.longitudeColumnQualifier_ = longitudeColumnQualifier_;
-        if (((from_bitField0_ & 0x00000008) != 0)) {
-          to_bitField0_ |= 0x00000008;
-        }
-        result.latitudeColumnQualifier_ = latitudeColumnQualifier_;
-        if (((from_bitField0_ & 0x00000010) != 0)) {
-          to_bitField0_ |= 0x00000010;
-        }
-        result.polygon_ = polygon_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
 
-      @Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return super.setField(field, value);
-      }
-      @Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof PolygonFilter) {
-          return mergeFrom((PolygonFilter)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
+        private int bitField0_;
+        public static final int VALUE_FIELD_NUMBER = 1;
+        private com.google.protobuf.ByteString value_;
 
-      public Builder mergeFrom(PolygonFilter other) {
-        if (other == PolygonFilter.getDefaultInstance()) return this;
-        if (other.hasValue()) {
-          setValue(other.getValue());
+        /**
+         * <code>required bytes value = 1;</code>
+         *
+         * @return Whether the value field is set.
+         */
+        public boolean hasValue() {
+            return ((bitField0_ & 0x00000001) != 0);
         }
-        if (other.hasColumnFamily()) {
-          setColumnFamily(other.getColumnFamily());
-        }
-        if (other.hasLongitudeColumnQualifier()) {
-          setLongitudeColumnQualifier(other.getLongitudeColumnQualifier());
-        }
-        if (other.hasLatitudeColumnQualifier()) {
-          setLatitudeColumnQualifier(other.getLatitudeColumnQualifier());
-        }
-        if (other.hasPolygon()) {
-          setPolygon(other.getPolygon());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
 
-      @Override
-      public final boolean isInitialized() {
-        if (!hasValue()) {
-          return false;
+        /**
+         * <code>required bytes value = 1;</code>
+         *
+         * @return The value.
+         */
+        public com.google.protobuf.ByteString getValue() {
+            return value_;
         }
-        if (!hasColumnFamily()) {
-          return false;
+
+        public static final int COLUMNFAMILY_FIELD_NUMBER = 2;
+        private com.google.protobuf.ByteString columnFamily_;
+
+        /**
+         * <code>required bytes columnFamily = 2;</code>
+         *
+         * @return Whether the columnFamily field is set.
+         */
+        public boolean hasColumnFamily() {
+            return ((bitField0_ & 0x00000002) != 0);
         }
-        if (!hasLongitudeColumnQualifier()) {
-          return false;
+
+        /**
+         * <code>required bytes columnFamily = 2;</code>
+         *
+         * @return The columnFamily.
+         */
+        public com.google.protobuf.ByteString getColumnFamily() {
+            return columnFamily_;
         }
-        if (!hasLatitudeColumnQualifier()) {
-          return false;
+
+        public static final int LONGITUDECOLUMNQUALIFIER_FIELD_NUMBER = 3;
+        private com.google.protobuf.ByteString longitudeColumnQualifier_;
+
+        /**
+         * <code>required bytes longitudeColumnQualifier = 3;</code>
+         *
+         * @return Whether the longitudeColumnQualifier field is set.
+         */
+        public boolean hasLongitudeColumnQualifier() {
+            return ((bitField0_ & 0x00000004) != 0);
         }
-        if (!hasPolygon()) {
-          return false;
+
+        /**
+         * <code>required bytes longitudeColumnQualifier = 3;</code>
+         *
+         * @return The longitudeColumnQualifier.
+         */
+        public com.google.protobuf.ByteString getLongitudeColumnQualifier() {
+            return longitudeColumnQualifier_;
         }
-        return true;
-      }
 
-      @Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        PolygonFilter parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (PolygonFilter) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+        public static final int LATITUDECOLUMNQUALIFIER_FIELD_NUMBER = 4;
+        private com.google.protobuf.ByteString latitudeColumnQualifier_;
+
+        /**
+         * <code>required bytes latitudeColumnQualifier = 4;</code>
+         *
+         * @return Whether the latitudeColumnQualifier field is set.
+         */
+        public boolean hasLatitudeColumnQualifier() {
+            return ((bitField0_ & 0x00000008) != 0);
         }
-        return this;
-      }
-      private int bitField0_;
 
-      private com.google.protobuf.ByteString value_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>required bytes value = 1;</code>
-       * @return Whether the value field is set.
-       */
-      public boolean hasValue() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>required bytes value = 1;</code>
-       * @return The value.
-       */
-      public com.google.protobuf.ByteString getValue() {
-        return value_;
-      }
-      /**
-       * <code>required bytes value = 1;</code>
-       * @param value The value to set.
-       * @return This builder for chaining.
-       */
-      public Builder setValue(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        value_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required bytes value = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearValue() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        value_ = getDefaultInstance().getValue();
-        onChanged();
-        return this;
-      }
+        /**
+         * <code>required bytes latitudeColumnQualifier = 4;</code>
+         *
+         * @return The latitudeColumnQualifier.
+         */
+        public com.google.protobuf.ByteString getLatitudeColumnQualifier() {
+            return latitudeColumnQualifier_;
+        }
 
-      private com.google.protobuf.ByteString columnFamily_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>required bytes columnFamily = 2;</code>
-       * @return Whether the columnFamily field is set.
-       */
-      public boolean hasColumnFamily() {
-        return ((bitField0_ & 0x00000002) != 0);
-      }
-      /**
-       * <code>required bytes columnFamily = 2;</code>
-       * @return The columnFamily.
-       */
-      public com.google.protobuf.ByteString getColumnFamily() {
-        return columnFamily_;
-      }
-      /**
-       * <code>required bytes columnFamily = 2;</code>
-       * @param value The columnFamily to set.
-       * @return This builder for chaining.
-       */
-      public Builder setColumnFamily(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        columnFamily_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required bytes columnFamily = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearColumnFamily() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        columnFamily_ = getDefaultInstance().getColumnFamily();
-        onChanged();
-        return this;
-      }
+        public static final int POLYGON_FIELD_NUMBER = 5;
+        private com.google.protobuf.ByteString polygon_;
 
-      private com.google.protobuf.ByteString longitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>required bytes longitudeColumnQualifier = 3;</code>
-       * @return Whether the longitudeColumnQualifier field is set.
-       */
-      public boolean hasLongitudeColumnQualifier() {
-        return ((bitField0_ & 0x00000004) != 0);
-      }
-      /**
-       * <code>required bytes longitudeColumnQualifier = 3;</code>
-       * @return The longitudeColumnQualifier.
-       */
-      public com.google.protobuf.ByteString getLongitudeColumnQualifier() {
-        return longitudeColumnQualifier_;
-      }
-      /**
-       * <code>required bytes longitudeColumnQualifier = 3;</code>
-       * @param value The longitudeColumnQualifier to set.
-       * @return This builder for chaining.
-       */
-      public Builder setLongitudeColumnQualifier(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-        longitudeColumnQualifier_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required bytes longitudeColumnQualifier = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearLongitudeColumnQualifier() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        longitudeColumnQualifier_ = getDefaultInstance().getLongitudeColumnQualifier();
-        onChanged();
-        return this;
-      }
+        /**
+         * <code>required bytes polygon = 5;</code>
+         *
+         * @return Whether the polygon field is set.
+         */
+        public boolean hasPolygon() {
+            return ((bitField0_ & 0x00000010) != 0);
+        }
 
-      private com.google.protobuf.ByteString latitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>required bytes latitudeColumnQualifier = 4;</code>
-       * @return Whether the latitudeColumnQualifier field is set.
-       */
-      public boolean hasLatitudeColumnQualifier() {
-        return ((bitField0_ & 0x00000008) != 0);
-      }
-      /**
-       * <code>required bytes latitudeColumnQualifier = 4;</code>
-       * @return The latitudeColumnQualifier.
-       */
-      public com.google.protobuf.ByteString getLatitudeColumnQualifier() {
-        return latitudeColumnQualifier_;
-      }
-      /**
-       * <code>required bytes latitudeColumnQualifier = 4;</code>
-       * @param value The latitudeColumnQualifier to set.
-       * @return This builder for chaining.
-       */
-      public Builder setLatitudeColumnQualifier(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000008;
-        latitudeColumnQualifier_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required bytes latitudeColumnQualifier = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearLatitudeColumnQualifier() {
-        bitField0_ = (bitField0_ & ~0x00000008);
-        latitudeColumnQualifier_ = getDefaultInstance().getLatitudeColumnQualifier();
-        onChanged();
-        return this;
-      }
+        /**
+         * <code>required bytes polygon = 5;</code>
+         *
+         * @return The polygon.
+         */
+        public com.google.protobuf.ByteString getPolygon() {
+            return polygon_;
+        }
 
-      private com.google.protobuf.ByteString polygon_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>required bytes polygon = 5;</code>
-       * @return Whether the polygon field is set.
-       */
-      public boolean hasPolygon() {
-        return ((bitField0_ & 0x00000010) != 0);
-      }
-      /**
-       * <code>required bytes polygon = 5;</code>
-       * @return The polygon.
-       */
-      public com.google.protobuf.ByteString getPolygon() {
-        return polygon_;
-      }
-      /**
-       * <code>required bytes polygon = 5;</code>
-       * @param value The polygon to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPolygon(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000010;
-        polygon_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required bytes polygon = 5;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPolygon() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        polygon_ = getDefaultInstance().getPolygon();
-        onChanged();
-        return this;
-      }
-      @Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
+        private byte memoizedIsInitialized = -1;
 
-      @Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
+        @Override
+        public final boolean isInitialized() {
+            byte isInitialized = memoizedIsInitialized;
+            if (isInitialized == 1) return true;
+            if (isInitialized == 0) return false;
+
+            if (!hasValue()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasColumnFamily()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasLongitudeColumnQualifier()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasLatitudeColumnQualifier()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            if (!hasPolygon()) {
+                memoizedIsInitialized = 0;
+                return false;
+            }
+            memoizedIsInitialized = 1;
+            return true;
+        }
+
+        @Override
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                throws java.io.IOException {
+            if (((bitField0_ & 0x00000001) != 0)) {
+                output.writeBytes(1, value_);
+            }
+            if (((bitField0_ & 0x00000002) != 0)) {
+                output.writeBytes(2, columnFamily_);
+            }
+            if (((bitField0_ & 0x00000004) != 0)) {
+                output.writeBytes(3, longitudeColumnQualifier_);
+            }
+            if (((bitField0_ & 0x00000008) != 0)) {
+                output.writeBytes(4, latitudeColumnQualifier_);
+            }
+            if (((bitField0_ & 0x00000010) != 0)) {
+                output.writeBytes(5, polygon_);
+            }
+            unknownFields.writeTo(output);
+        }
+
+        @Override
+        public int getSerializedSize() {
+            int size = memoizedSize;
+            if (size != -1) return size;
+
+            size = 0;
+            if (((bitField0_ & 0x00000001) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeBytesSize(1, value_);
+            }
+            if (((bitField0_ & 0x00000002) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeBytesSize(2, columnFamily_);
+            }
+            if (((bitField0_ & 0x00000004) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeBytesSize(3, longitudeColumnQualifier_);
+            }
+            if (((bitField0_ & 0x00000008) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeBytesSize(4, latitudeColumnQualifier_);
+            }
+            if (((bitField0_ & 0x00000010) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeBytesSize(5, polygon_);
+            }
+            size += unknownFields.getSerializedSize();
+            memoizedSize = size;
+            return size;
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof PolygonFilter)) {
+                return super.equals(obj);
+            }
+            PolygonFilter other = (PolygonFilter) obj;
+
+            if (hasValue() != other.hasValue()) return false;
+            if (hasValue()) {
+                if (!getValue()
+                        .equals(other.getValue())) return false;
+            }
+            if (hasColumnFamily() != other.hasColumnFamily()) return false;
+            if (hasColumnFamily()) {
+                if (!getColumnFamily()
+                        .equals(other.getColumnFamily())) return false;
+            }
+            if (hasLongitudeColumnQualifier() != other.hasLongitudeColumnQualifier()) return false;
+            if (hasLongitudeColumnQualifier()) {
+                if (!getLongitudeColumnQualifier()
+                        .equals(other.getLongitudeColumnQualifier())) return false;
+            }
+            if (hasLatitudeColumnQualifier() != other.hasLatitudeColumnQualifier()) return false;
+            if (hasLatitudeColumnQualifier()) {
+                if (!getLatitudeColumnQualifier()
+                        .equals(other.getLatitudeColumnQualifier())) return false;
+            }
+            if (hasPolygon() != other.hasPolygon()) return false;
+            if (hasPolygon()) {
+                if (!getPolygon()
+                        .equals(other.getPolygon())) return false;
+            }
+            if (!unknownFields.equals(other.unknownFields)) return false;
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            if (memoizedHashCode != 0) {
+                return memoizedHashCode;
+            }
+            int hash = 41;
+            hash = (19 * hash) + getDescriptor().hashCode();
+            if (hasValue()) {
+                hash = (37 * hash) + VALUE_FIELD_NUMBER;
+                hash = (53 * hash) + getValue().hashCode();
+            }
+            if (hasColumnFamily()) {
+                hash = (37 * hash) + COLUMNFAMILY_FIELD_NUMBER;
+                hash = (53 * hash) + getColumnFamily().hashCode();
+            }
+            if (hasLongitudeColumnQualifier()) {
+                hash = (37 * hash) + LONGITUDECOLUMNQUALIFIER_FIELD_NUMBER;
+                hash = (53 * hash) + getLongitudeColumnQualifier().hashCode();
+            }
+            if (hasLatitudeColumnQualifier()) {
+                hash = (37 * hash) + LATITUDECOLUMNQUALIFIER_FIELD_NUMBER;
+                hash = (53 * hash) + getLatitudeColumnQualifier().hashCode();
+            }
+            if (hasPolygon()) {
+                hash = (37 * hash) + POLYGON_FIELD_NUMBER;
+                hash = (53 * hash) + getPolygon().hashCode();
+            }
+            hash = (29 * hash) + unknownFields.hashCode();
+            memoizedHashCode = hash;
+            return hash;
+        }
+
+        public static PolygonFilter parseFrom(
+                java.nio.ByteBuffer data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static PolygonFilter parseFrom(
+                java.nio.ByteBuffer data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static PolygonFilter parseFrom(
+                com.google.protobuf.ByteString data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static PolygonFilter parseFrom(
+                com.google.protobuf.ByteString data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static PolygonFilter parseFrom(byte[] data)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data);
+        }
+
+        public static PolygonFilter parseFrom(
+                byte[] data,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws com.google.protobuf.InvalidProtocolBufferException {
+            return PARSER.parseFrom(data, extensionRegistry);
+        }
+
+        public static PolygonFilter parseFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static PolygonFilter parseFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static PolygonFilter parseDelimitedFrom(java.io.InputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input);
+        }
+
+        public static PolygonFilter parseDelimitedFrom(
+                java.io.InputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        public static PolygonFilter parseFrom(
+                com.google.protobuf.CodedInputStream input)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input);
+        }
+
+        public static PolygonFilter parseFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            return com.google.protobuf.GeneratedMessageV3
+                    .parseWithIOException(PARSER, input, extensionRegistry);
+        }
+
+        @Override
+        public Builder newBuilderForType() {
+            return newBuilder();
+        }
+
+        public static Builder newBuilder() {
+            return DEFAULT_INSTANCE.toBuilder();
+        }
+
+        public static Builder newBuilder(PolygonFilter prototype) {
+            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        }
+
+        @Override
+        public Builder toBuilder() {
+            return this == DEFAULT_INSTANCE
+                    ? new Builder() : new Builder().mergeFrom(this);
+        }
+
+        @Override
+        protected Builder newBuilderForType(
+                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+            Builder builder = new Builder(parent);
+            return builder;
+        }
+
+        /**
+         * Protobuf type {@code PolygonFilter}
+         */
+        public static final class Builder extends
+                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+                // @@protoc_insertion_point(builder_implements:PolygonFilter)
+                PolygonFilterOrBuilder {
+            public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+                return FilterProtos.internal_static_PolygonFilter_descriptor;
+            }
+
+            @Override
+            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+                return FilterProtos.internal_static_PolygonFilter_fieldAccessorTable
+                        .ensureFieldAccessorsInitialized(
+                                PolygonFilter.class, Builder.class);
+            }
+
+            // Construct using gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.newBuilder()
+            private Builder() {
+                maybeForceBuilderInitialization();
+            }
+
+            private Builder(
+                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+                super(parent);
+                maybeForceBuilderInitialization();
+            }
+
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessageV3
+                        .alwaysUseFieldBuilders) {
+                }
+            }
+
+            @Override
+            public Builder clear() {
+                super.clear();
+                value_ = com.google.protobuf.ByteString.EMPTY;
+                bitField0_ = (bitField0_ & ~0x00000001);
+                columnFamily_ = com.google.protobuf.ByteString.EMPTY;
+                bitField0_ = (bitField0_ & ~0x00000002);
+                longitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
+                bitField0_ = (bitField0_ & ~0x00000004);
+                latitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
+                bitField0_ = (bitField0_ & ~0x00000008);
+                polygon_ = com.google.protobuf.ByteString.EMPTY;
+                bitField0_ = (bitField0_ & ~0x00000010);
+                return this;
+            }
+
+            @Override
+            public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+                return FilterProtos.internal_static_PolygonFilter_descriptor;
+            }
+
+            @Override
+            public PolygonFilter getDefaultInstanceForType() {
+                return PolygonFilter.getDefaultInstance();
+            }
+
+            @Override
+            public PolygonFilter build() {
+                PolygonFilter result = buildPartial();
+                if (!result.isInitialized()) {
+                    throw newUninitializedMessageException(result);
+                }
+                return result;
+            }
+
+            @Override
+            public PolygonFilter buildPartial() {
+                PolygonFilter result = new PolygonFilter(this);
+                int from_bitField0_ = bitField0_;
+                int to_bitField0_ = 0;
+                if (((from_bitField0_ & 0x00000001) != 0)) {
+                    to_bitField0_ |= 0x00000001;
+                }
+                result.value_ = value_;
+                if (((from_bitField0_ & 0x00000002) != 0)) {
+                    to_bitField0_ |= 0x00000002;
+                }
+                result.columnFamily_ = columnFamily_;
+                if (((from_bitField0_ & 0x00000004) != 0)) {
+                    to_bitField0_ |= 0x00000004;
+                }
+                result.longitudeColumnQualifier_ = longitudeColumnQualifier_;
+                if (((from_bitField0_ & 0x00000008) != 0)) {
+                    to_bitField0_ |= 0x00000008;
+                }
+                result.latitudeColumnQualifier_ = latitudeColumnQualifier_;
+                if (((from_bitField0_ & 0x00000010) != 0)) {
+                    to_bitField0_ |= 0x00000010;
+                }
+                result.polygon_ = polygon_;
+                result.bitField0_ = to_bitField0_;
+                onBuilt();
+                return result;
+            }
+
+            @Override
+            public Builder clone() {
+                return super.clone();
+            }
+
+            @Override
+            public Builder setField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    Object value) {
+                return super.setField(field, value);
+            }
+
+            @Override
+            public Builder clearField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field) {
+                return super.clearField(field);
+            }
+
+            @Override
+            public Builder clearOneof(
+                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+                return super.clearOneof(oneof);
+            }
+
+            @Override
+            public Builder setRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    int index, Object value) {
+                return super.setRepeatedField(field, index, value);
+            }
+
+            @Override
+            public Builder addRepeatedField(
+                    com.google.protobuf.Descriptors.FieldDescriptor field,
+                    Object value) {
+                return super.addRepeatedField(field, value);
+            }
+
+            @Override
+            public Builder mergeFrom(com.google.protobuf.Message other) {
+                if (other instanceof PolygonFilter) {
+                    return mergeFrom((PolygonFilter) other);
+                } else {
+                    super.mergeFrom(other);
+                    return this;
+                }
+            }
+
+            public Builder mergeFrom(PolygonFilter other) {
+                if (other == PolygonFilter.getDefaultInstance()) return this;
+                if (other.hasValue()) {
+                    setValue(other.getValue());
+                }
+                if (other.hasColumnFamily()) {
+                    setColumnFamily(other.getColumnFamily());
+                }
+                if (other.hasLongitudeColumnQualifier()) {
+                    setLongitudeColumnQualifier(other.getLongitudeColumnQualifier());
+                }
+                if (other.hasLatitudeColumnQualifier()) {
+                    setLatitudeColumnQualifier(other.getLatitudeColumnQualifier());
+                }
+                if (other.hasPolygon()) {
+                    setPolygon(other.getPolygon());
+                }
+                this.mergeUnknownFields(other.unknownFields);
+                onChanged();
+                return this;
+            }
+
+            @Override
+            public final boolean isInitialized() {
+                if (!hasValue()) {
+                    return false;
+                }
+                if (!hasColumnFamily()) {
+                    return false;
+                }
+                if (!hasLongitudeColumnQualifier()) {
+                    return false;
+                }
+                if (!hasLatitudeColumnQualifier()) {
+                    return false;
+                }
+                if (!hasPolygon()) {
+                    return false;
+                }
+                return true;
+            }
+
+            @Override
+            public Builder mergeFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws java.io.IOException {
+                PolygonFilter parsedMessage = null;
+                try {
+                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                    parsedMessage = (PolygonFilter) e.getUnfinishedMessage();
+                    throw e.unwrapIOException();
+                } finally {
+                    if (parsedMessage != null) {
+                        mergeFrom(parsedMessage);
+                    }
+                }
+                return this;
+            }
+
+            private int bitField0_;
+
+            private com.google.protobuf.ByteString value_ = com.google.protobuf.ByteString.EMPTY;
+
+            /**
+             * <code>required bytes value = 1;</code>
+             *
+             * @return Whether the value field is set.
+             */
+            public boolean hasValue() {
+                return ((bitField0_ & 0x00000001) != 0);
+            }
+
+            /**
+             * <code>required bytes value = 1;</code>
+             *
+             * @return The value.
+             */
+            public com.google.protobuf.ByteString getValue() {
+                return value_;
+            }
+
+            /**
+             * <code>required bytes value = 1;</code>
+             *
+             * @param value The value to set.
+             * @return This builder for chaining.
+             */
+            public Builder setValue(com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                bitField0_ |= 0x00000001;
+                value_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>required bytes value = 1;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearValue() {
+                bitField0_ = (bitField0_ & ~0x00000001);
+                value_ = getDefaultInstance().getValue();
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.ByteString columnFamily_ = com.google.protobuf.ByteString.EMPTY;
+
+            /**
+             * <code>required bytes columnFamily = 2;</code>
+             *
+             * @return Whether the columnFamily field is set.
+             */
+            public boolean hasColumnFamily() {
+                return ((bitField0_ & 0x00000002) != 0);
+            }
+
+            /**
+             * <code>required bytes columnFamily = 2;</code>
+             *
+             * @return The columnFamily.
+             */
+            public com.google.protobuf.ByteString getColumnFamily() {
+                return columnFamily_;
+            }
+
+            /**
+             * <code>required bytes columnFamily = 2;</code>
+             *
+             * @param value The columnFamily to set.
+             * @return This builder for chaining.
+             */
+            public Builder setColumnFamily(com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                bitField0_ |= 0x00000002;
+                columnFamily_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>required bytes columnFamily = 2;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearColumnFamily() {
+                bitField0_ = (bitField0_ & ~0x00000002);
+                columnFamily_ = getDefaultInstance().getColumnFamily();
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.ByteString longitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
+
+            /**
+             * <code>required bytes longitudeColumnQualifier = 3;</code>
+             *
+             * @return Whether the longitudeColumnQualifier field is set.
+             */
+            public boolean hasLongitudeColumnQualifier() {
+                return ((bitField0_ & 0x00000004) != 0);
+            }
+
+            /**
+             * <code>required bytes longitudeColumnQualifier = 3;</code>
+             *
+             * @return The longitudeColumnQualifier.
+             */
+            public com.google.protobuf.ByteString getLongitudeColumnQualifier() {
+                return longitudeColumnQualifier_;
+            }
+
+            /**
+             * <code>required bytes longitudeColumnQualifier = 3;</code>
+             *
+             * @param value The longitudeColumnQualifier to set.
+             * @return This builder for chaining.
+             */
+            public Builder setLongitudeColumnQualifier(com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                bitField0_ |= 0x00000004;
+                longitudeColumnQualifier_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>required bytes longitudeColumnQualifier = 3;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearLongitudeColumnQualifier() {
+                bitField0_ = (bitField0_ & ~0x00000004);
+                longitudeColumnQualifier_ = getDefaultInstance().getLongitudeColumnQualifier();
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.ByteString latitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
+
+            /**
+             * <code>required bytes latitudeColumnQualifier = 4;</code>
+             *
+             * @return Whether the latitudeColumnQualifier field is set.
+             */
+            public boolean hasLatitudeColumnQualifier() {
+                return ((bitField0_ & 0x00000008) != 0);
+            }
+
+            /**
+             * <code>required bytes latitudeColumnQualifier = 4;</code>
+             *
+             * @return The latitudeColumnQualifier.
+             */
+            public com.google.protobuf.ByteString getLatitudeColumnQualifier() {
+                return latitudeColumnQualifier_;
+            }
+
+            /**
+             * <code>required bytes latitudeColumnQualifier = 4;</code>
+             *
+             * @param value The latitudeColumnQualifier to set.
+             * @return This builder for chaining.
+             */
+            public Builder setLatitudeColumnQualifier(com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                bitField0_ |= 0x00000008;
+                latitudeColumnQualifier_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>required bytes latitudeColumnQualifier = 4;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearLatitudeColumnQualifier() {
+                bitField0_ = (bitField0_ & ~0x00000008);
+                latitudeColumnQualifier_ = getDefaultInstance().getLatitudeColumnQualifier();
+                onChanged();
+                return this;
+            }
+
+            private com.google.protobuf.ByteString polygon_ = com.google.protobuf.ByteString.EMPTY;
+
+            /**
+             * <code>required bytes polygon = 5;</code>
+             *
+             * @return Whether the polygon field is set.
+             */
+            public boolean hasPolygon() {
+                return ((bitField0_ & 0x00000010) != 0);
+            }
+
+            /**
+             * <code>required bytes polygon = 5;</code>
+             *
+             * @return The polygon.
+             */
+            public com.google.protobuf.ByteString getPolygon() {
+                return polygon_;
+            }
+
+            /**
+             * <code>required bytes polygon = 5;</code>
+             *
+             * @param value The polygon to set.
+             * @return This builder for chaining.
+             */
+            public Builder setPolygon(com.google.protobuf.ByteString value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                bitField0_ |= 0x00000010;
+                polygon_ = value;
+                onChanged();
+                return this;
+            }
+
+            /**
+             * <code>required bytes polygon = 5;</code>
+             *
+             * @return This builder for chaining.
+             */
+            public Builder clearPolygon() {
+                bitField0_ = (bitField0_ & ~0x00000010);
+                polygon_ = getDefaultInstance().getPolygon();
+                onChanged();
+                return this;
+            }
+
+            @Override
+            public final Builder setUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.setUnknownFields(unknownFields);
+            }
+
+            @Override
+            public final Builder mergeUnknownFields(
+                    final com.google.protobuf.UnknownFieldSet unknownFields) {
+                return super.mergeUnknownFields(unknownFields);
+            }
 
 
-      // @@protoc_insertion_point(builder_scope:PolygonFilter)
+            // @@protoc_insertion_point(builder_scope:PolygonFilter)
+        }
+
+        // @@protoc_insertion_point(class_scope:PolygonFilter)
+        private static final PolygonFilter DEFAULT_INSTANCE;
+
+        static {
+            DEFAULT_INSTANCE = new PolygonFilter();
+        }
+
+        public static PolygonFilter getDefaultInstance() {
+            return DEFAULT_INSTANCE;
+        }
+
+        @Deprecated
+        public static final com.google.protobuf.Parser<PolygonFilter>
+                PARSER = new com.google.protobuf.AbstractParser<PolygonFilter>() {
+            @Override
+            public PolygonFilter parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new PolygonFilter(input, extensionRegistry);
+            }
+        };
+
+        public static com.google.protobuf.Parser<PolygonFilter> parser() {
+            return PARSER;
+        }
+
+        @Override
+        public com.google.protobuf.Parser<PolygonFilter> getParserForType() {
+            return PARSER;
+        }
+
+        @Override
+        public PolygonFilter getDefaultInstanceForType() {
+            return DEFAULT_INSTANCE;
+        }
+
     }
 
-    // @@protoc_insertion_point(class_scope:PolygonFilter)
-    private static final PolygonFilter DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new PolygonFilter();
-    }
-
-    public static PolygonFilter getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    @Deprecated public static final com.google.protobuf.Parser<PolygonFilter>
-        PARSER = new com.google.protobuf.AbstractParser<PolygonFilter>() {
-      @Override
-      public PolygonFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PolygonFilter(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<PolygonFilter> parser() {
-      return PARSER;
-    }
-
-    @Override
-    public com.google.protobuf.Parser<PolygonFilter> getParserForType() {
-      return PARSER;
-    }
-
-    @Override
-    public PolygonFilter getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_PolygonFilter_descriptor;
-  private static final 
+    private static final com.google.protobuf.Descriptors.Descriptor
+            internal_static_PolygonFilter_descriptor;
+    private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_PolygonFilter_fieldAccessorTable;
+            internal_static_PolygonFilter_fieldAccessorTable;
 
-  public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
-    return descriptor;
-  }
-  private static  com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
-  static {
-    String[] descriptorData = {
-      "\n\023PolygonFilter.proto\"\210\001\n\rPolygonFilter\022" +
-      "\r\n\005value\030\001 \002(\014\022\024\n\014columnFamily\030\002 \002(\014\022 \n\030" +
-      "longitudeColumnQualifier\030\003 \002(\014\022\037\n\027latitu" +
-      "deColumnQualifier\030\004 \002(\014\022\017\n\007polygon\030\005 \002(\014" +
-      "B\203\001\nkgr.ds.unipi.noda.api.hbase.filterOp" +
-      "erator.geographicalOperators.geoSpatialO" +
-      "perators.customFilters.generatedB\014Filter" +
-      "ProtosH\001\210\001\001\240\001\001"
-    };
-    descriptor = com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
-        new com.google.protobuf.Descriptors.FileDescriptor[] {
-        });
-    internal_static_PolygonFilter_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_PolygonFilter_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_PolygonFilter_descriptor,
-        new String[] { "Value", "ColumnFamily", "LongitudeColumnQualifier", "LatitudeColumnQualifier", "Polygon", });
-  }
+    public static com.google.protobuf.Descriptors.FileDescriptor
+    getDescriptor() {
+        return descriptor;
+    }
 
-  // @@protoc_insertion_point(outer_class_scope)
+    private static com.google.protobuf.Descriptors.FileDescriptor
+            descriptor;
+
+    static {
+        String[] descriptorData = {
+                "\n\023PolygonFilter.proto\"\210\001\n\rPolygonFilter\022" +
+                        "\r\n\005value\030\001 \002(\014\022\024\n\014columnFamily\030\002 \002(\014\022 \n\030" +
+                        "longitudeColumnQualifier\030\003 \002(\014\022\037\n\027latitu" +
+                        "deColumnQualifier\030\004 \002(\014\022\017\n\007polygon\030\005 \002(\014" +
+                        "B\203\001\nkgr.ds.unipi.noda.api.hbase.filterOp" +
+                        "erator.geographicalOperators.geoSpatialO" +
+                        "perators.customFilters.generatedB\014Filter" +
+                        "ProtosH\001\210\001\001\240\001\001"
+        };
+        descriptor = com.google.protobuf.Descriptors.FileDescriptor
+                .internalBuildGeneratedFileFrom(descriptorData,
+                        new com.google.protobuf.Descriptors.FileDescriptor[]{
+                        });
+        internal_static_PolygonFilter_descriptor =
+                getDescriptor().getMessageTypes().get(0);
+        internal_static_PolygonFilter_fieldAccessorTable = new
+                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+                internal_static_PolygonFilter_descriptor,
+                new String[]{"Value", "ColumnFamily", "LongitudeColumnQualifier", "LatitudeColumnQualifier", "Polygon",});
+    }
+
+    // @@protoc_insertion_point(outer_class_scope)
 }

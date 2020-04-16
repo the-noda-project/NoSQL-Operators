@@ -1,7 +1,7 @@
 package gr.ds.unipi.noda.api.neo4j;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
-import javafx.util.Pair;
+import org.javatuples.Pair;
 import org.neo4j.driver.AuthToken;
 import org.neo4j.driver.Config;
 import org.neo4j.driver.Driver;
@@ -24,7 +24,7 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
         this.addresses = addresses;
         this.authToken = authToken;
         this.config = config;
-        System.out.println(addresses.get(0).getValue());
+        System.out.println(addresses.get(0).getValue1());
         System.out.println(authToken);
     }
 
@@ -35,13 +35,13 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
         //typeOfConnection => bolt means localhost
         StringBuilder sb = new StringBuilder();
         typeOfConnection = "neo4j";
-        String firstHost = addresses.get(0).getKey();
-        String firstPort = addresses.get(0).getValue().toString();
+        String firstHost = addresses.get(0).getValue0();
+        String firstPort = addresses.get(0).getValue1().toString();
 
         System.out.println("eimai edw 3");
 
         for (Pair<String, Integer> address : addresses) {
-            if (address.getKey().equals("localhost") || address.getKey().equals("127.0.0.1")) {
+            if (address.getValue0().equals("localhost") || address.getValue0().equals("127.0.0.1")) {
                 typeOfConnection = "bolt";
                 break;
             }
@@ -52,8 +52,8 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
         for (Pair<String, Integer> address : addresses) {
 //            sb.append(ServerAddress.of(address.getKey(), address.getValue() ));
 //            sb.append(address.getKey()).append(":").append(address.getValue()).append(",");
-            if(address.getKey() != addresses.get(0).getKey() && address.getValue() != addresses.get(0).getValue()) {
-                serverAddresses.add(ServerAddress.of(address.getKey(), address.getValue()));
+            if(address.getValue0() != addresses.get(0).getValue0() && address.getValue1() != addresses.get(0).getValue1()) {
+                serverAddresses.add(ServerAddress.of(address.getValue0(), address.getValue1()));
             }
         }
 

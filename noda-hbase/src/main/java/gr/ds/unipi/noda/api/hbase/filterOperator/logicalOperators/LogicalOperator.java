@@ -14,7 +14,7 @@ abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operators.filte
     @Override
     public Filter getOperatorExpression() {
         FilterList filterList = new FilterList(getLogicalExpression());
-        for(int i=0;i<getFilterOperatorChildren().length;i++){
+        for (int i = 0; i < getFilterOperatorChildren().length; i++) {
             filterList.addFilter((Filter) getFilterOperatorChildren()[i].getOperatorExpression());
         }
         return filterList;

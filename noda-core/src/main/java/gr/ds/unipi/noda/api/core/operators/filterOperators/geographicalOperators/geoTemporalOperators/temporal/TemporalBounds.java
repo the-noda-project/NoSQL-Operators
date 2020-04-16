@@ -8,8 +8,8 @@ public class TemporalBounds extends Temporal {
         super(dates);
     }
 
-    public static TemporalBounds newTemporalBounds(Date lowerBound, Date upperBound){
-        if(lowerBound.after(upperBound)){
+    public static TemporalBounds newTemporalBounds(Date lowerBound, Date upperBound) {
+        if (lowerBound.after(upperBound)) {
             try {
                 throw new Exception("Lower date bound is after the Upper date bound");
             } catch (Exception e) {
@@ -20,10 +20,11 @@ public class TemporalBounds extends Temporal {
         return new TemporalBounds(new Date[]{lowerBound, upperBound});
     }
 
-    public Date getLowerBound(){
+    public Date getLowerBound() {
         return getDates()[0];
     }
-    public Date getUpperBound(){
+
+    public Date getUpperBound() {
         return getDates()[1];
     }
 }

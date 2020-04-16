@@ -210,7 +210,7 @@ public class FilterOperators {
     }
 
     public static FilterOperator inGeoTemporalPolygon(String fieldName, String fieldTemporalName, Date lowerBoundDate, Date upperBoundDate, Coordinates coordinates1, Coordinates coordinates2, Coordinates coordinates3, Coordinates... coordinates) {
-        return GeoTemporalOperator.geoTemporalOperator.newOperatorInGeoTemporalPolygon(fieldName,  Polygon.newPolygon(coordinates1, coordinates2, coordinates3, coordinates), fieldTemporalName, TemporalBounds.newTemporalBounds(lowerBoundDate, upperBoundDate));
+        return GeoTemporalOperator.geoTemporalOperator.newOperatorInGeoTemporalPolygon(fieldName, Polygon.newPolygon(coordinates1, coordinates2, coordinates3, coordinates), fieldTemporalName, TemporalBounds.newTemporalBounds(lowerBoundDate, upperBoundDate));
     }
 
     public static FilterOperator inGeoTemporalRectangle(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint, String fieldTemporalName, Date lowerBoundDate, Date upperBoundDate) {
@@ -233,11 +233,11 @@ public class FilterOperators {
         return GeoTemporalOperator.geoTemporalOperator.newOperatorGeoTemporalNearestNeighbors(fieldName, Point.newPoint(point), neighbors);
     }
 
-    public static FilterOperator anyKeywords(String fieldName, String keyword, String... keywords){
+    public static FilterOperator anyKeywords(String fieldName, String keyword, String... keywords) {
         return TextualOperator.textualOperator.newOperatorAnyKeywords(fieldName, keyword, keywords);
     }
 
-    public static FilterOperator allKeywords(String fieldName, String keyword1, String keyword2, String... keywords){
+    public static FilterOperator allKeywords(String fieldName, String keyword1, String keyword2, String... keywords) {
         return TextualOperator.textualOperator.newOperatorAllKeywords(fieldName, keyword1, keyword2, keywords);
     }
 

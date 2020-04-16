@@ -17,7 +17,7 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
 
         String[] names = getFieldName().split(":");
 
-        if(names.length != 2){
+        if (names.length != 2) {
             try {
                 throw new Exception("");
             } catch (Exception e) {
@@ -27,28 +27,21 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
 
         byte[] value = null;
 
-        if(getFieldValue() instanceof Double){
+        if (getFieldValue() instanceof Double) {
             value = Bytes.toBytes((Double) getFieldValue());
-        }
-        else if(getFieldValue() instanceof Integer){
+        } else if (getFieldValue() instanceof Integer) {
             value = Bytes.toBytes((Integer) getFieldValue());
-        }
-        else if(getFieldValue() instanceof Float){
+        } else if (getFieldValue() instanceof Float) {
             value = Bytes.toBytes((Float) getFieldValue());
-        }
-        else if(getFieldValue() instanceof Short){
+        } else if (getFieldValue() instanceof Short) {
             value = Bytes.toBytes((Short) getFieldValue());
-        }
-        else if(getFieldValue() instanceof Long){
+        } else if (getFieldValue() instanceof Long) {
             value = Bytes.toBytes((Long) getFieldValue());
-        }
-        else if(getFieldValue() instanceof Boolean){
+        } else if (getFieldValue() instanceof Boolean) {
             value = Bytes.toBytes((Boolean) getFieldValue());
-        }
-        else if(getFieldValue() instanceof String){
+        } else if (getFieldValue() instanceof String) {
             value = Bytes.toBytes((String) getFieldValue());
-        }
-        else{
+        } else {
             try {
                 throw new Exception("");
             } catch (Exception e) {
@@ -56,6 +49,6 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
             }
         }
 
-        return new SingleColumnValueFilter(Bytes.toBytes(names[0]),Bytes.toBytes(names[1]), getComparisonExpression(),  value);
+        return new SingleColumnValueFilter(Bytes.toBytes(names[0]), Bytes.toBytes(names[1]), getComparisonExpression(), value);
     }
 }

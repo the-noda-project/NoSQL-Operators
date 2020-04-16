@@ -7,7 +7,7 @@ public abstract class TextualOperator<T> implements FilterOperator<T> {
     private final String fieldName;
     private final String[] elements;
 
-    protected TextualOperator(String fieldName, String[] elements){
+    protected TextualOperator(String fieldName, String[] elements) {
         this.fieldName = fieldName;
         this.elements = elements;
     }
@@ -22,7 +22,7 @@ public abstract class TextualOperator<T> implements FilterOperator<T> {
 
     public static BaseTextualOperatorFactory textualOperator;
 
-    public static String[] allKeywordsToArray(String keyword1, String keyword2, String... keywords){
+    public static String[] allKeywordsToArray(String keyword1, String keyword2, String... keywords) {
         String[] keywordsArray;
 
         if (keywords.length == 0) {
@@ -40,7 +40,7 @@ public abstract class TextualOperator<T> implements FilterOperator<T> {
         return keywordsArray;
     }
 
-    public static String[] anyKeywordsToArray(String keyword, String... keywords){
+    public static String[] anyKeywordsToArray(String keyword, String... keywords) {
         String[] keywordsArray;
 
         if (keywords.length == 0) {

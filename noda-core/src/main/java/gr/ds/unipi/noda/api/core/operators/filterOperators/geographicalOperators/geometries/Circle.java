@@ -25,29 +25,27 @@ public class Circle extends Geometry {
         return radius;
     }
 
-    public Rectangle getMbr(){
+    public Rectangle getMbr() {
 
         double earth = 6378.137;  //radius of the earth in kilometer
         double pi = Math.PI;
         double m = (1 / ((2 * pi / 360) * earth)) / 1000;  //1 meter in degree
 
-        Coordinates lowerBound = Coordinates.newCoordinates(getCircleCenter().getLongitude() - (radius * m) / cos(getCircleCenter().getLatitude() * (pi / 180)),getCircleCenter().getLatitude() - (getRadius() * m));
-        Coordinates upperBound = Coordinates.newCoordinates(getCircleCenter().getLongitude() + (radius * m) / cos(getCircleCenter().getLatitude() * (pi / 180)),getCircleCenter().getLatitude() + (getRadius() * m));
+        Coordinates lowerBound = Coordinates.newCoordinates(getCircleCenter().getLongitude() - (radius * m) / cos(getCircleCenter().getLatitude() * (pi / 180)), getCircleCenter().getLatitude() - (getRadius() * m));
+        Coordinates upperBound = Coordinates.newCoordinates(getCircleCenter().getLongitude() + (radius * m) / cos(getCircleCenter().getLatitude() * (pi / 180)), getCircleCenter().getLatitude() + (getRadius() * m));
 
         return Rectangle.newRectangle(lowerBound, upperBound);
     }
 
     public boolean contains(Point point) {
 
-        if(Double.compare(radius, haversine(getCircleCenter().getLongitude(),getCircleCenter().getLatitude(),point.getPoint().getLongitude(),point.getPoint().getLatitude())) != -1)
-        {
+        if (Double.compare(radius, haversine(getCircleCenter().getLongitude(), getCircleCenter().getLatitude(), point.getPoint().getLongitude(), point.getPoint().getLatitude())) != -1) {
             return true;
         }
         return false;
     }
 
-    private static double haversine(double lon1, double lat1, double lon2, double lat2)
-    {
+    private static double haversine(double lon1, double lat1, double lon2, double lat2) {
         double dLat = Math.toRadians(lat2 - lat1);
         double dLon = Math.toRadians(lon2 - lon1);
 

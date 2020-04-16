@@ -17,7 +17,7 @@ public class YYYDatabaseSystem extends NoSqlDbSystem {
         return 0;
     }
 
-    public static class Builder extends NoSqlDbSystem.Builder<Builder>{
+    public static class Builder extends NoSqlDbSystem.Builder<Builder> {
 
         @Override
         public NoSqlDbSystem build() {

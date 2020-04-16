@@ -5,7 +5,7 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
-import javafx.util.Pair;
+import org.javatuples.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,12 +47,12 @@ public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
     @Override
     public MongoClient createConnection() {
         if(addresses.size()==1){
-            return new MongoClient(new ServerAddress(addresses.get(0).getKey(), addresses.get(0).getValue()), mongoCredential, mongoClientOptions);
+            return new MongoClient(new ServerAddress(addresses.get(0).getValue0(), addresses.get(0).getValue1()), mongoCredential, mongoClientOptions);
         }
         else{
             List<ServerAddress> servers = new ArrayList<>();
             for(Pair<String,Integer> pair : addresses){
-                servers.add(new ServerAddress(pair.getKey(),pair.getValue()));
+                servers.add(new ServerAddress(pair.getValue0(),pair.getValue1()));
             }
             return new MongoClient(servers, mongoCredential, mongoClientOptions);
         }
@@ -67,12 +67,12 @@ public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
     }
 
     public int getPort() {
-        return addresses.get(0).getValue();
+        return addresses.get(0).getValue1();
     }
 
 
     public String getHost() {
-        return addresses.get(0).getKey();
+        return addresses.get(0).getValue0();
     }
 
 

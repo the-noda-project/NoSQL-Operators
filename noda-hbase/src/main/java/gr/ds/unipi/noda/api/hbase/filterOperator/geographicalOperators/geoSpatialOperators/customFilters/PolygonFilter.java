@@ -30,7 +30,7 @@ public class PolygonFilter extends FilterBase {
     private boolean filterRow = true;
 
 
-    private PolygonFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, byte[] polygon){
+    private PolygonFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, byte[] polygon) {
         this.columnFamily = columnFamily;
         this.longitudeColumnQualifier = longitudeColumnQualifier;
         this.latitudeColumnQualifier = latitudeColumnQualifier;
@@ -66,10 +66,9 @@ public class PolygonFilter extends FilterBase {
     @Override
     public Filter.ReturnCode filterCell(Cell c) throws IOException {
 
-        if(CellUtil.matchingColumn(c, this.columnFamily, this.longitudeColumnQualifier)){
+        if (CellUtil.matchingColumn(c, this.columnFamily, this.longitudeColumnQualifier)) {
             longitude = PrivateCellUtil.getValueAsDouble(c);
-        }
-        else if(CellUtil.matchingColumn(c, this.columnFamily, this.latitudeColumnQualifier)){
+        } else if (CellUtil.matchingColumn(c, this.columnFamily, this.latitudeColumnQualifier)) {
             latitude = PrivateCellUtil.getValueAsDouble(c);
         }
 
@@ -77,8 +76,8 @@ public class PolygonFilter extends FilterBase {
     }
 
     @Override
-    public boolean filterRow(){
-        if(polygonDes.contains(Point.newPoint(Coordinates.newCoordinates(longitude,latitude)))){
+    public boolean filterRow() {
+        if (polygonDes.contains(Point.newPoint(Coordinates.newCoordinates(longitude, latitude)))) {
             filterRow = false;
         }
         return filterRow;
@@ -87,16 +86,16 @@ public class PolygonFilter extends FilterBase {
     public byte[] toByteArray() throws IOException {
         gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.Builder builder =
                 gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.newBuilder();
-        if(columnFamily != null){
+        if (columnFamily != null) {
             builder.setColumnFamily(ByteStringer.wrap(columnFamily));
         }
-        if(longitudeColumnQualifier != null){
+        if (longitudeColumnQualifier != null) {
             builder.setColumnFamily(ByteStringer.wrap(longitudeColumnQualifier));
         }
-        if(latitudeColumnQualifier != null){
+        if (latitudeColumnQualifier != null) {
             builder.setColumnFamily(ByteStringer.wrap(latitudeColumnQualifier));
         }
-        if(polygon != null){
+        if (polygon != null) {
             builder.setColumnFamily(ByteStringer.wrap(polygon));
         }
         return builder.build().toByteArray();
@@ -111,7 +110,7 @@ public class PolygonFilter extends FilterBase {
             throw new DeserializationException(var6);
         }
 
-        return new PolygonFilter(proto.getColumnFamily().toByteArray(),  proto.getLongitudeColumnQualifier().toByteArray(),proto.getLatitudeColumnQualifier().toByteArray(), proto.getPolygon().toByteArray());
+        return new PolygonFilter(proto.getColumnFamily().toByteArray(), proto.getLongitudeColumnQualifier().toByteArray(), proto.getLatitudeColumnQualifier().toByteArray(), proto.getPolygon().toByteArray());
 
     }
 }

@@ -7,7 +7,7 @@ abstract class AggregateOperator extends gr.ds.unipi.noda.api.core.operators.agg
     }
 
     @Override
-    public Object getOperatorExpression(){
+    public Object getOperatorExpression() {
         return null;
     }
 }

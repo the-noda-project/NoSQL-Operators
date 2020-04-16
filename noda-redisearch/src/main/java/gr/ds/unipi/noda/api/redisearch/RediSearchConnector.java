@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.redisearch;
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
-import javafx.util.Pair;
+import org.javatuples.Pair;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -79,7 +79,7 @@ public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> 
     @Override
     public Pool<Jedis> createConnection() {
         if (masterName == null)
-            return new JedisPool(poolConfig, addresses.get(0).getKey(), addresses.get(0).getValue(), connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
+            return new JedisPool(poolConfig, addresses.get(0).getValue0(), addresses.get(0).getValue1(), connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
         else
             return new JedisSentinelPool(masterName, getSentinels(), poolConfig, connectionTimeout, soTimeout, password, database, clientName );
     }
@@ -89,6 +89,6 @@ public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> 
     }
 
     private Set<String> getSentinels() {
-        return addresses.stream().map(pair -> String.join(StringPool.COLON, pair.getKey(), pair.getValue().toString())).collect(Collectors.toSet());
+        return addresses.stream().map(pair -> String.join(StringPool.COLON, pair.getValue0(), pair.getValue1().toString())).collect(Collectors.toSet());
     }
 }

@@ -52,53 +52,53 @@ public class RediSearchSystem extends NoSqlDbSystem {
             this.poolConfig = poolConfig;
         }
 
-        public Builder timeout(int timeout){
+        public Builder timeout(int timeout) {
             this.connectionTimeout = timeout;
             this.soTimeout = timeout;
             return this;
         }
 
-        public Builder connectionTimeout(int connectionTimeout){
+        public Builder connectionTimeout(int connectionTimeout) {
             this.connectionTimeout = connectionTimeout;
             return this;
         }
 
-        public Builder soTimeout(int soTimeout){
+        public Builder soTimeout(int soTimeout) {
             this.soTimeout = soTimeout;
             return this;
         }
 
-        public Builder password(String password){
+        public Builder password(String password) {
             this.password = password;
             return this;
         }
 
-        public Builder database(int database){
+        public Builder database(int database) {
             this.database = database;
             return this;
         }
 
-        public Builder clientName(String clientName){
+        public Builder clientName(String clientName) {
             this.clientName = clientName;
             return this;
         }
 
-        public Builder ssl(boolean ssl){
+        public Builder ssl(boolean ssl) {
             this.ssl = ssl;
             return this;
         }
 
-        public Builder sslSocketFactory(SSLSocketFactory sslSocketFactory){
+        public Builder sslSocketFactory(SSLSocketFactory sslSocketFactory) {
             this.sslSocketFactory = sslSocketFactory;
             return this;
         }
 
-        public Builder sslParameters(SSLParameters sslParameters){
+        public Builder sslParameters(SSLParameters sslParameters) {
             this.sslParameters = sslParameters;
             return this;
         }
 
-        public Builder hostnameVerifier(HostnameVerifier hostnameVerifier){
+        public Builder hostnameVerifier(HostnameVerifier hostnameVerifier) {
             this.hostnameVerifier = hostnameVerifier;
             return this;
         }
@@ -117,7 +117,7 @@ public class RediSearchSystem extends NoSqlDbSystem {
     private RediSearchSystem(Builder builder) {
         super(builder, new RediSearchConnectionFactory());
 
-        if(getAddresses().size()>1){
+        if (getAddresses().size() > 1) {
             try {
                 throw new Exception("Up to one master has been defined. One master should be defined");
             } catch (Exception e) {
@@ -125,7 +125,7 @@ public class RediSearchSystem extends NoSqlDbSystem {
             }
         }
 
-        connector = RediSearchConnector.newRediSearchConnector(getAddresses(), null, builder.poolConfig, builder.connectionTimeout, builder.soTimeout,builder.password,builder.database,builder.clientName,builder.ssl,builder.sslSocketFactory,builder.sslParameters,builder.hostnameVerifier);
+        connector = RediSearchConnector.newRediSearchConnector(getAddresses(), null, builder.poolConfig, builder.connectionTimeout, builder.soTimeout, builder.password, builder.database, builder.clientName, builder.ssl, builder.sslSocketFactory, builder.sslParameters, builder.hostnameVerifier);
     }
 
     static JedisPoolConfig initPoolConfig(int poolSize) {

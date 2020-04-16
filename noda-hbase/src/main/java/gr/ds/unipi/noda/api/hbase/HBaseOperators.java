@@ -36,7 +36,7 @@ final class HBaseOperators extends NoSqlDbOperators {
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
         filterList.addFilter((Filter) filterOperator.getOperatorExpression());
-        for(FilterOperator fop : filterOperators){
+        for (FilterOperator fop : filterOperators) {
             filterList.addFilter((Filter) fop.getOperatorExpression());
         }
         return this;
@@ -106,16 +106,14 @@ final class HBaseOperators extends NoSqlDbOperators {
     }
 
 
-    private void scanProjection(String fieldName){
+    private void scanProjection(String fieldName) {
         String[] names = fieldName.split(":");
 
-        if(names.length == 1){
+        if (names.length == 1) {
             scan.addFamily(Bytes.toBytes(names[0]));
-        }
-        else if(names.length ==2 ){
-            scan.addColumn(Bytes.toBytes(names[0]),Bytes.toBytes(names[1]));
-        }
-        else{
+        } else if (names.length == 2) {
+            scan.addColumn(Bytes.toBytes(names[0]), Bytes.toBytes(names[1]));
+        } else {
             try {
                 throw new Exception("");
             } catch (Exception e) {
@@ -129,7 +127,7 @@ final class HBaseOperators extends NoSqlDbOperators {
 
         scanProjection(fieldName);
 
-        for(int i=0;i<fieldNames.length;i++){
+        for (int i = 0; i < fieldNames.length; i++) {
             scanProjection(fieldNames[i]);
         }
 

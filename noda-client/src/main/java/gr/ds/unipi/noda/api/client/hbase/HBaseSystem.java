@@ -4,9 +4,9 @@ import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.hbase.HBaseConnectionFactory;
 import gr.ds.unipi.noda.api.hbase.HBaseConnector;
-import javafx.util.Pair;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.javatuples.Pair;
 
 public class HBaseSystem extends NoSqlDbSystem {
 
@@ -22,20 +22,20 @@ public class HBaseSystem extends NoSqlDbSystem {
         return 8020;
     }
 
-    public static class Builder extends NoSqlDbSystem.Builder<Builder>{
+    public static class Builder extends NoSqlDbSystem.Builder<Builder> {
 
         private Configuration config = HBaseConfiguration.create();
 
-        public Builder(){
+        public Builder() {
 
         }
 
-        public Builder addProperty(String name, String value){
+        public Builder addProperty(String name, String value) {
             config.set(name, value);
             return this;
         }
 
-        public Builder configuration(Configuration config){
+        public Builder configuration(Configuration config) {
             this.config.addResource(config);
             return this;
         }
@@ -55,13 +55,13 @@ public class HBaseSystem extends NoSqlDbSystem {
         super(builder, new HBaseConnectionFactory());
 
         StringBuilder sb = new StringBuilder();
-        for(Pair<String,Integer> pair : getAddresses()){
-            sb.append(pair.getKey()).append(":").append(pair.getValue()).append(",");
+        for (Pair<String, Integer> pair : getAddresses()) {
+            sb.append(pair.getValue0()).append(":").append(pair.getValue1()).append(",");
         }
 
         sb.deleteCharAt(sb.lastIndexOf(","));
 
-        builder.config.set("hbase.zookeeper.quorum",sb.toString());
+        builder.config.set("hbase.zookeeper.quorum", sb.toString());
 
         connector = HBaseConnector.newHBaseConnector(builder.config);
     }

@@ -8,15 +8,15 @@ public class Point extends Geometry {
         super(coordinatesArray);
     }
 
-    public static Point newPoint(Coordinates coordinates){
+    public static Point newPoint(Coordinates coordinates) {
         return new Point(new Coordinates[]{coordinates});
     }
 
-    public Coordinates getPoint(){
+    public Coordinates getPoint() {
         return getCoordinatesArray()[0];
     }
 
-    public Rectangle getMbr(){
-        return Rectangle.newRectangle(this.getPoint(),this.getPoint());
+    public Rectangle getMbr() {
+        return Rectangle.newRectangle(this.getPoint(), this.getPoint());
     }
 }

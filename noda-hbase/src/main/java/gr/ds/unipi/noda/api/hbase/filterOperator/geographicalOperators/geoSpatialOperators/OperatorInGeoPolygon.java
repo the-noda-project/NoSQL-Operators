@@ -19,5 +19,4 @@ final class OperatorInGeoPolygon extends GeoSpatialOperator<Polygon> {
     }
 
 
-
 }
