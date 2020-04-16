@@ -9,7 +9,7 @@ public class HBaseSystemTest {
     public void hBaseTest() {
 
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.HBase().Builder().host("localhost").build();
-        noSqlDbSystem.operateOn("test").filter(eq("cf:name", "George")).printScreen();
+        noSqlDbSystem.operateOn("test").filter(eq("cf:name", "George")).project("cf:surname").printScreen();
 
         noSqlDbSystem.closeConnection();
     }
