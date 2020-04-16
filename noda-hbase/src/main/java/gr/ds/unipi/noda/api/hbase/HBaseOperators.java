@@ -5,13 +5,18 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
+import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
+import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.FilterList;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
+import java.io.IOException;
 import java.util.Optional;
 
 final class HBaseOperators extends NoSqlDbOperators {
@@ -30,7 +35,11 @@ final class HBaseOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        return null;
+        filterList.addFilter((Filter) filterOperator.getOperatorExpression());
+        for(FilterOperator fop : filterOperators){
+            filterList.addFilter((Filter) fop.getOperatorExpression());
+        }
+        return this;
     }
 
     @Override
@@ -45,7 +54,20 @@ final class HBaseOperators extends NoSqlDbOperators {
 
     @Override
     public void printScreen() {
+        Table table = null;
+        ResultScanner resultScanner = null;
+        try {
 
+            table = hbaseConnectionManager.getConnection(getNoSqlDbConnector()).getTable(TableName.valueOf(getDataCollection()));
+            resultScanner = table.getScanner(scan);
+
+            resultScanner.forEach(result -> System.out.println(result));
+
+            resultScanner.close();
+            table.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
