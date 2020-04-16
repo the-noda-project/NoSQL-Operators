@@ -19,7 +19,7 @@ public class HBaseSystem extends NoSqlDbSystem {
 
     @Override
     public int getDefaultPort() {
-        return 8020;
+        return 2181;
     }
 
     public static class Builder extends NoSqlDbSystem.Builder<Builder> {
