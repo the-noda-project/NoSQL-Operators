@@ -2,7 +2,6 @@ package gr.ds.unipi.noda.api.redisearch;
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
-import org.javatuples.Pair;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
