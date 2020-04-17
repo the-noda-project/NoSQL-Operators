@@ -20,13 +20,13 @@ abstract class GeoSpatialOperator<T extends Geometry> extends gr.ds.unipi.noda.a
     @Override
     public Filter getOperatorExpression() {
 
-        getGeometry().getMbr();//code to be written
-
-        List list = Arrays.asList(
-                new Pair<>(Bytes.toBytes("row-?5"), new byte[]{0, 0, 0, 0, 1, 0}
-                ));
-
-        filterList.addFilter(new FuzzyRowFilter(list));
+//        getGeometry().getMbr();//code to be written
+//
+//        List list = Arrays.asList(
+//                new Pair<>(Bytes.toBytes("row-?5"), new byte[]{0, 0, 0, 0, 1, 0}
+//                ));
+//
+//        filterList.addFilter(new FuzzyRowFilter(list));
         filterList.addFilter(geometryRefactor());
 
         return filterList;
