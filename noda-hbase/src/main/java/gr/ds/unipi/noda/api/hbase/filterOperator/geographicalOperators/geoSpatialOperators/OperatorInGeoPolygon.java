@@ -18,9 +18,6 @@ final class OperatorInGeoPolygon extends GeoSpatialOperator<Polygon> {
     @Override
     protected Filter geometryRefactor() {
 
-
-
-
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream out = null;
         byte[] yourBytes = null;

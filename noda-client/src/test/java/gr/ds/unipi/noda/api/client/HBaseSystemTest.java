@@ -13,8 +13,8 @@ public class HBaseSystemTest {
 
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.HBase().Builder().host("localhost").build();
         //noSqlDbSystem.operateOn("test").filter(eq("cf:name", "George")).project("cf:surname").printScreen();
-        //noSqlDbSystem.operateOn("points").filter(inGeoRectangle("location", Coordinates.newCoordinates(24,38),Coordinates.newCoordinates(25,39))).printScreen();
-        noSqlDbSystem.operateOn("points").filter(gte("location:lon",24)).printScreen();
+        noSqlDbSystem.operateOn("points").filter(inGeoRectangle("location", Coordinates.newCoordinates(24,38),Coordinates.newCoordinates(25,39))).printScreen();
+        //noSqlDbSystem.operateOn("points").filter(gte("location:lon",24)).printScreen();
         noSqlDbSystem.closeConnection();
     }
 
