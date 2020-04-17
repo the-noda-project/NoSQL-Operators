@@ -17,6 +17,11 @@ final class OperatorInGeoRectangle extends GeoSpatialOperator<Rectangle> {
 
     @Override
     protected Filter geometryRefactor() {
+        System.out.println((Filter) and(gte(getFieldName() + ":lon", getGeometry().getLowerBound().getLongitude()),
+                gte(getFieldName() + ":lat", getGeometry().getLowerBound().getLatitude()),
+                lte(getFieldName() + ":lon", getGeometry().getUpperBound().getLongitude()),
+                lte(getFieldName() + ":lat", getGeometry().getUpperBound().getLatitude())).getOperatorExpression());
+
         return (Filter) and(gte(getFieldName() + ":lon", getGeometry().getLowerBound().getLongitude()),
                 gte(getFieldName() + ":lat", getGeometry().getLowerBound().getLatitude()),
                 lte(getFieldName() + ":lon", getGeometry().getUpperBound().getLongitude()),
