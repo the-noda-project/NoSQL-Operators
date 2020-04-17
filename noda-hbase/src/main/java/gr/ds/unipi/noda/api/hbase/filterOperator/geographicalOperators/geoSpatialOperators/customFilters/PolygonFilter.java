@@ -58,6 +58,10 @@ public class PolygonFilter extends FilterBase {
         }
     }
 
+    public static PolygonFilter newPolygonFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, byte[] polygon){
+        return new PolygonFilter(columnFamily, longitudeColumnQualifier,  latitudeColumnQualifier, polygon);
+    }
+
     @Override
     public void reset() throws IOException {
         filterRow = true;
