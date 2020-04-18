@@ -98,12 +98,12 @@ public class PolygonFilter extends FilterBase {
         if (longitudeColumnQualifier != null) {
             System.out.println("column qualifier longitude is not null");
 
-            builder.setColumnFamily(ByteStringer.wrap(longitudeColumnQualifier));
+            builder.setLongitudeColumnQualifier(ByteStringer.wrap(longitudeColumnQualifier));
         }
         if (latitudeColumnQualifier != null) {
             System.out.println("qualifier latitude is not null");
 
-            builder.setColumnFamily(ByteStringer.wrap(latitudeColumnQualifier));
+            builder.setLatitudeColumnQualifier(ByteStringer.wrap(latitudeColumnQualifier));
         }
         if (coordinates != null) {
             System.out.println("coordinates is not null");
