@@ -1,8 +1,5 @@
 package gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters;
 
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Point;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Polygon;
 import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellUtil;
@@ -12,10 +9,7 @@ import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.FilterBase;
 import org.apache.hadoop.hbase.util.ByteStringer;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
 import java.util.List;
 
 public class PolygonFilter extends FilterBase {

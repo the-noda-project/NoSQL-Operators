@@ -7,9 +7,6 @@ import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatia
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.util.Bytes;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
