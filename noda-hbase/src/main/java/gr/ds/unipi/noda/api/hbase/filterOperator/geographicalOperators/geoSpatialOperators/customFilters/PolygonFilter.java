@@ -52,7 +52,7 @@ public class PolygonFilter extends FilterBase {
 
     @Override
     public Filter.ReturnCode filterCell(Cell c) throws IOException {
-        System.out.println("filtercell  passed");
+        System.out.println("filter cell passed");
 
         if (CellUtil.matchingColumn(c, this.columnFamily, this.longitudeColumnQualifier)) {
             longitude = PrivateCellUtil.getValueAsDouble(c);
@@ -93,7 +93,6 @@ public class PolygonFilter extends FilterBase {
                 gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.newBuilder();
         if (columnFamily != null) {
             System.out.println("columnfamilty is not null");
-
             builder.setColumnFamily(ByteStringer.wrap(columnFamily));
         }
         if (longitudeColumnQualifier != null) {
