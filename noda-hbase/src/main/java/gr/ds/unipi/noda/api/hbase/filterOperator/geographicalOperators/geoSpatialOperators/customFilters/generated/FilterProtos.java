@@ -6,62 +6,52 @@ package gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpati
 public final class FilterProtos {
   private FilterProtos() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistryLite registry) {
-  }
-
-  public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
-    registerAllExtensions(
-        (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface PolygonFilterOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:PolygonFilter)
-      com.google.protobuf.MessageOrBuilder {
+  public interface PolygonFilterOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
 
+    // required bytes value = 1;
     /**
      * <code>required bytes value = 1;</code>
-     * @return Whether the value field is set.
      */
     boolean hasValue();
     /**
      * <code>required bytes value = 1;</code>
-     * @return The value.
      */
     com.google.protobuf.ByteString getValue();
 
+    // required bytes columnFamily = 2;
     /**
      * <code>required bytes columnFamily = 2;</code>
-     * @return Whether the columnFamily field is set.
      */
     boolean hasColumnFamily();
     /**
      * <code>required bytes columnFamily = 2;</code>
-     * @return The columnFamily.
      */
     com.google.protobuf.ByteString getColumnFamily();
 
+    // required bytes longitudeColumnQualifier = 3;
     /**
      * <code>required bytes longitudeColumnQualifier = 3;</code>
-     * @return Whether the longitudeColumnQualifier field is set.
      */
     boolean hasLongitudeColumnQualifier();
     /**
      * <code>required bytes longitudeColumnQualifier = 3;</code>
-     * @return The longitudeColumnQualifier.
      */
     com.google.protobuf.ByteString getLongitudeColumnQualifier();
 
+    // required bytes latitudeColumnQualifier = 4;
     /**
      * <code>required bytes latitudeColumnQualifier = 4;</code>
-     * @return Whether the latitudeColumnQualifier field is set.
      */
     boolean hasLatitudeColumnQualifier();
     /**
      * <code>required bytes latitudeColumnQualifier = 4;</code>
-     * @return The latitudeColumnQualifier.
      */
     com.google.protobuf.ByteString getLatitudeColumnQualifier();
 
+    // repeated .PolygonFilter.Coordinates coordinates = 5;
     /**
      * <code>repeated .PolygonFilter.Coordinates coordinates = 5;</code>
      */
@@ -89,43 +79,36 @@ public final class FilterProtos {
   /**
    * Protobuf type {@code PolygonFilter}
    */
-  public  static final class PolygonFilter extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:PolygonFilter)
-      PolygonFilterOrBuilder {
-  private static final long serialVersionUID = 0L;
+  public static final class PolygonFilter extends
+      com.google.protobuf.GeneratedMessage
+      implements PolygonFilterOrBuilder {
     // Use PolygonFilter.newBuilder() to construct.
-    private PolygonFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    private PolygonFilter(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private PolygonFilter() {
-      value_ = com.google.protobuf.ByteString.EMPTY;
-      columnFamily_ = com.google.protobuf.ByteString.EMPTY;
-      longitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
-      latitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
-      coordinates_ = java.util.Collections.emptyList();
+    private PolygonFilter(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final PolygonFilter defaultInstance;
+    public static PolygonFilter getDefaultInstance() {
+      return defaultInstance;
     }
 
-    @Override
-    @SuppressWarnings({"unused"})
-    protected Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new PolygonFilter();
+    public PolygonFilter getDefaultInstanceForType() {
+      return defaultInstance;
     }
 
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @Override
     public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
+        getUnknownFields() {
       return this.unknownFields;
     }
     private PolygonFilter(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new NullPointerException();
-      }
+      initFields();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -137,6 +120,13 @@ public final class FilterProtos {
             case 0:
               done = true;
               break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
             case 10: {
               bitField0_ |= 0x00000001;
               value_ = input.readBytes();
@@ -158,19 +148,11 @@ public final class FilterProtos {
               break;
             }
             case 42: {
-              if (!((mutable_bitField0_ & 0x00000010) != 0)) {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
                 coordinates_ = new java.util.ArrayList<Coordinates>();
                 mutable_bitField0_ |= 0x00000010;
               }
-              coordinates_.add(
-                  input.readMessage(Coordinates.PARSER, extensionRegistry));
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
+              coordinates_.add(input.readMessage(Coordinates.PARSER, extensionRegistry));
               break;
             }
           }
@@ -179,9 +161,9 @@ public final class FilterProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
+            e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000010) != 0)) {
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
           coordinates_ = java.util.Collections.unmodifiableList(coordinates_);
         }
         this.unknownFields = unknownFields.build();
@@ -193,7 +175,6 @@ public final class FilterProtos {
       return FilterProtos.internal_static_PolygonFilter_descriptor;
     }
 
-    @Override
     protected FieldAccessorTable
         internalGetFieldAccessorTable() {
       return FilterProtos.internal_static_PolygonFilter_fieldAccessorTable
@@ -201,67 +182,77 @@ public final class FilterProtos {
               PolygonFilter.class, Builder.class);
     }
 
-    public interface CoordinatesOrBuilder extends
-        // @@protoc_insertion_point(interface_extends:PolygonFilter.Coordinates)
-        com.google.protobuf.MessageOrBuilder {
+    public static com.google.protobuf.Parser<PolygonFilter> PARSER =
+        new com.google.protobuf.AbstractParser<PolygonFilter>() {
+      public PolygonFilter parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PolygonFilter(input, extensionRegistry);
+      }
+    };
 
+    @Override
+    public com.google.protobuf.Parser<PolygonFilter> getParserForType() {
+      return PARSER;
+    }
+
+    public interface CoordinatesOrBuilder
+        extends com.google.protobuf.MessageOrBuilder {
+
+      // required double longitude = 1;
       /**
        * <code>required double longitude = 1;</code>
-       * @return Whether the longitude field is set.
        */
       boolean hasLongitude();
       /**
        * <code>required double longitude = 1;</code>
-       * @return The longitude.
        */
       double getLongitude();
 
+      // required double latitude = 2;
       /**
        * <code>required double latitude = 2;</code>
-       * @return Whether the latitude field is set.
        */
       boolean hasLatitude();
       /**
        * <code>required double latitude = 2;</code>
-       * @return The latitude.
        */
       double getLatitude();
     }
     /**
      * Protobuf type {@code PolygonFilter.Coordinates}
      */
-    public  static final class Coordinates extends
-        com.google.protobuf.GeneratedMessageV3 implements
-        // @@protoc_insertion_point(message_implements:PolygonFilter.Coordinates)
-        CoordinatesOrBuilder {
-    private static final long serialVersionUID = 0L;
+    public static final class Coordinates extends
+        com.google.protobuf.GeneratedMessage
+        implements CoordinatesOrBuilder {
       // Use Coordinates.newBuilder() to construct.
-      private Coordinates(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      private Coordinates(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
         super(builder);
+        this.unknownFields = builder.getUnknownFields();
       }
-      private Coordinates() {
+      private Coordinates(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+      private static final Coordinates defaultInstance;
+      public static Coordinates getDefaultInstance() {
+        return defaultInstance;
       }
 
-      @Override
-      @SuppressWarnings({"unused"})
-      protected Object newInstance(
-          UnusedPrivateParameter unused) {
-        return new Coordinates();
+      public Coordinates getDefaultInstanceForType() {
+        return defaultInstance;
       }
 
+      private final com.google.protobuf.UnknownFieldSet unknownFields;
       @Override
       public final com.google.protobuf.UnknownFieldSet
-      getUnknownFields() {
+          getUnknownFields() {
         return this.unknownFields;
       }
       private Coordinates(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        this();
-        if (extensionRegistry == null) {
-          throw new NullPointerException();
-        }
+        initFields();
         int mutable_bitField0_ = 0;
         com.google.protobuf.UnknownFieldSet.Builder unknownFields =
             com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -273,6 +264,13 @@ public final class FilterProtos {
               case 0:
                 done = true;
                 break;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
               case 9: {
                 bitField0_ |= 0x00000001;
                 longitude_ = input.readDouble();
@@ -283,20 +281,13 @@ public final class FilterProtos {
                 latitude_ = input.readDouble();
                 break;
               }
-              default: {
-                if (!parseUnknownField(
-                    input, unknownFields, extensionRegistry, tag)) {
-                  done = true;
-                }
-                break;
-              }
             }
           }
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           throw e.setUnfinishedMessage(this);
         } catch (java.io.IOException e) {
           throw new com.google.protobuf.InvalidProtocolBufferException(
-              e).setUnfinishedMessage(this);
+              e.getMessage()).setUnfinishedMessage(this);
         } finally {
           this.unknownFields = unknownFields.build();
           makeExtensionsImmutable();
@@ -307,7 +298,6 @@ public final class FilterProtos {
         return FilterProtos.internal_static_PolygonFilter_Coordinates_descriptor;
       }
 
-      @Override
       protected FieldAccessorTable
           internalGetFieldAccessorTable() {
         return FilterProtos.internal_static_PolygonFilter_Coordinates_fieldAccessorTable
@@ -315,47 +305,62 @@ public final class FilterProtos {
                 Coordinates.class, Builder.class);
       }
 
+      public static com.google.protobuf.Parser<Coordinates> PARSER =
+          new com.google.protobuf.AbstractParser<Coordinates>() {
+        public Coordinates parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Coordinates(input, extensionRegistry);
+        }
+      };
+
+      @Override
+      public com.google.protobuf.Parser<Coordinates> getParserForType() {
+        return PARSER;
+      }
+
       private int bitField0_;
+      // required double longitude = 1;
       public static final int LONGITUDE_FIELD_NUMBER = 1;
       private double longitude_;
       /**
        * <code>required double longitude = 1;</code>
-       * @return Whether the longitude field is set.
        */
       public boolean hasLongitude() {
-        return ((bitField0_ & 0x00000001) != 0);
+        return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>required double longitude = 1;</code>
-       * @return The longitude.
        */
       public double getLongitude() {
         return longitude_;
       }
 
+      // required double latitude = 2;
       public static final int LATITUDE_FIELD_NUMBER = 2;
       private double latitude_;
       /**
        * <code>required double latitude = 2;</code>
-       * @return Whether the latitude field is set.
        */
       public boolean hasLatitude() {
-        return ((bitField0_ & 0x00000002) != 0);
+        return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
        * <code>required double latitude = 2;</code>
-       * @return The latitude.
        */
       public double getLatitude() {
         return latitude_;
       }
 
+      private void initFields() {
+        longitude_ = 0D;
+        latitude_ = 0D;
+      }
       private byte memoizedIsInitialized = -1;
-      @Override
       public final boolean isInitialized() {
         byte isInitialized = memoizedIsInitialized;
-        if (isInitialized == 1) return true;
-        if (isInitialized == 0) return false;
+        if (isInitialized != -1) return isInitialized == 1;
 
         if (!hasLongitude()) {
           memoizedIsInitialized = 0;
@@ -369,35 +374,42 @@ public final class FilterProtos {
         return true;
       }
 
-      @Override
       public void writeTo(com.google.protobuf.CodedOutputStream output)
                           throws java.io.IOException {
-        if (((bitField0_ & 0x00000001) != 0)) {
+        getSerializedSize();
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
           output.writeDouble(1, longitude_);
         }
-        if (((bitField0_ & 0x00000002) != 0)) {
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
           output.writeDouble(2, latitude_);
         }
-        unknownFields.writeTo(output);
+        getUnknownFields().writeTo(output);
       }
 
-      @Override
+      private int memoizedSerializedSize = -1;
       public int getSerializedSize() {
-        int size = memoizedSize;
+        int size = memoizedSerializedSize;
         if (size != -1) return size;
 
         size = 0;
-        if (((bitField0_ & 0x00000001) != 0)) {
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
             .computeDoubleSize(1, longitude_);
         }
-        if (((bitField0_ & 0x00000002) != 0)) {
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
             .computeDoubleSize(2, latitude_);
         }
-        size += unknownFields.getSerializedSize();
-        memoizedSize = size;
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
         return size;
+      }
+
+      private static final long serialVersionUID = 0L;
+      @Override
+      protected Object writeReplace()
+          throws java.io.ObjectStreamException {
+        return super.writeReplace();
       }
 
       @Override
@@ -410,55 +422,43 @@ public final class FilterProtos {
         }
         Coordinates other = (Coordinates) obj;
 
-        if (hasLongitude() != other.hasLongitude()) return false;
+        boolean result = true;
+        result = result && (hasLongitude() == other.hasLongitude());
         if (hasLongitude()) {
-          if (Double.doubleToLongBits(getLongitude())
-              != Double.doubleToLongBits(
-                  other.getLongitude())) return false;
+          result = result && (Double.doubleToLongBits(getLongitude())    == Double.doubleToLongBits(other.getLongitude()));
         }
-        if (hasLatitude() != other.hasLatitude()) return false;
+        result = result && (hasLatitude() == other.hasLatitude());
         if (hasLatitude()) {
-          if (Double.doubleToLongBits(getLatitude())
-              != Double.doubleToLongBits(
-                  other.getLatitude())) return false;
+          result = result && (Double.doubleToLongBits(getLatitude())    == Double.doubleToLongBits(other.getLatitude()));
         }
-        if (!unknownFields.equals(other.unknownFields)) return false;
-        return true;
+        result = result &&
+            getUnknownFields().equals(other.getUnknownFields());
+        return result;
       }
 
+      private int memoizedHashCode = 0;
       @Override
       public int hashCode() {
         if (memoizedHashCode != 0) {
           return memoizedHashCode;
         }
         int hash = 41;
-        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (19 * hash) + getDescriptorForType().hashCode();
         if (hasLongitude()) {
           hash = (37 * hash) + LONGITUDE_FIELD_NUMBER;
-          hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          hash = (53 * hash) + hashLong(
               Double.doubleToLongBits(getLongitude()));
         }
         if (hasLatitude()) {
           hash = (37 * hash) + LATITUDE_FIELD_NUMBER;
-          hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          hash = (53 * hash) + hashLong(
               Double.doubleToLongBits(getLatitude()));
         }
-        hash = (29 * hash) + unknownFields.hashCode();
+        hash = (29 * hash) + getUnknownFields().hashCode();
         memoizedHashCode = hash;
         return hash;
       }
 
-      public static Coordinates parseFrom(
-          java.nio.ByteBuffer data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static Coordinates parseFrom(
-          java.nio.ByteBuffer data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
       public static Coordinates parseFrom(
           com.google.protobuf.ByteString data)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -482,55 +482,42 @@ public final class FilterProtos {
       }
       public static Coordinates parseFrom(java.io.InputStream input)
           throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
+        return PARSER.parseFrom(input);
       }
       public static Coordinates parseFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
+        return PARSER.parseFrom(input, extensionRegistry);
       }
       public static Coordinates parseDelimitedFrom(java.io.InputStream input)
           throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input);
+        return PARSER.parseDelimitedFrom(input);
       }
       public static Coordinates parseDelimitedFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+        return PARSER.parseDelimitedFrom(input, extensionRegistry);
       }
       public static Coordinates parseFrom(
           com.google.protobuf.CodedInputStream input)
           throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
+        return PARSER.parseFrom(input);
       }
       public static Coordinates parseFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
+        return PARSER.parseFrom(input, extensionRegistry);
       }
 
-      @Override
+      public static Builder newBuilder() { return Builder.create(); }
       public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder() {
-        return DEFAULT_INSTANCE.toBuilder();
-      }
       public static Builder newBuilder(Coordinates prototype) {
-        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+        return newBuilder().mergeFrom(prototype);
       }
-      @Override
-      public Builder toBuilder() {
-        return this == DEFAULT_INSTANCE
-            ? new Builder() : new Builder().mergeFrom(this);
-      }
+      public Builder toBuilder() { return newBuilder(this); }
 
       @Override
       protected Builder newBuilderForType(
@@ -542,15 +529,13 @@ public final class FilterProtos {
        * Protobuf type {@code PolygonFilter.Coordinates}
        */
       public static final class Builder extends
-          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-          // @@protoc_insertion_point(builder_implements:PolygonFilter.Coordinates)
-          CoordinatesOrBuilder {
+          com.google.protobuf.GeneratedMessage.Builder<Builder>
+         implements CoordinatesOrBuilder {
         public static final com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
           return FilterProtos.internal_static_PolygonFilter_Coordinates_descriptor;
         }
 
-        @Override
         protected FieldAccessorTable
             internalGetFieldAccessorTable() {
           return FilterProtos.internal_static_PolygonFilter_Coordinates_fieldAccessorTable
@@ -569,11 +554,13 @@ public final class FilterProtos {
           maybeForceBuilderInitialization();
         }
         private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessageV3
-                  .alwaysUseFieldBuilders) {
+          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           }
         }
-        @Override
+        private static Builder create() {
+          return new Builder();
+        }
+
         public Builder clear() {
           super.clear();
           longitude_ = 0D;
@@ -583,18 +570,19 @@ public final class FilterProtos {
           return this;
         }
 
-        @Override
+        public Builder clone() {
+          return create().mergeFrom(buildPartial());
+        }
+
         public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
           return FilterProtos.internal_static_PolygonFilter_Coordinates_descriptor;
         }
 
-        @Override
         public Coordinates getDefaultInstanceForType() {
           return Coordinates.getDefaultInstance();
         }
 
-        @Override
         public Coordinates build() {
           Coordinates result = buildPartial();
           if (!result.isInitialized()) {
@@ -603,57 +591,23 @@ public final class FilterProtos {
           return result;
         }
 
-        @Override
         public Coordinates buildPartial() {
           Coordinates result = new Coordinates(this);
           int from_bitField0_ = bitField0_;
           int to_bitField0_ = 0;
-          if (((from_bitField0_ & 0x00000001) != 0)) {
-            result.longitude_ = longitude_;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
             to_bitField0_ |= 0x00000001;
           }
-          if (((from_bitField0_ & 0x00000002) != 0)) {
-            result.latitude_ = latitude_;
+          result.longitude_ = longitude_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
             to_bitField0_ |= 0x00000002;
           }
+          result.latitude_ = latitude_;
           result.bitField0_ = to_bitField0_;
           onBuilt();
           return result;
         }
 
-        @Override
-        public Builder clone() {
-          return super.clone();
-        }
-        @Override
-        public Builder setField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            Object value) {
-          return super.setField(field, value);
-        }
-        @Override
-        public Builder clearField(
-            com.google.protobuf.Descriptors.FieldDescriptor field) {
-          return super.clearField(field);
-        }
-        @Override
-        public Builder clearOneof(
-            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-          return super.clearOneof(oneof);
-        }
-        @Override
-        public Builder setRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            int index, Object value) {
-          return super.setRepeatedField(field, index, value);
-        }
-        @Override
-        public Builder addRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            Object value) {
-          return super.addRepeatedField(field, value);
-        }
-        @Override
         public Builder mergeFrom(com.google.protobuf.Message other) {
           if (other instanceof Coordinates) {
             return mergeFrom((Coordinates)other);
@@ -671,23 +625,22 @@ public final class FilterProtos {
           if (other.hasLatitude()) {
             setLatitude(other.getLatitude());
           }
-          this.mergeUnknownFields(other.unknownFields);
-          onChanged();
+          this.mergeUnknownFields(other.getUnknownFields());
           return this;
         }
 
-        @Override
         public final boolean isInitialized() {
           if (!hasLongitude()) {
+            
             return false;
           }
           if (!hasLatitude()) {
+            
             return false;
           }
           return true;
         }
 
-        @Override
         public Builder mergeFrom(
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -697,7 +650,7 @@ public final class FilterProtos {
             parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
           } catch (com.google.protobuf.InvalidProtocolBufferException e) {
             parsedMessage = (Coordinates) e.getUnfinishedMessage();
-            throw e.unwrapIOException();
+            throw e;
           } finally {
             if (parsedMessage != null) {
               mergeFrom(parsedMessage);
@@ -707,25 +660,22 @@ public final class FilterProtos {
         }
         private int bitField0_;
 
+        // required double longitude = 1;
         private double longitude_ ;
         /**
          * <code>required double longitude = 1;</code>
-         * @return Whether the longitude field is set.
          */
         public boolean hasLongitude() {
-          return ((bitField0_ & 0x00000001) != 0);
+          return ((bitField0_ & 0x00000001) == 0x00000001);
         }
         /**
          * <code>required double longitude = 1;</code>
-         * @return The longitude.
          */
         public double getLongitude() {
           return longitude_;
         }
         /**
          * <code>required double longitude = 1;</code>
-         * @param value The longitude to set.
-         * @return This builder for chaining.
          */
         public Builder setLongitude(double value) {
           bitField0_ |= 0x00000001;
@@ -735,7 +685,6 @@ public final class FilterProtos {
         }
         /**
          * <code>required double longitude = 1;</code>
-         * @return This builder for chaining.
          */
         public Builder clearLongitude() {
           bitField0_ = (bitField0_ & ~0x00000001);
@@ -744,25 +693,22 @@ public final class FilterProtos {
           return this;
         }
 
+        // required double latitude = 2;
         private double latitude_ ;
         /**
          * <code>required double latitude = 2;</code>
-         * @return Whether the latitude field is set.
          */
         public boolean hasLatitude() {
-          return ((bitField0_ & 0x00000002) != 0);
+          return ((bitField0_ & 0x00000002) == 0x00000002);
         }
         /**
          * <code>required double latitude = 2;</code>
-         * @return The latitude.
          */
         public double getLatitude() {
           return latitude_;
         }
         /**
          * <code>required double latitude = 2;</code>
-         * @param value The latitude to set.
-         * @return This builder for chaining.
          */
         public Builder setLatitude(double value) {
           bitField0_ |= 0x00000002;
@@ -772,7 +718,6 @@ public final class FilterProtos {
         }
         /**
          * <code>required double latitude = 2;</code>
-         * @return This builder for chaining.
          */
         public Builder clearLatitude() {
           bitField0_ = (bitField0_ & ~0x00000002);
@@ -780,128 +725,84 @@ public final class FilterProtos {
           onChanged();
           return this;
         }
-        @Override
-        public final Builder setUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.setUnknownFields(unknownFields);
-        }
-
-        @Override
-        public final Builder mergeUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.mergeUnknownFields(unknownFields);
-        }
-
 
         // @@protoc_insertion_point(builder_scope:PolygonFilter.Coordinates)
       }
 
-      // @@protoc_insertion_point(class_scope:PolygonFilter.Coordinates)
-      private static final Coordinates DEFAULT_INSTANCE;
       static {
-        DEFAULT_INSTANCE = new Coordinates();
+        defaultInstance = new Coordinates(true);
+        defaultInstance.initFields();
       }
 
-      public static Coordinates getDefaultInstance() {
-        return DEFAULT_INSTANCE;
-      }
-
-      @Deprecated public static final com.google.protobuf.Parser<Coordinates>
-          PARSER = new com.google.protobuf.AbstractParser<Coordinates>() {
-        @Override
-        public Coordinates parsePartialFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Coordinates(input, extensionRegistry);
-        }
-      };
-
-      public static com.google.protobuf.Parser<Coordinates> parser() {
-        return PARSER;
-      }
-
-      @Override
-      public com.google.protobuf.Parser<Coordinates> getParserForType() {
-        return PARSER;
-      }
-
-      @Override
-      public Coordinates getDefaultInstanceForType() {
-        return DEFAULT_INSTANCE;
-      }
-
+      // @@protoc_insertion_point(class_scope:PolygonFilter.Coordinates)
     }
 
     private int bitField0_;
+    // required bytes value = 1;
     public static final int VALUE_FIELD_NUMBER = 1;
     private com.google.protobuf.ByteString value_;
     /**
      * <code>required bytes value = 1;</code>
-     * @return Whether the value field is set.
      */
     public boolean hasValue() {
-      return ((bitField0_ & 0x00000001) != 0);
+      return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
      * <code>required bytes value = 1;</code>
-     * @return The value.
      */
     public com.google.protobuf.ByteString getValue() {
       return value_;
     }
 
+    // required bytes columnFamily = 2;
     public static final int COLUMNFAMILY_FIELD_NUMBER = 2;
     private com.google.protobuf.ByteString columnFamily_;
     /**
      * <code>required bytes columnFamily = 2;</code>
-     * @return Whether the columnFamily field is set.
      */
     public boolean hasColumnFamily() {
-      return ((bitField0_ & 0x00000002) != 0);
+      return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
      * <code>required bytes columnFamily = 2;</code>
-     * @return The columnFamily.
      */
     public com.google.protobuf.ByteString getColumnFamily() {
       return columnFamily_;
     }
 
+    // required bytes longitudeColumnQualifier = 3;
     public static final int LONGITUDECOLUMNQUALIFIER_FIELD_NUMBER = 3;
     private com.google.protobuf.ByteString longitudeColumnQualifier_;
     /**
      * <code>required bytes longitudeColumnQualifier = 3;</code>
-     * @return Whether the longitudeColumnQualifier field is set.
      */
     public boolean hasLongitudeColumnQualifier() {
-      return ((bitField0_ & 0x00000004) != 0);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
      * <code>required bytes longitudeColumnQualifier = 3;</code>
-     * @return The longitudeColumnQualifier.
      */
     public com.google.protobuf.ByteString getLongitudeColumnQualifier() {
       return longitudeColumnQualifier_;
     }
 
+    // required bytes latitudeColumnQualifier = 4;
     public static final int LATITUDECOLUMNQUALIFIER_FIELD_NUMBER = 4;
     private com.google.protobuf.ByteString latitudeColumnQualifier_;
     /**
      * <code>required bytes latitudeColumnQualifier = 4;</code>
-     * @return Whether the latitudeColumnQualifier field is set.
      */
     public boolean hasLatitudeColumnQualifier() {
-      return ((bitField0_ & 0x00000008) != 0);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
      * <code>required bytes latitudeColumnQualifier = 4;</code>
-     * @return The latitudeColumnQualifier.
      */
     public com.google.protobuf.ByteString getLatitudeColumnQualifier() {
       return latitudeColumnQualifier_;
     }
 
+    // repeated .PolygonFilter.Coordinates coordinates = 5;
     public static final int COORDINATES_FIELD_NUMBER = 5;
     private java.util.List<Coordinates> coordinates_;
     /**
@@ -937,12 +838,17 @@ public final class FilterProtos {
       return coordinates_.get(index);
     }
 
+    private void initFields() {
+      value_ = com.google.protobuf.ByteString.EMPTY;
+      columnFamily_ = com.google.protobuf.ByteString.EMPTY;
+      longitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
+      latitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
+      coordinates_ = java.util.Collections.emptyList();
+    }
     private byte memoizedIsInitialized = -1;
-    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
+      if (isInitialized != -1) return isInitialized == 1;
 
       if (!hasValue()) {
         memoizedIsInitialized = 0;
@@ -970,46 +876,46 @@ public final class FilterProtos {
       return true;
     }
 
-    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, value_);
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeBytes(2, columnFamily_);
       }
-      if (((bitField0_ & 0x00000004) != 0)) {
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeBytes(3, longitudeColumnQualifier_);
       }
-      if (((bitField0_ & 0x00000008) != 0)) {
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeBytes(4, latitudeColumnQualifier_);
       }
       for (int i = 0; i < coordinates_.size(); i++) {
         output.writeMessage(5, coordinates_.get(i));
       }
-      unknownFields.writeTo(output);
+      getUnknownFields().writeTo(output);
     }
 
-    @Override
+    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSize;
+      int size = memoizedSerializedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, value_);
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, columnFamily_);
       }
-      if (((bitField0_ & 0x00000004) != 0)) {
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(3, longitudeColumnQualifier_);
       }
-      if (((bitField0_ & 0x00000008) != 0)) {
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(4, latitudeColumnQualifier_);
       }
@@ -1017,9 +923,16 @@ public final class FilterProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, coordinates_.get(i));
       }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
       return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @Override
+    protected Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
     }
 
     @Override
@@ -1032,39 +945,42 @@ public final class FilterProtos {
       }
       PolygonFilter other = (PolygonFilter) obj;
 
-      if (hasValue() != other.hasValue()) return false;
+      boolean result = true;
+      result = result && (hasValue() == other.hasValue());
       if (hasValue()) {
-        if (!getValue()
-            .equals(other.getValue())) return false;
+        result = result && getValue()
+            .equals(other.getValue());
       }
-      if (hasColumnFamily() != other.hasColumnFamily()) return false;
+      result = result && (hasColumnFamily() == other.hasColumnFamily());
       if (hasColumnFamily()) {
-        if (!getColumnFamily()
-            .equals(other.getColumnFamily())) return false;
+        result = result && getColumnFamily()
+            .equals(other.getColumnFamily());
       }
-      if (hasLongitudeColumnQualifier() != other.hasLongitudeColumnQualifier()) return false;
+      result = result && (hasLongitudeColumnQualifier() == other.hasLongitudeColumnQualifier());
       if (hasLongitudeColumnQualifier()) {
-        if (!getLongitudeColumnQualifier()
-            .equals(other.getLongitudeColumnQualifier())) return false;
+        result = result && getLongitudeColumnQualifier()
+            .equals(other.getLongitudeColumnQualifier());
       }
-      if (hasLatitudeColumnQualifier() != other.hasLatitudeColumnQualifier()) return false;
+      result = result && (hasLatitudeColumnQualifier() == other.hasLatitudeColumnQualifier());
       if (hasLatitudeColumnQualifier()) {
-        if (!getLatitudeColumnQualifier()
-            .equals(other.getLatitudeColumnQualifier())) return false;
+        result = result && getLatitudeColumnQualifier()
+            .equals(other.getLatitudeColumnQualifier());
       }
-      if (!getCoordinatesList()
-          .equals(other.getCoordinatesList())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
+      result = result && getCoordinatesList()
+          .equals(other.getCoordinatesList());
+      result = result &&
+          getUnknownFields().equals(other.getUnknownFields());
+      return result;
     }
 
+    private int memoizedHashCode = 0;
     @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
       int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (19 * hash) + getDescriptorForType().hashCode();
       if (hasValue()) {
         hash = (37 * hash) + VALUE_FIELD_NUMBER;
         hash = (53 * hash) + getValue().hashCode();
@@ -1085,22 +1001,11 @@ public final class FilterProtos {
         hash = (37 * hash) + COORDINATES_FIELD_NUMBER;
         hash = (53 * hash) + getCoordinatesList().hashCode();
       }
-      hash = (29 * hash) + unknownFields.hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static PolygonFilter parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static PolygonFilter parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
     public static PolygonFilter parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1124,55 +1029,42 @@ public final class FilterProtos {
     }
     public static PolygonFilter parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+      return PARSER.parseFrom(input);
     }
     public static PolygonFilter parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static PolygonFilter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
+      return PARSER.parseDelimitedFrom(input);
     }
     public static PolygonFilter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static PolygonFilter parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
+      return PARSER.parseFrom(input);
     }
     public static PolygonFilter parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
+      return PARSER.parseFrom(input, extensionRegistry);
     }
 
-    @Override
+    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
     public static Builder newBuilder(PolygonFilter prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      return newBuilder().mergeFrom(prototype);
     }
-    @Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
+    public Builder toBuilder() { return newBuilder(this); }
 
     @Override
     protected Builder newBuilderForType(
@@ -1184,15 +1076,13 @@ public final class FilterProtos {
      * Protobuf type {@code PolygonFilter}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:PolygonFilter)
-        PolygonFilterOrBuilder {
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements PolygonFilterOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return FilterProtos.internal_static_PolygonFilter_descriptor;
       }
 
-      @Override
       protected FieldAccessorTable
           internalGetFieldAccessorTable() {
         return FilterProtos.internal_static_PolygonFilter_fieldAccessorTable
@@ -1211,12 +1101,14 @@ public final class FilterProtos {
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getCoordinatesFieldBuilder();
         }
       }
-      @Override
+      private static Builder create() {
+        return new Builder();
+      }
+
       public Builder clear() {
         super.clear();
         value_ = com.google.protobuf.ByteString.EMPTY;
@@ -1236,18 +1128,19 @@ public final class FilterProtos {
         return this;
       }
 
-      @Override
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return FilterProtos.internal_static_PolygonFilter_descriptor;
       }
 
-      @Override
       public PolygonFilter getDefaultInstanceForType() {
         return PolygonFilter.getDefaultInstance();
       }
 
-      @Override
       public PolygonFilter build() {
         PolygonFilter result = buildPartial();
         if (!result.isInitialized()) {
@@ -1256,29 +1149,28 @@ public final class FilterProtos {
         return result;
       }
 
-      @Override
       public PolygonFilter buildPartial() {
         PolygonFilter result = new PolygonFilter(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
         result.value_ = value_;
-        if (((from_bitField0_ & 0x00000002) != 0)) {
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
         result.columnFamily_ = columnFamily_;
-        if (((from_bitField0_ & 0x00000004) != 0)) {
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
         result.longitudeColumnQualifier_ = longitudeColumnQualifier_;
-        if (((from_bitField0_ & 0x00000008) != 0)) {
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
         result.latitudeColumnQualifier_ = latitudeColumnQualifier_;
         if (coordinatesBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) != 0)) {
+          if (((bitField0_ & 0x00000010) == 0x00000010)) {
             coordinates_ = java.util.Collections.unmodifiableList(coordinates_);
             bitField0_ = (bitField0_ & ~0x00000010);
           }
@@ -1291,39 +1183,6 @@ public final class FilterProtos {
         return result;
       }
 
-      @Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return super.setField(field, value);
-      }
-      @Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof PolygonFilter) {
           return mergeFrom((PolygonFilter)other);
@@ -1366,41 +1225,43 @@ public final class FilterProtos {
               coordinates_ = other.coordinates_;
               bitField0_ = (bitField0_ & ~0x00000010);
               coordinatesBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getCoordinatesFieldBuilder() : null;
             } else {
               coordinatesBuilder_.addAllMessages(other.coordinates_);
             }
           }
         }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
+        this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
-      @Override
       public final boolean isInitialized() {
         if (!hasValue()) {
+          
           return false;
         }
         if (!hasColumnFamily()) {
+          
           return false;
         }
         if (!hasLongitudeColumnQualifier()) {
+          
           return false;
         }
         if (!hasLatitudeColumnQualifier()) {
+          
           return false;
         }
         for (int i = 0; i < getCoordinatesCount(); i++) {
           if (!getCoordinates(i).isInitialized()) {
+            
             return false;
           }
         }
         return true;
       }
 
-      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1410,7 +1271,7 @@ public final class FilterProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (PolygonFilter) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
+          throw e;
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -1420,25 +1281,22 @@ public final class FilterProtos {
       }
       private int bitField0_;
 
+      // required bytes value = 1;
       private com.google.protobuf.ByteString value_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>required bytes value = 1;</code>
-       * @return Whether the value field is set.
        */
       public boolean hasValue() {
-        return ((bitField0_ & 0x00000001) != 0);
+        return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>required bytes value = 1;</code>
-       * @return The value.
        */
       public com.google.protobuf.ByteString getValue() {
         return value_;
       }
       /**
        * <code>required bytes value = 1;</code>
-       * @param value The value to set.
-       * @return This builder for chaining.
        */
       public Builder setValue(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1451,7 +1309,6 @@ public final class FilterProtos {
       }
       /**
        * <code>required bytes value = 1;</code>
-       * @return This builder for chaining.
        */
       public Builder clearValue() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -1460,25 +1317,22 @@ public final class FilterProtos {
         return this;
       }
 
+      // required bytes columnFamily = 2;
       private com.google.protobuf.ByteString columnFamily_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>required bytes columnFamily = 2;</code>
-       * @return Whether the columnFamily field is set.
        */
       public boolean hasColumnFamily() {
-        return ((bitField0_ & 0x00000002) != 0);
+        return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
        * <code>required bytes columnFamily = 2;</code>
-       * @return The columnFamily.
        */
       public com.google.protobuf.ByteString getColumnFamily() {
         return columnFamily_;
       }
       /**
        * <code>required bytes columnFamily = 2;</code>
-       * @param value The columnFamily to set.
-       * @return This builder for chaining.
        */
       public Builder setColumnFamily(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1491,7 +1345,6 @@ public final class FilterProtos {
       }
       /**
        * <code>required bytes columnFamily = 2;</code>
-       * @return This builder for chaining.
        */
       public Builder clearColumnFamily() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -1500,25 +1353,22 @@ public final class FilterProtos {
         return this;
       }
 
+      // required bytes longitudeColumnQualifier = 3;
       private com.google.protobuf.ByteString longitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>required bytes longitudeColumnQualifier = 3;</code>
-       * @return Whether the longitudeColumnQualifier field is set.
        */
       public boolean hasLongitudeColumnQualifier() {
-        return ((bitField0_ & 0x00000004) != 0);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
        * <code>required bytes longitudeColumnQualifier = 3;</code>
-       * @return The longitudeColumnQualifier.
        */
       public com.google.protobuf.ByteString getLongitudeColumnQualifier() {
         return longitudeColumnQualifier_;
       }
       /**
        * <code>required bytes longitudeColumnQualifier = 3;</code>
-       * @param value The longitudeColumnQualifier to set.
-       * @return This builder for chaining.
        */
       public Builder setLongitudeColumnQualifier(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1531,7 +1381,6 @@ public final class FilterProtos {
       }
       /**
        * <code>required bytes longitudeColumnQualifier = 3;</code>
-       * @return This builder for chaining.
        */
       public Builder clearLongitudeColumnQualifier() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -1540,25 +1389,22 @@ public final class FilterProtos {
         return this;
       }
 
+      // required bytes latitudeColumnQualifier = 4;
       private com.google.protobuf.ByteString latitudeColumnQualifier_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>required bytes latitudeColumnQualifier = 4;</code>
-       * @return Whether the latitudeColumnQualifier field is set.
        */
       public boolean hasLatitudeColumnQualifier() {
-        return ((bitField0_ & 0x00000008) != 0);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
        * <code>required bytes latitudeColumnQualifier = 4;</code>
-       * @return The latitudeColumnQualifier.
        */
       public com.google.protobuf.ByteString getLatitudeColumnQualifier() {
         return latitudeColumnQualifier_;
       }
       /**
        * <code>required bytes latitudeColumnQualifier = 4;</code>
-       * @param value The latitudeColumnQualifier to set.
-       * @return This builder for chaining.
        */
       public Builder setLatitudeColumnQualifier(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1571,7 +1417,6 @@ public final class FilterProtos {
       }
       /**
        * <code>required bytes latitudeColumnQualifier = 4;</code>
-       * @return This builder for chaining.
        */
       public Builder clearLatitudeColumnQualifier() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -1580,16 +1425,17 @@ public final class FilterProtos {
         return this;
       }
 
+      // repeated .PolygonFilter.Coordinates coordinates = 5;
       private java.util.List<Coordinates> coordinates_ =
         java.util.Collections.emptyList();
       private void ensureCoordinatesIsMutable() {
-        if (!((bitField0_ & 0x00000010) != 0)) {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
           coordinates_ = new java.util.ArrayList<Coordinates>(coordinates_);
           bitField0_ |= 0x00000010;
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilderV3<
+      private com.google.protobuf.RepeatedFieldBuilder<
           Coordinates, Coordinates.Builder, CoordinatesOrBuilder> coordinatesBuilder_;
 
       /**
@@ -1721,8 +1567,7 @@ public final class FilterProtos {
           Iterable<? extends Coordinates> values) {
         if (coordinatesBuilder_ == null) {
           ensureCoordinatesIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, coordinates_);
+          super.addAll(values, coordinates_);
           onChanged();
         } else {
           coordinatesBuilder_.addAllMessages(values);
@@ -1805,89 +1650,48 @@ public final class FilterProtos {
            getCoordinatesBuilderList() {
         return getCoordinatesFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
+      private com.google.protobuf.RepeatedFieldBuilder<
           Coordinates, Coordinates.Builder, CoordinatesOrBuilder>
           getCoordinatesFieldBuilder() {
         if (coordinatesBuilder_ == null) {
-          coordinatesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+          coordinatesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               Coordinates, Coordinates.Builder, CoordinatesOrBuilder>(
                   coordinates_,
-                  ((bitField0_ & 0x00000010) != 0),
+                  ((bitField0_ & 0x00000010) == 0x00000010),
                   getParentForChildren(),
                   isClean());
           coordinates_ = null;
         }
         return coordinatesBuilder_;
       }
-      @Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
 
       // @@protoc_insertion_point(builder_scope:PolygonFilter)
     }
 
-    // @@protoc_insertion_point(class_scope:PolygonFilter)
-    private static final PolygonFilter DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new PolygonFilter();
+      defaultInstance = new PolygonFilter(true);
+      defaultInstance.initFields();
     }
 
-    public static PolygonFilter getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    @Deprecated public static final com.google.protobuf.Parser<PolygonFilter>
-        PARSER = new com.google.protobuf.AbstractParser<PolygonFilter>() {
-      @Override
-      public PolygonFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PolygonFilter(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<PolygonFilter> parser() {
-      return PARSER;
-    }
-
-    @Override
-    public com.google.protobuf.Parser<PolygonFilter> getParserForType() {
-      return PARSER;
-    }
-
-    @Override
-    public PolygonFilter getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
+    // @@protoc_insertion_point(class_scope:PolygonFilter)
   }
 
-  private static final com.google.protobuf.Descriptors.Descriptor
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_PolygonFilter_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_PolygonFilter_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_PolygonFilter_Coordinates_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_PolygonFilter_Coordinates_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static  com.google.protobuf.Descriptors.FileDescriptor
+  private static com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     String[] descriptorData = {
@@ -1902,22 +1706,30 @@ public final class FilterProtos {
       "ialOperators.customFilters.generatedB\014Fi" +
       "lterProtosH\001\210\001\001\240\001\001"
     };
-    descriptor = com.google.protobuf.Descriptors.FileDescriptor
+    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
+      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
+        public com.google.protobuf.ExtensionRegistry assignDescriptors(
+            com.google.protobuf.Descriptors.FileDescriptor root) {
+          descriptor = root;
+          internal_static_PolygonFilter_descriptor =
+            getDescriptor().getMessageTypes().get(0);
+          internal_static_PolygonFilter_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_PolygonFilter_descriptor,
+              new String[] { "Value", "ColumnFamily", "LongitudeColumnQualifier", "LatitudeColumnQualifier", "Coordinates", });
+          internal_static_PolygonFilter_Coordinates_descriptor =
+            internal_static_PolygonFilter_descriptor.getNestedTypes().get(0);
+          internal_static_PolygonFilter_Coordinates_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_PolygonFilter_Coordinates_descriptor,
+              new String[] { "Longitude", "Latitude", });
+          return null;
+        }
+      };
+    com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-        });
-    internal_static_PolygonFilter_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_PolygonFilter_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_PolygonFilter_descriptor,
-        new String[] { "Value", "ColumnFamily", "LongitudeColumnQualifier", "LatitudeColumnQualifier", "Coordinates", });
-    internal_static_PolygonFilter_Coordinates_descriptor =
-      internal_static_PolygonFilter_descriptor.getNestedTypes().get(0);
-    internal_static_PolygonFilter_Coordinates_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_PolygonFilter_Coordinates_descriptor,
-        new String[] { "Longitude", "Latitude", });
+        }, assigner);
   }
 
   // @@protoc_insertion_point(outer_class_scope)
