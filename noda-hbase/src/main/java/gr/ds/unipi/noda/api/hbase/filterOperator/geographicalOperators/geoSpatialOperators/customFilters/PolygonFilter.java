@@ -87,27 +87,19 @@ public class PolygonFilter extends FilterBase {
     }
 
     public byte[] toByteArray() throws IOException {
-        System.out.println("toByteArray passed");
 
         gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.Builder builder =
                 gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.newBuilder();
         if (columnFamily != null) {
-            System.out.println("columnfamilty is not null");
             builder.setColumnFamily(ByteStringer.wrap(columnFamily));
         }
         if (longitudeColumnQualifier != null) {
-            System.out.println("column qualifier longitude is not null");
-
             builder.setLongitudeColumnQualifier(ByteStringer.wrap(longitudeColumnQualifier));
         }
         if (latitudeColumnQualifier != null) {
-            System.out.println("qualifier latitude is not null");
-
             builder.setLatitudeColumnQualifier(ByteStringer.wrap(latitudeColumnQualifier));
         }
         if (coordinates != null) {
-            System.out.println("coordinates is not null");
-
             builder.addAllCoordinates(coordinates);
         }
         System.out.println("return bytearrey");
