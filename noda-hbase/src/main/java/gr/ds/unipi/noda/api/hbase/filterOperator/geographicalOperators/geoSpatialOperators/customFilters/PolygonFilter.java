@@ -92,17 +92,26 @@ public class PolygonFilter extends FilterBase {
         gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.Builder builder =
                 gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.newBuilder();
         if (columnFamily != null) {
+            System.out.println("columnfamilty is not null");
+
             builder.setColumnFamily(ByteStringer.wrap(columnFamily));
         }
         if (longitudeColumnQualifier != null) {
+            System.out.println("column qualifier longitude is not null");
+
             builder.setColumnFamily(ByteStringer.wrap(longitudeColumnQualifier));
         }
         if (latitudeColumnQualifier != null) {
+            System.out.println("qualifier latitude is not null");
+
             builder.setColumnFamily(ByteStringer.wrap(latitudeColumnQualifier));
         }
         if (coordinates != null) {
+            System.out.println("coordinates is not null");
+
             builder.addAllCoordinates(coordinates);
         }
+        System.out.println("return bytearrey");
         return builder.build().toByteArray();
     }
 
