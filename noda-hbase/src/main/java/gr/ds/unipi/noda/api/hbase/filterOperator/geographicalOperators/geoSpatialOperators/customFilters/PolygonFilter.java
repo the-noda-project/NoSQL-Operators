@@ -36,6 +36,7 @@ public class PolygonFilter extends FilterBase {
         this.longitudeColumnQualifier = longitudeColumnQualifier;
         this.latitudeColumnQualifier = latitudeColumnQualifier;
         this.coordinates = coordinates;
+        System.out.println("Constructor passed");
     }
 
     public static PolygonFilter newPolygonFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, List<FilterProtos.PolygonFilter.Coordinates> coordinates){
@@ -44,11 +45,14 @@ public class PolygonFilter extends FilterBase {
 
     @Override
     public void reset() throws IOException {
+        System.out.println("reset passed");
+
         filterRow = true;
     }
 
     @Override
     public Filter.ReturnCode filterCell(Cell c) throws IOException {
+        System.out.println("filtercell  passed");
 
         if (CellUtil.matchingColumn(c, this.columnFamily, this.longitudeColumnQualifier)) {
             longitude = PrivateCellUtil.getValueAsDouble(c);
@@ -74,6 +78,8 @@ public class PolygonFilter extends FilterBase {
     
     @Override
     public boolean filterRow() {
+        System.out.println("filterrow passed");
+
         if (contains(longitude, latitude)) {
             filterRow = false;
         }
@@ -81,6 +87,8 @@ public class PolygonFilter extends FilterBase {
     }
 
     public byte[] toByteArray() throws IOException {
+        System.out.println("toByteArray passed");
+
         gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.Builder builder =
                 gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.newBuilder();
         if (columnFamily != null) {
@@ -99,6 +107,7 @@ public class PolygonFilter extends FilterBase {
     }
 
     public static Filter parseFrom(byte[] pbBytes) throws DeserializationException {
+        System.out.println("parseFrom passed");
 
         gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter proto;
         try {
