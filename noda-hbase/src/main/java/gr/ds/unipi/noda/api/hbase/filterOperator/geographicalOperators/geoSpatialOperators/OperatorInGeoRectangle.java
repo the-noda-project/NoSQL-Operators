@@ -1,9 +1,10 @@
 package gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Rectangle;
+import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.RectangleFilter;
+import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.RectangleFilterProtos;
 import org.apache.hadoop.hbase.filter.Filter;
-
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
+import org.apache.hadoop.hbase.util.Bytes;
 
 final class OperatorInGeoRectangle extends GeoSpatialOperator<Rectangle> {
 
@@ -17,15 +18,9 @@ final class OperatorInGeoRectangle extends GeoSpatialOperator<Rectangle> {
 
     @Override
     protected Filter geometryRefactor() {
-        System.out.println((Filter) and(gte(getFieldName() + ":lon", getGeometry().getLowerBound().getLongitude()),
-                gte(getFieldName() + ":lat", getGeometry().getLowerBound().getLatitude()),
-                lte(getFieldName() + ":lon", getGeometry().getUpperBound().getLongitude()),
-                lte(getFieldName() + ":lat", getGeometry().getUpperBound().getLatitude())).getOperatorExpression());
-
-        return (Filter) and(gte(getFieldName() + ":lon", getGeometry().getLowerBound().getLongitude()),
-                gte(getFieldName() + ":lat", getGeometry().getLowerBound().getLatitude()),
-                lte(getFieldName() + ":lon", getGeometry().getUpperBound().getLongitude()),
-                lte(getFieldName() + ":lat", getGeometry().getUpperBound().getLatitude())).getOperatorExpression();
+        RectangleFilterProtos.RectangleFilter.Coordinates lowerCoordinates = RectangleFilterProtos.RectangleFilter.Coordinates.newBuilder().setLongitude(getGeometry().getLowerBound().getLongitude()).setLatitude(getGeometry().getLowerBound().getLatitude()).build();
+        RectangleFilterProtos.RectangleFilter.Coordinates upperCoordinates = RectangleFilterProtos.RectangleFilter.Coordinates.newBuilder().setLongitude(getGeometry().getUpperBound().getLongitude()).setLatitude(getGeometry().getUpperBound().getLatitude()).build();
+        return RectangleFilter.newRectangleFilter(Bytes.toBytes(getFieldName()), Bytes.toBytes("lon"),Bytes.toBytes("lat"),lowerCoordinates, upperCoordinates);
     }
 
 }

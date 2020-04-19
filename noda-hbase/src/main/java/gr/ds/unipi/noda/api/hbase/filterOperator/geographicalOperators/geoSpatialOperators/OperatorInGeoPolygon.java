@@ -3,7 +3,7 @@ package gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpati
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Polygon;
 import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.PolygonFilter;
-import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos;
+import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.PolygonFilterProtos;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.util.Bytes;
 
@@ -18,10 +18,10 @@ final class OperatorInGeoPolygon extends GeoSpatialOperator<Polygon> {
 
     @Override
     protected Filter geometryRefactor() {
-        List<FilterProtos.PolygonFilter.Coordinates> coordinatesList = new ArrayList<>();
+        List<PolygonFilterProtos.PolygonFilter.Coordinates> coordinatesList = new ArrayList<>();
 
         for (Coordinates coordinates : getGeometry().getCoordinatesArray()) {
-            coordinatesList.add(FilterProtos.PolygonFilter.Coordinates.newBuilder().setLongitude(coordinates.getLongitude()).setLatitude(coordinates.getLatitude()).build());
+            coordinatesList.add(PolygonFilterProtos.PolygonFilter.Coordinates.newBuilder().setLongitude(coordinates.getLongitude()).setLatitude(coordinates.getLatitude()).build());
         }
 
         return PolygonFilter.newPolygonFilter(Bytes.toBytes(getFieldName()),Bytes.toBytes("lon"),Bytes.toBytes("lat"),coordinatesList);

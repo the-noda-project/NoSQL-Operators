@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters;
 
-import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos;
+import gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.PolygonFilterProtos;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellUtil;
 import org.apache.hadoop.hbase.PrivateCellUtil;
@@ -17,36 +17,32 @@ public class PolygonFilter extends FilterBase {
     private final byte[] columnFamily;
     private final byte[] longitudeColumnQualifier;
     private final byte[] latitudeColumnQualifier;
-    private final List<FilterProtos.PolygonFilter.Coordinates> coordinates;
+    private final List<PolygonFilterProtos.PolygonFilter.Coordinates> coordinates;
 
-    private double longitude = Integer.MAX_VALUE;
+    private double longitude = Integer.MIN_VALUE;
     private double latitude = Integer.MIN_VALUE;
 
     private boolean filterRow = true;
 
 
-    private PolygonFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, List<FilterProtos.PolygonFilter.Coordinates> coordinates) {
+    private PolygonFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, List<PolygonFilterProtos.PolygonFilter.Coordinates> coordinates) {
         this.columnFamily = columnFamily;
         this.longitudeColumnQualifier = longitudeColumnQualifier;
         this.latitudeColumnQualifier = latitudeColumnQualifier;
         this.coordinates = coordinates;
-        System.out.println("Constructor passed");
     }
 
-    public static PolygonFilter newPolygonFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, List<FilterProtos.PolygonFilter.Coordinates> coordinates){
+    public static PolygonFilter newPolygonFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, List<PolygonFilterProtos.PolygonFilter.Coordinates> coordinates){
         return new PolygonFilter(columnFamily, longitudeColumnQualifier,  latitudeColumnQualifier, coordinates);
     }
 
     @Override
     public void reset() throws IOException {
-        System.out.println("reset passed");
-
         filterRow = true;
     }
 
     @Override
     public Filter.ReturnCode filterCell(Cell c) throws IOException {
-        System.out.println("filter cell passed");
 
         if (CellUtil.matchingColumn(c, this.columnFamily, this.longitudeColumnQualifier)) {
             longitude = PrivateCellUtil.getValueAsDouble(c);
@@ -72,7 +68,6 @@ public class PolygonFilter extends FilterBase {
     
     @Override
     public boolean filterRow() {
-        System.out.println("filterrow passed");
 
         if (contains(longitude, latitude)) {
             filterRow = false;
@@ -82,8 +77,8 @@ public class PolygonFilter extends FilterBase {
 
     public byte[] toByteArray() throws IOException {
 
-        gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.Builder builder =
-                gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.newBuilder();
+        gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.PolygonFilterProtos.PolygonFilter.Builder builder =
+                gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.PolygonFilterProtos.PolygonFilter.newBuilder();
         if (columnFamily != null) {
             builder.setColumnFamily(ByteStringer.wrap(columnFamily));
         }
@@ -96,16 +91,14 @@ public class PolygonFilter extends FilterBase {
         if (coordinates != null) {
             builder.addAllCoordinates(coordinates);
         }
-        System.out.println("return bytearrey");
         return builder.build().toByteArray();
     }
 
     public static Filter parseFrom(byte[] pbBytes) throws DeserializationException {
-        System.out.println("parseFrom passed");
 
-        gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter proto;
+        gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.PolygonFilterProtos.PolygonFilter proto;
         try {
-            proto = gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.FilterProtos.PolygonFilter.parseFrom(pbBytes);
+            proto = gr.ds.unipi.noda.api.hbase.filterOperator.geographicalOperators.geoSpatialOperators.customFilters.generated.PolygonFilterProtos.PolygonFilter.parseFrom(pbBytes);
         } catch (com.google.protobuf.InvalidProtocolBufferException var6) {
             throw new DeserializationException(var6);
         }
