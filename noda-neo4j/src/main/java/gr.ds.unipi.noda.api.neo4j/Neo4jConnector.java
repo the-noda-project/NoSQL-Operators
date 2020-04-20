@@ -2,6 +2,7 @@ package gr.ds.unipi.noda.api.neo4j;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import javafx.util.Pair;
+import org.apache.arrow.flatbuf.Bool;
 import org.neo4j.driver.AuthToken;
 import org.neo4j.driver.Config;
 import org.neo4j.driver.Driver;
@@ -17,6 +18,7 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
     private final AuthToken authToken;
     private final Config config;
     private String typeOfConnection;
+    private Boolean encryptionWithoutLocalhost;
 
 
     private Neo4jConnector(List<Pair<String,Integer>> addresses, AuthToken authToken, Config config) {
@@ -34,7 +36,7 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
         //typeOfConnection => neo4j means server connection
         //typeOfConnection => bolt means localhost
         StringBuilder sb = new StringBuilder();
-        typeOfConnection = "neo4j";
+        encryptionWithoutLocalhost = true;
         String firstHost = addresses.get(0).getKey();
         String firstPort = addresses.get(0).getValue().toString();
 
@@ -42,7 +44,7 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
 
         for (Pair<String, Integer> address : addresses) {
             if (address.getKey().equals("localhost") || address.getKey().equals("127.0.0.1")) {
-                typeOfConnection = "bolt";
+                encryptionWithoutLocalhost = false;
                 break;
             }
         }
@@ -59,12 +61,17 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
 
 //        Config config = Config.builder().withResolver( address -> new HashSet( Arrays.asList( addresses ) ) ).build();
 
+        if(encryptionWithoutLocalhost == true) {
+            Config config = Config.builder().withEncryption().build();
+        }
+
+
 //        config.builder().withResolver( address -> new HashSet( Arrays.asList( addresses ) ) ).build();
 
-        System.out.println(typeOfConnection + "://" + firstHost + ":" + firstPort);
+        System.out.println("bolt://" + firstHost + ":" + firstPort);
 
 
-        return GraphDatabase.driver(typeOfConnection + "://" + firstHost + ":" + firstPort, authToken, config);
+        return GraphDatabase.driver(  "bolt://" + firstHost + ":" + firstPort, authToken, config);
     }
 
     public static Neo4jConnector newNeo4jConnector(List<Pair<String,Integer>> addresses, AuthToken authToken, Config config) {
