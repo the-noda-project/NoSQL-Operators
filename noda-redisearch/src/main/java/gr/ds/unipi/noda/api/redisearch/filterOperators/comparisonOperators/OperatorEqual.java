@@ -10,12 +10,13 @@ final class OperatorEqual<T> extends ComparisonOperator<T> {
         super(fieldName, fieldValue, false);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected Value getOperatorField() {
         if(getFieldValue() instanceof String)
             return Values.value(getFieldValue().toString());
         else if (getFieldValue() instanceof Boolean)
-            return Values.tags(Boolean.toString((boolean) getFieldValue()));
+            return Values.tags(Boolean.toString((boolean) (Object) getFieldValue()));
         else
             return new RangeValue(Double.parseDouble(getFieldValue().toString()), Double.parseDouble(getFieldValue().toString()));
     }
