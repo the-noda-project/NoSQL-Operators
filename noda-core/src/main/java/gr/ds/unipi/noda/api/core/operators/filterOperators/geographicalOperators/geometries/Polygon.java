@@ -41,18 +41,18 @@ public class Polygon extends Geometry {
         }
     }
 
-    public boolean contains(Point point) {
-        int i;
-        int j;
-        boolean result = false;
-        for (i = 0, j = getCoordinatesArray().length - 1; i < getCoordinatesArray().length; j = i++) {
-            if ((getCoordinatesArray()[i].getLatitude() > point.getPoint().getLatitude()) != (getCoordinatesArray()[j].getLatitude() > point.getPoint().getLatitude()) &&
-                    (point.getPoint().getLongitude() < (getCoordinatesArray()[j].getLongitude() - getCoordinatesArray()[i].getLongitude()) * (point.getPoint().getLatitude() - getCoordinatesArray()[i].getLatitude()) / (getCoordinatesArray()[j].getLatitude() - getCoordinatesArray()[i].getLatitude()) + getCoordinatesArray()[i].getLongitude())) {
-                result = !result;
-            }
-        }
-        return result;
-    }
+//    public boolean contains(Point point) {
+//        int i;
+//        int j;
+//        boolean result = false;
+//        for (i = 0, j = getCoordinatesArray().length - 1; i < getCoordinatesArray().length; j = i++) {
+//            if ((getCoordinatesArray()[i].getLatitude() > point.getPoint().getLatitude()) != (getCoordinatesArray()[j].getLatitude() > point.getPoint().getLatitude()) &&
+//                    (point.getPoint().getLongitude() < (getCoordinatesArray()[j].getLongitude() - getCoordinatesArray()[i].getLongitude()) * (point.getPoint().getLatitude() - getCoordinatesArray()[i].getLatitude()) / (getCoordinatesArray()[j].getLatitude() - getCoordinatesArray()[i].getLatitude()) + getCoordinatesArray()[i].getLongitude())) {
+//                result = !result;
+//            }
+//        }
+//        return result;
+//    }
 
     public Rectangle getMbr() {
 
