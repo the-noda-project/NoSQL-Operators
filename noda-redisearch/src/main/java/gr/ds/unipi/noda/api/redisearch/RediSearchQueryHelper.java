@@ -44,7 +44,7 @@ class RediSearchQueryHelper {
     private String provideQuery() {
         if (StringPool.BLANK.equalsIgnoreCase(queryBuilder.toString()))
             return StringPool.STAR;
-        else return queryBuilder.toString().substring(1, queryBuilder.toString().length()-1);
+        else return queryBuilder.toString();
     }
 
     private AggregationBuilder getAggregationBuilder() {
