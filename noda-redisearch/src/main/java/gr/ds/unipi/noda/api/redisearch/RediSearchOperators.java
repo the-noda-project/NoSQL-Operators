@@ -51,7 +51,7 @@ public final class RediSearchOperators extends NoSqlDbOperators {
             queryHelper().setzRangeInfo(((RediSearchGeoSpatialOperator) filterOperator)
                     .getZRangeInfo().apply(queryHelper().getJedisResource(), getDataCollection()));
         } else if (RediSearchGeoSpatialOperatorFactory.isOperatorGeoBox(filterOperator) && filterOperators.length > 0) {
-            throw new IllegalArgumentException("RediSearchGeoSpatialOperator is not supported as post filter query.");
+            throw new IllegalArgumentException("OperatorInGeoRectangle cannot be combined with other FilterOperators.");
         } else {
             applyQuery(filterOperator, filterOperators);
         }

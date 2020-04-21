@@ -36,7 +36,7 @@ public final class RediSearchComparisonOperatorFactory extends BaseComparisonOpe
 
     @Override
     public ComparisonOperator newOperatorGte(String fieldName, Date fieldValue) {
-        return OperatorGreaterThanEqual.newOperatorGreaterThanEqual(fieldName, fieldValue.getTime());
+        return OperatorGreaterThanEqual.newOperatorGreaterThanEqual(fieldName, fieldValue.getTime()/1000);
     }
 
     @Override
@@ -66,7 +66,7 @@ public final class RediSearchComparisonOperatorFactory extends BaseComparisonOpe
 
     @Override
     public ComparisonOperator newOperatorGt(String fieldName, Date fieldValue) {
-        return OperatorGreaterThan.newOperatorGreaterThan(fieldName, fieldValue.getTime());
+        return OperatorGreaterThan.newOperatorGreaterThan(fieldName, fieldValue.getTime()/1000);
     }
 
     @Override
@@ -96,7 +96,7 @@ public final class RediSearchComparisonOperatorFactory extends BaseComparisonOpe
 
     @Override
     public ComparisonOperator newOperatorLte(String fieldName, Date fieldValue) {
-        return OperatorLessThanEqual.newOperatorLessThanEqual(fieldName, fieldValue.getTime());
+        return OperatorLessThanEqual.newOperatorLessThanEqual(fieldName, fieldValue.getTime()/1000);
     }
 
     @Override
@@ -126,7 +126,7 @@ public final class RediSearchComparisonOperatorFactory extends BaseComparisonOpe
 
     @Override
     public ComparisonOperator newOperatorLt(String fieldName, Date fieldValue) {
-        return OperatorLessThan.newOperatorLessThan(fieldName, fieldValue.getTime());
+        return OperatorLessThan.newOperatorLessThan(fieldName, fieldValue.getTime()/1000);
     }
 
     @Override
@@ -166,7 +166,7 @@ public final class RediSearchComparisonOperatorFactory extends BaseComparisonOpe
 
     @Override
     public ComparisonOperator newOperatorEq(String fieldName, Date fieldValue) {
-        return OperatorEqual.newOperatorEqual(fieldName, fieldValue.getTime());
+        return OperatorEqual.newOperatorEqual(fieldName, fieldValue.getTime()/1000);
     }
 
     @Override
@@ -206,6 +206,6 @@ public final class RediSearchComparisonOperatorFactory extends BaseComparisonOpe
 
     @Override
     public ComparisonOperator newOperatorNe(String fieldName, Date fieldValue) {
-        return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue.getTime());
+        return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue.getTime()/1000);
     }
 }

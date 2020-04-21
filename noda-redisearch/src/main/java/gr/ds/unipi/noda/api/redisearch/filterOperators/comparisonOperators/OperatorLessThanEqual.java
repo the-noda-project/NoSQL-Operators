@@ -2,7 +2,6 @@ package gr.ds.unipi.noda.api.redisearch.filterOperators.comparisonOperators;
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import io.redisearch.querybuilder.Value;
-import io.redisearch.querybuilder.Values;
 
 /**
  * @author adimo on 7/10/2019
@@ -14,7 +13,7 @@ final class OperatorLessThanEqual<T> extends ComparisonOperator<T> {
 
     @Override
     protected Value getOperatorField() {
-        return Values.le((double)getFieldValue());
+        return new RangeValue(Double.NEGATIVE_INFINITY, Double.parseDouble(getFieldValue().toString())).inclusiveMax(false);
     }
 
     @Override
