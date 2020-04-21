@@ -204,4 +204,5 @@ public final class HBaseComparisonOperatorFactory extends BaseComparisonOperator
     @Override
     public ComparisonOperator newOperatorNe(String fieldName, Date fieldValue) {
         return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
-    }}
+    }
+}

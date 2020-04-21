@@ -2,6 +2,9 @@ package gr.ds.unipi.noda.api.redisearch.filterOperators.logicalOperators;
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import io.redisearch.querybuilder.Node;
+import io.redisearch.querybuilder.QueryBuilder;
+import io.redisearch.querybuilder.QueryNode;
 
 final class OperatorOr extends LogicalOperator {
 
@@ -13,9 +16,11 @@ final class OperatorOr extends LogicalOperator {
         return new OperatorOr(filterOperator1, filterOperator2, filterOperators);
     }
 
-    @Override
-    protected String getOperatorField() {
-        return StringPool.PIPE;
+    public Node getOperatorExpression() {
+        QueryNode queryNode = QueryBuilder.union();
+        for (FilterOperator f : getFilterOperatorChildren())
+            queryNode.add((Node) f.getOperatorExpression());
+        return queryNode;
     }
 
     @Override

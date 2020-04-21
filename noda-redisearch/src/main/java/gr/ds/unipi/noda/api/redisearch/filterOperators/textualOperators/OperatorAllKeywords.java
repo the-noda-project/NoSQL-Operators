@@ -3,6 +3,10 @@ package gr.ds.unipi.noda.api.redisearch.filterOperators.textualOperators;
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator;
 import gr.ds.unipi.noda.api.redisearch.filterOperators.RediSearchPostFilterOperator;
+import io.redisearch.querybuilder.Node;
+import io.redisearch.querybuilder.QueryBuilder;
+import io.redisearch.querybuilder.Value;
+import io.redisearch.querybuilder.Values;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -18,8 +22,8 @@ final class OperatorAllKeywords extends TextualOperator {
     }
 
     @Override
-    protected String getOperatorField() {
-        return String.join(StringPool.SPACE, Arrays.asList(getElements()));
+    protected Node getOperatorField() {
+        return QueryBuilder.intersect(getFieldName(), (Value[]) Arrays.stream(getElements()).map(Values::value).toArray());
     }
 
     @Override

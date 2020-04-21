@@ -49,7 +49,9 @@ public abstract class NoSqlConnectionFactory {
     protected abstract BaseComparisonOperatorFactory getBaseComparisonOperatorFactory();
 
     protected abstract BaseGeoSpatialOperatorFactory getBaseGeoSpatialOperatorFactory();
+
     protected abstract BaseGeoTemporalOperatorFactory getBaseGeoTemporalOperatorFactory();
+
     protected abstract BaseGeoTextualOperatorFactory getBaseGeoTextualOperatorFactory();
 
     protected abstract BaseLogicalOperatorFactory getBaseLogicalOperatorFactory();

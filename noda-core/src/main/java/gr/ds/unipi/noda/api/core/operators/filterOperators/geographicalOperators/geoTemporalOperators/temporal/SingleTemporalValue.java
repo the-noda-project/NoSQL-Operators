@@ -2,17 +2,17 @@ package gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperator
 
 import java.util.Date;
 
-public class SingleTemporalValue  extends Temporal{
+public class SingleTemporalValue extends Temporal {
 
     private SingleTemporalValue(Date[] dates) {
         super(dates);
     }
 
-    public static SingleTemporalValue newSingleTemporalValue(Date date){
+    public static SingleTemporalValue newSingleTemporalValue(Date date) {
         return new SingleTemporalValue(new Date[]{date});
     }
 
-    public Date getSingleTemporalValue(){
+    public Date getSingleTemporalValue() {
         return getDates()[0];
     }
 }

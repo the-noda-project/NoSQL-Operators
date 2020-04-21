@@ -5,14 +5,14 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
 
-    private final List<Pair<String,Integer>> addresses;
+    private final List<Map.Entry<String,Integer>> addresses;
     private final MongoCredential mongoCredential;
     private final MongoClientOptions mongoClientOptions;
 
@@ -29,7 +29,7 @@ public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
     @Override
     public int hashCode() {
         int hashCode = 0;
-        for(Pair<String,Integer> e : addresses){
+        for(Map.Entry<String,Integer> e : addresses){
             hashCode = 31*hashCode+(e==null ?0:e.hashCode());
         }
         hashCode = 31*hashCode+ mongoCredential.hashCode();
@@ -38,7 +38,7 @@ public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
         return hashCode;
     }
 
-    private MongoDBConnector(List<Pair<String,Integer>> addresses, MongoCredential mongoCredential, MongoClientOptions mongoClientOptions) {
+    private MongoDBConnector(List<Map.Entry<String,Integer>> addresses, MongoCredential mongoCredential, MongoClientOptions mongoClientOptions) {
         this.addresses = addresses;
         this.mongoCredential = mongoCredential;
         this.mongoClientOptions = mongoClientOptions;
@@ -51,14 +51,14 @@ public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
         }
         else{
             List<ServerAddress> servers = new ArrayList<>();
-            for(Pair<String,Integer> pair : addresses){
-                servers.add(new ServerAddress(pair.getKey(),pair.getValue()));
+            for(Map.Entry<String,Integer> entry : addresses){
+                servers.add(new ServerAddress(entry.getKey(),entry.getValue()));
             }
             return new MongoClient(servers, mongoCredential, mongoClientOptions);
         }
     }
 
-    public static MongoDBConnector newMongoDBConnector(List<Pair<String,Integer>> addresses, MongoCredential mongoCredential, MongoClientOptions mongoClientOptions) {
+    public static MongoDBConnector newMongoDBConnector(List<Map.Entry<String,Integer>> addresses, MongoCredential mongoCredential, MongoClientOptions mongoClientOptions) {
         return new MongoDBConnector(addresses, mongoCredential, mongoClientOptions);
     }
 

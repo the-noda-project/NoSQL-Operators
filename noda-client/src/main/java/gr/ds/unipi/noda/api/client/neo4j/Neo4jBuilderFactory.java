@@ -8,7 +8,7 @@ public class Neo4jBuilderFactory {
         return new Neo4JSystem.Builder(username, password);
     }
 
-    public Neo4JSystem.Builder Builder(AuthToken authToken){
+    public Neo4JSystem.Builder Builder(AuthToken authToken) {
         return new Neo4JSystem.Builder(authToken);
     }
 }

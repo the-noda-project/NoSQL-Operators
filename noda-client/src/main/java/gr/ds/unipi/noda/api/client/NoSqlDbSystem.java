@@ -7,59 +7,54 @@ import gr.ds.unipi.noda.api.client.redisearch.RediSearchBuilderFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
-import javafx.util.Pair;
 import org.apache.spark.sql.SparkSession;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class NoSqlDbSystem {
 
-    private final List<Pair<String,Integer>> addresses;
+    private final List<Map.Entry<String, Integer>> addresses;
     private final SparkSession sparkSession;
     private final NoSqlConnectionFactory nsdb;
 
-    protected abstract static class Builder<T extends Builder<T>>{
+    protected abstract static class Builder<T extends Builder<T>> {
 
-        List<Pair<String,Integer>> addresses = new ArrayList<>();
+        List<Map.Entry<String, Integer>> addresses = new ArrayList<>();
         SparkSession sparkSession = null;
 
-        public T host(String host){
-
+        public T host(String host) {
             int i = 0;
-            while(i<addresses.size()){
-                if(addresses.get(i).getKey() == null){
-                    addresses.set(i,new Pair<>(host, addresses.get(i).getValue()));
+            while (i < addresses.size()) {
+                if (addresses.get(i).getKey() == null) {
+                    addresses.set(i, new AbstractMap.SimpleImmutableEntry<>(host, addresses.get(i).getValue()));
                     break;
                 }
                 i++;
             }
-            if(i == addresses.size()){
-                addresses.add(new Pair<>(host,null));
+            if (i == addresses.size()) {
+                addresses.add(new AbstractMap.SimpleImmutableEntry<>(host, null));
             }
 
             return self();
         }
 
-        public T port(int port){
-
+        public T port(int port) {
             int i = 0;
-            while(i<addresses.size()){
-                if(addresses.get(i).getValue() == null){
-                    addresses.set(i,new Pair<>(addresses.get(i).getKey(), port));
+            while (i < addresses.size()) {
+                if (addresses.get(i).getValue() == null) {
+                    addresses.set(i, new AbstractMap.SimpleImmutableEntry<>(addresses.get(i).getKey(), port));
                     break;
                 }
                 i++;
             }
-            if(i == addresses.size()){
-                addresses.add(new Pair<>(null,port));
+            if (i == addresses.size()) {
+                addresses.add(new AbstractMap.SimpleImmutableEntry<>(null, port));
             }
             return self();
         }
 
-        public T sparkSession(SparkSession sparkSession){
+        public T sparkSession(SparkSession sparkSession) {
             this.sparkSession = sparkSession;
             return self();
         }
@@ -69,27 +64,27 @@ public abstract class NoSqlDbSystem {
         protected abstract T self();
     }
 
-    protected NoSqlDbSystem(Builder<?> builder, NoSqlConnectionFactory noSqlConnectionFactory){
-       sparkSession = builder.sparkSession;
-       nsdb = noSqlConnectionFactory;
+    protected NoSqlDbSystem(Builder<?> builder, NoSqlConnectionFactory noSqlConnectionFactory) {
+        sparkSession = builder.sparkSession;
+        nsdb = noSqlConnectionFactory;
 
-       for(int i=0;i<builder.addresses.size();i++){
-           if(builder.addresses.get(i).getKey()==null){
-               builder.addresses.set(i,new Pair<>(getDefaultHost(),builder.addresses.get(i).getValue()));
-           }
-           if(builder.addresses.get(i).getValue()==null){
-               builder.addresses.set(i,new Pair<>(builder.addresses.get(i).getKey(),getDefaultPort()));
-           }
-       }
+        for (int i = 0; i < builder.addresses.size(); i++) {
+            if (builder.addresses.get(i).getKey() == null) {
+                builder.addresses.set(i, new AbstractMap.SimpleImmutableEntry<>(getDefaultHost(), builder.addresses.get(i).getValue()));
+            }
+            if (builder.addresses.get(i).getValue() == null) {
+                builder.addresses.set(i, new AbstractMap.SimpleImmutableEntry<>(builder.addresses.get(i).getKey(), getDefaultPort()));
+            }
+        }
 
-       if(builder.addresses.size()==0){
-           builder.addresses.add(new Pair<>(getDefaultHost(),getDefaultPort()));
-       }
+        if (builder.addresses.size() == 0) {
+            builder.addresses.add(new AbstractMap.SimpleImmutableEntry<>(getDefaultHost(), getDefaultPort()));
+        }
 
-       addresses = Collections.unmodifiableList(builder.addresses.stream().distinct().collect(Collectors.toList()));//list is sorted
+        addresses = Collections.unmodifiableList(builder.addresses.stream().distinct().collect(Collectors.toList()));//list is sorted
     }
 
-    protected List<Pair<String, Integer>> getAddresses(){
+    protected List<Map.Entry<String, Integer>> getAddresses() {
         return addresses;
     }
 
@@ -109,23 +104,23 @@ public abstract class NoSqlDbSystem {
 
     private static final List<NoSqlConnectionFactory> toBeCleaned = new ArrayList<>();
 
-    public static MongoDBBuilderFactory MongoDB(){
+    public static MongoDBBuilderFactory MongoDB() {
         return new MongoDBBuilderFactory();
     }
 
-    public static Neo4jBuilderFactory Neo4j(){
+    public static Neo4jBuilderFactory Neo4j() {
         return new Neo4jBuilderFactory();
     }
 
-    public static HBaseBuilderFactory HBase(){
+    public static HBaseBuilderFactory HBase() {
         return new HBaseBuilderFactory();
     }
 
-    public static RediSearchBuilderFactory RediSearch(){
+    public static RediSearchBuilderFactory RediSearch() {
         return new RediSearchBuilderFactory();
     }
 
-    public String getDefaultHost(){
+    public String getDefaultHost() {
         return "localhost";
     }
 

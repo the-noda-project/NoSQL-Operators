@@ -3,7 +3,7 @@ package gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperator
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Geometry;
 
-public abstract class GeographicalOperator<T,U extends Geometry> implements FilterOperator<T> {
+public abstract class GeographicalOperator<T, U extends Geometry> implements FilterOperator<T> {
 
     private final String fieldName;
     private final U geometry;

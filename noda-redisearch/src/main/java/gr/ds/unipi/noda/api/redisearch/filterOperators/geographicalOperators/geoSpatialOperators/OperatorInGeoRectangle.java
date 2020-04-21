@@ -2,6 +2,8 @@ package gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.ge
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geometries.Rectangle;
+import io.redisearch.querybuilder.Node;
+import io.redisearch.querybuilder.Value;
 import org.apache.commons.lang3.NotImplementedException;
 import redis.clients.jedis.Jedis;
 
@@ -17,16 +19,16 @@ final class OperatorInGeoRectangle extends GeoSpatialOperator<Rectangle> impleme
         super(fieldName, rectangle);
     }
 
-    static OperatorInGeoRectangle newOperatorInGeographicalRectangle(String fieldName, Rectangle rectangle) {
+    static OperatorInGeoRectangle newOperatorInGeoRectangle(String fieldName, Rectangle rectangle) {
         return new OperatorInGeoRectangle(fieldName, rectangle);
     }
 
-    protected String getOperatorField() {
+    protected Value getOperatorField() {
         throw new NotImplementedException("Not needed for Rectangle search.");
     }
 
     @Override
-    public StringBuilder getOperatorExpression() {
+    public Node getOperatorExpression() {
         throw new UnsupportedOperationException("Not supported for RediSearch GeoRectangle");
     }
 

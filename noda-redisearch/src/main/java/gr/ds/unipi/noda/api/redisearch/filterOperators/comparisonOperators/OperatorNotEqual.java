@@ -1,6 +1,8 @@
 package gr.ds.unipi.noda.api.redisearch.filterOperators.comparisonOperators;
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
+import io.redisearch.querybuilder.Value;
+import io.redisearch.querybuilder.Values;
 
 /**
  * @author adimo on 7/10/2019
@@ -11,11 +13,13 @@ final class OperatorNotEqual<T> extends ComparisonOperator<T> {
     }
 
     @Override
-    protected String getOperatorField() {
-        if(getFieldValue() instanceof String)
-            return getFieldValue().toString();
+    protected Value getOperatorField() {
+        if (getFieldValue() instanceof String)
+            return Values.value(getFieldValue().toString());
+        else if (getFieldValue() instanceof Boolean)
+            return Values.tags(Boolean.toString((boolean) getFieldValue()));
         else
-            return StringPool.OPEN_BRACKET + getFieldValue() + StringPool.SPACE + getFieldValue() + StringPool.CLOSE_BRACKET;
+            return Values.eq((double)getFieldValue());
     }
 
     @Override

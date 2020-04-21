@@ -21,20 +21,20 @@ public class MongoDBSystem extends NoSqlDbSystem {
         return 27017;
     }
 
-    public static class Builder extends NoSqlDbSystem.Builder<Builder>{
+    public static class Builder extends NoSqlDbSystem.Builder<Builder> {
 
         private final MongoCredential mongoCredential;
         private MongoClientOptions mongoClientOptions = MongoClientOptions.builder().build();
 
-        public Builder(MongoCredential mongoCredential){
+        public Builder(MongoCredential mongoCredential) {
             this.mongoCredential = mongoCredential;
         }
 
-        public Builder(String username, String password, String database){
+        public Builder(String username, String password, String database) {
             this.mongoCredential = MongoCredential.createCredential(username, database, password.toCharArray());
         }
 
-        public Builder mongoClientOptions(MongoClientOptions mongoClientOptions){
+        public Builder mongoClientOptions(MongoClientOptions mongoClientOptions) {
             this.mongoClientOptions = mongoClientOptions;
             return this;
         }

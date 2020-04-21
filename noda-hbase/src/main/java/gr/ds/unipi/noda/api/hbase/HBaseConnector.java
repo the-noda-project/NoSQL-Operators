@@ -12,7 +12,7 @@ public final class HBaseConnector implements NoSqlDbConnector<Connection> {
 
     private final Configuration conf;
 
-    private HBaseConnector(Configuration conf){
+    private HBaseConnector(Configuration conf) {
         this.conf = conf;
     }
 
@@ -39,7 +39,7 @@ public final class HBaseConnector implements NoSqlDbConnector<Connection> {
         return Objects.hash(conf);
     }
 
-    public static HBaseConnector newHBaseConnector(Configuration conf){
+    public static HBaseConnector newHBaseConnector(Configuration conf) {
         return new HBaseConnector(conf);
     }
 }

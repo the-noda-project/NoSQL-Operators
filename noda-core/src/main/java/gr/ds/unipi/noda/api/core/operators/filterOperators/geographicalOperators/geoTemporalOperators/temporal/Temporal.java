@@ -10,7 +10,7 @@ public abstract class Temporal {
         this.dates = dates;
     }
 
-    protected Date[] getDates(){
+    protected Date[] getDates() {
         return dates;
     }
 }

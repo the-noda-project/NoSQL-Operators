@@ -9,7 +9,7 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
     }
 
     @Override
-    public Object getOperatorExpression(){
+    public Object getOperatorExpression() {
         return null;
     }
 }

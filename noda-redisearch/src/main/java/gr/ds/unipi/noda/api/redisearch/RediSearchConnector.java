@@ -2,7 +2,6 @@ package gr.ds.unipi.noda.api.redisearch;
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
-import javafx.util.Pair;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -13,13 +12,14 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocketFactory;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> {
 
-    private final List<Pair<String, Integer>> addresses;
+    private final List<Map.Entry<String, Integer>> addresses;
     private final String masterName;
     private final JedisPoolConfig poolConfig;
     private final int connectionTimeout;
@@ -33,7 +33,7 @@ public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> 
     private final HostnameVerifier hostnameVerifier;
 
 
-    public RediSearchConnector(List<Pair<String, Integer>> addresses, String masterName, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
+    public RediSearchConnector(List<Map.Entry<String, Integer>> addresses, String masterName, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
         this.addresses = addresses;
         this.masterName = masterName;
         this.poolConfig = poolConfig;
@@ -70,7 +70,7 @@ public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> 
     @Override
     public int hashCode() {
         int hashCode = 0;
-        for(Pair<String,Integer> e : addresses){
+        for(Map.Entry<String,Integer> e : addresses){
             hashCode = 31*hashCode+(e==null ?0:e.hashCode());
         }
         return 31*hashCode+ Objects.hash(masterName, poolConfig, connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
@@ -84,7 +84,7 @@ public final class RediSearchConnector implements NoSqlDbConnector<Pool<Jedis>> 
             return new JedisSentinelPool(masterName, getSentinels(), poolConfig, connectionTimeout, soTimeout, password, database, clientName );
     }
 
-    public static RediSearchConnector newRediSearchConnector(List<Pair<String, Integer>> addresses, String masterName, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
+    public static RediSearchConnector newRediSearchConnector(List<Map.Entry<String, Integer>> addresses, String masterName, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
         return new RediSearchConnector(addresses, masterName, poolConfig, connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
     }
 

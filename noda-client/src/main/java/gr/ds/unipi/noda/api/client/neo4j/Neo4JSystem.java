@@ -22,7 +22,7 @@ public class Neo4JSystem extends NoSqlDbSystem {
         return 7687;
     }
 
-    public static class Builder extends NoSqlDbSystem.Builder<Builder>{
+    public static class Builder extends NoSqlDbSystem.Builder<Builder> {
 
         private final AuthToken authToken;
 
@@ -38,12 +38,12 @@ public class Neo4JSystem extends NoSqlDbSystem {
             return this;
         }
 
-        public Builder config(Config config){
+        public Builder config(Config config) {
             this.config = config;
             return this;
         }
 
-        public Builder(AuthToken authToken){
+        public Builder(AuthToken authToken) {
             this.authToken = authToken;
         }
 
@@ -55,6 +55,6 @@ public class Neo4JSystem extends NoSqlDbSystem {
 
     private Neo4JSystem(Builder builder) {
         super(builder, new Neo4jConnectionFactory());
-        connector = Neo4jConnector.newNeo4jConnector(getAddresses(),builder.authToken,builder.config);
+        connector = Neo4jConnector.newNeo4jConnector(getAddresses(), builder.authToken, builder.config);
     }
 }

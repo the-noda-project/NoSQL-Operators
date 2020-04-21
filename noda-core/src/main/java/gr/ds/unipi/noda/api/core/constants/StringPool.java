@@ -198,7 +198,7 @@ public class StringPool {
 
     static {
         for (int i = 0; i < 128; i++) {
-            ASCII_TABLE[i] = String.valueOf((char)i);
+            ASCII_TABLE[i] = String.valueOf((char) i);
         }
     }
 
