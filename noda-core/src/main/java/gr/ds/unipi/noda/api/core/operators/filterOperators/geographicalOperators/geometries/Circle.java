@@ -37,28 +37,28 @@ public class Circle extends Geometry {
         return Rectangle.newRectangle(lowerBound, upperBound);
     }
 
-    public boolean contains(Point point) {
-
-        if (Double.compare(radius, haversine(getCircleCenter().getLongitude(), getCircleCenter().getLatitude(), point.getPoint().getLongitude(), point.getPoint().getLatitude())) != -1) {
-            return true;
-        }
-        return false;
-    }
-
-    private static double haversine(double lon1, double lat1, double lon2, double lat2) {
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLon = Math.toRadians(lon2 - lon1);
-
-        lat1 = Math.toRadians(lat1);
-        lat2 = Math.toRadians(lat2);
-
-        double a = Math.pow(Math.sin(dLat / 2), 2) +
-                Math.pow(Math.sin(dLon / 2), 2) *
-                        Math.cos(lat1) *
-                        Math.cos(lat2);
-        double rad = 6378137;
-        double c = 2 * Math.asin(Math.sqrt(a));
-        return rad * c;
-    }
+//    public boolean contains(Point point) {
+//
+//        if (Double.compare(radius, haversine(getCircleCenter().getLongitude(), getCircleCenter().getLatitude(), point.getPoint().getLongitude(), point.getPoint().getLatitude())) != -1) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    private static double haversine(double lon1, double lat1, double lon2, double lat2) {
+//        double dLat = Math.toRadians(lat2 - lat1);
+//        double dLon = Math.toRadians(lon2 - lon1);
+//
+//        lat1 = Math.toRadians(lat1);
+//        lat2 = Math.toRadians(lat2);
+//
+//        double a = Math.pow(Math.sin(dLat / 2), 2) +
+//                Math.pow(Math.sin(dLon / 2), 2) *
+//                        Math.cos(lat1) *
+//                        Math.cos(lat2);
+//        double rad = 6378137;
+//        double c = 2 * Math.asin(Math.sqrt(a));
+//        return rad * c;
+//    }
 
 }

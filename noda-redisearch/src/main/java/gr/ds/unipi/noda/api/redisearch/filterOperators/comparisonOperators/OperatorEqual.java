@@ -17,7 +17,7 @@ final class OperatorEqual<T> extends ComparisonOperator<T> {
         else if (getFieldValue() instanceof Boolean)
             return Values.tags(Boolean.toString((boolean) getFieldValue()));
         else
-            return Values.eq((double)getFieldValue());
+            return new RangeValue(Double.parseDouble(getFieldValue().toString()), Double.parseDouble(getFieldValue().toString()));
     }
 
     @Override

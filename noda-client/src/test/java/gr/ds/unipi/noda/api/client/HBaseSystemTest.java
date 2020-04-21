@@ -3,7 +3,7 @@ package gr.ds.unipi.noda.api.client;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 import org.junit.Test;
 
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
+import static gr.ds.unipi.noda.api.core.operators.FilterOperators.inGeoPolygon;
 
 public class HBaseSystemTest {
     @Test
