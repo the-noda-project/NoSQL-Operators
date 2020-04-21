@@ -12,6 +12,7 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
 
     protected abstract CompareOperator getComparisonExpression();
 
+    @SuppressWarnings("unchecked")
     @Override
     public Filter getOperatorExpression() {
 
@@ -28,17 +29,17 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
         byte[] value = null;
 
         if (getFieldValue() instanceof Double) {
-            value = Bytes.toBytes((double) getFieldValue());
+            value = Bytes.toBytes( (double) (Object) getFieldValue());
         } else if (getFieldValue() instanceof Integer) {
-            value = Bytes.toBytes((int) getFieldValue());
+            value = Bytes.toBytes((int) (Object) getFieldValue());
         } else if (getFieldValue() instanceof Float) {
-            value = Bytes.toBytes((float) getFieldValue());
+            value = Bytes.toBytes((float) (Object) getFieldValue());
         } else if (getFieldValue() instanceof Short) {
-            value = Bytes.toBytes((short) getFieldValue());
+            value = Bytes.toBytes((short) (Object) getFieldValue());
         } else if (getFieldValue() instanceof Long) {
-            value = Bytes.toBytes((long) getFieldValue());
+            value = Bytes.toBytes((long) (Object) getFieldValue());
         } else if (getFieldValue() instanceof Boolean) {
-            value = Bytes.toBytes((boolean) getFieldValue());
+            value = Bytes.toBytes((boolean) (Object) getFieldValue());
         } else if (getFieldValue() instanceof String) {
             value = Bytes.toBytes((String) getFieldValue());
         } else {
