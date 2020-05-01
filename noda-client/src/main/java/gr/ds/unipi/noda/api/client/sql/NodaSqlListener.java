@@ -1,29 +1,63 @@
 package gr.ds.unipi.noda.api.client.sql;
 
-import org.antlr.v4.runtime.tree.ParseTree;
+import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import gr.ds.unipi.noda.api.core.operators.FilterOperators;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 
 public class NodaSqlListener extends SqlBaseBaseListener {
+
+    private NoSqlDbOperators noSqlDbOperators;
+    private String source;
+    private FilterOperator filterOperator;
+    private List<String> selectOperator = new ArrayList<>();
 
     private List<String> logicalOperator = new ArrayList<>();
     private List<String> column = new ArrayList<>();
     private boolean columnDereference;
     private String comparison;
-    private int limit;
 
-//    private Coordinates coordinates;
-//    private List<Coordinates> coordinatesList;
+    private int limit = -1;
+
+    private Map<String, Integer> hashMap = new HashMap<String, Integer>(){{
+        put("POLYGON",2);
+        put("RECTANGLE",2);
+        put("CIRCLE",2);
+    }};
+
+    private String functionName;
+    private List<Coordinates> coordinatesList = new ArrayList<>();
+    private List<Number> functionNumbers = new ArrayList<>();
+    private List<String> functionStrings = new ArrayList<>();
 
 
+    private NodaSqlListener(){}
 
-    @Override public void enterSingleStatement(SqlBaseParser.SingleStatementContext ctx) {
+    @Override public void enterQuerySpecification(SqlBaseParser.QuerySpecificationContext ctx) {
 
-        SqlBaseParser.LogicalBinaryContext v;
+        if(ctx.relation().size() != 1){
+            try {
+                throw new Exception("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
-        recursiveFunction(ctx,"");
+        source = ctx.relation().get(0).getText();
 
+        //System.out.println("QUERY SPECIFICATION " + ctx.relation().size());
+
+    }
+
+    public String getSource(){
+        return source;
     }
 
     @Override public void enterQueryNoWith(SqlBaseParser.QueryNoWithContext ctx) {
@@ -70,17 +104,19 @@ public class NodaSqlListener extends SqlBaseBaseListener {
         if(comparison != null){
             createFilter(Double.parseDouble(ctx.getText()));
         }
-
-
+        else if(functionName != null){
+            functionNumbers.add(Double.parseDouble(ctx.getText()));
+        }
         System.out.println("DECIMAL LITERAL CONTEXT " + ctx.getText());
-
     }
 
     @Override public void enterIntegerLiteral(SqlBaseParser.IntegerLiteralContext ctx) {
         if(comparison != null){
             createFilter(Integer.parseInt(ctx.getText()));
         }
-
+        else if(functionName != null){
+            functionNumbers.add(Integer.parseInt(ctx.getText()));
+        }
         System.out.println("INTGER LITERAL CONTEXT " + ctx.getText());
     }
 
@@ -88,16 +124,74 @@ public class NodaSqlListener extends SqlBaseBaseListener {
         if(comparison != null){
             createFilter(ctx.getText());
         }
+        else if(functionName != null){
+            functionStrings.add(ctx.getText());
+        }
         System.out.println("STRING LITERAL CONTEXT " + ctx.getText());
     }
 
     public void createFilter(Object o){
-        if(o instanceof Double){
+        if(o instanceof Integer){
+            switch (comparison){
+                case ">": addFilter(gt(column.get(0), (int) o));
+                    break;
+                case ">=": addFilter(gte(column.get(0), (int) o));
+                    break;
+                case "<": addFilter(lt(column.get(0), (int) o));
+                    break;
+                case "<=": addFilter(lte(column.get(0), (int) o));
+                    break;
+                case "!=": addFilter(ne(column.get(0), (int) o));
+                    break;
+                case "=": addFilter(eq(column.get(0), (int) o));
+                    break;
+                default:
+                    try {
+                        throw new Exception("");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
 
-        }else if(o instanceof Integer){
 
-        }else if(o instanceof String){
-
+        }else if(o instanceof Double){
+            switch (comparison){
+                case ">": addFilter(gt(column.get(0), (double) o));
+                    break;
+                case ">=": addFilter(gte(column.get(0), (double) o));
+                    break;
+                case "<": addFilter(lt(column.get(0), (double) o));
+                    break;
+                case "<=": addFilter(lte(column.get(0), (double) o));
+                    break;
+                case "!=": addFilter(ne(column.get(0), (double) o));
+                    break;
+                case "=": addFilter(eq(column.get(0), (double) o));
+                    break;
+                default:
+                    try {
+                        throw new Exception("");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }
+        else if(o instanceof String){
+            switch (comparison){
+                case "!=": addFilter(ne(column.get(0), (String) o));
+                    break;
+                case "=": addFilter(eq(column.get(0), (String) o));
+                    break;
+                default:
+                    try {
+                        throw new Exception("");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
         }
         else{
             try {
@@ -106,17 +200,81 @@ public class NodaSqlListener extends SqlBaseBaseListener {
                 e.printStackTrace();
             }
         }
-        comparison = null;
-        column.clear();
     }
 
     @Override public void enterFunctionCall(SqlBaseParser.FunctionCallContext ctx) {
 
-        if(ctx.getText().startsWith("IN_GEO_POLYGON")){
-        }
-        else if(ctx.getText().startsWith("")){
+        hashMap.forEach((key,value)->{
+            if(ctx.getText().startsWith(key)){
+                functionName = key;
+                return;
+            }
+        });
 
-        }else{
+        if(functionName == null){
+            try {
+                throw new Exception("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @Override public void exitFunctionCall(SqlBaseParser.FunctionCallContext ctx) {
+
+        FilterOperator fop;
+
+        if(functionName.equals("POLYGON")){
+            checkForSingleColumn();
+            if(coordinatesList.size()<3){
+                try {
+                    throw new Exception("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(coordinatesList.size()==3){
+                addFilter(FilterOperators.inGeoPolygon(column.get(0),coordinatesList.get(0),coordinatesList.get(1),coordinatesList.get(2)));
+            }
+            else{
+                Coordinates[] coordinates = new Coordinates[coordinatesList.size()-3];
+                for(int i=3;i<coordinatesList.size();i++){
+                    coordinates[i-3] = coordinatesList.get(i);
+                }
+                addFilter(FilterOperators.inGeoPolygon(column.get(0),coordinatesList.get(0),coordinatesList.get(1),coordinatesList.get(2), coordinates));
+            }
+        }
+
+        else if(functionName.equals("RECTANGLE")){
+            checkForSingleColumn();
+            if(coordinatesList.size()!=2){
+                try {
+                    throw new Exception("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            addFilter(FilterOperators.inGeoRectangle(column.get(0),coordinatesList.get(0),coordinatesList.get(1)));
+
+        }
+        else if(functionName.equals("CIRCLE")){
+            checkForSingleColumn();
+            if(coordinatesList.size()!=1){
+                try {
+                    throw new Exception("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            addFilter(FilterOperators.inGeoCircleMeters(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0)));
+
+        }
+
+        else{
             try {
                 throw new Exception("");
             } catch (Exception e) {
@@ -124,16 +282,101 @@ public class NodaSqlListener extends SqlBaseBaseListener {
             }
         }
         System.out.println("FUNCTION CALL CONTEXT " + ctx.getText());
+
     }
 
-    @Override public void exitFunctionCall(SqlBaseParser.FunctionCallContext ctx) {
-
-        System.out.println(" EXITING FUNCTION CALL CONTEXT " + ctx.getText());
+    private void checkForSingleColumn(){
+        if(column.size()!=1){
+            try {
+                throw new Exception("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
+    private void checkForDoubleColumn(){
+        if(column.size()!=2){
+            try {
+                throw new Exception("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    private void checkForSingleNumber(){
+        if(functionNumbers.size()!=1){
+            try {
+                throw new Exception("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void checkForNoneStrings(){
+        if(functionStrings.size()!=0){
+            try {
+                throw new Exception("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void addFilter(FilterOperator fop){
+
+        if(logicalOperator.size()>0){
+            String logical = logicalOperator.get(logicalOperator.size()-1);
+            switch (logical){
+                case "AND": filterOperator = and(filterOperator,fop);
+                    break;
+                case "OR": filterOperator = or(filterOperator,fop);
+                    break;
+                default:
+                    try {
+                        throw new Exception("");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+
+            logicalOperator.remove(logicalOperator.size()-1);
+        } else {
+            if(filterOperator == null){
+                filterOperator = fop;
+            }
+        }
+
+        comparison = null;
+        column.clear();
+
+        functionName = null;
+        coordinatesList.clear();
+        functionNumbers.clear();
+        functionStrings.clear();
+
+    }
 
     @Override public void enterRowConstructor(SqlBaseParser.RowConstructorContext ctx) {
+
+        if(hashMap.get(functionName) == 2){
+
+            if(ctx.children.size() == 5 && ctx.getChild(0).getText().equals("(") &&
+                    ctx.getChild(4).getText().equals(")") && ctx.getChild(2).getText().equals(",")) {
+
+                coordinatesList.add(Coordinates.newCoordinates(Double.parseDouble(ctx.getChild(1).getText()), Double.parseDouble(ctx.getChild(3).getText())));
+            }
+            else{
+                try {
+                    throw new Exception("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         if(ctx.children.size() == 5) {
             System.out.println("ROW " + ctx.getChild(0).getText());
@@ -153,122 +396,54 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     }
 
-//    @Override public void enterPredicated(SqlBaseParser.PredicatedContext ctx) {
-//
-//        System.out.println("PREDICATED 1 "+ctx.getChild(0).getText());
-//        System.out.println("PREDICATED 2 "+ctx.getChild(1));
-//        System.out.println("PREDICATED 3 "+ctx.getChild(2));
-//
-//    }
-
-
-
-//    @Override public void enterUnquotedIdentifier(SqlBaseParser.UnquotedIdentifierContext ctx) {
-//
-//        System.out.println(" UnquotedIdentifierContext CONTEXT " + ctx.getText());
-//
-//    }
-
-
-
-
 //    @Override public void enterValueExpressionDefault(SqlBaseParser.ValueExpressionDefaultContext ctx)  {
 //
 //        System.out.println("VALUE EXPRESSION DEFAULT " + ctx.getText());
 //    }
-
-//    @Override public void enterParse(SQLiteParser.ParseContext ctx) {
 //
-//        recursiveFunction(ctx,"");
-//    }
-
-
-//    @Override public void enterSelectElements(MySqlParser.SelectElementsContext ctx) {
-//        ctx.children.forEach(i-> System.out.println(i.getText()));
+//    public void recursiveFunction(ParseTree parseTree, String level){
 //
-//    }
 //
-//    @Override public void enterFromClause(MySqlParser.FromClauseContext ctx) {
-//
-////        if (!ctx.whereExpr.isEmpty()){
-////            ctx.whereExpr.children.forEach(i-> System.out.println(i.getText()));
+////        if(parseTree instanceof SQLiteParser.Column_nameContext){
+////            System.out.println( parseTree.getText());
 ////        }
-//
-//        recursiveFunction(ctx.whereExpr,"");
-//
-//        System.out.println("----");
-//
-//        for(int i=0;i<ctx.whereExpr.getChildCount();i++){
-//            System.out.println(ctx.whereExpr.getClass() +" "+ ctx.whereExpr.getText() + " " + ctx.whereExpr.getChildCount());
+//        for(int i=0;i<parseTree.getChildCount();i++){
+//            System.out.println(level+parseTree.getClass() +" "+ parseTree.getText() + " [" + parseTree.getChild(i).getChildCount()+"]" +" "+parseTree.toString());
+//            recursiveFunction(parseTree.getChild(i),level+"|");
 //        }
-////
-////        System.out.println(ctx.whereExpr.getText());
-////        System.out.println(ctx.whereExpr.getClass());
-////        System.out.println("---");
-////
-////        System.out.println(ctx.whereExpr.getChild(0).getText());
-////        System.out.println(ctx.whereExpr.getChild(0).getClass());
-////        System.out.println("---");
-////
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getText());
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getClass());
-////        System.out.println("---");
-////
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getText());
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getClass());
-////
-////        System.out.println("---");
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getText());
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getClass());
-////
-////        System.out.println("---");
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(0).getText());
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(0).getClass());
-////
-////        System.out.println("---");
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(1).getText());
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(1).getClass());
-////
-////        System.out.println("---");
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(2).getText());
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(2).getClass());
-////
-////        System.out.println("---");
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(2).getChild(0).getText());
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(2).getChild(0).getClass());
-////
-////        System.out.println("---");
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(2).getChild(0).getChild(0).getText());
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(2).getChild(0).getChild(0).getClass());
-////
-////        System.out.println("---");
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(2).getChild(0).getChild(0).getChild(0).getText());
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(2).getChild(0).getChild(0).getChild(0).getClass());
-////
-////        System.out.println("---");
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(2).getChild(0).getChild(0).getChild(0).getChild(0).getText());
-////        System.out.println(ctx.whereExpr.getChild(0).getChild(0).getChild(0).getChild(0).getChild(2).getChild(0).getChild(0).getChild(0).getChild(0).getClass());
-//
 //
 //    }
-//
-    public void recursiveFunction(ParseTree parseTree, String level){
 
-
-//        if(parseTree instanceof SQLiteParser.Column_nameContext){
-//            System.out.println( parseTree.getText());
-//        }
-        for(int i=0;i<parseTree.getChildCount();i++){
-            System.out.println(level+parseTree.getClass() +" "+ parseTree.getText() + " [" + parseTree.getChild(i).getChildCount()+"]" +" "+parseTree.toString());
-            recursiveFunction(parseTree.getChild(i),level+"|");
+    public NoSqlDbOperators getNoSqlDbOperators(){
+        if(filterOperator!=null){
+            noSqlDbOperators.filter(filterOperator);
         }
 
-    }
-//
-//
-//    @Override public void enterRoot(MySqlParser.RootContext ctx) {
-//        System.out.println("Root "+ctx.toStringTree());
-//    }
-//
+        if(selectOperator.size()!=0){
+            if(selectOperator.size() ==1){
+                noSqlDbOperators.project(selectOperator.get(0));
+            }else{
 
+                 String[] select = new String[selectOperator.size()-1];
+                 for(int i=1;i<selectOperator.size();i++){
+                     select[i-1] = selectOperator.get(i);
+                 }
+
+                noSqlDbOperators.project(selectOperator.get(0),select);
+            }
+        }
+
+        if(limit != -1){
+            noSqlDbOperators.limit(limit);
+        }
+        return noSqlDbOperators;
+    }
+
+    public void setNoSqlDbOperators(NoSqlDbOperators noSqlDbOperators) {
+        this.noSqlDbOperators = noSqlDbOperators;
+    }
+
+    public static NodaSqlListener newNodaSqlListener(){
+        return new NodaSqlListener();
+    }
 }
