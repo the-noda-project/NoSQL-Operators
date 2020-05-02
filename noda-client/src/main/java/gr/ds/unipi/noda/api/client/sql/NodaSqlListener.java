@@ -18,6 +18,8 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     private String source;
     private FilterOperator filterOperator;
     private List<String> selectOperator = new ArrayList<>();
+    private boolean selectAll = false;
+    private List<String> groupBy = new ArrayList<>();
 
     private List<String> logicalOperator = new ArrayList<>();
     private List<String> column = new ArrayList<>();
@@ -26,6 +28,7 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     private int limit = -1;
 
+    // The value of HashMap represents the number of arguments in a Row e.g.(58.45, 28.83)
     private Map<String, Integer> hashMap = new HashMap<String, Integer>(){{
         put("POLYGON",2);
         put("RECTANGLE",2);
@@ -58,6 +61,21 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     public String getSource(){
         return source;
+    }
+
+    @Override public void enterSelectAll(SqlBaseParser.SelectAllContext ctx) {
+        selectAll = true;
+    }
+
+    @Override public void exitSelectSingle(SqlBaseParser.SelectSingleContext ctx) {
+        selectOperator.add(column.get(0));
+        column.remove(0);
+        System.out.println("SELECTS exit" + ctx.getText());
+    }
+
+    @Override public void exitGroupBy(SqlBaseParser.GroupByContext ctx) {
+        groupBy.addAll(column);
+        column.clear();
     }
 
     @Override public void enterQueryNoWith(SqlBaseParser.QueryNoWithContext ctx) {
@@ -419,7 +437,7 @@ public class NodaSqlListener extends SqlBaseBaseListener {
             noSqlDbOperators.filter(filterOperator);
         }
 
-        if(selectOperator.size()!=0){
+        if(selectOperator.size()!=0 && !selectAll){
             if(selectOperator.size() ==1){
                 noSqlDbOperators.project(selectOperator.get(0));
             }else{
@@ -432,6 +450,10 @@ public class NodaSqlListener extends SqlBaseBaseListener {
                 noSqlDbOperators.project(selectOperator.get(0),select);
             }
         }
+
+//        if(groupBy.size() != 0){
+//            noSqlDbOperators.groupBy()
+//        }
 
         if(limit != -1){
             noSqlDbOperators.limit(limit);
