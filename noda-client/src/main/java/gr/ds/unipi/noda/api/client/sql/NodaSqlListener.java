@@ -5,10 +5,7 @@ import gr.ds.unipi.noda.api.core.operators.FilterOperators;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 
@@ -31,9 +28,16 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     // The value of HashMap represents the number of arguments in a Row e.g.(58.45, 28.83)
     private Map<String, Integer> hashMap = new HashMap<String, Integer>(){{
-        put("POLYGON",2);
-        put("RECTANGLE",2);
-        put("CIRCLE",2);
+        put("GEO_POLYGON",2);
+        put("GEO_RECTANGLE",2);
+        put("GEO_CIRCLE_KM",2);
+        put("GEO_CIRCLE_ME",2);
+        put("GEO_CIRCLE_MI",2);
+        put("GEO_TEMPORAL_POLYGON",2);
+        put("GEO_TEMPORAL_RECTANGLE",2);
+        put("GEO_TEMPORAL_CIRCLE_KM",2);
+        put("GEO_TEMPORAL_CIRCLE_ME",2);
+        put("GEO_TEMPORAL_CIRCLE_MI",2);
     }};
 
     private String functionName;
@@ -268,8 +272,9 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
         FilterOperator fop;
 
-        if(functionName.equals("POLYGON")){
+        if(functionName.equals("GEO_POLYGON")){
             checkForSingleColumn();
+            checkForNoneValues();
             if(coordinatesList.size()<3){
                 try {
                     throw new Exception("");
@@ -290,8 +295,9 @@ public class NodaSqlListener extends SqlBaseBaseListener {
             }
         }
 
-        else if(functionName.equals("RECTANGLE")){
+        else if(functionName.equals("GEO_RECTANGLE")){
             checkForSingleColumn();
+            checkForNoneValues();
             if(coordinatesList.size()!=2){
                 try {
                     throw new Exception("");
@@ -303,8 +309,10 @@ public class NodaSqlListener extends SqlBaseBaseListener {
             addFilter(FilterOperators.inGeoRectangle(column.get(0),coordinatesList.get(0),coordinatesList.get(1)));
 
         }
-        else if(functionName.equals("CIRCLE")){
+        else if(functionName.equals("GEO_CIRCLE_KM") || functionName.equals("GEO_CIRCLE_ME") || functionName.equals("GEO_CIRCLE_MI")){
             checkForSingleColumn();
+            checkForNoneStrings();
+
             if(coordinatesList.size()!=1){
                 try {
                     throw new Exception("");
@@ -313,9 +321,74 @@ public class NodaSqlListener extends SqlBaseBaseListener {
                 }
             }
 
-            addFilter(FilterOperators.inGeoCircleMeters(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0)));
+            if(functionName.equals("GEO_CIRCLE_KM") ){
+                addFilter(FilterOperators.inGeoCircleKm(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0)));
+            }else if(functionName.equals("GEO_CIRCLE_ME")){
+                addFilter(FilterOperators.inGeoCircleMeters(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0)));
+            }else{
+                addFilter(FilterOperators.inGeoCircleMiles(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0)));
+            }
 
         }
+        else if(functionName.equals("GEO_TEMPORAL_POLYGON")){
+            checkForDoubleColumn();
+            checkForNoneStrings();
+            if(coordinatesList.size()<3){
+                try {
+                    throw new Exception("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(coordinatesList.size()==3){
+                addFilter(FilterOperators.inGeoTemporalPolygon(column.get(0),column.get(1),new Date((long)functionNumbers.get(0)),new Date((long)functionNumbers.get(1)),coordinatesList.get(0),coordinatesList.get(1),coordinatesList.get(2)));
+            }
+            else{
+                Coordinates[] coordinates = new Coordinates[coordinatesList.size()-3];
+                for(int i=3;i<coordinatesList.size();i++){
+                    coordinates[i-3] = coordinatesList.get(i);
+                }
+                addFilter(FilterOperators.inGeoTemporalPolygon(column.get(0),column.get(1),new Date((long)functionNumbers.get(0)),new Date((long)functionNumbers.get(1)),coordinatesList.get(0),coordinatesList.get(1),coordinatesList.get(2), coordinates));
+            }
+        }
+        else if(functionName.equals("GEO_TEMPORAL_RECTANGLE")){
+            checkForDoubleColumn();
+            checkForNoneStrings();
+            if(coordinatesList.size()!=2){
+                try {
+                    throw new Exception("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            addFilter(FilterOperators.inGeoTemporalRectangle(column.get(0),coordinatesList.get(0),coordinatesList.get(1),column.get(1),new Date((long)functionNumbers.get(0)),new Date((long)functionNumbers.get(1))));
+
+        }
+        else if(functionName.equals("GEO_TEMPORAL_CIRCLE_KM") || functionName.equals("GEO_TEMPORAL_CIRCLE_ME") || functionName.equals("GEO_TEMPORAL_CIRCLE_MI")){
+            checkForSingleColumn();
+            checkForNoneStrings();
+
+            if(coordinatesList.size()!=1){
+                try {
+                    throw new Exception("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(functionName.equals("GEO_TEMPORAL_CIRCLE_KM") ){
+                addFilter(FilterOperators.inGeoTemporalCircleKm(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0),column.get(1),new Date((long)functionNumbers.get(0)),new Date((long)functionNumbers.get(1))));
+            }else if(functionName.equals("GEO_TEMPORAL_CIRCLE_ME")){
+                addFilter(FilterOperators.inGeoTemporalCircleMeters(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0),column.get(1),new Date((long)functionNumbers.get(0)),new Date((long)functionNumbers.get(1))));
+            }else{
+                addFilter(FilterOperators.inGeoTemporalCircleMiles(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0),column.get(1),new Date((long)functionNumbers.get(0)),new Date((long)functionNumbers.get(1))));
+            }
+
+        }
+
+
 
         else{
             try {
@@ -367,6 +440,23 @@ public class NodaSqlListener extends SqlBaseBaseListener {
             }
         }
     }
+
+    private void checkForNoneNumbers(){
+        if(functionNumbers.size()!=0){
+            try {
+                throw new Exception("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void checkForNoneValues(){
+        checkForNoneStrings();
+        checkForNoneNumbers();
+    }
+
+
 
     private void addFilter(FilterOperator fop){
 
