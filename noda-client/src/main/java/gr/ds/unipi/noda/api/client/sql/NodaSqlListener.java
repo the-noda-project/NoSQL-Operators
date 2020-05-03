@@ -5,6 +5,8 @@ import gr.ds.unipi.noda.api.core.operators.FilterOperators;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
@@ -24,6 +26,7 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     private boolean columnDereference;
     private String comparison;
 
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     private int limit = -1;
 
     // The value of HashMap represents the number of arguments in a Row e.g.(58.45, 28.83)
@@ -272,130 +275,134 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
         FilterOperator fop;
 
-        if(functionName.equals("GEO_POLYGON")){
-            checkForSingleColumn();
-            checkForNoneValues();
-            if(coordinatesList.size()<3){
-                try {
-                    throw new Exception("");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+        try {
+            switch (functionName) {
+                case "GEO_POLYGON":
+                    checkForSingleColumn();
+                    checkForNoneValues();
+                    if (coordinatesList.size() < 3) {
+                        try {
+                            throw new Exception("");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-            if(coordinatesList.size()==3){
-                addFilter(FilterOperators.inGeoPolygon(column.get(0),coordinatesList.get(0),coordinatesList.get(1),coordinatesList.get(2)));
-            }
-            else{
-                Coordinates[] coordinates = new Coordinates[coordinatesList.size()-3];
-                for(int i=3;i<coordinatesList.size();i++){
-                    coordinates[i-3] = coordinatesList.get(i);
-                }
-                addFilter(FilterOperators.inGeoPolygon(column.get(0),coordinatesList.get(0),coordinatesList.get(1),coordinatesList.get(2), coordinates));
+                    if (coordinatesList.size() == 3) {
+                        addFilter(FilterOperators.inGeoPolygon(column.get(0), coordinatesList.get(0), coordinatesList.get(1), coordinatesList.get(2)));
+                    } else {
+                        Coordinates[] coordinates = new Coordinates[coordinatesList.size() - 3];
+                        for (int i = 3; i < coordinatesList.size(); i++) {
+                            coordinates[i - 3] = coordinatesList.get(i);
+                        }
+                        addFilter(FilterOperators.inGeoPolygon(column.get(0), coordinatesList.get(0), coordinatesList.get(1), coordinatesList.get(2), coordinates));
+                    }
+                    break;
+                case "GEO_RECTANGLE":
+                    checkForSingleColumn();
+                    checkForNoneValues();
+                    if (coordinatesList.size() != 2) {
+                        try {
+                            throw new Exception("");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    addFilter(FilterOperators.inGeoRectangle(column.get(0), coordinatesList.get(0), coordinatesList.get(1)));
+
+                    break;
+                case "GEO_CIRCLE_KM":
+                case "GEO_CIRCLE_ME":
+                case "GEO_CIRCLE_MI":
+                    checkForSingleColumn();
+                    checkForNoneStrings();
+
+                    if (coordinatesList.size() != 1) {
+                        try {
+                            throw new Exception("");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (functionName.equals("GEO_CIRCLE_KM")) {
+                        addFilter(FilterOperators.inGeoCircleKm(column.get(0), coordinatesList.get(0), (double) functionNumbers.get(0)));
+                    } else if (functionName.equals("GEO_CIRCLE_ME")) {
+                        addFilter(FilterOperators.inGeoCircleMeters(column.get(0), coordinatesList.get(0), (double) functionNumbers.get(0)));
+                    } else {
+                        addFilter(FilterOperators.inGeoCircleMiles(column.get(0), coordinatesList.get(0), (double) functionNumbers.get(0)));
+                    }
+
+                    break;
+                case "GEO_TEMPORAL_POLYGON":
+                    checkForDoubleColumn();
+                    checkForNoneNumbers();
+                    if (coordinatesList.size() < 3) {
+                        try {
+                            throw new Exception("");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (coordinatesList.size() == 3) {
+                        addFilter(FilterOperators.inGeoTemporalPolygon(column.get(0), column.get(1), simpleDateFormat.parse(functionStrings.get(0)), simpleDateFormat.parse(functionStrings.get(1)), coordinatesList.get(0), coordinatesList.get(1), coordinatesList.get(2)));
+                    } else {
+                        Coordinates[] coordinates = new Coordinates[coordinatesList.size() - 3];
+                        for (int i = 3; i < coordinatesList.size(); i++) {
+                            coordinates[i - 3] = coordinatesList.get(i);
+                        }
+                        addFilter(FilterOperators.inGeoTemporalPolygon(column.get(0), column.get(1), simpleDateFormat.parse(functionStrings.get(0)), simpleDateFormat.parse(functionStrings.get(1)), coordinatesList.get(0), coordinatesList.get(1), coordinatesList.get(2), coordinates));
+                    }
+                    break;
+                case "GEO_TEMPORAL_RECTANGLE":
+                    checkForDoubleColumn();
+                    checkForNoneNumbers();
+                    if (coordinatesList.size() != 2) {
+                        try {
+                            throw new Exception("");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    addFilter(FilterOperators.inGeoTemporalRectangle(column.get(0), coordinatesList.get(0), coordinatesList.get(1), column.get(1), simpleDateFormat.parse(functionStrings.get(0)), simpleDateFormat.parse(functionStrings.get(1))));
+
+                    break;
+                case "GEO_TEMPORAL_CIRCLE_KM":
+                case "GEO_TEMPORAL_CIRCLE_ME":
+                case "GEO_TEMPORAL_CIRCLE_MI":
+                    checkForDoubleColumn();
+
+                    if (coordinatesList.size() != 1) {
+                        try {
+                            throw new Exception("");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (functionName.equals("GEO_TEMPORAL_CIRCLE_KM")) {
+                        addFilter(FilterOperators.inGeoTemporalCircleKm(column.get(0), coordinatesList.get(0), (double) functionNumbers.get(0), column.get(1), simpleDateFormat.parse(functionStrings.get(0)), simpleDateFormat.parse(functionStrings.get(1))));
+                    } else if (functionName.equals("GEO_TEMPORAL_CIRCLE_ME")) {
+                        addFilter(FilterOperators.inGeoTemporalCircleMeters(column.get(0), coordinatesList.get(0), (double) functionNumbers.get(0), column.get(1), simpleDateFormat.parse(functionStrings.get(0)), simpleDateFormat.parse(functionStrings.get(1))));
+                    } else {
+                        addFilter(FilterOperators.inGeoTemporalCircleMiles(column.get(0), coordinatesList.get(0), (double) functionNumbers.get(0), column.get(1), simpleDateFormat.parse(functionStrings.get(0)), simpleDateFormat.parse(functionStrings.get(1))));
+                    }
+
+                    break;
+                default:
+                    try {
+                        throw new Exception("");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
         }
+        catch (ParseException e){
 
-        else if(functionName.equals("GEO_RECTANGLE")){
-            checkForSingleColumn();
-            checkForNoneValues();
-            if(coordinatesList.size()!=2){
-                try {
-                    throw new Exception("");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            addFilter(FilterOperators.inGeoRectangle(column.get(0),coordinatesList.get(0),coordinatesList.get(1)));
-
-        }
-        else if(functionName.equals("GEO_CIRCLE_KM") || functionName.equals("GEO_CIRCLE_ME") || functionName.equals("GEO_CIRCLE_MI")){
-            checkForSingleColumn();
-            checkForNoneStrings();
-
-            if(coordinatesList.size()!=1){
-                try {
-                    throw new Exception("");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if(functionName.equals("GEO_CIRCLE_KM") ){
-                addFilter(FilterOperators.inGeoCircleKm(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0)));
-            }else if(functionName.equals("GEO_CIRCLE_ME")){
-                addFilter(FilterOperators.inGeoCircleMeters(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0)));
-            }else{
-                addFilter(FilterOperators.inGeoCircleMiles(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0)));
-            }
-
-        }
-        else if(functionName.equals("GEO_TEMPORAL_POLYGON")){
-            checkForDoubleColumn();
-            checkForNoneStrings();
-            if(coordinatesList.size()<3){
-                try {
-                    throw new Exception("");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if(coordinatesList.size()==3){
-                addFilter(FilterOperators.inGeoTemporalPolygon(column.get(0),column.get(1),new Date((long)functionNumbers.get(0)),new Date((long)functionNumbers.get(1)),coordinatesList.get(0),coordinatesList.get(1),coordinatesList.get(2)));
-            }
-            else{
-                Coordinates[] coordinates = new Coordinates[coordinatesList.size()-3];
-                for(int i=3;i<coordinatesList.size();i++){
-                    coordinates[i-3] = coordinatesList.get(i);
-                }
-                addFilter(FilterOperators.inGeoTemporalPolygon(column.get(0),column.get(1),new Date((long)functionNumbers.get(0)),new Date((long)functionNumbers.get(1)),coordinatesList.get(0),coordinatesList.get(1),coordinatesList.get(2), coordinates));
-            }
-        }
-        else if(functionName.equals("GEO_TEMPORAL_RECTANGLE")){
-            checkForDoubleColumn();
-            checkForNoneStrings();
-            if(coordinatesList.size()!=2){
-                try {
-                    throw new Exception("");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            addFilter(FilterOperators.inGeoTemporalRectangle(column.get(0),coordinatesList.get(0),coordinatesList.get(1),column.get(1),new Date((long)functionNumbers.get(0)),new Date((long)functionNumbers.get(1))));
-
-        }
-        else if(functionName.equals("GEO_TEMPORAL_CIRCLE_KM") || functionName.equals("GEO_TEMPORAL_CIRCLE_ME") || functionName.equals("GEO_TEMPORAL_CIRCLE_MI")){
-            checkForSingleColumn();
-            checkForNoneStrings();
-
-            if(coordinatesList.size()!=1){
-                try {
-                    throw new Exception("");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if(functionName.equals("GEO_TEMPORAL_CIRCLE_KM") ){
-                addFilter(FilterOperators.inGeoTemporalCircleKm(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0),column.get(1),new Date((long)functionNumbers.get(0)),new Date((long)functionNumbers.get(1))));
-            }else if(functionName.equals("GEO_TEMPORAL_CIRCLE_ME")){
-                addFilter(FilterOperators.inGeoTemporalCircleMeters(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0),column.get(1),new Date((long)functionNumbers.get(0)),new Date((long)functionNumbers.get(1))));
-            }else{
-                addFilter(FilterOperators.inGeoTemporalCircleMiles(column.get(0),coordinatesList.get(0),(double) functionNumbers.get(0),column.get(1),new Date((long)functionNumbers.get(0)),new Date((long)functionNumbers.get(1))));
-            }
-
-        }
-
-
-
-        else{
-            try {
-                throw new Exception("");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
         System.out.println("FUNCTION CALL CONTEXT " + ctx.getText());
 
