@@ -16,7 +16,8 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     private NoSqlDbOperators noSqlDbOperators;
     private String source;
-    private FilterOperator filterOperator;
+    private List<FilterOperator> filterOperatorSecondStage = new ArrayList<>();;
+    private List<FilterOperator> filterOperatorsFirstStage = new ArrayList<>();
     private List<String> selectOperator = new ArrayList<>();
     private boolean selectAll = false;
     private List<String> groupBy = new ArrayList<>();
@@ -54,9 +55,6 @@ public class NodaSqlListener extends SqlBaseBaseListener {
         }
 
         source = ctx.relation().get(0).getText();
-
-        //System.out.println("QUERY SPECIFICATION " + ctx.relation().size());
-
     }
 
     public String getSource(){
@@ -88,10 +86,37 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     @Override public void enterLogicalBinary(SqlBaseParser.LogicalBinaryContext ctx) {
 
+        if(filterOperatorsFirstStage.size() > 0){
+            formFilterOperatorSecondStage();
+        }
+
         logicalOperator.add(ctx.operator.getText());
 
-        System.out.println("LOGICAL BINARY CONTEXT " + ctx.getText()+ " "+ ctx.operator.getText() + " "+ ctx.operator.getType());
+        System.out.println("LOGICAL BINARY CONTEXT " + ctx.getText()+ " "+ ctx.operator.getText() + " "+ (ctx.getChildCount()-1));
 
+    }
+
+    private void formFilterOperatorSecondStage(){
+        FilterOperator fop = filterOperatorsFirstStage.get(0);
+        for (int i = 1; i < filterOperatorsFirstStage.size(); i++) {
+            if(logicalOperator.get(logicalOperator.size()-1).equals("AND")){
+                fop = and(fop, filterOperatorsFirstStage.get(i));
+            }
+            else if(logicalOperator.get(logicalOperator.size()-1).equals("OR")) {
+                fop = or(fop, filterOperatorsFirstStage.get(i));
+            }
+            else{
+                try {
+                    throw new Exception("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            logicalOperator.remove(logicalOperator.size()-1);
+        }
+
+        filterOperatorSecondStage.add(fop);
+        filterOperatorsFirstStage.clear();
     }
 
     @Override public void enterDereference(SqlBaseParser.DereferenceContext ctx) {
@@ -345,29 +370,7 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     private void addFilter(FilterOperator fop){
 
-        if(logicalOperator.size()>0){
-            String logical = logicalOperator.get(logicalOperator.size()-1);
-            switch (logical){
-                case "AND": filterOperator = and(filterOperator,fop);
-                    break;
-                case "OR": filterOperator = or(filterOperator,fop);
-                    break;
-                default:
-                    try {
-                        throw new Exception("");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
-            }
-
-            logicalOperator.remove(logicalOperator.size()-1);
-        } else {
-            if(filterOperator == null){
-                filterOperator = fop;
-            }
-        }
-
+        filterOperatorsFirstStage.add(fop);
         comparison = null;
         column.clear();
 
@@ -414,28 +417,44 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     }
 
-//    @Override public void enterValueExpressionDefault(SqlBaseParser.ValueExpressionDefaultContext ctx)  {
-//
-//        System.out.println("VALUE EXPRESSION DEFAULT " + ctx.getText());
-//    }
-//
-//    public void recursiveFunction(ParseTree parseTree, String level){
-//
-//
-////        if(parseTree instanceof SQLiteParser.Column_nameContext){
-////            System.out.println( parseTree.getText());
-////        }
-//        for(int i=0;i<parseTree.getChildCount();i++){
-//            System.out.println(level+parseTree.getClass() +" "+ parseTree.getText() + " [" + parseTree.getChild(i).getChildCount()+"]" +" "+parseTree.toString());
-//            recursiveFunction(parseTree.getChild(i),level+"|");
-//        }
-//
-//    }
-
     public NoSqlDbOperators getNoSqlDbOperators(){
-        if(filterOperator!=null){
-            noSqlDbOperators.filter(filterOperator);
+
+        if(filterOperatorsFirstStage.size()>0){
+            formFilterOperatorSecondStage();
+
+            FilterOperator fop = filterOperatorSecondStage.get(filterOperatorSecondStage.size()-1);
+            for (int i = filterOperatorSecondStage.size() - 2; i >= 0; i--) {
+
+                if(logicalOperator.get(logicalOperator.size()-1).equals("AND")){
+                    fop = and(filterOperatorSecondStage.get(i), fop);
+                }
+                else if(logicalOperator.get(logicalOperator.size()-1).equals("OR")) {
+                    fop = or(filterOperatorSecondStage.get(i), fop);
+                }
+                else{
+                    try {
+                        throw new Exception("");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                logicalOperator.remove(logicalOperator.size()-1);
+
+            }
+            System.out.println(fop.getOperatorExpression());
+            noSqlDbOperators.filter(fop);
+            filterOperatorSecondStage.clear();
         }
+
+
+
+
+//        if(filterOperatorSecondStage !=null){
+//            if(filterOperatorsFirstStage.size() >0){
+//                formFilterOperatorSecondStage();
+//            }
+//            noSqlDbOperators.filter(filterOperatorSecondStage);
+//        }
 
         if(selectOperator.size()!=0 && !selectAll){
             if(selectOperator.size() ==1){
