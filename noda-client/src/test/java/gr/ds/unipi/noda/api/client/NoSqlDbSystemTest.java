@@ -1,5 +1,10 @@
 package gr.ds.unipi.noda.api.client;
 
+import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
+import org.bson.Document;
+import org.bson.conversions.Bson;
+import org.bson.json.JsonMode;
+import org.bson.json.JsonWriterSettings;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -68,5 +73,41 @@ public class NoSqlDbSystemTest {
 
     public static void something2(String a, String b, String[] c) {
         Arrays.stream(new String[]{a, b}).toArray(String[]::new);
+    }
+
+    @Test
+    public void check2(){
+
+        String s = "{ $group: " + "{ _id: {"+ "myF: "+ "\"" + "$" + "myF" + "\"" +
+                ",fd: "+ "\"" + "$" + "fd" + "\"" +
+                "}, er:5,  " +"} }";
+
+        Bson bson = (Bson) Document.parse(s);
+
+//        System.out.println(((Document) bson).containsKey("$group"));
+//        System.out.println(((Document) bson).get("$group"));
+//
+//        Document id = (Document) ((Document) ((Document) bson).get("$group")).get("_id");
+//
+//        System.out.println("_id: "+ id);
+//
+//
+//        ((Document) ((Document) bson).get("$group")).remove("_id");
+//        Document perisevoumena = (Document) ((Document) ((Document) bson).get("$group"));
+//        System.out.println("perisevoumena "+ perisevoumena.isEmpty());
+//        perisevoumena.forEach((o,v)-> System.out.println(o+" "+v));
+//
+//        ((Document) ((Document) bson).get("$group")).append("_id", id).append("s","d").append("r","d");
+
+
+        String json = ((Document) bson).toJson();
+        System.out.println(json);
+
+        System.out.println(Document.parse(json.substring(0, json.length()-3) +", count:{ $sum:1 } }}").toJson());
+
+
+//        String json = ((Document)bson).toJson(JsonWriterSettings.builder().outputMode(JsonMode.RELAXED).build());
+//
+//        System.out.println(json.substring(0, json.length()-3));
     }
 }

@@ -1,7 +1,9 @@
 package gr.ds.unipi.noda.api.client.sql;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import gr.ds.unipi.noda.api.core.operators.AggregateOperators;
 import gr.ds.unipi.noda.api.core.operators.FilterOperators;
+import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 
@@ -20,6 +22,7 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     private List<String> selectOperator = new ArrayList<>();
     private boolean selectAll = false;
     private List<String> groupBy = new ArrayList<>();
+    private List<AggregateOperator> aggregateOperators = new ArrayList<>();
 
     private List<String> logicalOperator = new ArrayList<>();
     private List<String> column = new ArrayList<>();
@@ -41,6 +44,14 @@ public class NodaSqlListener extends SqlBaseBaseListener {
         put("GEO_TEMPORAL_CIRCLE_KM",2);
         put("GEO_TEMPORAL_CIRCLE_ME",2);
         put("GEO_TEMPORAL_CIRCLE_MI",2);
+        put("MIN", 2);
+    }};
+
+    private Map<String, Integer> aggregateFunctions =  new HashMap<String, Integer>(){{
+        put("MIN", 2);
+        put("MAX", 2);
+        put("SUM", 2);
+        put("AVG", 2);
     }};
 
     private String functionName;
@@ -73,9 +84,25 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     }
 
     @Override public void exitSelectSingle(SqlBaseParser.SelectSingleContext ctx) {
-        selectOperator.add(column.get(0));
-        column.remove(0);
-        System.out.println("SELECTS exit" + ctx.getText());
+
+        if(ctx.getChildCount()==1){
+            selectOperator.add(column.get(0));
+            column.remove(0);
+        }
+        else if(ctx.getChildCount()==3 && ctx.getChild(1).getText().equals("AS")){
+
+            AggregateOperator aop = aggregateOperators.get(aggregateOperators.size()-1).as(ctx.getChild(2).getText());
+            aggregateOperators.remove(aggregateOperators.size()-1);
+            aggregateOperators.add(aop);
+
+        }
+        else{
+            try {
+                throw new Exception("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override public void exitGroupBy(SqlBaseParser.GroupByContext ctx) {
@@ -254,14 +281,26 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     @Override public void enterFunctionCall(SqlBaseParser.FunctionCallContext ctx) {
 
+
         hashMap.forEach((key,value)->{
             if(ctx.getText().startsWith(key)){
+
                 functionName = key;
                 return;
             }
         });
 
-        if(functionName == null){
+        if(functionName == null) {
+            aggregateFunctions.forEach((key,value)->{
+                if(ctx.getText().startsWith(key)){
+                    functionName = key;
+                    return;
+                }
+            });
+        }
+
+
+            if(functionName == null){
             try {
                 throw new Exception("");
             } catch (Exception e) {
@@ -272,8 +311,6 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     }
 
     @Override public void exitFunctionCall(SqlBaseParser.FunctionCallContext ctx) {
-
-        FilterOperator fop;
 
         try {
             switch (functionName) {
@@ -392,6 +429,22 @@ public class NodaSqlListener extends SqlBaseBaseListener {
                     }
 
                     break;
+                case "MIN":
+                    checkForSingleColumn();
+                    addAggregate(AggregateOperators.min(column.get(0)));
+                    break;
+                case "MAX":
+                    checkForSingleColumn();
+                    addAggregate(AggregateOperators.max(column.get(0)));
+                    break;
+                case "SUM":
+                    checkForSingleColumn();
+                    addAggregate(AggregateOperators.sum(column.get(0)));
+                    break;
+                case "AVG":
+                    checkForSingleColumn();
+                    addAggregate(AggregateOperators.avg(column.get(0)));
+                    break;
                 default:
                     try {
                         throw new Exception("");
@@ -404,8 +457,6 @@ public class NodaSqlListener extends SqlBaseBaseListener {
         catch (ParseException e){
 
         }
-        System.out.println("FUNCTION CALL CONTEXT " + ctx.getText());
-
     }
 
     private void checkForSingleColumn(){
@@ -468,6 +519,19 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     private void addFilter(FilterOperator fop){
 
         filterOperatorsFirstStage.add(fop);
+        comparison = null;
+        column.clear();
+
+        functionName = null;
+        coordinatesList.clear();
+        functionNumbers.clear();
+        functionStrings.clear();
+
+    }
+
+    private void addAggregate(AggregateOperator aop){
+
+        aggregateOperators.add(aop);
         comparison = null;
         column.clear();
 
