@@ -10,4 +10,10 @@ public abstract class BaseAggregateOperatorFactory {
     public abstract AggregateOperator newOperatorSum(String fieldName);
 
     public abstract AggregateOperator newOperatorCount();
+
+    public abstract AggregateOperator newOperatorCountNonNull(String fieldName);
+
+    public abstract AggregateOperator newOperatorCountDistinct(String fieldName);
+
+
 }

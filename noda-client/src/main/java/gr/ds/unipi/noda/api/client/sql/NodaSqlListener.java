@@ -6,23 +6,28 @@ import gr.ds.unipi.noda.api.core.operators.FilterOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
+import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
+import static gr.ds.unipi.noda.api.core.operators.SortOperators.asc;
+import static gr.ds.unipi.noda.api.core.operators.SortOperators.desc;
 
 public class NodaSqlListener extends SqlBaseBaseListener {
 
     private NoSqlDbOperators noSqlDbOperators;
     private String source;
-    private List<FilterOperator> filterOperatorSecondStage = new ArrayList<>();;
+    private List<FilterOperator> filterOperatorSecondStage = new ArrayList<>();
     private List<FilterOperator> filterOperatorsFirstStage = new ArrayList<>();
+    private FilterOperator finalFilterOperator;
     private List<String> selectOperator = new ArrayList<>();
     private boolean selectAll = false;
     private List<String> groupBy = new ArrayList<>();
     private List<AggregateOperator> aggregateOperators = new ArrayList<>();
+    private List<SortOperator> sortOperators = new ArrayList<>();
 
     private List<String> logicalOperator = new ArrayList<>();
     private List<String> column = new ArrayList<>();
@@ -44,14 +49,14 @@ public class NodaSqlListener extends SqlBaseBaseListener {
         put("GEO_TEMPORAL_CIRCLE_KM",2);
         put("GEO_TEMPORAL_CIRCLE_ME",2);
         put("GEO_TEMPORAL_CIRCLE_MI",2);
-        put("MIN", 2);
     }};
 
-    private Map<String, Integer> aggregateFunctions =  new HashMap<String, Integer>(){{
-        put("MIN", 2);
-        put("MAX", 2);
-        put("SUM", 2);
-        put("AVG", 2);
+    private Set<String> aggregateFunctions =  new LinkedHashSet<String>(){{
+        add("COUNT");
+        add("MIN");
+        add("MAX");
+        add("SUM");
+        add("AVG");
     }};
 
     private String functionName;
@@ -80,6 +85,8 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     }
 
     @Override public void enterSelectAll(SqlBaseParser.SelectAllContext ctx) {
+
+        System.out.println("SELECT ALL");
         selectAll = true;
     }
 
@@ -108,6 +115,8 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     @Override public void exitGroupBy(SqlBaseParser.GroupByContext ctx) {
         groupBy.addAll(column);
         column.clear();
+        System.out.println("EXITING GROUP BY");
+        formFinalFilter();
     }
 
     @Override public void enterQueryNoWith(SqlBaseParser.QueryNoWithContext ctx) {
@@ -202,7 +211,7 @@ public class NodaSqlListener extends SqlBaseBaseListener {
             createFilter(ctx.getText());
         }
         else if(functionName != null){
-            functionStrings.add(ctx.getText());
+            functionStrings.add(ctx.getText().substring(1,ctx.getText().length()-1));
         }
         System.out.println("STRING LITERAL CONTEXT " + ctx.getText());
     }
@@ -282,23 +291,24 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     @Override public void enterFunctionCall(SqlBaseParser.FunctionCallContext ctx) {
 
 
-        hashMap.forEach((key,value)->{
-            if(ctx.getText().startsWith(key)){
-
-                functionName = key;
-                return;
+        for(Map.Entry<String,Integer> entry: hashMap.entrySet()){
+            if(ctx.getText().startsWith(entry.getKey())){
+                functionName = entry.getKey();
+                break;
             }
-        });
-
-        if(functionName == null) {
-            aggregateFunctions.forEach((key,value)->{
-                if(ctx.getText().startsWith(key)){
-                    functionName = key;
-                    return;
-                }
-            });
         }
 
+        if(functionName == null) {
+            for (String aggregateFunction : aggregateFunctions) {
+                if(ctx.getText().startsWith(aggregateFunction)){
+                    functionName = aggregateFunction;
+                    break;
+                }
+            }
+        }
+
+        System.out.println("ctx.getText() "+ ctx.getText());
+        System.out.println("function name: "+ functionName);
 
             if(functionName == null){
             try {
@@ -445,6 +455,27 @@ public class NodaSqlListener extends SqlBaseBaseListener {
                     checkForSingleColumn();
                     addAggregate(AggregateOperators.avg(column.get(0)));
                     break;
+                case "COUNT":
+                    checkForNoneValues();
+                    if(ctx.getChild(2).getText().equals("*") && column.isEmpty()){
+                        addAggregate(AggregateOperators.count());
+                    }
+                    else if(ctx.getChild(2).getText().equals("DISTINCT")){
+                        checkForSingleColumn();
+                        addAggregate(AggregateOperators.countDistinct(column.get(0)));
+                    }
+                    else if(ctx.getChild(2).getText().equals("ALL") || ctx.getChildCount()==4){
+                        checkForSingleColumn();
+                        addAggregate(AggregateOperators.countNonNull(column.get(0)));
+                    }
+                    else{
+                        try {
+                            throw new Exception();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
                 default:
                     try {
                         throw new Exception("");
@@ -455,6 +486,7 @@ public class NodaSqlListener extends SqlBaseBaseListener {
             }
         }
         catch (ParseException e){
+            e.printStackTrace();
 
         }
     }
@@ -514,7 +546,17 @@ public class NodaSqlListener extends SqlBaseBaseListener {
         checkForNoneNumbers();
     }
 
+    @Override public void exitSortItem(SqlBaseParser.SortItemContext ctx) {
 
+        if(ctx.getChildCount()==2 && ctx.getChild(1).getText().equals("DESC")){
+            sortOperators.add(desc(column.get(0)));
+        }
+        else{
+            sortOperators.add(asc(column.get(0)));
+        }
+
+        column.clear();
+    }
 
     private void addFilter(FilterOperator fop){
 
@@ -578,8 +620,7 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     }
 
-    public NoSqlDbOperators getNoSqlDbOperators(){
-
+    private void formFinalFilter(){
         if(filterOperatorsFirstStage.size()>0){
             formFilterOperatorSecondStage();
 
@@ -602,13 +643,21 @@ public class NodaSqlListener extends SqlBaseBaseListener {
                 logicalOperator.remove(logicalOperator.size()-1);
 
             }
-            System.out.println(fop.getOperatorExpression());
-            noSqlDbOperators.filter(fop);
             filterOperatorSecondStage.clear();
         }
+    }
 
+    public NoSqlDbOperators getNoSqlDbOperators(){
 
+        if(groupBy.size()==0){
+            formFinalFilter();
+        }
+        if(finalFilterOperator!=null){
+            noSqlDbOperators.filter(finalFilterOperator);
+        }
 
+            //formNoDAFilterPrimitive();
+        //}
 
 //        if(filterOperatorSecondStage !=null){
 //            if(filterOperatorsFirstStage.size() >0){
@@ -631,9 +680,34 @@ public class NodaSqlListener extends SqlBaseBaseListener {
             }
         }
 
-//        if(groupBy.size() != 0){
-//            noSqlDbOperators.groupBy()
-//        }
+        if(groupBy.size() != 0){
+
+            if(groupBy.size() ==1){
+                noSqlDbOperators.groupBy(groupBy.get(0));
+            }else{
+
+                String[] group = new String[groupBy.size()-1];
+                for(int i=1;i<groupBy.size();i++){
+                    group[i-1] = groupBy.get(i);
+                }
+
+                noSqlDbOperators.groupBy(groupBy.get(0),group);
+            }
+        }
+
+        if(sortOperators.size() != 0){
+
+            if(sortOperators.size() ==1){
+                noSqlDbOperators.sort(sortOperators.get(0));
+            }else{
+                SortOperator[] sop = new SortOperator[sortOperators.size()-1];
+                for(int i=1;i<sortOperators.size();i++){
+                    sop[i-1] = sortOperators.get(i);
+                }
+
+                noSqlDbOperators.sort(sortOperators.get(0),sop);
+            }
+        }
 
         if(limit != -1){
             noSqlDbOperators.limit(limit);
