@@ -33,6 +33,7 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     private List<String> column = new ArrayList<>();
     private boolean columnDereference;
     private String comparison;
+    private boolean havingCondition;
 
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     private int limit = -1;
@@ -93,10 +94,18 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     @Override public void exitSelectSingle(SqlBaseParser.SelectSingleContext ctx) {
 
         if(ctx.getChildCount()==1){
-            selectOperator.add(column.get(0));
-            column.remove(0);
+            if(!column.isEmpty()){//if it is not a function
+                selectOperator.add(column.get(0));
+                column.remove(0);
+            }
+            else{
+                selectOperator.add(ctx.getText());
+            }
+
         }
-        else if(ctx.getChildCount()==3 && ctx.getChild(1).getText().equals("AS")){
+        else if(ctx.getChildCount()==3 && ctx.getChild(1).getText().equalsIgnoreCase("AS")){
+
+            selectOperator.add(ctx.getChild(2).getText());
 
             AggregateOperator aop = aggregateOperators.get(aggregateOperators.size()-1).as(ctx.getChild(2).getText());
             aggregateOperators.remove(aggregateOperators.size()-1);
@@ -116,7 +125,8 @@ public class NodaSqlListener extends SqlBaseBaseListener {
         groupBy.addAll(column);
         column.clear();
         System.out.println("EXITING GROUP BY");
-        formFinalFilter();
+        finalFilterOperator = formFinalFilter();
+        havingCondition = true;
     }
 
     @Override public void enterQueryNoWith(SqlBaseParser.QueryNoWithContext ctx) {
@@ -142,10 +152,10 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     private void formFilterOperatorSecondStage(){
         FilterOperator fop = filterOperatorsFirstStage.get(0);
         for (int i = 1; i < filterOperatorsFirstStage.size(); i++) {
-            if(logicalOperator.get(logicalOperator.size()-1).equals("AND")){
+            if(logicalOperator.get(logicalOperator.size()-1).equalsIgnoreCase("AND")){
                 fop = and(fop, filterOperatorsFirstStage.get(i));
             }
-            else if(logicalOperator.get(logicalOperator.size()-1).equals("OR")) {
+            else if(logicalOperator.get(logicalOperator.size()-1).equalsIgnoreCase("OR")) {
                 fop = or(fop, filterOperatorsFirstStage.get(i));
             }
             else{
@@ -208,12 +218,12 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     @Override public void enterStringLiteral(SqlBaseParser.StringLiteralContext ctx) {
         if(comparison != null){
-            createFilter(ctx.getText());
+            createFilter(ctx.getText().substring(1,ctx.getText().length()-1));
         }
         else if(functionName != null){
             functionStrings.add(ctx.getText().substring(1,ctx.getText().length()-1));
         }
-        System.out.println("STRING LITERAL CONTEXT " + ctx.getText());
+        System.out.println("STRING LITERAL CONTEXT " + ctx.getText().substring(1,ctx.getText().length()-1));
     }
 
     public void createFilter(Object o){
@@ -290,6 +300,9 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     @Override public void enterFunctionCall(SqlBaseParser.FunctionCallContext ctx) {
 
+        if(havingCondition){
+            return;
+        }
 
         for(Map.Entry<String,Integer> entry: hashMap.entrySet()){
             if(ctx.getText().startsWith(entry.getKey())){
@@ -321,6 +334,11 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     }
 
     @Override public void exitFunctionCall(SqlBaseParser.FunctionCallContext ctx) {
+
+        if(havingCondition){
+            column.set(0, ctx.getText());
+            return;
+        }
 
         try {
             switch (functionName) {
@@ -460,11 +478,11 @@ public class NodaSqlListener extends SqlBaseBaseListener {
                     if(ctx.getChild(2).getText().equals("*") && column.isEmpty()){
                         addAggregate(AggregateOperators.count());
                     }
-                    else if(ctx.getChild(2).getText().equals("DISTINCT")){
+                    else if(ctx.getChild(2).getText().equalsIgnoreCase("DISTINCT")){
                         checkForSingleColumn();
                         addAggregate(AggregateOperators.countDistinct(column.get(0)));
                     }
-                    else if(ctx.getChild(2).getText().equals("ALL") || ctx.getChildCount()==4){
+                    else if(ctx.getChild(2).getText().equalsIgnoreCase("ALL") || ctx.getChildCount()==4){
                         checkForSingleColumn();
                         addAggregate(AggregateOperators.countNonNull(column.get(0)));
                     }
@@ -487,7 +505,6 @@ public class NodaSqlListener extends SqlBaseBaseListener {
         }
         catch (ParseException e){
             e.printStackTrace();
-
         }
     }
 
@@ -548,7 +565,7 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     @Override public void exitSortItem(SqlBaseParser.SortItemContext ctx) {
 
-        if(ctx.getChildCount()==2 && ctx.getChild(1).getText().equals("DESC")){
+        if(ctx.getChildCount()==2 && ctx.getChild(1).getText().equalsIgnoreCase("DESC")){
             sortOperators.add(desc(column.get(0)));
         }
         else{
@@ -620,17 +637,15 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
     }
 
-    private void formFinalFilter(){
+    private FilterOperator formFinalFilter(){
         if(filterOperatorsFirstStage.size()>0){
             formFilterOperatorSecondStage();
-
             FilterOperator fop = filterOperatorSecondStage.get(filterOperatorSecondStage.size()-1);
             for (int i = filterOperatorSecondStage.size() - 2; i >= 0; i--) {
-
-                if(logicalOperator.get(logicalOperator.size()-1).equals("AND")){
+                if(logicalOperator.get(logicalOperator.size()-1).equalsIgnoreCase("AND")){
                     fop = and(filterOperatorSecondStage.get(i), fop);
                 }
-                else if(logicalOperator.get(logicalOperator.size()-1).equals("OR")) {
+                else if(logicalOperator.get(logicalOperator.size()-1).equalsIgnoreCase("OR")) {
                     fop = or(filterOperatorSecondStage.get(i), fop);
                 }
                 else{
@@ -644,59 +659,59 @@ public class NodaSqlListener extends SqlBaseBaseListener {
 
             }
             filterOperatorSecondStage.clear();
+            return fop;
         }
+        return null;
     }
 
     public NoSqlDbOperators getNoSqlDbOperators(){
 
         if(groupBy.size()==0){
-            formFinalFilter();
+            finalFilterOperator = formFinalFilter();
+        }else{
+            if(finalFilterOperator!=null){
+                noSqlDbOperators.filter(finalFilterOperator);
+                finalFilterOperator = null;
+            }
         }
-        if(finalFilterOperator!=null){
-            noSqlDbOperators.filter(finalFilterOperator);
-        }
-
-            //formNoDAFilterPrimitive();
-        //}
-
-//        if(filterOperatorSecondStage !=null){
-//            if(filterOperatorsFirstStage.size() >0){
-//                formFilterOperatorSecondStage();
-//            }
-//            noSqlDbOperators.filter(filterOperatorSecondStage);
-//        }
 
         if(selectOperator.size()!=0 && !selectAll){
             if(selectOperator.size() ==1){
+                System.out.println("FDF1 " + selectOperator.get(0));
                 noSqlDbOperators.project(selectOperator.get(0));
             }else{
+                System.out.println("FDF1 " + selectOperator.get(0));
 
-                 String[] select = new String[selectOperator.size()-1];
+                String[] select = new String[selectOperator.size()-1];
                  for(int i=1;i<selectOperator.size();i++){
                      select[i-1] = selectOperator.get(i);
-                 }
+                     System.out.println("FDF2 " +selectOperator.get(i));
 
+                 }
                 noSqlDbOperators.project(selectOperator.get(0),select);
             }
         }
 
         if(groupBy.size() != 0){
-
             if(groupBy.size() ==1){
                 noSqlDbOperators.groupBy(groupBy.get(0));
             }else{
-
                 String[] group = new String[groupBy.size()-1];
                 for(int i=1;i<groupBy.size();i++){
                     group[i-1] = groupBy.get(i);
                 }
-
                 noSqlDbOperators.groupBy(groupBy.get(0),group);
+            }
+            //forming having
+            finalFilterOperator = formFinalFilter();
+            if(finalFilterOperator!=null){
+                System.out.println("HAVING OPERATOR IS" + finalFilterOperator.getOperatorExpression());
+                noSqlDbOperators.filter(finalFilterOperator);
+                finalFilterOperator = null;
             }
         }
 
         if(sortOperators.size() != 0){
-
             if(sortOperators.size() ==1){
                 noSqlDbOperators.sort(sortOperators.get(0));
             }else{
@@ -704,7 +719,6 @@ public class NodaSqlListener extends SqlBaseBaseListener {
                 for(int i=1;i<sortOperators.size();i++){
                     sop[i-1] = sortOperators.get(i);
                 }
-
                 noSqlDbOperators.sort(sortOperators.get(0),sop);
             }
         }
