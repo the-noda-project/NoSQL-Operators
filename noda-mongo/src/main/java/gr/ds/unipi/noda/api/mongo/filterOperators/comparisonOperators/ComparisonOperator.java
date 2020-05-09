@@ -15,12 +15,11 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
     public StringBuilder getOperatorExpression() {
         StringBuilder sb = new StringBuilder();
         sb.append("{ ");
-
-        if (!getFieldName().contains(".")) {
-            sb.append(getFieldName());
-        } else {
+//        if (!getFieldName().contains(".")) {
+//            sb.append(getFieldName() );
+//        } else {
             sb.append("\"" + getFieldName() + "\"");
-        }
+//        }
 
         sb.append(": { $");
         sb.append(getOperatorJsonField());
@@ -33,7 +32,7 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
 
             sb.append("new Date(\"" + new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss z").format(getFieldValue()) + "\")");
         } else {
-            sb.append("\"" + getFieldValue() + "\"");
+            sb.append(getFieldValue());
         }
 
         sb.append("} }");
