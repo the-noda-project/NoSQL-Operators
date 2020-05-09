@@ -1,4 +1,4 @@
-package gr.ds.unipi.noda.api.mongo.aggregateOperators;
+package gr.ds.unipi.noda.api.redis.aggregateOperator;
 
 public class OperatorCountDistinct extends AggregateOperator {
 
@@ -8,11 +8,6 @@ public class OperatorCountDistinct extends AggregateOperator {
 
     public static OperatorCountDistinct newOperatorCountDistinct(String fieldName) {
         return new OperatorCountDistinct(fieldName);
-    }
-
-    @Override
-    protected String getOperatorJsonField() {
-        return "addToSet";
     }
 
 }

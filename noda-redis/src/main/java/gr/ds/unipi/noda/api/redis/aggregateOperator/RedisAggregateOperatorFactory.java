@@ -28,4 +28,14 @@ public final class RedisAggregateOperatorFactory extends BaseAggregateOperatorFa
     public AggregateOperator newOperatorCount() {
         return OperatorCount.newOperatorCount();
     }
+
+    @Override
+    public AggregateOperator newOperatorCountNonNull(String fieldName) {
+        return OperatorCountNonNull.newOperatorCountNonNull(fieldName);
+    }
+
+    @Override
+    public AggregateOperator newOperatorCountDistinct(String fieldName) {
+        return OperatorCountDistinct.newOperatorCountDistinct(fieldName);
+    }
 }

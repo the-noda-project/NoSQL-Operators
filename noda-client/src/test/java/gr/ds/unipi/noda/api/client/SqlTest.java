@@ -9,7 +9,7 @@ public class SqlTest {
 
         //NoSqlDbSystem.MongoDB().Builder("asdf","asdf","sdaf").build().sql("SELECT COUNT(mplimplikia) AS aName, MIN(fdg), sd FROM r GROUP BY groupedColumn HAVING MIN(fdg)>3 AND aName ='ffgds' ");
 
-        NoSqlDbSystem.MongoDB().Builder("asdf","asdf","sdaf").build().sql("SELECT MIN(fdg) as fgr, sd FROM r GROUP BY groupedColumn HAVING MIN(fdg)>3 AND aName ='ffgds' ");
+        NoSqlDbSystem.MongoDB().Builder("asdf","asdf","sdaf").build().sql("SELECT CoUnT(aLl sad), sd FROM r GROUP BY groupedColumn HAVING min(fdg)>5 AND aName =7 ORDER BY mvd, dk DESC, kmkmm ASC LIMIT 2");
 
 //        NoSqlDbSystem.MongoDB().Builder("asdf","asdf","sdaf").build();
 //        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

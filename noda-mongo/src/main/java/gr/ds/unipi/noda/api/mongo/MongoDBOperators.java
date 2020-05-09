@@ -231,19 +231,18 @@ final class MongoDBOperators extends NoSqlDbOperators {
         StringBuilder sb = new StringBuilder();
         sb.append("{ $project : { ");
 
-        sb.append("_id : 0, ");
+        sb.append("\"_id\" : 0, ");
 
-        sb.append(fieldName + " : 1");
+        sb.append("\""+fieldName + "\""+ " : 1");
 
         for (String s : fieldNames) {
             sb.append(", ");
-            sb.append(fieldName + " : 1");
+            sb.append("\"" + s + "\"" + " : 1");
         }
 
         sb.append(" } }");
 
         stagesList.add(Document.parse(sb.toString()));
-
         return this;
 
     }

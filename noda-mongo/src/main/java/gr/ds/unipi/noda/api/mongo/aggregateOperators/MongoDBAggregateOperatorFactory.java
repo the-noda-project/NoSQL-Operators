@@ -37,6 +37,6 @@ public final class MongoDBAggregateOperatorFactory extends BaseAggregateOperator
 
     @Override
     public AggregateOperator newOperatorCountDistinct(String fieldName) {
-        return OperatorCountDistinct.newOperatorCountDistinct(fieldName);
+        throw new UnsupportedOperationException("Count Distinct is not supported in MongoDB module");
     }
 }
