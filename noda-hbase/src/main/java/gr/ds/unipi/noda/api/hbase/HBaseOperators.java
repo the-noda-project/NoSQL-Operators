@@ -45,7 +45,12 @@ final class HBaseOperators extends NoSqlDbOperators {
     }
 
     @Override
-    public NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator) {
+    public NoSqlDbOperators groupBy(String fieldName, String... fieldNames) {
+        return null;
+    }
+
+    @Override
+    public NoSqlDbOperators aggregate(AggregateOperator aggregateOperator, AggregateOperator... aggregateOperators) {
         return null;
     }
 

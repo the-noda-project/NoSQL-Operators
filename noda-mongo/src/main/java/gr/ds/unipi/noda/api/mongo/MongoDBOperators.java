@@ -25,6 +25,8 @@ final class MongoDBOperators extends NoSqlDbOperators {
     private final String database;
     private final String uriSparkSession;
 
+    private final List<Map.Entry<List<String>,List<AggregateOperator>>> groupByAgg = new ArrayList<>();
+
     private MongoDBOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
         stagesList = new ArrayList<>();
@@ -138,24 +140,70 @@ final class MongoDBOperators extends NoSqlDbOperators {
     }
 
     @Override
-    public NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator) {
+    public NoSqlDbOperators groupBy(String fieldName, String... fieldNames) {
 
         StringBuilder sb = new StringBuilder();
 
         sb.append("{ $group: ");
+        sb.append("{ _id: {");
 
-        sb.append("{ _id:");
-        sb.append("\"" + "$" + fieldName + "\"");
+        sb.append(fieldName+": " + "\"" + "$" + fieldName + "\"");
 
-        if (aggregateOperator.length != 0) {
-            for (AggregateOperator aop : aggregateOperator) {
-                sb.append(", " + aop.getOperatorExpression());
+        if(fieldNames.length != 0){
+            for(String fn : fieldNames){
+                sb.append(",");
+                sb.append(fieldName+": " + "\"" + "$" + fieldName + "\"");
             }
         }
+
+        sb.append("}");
 
         sb.append(" } }");
 
         stagesList.add(Document.parse(sb.toString()));
+
+        return this;
+    }
+
+    @Override
+    public NoSqlDbOperators aggregate(AggregateOperator aggregateOperator, AggregateOperator... aggregateOperators) {
+
+        if(stagesList.size() > 0 && ((Document) stagesList.get(stagesList.size()-1)).containsKey("$group")){
+
+            StringBuilder sb = new StringBuilder();
+
+            Document document = (Document) stagesList.get(stagesList.size()-1);
+            String json = document.toJson();
+            sb.append(json, 0, json.length()-3);
+
+            sb.append(aggregateOperator.getOperatorExpression());
+
+            if(aggregateOperators.length != 0){
+                for(AggregateOperator aop : aggregateOperators){
+                    sb.append(", "+aop.getOperatorExpression());
+                }
+            }
+
+            sb.append(" } }");
+            stagesList.add(Document.parse(sb.toString()));
+
+        }else{
+            StringBuilder sb = new StringBuilder();
+            sb.append("{ $group: ");
+
+            sb.append("{ _id: null ");
+
+            sb.append(", " + aggregateOperator.getOperatorExpression());
+
+            if (aggregateOperators.length != 0) {
+                for (AggregateOperator aop : aggregateOperators) {
+                    sb.append(", " + aop.getOperatorExpression());
+                }
+            }
+
+            sb.append(" } }");
+            stagesList.add(Document.parse(sb.toString()));
+        }
 
         return this;
     }
