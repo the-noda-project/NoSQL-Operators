@@ -60,7 +60,7 @@ public final class RediSearchOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators groupBy(String fieldName, String... fieldNames) {
-        queryHelper().applyGroupBy(StringPool.AT.concat(fieldName), fieldNames);
+        queryHelper().applyGroupBy(StringPool.AT.concat(fieldName), Arrays.stream(fieldNames).map(StringPool.AT::concat).toArray(String[]::new));
         return this;
     }
 
