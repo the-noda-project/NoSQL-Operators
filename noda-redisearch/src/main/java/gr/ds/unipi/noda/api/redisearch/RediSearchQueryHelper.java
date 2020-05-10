@@ -19,6 +19,7 @@ import redis.clients.jedis.util.Pool;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class RediSearchQueryHelper {
     private final Pool<Jedis> jedisPool;
@@ -28,12 +29,14 @@ class RediSearchQueryHelper {
     private ZRangeInfo zRangeInfo;
     private boolean isAggregate;
     private QueryNode queryBuilder;
+    private ArrayDeque<Group> groups;
 
     public RediSearchQueryHelper(String indexName, Pool<Jedis> jedisPool) {
         this.jedisPool = jedisPool;
         this.isAggregate = false;
         this.client = new Client(indexName, jedisPool);
         this.queryBuilder = QueryBuilder.intersect();
+        this.groups = new ArrayDeque<>();
     }
 
     private void enableAggregate() {
@@ -51,7 +54,13 @@ class RediSearchQueryHelper {
         if(aggregationBuilder == null) {
             aggregationBuilder = new AggregationBuilder(provideQuery());
         }
+        pendingAggregates();
         return aggregationBuilder;
+    }
+
+    private void pendingAggregates() {
+        groups.forEach(group -> aggregationBuilder.groupBy(group));
+        groups.clear();
     }
 
     private Query getQuery() {
@@ -98,19 +107,26 @@ class RediSearchQueryHelper {
         }
     }
 
-    public void applyGroupBy(String fieldName, Reducer... reducers) {
+    public void applyGroupBy(String fieldName, String... fieldNames) {
         enableAggregate();
-        Group group = fieldName != null ? new Group(fieldName) : new Group();
-        Arrays.stream(reducers).forEach(group::reduce);
-        getAggregationBuilder().groupBy(group);
+        String[] fieldNamess = Stream.concat(Stream.of(fieldName), Arrays.stream(fieldNames)).toArray(String[]::new);
+        Group group = fieldNamess.length != 0 ? new Group(fieldNamess) : new Group();
+        groups.add(group);
     }
 
-    public void applyGroupBy(Reducer... reducers) {
-        this.applyGroupBy(null, reducers);
+    public void applyAggregate(Reducer reducer, Reducer... reducers) {
+        enableAggregate();
+        Group group = Optional.ofNullable(groups.peekLast())
+                .orElseGet(() -> {
+                    Group newGroup = new Group();
+                    groups.add(newGroup);
+                    return newGroup;
+                });
+        Stream.concat(Stream.of(reducer), Arrays.stream(reducers)).forEach(group::reduce);
     }
 
     public void applySortBy(SortedField... sortedFields) {
-        if (isAggregate) {
+        if (!isAggregate) {
             if (sortedFields.length == 1)
                 getQuery().setSortBy(sortedFields[0].getField(), sortedFields[0].getOrder().equals(SortedField.SortOrder.ASC.toString()));
             else

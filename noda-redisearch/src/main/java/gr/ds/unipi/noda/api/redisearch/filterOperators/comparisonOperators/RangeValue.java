@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.redisearch.filterOperators.comparisonOperators;
 
+import gr.ds.unipi.noda.api.core.constants.StringPool;
 import io.redisearch.querybuilder.Value;
 
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ final class RangeValue extends Value {
 
     private static void appendNum(StringBuilder sb, double n, boolean inclusive) {
         if (!inclusive) {
-            sb.append("(");
+            sb.append(StringPool.OPEN_PARENTHESIS);
         }
         if (n == Double.NEGATIVE_INFINITY) {
             sb.append(NEGATIVE_INFINITY);
@@ -32,11 +33,11 @@ final class RangeValue extends Value {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("[");
+        sb.append(StringPool.OPEN_BRACKET);
         appendNum(sb, this.from, this.inclusiveMin);
-        sb.append(" ");
+        sb.append(StringPool.SPACE);
         appendNum(sb, this.to, this.inclusiveMax);
-        sb.append("]");
+        sb.append(StringPool.CLOSE_BRACKET);
         return sb.toString();
     }
 

@@ -8,7 +8,8 @@ public enum AggregationKeywords {
     MIN("min_"),
     MAX("max_"),
     AVG("avg_"),
-    COUNT("count");
+    COUNT("count"),
+    COUNT_DISTINCT("count_distinct_");;
 
     private final String name;
 

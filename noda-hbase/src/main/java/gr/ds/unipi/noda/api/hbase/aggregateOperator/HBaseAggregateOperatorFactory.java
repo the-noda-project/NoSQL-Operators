@@ -28,4 +28,14 @@ public final class HBaseAggregateOperatorFactory extends BaseAggregateOperatorFa
     public AggregateOperator newOperatorCount() {
         return OperatorCount.newOperatorCount();
     }
+
+    @Override
+    public AggregateOperator newOperatorCountNonNull(String fieldName) {
+        return null;
+    }
+
+    @Override
+    public AggregateOperator newOperatorCountDistinct(String fieldName) {
+        return null;
+    }
 }
