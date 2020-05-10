@@ -28,4 +28,14 @@ public final class RediSearchAggregateOperatorFactory extends BaseAggregateOpera
     public AggregateOperator newOperatorCount() {
         return OperatorCount.newOperatorCount();
     }
+
+    @Override
+    public AggregateOperator newOperatorCountNonNull(String fieldName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public AggregateOperator newOperatorCountDistinct(String fieldName) {
+        return OperatorCountDistinct.newOperatorCount(fieldName);
+    }
 }

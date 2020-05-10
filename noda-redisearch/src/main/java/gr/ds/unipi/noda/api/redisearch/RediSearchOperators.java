@@ -58,6 +58,19 @@ public final class RediSearchOperators extends NoSqlDbOperators {
         return this;
     }
 
+    @Override
+    public NoSqlDbOperators groupBy(String fieldName, String... fieldNames) {
+        queryHelper().applyGroupBy(StringPool.AT.concat(fieldName), Arrays.stream(fieldNames).map(StringPool.AT::concat).toArray(String[]::new));
+        return this;
+    }
+
+    @Override
+    public NoSqlDbOperators aggregate(AggregateOperator aggregateOperator, AggregateOperator... aggregateOperators) {
+        queryHelper().applyAggregate((Reducer) aggregateOperator.getOperatorExpression(),
+                Arrays.stream(aggregateOperators).map(AggregateOperator::getOperatorExpression).map(Reducer.class::cast).toArray(Reducer[]::new));
+        return this;
+    }
+
     private void applyQuery(FilterOperator filterOperator, FilterOperator[] filterOperators) {
         if (queryHelper().isAggregate()) {
             queryHelper().applyPostQuery(func.apply(filterOperator, filterOperators).map(f -> ((RediSearchPostFilterOperator) f).getPostOperatorExpression().toString()).collect(Collectors.joining()));
@@ -66,11 +79,6 @@ public final class RediSearchOperators extends NoSqlDbOperators {
         }
         func.apply(filterOperator, filterOperators).filter(RediSearchGeoSpatialOperatorFactory::isOperatorGeoNearestNeighbor).findAny()
                 .ifPresent(filterOperator1 -> queryHelper().applyResultLimit(((OperatorGeoNearestNeighbors) filterOperator1).getNeighborsCount()));
-    }
-
-    public NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator) {
-        queryHelper().applyGroupBy(StringPool.AT.concat(fieldName), Arrays.stream(aggregateOperator).map(AggregateOperator::getOperatorExpression).map(Reducer.class::cast).toArray(Reducer[]::new));
-        return this;
     }
 
     @Override
@@ -85,28 +93,28 @@ public final class RediSearchOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> max(String fieldName) {
-        queryHelper().applyGroupBy((Reducer) AggregateOperator.aggregateOperator.newOperatorMax(fieldName).getOperatorExpression());
+        queryHelper().applyAggregate((Reducer) AggregateOperator.aggregateOperator.newOperatorMax(fieldName).getOperatorExpression());
         AggregationResult aggregate = queryHelper().executeAggregation();
         return Optional.of(aggregate.getRow(0).getDouble(AggregationKeywords.MAX.toString().concat(fieldName)));
     }
 
     @Override
     public Optional<Double> min(String fieldName) {
-        queryHelper().applyGroupBy((Reducer) AggregateOperator.aggregateOperator.newOperatorMin(fieldName).getOperatorExpression());
+        queryHelper().applyAggregate((Reducer) AggregateOperator.aggregateOperator.newOperatorMin(fieldName).getOperatorExpression());
         AggregationResult aggregate = queryHelper().executeAggregation();
         return Optional.of(aggregate.getRow(0).getDouble(AggregationKeywords.MIN.toString().concat(fieldName)));
     }
 
     @Override
     public Optional<Double> sum(String fieldName) {
-        queryHelper().applyGroupBy((Reducer) AggregateOperator.aggregateOperator.newOperatorSum(fieldName).getOperatorExpression());
+        queryHelper().applyAggregate((Reducer) AggregateOperator.aggregateOperator.newOperatorSum(fieldName).getOperatorExpression());
         AggregationResult aggregate = queryHelper().executeAggregation();
         return Optional.of(aggregate.getRow(0).getDouble(AggregationKeywords.SUM.toString().concat(fieldName)));
     }
 
     @Override
     public Optional<Double> avg(String fieldName) {
-        queryHelper().applyGroupBy((Reducer) AggregateOperator.aggregateOperator.newOperatorAvg(fieldName).getOperatorExpression());
+        queryHelper().applyAggregate((Reducer) AggregateOperator.aggregateOperator.newOperatorAvg(fieldName).getOperatorExpression());
         AggregationResult aggregate = queryHelper().executeAggregation();
         return Optional.of(aggregate.getRow(0).getDouble(AggregationKeywords.AVG.toString().concat(fieldName)));
     }
