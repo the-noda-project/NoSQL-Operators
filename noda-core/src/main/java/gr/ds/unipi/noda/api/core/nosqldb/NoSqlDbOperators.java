@@ -24,7 +24,9 @@ public abstract class NoSqlDbOperators {
 
     abstract public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators);
 
-    abstract public NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator);
+    abstract public NoSqlDbOperators groupBy(String fieldName, String... fieldNames);
+
+    abstract public NoSqlDbOperators aggregate(AggregateOperator aggregateOperator, AggregateOperator... aggregateOperators);
 
     abstract public NoSqlDbOperators distinct(String fieldName);
 

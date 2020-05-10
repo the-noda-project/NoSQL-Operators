@@ -4,9 +4,15 @@ import gr.ds.unipi.noda.api.client.hbase.HBaseBuilderFactory;
 import gr.ds.unipi.noda.api.client.mongo.MongoDBBuilderFactory;
 import gr.ds.unipi.noda.api.client.neo4j.Neo4jBuilderFactory;
 import gr.ds.unipi.noda.api.client.redisearch.RediSearchBuilderFactory;
+import gr.ds.unipi.noda.api.client.sql.*;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.apache.spark.sql.SparkSession;
 
 import java.util.*;
@@ -89,6 +95,25 @@ public abstract class NoSqlDbSystem {
     }
 
     protected abstract NoSqlDbConnector getConnector();
+
+    public NodaSqlOperators sql(String sql){
+
+        CharStream s = CharStreams.fromString(sql);
+        CaseChangingCharStream upper = new CaseChangingCharStream(s,true);
+        SqlBaseLexer lexer =  new SqlBaseLexer(upper);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        SqlBaseParser parser = new SqlBaseParser(tokens);
+
+        ParseTree tree = parser.singleStatement();
+        ParseTreeWalker walker = new ParseTreeWalker();
+
+        NodaSqlListener listener = NodaSqlListener.newNodaSqlListener();
+        walker.walk(listener,tree);
+
+        listener.setNoSqlDbOperators(nsdb.noSqlDbOperators(getConnector(), listener.getSource(), sparkSession));
+        return NodaSqlOperators.newNodaSqlOperators(listener.getNoSqlDbOperators());
+
+    }
 
     public NoSqlDbOperators operateOn(String s) {
         return nsdb.noSqlDbOperators(getConnector(), s, sparkSession);

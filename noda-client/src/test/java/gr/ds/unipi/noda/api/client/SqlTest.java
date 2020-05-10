@@ -1,59 +1,25 @@
 package gr.ds.unipi.noda.api.client;
 
 import net.sf.jsqlparser.JSQLParserException;
-import net.sf.jsqlparser.parser.CCJSqlParserDefaultVisitor;
-import net.sf.jsqlparser.parser.CCJSqlParserUtil;
-import net.sf.jsqlparser.parser.SimpleNode;
 import org.junit.Test;
 
 public class SqlTest {
     @Test
     public void sqlTest() throws JSQLParserException {
 
+        //NoSqlDbSystem.MongoDB().Builder("asdf","asdf","sdaf").build().sql("SELECT COUNT(mplimplikia) AS aName, MIN(fdg), sd FROM r GROUP BY groupedColumn HAVING MIN(fdg)>3 AND aName ='ffgds' ");
 
-//        Statement statement = CCJSqlParserUtil.parse("SELECT * FROM tab1");
-//        Select selectStatement = (Select) statement;
+        NoSqlDbSystem.MongoDB().Builder("asdf","asdf","sdaf").build().sql("SELECT CoUnT(aLl sad), sd FROM r GROUP BY groupedColumn HAVING min(fdg)>5 AND aName =7 ORDER BY mvd, dk DESC, kmkmm ASC LIMIT 2");
+
+//        NoSqlDbSystem.MongoDB().Builder("asdf","asdf","sdaf").build();
+//        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 //
-//        TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
-//        List<String> tableList = tablesNamesFinder.getTableList(selectStatement);
-//        tableList.forEach(System.out::println);
-
-
-        SimpleNode node = (SimpleNode) CCJSqlParserUtil.parseAST("SELECT col1 FROM tab1 WHERE (col1>3 OR col23<5)");
-
-        node.jjtAccept(new CCJSqlParserDefaultVisitor() {
-            @Override
-            public Object visit(SimpleNode node, Object data) {
-                //if (node.getId() == CCJSqlParserTreeConstants.JJTTABLE || node.getId() == CCJSqlParserTreeConstants.JJTSELECTITEM || node.getId() == CCJSqlParserTreeConstants.JJTREGULARCONDITION) {
-
-                if (node.jjtGetValue() != null) {
-                    //ComparisonOperator comparisonOperator = (ComparisonOperator) node.jjtGetValue();
-                    System.out.println(node.jjtGetValue() + " " + node.toString() + " " + node.jjtGetValue().getClass());
-                }
-
-                return super.visit(node, data);
-                //} else {
-                //return super.visit(node, data);
-                //}
-            }
-        }, null);
-
-        System.out.println("------");
-        node.jjtAccept(new CCJSqlParserDefaultVisitor() {
-            @Override
-            public Object visit(SimpleNode node, Object data) {
-
-                if (node.toString().equals("RegularCondition")) {
-
-                }
-
-
-                System.out.println(node.jjtGetValue() + " " + node.toString() + " firstToken=" + node.jjtGetFirstToken().image
-                        + " line=" + node.jjtGetFirstToken().beginLine);
-                return super.visit(node, data);
-            }
-        }, null);
-
+//        System.out.println("ds");
+//        try {
+//            System.out.println(FilterOperators.inGeoTemporalCircleKm("col", Coordinates.newCoordinates(34,23), 3, "temporal", simpleDateFormat.parse("1/1/2010 00:00:00"), simpleDateFormat.parse("1/2/2010 00:00:00")));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
     }
 
 
