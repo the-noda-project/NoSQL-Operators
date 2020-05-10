@@ -22,4 +22,13 @@ public class AggregateOperators {
     public static AggregateOperator count() {
         return AggregateOperator.aggregateOperator.newOperatorCount();
     }
+
+    public static AggregateOperator countNonNull(String fieldName) {
+        return AggregateOperator.aggregateOperator.newOperatorCountNonNull(fieldName);
+    }
+
+    public static AggregateOperator countDistinct(String fieldName) {
+        return AggregateOperator.aggregateOperator.newOperatorCountDistinct(fieldName);
+    }
+
 }
