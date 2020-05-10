@@ -8,10 +8,12 @@ import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.davidmoten.hilbert.HilbertCurve;
 import org.neo4j.driver.Record;
 import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -71,6 +73,7 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
         return 0;
     }
+
 
     @Override
     public NoSqlDbOperators sort(SortOperator sortOperator, SortOperator... sortingOperators) {
