@@ -8,9 +8,9 @@ import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import gr.ds.unipi.noda.api.redisearch.filterOperators.RediSearchPostFilterOperator;
-import gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.geoSpatialOperators.OperatorGeoNearestNeighbors;
-import gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.geoSpatialOperators.RediSearchGeoSpatialOperator;
-import gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.geoSpatialOperators.RediSearchGeoSpatialOperatorFactory;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.geoperators.geographicalOperators.OperatorGeoNearestNeighbors;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.geoperators.geographicalOperators.RediSearchGeographicalOperator;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.geoperators.geographicalOperators.RediSearchGeographicalOperatorFactory;
 import io.redisearch.AggregationResult;
 import io.redisearch.aggregation.SortedField;
 import io.redisearch.aggregation.reducers.Reducer;
@@ -45,12 +45,12 @@ public final class RediSearchOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        if(func.apply(filterOperator, filterOperators).anyMatch(RediSearchGeoSpatialOperatorFactory.isGeo) && queryHelper().isAggregate())
-            throw new UnsupportedOperationException("RediSearchGeoSpatialOperator is not supported as post filter query.");
-        else if (RediSearchGeoSpatialOperatorFactory.isOperatorGeoBox(filterOperator) && filterOperators.length == 0) {
-            queryHelper().setzRangeInfo(((RediSearchGeoSpatialOperator) filterOperator)
+        if(func.apply(filterOperator, filterOperators).anyMatch(RediSearchGeographicalOperatorFactory.isGeo) && queryHelper().isAggregate())
+            throw new UnsupportedOperationException("RediSearchGeographicalOperator is not supported as post filter query.");
+        else if (RediSearchGeographicalOperatorFactory.isOperatorGeoBox(filterOperator) && filterOperators.length == 0) {
+            queryHelper().setzRangeInfo(((RediSearchGeographicalOperator) filterOperator)
                     .getZRangeInfo().apply(queryHelper().getJedisResource(), getDataCollection()));
-        } else if (RediSearchGeoSpatialOperatorFactory.isOperatorGeoBox(filterOperator) && filterOperators.length > 0) {
+        } else if (RediSearchGeographicalOperatorFactory.isOperatorGeoBox(filterOperator) && filterOperators.length > 0) {
             throw new IllegalArgumentException("OperatorInGeoRectangle cannot be combined with other FilterOperators.");
         } else {
             applyQuery(filterOperator, filterOperators);
@@ -77,7 +77,7 @@ public final class RediSearchOperators extends NoSqlDbOperators {
         } else {
             func.apply(filterOperator, filterOperators).forEach(f -> queryHelper().applyPreQuery((Node) f.getOperatorExpression()));
         }
-        func.apply(filterOperator, filterOperators).filter(RediSearchGeoSpatialOperatorFactory::isOperatorGeoNearestNeighbor).findAny()
+        func.apply(filterOperator, filterOperators).filter(RediSearchGeographicalOperatorFactory::isOperatorGeoNearestNeighbor).findAny()
                 .ifPresent(filterOperator1 -> queryHelper().applyResultLimit(((OperatorGeoNearestNeighbors) filterOperator1).getNeighborsCount()));
     }
 

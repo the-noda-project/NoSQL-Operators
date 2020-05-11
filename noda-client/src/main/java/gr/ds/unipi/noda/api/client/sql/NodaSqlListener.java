@@ -5,7 +5,7 @@ import gr.ds.unipi.noda.api.core.operators.AggregateOperators;
 import gr.ds.unipi.noda.api.core.operators.FilterOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

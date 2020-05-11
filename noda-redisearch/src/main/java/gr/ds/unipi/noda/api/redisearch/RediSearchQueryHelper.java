@@ -1,7 +1,7 @@
 package gr.ds.unipi.noda.api.redisearch;
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
-import gr.ds.unipi.noda.api.redisearch.filterOperators.geographicalOperators.geoSpatialOperators.ZRangeInfo;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.geoperators.geographicalOperators.ZRangeInfo;
 import io.redisearch.AggregationResult;
 import io.redisearch.Query;
 import io.redisearch.SearchResult;

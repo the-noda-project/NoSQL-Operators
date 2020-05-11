@@ -5,15 +5,15 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 public abstract class TextualOperator<T> implements FilterOperator<T> {
 
     private final String fieldName;
-    private final String[] elements;
+    private final String[] keywords;
 
-    protected TextualOperator(String fieldName, String[] elements) {
+    protected TextualOperator(String fieldName, String[] keywords) {
         this.fieldName = fieldName;
-        this.elements = elements;
+        this.keywords = keywords;
     }
 
-    protected String[] getElements() {
-        return elements;
+    protected String[] getKeywords() {
+        return keywords;
     }
 
     protected String getFieldName() {
@@ -22,7 +22,8 @@ public abstract class TextualOperator<T> implements FilterOperator<T> {
 
     public static BaseTextualOperatorFactory textualOperator;
 
-    public static String[] allKeywordsToArray(String keyword1, String keyword2, String... keywords) {
+
+    public static String[] twoKeywordsAtLeastToArray(String keyword1, String keyword2, String... keywords) {
         String[] keywordsArray;
 
         if (keywords.length == 0) {
@@ -40,7 +41,7 @@ public abstract class TextualOperator<T> implements FilterOperator<T> {
         return keywordsArray;
     }
 
-    public static String[] anyKeywordsToArray(String keyword, String... keywords) {
+    public static String[] oneKeywordsAtLeastToArray(String keyword, String... keywords) {
         String[] keywordsArray;
 
         if (keywords.length == 0) {

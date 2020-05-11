@@ -2,15 +2,17 @@ package gr.ds.unipi.noda.api.redis.filterOperator.textualOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator;
 
 public final class RedisTextualOperatorFactory extends BaseTextualOperatorFactory {
+
     @Override
-    public TextualOperator newOperatorAnyKeywords(String fieldName, String keyword, String... keywords) {
-        return OperatorAnyKeywords.newOperatorAnyKeywords(fieldName, keyword, keywords);
+    public ConditionalTextualOperator newOperatorAnyKeywords(String fieldName, String keyword, String... keywords) {
+        return null;
     }
 
     @Override
-    public TextualOperator newOperatorAllKeywords(String fieldName, String keyword1, String keyword2, String... keywords) {
-        return OperatorAllKeywords.newOperatorAllKeywords(fieldName, keyword1, keyword2, keywords);
+    public ConditionalTextualOperator newOperatorAllKeywords(String fieldName, String keyword1, String keyword2, String... keywords) {
+        return null;
     }
 }
