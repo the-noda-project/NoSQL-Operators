@@ -16,7 +16,6 @@ import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.*;
 
 public class NoSqlDbSystemTest {
 
-
 //    public void neo4j(){
 //        NoSqlDbSystem noSqlDbSys =  NoSqlDbSystem.Neo4j().Builder("neo4j","nikos","graph").host("127.0.0.1").port(7687).build();
 //        //noSqlDbSys.operateOn("Ship").filter(or(eq("LAT",-38.31416), eq("LON",145.004403333), gt("SPEED", 20))).filter(eq("LAT",-38.31416)).sort(desc("COURSE")).sort(asc("LON")).printScreen();
@@ -47,7 +46,6 @@ public class NoSqlDbSystemTest {
 //
 //        noSqlDbSystem.closeConnection();
 //    }
-
 
     @Test
     public void check() {
