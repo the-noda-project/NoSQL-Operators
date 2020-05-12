@@ -1,18 +1,12 @@
 package gr.ds.unipi.noda.api.client;
 
-import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.bson.json.JsonMode;
-import org.bson.json.JsonWriterSettings;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
-import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.*;
-
+import static gr.ds.unipi.noda.api.core.operators.FilterOperators.eq;
 
 public class NoSqlDbSystemTest {
 
