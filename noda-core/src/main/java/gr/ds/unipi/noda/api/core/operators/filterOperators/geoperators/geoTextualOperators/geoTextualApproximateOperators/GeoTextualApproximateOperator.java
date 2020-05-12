@@ -13,6 +13,15 @@ public abstract class GeoTextualApproximateOperator<T,U extends Geometry> extend
         super(geographicalOperator);
         this.fieldName = fieldName;
         this.keywords = keywords;
+
+        if(keywords.length == 0){
+            try {
+                throw new Exception("No keywords have been defined");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public String getFieldName() {
@@ -20,6 +29,6 @@ public abstract class GeoTextualApproximateOperator<T,U extends Geometry> extend
     }
 
     public String[] getKeywords() {
-        return keywords;
+        return keywords.clone();
     }
 }

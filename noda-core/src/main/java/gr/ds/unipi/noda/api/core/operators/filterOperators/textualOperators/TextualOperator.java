@@ -13,7 +13,7 @@ public abstract class TextualOperator<T> implements FilterOperator<T> {
     }
 
     protected String[] getKeywords() {
-        return keywords;
+        return keywords.clone();
     }
 
     protected String getFieldName() {

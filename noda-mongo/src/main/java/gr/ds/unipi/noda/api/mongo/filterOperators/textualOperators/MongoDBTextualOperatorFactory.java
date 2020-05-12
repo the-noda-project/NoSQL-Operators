@@ -1,7 +1,6 @@
 package gr.ds.unipi.noda.api.mongo.filterOperators.textualOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator;
 
 public final class MongoDBTextualOperatorFactory extends BaseTextualOperatorFactory {

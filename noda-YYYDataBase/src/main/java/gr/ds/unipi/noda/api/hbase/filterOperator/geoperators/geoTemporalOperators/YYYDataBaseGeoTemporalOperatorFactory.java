@@ -1,6 +1,5 @@
 package gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geoTemporalOperators;
 
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle;

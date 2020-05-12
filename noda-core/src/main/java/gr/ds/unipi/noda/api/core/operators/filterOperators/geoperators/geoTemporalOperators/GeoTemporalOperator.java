@@ -1,8 +1,8 @@
 package gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.Temporal;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
 
 public abstract class GeoTemporalOperator<T, U extends Geometry, S extends Temporal> implements FilterOperator<T> {

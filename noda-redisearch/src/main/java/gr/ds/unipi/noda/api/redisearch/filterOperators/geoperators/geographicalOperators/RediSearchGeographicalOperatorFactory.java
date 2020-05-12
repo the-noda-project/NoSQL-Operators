@@ -1,8 +1,8 @@
 package gr.ds.unipi.noda.api.redisearch.filterOperators.geoperators.geographicalOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.BaseGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Point;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon;

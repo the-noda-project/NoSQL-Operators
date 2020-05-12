@@ -1,7 +1,6 @@
 package gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.BaseGeographicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
 
 public abstract class GeographicalOperator<T, U extends Geometry> implements FilterOperator<T> {

@@ -3,7 +3,6 @@ package gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextu
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator;
 
 public abstract class GeoTextualOperator<T, U extends Geometry> implements FilterOperator<T> {
 

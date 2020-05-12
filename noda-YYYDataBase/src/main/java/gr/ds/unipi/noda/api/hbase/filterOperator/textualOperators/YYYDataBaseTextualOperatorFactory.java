@@ -1,7 +1,6 @@
 package gr.ds.unipi.noda.api.hbase.filterOperator.textualOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator;
 import gr.ds.unipi.noda.api.hbase.filterOperator.textualOperators.conditionalTextualOperators.ConditionalTextualOperator;
 import gr.ds.unipi.noda.api.hbase.filterOperator.textualOperators.conditionalTextualOperators.OperatorAllKeywords;
 import gr.ds.unipi.noda.api.hbase.filterOperator.textualOperators.conditionalTextualOperators.OperatorAnyKeywords;

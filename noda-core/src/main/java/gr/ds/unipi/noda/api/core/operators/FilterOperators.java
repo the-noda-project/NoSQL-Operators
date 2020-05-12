@@ -3,11 +3,11 @@ package gr.ds.unipi.noda.api.core.operators;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.GeoTextualApproximateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Point;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon;
@@ -269,7 +269,7 @@ public class FilterOperators {
     };
 
     public static FilterOperator topRankInGeoTextualPolygon(String fieldName, String keywordFieldName, Collection<String> keywords, int topK, Coordinates coordinates1, Coordinates coordinates2, Coordinates coordinates3, Coordinates... coordinates){
-        return GeoTextualApproximateOperator.geoTextualOperator.inGeoTextualPolygon(fieldName,Polygon.newPolygon(coordinates1,coordinates2,coordinates3,coordinates), keywordFieldName, keywords, topK);
+        return GeoTextualApproximateOperator.geoTextualOperator.topRankInGeoTextualPolygon(fieldName,Polygon.newPolygon(coordinates1,coordinates2,coordinates3,coordinates), keywordFieldName, keywords, topK);
 
     };
 
