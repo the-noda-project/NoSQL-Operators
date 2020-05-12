@@ -4,12 +4,12 @@ import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoSpatialOperators.BaseGeoSpatialOperatorFactory;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoSpatialOperators.GeoSpatialOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.GeoTemporalOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTextualOperators.BaseGeoTextualOperatorFactory;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTextualOperators.GeoTextualOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.BaseGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.GeoTextualOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.BaseGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
@@ -33,7 +33,7 @@ public abstract class NoSqlConnectionFactory {
     private void setBaseOperators() {
         ComparisonOperator.comparisonOperator = getBaseComparisonOperatorFactory();
 
-        GeoSpatialOperator.geoSpatialOperator = getBaseGeoSpatialOperatorFactory();
+        GeographicalOperator.geoSpatialOperator = getBaseGeoSpatialOperatorFactory();
         GeoTemporalOperator.geoTemporalOperator = getBaseGeoTemporalOperatorFactory();
         GeoTextualOperator.geoTextualOperator = getBaseGeoTextualOperatorFactory();
 
@@ -48,7 +48,7 @@ public abstract class NoSqlConnectionFactory {
 
     protected abstract BaseComparisonOperatorFactory getBaseComparisonOperatorFactory();
 
-    protected abstract BaseGeoSpatialOperatorFactory getBaseGeoSpatialOperatorFactory();
+    protected abstract BaseGeographicalOperatorFactory getBaseGeoSpatialOperatorFactory();
 
     protected abstract BaseGeoTemporalOperatorFactory getBaseGeoTemporalOperatorFactory();
 

@@ -1,0 +1,42 @@
+package gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators;
+
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.Temporal;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
+
+import java.text.SimpleDateFormat;
+
+abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator<StringBuilder, T, U> {
+    protected GeoTemporalOperator(GeographicalOperator<StringBuilder,T> geographicalOperator, String temporalFieldName, U temporalType) {
+        super(geographicalOperator, temporalFieldName, temporalType);
+    }
+
+    static StringBuilder formGeometryAndTemporalBoundsExpression(StringBuilder geometryExpr, String temporalFieldName, TemporalBounds temporalBounds) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("{ $");
+        sb.append("and");
+        sb.append(": [ ");
+
+        sb.append(geometryExpr);
+        sb.append(", ");
+
+        sb.append("{ ");
+        if (!temporalFieldName.contains(".")) {
+            sb.append(temporalFieldName);
+        } else {
+            sb.append("\"" + temporalFieldName + "\"");
+        }
+        sb.append(": { ");
+        sb.append("$gte: ");
+        sb.append("new Date(\"" + new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss z").format(temporalBounds.getLowerBound()) + "\")");
+        sb.append(", $lte: ");
+        sb.append("new Date(\"" + new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss z").format(temporalBounds.getUpperBound()) + "\")");
+        sb.append("} }");
+
+        sb.append(" ] }");
+        return sb;
+    }
+
+}
