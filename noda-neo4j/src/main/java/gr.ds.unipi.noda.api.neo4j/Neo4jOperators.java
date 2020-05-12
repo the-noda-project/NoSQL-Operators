@@ -177,20 +177,37 @@ final class Neo4jOperators extends NoSqlDbOperators {
     }
 
     @Override
-    public NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator) {
-        sb.append(" WITH s." + fieldName + " as " + fieldName );
-        if(aggregateOperator.length != 0) {
-            Integer i = 0;
-            for (AggregateOperator aop : aggregateOperator) {
-                i++;
-                if(aop.getOperatorExpression() != "count" ){
-                    sb.append(", " + aop.getOperatorExpression() + " AS M" + i);
-                } else {
-                    sb.append(", " + aop.getOperatorExpression() + "(s." + fieldName + ")" + " AS M" + i);
-                }
+    public NoSqlDbOperators groupBy(String fieldName, String... fieldNames) {
 
+        if(fieldNames.length != 0) {
+            Integer i = 0;
+            for (String fie : fieldNames) {
+                i++;
+                sb.append(", s." + fie + " AS " + fie);
+                }
+            } else {
+                sb.append(" WITH s." + fieldName + " as " + fieldName );
+//                if(aop.getOperatorExpression() != "count" ){
+//                    sb.append(", " + aop.getOperatorExpression() + " AS M" + i);
+//                } else {
+//                    sb.append(", " + aop.getOperatorExpression() + "(s." + fieldName + ")" + " AS M" + i);
+//                }
             }
             this.isTypeOfResultsList = false;
+//        }
+
+        return this;
+    }
+
+    @Override
+    public NoSqlDbOperators aggregate(AggregateOperator aggregateOperator, AggregateOperator... aggregateOperators) {
+
+        if(aggregateOperators.length != 0) {
+//            for (String agro : aggregateOperators) {
+//
+//            }
+        } else {
+            sb.append(", " + aggregateOperator.getOperatorExpression() + " as " + aggregateOperator.getAlias() );
         }
 
         return this;

@@ -15,11 +15,6 @@ final class OperatorInGeographicalCircle extends GeoSpatialOperator<Circle> {
 
     @Override
     public StringBuilder getOperatorExpression() {
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("distance(point({latitude: "+getGeometry().getCircleCenter().getLatitude()+" , longitude: "+getGeometry().getCircleCenter().getLongitude()+"}), s."+getFieldName()+") < "+ getGeometry().getRadius());
-
-        return sb;
+        return null;
     }
 }
