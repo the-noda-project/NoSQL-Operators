@@ -3,4 +3,5 @@ package gr.ds.unipi.noda.api.mongo.filterOperators.geographicalOperators.geoText
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTextualOperators.BaseGeoTextualOperatorFactory;
 
 public final class MongoDBGeoTextualOperatorFactory extends BaseGeoTextualOperatorFactory {
+	int x=0;
 }
