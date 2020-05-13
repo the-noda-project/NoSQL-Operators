@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.client;
 
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.Coordinates;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
 import org.junit.Test;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.inGeoPolygon;

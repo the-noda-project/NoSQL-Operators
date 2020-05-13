@@ -5,17 +5,17 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoSpatialOperators.BaseGeoSpatialOperatorFactory;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geographicalOperators.geoTextualOperators.BaseGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.BaseGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.BaseGeographicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.redis.aggregateOperator.RedisAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.RedisComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperators.geoSpatialOperators.RedisGeoSpatialOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperators.geoTemporalOperators.RedisGeoTemporalOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.geographicalOperators.geoTextualOperators.RedisGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.RedisGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTextualOperators.RedisGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.RedisGeographicalOperatorFactory;
 import gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.RedisLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.redis.filterOperator.textualOperators.RedisTextualOperatorFactory;
 import gr.ds.unipi.noda.api.redis.sortOperator.RedisSortOperatorFactory;
@@ -49,8 +49,8 @@ public final class RedisConnectionFactory extends NoSqlConnectionFactory {
     }
 
     @Override
-    protected BaseGeoSpatialOperatorFactory getBaseGeoSpatialOperatorFactory() {
-        return new RedisGeoSpatialOperatorFactory();
+    protected BaseGeographicalOperatorFactory getBaseGeoSpatialOperatorFactory() {
+        return new RedisGeographicalOperatorFactory();
     }
 
     @Override
