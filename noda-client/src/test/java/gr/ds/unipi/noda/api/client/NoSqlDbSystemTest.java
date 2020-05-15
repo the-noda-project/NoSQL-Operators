@@ -34,8 +34,8 @@ public class NoSqlDbSystemTest {
 //        noSqlDbSystem.operateOn("Ship").filter(inGeoCircleKm("LOCATION", Coordinates.newCoordinates(145.00441, -38.31416), 0.04)).printScreen();
         noSqlDbSystem.operateOn("Ship")
                 .filter(or(eq("LAT",-38.31416), eq("LON",145.004403333), gt("SPEED", 20)))
-                .groupBy("COURSE")
-                .aggregate( avg("LAT") ).aggregate(sum("LON"))
+                .groupBy("DATEANDTIME", "TIMESTAMP")
+                .aggregate( countDistinct("LAT"), sum("LAT") )
                 .printScreen();
 
         noSqlDbSystem.closeConnection();

@@ -213,15 +213,14 @@ final class Neo4jOperators extends NoSqlDbOperators {
     public NoSqlDbOperators aggregate(AggregateOperator aggregateOperator, AggregateOperator... aggregateOperators) {
 
         if(this.hasGroupBy == false && this.hasAlreadyAggregate == false ) {
-            sb.append(" WITH " + aggregateOperator.getOperatorExpression() + " as " + aggregateOperator.getAlias());
+                sb.append(" WITH " + aggregateOperator.getOperatorExpression() + " as " + aggregateOperator.getAlias());
         } else {
-            sb.append(", " + aggregateOperator.getOperatorExpression() + " as " + aggregateOperator.getAlias() );
+                sb.append(", " + aggregateOperator.getOperatorExpression() + " as " + aggregateOperator.getAlias());
         }
-
 
         if(aggregateOperators.length != 0) {
             for (AggregateOperator aggro : aggregateOperators) {
-                sb.append(", " + aggro.getOperatorExpression() + " as " + aggro.getAlias() );
+                    sb.append(", " + aggro.getOperatorExpression() + " as " + aggro.getAlias() );
             }
         }
 

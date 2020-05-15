@@ -11,9 +11,12 @@ abstract class AggregateOperator extends gr.ds.unipi.noda.api.core.operators.agg
     @Override
     public String getOperatorExpression() {
         String exp;
-        if (getAggregateOperatorField() == "count") {
+        if (getAggregateOperatorField() == "count(*)") {
             exp = getAggregateOperatorField();
-        } else {
+        } else if (getAggregateOperatorField() == "count( distinct ") {
+            exp = getAggregateOperatorField() + "s." + getFieldName() + ")";
+        }
+        else {
             exp = getAggregateOperatorField() + "(s." + getFieldName() + ")";
         }
 

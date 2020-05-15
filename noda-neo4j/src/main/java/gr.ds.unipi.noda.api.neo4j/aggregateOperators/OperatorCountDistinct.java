@@ -13,7 +13,7 @@ public class OperatorCountDistinct extends AggregateOperator {
     @Override
     protected String getAggregateOperatorField() {
 
-        return "count";
+        return "count( distinct ";
     }
 
 }
