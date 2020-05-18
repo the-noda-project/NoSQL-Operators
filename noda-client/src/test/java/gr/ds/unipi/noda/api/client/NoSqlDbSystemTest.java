@@ -35,7 +35,7 @@ public class NoSqlDbSystemTest {
         noSqlDbSystem.operateOn("Ship")
                 .filter(or(eq("LAT",-38.31416), eq("LON",145.004403333), gt("SPEED", 20)))
                 .groupBy("DATEANDTIME", "TIMESTAMP")
-                .aggregate( countDistinct("LAT"), sum("LAT") )
+                .aggregate( countDistinct("LAT"), sum("LAT").as("nikos") ).aggregate(max("LON"))
                 .printScreen();
 
         noSqlDbSystem.closeConnection();
