@@ -5,13 +5,16 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
+import org.apache.arrow.flatbuf.Bool;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.davidmoten.hilbert.HilbertCurve;
 import org.neo4j.driver.Record;
 import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,11 +25,17 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
     private final StringBuilder sb;
     private final String matchConstant;
+    private Boolean isTypeOfResultsList;
+    private Boolean hasGroupBy;
+    private Boolean hasAlreadyAggregate;
 
     private Neo4jOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
         this.sb = new StringBuilder().append("MATCH " + "(s:" + s + ")");
         this.matchConstant = "";
+        this.isTypeOfResultsList = true;
+        this.hasGroupBy = false;
+        this.hasAlreadyAggregate = false;
     }
 
     static Neo4jOperators newNeo4jOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
@@ -56,9 +65,20 @@ final class Neo4jOperators extends NoSqlDbOperators {
     @Override
     public int count() {
         sb.append(" RETURN count(*)");
-//        System.out.println(sb);
+        System.out.println(sb);
+
+        try {
+            Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session();
+            Result result = session.run(sb.toString());
+            Record record = result.next();
+            session.close();
+            System.out.println("Result: ");
+            System.out.println(record);
+        }finally {}
+
         return 0;
     }
+
 
     @Override
     public NoSqlDbOperators sort(SortOperator sortOperator, SortOperator... sortingOperators) {
@@ -79,54 +99,133 @@ final class Neo4jOperators extends NoSqlDbOperators {
     @Override
     public NoSqlDbOperators limit(int limit) {
         sb.append(" WITH * LIMIT " + limit);
-//        System.out.println(sb);
+        System.out.println(sb);
+
+        try {
+            Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session();
+            Result result = session.run(sb.toString());
+            Record record = result.next();
+            session.close();
+            System.out.println("Result: ");
+            System.out.println(record);
+        }finally {}
+
         return this;
     }
 
     @Override
     public Optional<Double> max(String fieldName) {
         sb.append(" RETURN max(s." + fieldName + ")");
-//        System.out.println(sb);
+        System.out.println(sb);
+
+        try {
+            Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session();
+            Result result = session.run(sb.toString());
+            Record record = result.next();
+            session.close();
+            System.out.println("Result: ");
+            System.out.println(record);
+        }finally {}
+
         return Optional.empty();
     }
 
     @Override
     public Optional<Double> min(String fieldName) {
         sb.append(" RETURN min(s." + fieldName + ")");
-//        System.out.println(sb);
+        System.out.println(sb);
+
+        try {
+            Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session();
+            Result result = session.run(sb.toString());
+            Record record = result.next();
+            session.close();
+            System.out.println("Result: ");
+            System.out.println(record);
+        }finally {}
+
         return Optional.empty();
     }
 
     @Override
     public Optional<Double> sum(String fieldName) {
         sb.append(" RETURN sum(s." + fieldName + ")");
-//        System.out.println(sb);
+        System.out.println(sb);
+
+        try {
+            Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session();
+            Result result = session.run(sb.toString());
+            Record record = result.next();
+            session.close();
+            System.out.println("Result: ");
+            System.out.println(record);
+        }finally {}
+
         return Optional.empty();
     }
 
     @Override
     public Optional<Double> avg(String fieldName) {
         sb.append(" RETURN avg(s." + fieldName + ")");
-//        System.out.println(sb);
+        System.out.println(sb);
+
+        try {
+            Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session();
+            Result result = session.run(sb.toString());
+            Record record = result.next();
+            session.close();
+            System.out.println("Result: ");
+            System.out.println(record);
+        }finally {}
+
         return Optional.empty();
     }
 
     @Override
-    public NoSqlDbOperators groupBy(String fieldName, AggregateOperator... aggregateOperator) {
-        sb.append(" WITH s." + fieldName + " as " + fieldName );
-        if(aggregateOperator.length != 0) {
-            Integer i = 0;
-            for (AggregateOperator aop : aggregateOperator) {
-                i++;
-                if(aop.getOperatorExpression() != "count" ){
-                    sb.append(", " + aop.getOperatorExpression() + " AS M" + i);
-                } else {
-                    sb.append(", " + aop.getOperatorExpression() + "(s." + fieldName + ")" + " AS M" + i);
-                }
+    public NoSqlDbOperators groupBy(String fieldName, String... fieldNames) {
 
+            sb.append(" WITH s." + fieldName + " as " + fieldName );
+
+            if(fieldNames.length != 0) {
+                Integer i = 0;
+
+                for (String fie: fieldNames) {
+                    i++;
+                    sb.append(", s." + fie + " AS " + fie);
+                }
+            }
+
+
+//                if(aop.getOperatorExpression() != "count" ){
+//                    sb.append(", " + aop.getOperatorExpression() + " AS M" + i);
+//                } else {
+//                    sb.append(", " + aop.getOperatorExpression() + "(s." + fieldName + ")" + " AS M" + i);
+//                }
+
+            this.hasGroupBy = true;
+            this.isTypeOfResultsList = false;
+//        }
+
+        return this;
+    }
+
+    @Override
+    public NoSqlDbOperators aggregate(AggregateOperator aggregateOperator, AggregateOperator... aggregateOperators) {
+
+        if(this.hasGroupBy == false && this.hasAlreadyAggregate == false ) {
+                sb.append(" WITH " + aggregateOperator.getOperatorExpression() + " as " + aggregateOperator.getAlias());
+        } else {
+                sb.append(", " + aggregateOperator.getOperatorExpression() + " as " + aggregateOperator.getAlias());
+        }
+
+        if(aggregateOperators.length != 0) {
+            for (AggregateOperator aggro : aggregateOperators) {
+                    sb.append(", " + aggro.getOperatorExpression() + " as " + aggro.getAlias() );
             }
         }
 
+        this.isTypeOfResultsList = false;
+        this.hasAlreadyAggregate = true;
         return this;
     }
 
@@ -143,12 +242,12 @@ final class Neo4jOperators extends NoSqlDbOperators {
         System.out.println(sb);
 
 
-        if(getNoSqlDbConnector() instanceof Neo4jConnector){
-            System.out.println("true");
-        }
-        else{
-            System.out.println("false");
-        }
+//        if(getNoSqlDbConnector() instanceof Neo4jConnector){
+//            System.out.println("true");
+//        }
+//        else{
+//            System.out.println("false");
+//        }
 
         try {
 
@@ -160,12 +259,18 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
             List<Object> nodeList = new ArrayList<>();
 
-
-            while (result.hasNext()) {
-                Record record = result.next();
-                nodeList.add(record.fields());
-//                nodeList.add(record.fields().get(0).value().asMap());
+            if(this.isTypeOfResultsList == true){
+                while (result.hasNext()) {
+                    Record record = result.next();
+                    nodeList.add(record.fields().get(0).value().asMap());
+                }
+            } else {
+                while (result.hasNext()) {
+                    Record record = result.next();
+                    nodeList.add(record.fields());
+                }
             }
+
             session.close();
             System.out.println("Results: ");
 
