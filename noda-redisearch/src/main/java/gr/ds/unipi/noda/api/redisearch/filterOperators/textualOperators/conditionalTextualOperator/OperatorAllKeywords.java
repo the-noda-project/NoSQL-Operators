@@ -24,7 +24,7 @@ public final class OperatorAllKeywords extends ConditionalTextualOperator {
 
     @Override
     protected Node getOperatorField() {
-        return QueryBuilder.intersect(getFieldName(), (Value[]) Arrays.stream(getKeywords()).map(Values::value).toArray());
+        return QueryBuilder.intersect(getFieldName(), Arrays.stream(getKeywords()).map(Values::value).toArray(Value[]::new));
     }
 
     @Override

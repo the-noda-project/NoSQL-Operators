@@ -24,7 +24,7 @@ public final class OperatorAnyKeywords extends ConditionalTextualOperator {
 
     @Override
     protected Node getOperatorField() {
-        return QueryBuilder.union(getFieldName(), (Value[]) Arrays.stream(getKeywords()).map(Values::value).toArray());
+        return QueryBuilder.union(getFieldName(), Arrays.stream(getKeywords()).map(Values::value).toArray(Value[]::new));
     }
 
     @Override
