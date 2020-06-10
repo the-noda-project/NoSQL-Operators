@@ -1,11 +1,11 @@
-package gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geoTextualOperators.geoTextualApproximateOperators;
+package gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon;
-import gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geographicalOperators.OperatorInGeoPolygon;
+import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.OperatorInGeoPolygon;
 
 import java.util.Collection;
 
-public class OperatorTopKInGeoTextualPolygon extends GeoTextualApproximateOperator<Object, Polygon> {
+public class OperatorTopKInGeoTextualPolygon extends GeoTextualApproximateOperator<StringBuilder, Polygon> {
     private final int topK;
 
     protected OperatorTopKInGeoTextualPolygon(String fieldName, Polygon polygon, String keywordFieldName, Collection<String> keywords, int topK) {
@@ -14,7 +14,7 @@ public class OperatorTopKInGeoTextualPolygon extends GeoTextualApproximateOperat
     }
 
     @Override
-    public Object getOperatorExpression() {
+    public StringBuilder getOperatorExpression() {
         return null;
     }
 

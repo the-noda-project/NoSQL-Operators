@@ -1,11 +1,11 @@
-package gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geoTextualOperators.geoTextualApproximateOperators;
+package gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle;
-import gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geographicalOperators.OperatorInGeoCircle;
+import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.OperatorInGeoCircle;
 
 import java.util.Collection;
 
-public class OperatorTopKInGeoTextualCircle extends GeoTextualApproximateOperator<Object, Circle>{
+public class OperatorTopKInGeoTextualCircle extends GeoTextualApproximateOperator<StringBuilder, Circle>{
     private final int topK;
 
     protected OperatorTopKInGeoTextualCircle(String fieldName, Circle circle, String keywordFieldName, Collection<String> keywords, int topK) {
@@ -14,7 +14,7 @@ public class OperatorTopKInGeoTextualCircle extends GeoTextualApproximateOperato
     }
 
     @Override
-    public Object getOperatorExpression() {
+    public StringBuilder getOperatorExpression() {
         return null;
     }
 

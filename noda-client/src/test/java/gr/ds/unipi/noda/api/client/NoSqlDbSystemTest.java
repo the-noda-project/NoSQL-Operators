@@ -19,12 +19,12 @@ public class NoSqlDbSystemTest {
 //        noSqlDbSys.closeConnection();
 //    }
 
-//    @Test
-//    public void neo4jTest() {
-//        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos", "graph").host("127.0.0.1").port(7687).build();
-//        noSqlDbSystem.operateOn("Ship").filter(eq("LAT", -38.31416)).printScreen();
-//        noSqlDbSystem.closeConnection();
-//    }
+    @Test
+    public void neo4jTest() {
+        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos", "graph").host("127.0.0.1").port(7687).build();
+        noSqlDbSystem.operateOn("Ship").filter(eq("LAT", -38.31416)).printScreen();
+        noSqlDbSystem.closeConnection();
+    }
 
 
     @Test

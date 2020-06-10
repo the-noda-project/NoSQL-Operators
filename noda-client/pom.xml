@@ -79,12 +79,6 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.github.jsqlparser</groupId>
-            <artifactId>jsqlparser</artifactId>
-            <version>3.1</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.github.davidmoten</groupId>
             <artifactId>geo</artifactId>
             <version>0.7.1</version>

@@ -18,9 +18,9 @@ import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 import static gr.ds.unipi.noda.api.core.operators.SortOperators.asc;
 import static gr.ds.unipi.noda.api.core.operators.SortOperators.desc;
 
-public class NodaSqlListener extends SqlBaseBaseListener {
+public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(NodaSqlListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(NoSqlDbSqlStatementListener.class);
 
     private NoSqlDbOperators noSqlDbOperators;
     private String source;
@@ -70,7 +70,7 @@ public class NodaSqlListener extends SqlBaseBaseListener {
     private List<String> functionStrings = new ArrayList<>();
 
 
-    private NodaSqlListener(){}
+    private NoSqlDbSqlStatementListener(){}
 
     @Override public void enterQuerySpecification(SqlBaseParser.QuerySpecificationContext ctx) {
 
@@ -732,7 +732,7 @@ public class NodaSqlListener extends SqlBaseBaseListener {
         this.noSqlDbOperators = noSqlDbOperators;
     }
 
-    public static NodaSqlListener newNodaSqlListener(){
-        return new NodaSqlListener();
+    public static NoSqlDbSqlStatementListener newNodaSqlListener(){
+        return new NoSqlDbSqlStatementListener();
     }
 }
