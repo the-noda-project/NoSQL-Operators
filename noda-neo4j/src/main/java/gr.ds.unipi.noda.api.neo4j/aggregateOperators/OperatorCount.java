@@ -19,6 +19,6 @@ final class OperatorCount extends AggregateOperator {
     @Override
     protected String getAggregateOperatorField() {
 
-        return "count";
+        return "count(*)";
     }
 }

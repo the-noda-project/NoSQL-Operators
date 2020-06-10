@@ -6,7 +6,9 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.eq;
+import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
+import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.*;
+
 
 public class NoSqlDbSystemTest {
 
@@ -25,12 +27,19 @@ public class NoSqlDbSystemTest {
     }
 
 
-//    @Test
-//    public void groupingAndsortingExample() {
-//        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().username("neo4j").password("nikos").host("localhost").port(7687).database("graph").build();
-//        noSqlDbSystem.operateOn("Ship").filter(eq("LAT","'-38.31416'")).groupBy("fieldA", max("fieldB")).sort(asc("fieldC")).printScreen();
-//        noSqlDbSystem.closeConnection();
-//    }
+    @Test
+    public void groupingAndsortingExample() {
+        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos", "jbjb").host("localhost").port(7687).build();
+//        noSqlDbSystem.operateOn("Ship").filter(eq("LAT", -38.31416)).printScreen();
+//        noSqlDbSystem.operateOn("Ship").filter(inGeoCircleKm("LOCATION", Coordinates.newCoordinates(145.00441, -38.31416), 0.04)).printScreen();
+        noSqlDbSystem.operateOn("Ship")
+                .filter(or(eq("LAT",-38.31416), eq("LON",145.004403333), gt("SPEED", 20)))
+                .groupBy("DATEANDTIME", "TIMESTAMP")
+                .aggregate( countDistinct("LAT"), sum("LAT").as("nikos") ).aggregate(max("LON"))
+                .printScreen();
+
+        noSqlDbSystem.closeConnection();
+    }
 //
 //    @Test
 //    public void countExample() {

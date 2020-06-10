@@ -96,7 +96,7 @@ public abstract class NoSqlDbSystem {
 
     protected abstract NoSqlDbConnector getConnector();
 
-    public NodaSqlOperators sql(String sql){
+    public NoSqlDbSqlStatement sql(String sql){
 
         CharStream s = CharStreams.fromString(sql);
         CaseChangingCharStream upper = new CaseChangingCharStream(s,true);
@@ -107,11 +107,11 @@ public abstract class NoSqlDbSystem {
         ParseTree tree = parser.singleStatement();
         ParseTreeWalker walker = new ParseTreeWalker();
 
-        NodaSqlListener listener = NodaSqlListener.newNodaSqlListener();
+        NoSqlDbSqlStatementListener listener = NoSqlDbSqlStatementListener.newNodaSqlListener();
         walker.walk(listener,tree);
 
         listener.setNoSqlDbOperators(nsdb.noSqlDbOperators(getConnector(), listener.getSource(), sparkSession));
-        return NodaSqlOperators.newNodaSqlOperators(listener.getNoSqlDbOperators());
+        return NoSqlDbSqlStatement.newNodaSqlOperators(listener.getNoSqlDbOperators());
 
     }
 

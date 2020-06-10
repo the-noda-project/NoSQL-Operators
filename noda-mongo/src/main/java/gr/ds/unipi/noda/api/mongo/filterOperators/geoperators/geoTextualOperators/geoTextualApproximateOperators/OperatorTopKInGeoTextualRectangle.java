@@ -1,11 +1,11 @@
-package gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geoTextualOperators.geoTextualApproximateOperators;
+package gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
-import gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geographicalOperators.OperatorInGeoRectangle;
+import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.OperatorInGeoRectangle;
 
 import java.util.Collection;
 
-public class OperatorTopKInGeoTextualRectangle extends GeoTextualApproximateOperator<Object, Rectangle> {
+public class OperatorTopKInGeoTextualRectangle extends GeoTextualApproximateOperator<StringBuilder, Rectangle> {
     private final int topK;
 
     protected OperatorTopKInGeoTextualRectangle(String fieldName, Rectangle rectangle, String keywordFieldName, Collection<String> keywords, int topK) {
@@ -14,7 +14,7 @@ public class OperatorTopKInGeoTextualRectangle extends GeoTextualApproximateOper
     }
 
     @Override
-    public Object getOperatorExpression() {
+    public StringBuilder getOperatorExpression() {
         return null;
     }
 

@@ -1,7 +1,7 @@
 package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.client.sql.CaseChangingCharStream;
-import gr.ds.unipi.noda.api.client.sql.NodaSqlListener;
+import gr.ds.unipi.noda.api.client.sql.NoSqlDbSqlStatementListener;
 import gr.ds.unipi.noda.api.client.sql.SqlBaseLexer;
 import gr.ds.unipi.noda.api.client.sql.SqlBaseParser;
 import org.antlr.v4.runtime.CharStream;
@@ -66,7 +66,7 @@ public class SqlParserTest {
 //        System.out.println(tree.getChild(0).getText());
 //
         ParseTreeWalker walker = new ParseTreeWalker();
-        NodaSqlListener listener = NodaSqlListener.newNodaSqlListener();
+        NoSqlDbSqlStatementListener listener = NoSqlDbSqlStatementListener.newNodaSqlListener();
         walker.walk(listener,tree);
 
         System.out.println(listener.getSource());
