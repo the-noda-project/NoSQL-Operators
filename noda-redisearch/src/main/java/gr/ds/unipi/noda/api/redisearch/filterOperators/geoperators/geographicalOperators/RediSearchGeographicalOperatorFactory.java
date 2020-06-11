@@ -25,17 +25,7 @@ public final class RediSearchGeographicalOperatorFactory extends BaseGeographica
     }
 
     @Override
-    public GeographicalOperator newOperatorInGeoCircleKm(String fieldName, Circle circle) {
-        return OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle);
-    }
-
-    @Override
-    public GeographicalOperator newOperatorInGeoCircleMeters(String fieldName, Circle circle) {
-        return OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle);
-    }
-
-    @Override
-    public GeographicalOperator newOperatorInGeoCircleMiles(String fieldName, Circle circle) {
+    public GeographicalOperator newOperatorInGeoCircle(String fieldName, Circle circle) {
         return OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle);
     }
 

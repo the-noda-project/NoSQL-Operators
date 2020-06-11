@@ -8,7 +8,7 @@ import io.redisearch.querybuilder.QueryBuilder;
 
 public class OperatorInGeoTextualCircle extends GeoTextualConstraintOperator<Node, Circle> {
     protected OperatorInGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator) {
-        super(GeographicalOperator.geoSpatialOperator.newOperatorInGeoCircleKm(fieldName,circle), conditionalTextualOperator);
+        super(GeographicalOperator.geoSpatialOperator.newOperatorInGeoCircle(fieldName,circle), conditionalTextualOperator);
     }
 
     @Override

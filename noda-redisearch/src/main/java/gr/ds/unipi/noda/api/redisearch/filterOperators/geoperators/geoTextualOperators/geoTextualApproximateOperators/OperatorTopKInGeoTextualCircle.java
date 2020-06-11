@@ -14,7 +14,7 @@ public class OperatorTopKInGeoTextualCircle extends GeoTextualApproximateOperato
     private final int topK;
 
     protected OperatorTopKInGeoTextualCircle(String fieldName, Circle circle, String keywordFieldName, Collection<String> keywords, int topK) {
-        super(GeographicalOperator.geoSpatialOperator.newOperatorInGeoCircleKm(fieldName, circle), keywordFieldName, keywords.toArray(new String[0]));
+        super(GeographicalOperator.geoSpatialOperator.newOperatorInGeoCircle(fieldName, circle), keywordFieldName, keywords.toArray(new String[0]));
         this.topK= topK;
     }
 
