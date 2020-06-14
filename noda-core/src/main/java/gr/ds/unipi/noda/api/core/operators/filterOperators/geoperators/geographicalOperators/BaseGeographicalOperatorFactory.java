@@ -11,11 +11,7 @@ public abstract class BaseGeographicalOperatorFactory {
 
     public abstract GeographicalOperator newOperatorInGeoRectangle(String fieldName, Rectangle rectangle);
 
-    public abstract GeographicalOperator newOperatorInGeoCircleKm(String fieldName, Circle circle);
-
-    public abstract GeographicalOperator newOperatorInGeoCircleMeters(String fieldName, Circle circle);
-
-    public abstract GeographicalOperator newOperatorInGeoCircleMiles(String fieldName, Circle circle);
+    public abstract GeographicalOperator newOperatorInGeoCircle(String fieldName, Circle circle);
 
     public abstract GeographicalOperator newOperatorGeoNearestNeighbors(String fieldName, Point point, int neighbors);
 
