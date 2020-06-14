@@ -4,7 +4,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometrie
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator;
 import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.OperatorInGeoRectangle;
 
-public class OperatorInGeoTextualRectangle extends GeoTextualConstraintOperator<StringBuilder,Rectangle> {
+public class OperatorInGeoTextualRectangle extends GeoTextualConstraintOperator<Rectangle> {
 
     protected OperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
         super(OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName,rectangle), conditionalTextualOperator);

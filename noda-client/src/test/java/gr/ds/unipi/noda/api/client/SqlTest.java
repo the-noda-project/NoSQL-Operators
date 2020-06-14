@@ -1,12 +1,11 @@
 package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.client.sql.NoSqlDbSqlStatement;
-import net.sf.jsqlparser.JSQLParserException;
 import org.junit.Test;
 
 public class SqlTest {
     @Test
-    public void sqlTest() throws JSQLParserException {
+    public void sqlTest() {
 
         //NoSqlDbSystem.MongoDB().Builder("asdf","asdf","sdaf").build().sql("SELECT COUNT(mplimplikia) AS aName, MIN(fdg), sd FROM r GROUP BY groupedColumn HAVING MIN(fdg)>3 AND aName ='ffgds' ");
 

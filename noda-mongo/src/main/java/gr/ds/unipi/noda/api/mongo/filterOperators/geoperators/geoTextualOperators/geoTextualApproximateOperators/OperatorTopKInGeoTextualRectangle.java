@@ -5,7 +5,7 @@ import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperat
 
 import java.util.Collection;
 
-public class OperatorTopKInGeoTextualRectangle extends GeoTextualApproximateOperator<StringBuilder, Rectangle> {
+public class OperatorTopKInGeoTextualRectangle extends GeoTextualApproximateOperator<Rectangle> {
     private final int topK;
 
     protected OperatorTopKInGeoTextualRectangle(String fieldName, Rectangle rectangle, String keywordFieldName, Collection<String> keywords, int topK) {
