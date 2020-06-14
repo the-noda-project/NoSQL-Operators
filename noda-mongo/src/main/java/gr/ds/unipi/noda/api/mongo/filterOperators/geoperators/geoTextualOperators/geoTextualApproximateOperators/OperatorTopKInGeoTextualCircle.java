@@ -5,7 +5,7 @@ import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperat
 
 import java.util.Collection;
 
-public class OperatorTopKInGeoTextualCircle extends GeoTextualApproximateOperator<StringBuilder, Circle>{
+public class OperatorTopKInGeoTextualCircle extends GeoTextualApproximateOperator<Circle>{
     private final int topK;
 
     protected OperatorTopKInGeoTextualCircle(String fieldName, Circle circle, String keywordFieldName, Collection<String> keywords, int topK) {

@@ -5,7 +5,7 @@ import gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geographicalOperato
 
 import java.util.Collection;
 
-public class OperatorTopKInGeoTextualRectangle extends GeoTextualApproximateOperator<Object, Rectangle> {
+public class OperatorTopKInGeoTextualRectangle extends GeoTextualApproximateOperator<Rectangle> {
     private final int topK;
 
     protected OperatorTopKInGeoTextualRectangle(String fieldName, Rectangle rectangle, String keywordFieldName, Collection<String> keywords, int topK) {

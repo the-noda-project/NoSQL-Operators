@@ -5,7 +5,7 @@ import gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geographicalOperato
 
 import java.util.Collection;
 
-public class OperatorTopKInGeoTextualCircle extends GeoTextualApproximateOperator<Object, Circle>{
+public class OperatorTopKInGeoTextualCircle extends GeoTextualApproximateOperator<Circle>{
     private final int topK;
 
     protected OperatorTopKInGeoTextualCircle(String fieldName, Circle circle, String keywordFieldName, Collection<String> keywords, int topK) {

@@ -4,9 +4,9 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographi
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator;
 
-public abstract class GeoTextualConstraintOperator<T,U extends Geometry> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator<T,U> {
+public abstract class GeoTextualConstraintOperator<U extends Geometry> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator<StringBuilder,U> {
 
-    protected GeoTextualConstraintOperator(GeographicalOperator<T, U> geographicalOperator, ConditionalTextualOperator conditionalTextualOperator) {
+    protected GeoTextualConstraintOperator(GeographicalOperator<StringBuilder, U> geographicalOperator, ConditionalTextualOperator conditionalTextualOperator) {
         super(geographicalOperator, conditionalTextualOperator);
     }
 }
