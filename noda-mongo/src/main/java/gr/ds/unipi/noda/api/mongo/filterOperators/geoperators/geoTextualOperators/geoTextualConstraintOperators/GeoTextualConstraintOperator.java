@@ -7,6 +7,30 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.cond
 public abstract class GeoTextualConstraintOperator<U extends Geometry> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator<StringBuilder,U> {
 
     protected GeoTextualConstraintOperator(GeographicalOperator<StringBuilder, U> geographicalOperator, ConditionalTextualOperator conditionalTextualOperator) {
+
         super(geographicalOperator, conditionalTextualOperator);
     }
+        
+    static StringBuilder formGeometryAndTextualExpression(StringBuilder geometryExpr, ConditionalTextualOperator conditionalTextualOperator) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("{ $");
+        sb.append("and");
+        sb.append(": [ ");
+
+        sb.append(geometryExpr);
+        sb.append(", ");
+
+        sb.append("{ ");
+        sb.append(conditionalTextualOperator.getFieldName());
+        sb.append(": { ");
+        sb.append("$in: ");
+        sb.append(conditionalTextualOperator.getKeywords());
+        
+        sb.append("} }");
+
+        sb.append(" ] }");
+        return sb;
+    }
+    
 }

@@ -12,7 +12,7 @@ public class OperatorInGeoTextualRectangle extends GeoTextualConstraintOperator<
 
     @Override
     public StringBuilder getOperatorExpression() {
-        return null;
+        return GeoTextualConstraintOperator.formGeometryAndTextualExpression(this.getGeographicalOperator().getOperatorExpression(), this.getConditionalTextualOperator());
     }
 
     public static OperatorInGeoTextualRectangle newOperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator){

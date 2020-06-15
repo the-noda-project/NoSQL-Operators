@@ -12,11 +12,11 @@ public abstract class TextualOperator<T> implements FilterOperator<T> {
         this.keywords = keywords;
     }
 
-    protected String[] getKeywords() {
+    public String[] getKeywords() {
         return keywords.clone();
     }
 
-    protected String getFieldName() {
+    public String getFieldName() {
         return fieldName;
     }
 
