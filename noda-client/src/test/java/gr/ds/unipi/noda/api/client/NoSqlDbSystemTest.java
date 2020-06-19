@@ -2,6 +2,7 @@ package gr.ds.unipi.noda.api.client;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -18,7 +19,7 @@ public class NoSqlDbSystemTest {
 //        noSqlDbSys.operateOn("Ship").filter(eq("LAT",-38.31416)).printScreen();
 //        noSqlDbSys.closeConnection();
 //    }
-
+    @Ignore
     @Test
     public void neo4jTest() {
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos", "graph").host("127.0.0.1").port(7687).build();
@@ -26,7 +27,7 @@ public class NoSqlDbSystemTest {
         noSqlDbSystem.closeConnection();
     }
 
-
+    @Ignore
     @Test
     public void groupingAndsortingExample() {
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos", "jbjb").host("localhost").port(7687).build();
@@ -50,6 +51,7 @@ public class NoSqlDbSystemTest {
 //        noSqlDbSystem.closeConnection();
 //    }
 
+    @Ignore
     @Test
     public void check() {
         String[] c = new String[998];
@@ -81,6 +83,7 @@ public class NoSqlDbSystemTest {
         Arrays.stream(new String[]{a, b}).toArray(String[]::new);
     }
 
+    @Ignore
     @Test
     public void check2(){
 

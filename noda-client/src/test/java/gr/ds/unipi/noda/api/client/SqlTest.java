@@ -1,9 +1,11 @@
 package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.client.sql.NoSqlDbSqlStatement;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class SqlTest {
+    @Ignore
     @Test
     public void sqlTest() {
 

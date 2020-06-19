@@ -1,6 +1,7 @@
 package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 
 public class GeoTextualOperatorsTest {
 
+    @Ignore
     @Test
     public void mongoDB(){
         NoSqlDbSystem noSqlDbSys =  NoSqlDbSystem.MongoDB().Builder("username", "password", "database").host("localhost").port(27017).build();

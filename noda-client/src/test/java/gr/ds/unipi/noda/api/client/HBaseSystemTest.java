@@ -1,11 +1,13 @@
 package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.inGeoPolygon;
 
 public class HBaseSystemTest {
+    @Ignore
     @Test
     public void hBaseTest() {
 
