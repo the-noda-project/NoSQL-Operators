@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.client;
 
+import org.apache.spark.sql.SparkSession;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.junit.Ignore;
@@ -19,25 +20,35 @@ public class NoSqlDbSystemTest {
 //        noSqlDbSys.operateOn("Ship").filter(eq("LAT",-38.31416)).printScreen();
 //        noSqlDbSys.closeConnection();
 //    }
-    @Ignore
-    @Test
-    public void neo4jTest() {
-        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos", "graph").host("127.0.0.1").port(7687).build();
-        noSqlDbSystem.operateOn("Ship").filter(eq("LAT", -38.31416)).printScreen();
-        noSqlDbSystem.closeConnection();
-    }
+//    @Ignore
+//    @Test
+//    public void neo4jTest() {
+//        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos", "graph").host("127.0.0.1").port(7687).build();
+//        noSqlDbSystem.operateOn("Ship").filter(eq("LAT", -38.31416)).printScreen();
+//        noSqlDbSystem.closeConnection();
+//    }
 
     @Ignore
     @Test
     public void groupingAndsortingExample() {
-        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos", "jbjb").host("localhost").port(7687).build();
+
+        SparkSession spark = SparkSession
+                .builder()
+                .appName("Application Name").master("local")
+                .config("spark.neo4j.user","neo4j")
+                .config("spark.neo4j.password", "nikos")
+                .config("spark.neo4j.url","bolt://localhost:7687")
+                .getOrCreate();
+
+        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos").host("localhost").port(7687).sparkSession(spark).build();
 //        noSqlDbSystem.operateOn("Ship").filter(eq("LAT", -38.31416)).printScreen();
 //        noSqlDbSystem.operateOn("Ship").filter(inGeoCircleKm("LOCATION", Coordinates.newCoordinates(145.00441, -38.31416), 0.04)).printScreen();
         noSqlDbSystem.operateOn("Ship")
-                .filter(or(eq("LAT",-38.31416), eq("LON",145.004403333), gt("SPEED", 20)))
-                .groupBy("DATEANDTIME", "TIMESTAMP")
-                .aggregate( countDistinct("LAT"), sum("LAT").as("nikos") ).aggregate(max("LON"))
-                .printScreen();
+                .filter(and(lt("LAT",-38.31416), lt("LON",145.004403333), gt("SPEED", 20), lt("SPEED", 40))).toDataframe();
+//                .groupBy("DATEANDTIME", "TIMESTAMP")
+//                .aggregate( countDistinct("LAT"), sum("LAT").as("nikos") ).aggregate(max("LON")).toDataframe();
+
+//        Visualize.trajectory(dataframe, "craft", "date");
 
         noSqlDbSystem.closeConnection();
     }

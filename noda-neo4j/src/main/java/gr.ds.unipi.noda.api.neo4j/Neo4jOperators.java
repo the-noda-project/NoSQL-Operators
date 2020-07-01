@@ -5,37 +5,36 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
-import org.apache.arrow.flatbuf.Bool;
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
-import org.davidmoten.hilbert.HilbertCurve;
+import org.apache.spark.sql.*;
 import org.neo4j.driver.Record;
 import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import org.neo4j.spark.*;
+import scala.Predef;
+import scala.Tuple2;
+import scala.collection.JavaConverters;
+import gr.ds.unipi.noda.api.core.springserver.server;
+import java.util.*;
 
 final class Neo4jOperators extends NoSqlDbOperators {
 
     private final Neo4jConnectionManager neo4jConnectionManager = Neo4jConnectionManager.getInstance();
 
     private final StringBuilder sb;
-    private final String matchConstant;
+//    private final String matchConstant;
     private Boolean isTypeOfResultsList;
     private Boolean hasGroupBy;
     private Boolean hasAlreadyAggregate;
 
+
     private Neo4jOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
         this.sb = new StringBuilder().append("MATCH " + "(s:" + s + ")");
-        this.matchConstant = "";
+//        this.matchConstant = "";
         this.isTypeOfResultsList = true;
         this.hasGroupBy = false;
         this.hasAlreadyAggregate = false;
+
     }
 
     static Neo4jOperators newNeo4jOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
@@ -288,8 +287,29 @@ final class Neo4jOperators extends NoSqlDbOperators {
         return null;
     }
 
+    public static scala.collection.immutable.Map<String, Object> toScalaMap(HashMap<String, Object> m) {
+        return JavaConverters.mapAsScalaMapConverter(m).asScala().toMap(
+                Predef.<Tuple2<String, Object>>conforms());
+
+    }
+
     @Override
     public Dataset<Row> toDataframe() {
+
+
+        Neo4JavaSparkContext neo = Neo4JavaSparkContext.neo4jContext(getSparkSession().sparkContext());
+        long maxId = 50L;
+        Dataset<Row> o = neo.queryDF("MATCH (n:Ship) WHERE n.CRAFT_ID > $maxId RETURN n.CRAFT_ID, n.LAT, n.LON, n.TIMESTAMP", Collections.singletonMap("maxId", maxId));
+        o.printSchema();
+//        o.show();
+
+
+        o.toJSON().show();
+
+        server.main(null);
+
+        System.out.println("--------------------: " + o);
+
         return null;
     }
 
