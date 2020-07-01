@@ -4,11 +4,11 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-public class NodaSqlOperators {
+public class NoSqlDbSqlStatement {
 
     private NoSqlDbOperators noSqlDbOperators;
 
-    private NodaSqlOperators(NoSqlDbOperators noSqlDbOperators){
+    private NoSqlDbSqlStatement(NoSqlDbOperators noSqlDbOperators){
         this.noSqlDbOperators = noSqlDbOperators;
     }
 
@@ -20,7 +20,7 @@ public class NodaSqlOperators {
         noSqlDbOperators.printScreen();
     }
 
-    public static NodaSqlOperators newNodaSqlOperators(NoSqlDbOperators noSqlDbOperators){
-        return new NodaSqlOperators(noSqlDbOperators);
+    public static NoSqlDbSqlStatement newNodaSqlOperators(NoSqlDbOperators noSqlDbOperators){
+        return new NoSqlDbSqlStatement(noSqlDbOperators);
     }
 }

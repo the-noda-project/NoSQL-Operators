@@ -8,6 +8,7 @@ import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import gr.ds.unipi.noda.api.redisearch.filterOperators.RediSearchPostFilterOperator;
+import gr.ds.unipi.noda.api.redisearch.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.OperatorTopKInGeoTextualCircle;
 import gr.ds.unipi.noda.api.redisearch.filterOperators.geoperators.geographicalOperators.OperatorGeoNearestNeighbors;
 import gr.ds.unipi.noda.api.redisearch.filterOperators.geoperators.geographicalOperators.RediSearchGeographicalOperator;
 import gr.ds.unipi.noda.api.redisearch.filterOperators.geoperators.geographicalOperators.RediSearchGeographicalOperatorFactory;
@@ -79,6 +80,9 @@ public final class RediSearchOperators extends NoSqlDbOperators {
         }
         func.apply(filterOperator, filterOperators).filter(RediSearchGeographicalOperatorFactory::isOperatorGeoNearestNeighbor).findAny()
                 .ifPresent(filterOperator1 -> queryHelper().applyResultLimit(((OperatorGeoNearestNeighbors) filterOperator1).getNeighborsCount()));
+
+        func.apply(filterOperator, filterOperators).filter(filterOperator1 -> filterOperator1 instanceof OperatorTopKInGeoTextualCircle).findAny()
+                .ifPresent(filterOperator2 -> queryHelper().applyResultLimit(((OperatorTopKInGeoTextualCircle) filterOperator2).getTopK()));
     }
 
     @Override

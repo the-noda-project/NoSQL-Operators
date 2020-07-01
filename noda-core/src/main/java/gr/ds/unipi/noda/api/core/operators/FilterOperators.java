@@ -198,15 +198,15 @@ public class FilterOperators {
     }
 
     public static FilterOperator inGeoCircleKm(String fieldName, Coordinates point, double radius) {
-        return GeographicalOperator.geoSpatialOperator.newOperatorInGeoCircleKm(fieldName, Circle.newCircle(point, radius * 1000));
+        return GeographicalOperator.geoSpatialOperator.newOperatorInGeoCircle(fieldName, Circle.newCircle(point, radius * 1000));
     }
 
     public static FilterOperator inGeoCircleMeters(String fieldName, Coordinates point, double radius) {
-        return GeographicalOperator.geoSpatialOperator.newOperatorInGeoCircleMeters(fieldName, Circle.newCircle(point, radius));
+        return GeographicalOperator.geoSpatialOperator.newOperatorInGeoCircle(fieldName, Circle.newCircle(point, radius));
     }
 
     public static FilterOperator inGeoCircleMiles(String fieldName, Coordinates point, double radius) {
-        return GeographicalOperator.geoSpatialOperator.newOperatorInGeoCircleMiles(fieldName, Circle.newCircle(point, radius * 1609.344));
+        return GeographicalOperator.geoSpatialOperator.newOperatorInGeoCircle(fieldName, Circle.newCircle(point, radius * 1609.344));
     }
 
     public static FilterOperator geoNearestNeighbors(String fieldName, Coordinates point, int neighbors) {

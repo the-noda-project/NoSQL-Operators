@@ -1,7 +1,7 @@
 package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.client.sql.CaseChangingCharStream;
-import gr.ds.unipi.noda.api.client.sql.NodaSqlListener;
+import gr.ds.unipi.noda.api.client.sql.NoSqlDbSqlStatementListener;
 import gr.ds.unipi.noda.api.client.sql.SqlBaseLexer;
 import gr.ds.unipi.noda.api.client.sql.SqlBaseParser;
 import org.antlr.v4.runtime.CharStream;
@@ -9,12 +9,13 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 
 public class SqlParserTest {
-
+    @Ignore
     @Test
     public void parseStatement() throws IOException {
         //String sql = "SELECT columnFamily-columnQualifier, anotherColumns, fdf FROM students, sk.pk WHERE surname = 1.423 AND postalCode = 4 AND GEOTEMPORAL(3,4) >3 OR KLASS(43) != d";
@@ -66,7 +67,7 @@ public class SqlParserTest {
 //        System.out.println(tree.getChild(0).getText());
 //
         ParseTreeWalker walker = new ParseTreeWalker();
-        NodaSqlListener listener = NodaSqlListener.newNodaSqlListener();
+        NoSqlDbSqlStatementListener listener = NoSqlDbSqlStatementListener.newNodaSqlListener();
         walker.walk(listener,tree);
 
         System.out.println(listener.getSource());

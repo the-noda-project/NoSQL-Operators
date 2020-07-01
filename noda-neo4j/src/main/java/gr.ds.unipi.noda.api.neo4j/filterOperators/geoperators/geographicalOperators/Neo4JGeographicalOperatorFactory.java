@@ -20,17 +20,7 @@ public final class Neo4JGeographicalOperatorFactory extends BaseGeographicalOper
     }
 
     @Override
-    public GeographicalOperator newOperatorInGeoCircleKm(String fieldName, Circle circle) {
-        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, circle);
-    }
-
-    @Override
-    public GeographicalOperator newOperatorInGeoCircleMeters(String fieldName, Circle circle) {
-        return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, circle);
-    }
-
-    @Override
-    public GeographicalOperator newOperatorInGeoCircleMiles(String fieldName, Circle circle) {
+    public GeographicalOperator newOperatorInGeoCircle(String fieldName, Circle circle) {
         return OperatorInGeographicalCircle.newOperatorInGeographicalCircle(fieldName, circle);
     }
 
