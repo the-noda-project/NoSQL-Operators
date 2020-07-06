@@ -47,7 +47,7 @@ public class Neo4JSystem extends NoSqlDbSystem {
             this.authToken = authToken;
         }
 
-        public Builder(String username, String password, String database){
+        public Builder(String username, String password){
             this.authToken = AuthTokens.basic(username, password);
         }
 
