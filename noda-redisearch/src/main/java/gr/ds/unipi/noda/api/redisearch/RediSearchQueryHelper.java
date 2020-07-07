@@ -28,8 +28,8 @@ class RediSearchQueryHelper {
     private Query query;
     private ZRangeInfo zRangeInfo;
     private boolean isAggregate;
-    private QueryNode queryBuilder;
-    private ArrayDeque<Group> groups;
+    private final QueryNode queryBuilder;
+    private final ArrayDeque<Group> groups;
 
     public RediSearchQueryHelper(String indexName, Pool<Jedis> jedisPool) {
         this.jedisPool = jedisPool;
