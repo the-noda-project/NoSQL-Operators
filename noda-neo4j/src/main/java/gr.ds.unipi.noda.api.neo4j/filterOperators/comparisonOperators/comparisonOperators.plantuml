@@ -1,0 +1,181 @@
+@startuml
+
+title __COMPARISONOPERATORS's Class Diagram__\n
+
+  namespace gr.ds.unipi.noda.api.neo4j {
+    namespace filterOperators.comparisonOperators {
+      abstract class gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.ComparisonOperator {
+          + getOperatorExpression()
+          # ComparisonOperator()
+          {abstract} ~ getComparisonType()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.neo4j {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.Neo4jComparisonOperatorFactory {
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorGt()
+          + newOperatorGt()
+          + newOperatorGt()
+          + newOperatorGt()
+          + newOperatorGt()
+          + newOperatorGt()
+          + newOperatorGte()
+          + newOperatorGte()
+          + newOperatorGte()
+          + newOperatorGte()
+          + newOperatorGte()
+          + newOperatorGte()
+          + newOperatorLt()
+          + newOperatorLt()
+          + newOperatorLt()
+          + newOperatorLt()
+          + newOperatorLt()
+          + newOperatorLt()
+          + newOperatorLte()
+          + newOperatorLte()
+          + newOperatorLte()
+          + newOperatorLte()
+          + newOperatorLte()
+          + newOperatorLte()
+          + newOperatorNe()
+          + newOperatorNe()
+          + newOperatorNe()
+          + newOperatorNe()
+          + newOperatorNe()
+          + newOperatorNe()
+          + newOperatorNe()
+          + newOperatorNe()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.neo4j {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.OperatorEqual {
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          # getComparisonType()
+          - OperatorEqual()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.neo4j {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.OperatorGreaterThan {
+          {static} + newOperatorGreaterThan()
+          {static} + newOperatorGreaterThan()
+          {static} + newOperatorGreaterThan()
+          {static} + newOperatorGreaterThan()
+          {static} + newOperatorGreaterThan()
+          {static} + newOperatorGreaterThan()
+          # getComparisonType()
+          - OperatorGreaterThan()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.neo4j {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.OperatorGreaterThanEqual {
+          {static} + newOperatorGreaterThanEqual()
+          {static} + newOperatorGreaterThanEqual()
+          {static} + newOperatorGreaterThanEqual()
+          {static} + newOperatorGreaterThanEqual()
+          {static} + newOperatorGreaterThanEqual()
+          {static} + newOperatorGreaterThanEqual()
+          # getComparisonType()
+          - OperatorGreaterThanEqual()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.neo4j {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.OperatorLessThan {
+          {static} + newOperatorLessThan()
+          {static} + newOperatorLessThan()
+          {static} + newOperatorLessThan()
+          {static} + newOperatorLessThan()
+          {static} + newOperatorLessThan()
+          {static} + newOperatorLessThan()
+          # getComparisonType()
+          - OperatorLessThan()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.neo4j {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.OperatorLessThanEqual {
+          {static} + newOperatorLessThanEqual()
+          {static} + newOperatorLessThanEqual()
+          {static} + newOperatorLessThanEqual()
+          {static} + newOperatorLessThanEqual()
+          {static} + newOperatorLessThanEqual()
+          {static} + newOperatorLessThanEqual()
+          # getComparisonType()
+          - OperatorLessThanEqual()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.neo4j {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.OperatorNotEqual {
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          # getComparisonType()
+          - OperatorNotEqual()
+      }
+    }
+  }
+  
+
+  gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.ComparisonOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.Neo4jComparisonOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory
+  gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.OperatorEqual -up-|> gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.OperatorGreaterThan -up-|> gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.OperatorGreaterThanEqual -up-|> gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.OperatorLessThan -up-|> gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.OperatorLessThanEqual -up-|> gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.OperatorNotEqual -up-|> gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.ComparisonOperator
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

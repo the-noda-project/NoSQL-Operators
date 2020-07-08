@@ -1,0 +1,174 @@
+@startuml
+
+title __COMPARISONOPERATORS's Class Diagram__\n
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      abstract class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator {
+          + getOperatorExpression()
+          # ComparisonOperator()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorEqual {
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          {static} + newOperatorEqual()
+          - OperatorEqual()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorGreaterThan {
+          {static} + newOperatorGreaterThan()
+          {static} + newOperatorGreaterThan()
+          {static} + newOperatorGreaterThan()
+          {static} + newOperatorGreaterThan()
+          {static} + newOperatorGreaterThan()
+          {static} + newOperatorGreaterThan()
+          - OperatorGreaterThan()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorGreaterThanEqual {
+          {static} + newOperatorGreaterThanEqual()
+          {static} + newOperatorGreaterThanEqual()
+          {static} + newOperatorGreaterThanEqual()
+          {static} + newOperatorGreaterThanEqual()
+          {static} + newOperatorGreaterThanEqual()
+          {static} + newOperatorGreaterThanEqual()
+          - OperatorGreaterThanEqual()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorLessThan {
+          {static} + newOperatorLessThan()
+          {static} + newOperatorLessThan()
+          {static} + newOperatorLessThan()
+          {static} + newOperatorLessThan()
+          {static} + newOperatorLessThan()
+          {static} + newOperatorLessThan()
+          - OperatorLessThan()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorLessThanEqual {
+          {static} + newOperatorLessThanEqual()
+          {static} + newOperatorLessThanEqual()
+          {static} + newOperatorLessThanEqual()
+          {static} + newOperatorLessThanEqual()
+          {static} + newOperatorLessThanEqual()
+          {static} + newOperatorLessThanEqual()
+          - OperatorLessThanEqual()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorNotEqual {
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          {static} + newOperatorNotEqual()
+          - OperatorNotEqual()
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.RedisComparisonOperatorFactory {
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorEq()
+          + newOperatorGt()
+          + newOperatorGt()
+          + newOperatorGt()
+          + newOperatorGt()
+          + newOperatorGt()
+          + newOperatorGt()
+          + newOperatorGte()
+          + newOperatorGte()
+          + newOperatorGte()
+          + newOperatorGte()
+          + newOperatorGte()
+          + newOperatorGte()
+          + newOperatorLt()
+          + newOperatorLt()
+          + newOperatorLt()
+          + newOperatorLt()
+          + newOperatorLt()
+          + newOperatorLt()
+          + newOperatorLte()
+          + newOperatorLte()
+          + newOperatorLte()
+          + newOperatorLte()
+          + newOperatorLte()
+          + newOperatorLte()
+          + newOperatorNe()
+          + newOperatorNe()
+          + newOperatorNe()
+          + newOperatorNe()
+          + newOperatorNe()
+          + newOperatorNe()
+          + newOperatorNe()
+          + newOperatorNe()
+      }
+    }
+  }
+  
+
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorEqual -up-|> gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorGreaterThan -up-|> gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorGreaterThanEqual -up-|> gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorLessThan -up-|> gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorLessThanEqual -up-|> gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorNotEqual -up-|> gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.RedisComparisonOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

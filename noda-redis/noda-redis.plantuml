@@ -1,0 +1,384 @@
+@startuml
+
+title __NOSQL-OPERATORS-REDIS's Class Diagram__\n
+
+  namespace gr.ds.unipi.noda.api.redis {
+    class gr.ds.unipi.noda.api.redis.RedisConnectionFactory {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    class gr.ds.unipi.noda.api.redis.RedisConnectionManager {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    class gr.ds.unipi.noda.api.redis.RedisConnector {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    class gr.ds.unipi.noda.api.redis.RedisOperators {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace aggregateOperator {
+      abstract class gr.ds.unipi.noda.api.redis.aggregateOperator.AggregateOperator {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace aggregateOperator {
+      class gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorAvg {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace aggregateOperator {
+      class gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorCount {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace aggregateOperator {
+      class gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorCountDistinct {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace aggregateOperator {
+      class gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorCountNonNull {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace aggregateOperator {
+      class gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorMax {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace aggregateOperator {
+      class gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorMin {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace aggregateOperator {
+      class gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorSum {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace aggregateOperator {
+      class gr.ds.unipi.noda.api.redis.aggregateOperator.RedisAggregateOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      abstract class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorEqual {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorGreaterThan {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorGreaterThanEqual {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorLessThan {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorLessThanEqual {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorNotEqual {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.comparisonOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.RedisComparisonOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.geoperators.geoTemporalOperators {
+      abstract class gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.GeoTemporalOperator {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.geoperators.geoTemporalOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.OperatorInGeoTemporalCircle {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.geoperators.geoTemporalOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.OperatorInGeoTemporalPolygon {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.geoperators.geoTemporalOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.OperatorInGeoTemporalRectangle {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.geoperators.geoTemporalOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.RedisGeoTemporalOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.geoperators.geoTextualOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTextualOperators.RedisGeoTextualOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.geoperators.geographicalOperators {
+      abstract class gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.GeographicalOperator {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.geoperators.geographicalOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.OperatorGeoNearestNeighbors {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.geoperators.geographicalOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.OperatorInGeoCircle {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.geoperators.geographicalOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.OperatorInGeoPolygon {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.geoperators.geographicalOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.OperatorInGeoRectangle {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.geoperators.geographicalOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.RedisGeographicalOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.logicalOperators {
+      abstract class gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.LogicalOperator {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.logicalOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.OperatorAnd {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.logicalOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.OperatorOr {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.logicalOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.RedisLogicalOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace filterOperator.textualOperators {
+      class gr.ds.unipi.noda.api.redis.filterOperator.textualOperators.RedisTextualOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace sortOperator {
+      class gr.ds.unipi.noda.api.redis.sortOperator.OperatorAsc {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace sortOperator {
+      class gr.ds.unipi.noda.api.redis.sortOperator.OperatorDesc {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace sortOperator {
+      class gr.ds.unipi.noda.api.redis.sortOperator.RedisSortOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.redis {
+    namespace sortOperator {
+      abstract class gr.ds.unipi.noda.api.redis.sortOperator.SortOperator {
+      }
+    }
+  }
+  
+
+  gr.ds.unipi.noda.api.redis.RedisConnectionFactory -up-|> gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory
+  gr.ds.unipi.noda.api.redis.RedisConnectionManager -up-|> gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnectionManager
+  gr.ds.unipi.noda.api.redis.RedisConnector .up.|> gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector
+  gr.ds.unipi.noda.api.redis.RedisOperators -up-|> gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators
+  gr.ds.unipi.noda.api.redis.aggregateOperator.AggregateOperator -up-|> gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator
+  gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorAvg -up-|> gr.ds.unipi.noda.api.redis.aggregateOperator.AggregateOperator
+  gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorCount -up-|> gr.ds.unipi.noda.api.redis.aggregateOperator.AggregateOperator
+  gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorCountDistinct -up-|> gr.ds.unipi.noda.api.redis.aggregateOperator.AggregateOperator
+  gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorCountNonNull -up-|> gr.ds.unipi.noda.api.redis.aggregateOperator.AggregateOperator
+  gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorMax -up-|> gr.ds.unipi.noda.api.redis.aggregateOperator.AggregateOperator
+  gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorMin -up-|> gr.ds.unipi.noda.api.redis.aggregateOperator.AggregateOperator
+  gr.ds.unipi.noda.api.redis.aggregateOperator.OperatorSum -up-|> gr.ds.unipi.noda.api.redis.aggregateOperator.AggregateOperator
+  gr.ds.unipi.noda.api.redis.aggregateOperator.RedisAggregateOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorEqual -up-|> gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorGreaterThan -up-|> gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorGreaterThanEqual -up-|> gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorLessThan -up-|> gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorLessThanEqual -up-|> gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.OperatorNotEqual -up-|> gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.RedisComparisonOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory
+  gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.GeoTemporalOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.OperatorInGeoTemporalCircle -up-|> gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.GeoTemporalOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.OperatorInGeoTemporalPolygon -up-|> gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.GeoTemporalOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.OperatorInGeoTemporalRectangle -up-|> gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.GeoTemporalOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.RedisGeoTemporalOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory
+  gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTextualOperators.RedisGeoTextualOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.BaseGeoTextualOperatorFactory
+  gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.GeographicalOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.OperatorGeoNearestNeighbors -up-|> gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.GeographicalOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.OperatorInGeoCircle -up-|> gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.GeographicalOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.OperatorInGeoPolygon -up-|> gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.GeographicalOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.OperatorInGeoRectangle -up-|> gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.GeographicalOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.RedisGeographicalOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.BaseGeographicalOperatorFactory
+  gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.LogicalOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.OperatorAnd -up-|> gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.LogicalOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.OperatorOr -up-|> gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.LogicalOperator
+  gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.RedisLogicalOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory
+  gr.ds.unipi.noda.api.redis.filterOperator.textualOperators.RedisTextualOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory
+  gr.ds.unipi.noda.api.redis.sortOperator.OperatorAsc -up-|> gr.ds.unipi.noda.api.redis.sortOperator.SortOperator
+  gr.ds.unipi.noda.api.redis.sortOperator.OperatorDesc -up-|> gr.ds.unipi.noda.api.redis.sortOperator.SortOperator
+  gr.ds.unipi.noda.api.redis.sortOperator.RedisSortOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory
+  gr.ds.unipi.noda.api.redis.sortOperator.SortOperator -up-|> gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

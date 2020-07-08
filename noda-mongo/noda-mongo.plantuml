@@ -1,0 +1,464 @@
+@startuml
+
+title __NOSQL-OPERATORS-MONGO's Class Diagram__\n
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    class gr.ds.unipi.noda.api.mongo.MongoDBConnectionFactory {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    class gr.ds.unipi.noda.api.mongo.MongoDBConnectionManager {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    class gr.ds.unipi.noda.api.mongo.MongoDBConnector {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    class gr.ds.unipi.noda.api.mongo.MongoDBOperators {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace aggregateOperators {
+      abstract class gr.ds.unipi.noda.api.mongo.aggregateOperators.AggregateOperator {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace aggregateOperators {
+      class gr.ds.unipi.noda.api.mongo.aggregateOperators.MongoDBAggregateOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace aggregateOperators {
+      class gr.ds.unipi.noda.api.mongo.aggregateOperators.OperatorAvg {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace aggregateOperators {
+      class gr.ds.unipi.noda.api.mongo.aggregateOperators.OperatorCount {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace aggregateOperators {
+      class gr.ds.unipi.noda.api.mongo.aggregateOperators.OperatorCountNonNull {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace aggregateOperators {
+      class gr.ds.unipi.noda.api.mongo.aggregateOperators.OperatorMax {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace aggregateOperators {
+      class gr.ds.unipi.noda.api.mongo.aggregateOperators.OperatorMin {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace aggregateOperators {
+      class gr.ds.unipi.noda.api.mongo.aggregateOperators.OperatorSum {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.comparisonOperators {
+      abstract class gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.ComparisonOperator {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.MongoDBComparisonOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.OperatorEqual {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.OperatorGreaterThan {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.OperatorGreaterThanEqual {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.OperatorLessThan {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.OperatorLessThanEqual {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.comparisonOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.OperatorNotEqual {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTemporalOperators {
+      abstract class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTemporalOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.MongoDBGeoTemporalOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTemporalOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.OperatorInGeoTemporalCircle {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTemporalOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.OperatorInGeoTemporalPolygon {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTemporalOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.OperatorInGeoTemporalRectangle {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTextualOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.MongoDBGeoTextualOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTextualOperators {
+      namespace geoTextualApproximateOperators {
+        abstract class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.GeoTextualApproximateOperator {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTextualOperators {
+      namespace geoTextualApproximateOperators {
+        class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.OperatorTopKInGeoTextualCircle {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTextualOperators {
+      namespace geoTextualApproximateOperators {
+        class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.OperatorTopKInGeoTextualPolygon {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTextualOperators {
+      namespace geoTextualApproximateOperators {
+        class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.OperatorTopKInGeoTextualRectangle {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTextualOperators {
+      namespace geoTextualConstraintOperators {
+        abstract class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTextualOperators {
+      namespace geoTextualConstraintOperators {
+        class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.OperatorInGeoTextualCircle {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTextualOperators {
+      namespace geoTextualConstraintOperators {
+        class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.OperatorInGeoTextualPolygon {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geoTextualOperators {
+      namespace geoTextualConstraintOperators {
+        class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.OperatorInGeoTextualRectangle {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geographicalOperators {
+      abstract class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.GeographicalOperator {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geographicalOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.MongoDBGeographicalOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geographicalOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.OperatorGeoNearestNeighbors {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geographicalOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.OperatorInGeoCircle {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geographicalOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.OperatorInGeoPolygon {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.geoperators.geographicalOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.OperatorInGeoRectangle {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.logicalOperators {
+      abstract class gr.ds.unipi.noda.api.mongo.filterOperators.logicalOperators.LogicalOperator {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.logicalOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.logicalOperators.MongoDBLogicalOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.logicalOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.logicalOperators.OperatorAnd {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.logicalOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.logicalOperators.OperatorOr {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace filterOperators.textualOperators {
+      class gr.ds.unipi.noda.api.mongo.filterOperators.textualOperators.MongoDBTextualOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace sortOperators {
+      class gr.ds.unipi.noda.api.mongo.sortOperators.MongoDBSortOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace sortOperators {
+      class gr.ds.unipi.noda.api.mongo.sortOperators.OperatorAsc {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace sortOperators {
+      class gr.ds.unipi.noda.api.mongo.sortOperators.OperatorDesc {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.mongo {
+    namespace sortOperators {
+      abstract class gr.ds.unipi.noda.api.mongo.sortOperators.SortOperator {
+      }
+    }
+  }
+  
+
+  gr.ds.unipi.noda.api.mongo.MongoDBConnectionFactory -up-|> gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory
+  gr.ds.unipi.noda.api.mongo.MongoDBConnectionManager -up-|> gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnectionManager
+  gr.ds.unipi.noda.api.mongo.MongoDBConnector .up.|> gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector
+  gr.ds.unipi.noda.api.mongo.MongoDBOperators -up-|> gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators
+  gr.ds.unipi.noda.api.mongo.MongoDBOperators o-- gr.ds.unipi.noda.api.mongo.MongoDBConnectionManager : mongoDBConnectionManager
+  gr.ds.unipi.noda.api.mongo.aggregateOperators.AggregateOperator -up-|> gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator
+  gr.ds.unipi.noda.api.mongo.aggregateOperators.MongoDBAggregateOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory
+  gr.ds.unipi.noda.api.mongo.aggregateOperators.OperatorAvg -up-|> gr.ds.unipi.noda.api.mongo.aggregateOperators.AggregateOperator
+  gr.ds.unipi.noda.api.mongo.aggregateOperators.OperatorCount -up-|> gr.ds.unipi.noda.api.mongo.aggregateOperators.AggregateOperator
+  gr.ds.unipi.noda.api.mongo.aggregateOperators.OperatorCountNonNull -up-|> gr.ds.unipi.noda.api.mongo.aggregateOperators.AggregateOperator
+  gr.ds.unipi.noda.api.mongo.aggregateOperators.OperatorMax -up-|> gr.ds.unipi.noda.api.mongo.aggregateOperators.AggregateOperator
+  gr.ds.unipi.noda.api.mongo.aggregateOperators.OperatorMin -up-|> gr.ds.unipi.noda.api.mongo.aggregateOperators.AggregateOperator
+  gr.ds.unipi.noda.api.mongo.aggregateOperators.OperatorSum -up-|> gr.ds.unipi.noda.api.mongo.aggregateOperators.AggregateOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.ComparisonOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.MongoDBComparisonOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory
+  gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.OperatorEqual -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.OperatorGreaterThan -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.OperatorGreaterThanEqual -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.OperatorLessThan -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.OperatorLessThanEqual -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.OperatorNotEqual -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.ComparisonOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.MongoDBGeoTemporalOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.OperatorInGeoTemporalCircle -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.OperatorInGeoTemporalPolygon -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.OperatorInGeoTemporalRectangle -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.MongoDBGeoTextualOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.BaseGeoTextualOperatorFactory
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.GeoTextualApproximateOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.GeoTextualApproximateOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.OperatorTopKInGeoTextualCircle -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.GeoTextualApproximateOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.OperatorTopKInGeoTextualPolygon -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.GeoTextualApproximateOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.OperatorTopKInGeoTextualRectangle -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.GeoTextualApproximateOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.OperatorInGeoTextualCircle -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.OperatorInGeoTextualPolygon -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.OperatorInGeoTextualRectangle -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.GeographicalOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.MongoDBGeographicalOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.BaseGeographicalOperatorFactory
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.OperatorGeoNearestNeighbors -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.GeographicalOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.OperatorInGeoCircle -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.GeographicalOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.OperatorInGeoPolygon -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.GeographicalOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.OperatorInGeoRectangle -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.GeographicalOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.logicalOperators.LogicalOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.logicalOperators.MongoDBLogicalOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory
+  gr.ds.unipi.noda.api.mongo.filterOperators.logicalOperators.OperatorAnd -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.logicalOperators.LogicalOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.logicalOperators.OperatorOr -up-|> gr.ds.unipi.noda.api.mongo.filterOperators.logicalOperators.LogicalOperator
+  gr.ds.unipi.noda.api.mongo.filterOperators.textualOperators.MongoDBTextualOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory
+  gr.ds.unipi.noda.api.mongo.sortOperators.MongoDBSortOperatorFactory -up-|> gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory
+  gr.ds.unipi.noda.api.mongo.sortOperators.OperatorAsc -up-|> gr.ds.unipi.noda.api.mongo.sortOperators.SortOperator
+  gr.ds.unipi.noda.api.mongo.sortOperators.OperatorDesc -up-|> gr.ds.unipi.noda.api.mongo.sortOperators.SortOperator
+  gr.ds.unipi.noda.api.mongo.sortOperators.SortOperator -up-|> gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

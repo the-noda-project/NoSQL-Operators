@@ -1,0 +1,185 @@
+@startuml
+
+title __NOSQL-OPERATORS-CLIENT's Class Diagram__\n
+
+  namespace gr.ds.unipi.noda.api.client {
+    abstract class gr.ds.unipi.noda.api.client.NoSqlDbSystem {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace YYYDatabase {
+      class gr.ds.unipi.noda.api.client.YYYDatabase.YYYDatabaseBuilderFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace YYYDatabase {
+      class gr.ds.unipi.noda.api.client.YYYDatabase.YYYDatabaseSystem {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace hbase {
+      class gr.ds.unipi.noda.api.client.hbase.HBaseBuilderFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace hbase {
+      class gr.ds.unipi.noda.api.client.hbase.HBaseSystem {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace mongo {
+      class gr.ds.unipi.noda.api.client.mongo.MongoDBBuilderFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace mongo {
+      class gr.ds.unipi.noda.api.client.mongo.MongoDBSystem {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace neo4j {
+      class gr.ds.unipi.noda.api.client.neo4j.Neo4JSystem {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace neo4j {
+      class gr.ds.unipi.noda.api.client.neo4j.Neo4jBuilderFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace redisearch {
+      class gr.ds.unipi.noda.api.client.redisearch.RediSearchBuilderFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace redisearch {
+      class gr.ds.unipi.noda.api.client.redisearch.RediSearchSystem {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace redisearch {
+      class gr.ds.unipi.noda.api.client.redisearch.RediSearchSystemSentinels {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace sql {
+      class gr.ds.unipi.noda.api.client.sql.CaseChangingCharStream {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace sql {
+      class gr.ds.unipi.noda.api.client.sql.NoSqlDbSqlStatement {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace sql {
+      class gr.ds.unipi.noda.api.client.sql.NoSqlDbSqlStatementListener {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace sql {
+      class gr.ds.unipi.noda.api.client.sql.SqlBaseBaseListener {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace sql {
+      class gr.ds.unipi.noda.api.client.sql.SqlBaseLexer {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace sql {
+      interface gr.ds.unipi.noda.api.client.sql.SqlBaseListener {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.client {
+    namespace sql {
+      class gr.ds.unipi.noda.api.client.sql.SqlBaseParser {
+      }
+    }
+  }
+  
+
+  gr.ds.unipi.noda.api.client.NoSqlDbSystem o-- gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory : nsdb
+  gr.ds.unipi.noda.api.client.YYYDatabase.YYYDatabaseSystem -up-|> gr.ds.unipi.noda.api.client.NoSqlDbSystem
+  gr.ds.unipi.noda.api.client.YYYDatabase.YYYDatabaseSystem o-- gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector : connector
+  gr.ds.unipi.noda.api.client.hbase.HBaseSystem -up-|> gr.ds.unipi.noda.api.client.NoSqlDbSystem
+  gr.ds.unipi.noda.api.client.hbase.HBaseSystem o-- gr.ds.unipi.noda.api.hbase.HBaseConnector : connector
+  gr.ds.unipi.noda.api.client.mongo.MongoDBSystem -up-|> gr.ds.unipi.noda.api.client.NoSqlDbSystem
+  gr.ds.unipi.noda.api.client.mongo.MongoDBSystem o-- gr.ds.unipi.noda.api.mongo.MongoDBConnector : connector
+  gr.ds.unipi.noda.api.client.neo4j.Neo4JSystem -up-|> gr.ds.unipi.noda.api.client.NoSqlDbSystem
+  gr.ds.unipi.noda.api.client.neo4j.Neo4JSystem o-- gr.ds.unipi.noda.api.neo4j.Neo4jConnector : connector
+  gr.ds.unipi.noda.api.client.redisearch.RediSearchSystem -up-|> gr.ds.unipi.noda.api.client.NoSqlDbSystem
+  gr.ds.unipi.noda.api.client.redisearch.RediSearchSystem o-- gr.ds.unipi.noda.api.redisearch.RediSearchConnector : connector
+  gr.ds.unipi.noda.api.client.redisearch.RediSearchSystemSentinels -up-|> gr.ds.unipi.noda.api.client.NoSqlDbSystem
+  gr.ds.unipi.noda.api.client.redisearch.RediSearchSystemSentinels o-- gr.ds.unipi.noda.api.redisearch.RediSearchConnector : connector
+  gr.ds.unipi.noda.api.client.sql.CaseChangingCharStream .up.|> org.antlr.v4.runtime.CharStream
+  gr.ds.unipi.noda.api.client.sql.NoSqlDbSqlStatement o-- gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators : noSqlDbOperators
+  gr.ds.unipi.noda.api.client.sql.NoSqlDbSqlStatementListener -up-|> gr.ds.unipi.noda.api.client.sql.SqlBaseBaseListener
+  gr.ds.unipi.noda.api.client.sql.NoSqlDbSqlStatementListener o-- gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator : finalFilterOperator
+  gr.ds.unipi.noda.api.client.sql.NoSqlDbSqlStatementListener o-- gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators : noSqlDbOperators
+  gr.ds.unipi.noda.api.client.sql.SqlBaseBaseListener .up.|> gr.ds.unipi.noda.api.client.sql.SqlBaseListener
+  gr.ds.unipi.noda.api.client.sql.SqlBaseLexer -up-|> org.antlr.v4.runtime.Lexer
+  gr.ds.unipi.noda.api.client.sql.SqlBaseParser -up-|> org.antlr.v4.runtime.Parser
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

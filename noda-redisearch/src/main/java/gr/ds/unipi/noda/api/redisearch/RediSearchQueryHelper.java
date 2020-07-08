@@ -83,28 +83,19 @@ class RediSearchQueryHelper {
     }
 
     public void printResults() {
-        if (Objects.nonNull(zRangeInfo)) {
-            Map<String, Set<String>> rectangleSearchMember = zRangeInfo.getKeys().stream()
-                    .collect(Collectors.toMap(o -> o, o -> jedisPool.getResource().zrangeByScore(o, zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore())));
+        Optional.ofNullable(zRangeInfo).map(zRangeInfo1 -> {
+            Map<String, Set<String>> rectangleSearchMember = zRangeInfo1.getKeys().stream()
+                    .collect(Collectors.toMap(o -> o, o -> jedisPool.getResource().zrangeByScore(o, zRangeInfo1.getLowerBoundScore(), zRangeInfo1.getUpperBoundScore())));
             List<GeoCoordinate> geopos = rectangleSearchMember.entrySet().stream()
                     .map(key -> jedisPool.getResource().geopos(key.getKey(), key.getValue().toArray(StringPool.EMPTY_ARRAY)))
                     .flatMap(List::stream)
                     .collect(Collectors.toList());
             geopos.forEach(pos -> System.out.println(pos.toString()));
-        } else if (isAggregate) {
-            AggregationResult aggregate = client.aggregate(getAggregationBuilder());
-            List<Map<String, Object>> results = aggregate.getResults();
-            int index = 0;
-            for (Map<String, Object> t : results) {
-                int finalIndex = index;
-                t.keySet().forEach(k -> System.out.println(k + StringPool.COLON + aggregate.getRow(finalIndex).getString(k)));
-                index++;
-            }
-            System.out.println(aggregate.getResults());
-        } else {
-            SearchResult search = client.search(getQuery());
-            System.out.println(search.docs);
-        }
+            return null;
+        }).orElseGet(() -> {
+            PRINTER.findByValue(isAggregate).print(client, isAggregate ? getAggregationBuilder() : getQuery());
+            return null;
+        });
     }
 
     public void applyGroupBy(String fieldName, String... fieldNames) {
@@ -162,5 +153,40 @@ class RediSearchQueryHelper {
 
     public AggregationResult executeAggregation() {
         return client.aggregate(getAggregationBuilder());
+    }
+
+    private enum PRINTER {
+        AGGREGATE(true) {
+            @Override
+            public void print(Client client, Object o) {
+                AggregationResult aggregate = client.aggregate((AggregationBuilder) o);
+                List<Map<String, Object>> results = aggregate.getResults();
+                int index = 0;
+                for (Map<String, Object> t : results) {
+                    int finalIndex = index;
+                    t.keySet().forEach(k -> System.out.println(k + StringPool.COLON + aggregate.getRow(finalIndex).getString(k)));
+                    index++;
+                }
+                System.out.println(aggregate.getResults());
+            }
+        },
+        SEARCH(false) {
+            @Override
+            public void print(Client client, Object o) {
+                SearchResult search = client.search((Query) o);
+                System.out.println(search.docs);
+            }
+        };
+        private final boolean isAggregate;
+
+        PRINTER(boolean isAggregate) {
+            this.isAggregate = isAggregate;
+        }
+
+        public abstract void print(Client client, Object o);
+
+        public static PRINTER findByValue(final boolean val){
+            return Arrays.stream(values()).filter(value -> value.isAggregate == val).findFirst().orElse(null);
+        }
     }
 }

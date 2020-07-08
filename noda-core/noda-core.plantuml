@@ -1,0 +1,449 @@
+@startuml
+
+title __NOSQL-OPERATORS-CORE's Class Diagram__\n
+
+  namespace gr.ds.unipi.noda.api.core.constants {
+    enum AggregationKeywords {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.constants {
+    class gr.ds.unipi.noda.api.core.constants.Commons {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.constants {
+    class gr.ds.unipi.noda.api.core.constants.StringPool {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.nosqldb {
+    abstract class gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.nosqldb {
+    abstract class gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnectionManager {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.nosqldb {
+    interface gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.nosqldb {
+    abstract class gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    class gr.ds.unipi.noda.api.core.operators.AggregateOperators {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    class gr.ds.unipi.noda.api.core.operators.FilterOperators {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    interface gr.ds.unipi.noda.api.core.operators.Operator {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    class gr.ds.unipi.noda.api.core.operators.SortOperators {
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace aggregateOperators {
+      abstract class gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace aggregateOperators {
+      abstract class gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      interface gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace comparisonOperators {
+        abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace comparisonOperators {
+        abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.QuadTreeInstance {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geoTemporalOperators {
+          abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geoTemporalOperators {
+          abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geoTemporalOperators {
+          namespace temporal {
+            class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.SingleTemporalValue {
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geoTemporalOperators {
+          namespace temporal {
+            abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.Temporal {
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geoTemporalOperators {
+          namespace temporal {
+            class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds {
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geoTextualOperators {
+          abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.BaseGeoTextualOperatorFactory {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geoTextualOperators {
+          abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.GeoTextualOperator {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geoTextualOperators {
+          namespace geoTextualApproximateOperators {
+            abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.GeoTextualApproximateOperator {
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geoTextualOperators {
+          namespace geoTextualConstraintOperators {
+            abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator {
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geographicalOperators {
+          abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.BaseGeographicalOperatorFactory {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geographicalOperators {
+          abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geometries {
+          class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geometries {
+          abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geometries {
+          class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Point {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geometries {
+          class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace geoperators {
+        namespace geometries {
+          class gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace logicalOperators {
+        abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace logicalOperators {
+        abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace textualOperators {
+        abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace textualOperators {
+        abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator {
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace textualOperators {
+        namespace approximateTextualOperators {
+          abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.approximateTextualOperators.ApproximateTextualOperator {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace filterOperators {
+      namespace textualOperators {
+        namespace conditionalTextualOperators {
+          abstract class gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace sortOperators {
+      abstract class gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory {
+      }
+    }
+  }
+  
+
+  namespace gr.ds.unipi.noda.api.core.operators {
+    namespace sortOperators {
+      abstract class gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator {
+      }
+    }
+  }
+  
+
+  gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators o-- gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector : noSqlDbConnector
+  gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator .up.|> gr.ds.unipi.noda.api.core.operators.Operator
+  gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator .up.|> gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator
+  gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator o-- U : fieldValue
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator .up.|> gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator o-- S : temporalType
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.SingleTemporalValue -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.Temporal
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.Temporal
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.GeoTextualOperator .up.|> gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.GeoTextualApproximateOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.GeoTextualOperator
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.GeoTextualOperator
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator o-- gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator : conditionalTextualOperator
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator .up.|> gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator o-- U : geometry
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Point -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry
+  gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry
+  gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator .up.|> gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator
+  gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator .up.|> gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator
+  gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.approximateTextualOperators.ApproximateTextualOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator
+  gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator -up-|> gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator
+  gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator .up.|> gr.ds.unipi.noda.api.core.operators.Operator
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
