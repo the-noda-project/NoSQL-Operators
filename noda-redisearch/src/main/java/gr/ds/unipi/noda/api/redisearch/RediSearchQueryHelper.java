@@ -18,6 +18,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.util.Pool;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,6 +31,7 @@ class RediSearchQueryHelper {
     private boolean isAggregate;
     private final QueryNode queryBuilder;
     private final ArrayDeque<Group> groups;
+    private final Consumer<Optional<ZRangeInfo>> optionalConsumer;
 
     public RediSearchQueryHelper(String indexName, Pool<Jedis> jedisPool) {
         this.jedisPool = jedisPool;
@@ -37,6 +39,15 @@ class RediSearchQueryHelper {
         this.client = new Client(indexName, jedisPool);
         this.queryBuilder = QueryBuilder.intersect();
         this.groups = new ArrayDeque<>();
+        this.optionalConsumer = OptionalConsumer.of(zRangeInfo1 -> {
+            Map<String, Set<String>> rectangleSearchMember = zRangeInfo1.getKeys().stream()
+                    .collect(Collectors.toMap(o -> o, o -> jedisPool.getResource().zrangeByScore(o, zRangeInfo1.getLowerBoundScore(), zRangeInfo1.getUpperBoundScore())));
+            List<GeoCoordinate> geopos = rectangleSearchMember.entrySet().stream()
+                    .map(key -> jedisPool.getResource().geopos(key.getKey(), key.getValue().toArray(StringPool.EMPTY_ARRAY)))
+                    .flatMap(List::stream)
+                    .collect(Collectors.toList());
+            geopos.forEach(pos -> System.out.println(pos.toString()));
+        }, () -> PRINTER.findByValue(isAggregate).print(client, isAggregate ? getAggregationBuilder() : getQuery()));
     }
 
     private void enableAggregate() {
@@ -83,19 +94,7 @@ class RediSearchQueryHelper {
     }
 
     public void printResults() {
-        Optional.ofNullable(zRangeInfo).map(zRangeInfo1 -> {
-            Map<String, Set<String>> rectangleSearchMember = zRangeInfo1.getKeys().stream()
-                    .collect(Collectors.toMap(o -> o, o -> jedisPool.getResource().zrangeByScore(o, zRangeInfo1.getLowerBoundScore(), zRangeInfo1.getUpperBoundScore())));
-            List<GeoCoordinate> geopos = rectangleSearchMember.entrySet().stream()
-                    .map(key -> jedisPool.getResource().geopos(key.getKey(), key.getValue().toArray(StringPool.EMPTY_ARRAY)))
-                    .flatMap(List::stream)
-                    .collect(Collectors.toList());
-            geopos.forEach(pos -> System.out.println(pos.toString()));
-            return null;
-        }).orElseGet(() -> {
-            PRINTER.findByValue(isAggregate).print(client, isAggregate ? getAggregationBuilder() : getQuery());
-            return null;
-        });
+        optionalConsumer.accept(Optional.ofNullable(zRangeInfo));
     }
 
     public void applyGroupBy(String fieldName, String... fieldNames) {
