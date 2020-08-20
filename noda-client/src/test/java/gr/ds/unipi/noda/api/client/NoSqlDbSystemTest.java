@@ -1,11 +1,13 @@
 package gr.ds.unipi.noda.api.client;
 
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
 import org.apache.spark.sql.SparkSession;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.awt.*;
 import java.util.Arrays;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
@@ -40,11 +42,13 @@ public class NoSqlDbSystemTest {
                 .config("spark.neo4j.url","bolt://localhost:7687")
                 .getOrCreate();
 
+
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos").host("localhost").port(7687).sparkSession(spark).build();
 //        noSqlDbSystem.operateOn("Ship").filter(eq("LAT", -38.31416)).printScreen();
 //        noSqlDbSystem.operateOn("Ship").filter(inGeoCircleKm("LOCATION", Coordinates.newCoordinates(145.00441, -38.31416), 0.04)).printScreen();
-        noSqlDbSystem.operateOn("Ship")
-                .filter(and(lt("LAT",-38.31416), lt("LON",145.004403333), gt("SPEED", 20), lt("SPEED", 40))).toDataframe();
+//        noSqlDbSystem.operateOn("Ship").filter(inGeoCircleKm("LOCATION", Coordinates.newCoordinates(130.2440615, -28.4199005), 212)).printScreen();
+//        noSqlDbSystem.operateOn("Ship").filter(inGeoRectangle("LOCATION", Coordinates.newCoordinates(119.693533333, -39.22696), Coordinates.newCoordinates(120.693533333, -32.22696) )).printScreen();
+        noSqlDbSystem.operateOn("Ship").filter(and(lt("LAT",-38.31416), lt("LON",145.004403333), gt("SPEED", 20), lt("SPEED", 40))).toDataframe();
 //                .groupBy("DATEANDTIME", "TIMESTAMP")
 //                .aggregate( countDistinct("LAT"), sum("LAT").as("nikos") ).aggregate(max("LON")).toDataframe();
 

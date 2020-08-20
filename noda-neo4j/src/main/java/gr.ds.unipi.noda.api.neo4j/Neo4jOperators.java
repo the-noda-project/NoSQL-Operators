@@ -306,7 +306,7 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
         o.toJSON().show();
 
-        server.main(null);
+        server.main(new String[]{"mpla"});
 
         System.out.println("--------------------: " + o);
 
