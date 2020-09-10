@@ -14,8 +14,9 @@ import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.*;
 public class NoSqlDbSystemTest {
 
 //    public void neo4j(){
-//        NoSqlDbSystem noSqlDbSys =  NoSqlDbSystem.Neo4j().Builder("neo4j","nikos","graph").host("127.0.0.1").port(7687).build();
-//        //noSqlDbSys.operateOn("Ship").filter(or(eq("LAT",-38.31416), eq("LON",145.004403333), gt("SPEED", 20))).filter(eq("LAT",-38.31416)).sort(desc("COURSE")).sort(asc("LON")).printScreen();
+        NoSqlDbSystem noSqlDbSys =  NoSqlDbSystem.MongoDB().Builder("user","pass","collection").host("127.0.0.1").port(7687).build();
+
+        noSqlDbSys.operateOn("Ship").filter(or(eq("LAT",-38.31416), eq("LON",145.004403333), gt("SPEED", 20))).filter(eq("LAT",-38.31416)).sort(desc("COURSE")).sort(asc("LON")).printScreen();
 //        noSqlDbSys.operateOn("Ship").filter(eq("LAT",-38.31416)).printScreen();
 //        noSqlDbSys.closeConnection();
 //    }
@@ -34,6 +35,7 @@ public class NoSqlDbSystemTest {
 //        noSqlDbSystem.operateOn("Ship").filter(eq("LAT", -38.31416)).printScreen();
 //        noSqlDbSystem.operateOn("Ship").filter(inGeoCircleKm("LOCATION", Coordinates.newCoordinates(145.00441, -38.31416), 0.04)).printScreen();
         noSqlDbSystem.operateOn("Ship")
+                inGeoTemporalRectangle()
                 .filter(or(eq("LAT",-38.31416), eq("LON",145.004403333), gt("SPEED", 20)))
                 .groupBy("DATEANDTIME", "TIMESTAMP")
                 .aggregate( countDistinct("LAT"), sum("LAT").as("nikos") ).aggregate(max("LON"))
