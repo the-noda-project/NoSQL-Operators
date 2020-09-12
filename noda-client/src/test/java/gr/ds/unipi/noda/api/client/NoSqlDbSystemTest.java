@@ -1,6 +1,10 @@
 package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
+import gr.ds.unipi.noda.api.core.visualization.Visualize;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -9,9 +13,12 @@ import org.junit.Test;
 
 import java.awt.*;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.*;
+import static gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds.newTemporalBounds;
 
 
 public class NoSqlDbSystemTest {
@@ -42,13 +49,18 @@ public class NoSqlDbSystemTest {
                 .config("spark.neo4j.url","bolt://localhost:7687")
                 .getOrCreate();
 
+        Date datemax = new Date(1569887618);
+        Date datemin = new Date(1569801600);
 
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos").host("localhost").port(7687).sparkSession(spark).build();
 //        noSqlDbSystem.operateOn("Ship").filter(eq("LAT", -38.31416)).printScreen();
 //        noSqlDbSystem.operateOn("Ship").filter(inGeoCircleKm("LOCATION", Coordinates.newCoordinates(145.00441, -38.31416), 0.04)).printScreen();
 //        noSqlDbSystem.operateOn("Ship").filter(inGeoCircleKm("LOCATION", Coordinates.newCoordinates(130.2440615, -28.4199005), 212)).printScreen();
 //        noSqlDbSystem.operateOn("Ship").filter(inGeoRectangle("LOCATION", Coordinates.newCoordinates(119.693533333, -39.22696), Coordinates.newCoordinates(120.693533333, -32.22696) )).printScreen();
-        noSqlDbSystem.operateOn("Ship").filter(and(lt("LAT",-38.31416), lt("LON",145.004403333), gt("SPEED", 20), lt("SPEED", 40))).toDataframe();
+        Dataset<Row> dtfr = noSqlDbSystem.operateOn("Ship").filter(and(lt("LAT",-38.31416), lt("LON",145.004403333), gt("SPEED", 20), lt("SPEED", 40))).toDataframe();
+//        Visualize.trajectoriesTimelapse(dtfr);
+//          noSqlDbSystem.operateOn("Ship").filter(inGeoTemporalCircleKm("LOCATION", Coordinates.newCoordinates(119.693533333, -39.22696), 212, "EPOCHTIMESTAMP", datemin, datemax )).printScreen();
+
 //                .groupBy("DATEANDTIME", "TIMESTAMP")
 //                .aggregate( countDistinct("LAT"), sum("LAT").as("nikos") ).aggregate(max("LON")).toDataframe();
 
