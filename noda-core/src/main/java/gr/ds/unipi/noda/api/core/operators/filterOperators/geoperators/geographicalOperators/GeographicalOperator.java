@@ -13,7 +13,7 @@ public abstract class GeographicalOperator<T, U extends Geometry> implements Fil
         this.geometry = geometry;
     }
 
-    protected String getFieldName() {
+    public String getFieldName() {
         return fieldName;
     }
 

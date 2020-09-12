@@ -1,6 +1,9 @@
 package gr.ds.unipi.noda.api.neo4j.filterOperators.geoperators.geographicalOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle;
+import org.davidmoten.hilbert.HilbertCurve;
+import org.davidmoten.hilbert.Ranges;
+import org.davidmoten.hilbert.SmallHilbertCurve;
 
 public final class OperatorInGeographicalCircle extends GeographicalOperator<Circle> {
 
@@ -15,6 +18,33 @@ public final class OperatorInGeographicalCircle extends GeographicalOperator<Cir
 
     @Override
     public StringBuilder getOperatorExpression() {
-        return null;
+
+        StringBuilder sb = new StringBuilder();
+
+        int bits = 8;
+
+        long maxOrdinates = 1L << bits;
+
+        SmallHilbertCurve f = HilbertCurve.small().bits(bits).dimensions(2);
+
+        long[] point1 = scalePoint(getGeometry().getMbr().getLowerBound().getLatitude(), getGeometry().getMbr().getLowerBound().getLongitude(), maxOrdinates);
+        long[] point2 = scalePoint(getGeometry().getMbr().getUpperBound().getLatitude(), getGeometry().getMbr().getUpperBound().getLongitude(), maxOrdinates);
+//// return just one range
+        int maxRanges = 1;
+        Ranges ranges = f.query(point1, point2, maxRanges);
+        System.out.println(ranges);
+        ranges.forEach(range -> {
+            long low = range.low();
+            long high = range.high();
+            System.out.println(range.low());
+            System.out.println(range.high());
+
+            sb.append("s.HilbertIndex > " + low + " AND s.HilbertIndex < " + high + " WITH s WHERE distance(point({ srid:4326, x: " + getGeometry().getCircleCenter().getLongitude() + " , y: " + getGeometry().getCircleCenter().getLatitude() + "}), s." + getFieldName() + ") < " + getGeometry().getRadius() );
+
+        });
+
+        return sb;
+
+
     }
 }
