@@ -14,4 +14,9 @@ final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, Te
         return new OperatorInGeoTemporalPolygon(fieldName, polygon, temporalFieldName, temporalType);
     }
 
+    @Override
+    public StringBuilder getOperatorExpression() {
+        return null;
+    }
+
 }

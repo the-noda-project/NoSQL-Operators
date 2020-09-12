@@ -13,6 +13,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.Base
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.neo4j.aggregateOperators.Neo4jAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.Neo4jComparisonOperatorFactory;
+import gr.ds.unipi.noda.api.neo4j.filterOperators.geoperators.geoTemporalOperators.Neo4JGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.neo4j.filterOperators.geoperators.geographicalOperators.Neo4JGeographicalOperatorFactory;
 import gr.ds.unipi.noda.api.neo4j.filterOperators.logicalOperators.Neo4jLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.neo4j.sortOperators.Neo4jSortOperatorFactory;
@@ -52,7 +53,7 @@ public final class Neo4jConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     protected BaseGeoTemporalOperatorFactory getBaseGeoTemporalOperatorFactory() {
-        return null;
+        return new Neo4JGeoTemporalOperatorFactory();
     }
 
     @Override

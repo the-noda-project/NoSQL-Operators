@@ -5,6 +5,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
+import gr.ds.unipi.noda.api.core.server.NodaTrajectoriesAPI.NodaTrajectoriesAPI;
 import org.apache.spark.sql.*;
 import org.neo4j.driver.Record;
 import org.neo4j.driver.Result;
@@ -13,8 +14,9 @@ import org.neo4j.spark.*;
 import scala.Predef;
 import scala.Tuple2;
 import scala.collection.JavaConverters;
-import gr.ds.unipi.noda.api.core.springserver.server;
+
 import java.util.*;
+
 
 final class Neo4jOperators extends NoSqlDbOperators {
 
@@ -43,7 +45,7 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-
+        filterOperator.getOperatorExpression();
         sb.append(" WHERE ");
 
         if(filterOperators.length > 1) {
@@ -296,6 +298,7 @@ final class Neo4jOperators extends NoSqlDbOperators {
     @Override
     public Dataset<Row> toDataframe() {
 
+        System.out.println(sb);
 
         Neo4JavaSparkContext neo = Neo4JavaSparkContext.neo4jContext(getSparkSession().sparkContext());
         long maxId = 50L;
@@ -306,11 +309,12 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
         o.toJSON().show();
 
-        server.main(new String[]{"mpla"});
+        NodaTrajectoriesAPI.nodaTrajectoriesTimelapse(o);
 
         System.out.println("--------------------: " + o);
 
-        return null;
+        return o;
     }
+
 
 }
