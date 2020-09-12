@@ -1,0 +1,29 @@
+.container-fluid {
+  box-shadow: 0 3px 10px 4px #eeeeee38;
+  height: 100vh;
+}
+
+.sideBarTitle {
+  height: 20vh;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 0.8px solid #222831;
+}
+
+.buttonsNav {
+  border-radius: 14px;
+  border: 0.8px solid #222831;
+  color: #222831;
+}
+
+.buttonsNav:hover {
+  border: 0.8px solid #222831;
+  background-color: #222831;
+  color: white;
+}
+
+.activeRoute {
+  border: 0.8px solid #222831;
+  background-color: #222831;
+  color: white;
+}

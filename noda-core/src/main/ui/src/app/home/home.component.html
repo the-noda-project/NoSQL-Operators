@@ -1,0 +1,132 @@
+<div
+  class="row w-100 m-0"
+  style="height: 185px; z-index: 100; overflow-x: hidden;"
+>
+  <div class="col-12 mt-3">
+    <div
+      class="row w-100 m-0 p-2"
+      style="background-color: rgb(85, 85, 85); border-radius: 12px;"
+    >
+      <div class="col-auto align-self-center" style="z-index: 1000;">
+        <div
+          class="btn btn-light font12 mr-2 p-0 pl-2 pr-2"
+          style="padding-top: 2px; padding-bottom: 2px;"
+          (click)="playSpatioTemporal()"
+        >
+          <i class="fa fa-play"></i>
+        </div>
+        <div
+          class="btn btn-light font12 mr-2 p-0 pl-2 pr-2"
+          style="padding-top: 2px; padding-bottom: 2px;"
+        >
+          <i class="fa fa-pause"></i>
+        </div>
+      </div>
+      <div
+        class="col-12 p-0 text-center text-white font14"
+        style="position: absolute; top: 10px;"
+      >
+        <span class="font-weight-bold mr-3">Period Displayed :</span>
+        <div
+          class="btn btn-light font12 mr-2 p-0 pl-2 pr-2"
+          style="padding-top: 2px; padding-bottom: 2px;"
+        >
+          <i class="fa fa-backward"></i>
+        </div>
+        {{ value | date: 'dd/MM/yyyy HH:mm:ss' }} -
+        {{ maxValue | date: 'dd/MM/yyyy HH:mm:ss' }}
+        <div
+          class="btn btn-light font12 ml-2 p-0 pl-2 pr-2"
+          style="padding-top: 2px; padding-bottom: 2px;"
+        >
+          <i class="fa fa-forward"></i>
+        </div>
+      </div>
+      <ng5-slider [(value)]="value" [options]="opt"></ng5-slider>
+      <div class="col-6 pl-0 text-white font12">
+        <input
+          *ngIf="changeFloor"
+          type="datetime-local"
+          class="inputOfDates"
+          [(ngModel)]="opt.floor"
+          [ngModelOptions]="{ standalone: true }"
+        />
+        <span *ngIf="!changeFloor">{{
+          opt.floor | date: 'dd/MM/yyyy HH:mm:ss'
+        }}</span>
+        <i
+          class="fa fa-edit ml-2 pointerToClick"
+          *ngIf="!changeFloor"
+          (click)="changeFloorOrCeil('floor')"
+          style="color: white !important;"
+        ></i>
+        <i
+          class="fa fa-check ml-2 pointerToClick"
+          *ngIf="changeFloor"
+          (click)="changeFloorOrCeil('floor')"
+          style="color: white !important;"
+        ></i>
+      </div>
+      <div class="col-6 text-right pr-0 text-white font12">
+        <input
+          *ngIf="changeCeil"
+          type="datetime-local"
+          class="inputOfDates"
+          [(ngModel)]="opt.ceil"
+          [ngModelOptions]="{ standalone: true }"
+        />
+        <span *ngIf="!changeCeil">{{
+          opt.ceil | date: 'dd/MM/yyyy HH:mm:ss'
+        }}</span>
+        <i
+          class="fa fa-edit ml-2 pointerToClick"
+          *ngIf="!changeCeil"
+          (click)="changeFloorOrCeil('ceil')"
+          style="color: white !important;"
+        ></i>
+        <i
+          class="fa fa-check ml-2 pointerToClick"
+          *ngIf="changeCeil"
+          (click)="changeFloorOrCeil('ceil')"
+          style="color: white !important;"
+        ></i>
+      </div>
+      <!-- <div class="col-auto pl-0 text-white font12 mt-2">Window : <input type="number" class="inputs" ></div> -->
+      <div class="col-auto text-white font12 mt-3 pl-0">
+        Window (hours) :
+        <input
+          type="number"
+          class="inputs"
+          [(ngModel)]="windowBetweenFloorAndCeil"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </div>
+      <div class="col-auto text-white font12 mt-3 pl-0">
+        Data Step (sec) :
+        <input
+          type="number"
+          class="inputs"
+          [(ngModel)]="refreshTime"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </div>
+      <div class="col-auto text-white font12 mt-3 pl-0">
+        User Step (sec) :
+        <input
+          type="number"
+          class="inputs"
+          [(ngModel)]="refreshTime"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  style="height: calc(100vh - 185px);"
+  leaflet
+  [leafletOptions]="options"
+  [leafletLayers]="layers"
+  (leafletMapReady)="onMapReady($event)"
+></div>
