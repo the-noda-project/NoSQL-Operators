@@ -79,11 +79,16 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>gr.unipi.noda</groupId>
+            <artifactId>nosql-operators-visualization</artifactId>
+            <version>${project.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>com.github.davidmoten</groupId>
             <artifactId>geo</artifactId>
             <version>0.7.1</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 </project>
