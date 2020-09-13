@@ -1,16 +1,8 @@
-package gr.ds.unipi.noda.api.core.visualization;
+package gr.ds.unipi.noda.api.visualization.visualization;
 
-import gr.ds.unipi.noda.api.core.server.ServerManager;
-import org.apache.spark.InterruptibleIterator;
+import gr.ds.unipi.noda.api.visualization.server.ServerManager;
 import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
-
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
 
 
 public class Visualize {

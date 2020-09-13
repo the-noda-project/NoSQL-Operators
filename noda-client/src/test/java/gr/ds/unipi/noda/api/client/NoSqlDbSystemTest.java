@@ -1,8 +1,5 @@
 package gr.ds.unipi.noda.api.client;
 
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
-import gr.ds.unipi.noda.api.core.visualization.Visualize;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -10,15 +7,13 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.junit.Ignore;
 import org.junit.Test;
+import gr.ds.unipi.noda.api.visualization.visualization.Visualize;
 
-import java.awt.*;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.*;
-import static gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds.newTemporalBounds;
 
 
 public class NoSqlDbSystemTest {

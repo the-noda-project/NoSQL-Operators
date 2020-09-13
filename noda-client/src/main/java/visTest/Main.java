@@ -1,12 +1,10 @@
 package visTest;
 
 import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
-import gr.ds.unipi.noda.api.core.server.ServerManager;
-import gr.ds.unipi.noda.api.core.visualization.Visualize;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.springframework.boot.SpringApplication;
+import gr.ds.unipi.noda.api.visualization.visualization.Visualize;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.lt;

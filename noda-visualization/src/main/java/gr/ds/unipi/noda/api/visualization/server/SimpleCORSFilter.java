@@ -1,4 +1,4 @@
-package gr.ds.unipi.noda.api.core.server;
+package gr.ds.unipi.noda.api.visualization.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

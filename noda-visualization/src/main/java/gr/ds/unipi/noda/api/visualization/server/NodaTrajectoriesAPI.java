@@ -1,9 +1,9 @@
-package gr.ds.unipi.noda.api.core.server;
+package gr.ds.unipi.noda.api.visualization.server;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static gr.ds.unipi.noda.api.core.visualization.Visualize.datare;
+import static gr.ds.unipi.noda.api.visualization.visualization.Visualize.datare;
 
 @RestController
 public class NodaTrajectoriesAPI {

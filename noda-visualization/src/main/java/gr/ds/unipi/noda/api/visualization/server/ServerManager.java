@@ -1,4 +1,4 @@
-package gr.ds.unipi.noda.api.core.server;
+package gr.ds.unipi.noda.api.visualization.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
