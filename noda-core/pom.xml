@@ -10,12 +10,8 @@
     </parent>
     <artifactId>nosql-operators-core</artifactId>
 
-
-
-
     <dependencies>
         <dependency>
-
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_2.11</artifactId>
             <version>2.4.0</version>
@@ -24,7 +20,6 @@
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-log4j12</artifactId>
                 </exclusion>
-
             </exclusions>
         </dependency>
         <dependency>
@@ -36,17 +31,13 @@
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-log4j12</artifactId>
                 </exclusion>
-
             </exclusions>
         </dependency>
-
         <dependency>
             <groupId>gr.ds.unipi.qtree</groupId>
             <artifactId>quadTree</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
-
     </dependencies>
 
 </project>

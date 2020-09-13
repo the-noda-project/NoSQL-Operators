@@ -27,18 +27,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>  <!-- declare the exclusion here -->
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-
-            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-sql_2.11</artifactId>
+            <version>2.4.6</version>
             <exclusions>
                 <exclusion>  <!-- declare the exclusion here -->
                     <groupId>org.slf4j</groupId>
@@ -46,12 +44,6 @@
                 </exclusion>
 
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.spark</groupId>
-            <artifactId>spark-sql_2.11</artifactId>
-            <version>2.4.6</version>
-            <scope>compile</scope>
         </dependency>
 
     </dependencies>
