@@ -23,7 +23,7 @@ export class QuoteService {
   }
 
   getNodaSTData() {
-    return this.httpClient.get('/noda-trajectories-timelapse').toPromise();
+    return this.httpClient.get('/noda-trajectories-timelapse', { responseType: 'text' }).toPromise();
   }
 
 }

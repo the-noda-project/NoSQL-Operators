@@ -5,7 +5,6 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
-import gr.ds.unipi.noda.api.core.server.NodaTrajectoriesAPI.NodaTrajectoriesAPI;
 import org.apache.spark.sql.*;
 import org.neo4j.driver.Record;
 import org.neo4j.driver.Result;
@@ -309,7 +308,6 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
         o.toJSON().show();
 
-        NodaTrajectoriesAPI.nodaTrajectoriesTimelapse(o);
 
         System.out.println("--------------------: " + o);
 
