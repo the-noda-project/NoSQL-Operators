@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.quoteService.getNodaSTData().then((res: any) => {
-      console.log(res);
+      console.log(JSON.parse(res));
     });
 
     // this.quoteService
