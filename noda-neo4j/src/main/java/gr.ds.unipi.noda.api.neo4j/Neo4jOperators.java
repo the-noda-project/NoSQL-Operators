@@ -296,22 +296,22 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
     @Override
     public Dataset<Row> toDataframe() {
-
+        sb.append(" RETURN s.CRAFT_ID, s.LAT, s.LON, s.EPOCHTIMESTAMP");
         System.out.println(sb);
+
 
         Neo4JavaSparkContext neo = Neo4JavaSparkContext.neo4jContext(getSparkSession().sparkContext());
         long maxId = 50L;
-        Dataset<Row> o = neo.queryDF("MATCH (n:Ship) WHERE n.CRAFT_ID > $maxId RETURN n.CRAFT_ID, n.LAT, n.LON, n.TIMESTAMP", Collections.singletonMap("maxId", maxId));
+        Dataset<Row> o = neo.queryDF(sb.toString(), Collections.singletonMap("maxId", maxId));
         o.printSchema();
 //        o.show();
 
 
         o.toJSON().show();
 
-
         System.out.println("--------------------: " + o);
 
-        return o;
+        return o.sort("`s.EPOCHTIMESTAMP`");
     }
 
 
