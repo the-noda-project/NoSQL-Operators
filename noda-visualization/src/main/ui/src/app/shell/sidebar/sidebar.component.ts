@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { QuoteService } from '@app/home/quote.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,22 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  navigationRoutes = [
-    {
-      routeName: 'Main',
-      routeLink: '',
-    },
-    {
-      routeName: 'Map Tracking',
-      routeLink: '/mapbox-map',
-    },
-    {
-      routeName: 'DropDown',
-      routeLink: '/dropdown',
-    },
-  ];
+  data: Array<any> = [];
 
-  constructor() {}
+  constructor(private quoteService: QuoteService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.quoteService.getNodaSTData().then((res: any) => {
+      let parsedData = JSON.parse(res);
+      this.data = parsedData['data'];
+    });
+  }
 }

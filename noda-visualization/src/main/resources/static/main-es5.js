@@ -2744,41 +2744,30 @@ function _classCallCheck(instance, Constructor) {
         );
         /* harmony import */
 
-        var _app_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-          /*! @app/i18n */
-          "./src/app/i18n/index.ts"
-        );
-        /* harmony import */
-
-        var _home_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+        var _home_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! ./home.component */
           "./src/app/home/home.component.ts"
         );
         /* harmony import */
 
-        var _app_shell_shell_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+        var _app_shell_shell_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
           /*! @app/shell/shell.service */
           "./src/app/shell/shell.service.ts"
         );
 
         var routes = [
-          _app_shell_shell_service__WEBPACK_IMPORTED_MODULE_4__[
+          _app_shell_shell_service__WEBPACK_IMPORTED_MODULE_3__[
             "Shell"
           ].childRoutes([
             {
               path: "",
-              redirectTo: "/home",
+              redirectTo: "/",
               pathMatch: "full",
             },
             {
-              path: "home",
+              path: "",
               component:
-                _home_component__WEBPACK_IMPORTED_MODULE_3__["HomeComponent"],
-              data: {
-                title: Object(
-                  _app_i18n__WEBPACK_IMPORTED_MODULE_2__["extract"]
-                )("Home"),
-              },
+                _home_component__WEBPACK_IMPORTED_MODULE_2__["HomeComponent"],
             },
           ]),
         ];
@@ -2970,7 +2959,7 @@ function _classCallCheck(instance, Constructor) {
           };
         };
 
-        function HomeComponent_input_41_Template(rf, ctx) {
+        function HomeComponent_input_43_Template(rf, ctx) {
           if (rf & 1) {
             var _r9 = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
               "ɵɵgetCurrentView"
@@ -2984,7 +2973,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
               "ngModelChange",
-              function HomeComponent_input_41_Template_input_ngModelChange_0_listener(
+              function HomeComponent_input_43_Template_input_ngModelChange_0_listener(
                 $event
               ) {
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](
@@ -3020,7 +3009,7 @@ function _classCallCheck(instance, Constructor) {
           }
         }
 
-        function HomeComponent_span_43_Template(rf, ctx) {
+        function HomeComponent_span_45_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
               0,
@@ -3052,7 +3041,7 @@ function _classCallCheck(instance, Constructor) {
           }
         }
 
-        function HomeComponent_i_45_Template(rf, ctx) {
+        function HomeComponent_i_47_Template(rf, ctx) {
           if (rf & 1) {
             var _r11 = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
               "ɵɵgetCurrentView"
@@ -3066,7 +3055,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
               "click",
-              function HomeComponent_i_45_Template_i_click_0_listener() {
+              function HomeComponent_i_47_Template_i_click_0_listener() {
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](
                   _r11
                 );
@@ -3083,7 +3072,7 @@ function _classCallCheck(instance, Constructor) {
           }
         }
 
-        function HomeComponent_i_47_Template(rf, ctx) {
+        function HomeComponent_i_49_Template(rf, ctx) {
           if (rf & 1) {
             var _r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
               "ɵɵgetCurrentView"
@@ -3097,7 +3086,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
               "click",
-              function HomeComponent_i_47_Template_i_click_0_listener() {
+              function HomeComponent_i_49_Template_i_click_0_listener() {
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](
                   _r13
                 );
@@ -3114,7 +3103,7 @@ function _classCallCheck(instance, Constructor) {
           }
         }
 
-        function HomeComponent_input_52_Template(rf, ctx) {
+        function HomeComponent_input_54_Template(rf, ctx) {
           if (rf & 1) {
             var _r15 = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
               "ɵɵgetCurrentView"
@@ -3128,7 +3117,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
               "ngModelChange",
-              function HomeComponent_input_52_Template_input_ngModelChange_0_listener(
+              function HomeComponent_input_54_Template_input_ngModelChange_0_listener(
                 $event
               ) {
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](
@@ -3164,7 +3153,7 @@ function _classCallCheck(instance, Constructor) {
           }
         }
 
-        function HomeComponent_span_54_Template(rf, ctx) {
+        function HomeComponent_span_56_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
               0,
@@ -3196,7 +3185,7 @@ function _classCallCheck(instance, Constructor) {
           }
         }
 
-        function HomeComponent_i_56_Template(rf, ctx) {
+        function HomeComponent_i_58_Template(rf, ctx) {
           if (rf & 1) {
             var _r17 = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
               "ɵɵgetCurrentView"
@@ -3210,7 +3199,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
               "click",
-              function HomeComponent_i_56_Template_i_click_0_listener() {
+              function HomeComponent_i_58_Template_i_click_0_listener() {
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](
                   _r17
                 );
@@ -3227,7 +3216,7 @@ function _classCallCheck(instance, Constructor) {
           }
         }
 
-        function HomeComponent_i_58_Template(rf, ctx) {
+        function HomeComponent_i_60_Template(rf, ctx) {
           if (rf & 1) {
             var _r19 = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
               "ɵɵgetCurrentView"
@@ -3241,7 +3230,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
               "click",
-              function HomeComponent_i_58_Template_i_click_0_listener() {
+              function HomeComponent_i_60_Template_i_click_0_listener() {
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](
                   _r19
                 );
@@ -3262,59 +3251,15 @@ function _classCallCheck(instance, Constructor) {
           function HomeComponent(quoteService) {
             _classCallCheck(this, HomeComponent);
 
-            this.quoteService = quoteService; // data = [
-            //   {
-            //     id: 1,
-            //     lat: -27.3641383333,
-            //     lon: 153.176081667,
-            //     time: '2019-09-07T00:07:54Z',
-            //   },
-            //   {
-            //     id: 2,
-            //     lat: -27.336745,
-            //     lon: 153.190841667,
-            //     time: '2019-09-07T01:09:52Z',
-            //   },
-            //   {
-            //     id: 3,
-            //     lat: -27.336745,
-            //     lon: 153.190841667,
-            //     time: '2019-09-07T01:09:52Z',
-            //   },
-            //   {
-            //     id: 4,
-            //     lat: -27.148075,
-            //     lon: 153.350708333,
-            //     time: '2019-09-07T02:09:58Z',
-            //   },
-            //   {
-            //     id: 5,
-            //     lat: -26.915405,
-            //     lon: 153.19185,
-            //     time: '2019-09-07T03:09:58Z',
-            //   },
-            //   {
-            //     id: 6,
-            //     lat: -26.7047333333,
-            //     lon: 153.182855,
-            //     time: '2019-09-07T04:09:59Z',
-            //   },
-            //   {
-            //     id: 7,
-            //     lat: -26.4476166667,
-            //     lon: 153.338056667,
-            //     time: '2019-09-07T05:14:57Z',
-            //   },
-            //   {
-            //     id: 8,
-            //     lat: -26.1195666667,
-            //     lon: 153.46412,
-            //     time: '2019-09-07T06:19:57Z',
-            //   },
-            // ];
-
+            this.quoteService = quoteService;
             this.data = [];
-            this.opt = {};
+            this.idArray = [];
+            this.value = 5;
+            this.maxValue = 8;
+            this.opt = {
+              floor: 0,
+              ceil: 10,
+            };
             this.layers = [];
             this.options = {
               layers: [
@@ -3340,41 +3285,103 @@ function _classCallCheck(instance, Constructor) {
             {
               key: "ngOnInit",
               value: function ngOnInit() {
-                this.quoteService.getConnectionMessage().then(function (res) {
-                  console.log(res);
-                });
-                this.quoteService.getNodaSTData().then(function (res) {
-                  console.log(JSON.parse(res));
-                }); // this.quoteService
-                //   .temporalRange('2019-09-13T14:15', '2019-09-16T14:15')
-                //   .then((res: any) => {
-                //     this.opt = {
-                //       floor: new Date('2019-09-07T00:07:54Z').getTime(),
-                //       ceil: new Date('2019-09-07T06:19:57Z').getTime(),
-                //     };
-                //     console.log('ayto einai to res', res['results']['records']);
-                //     this.data = res['results']['records'];
-                //     const length = this.data.length;
-                //     console.log(length);
-                //     this.opt.floor = new Date(
-                //       this.data[0]['_fields'][0]['properties']['TIMESTAMP']
-                //     ).getTime();
-                //     this.opt.ceil = new Date(
-                //       this.data[length - 1]['_fields'][0]['properties']['TIMESTAMP']
-                //     ).getTime();
-                //     this.value = this.opt.floor;
-                //     this.maxValue =
-                //       this.value + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
-                //   });
+                var _this4 = this;
 
                 this.refreshTime = 0.5;
                 this.dataRefreshTime = 10;
                 this.windowBetweenFloorAndCeil = 4;
                 this.changeFloor = false;
-                this.changeCeil = false; // this.opt.ticksArray = [];
-                // this.data.forEach((position) => {
-                // this.opt.ticksArray.push(new Date(position.time).getTime());
-                // });
+                this.changeCeil = false; // Responce for noda server connection
+
+                this.quoteService.getConnectionMessage().then(function (res) {
+                  console.log(res);
+                }); // Call api to get noda spatio-temporal data
+
+                this.quoteService.getNodaSTData().then(function (res) {
+                  // json parse the responce and import in data variable
+                  var parsedData = JSON.parse(res);
+                  _this4.data = parsedData["data"]; // JS Date needs milli Epoch Timestamp (so below is a milli epoch converter)
+
+                  console.log(
+                    _this4.data,
+                    "ayto einai ena date: " +
+                      new Date(
+                        parseInt(
+                          _this4.timestampManipulation(_this4.data[0]["time"])
+                        )
+                      )
+                  );
+                  _this4.opt = {
+                    floor: parseInt(
+                      _this4.timestampManipulation(_this4.data[0]["time"])
+                    ),
+                    ceil: parseInt(
+                      _this4.timestampManipulation(
+                        _this4.data[_this4.data.length - 1]["time"]
+                      )
+                    ),
+                  };
+                  console.log(
+                    "floor",
+                    _this4.opt.floor,
+                    "ceil",
+                    _this4.opt.ceil
+                  );
+                  _this4.value = _this4.opt.floor;
+                  _this4.maxValue =
+                    _this4.opt.floor +
+                    _this4.windowBetweenFloorAndCeil * 60 * 60 * 1000;
+                  _this4.groupedData = lodash__WEBPACK_IMPORTED_MODULE_4__[
+                    "groupBy"
+                  ](_this4.data, "time");
+                  console.log(
+                    "auta einai ta grouparismena data",
+                    _this4.groupedData
+                  ); // for (let key in this.groupedData) {
+                  //   this.opt.ticksArray.push(parseInt(this.timestampManipulation(key)));
+                  // }
+                  // console.log('ticksArray: ', this.opt.ticksArray);
+
+                  var o = Math.round;
+                  var r = Math.random;
+                  var s = 255;
+
+                  _this4.data.forEach(function (element) {
+                    var index = _this4.idArray.findIndex(function (id) {
+                      return id.id === element.id;
+                    });
+
+                    if (index === -1) {
+                      _this4.idArray.push({
+                        id: element.id,
+                        color:
+                          "rgb(" +
+                          o(r() * s) +
+                          "," +
+                          o(r() * s) +
+                          "," +
+                          o(r() * s) +
+                          ")",
+                      });
+                    }
+                  });
+
+                  console.log(" auto einai to id array: ", _this4.idArray);
+                });
+              },
+            },
+            {
+              key: "timestampManipulation",
+              value: function timestampManipulation(time) {
+                var manipulatedTime;
+
+                if (time.length === 13) {
+                  manipulatedTime = time;
+                } else {
+                  manipulatedTime = parseInt((time += "000"));
+                }
+
+                return manipulatedTime;
               },
             },
             {
@@ -3398,60 +3405,80 @@ function _classCallCheck(instance, Constructor) {
               },
             },
             {
+              key: "getRGBofPin",
+              value: function getRGBofPin(id) {
+                var index = this.idArray.findIndex(function (el) {
+                  return el.id === id;
+                });
+                return this.idArray[index].color;
+              },
+            },
+            {
               key: "playSpatioTemporal",
               value: function playSpatioTemporal() {
-                this.value = this.opt.floor;
+                var _this5 = this;
+
+                // this.value = this.opt.floor;
                 this.maxValue =
                   this.opt.floor +
                   this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
-                var i = 0;
-                var myIcon = leaflet__WEBPACK_IMPORTED_MODULE_3__["divIcon"]({
-                  html:
-                    '<div style="background-color: red; color: rgba(255, 0, 0, 0); height: 10px; width: 10px; border-radius: 100%;">sdfsf</div>',
-                });
-                var path = "_fields[0].properties.TIMESTAMP";
-                var mpla = lodash__WEBPACK_IMPORTED_MODULE_4__(this.data)
-                  .filter(function (object) {
-                    return lodash__WEBPACK_IMPORTED_MODULE_4__["has"](
-                      object,
-                      path
-                    );
-                  })
-                  .groupBy(path)
-                  .value();
-                console.log(mpla); // this.data.forEach((el) => {
-                //   if (new Date(el.time) > new Date(this.opt.floor)) {
-                //     i++;
-                //     setTimeout(() => {
-                //       const lat = el.lat;
-                //       const lon = el.lon;
-                //       const time = el.time;
-                //       // console.log(this.latlngsPolyline);
-                //       this.layers = [];
-                //       // this.map.setZoom(7);
-                //       this.map.panTo(new L.LatLng(lat, lon));
-                //       this.layers.push(
-                //         L.marker([lat, lon], {
-                //           icon: myIcon,
-                //           // icon: this.greenIcon
-                //         })
-                //         // .bindPopup(
-                //         //   `<div>CraftID: ` +
-                //         //     craftID +
-                //         //     `</div>` +
-                //         //     `<div>TimeStamp: ` +
-                //         //     TimeStamp +
-                //         //     `</div>` +
-                //         //     `<div>Speed: ` +
-                //         //     Speed +
-                //         //     `</div>`
-                //         // )
-                //       );
-                //       this.value = new Date(time).getTime();
-                //       this.maxValue = this.value + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
-                //     }, i * (this.refreshTime * 1000));
-                //   }
-                // });
+                var i = 0; // for (let key in this.groupedData) {
+
+                var _loop = function _loop(key) {
+                  console.log("eimai akrivos apekso!");
+                  i++;
+                  setTimeout(function () {
+                    if (
+                      parseInt(_this5.timestampManipulation(key)) >
+                      _this5.opt.floor
+                    ) {
+                      _this5.groupedData[key].forEach(function (element) {
+                        var lat = element.lat;
+                        var lon = element.lon;
+                        var time = element.time;
+                        var myIcon = leaflet__WEBPACK_IMPORTED_MODULE_3__[
+                          "divIcon"
+                        ]({
+                          html:
+                            '<div style="background-color: ' +
+                            _this5.getRGBofPin(element.id) +
+                            ' ; height: 10px; width: 10px; border-radius: 100%;"></div>',
+                        });
+                        _this5.layers = [];
+
+                        _this5.layers.push(
+                          leaflet__WEBPACK_IMPORTED_MODULE_3__["marker"](
+                            [lat, lon],
+                            {
+                              icon: myIcon,
+                            }
+                          ) // .bindPopup(
+                          //   `<div>CraftID: ` +
+                          //     craftID +
+                          //     `</div>` +
+                          //     `<div>TimeStamp: ` +
+                          //     TimeStamp +
+                          //     `</div>` +
+                          //     `<div>Speed: ` +
+                          //     Speed +
+                          //     `</div>`
+                          // )
+                        ); // this.value = parseInt(this.timestampManipulation(time));
+                        // this.maxValue = this.value + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
+                        // this.map.panTo(new L.LatLng(lat, lon));
+                      });
+                    }
+
+                    _this5.value = parseInt(_this5.timestampManipulation(key));
+                    _this5.maxValue =
+                      _this5.value +
+                      _this5.windowBetweenFloorAndCeil * 60 * 60 * 1000;
+                  }, i * (_this5.refreshTime * 1000));
+                };
+
+                for (var key in this.groupedData) {
+                  _loop(key);
+                }
               },
             },
           ]);
@@ -3472,8 +3499,8 @@ function _classCallCheck(instance, Constructor) {
         ]({
           type: HomeComponent,
           selectors: [["app-home"]],
-          decls: 82,
-          vars: 29,
+          decls: 85,
+          vars: 30,
           consts: [
             [
               1,
@@ -3567,7 +3594,15 @@ function _classCallCheck(instance, Constructor) {
               "2px",
             ],
             [1, "fa", "fa-forward"],
-            [3, "value", "options", "valueChange"],
+            [
+              3,
+              "value",
+              "highValue",
+              "options",
+              "valueChange",
+              "highValueChange",
+              "optionsChange",
+            ],
             [1, "col-6", "pl-0", "text-white", "font12"],
             [
               "type",
@@ -3662,107 +3697,102 @@ function _classCallCheck(instance, Constructor) {
           ],
           template: function HomeComponent_Template(rf, ctx) {
             if (rf & 1) {
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](0, "\n");
+
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                0,
+                1,
                 "div",
                 0
               );
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "\n  ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "\n  ");
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                2,
+                3,
                 "div",
                 1
               );
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "\n    ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4, "\n    ");
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                4,
+                5,
                 "div",
                 2
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                5,
+                6,
                 "\n      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                6,
+                7,
                 "div",
                 3
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                7,
+                8,
                 "\n        "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                8,
+                9,
                 "div",
                 4
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
                 "click",
-                function HomeComponent_Template_div_click_8_listener() {
+                function HomeComponent_Template_div_click_9_listener() {
                   return ctx.playSpatioTemporal();
                 }
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                9,
+                10,
                 "\n          "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
-                10,
+                11,
                 "i",
                 5
               );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                11,
-                "\n        "
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 12,
                 "\n        "
               );
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 13,
+                "\n        "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                14,
                 "div",
                 6
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                14,
+                15,
                 "\n          "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
-                15,
+                16,
                 "i",
                 7
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                16,
-                "\n        "
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 17,
-                "\n      "
+                "\n        "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -3772,92 +3802,92 @@ function _classCallCheck(instance, Constructor) {
                 "\n      "
               );
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 19,
+                "\n      "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                20,
                 "div",
                 8
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                20,
+                21,
                 "\n        "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                21,
+                22,
                 "span",
                 9
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                22,
+                23,
                 "Period Displayed :"
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                23,
+                24,
                 "\n        "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                24,
+                25,
                 "div",
                 6
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                25,
+                26,
                 "\n          "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
-                26,
+                27,
                 "i",
                 10
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                27,
+                28,
                 "\n        "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](28);
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](29, "date");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](29);
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](30, "date");
 
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](31, "date");
+
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                31,
+                32,
                 "div",
                 11
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                32,
+                33,
                 "\n          "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
-                33,
+                34,
                 "i",
                 12
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                34,
-                "\n        "
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 35,
-                "\n      "
+                "\n        "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -3867,46 +3897,58 @@ function _classCallCheck(instance, Constructor) {
                 "\n      "
               );
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 37,
+                "\n      "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                38,
                 "ng5-slider",
                 13
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
                 "valueChange",
-                function HomeComponent_Template_ng5_slider_valueChange_37_listener(
+                function HomeComponent_Template_ng5_slider_valueChange_38_listener(
                   $event
                 ) {
                   return (ctx.value = $event);
                 }
+              )(
+                "highValueChange",
+                function HomeComponent_Template_ng5_slider_highValueChange_38_listener(
+                  $event
+                ) {
+                  return (ctx.maxValue = $event);
+                }
+              )(
+                "optionsChange",
+                function HomeComponent_Template_ng5_slider_optionsChange_38_listener(
+                  $event
+                ) {
+                  return (ctx.opt = $event);
+                }
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                39,
+                "\n    "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                38,
+                40,
                 "\n      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                39,
+                41,
                 "div",
                 14
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                40,
-                "\n        "
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
-                41,
-                HomeComponent_input_41_Template,
-                1,
-                3,
-                "input",
-                15
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
@@ -3916,11 +3958,11 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
                 43,
-                HomeComponent_span_43_Template,
+                HomeComponent_input_43_Template,
+                1,
                 3,
-                4,
-                "span",
-                16
+                "input",
+                15
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
@@ -3930,11 +3972,11 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
                 45,
-                HomeComponent_i_45_Template,
-                1,
-                0,
-                "i",
-                17
+                HomeComponent_span_45_Template,
+                3,
+                4,
+                "span",
+                16
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
@@ -3948,39 +3990,39 @@ function _classCallCheck(instance, Constructor) {
                 1,
                 0,
                 "i",
-                18
+                17
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 48,
+                "\n        "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
+                49,
+                HomeComponent_i_49_Template,
+                1,
+                0,
+                "i",
+                18
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                50,
                 "\n      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                49,
+                51,
                 "\n      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                50,
+                52,
                 "div",
                 19
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                51,
-                "\n        "
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
-                52,
-                HomeComponent_input_52_Template,
-                1,
-                3,
-                "input",
-                15
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
@@ -3990,11 +4032,11 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
                 54,
-                HomeComponent_span_54_Template,
+                HomeComponent_input_54_Template,
+                1,
                 3,
-                4,
-                "span",
-                16
+                "input",
+                15
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
@@ -4004,11 +4046,11 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
                 56,
-                HomeComponent_i_56_Template,
-                1,
-                0,
-                "i",
-                17
+                HomeComponent_span_56_Template,
+                3,
+                4,
+                "span",
+                16
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
@@ -4022,19 +4064,21 @@ function _classCallCheck(instance, Constructor) {
                 1,
                 0,
                 "i",
-                18
+                17
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 59,
-                "\n      "
+                "\n        "
               );
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
                 60,
-                "\n      "
+                HomeComponent_i_60_Template,
+                1,
+                0,
+                "i",
+                18
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
@@ -4042,26 +4086,38 @@ function _classCallCheck(instance, Constructor) {
                 "\n      "
               );
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 62,
+                "\n      "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                63,
+                "\n      "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                64,
                 "div",
                 20
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                63,
+                65,
                 "\n        Window (hours) :\n        "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                64,
+                66,
                 "input",
                 21
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
                 "ngModelChange",
-                function HomeComponent_Template_input_ngModelChange_64_listener(
+                function HomeComponent_Template_input_ngModelChange_66_listener(
                   $event
                 ) {
                   return (ctx.windowBetweenFloorAndCeil = $event);
@@ -4071,77 +4127,37 @@ function _classCallCheck(instance, Constructor) {
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                65,
+                67,
                 "\n      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                66,
-                "\n      "
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                67,
-                "div",
-                20
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 68,
-                "\n        Data Step (sec) :\n        "
+                "\n      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
                 69,
-                "input",
-                21
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
-                "ngModelChange",
-                function HomeComponent_Template_input_ngModelChange_69_listener(
-                  $event
-                ) {
-                  return (ctx.refreshTime = $event);
-                }
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                70,
-                "\n      "
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                71,
-                "\n      "
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                72,
                 "div",
                 20
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                73,
-                "\n        User Step (sec) :\n        "
+                70,
+                "\n        Data Step (sec) :\n        "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                74,
+                71,
                 "input",
                 21
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
                 "ngModelChange",
-                function HomeComponent_Template_input_ngModelChange_74_listener(
+                function HomeComponent_Template_input_ngModelChange_71_listener(
                   $event
                 ) {
                   return (ctx.refreshTime = $event);
@@ -4151,38 +4167,80 @@ function _classCallCheck(instance, Constructor) {
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                75,
+                72,
                 "\n      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                73,
+                "\n      "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                74,
+                "div",
+                20
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                75,
+                "\n        User Step (sec) :\n        "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
                 76,
+                "input",
+                21
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
+                "ngModelChange",
+                function HomeComponent_Template_input_ngModelChange_76_listener(
+                  $event
+                ) {
+                  return (ctx.refreshTime = $event);
+                }
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                77,
+                "\n      "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                78,
                 "\n    "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](77, "\n  ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](79, "\n  ");
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](78, "\n");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](80, "\n");
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](79, "\n\n");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](81, "\n\n");
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](82, "\n");
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                80,
+                83,
                 "div",
                 22
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
                 "leafletMapReady",
-                function HomeComponent_Template_div_leafletMapReady_80_listener(
+                function HomeComponent_Template_div_leafletMapReady_83_listener(
                   $event
                 ) {
                   return ctx.onMapReady($event);
@@ -4191,24 +4249,24 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](81, "\n");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](84, "\n");
             }
 
             if (rf & 2) {
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](28);
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](29);
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"](
                 "\n        ",
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](
-                  29,
-                  20,
+                  30,
+                  21,
                   ctx.value,
                   "dd/MM/yyyy HH:mm:ss"
                 ),
                 " -\n        ",
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](
-                  30,
-                  23,
+                  31,
+                  24,
                   ctx.maxValue,
                   "dd/MM/yyyy HH:mm:ss"
                 ),
@@ -4220,9 +4278,9 @@ function _classCallCheck(instance, Constructor) {
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
                 "value",
                 ctx.value
-              )("options", ctx.opt);
+              )("highValue", ctx.maxValue)("options", ctx.opt);
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
                 "ngIf",
@@ -4286,19 +4344,6 @@ function _classCallCheck(instance, Constructor) {
               )(
                 "ngModelOptions",
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](
-                  26,
-                  _c0
-                )
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
-                "ngModel",
-                ctx.refreshTime
-              )(
-                "ngModelOptions",
-                _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](
                   27,
                   _c0
                 )
@@ -4317,7 +4362,20 @@ function _classCallCheck(instance, Constructor) {
                 )
               );
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
+                "ngModel",
+                ctx.refreshTime
+              )(
+                "ngModelOptions",
+                _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](
+                  29,
+                  _c0
+                )
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
                 "leafletOptions",
@@ -6519,31 +6577,32 @@ function _classCallCheck(instance, Constructor) {
           /*! @angular/core */
           "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js"
         );
+        /* harmony import */
+
+        var _app_home_quote_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @app/home/quote.service */
+          "./src/app/home/quote.service.ts"
+        );
 
         var SidebarComponent = /*#__PURE__*/ (function () {
-          function SidebarComponent() {
+          function SidebarComponent(quoteService) {
             _classCallCheck(this, SidebarComponent);
 
-            this.navigationRoutes = [
-              {
-                routeName: "Main",
-                routeLink: "",
-              },
-              {
-                routeName: "Map Tracking",
-                routeLink: "/mapbox-map",
-              },
-              {
-                routeName: "DropDown",
-                routeLink: "/dropdown",
-              },
-            ];
+            this.quoteService = quoteService;
+            this.data = [];
           }
 
           _createClass(SidebarComponent, [
             {
               key: "ngOnInit",
-              value: function ngOnInit() {},
+              value: function ngOnInit() {
+                var _this6 = this;
+
+                this.quoteService.getNodaSTData().then(function (res) {
+                  var parsedData = JSON.parse(res);
+                  _this6.data = parsedData["data"];
+                });
+              },
             },
           ]);
 
@@ -6551,7 +6610,13 @@ function _classCallCheck(instance, Constructor) {
         })();
 
         SidebarComponent.ɵfac = function SidebarComponent_Factory(t) {
-          return new (t || SidebarComponent)();
+          return new (t || SidebarComponent)(
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](
+              _app_home_quote_service__WEBPACK_IMPORTED_MODULE_1__[
+                "QuoteService"
+              ]
+            )
+          );
         };
 
         SidebarComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
@@ -6559,8 +6624,8 @@ function _classCallCheck(instance, Constructor) {
         ]({
           type: SidebarComponent,
           selectors: [["app-sidebar"]],
-          decls: 27,
-          vars: 0,
+          decls: 42,
+          vars: 1,
           consts: [
             [1, "container-fluid", "p-0", "text-dark"],
             [
@@ -6584,6 +6649,10 @@ function _classCallCheck(instance, Constructor) {
             ],
             ["src", "assets/github.png", 1, "img-fluid", 2, "height", "1.3rem"],
             [1, "row", "w-100", "m-0", "mt-2", "p-2"],
+            [1, "col-12"],
+            [1, "font-weight-bold", 2, "font-size", "1.1rem"],
+            [1, "col-12", "mt-3"],
+            [1, "font-weight-bold"],
           ],
           template: function SidebarComponent_Template(rf, ctx) {
             if (rf & 1) {
@@ -6593,136 +6662,230 @@ function _classCallCheck(instance, Constructor) {
                 0
               );
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "\n  ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "\n\n  ");
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "\n  ");
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                2,
+                3,
                 "div",
                 1
               );
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "\n    ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4, "\n    ");
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                4,
+                5,
                 "div",
                 2
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                5,
+                6,
                 "\n      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                6,
+                7,
                 "p",
                 3
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                7,
+                8,
                 "NoDa Spatial Visualization"
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                8,
+                9,
                 "\n      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                9,
+                10,
                 "p"
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                10,
+                11,
                 "NoSQL Spatial Data visualization tool"
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                11,
+                12,
                 "\n      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                12,
+                13,
                 "a",
                 4
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                13,
+                14,
                 "\n        "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
-                14,
+                15,
                 "img",
                 5
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                15,
+                16,
                 "\n      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                16,
+                17,
                 "\n    "
               );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](17, "\n  ");
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](18, "\n  ");
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 19,
+                "\n\n  "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](20, "\n  ");
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                21,
                 "div",
                 6
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                20,
-                "\n    "
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-                21,
-                "p"
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 22,
-                "Data Analytics"
+                "\n\n    "
               );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 23,
                 "\n    "
               );
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](24, "\n  ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                24,
+                "div",
+                7
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                25,
+                "\n      "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                26,
+                "p",
+                8
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                27,
+                "Data Analytics"
+              );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](25, "\n");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                28,
+                "\n    "
+              );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](26, "\n");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                29,
+                "\n\n    "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                30,
+                "\n    "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                31,
+                "div",
+                9
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                32,
+                "\n      "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                33,
+                "p"
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                34,
+                "\n        "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                35,
+                "span",
+                10
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                36,
+                "\n          Results: \n        "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](37);
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                38,
+                "\n    "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                39,
+                "\n\n\n  "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](40, "\n");
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](41, "\n");
+            }
+
+            if (rf & 2) {
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](37);
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](
+                " \n        ",
+                ctx.data.length,
+                "\n      "
+              );
             }
           },
           styles: [
@@ -6747,7 +6910,14 @@ function _classCallCheck(instance, Constructor) {
               },
             ],
             function () {
-              return [];
+              return [
+                {
+                  type:
+                    _app_home_quote_service__WEBPACK_IMPORTED_MODULE_1__[
+                      "QuoteService"
+                    ],
+                },
+              ];
             },
             null
           );

@@ -57,6 +57,12 @@
   width: 12px !important;
   margin-top: -2.5px !important;
 }
+.ng5-slider-pointer-max::after {
+  background-color: aliceblue !important;
+  height: 12px !important;
+  width: 12px !important;
+  margin-top: -2.5px !important;
+}
 .ng5-slider-ceil {
   /* color: white !important; */
   display: none !important;
@@ -66,6 +72,10 @@
   display: none !important;
 }
 .ng5-slider-model-value {
+  /* color: white !important; */
+  display: none !important;
+}
+.ng5-slider-model-high {
   /* color: white !important; */
   display: none !important;
 }

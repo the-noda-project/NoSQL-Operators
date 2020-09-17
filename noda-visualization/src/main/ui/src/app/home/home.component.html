@@ -1,3 +1,4 @@
+<!-- Header with player -->
 <div
   class="row w-100 m-0"
   style="height: 185px; z-index: 100; overflow-x: hidden;"
@@ -42,7 +43,8 @@
           <i class="fa fa-forward"></i>
         </div>
       </div>
-      <ng5-slider [(value)]="value" [options]="opt"></ng5-slider>
+      <ng5-slider [(value)]="value" [(highValue)]="maxValue" [(options)]="opt">
+      </ng5-slider>
       <div class="col-6 pl-0 text-white font12">
         <input
           *ngIf="changeFloor"
@@ -123,6 +125,7 @@
   </div>
 </div>
 
+<!-- Leaflet map for visualization -->
 <div
   style="height: calc(100vh - 185px);"
   leaflet
