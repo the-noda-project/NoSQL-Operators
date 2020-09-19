@@ -13,6 +13,9 @@ import java.util.Optional;
 
 final class YYYDataBaseOperators extends NoSqlDbOperators {
 
+    private final YYYDataBaseConnectionManager yyyDataBaseConnectionManager = YYYDataBaseConnectionManager.getInstance();
+
+
     private YYYDataBaseOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
         super(noSqlDbConnector, dataCollection, sparkSession);
     }

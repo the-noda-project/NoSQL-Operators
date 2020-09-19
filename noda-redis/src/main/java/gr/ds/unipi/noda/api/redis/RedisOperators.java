@@ -8,10 +8,14 @@ import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import redis.clients.jedis.Pipeline;
 
+import java.security.SecureRandom;
 import java.util.Optional;
 
 final class RedisOperators extends NoSqlDbOperators {
+
+    private final RedisConnectionManager redisConnectionManager = RedisConnectionManager.getInstance();
 
     private RedisOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
         super(noSqlDbConnector, dataCollection, sparkSession);
@@ -43,7 +47,11 @@ final class RedisOperators extends NoSqlDbOperators {
 
     @Override
     public void printScreen() {
+        Pipeline pipeline = redisConnectionManager.getConnection(getNoSqlDbConnector()).getResource().pipelined();
 
+        redisConnectionManager.getConnection(getNoSqlDbConnector()).getResource();
+
+        pipeline.zrange("",4,3);
     }
 
     @Override
@@ -90,4 +98,5 @@ final class RedisOperators extends NoSqlDbOperators {
     public Dataset<Row> toDataframe() {
         return null;
     }
+
 }

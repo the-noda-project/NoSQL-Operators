@@ -25,17 +25,17 @@ public final class RedisConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
-        return null;
+        return RedisOperators.newRedisOperators(connector, s, sparkSession);
     }
 
     @Override
     public void closeConnection(NoSqlDbConnector noSqlDbConnector) {
-
+        RedisConnectionManager.getInstance().closeConnection(noSqlDbConnector);
     }
 
     @Override
     public boolean closeConnections() {
-        return false;
+        return RedisConnectionManager.getInstance().closeConnections();
     }
 
     @Override
