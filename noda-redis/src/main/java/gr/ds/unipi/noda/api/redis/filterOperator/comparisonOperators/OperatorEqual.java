@@ -1,11 +1,27 @@
 package gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators;
 
-import java.util.Date;
+import gr.ds.unipi.noda.api.core.operators.Operator;
+import java.util.*;
 
-final class OperatorEqual<T> extends ComparisonOperator<T> {
+public final class OperatorEqual<T> extends ComparisonOperator<T> {
 
     private OperatorEqual(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
+    }
+
+    @Override
+    public List<Map.Entry<Operator, String[]>> getOperatorExpression() {
+        if(getFieldValue() instanceof String){
+            List<Map.Entry<Operator, String[]>> list = new ArrayList();
+            list.add(new AbstractMap.SimpleImmutableEntry<>(this, new String[]{"eqString", getFieldName(), getFieldName()}));
+            return list;
+        }
+        return super.getOperatorExpression();
+    }
+
+    @Override
+    public String getComparisonOperatorType() {
+        return "eq";
     }
 
     public static OperatorEqual<Double> newOperatorEqual(String fieldName, Double fieldValue) {
@@ -40,4 +56,13 @@ final class OperatorEqual<T> extends ComparisonOperator<T> {
         return new OperatorEqual(fieldName, fieldValue);
     }
 
+    @Override
+    protected String minumumRangeValue(){
+        return getFieldValue().toString();
+    }
+
+    @Override
+    protected String maximumRangeValue(){
+        return getFieldValue().toString();
+    }
 }

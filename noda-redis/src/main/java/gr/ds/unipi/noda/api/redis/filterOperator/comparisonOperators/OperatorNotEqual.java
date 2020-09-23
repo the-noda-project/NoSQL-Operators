@@ -2,11 +2,20 @@ package gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators;
 
 import java.util.Date;
 
-final class OperatorNotEqual<T> extends ComparisonOperator<T> {
+public final class OperatorNotEqual<T> extends ComparisonOperator<T> {
 
     private OperatorNotEqual(String fieldName, T fieldValue) {
-
         super(fieldName, fieldValue);
+    }
+
+    @Override
+    protected String getEvalExpression() {
+        return null;
+    }
+
+    @Override
+    public String getComparisonOperatorType() {
+        return "ne";
     }
 
     public static OperatorNotEqual<Double> newOperatorNotEqual(String fieldName, Double fieldValue) {

@@ -12,11 +12,11 @@ public abstract class ComparisonOperator<T, U> implements FilterOperator<T> {
         this.fieldValue = fieldValue;
     }
 
-    protected String getFieldName() {
+    public String getFieldName() {
         return fieldName;
     }
 
-    protected U getFieldValue() {
+    public U getFieldValue() {
         return fieldValue;
     }
 

@@ -2,10 +2,29 @@ package gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators;
 
 import java.util.Date;
 
-final class OperatorGreaterThan<T> extends ComparisonOperator<T> {
+public final class OperatorGreaterThan<T> extends ComparisonOperator<T> {
 
     private OperatorGreaterThan(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
+    }
+
+    @Override
+    protected String getEvalExpression() {
+        return "local t = redis.call('ZRANGEBYSCORE', KEYS[1], '(" + getFieldValue().toString() + "', '+inf', 'WITHSCORES')\n" +
+                sd
+
+                + super.getEvalExpression();
+    }
+
+    @Override
+    protected String minumumRangeValue(){
+        return "("+getFieldValue().toString();
+    }
+
+
+    @Override
+    public String getComparisonOperatorType() {
+        return "gt";
     }
 
     public static OperatorGreaterThan<Double> newOperatorGreaterThan(String fieldName, Double fieldValue) {

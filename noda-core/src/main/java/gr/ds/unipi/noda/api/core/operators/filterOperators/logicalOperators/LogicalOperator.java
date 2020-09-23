@@ -4,7 +4,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 
 public abstract class LogicalOperator<T> implements FilterOperator<T> {
 
-    private final FilterOperator[] filterOperatorChildren;
+    private FilterOperator[] filterOperatorChildren;//a set method has been added because redis module modifies children
 
     protected LogicalOperator(FilterOperator filterOperator1, FilterOperator filterOperator2, FilterOperator... filterOperators) {
 //        checkNumberOfChildrenCondition(filterOperatorChildren);
@@ -23,6 +23,10 @@ public abstract class LogicalOperator<T> implements FilterOperator<T> {
             }
         }
 
+    }
+
+    protected void setFilterOperatorChildren(FilterOperator[] filterOperatorChildren) {
+        this.filterOperatorChildren = filterOperatorChildren;
     }
 
     protected FilterOperator[] getFilterOperatorChildren() {

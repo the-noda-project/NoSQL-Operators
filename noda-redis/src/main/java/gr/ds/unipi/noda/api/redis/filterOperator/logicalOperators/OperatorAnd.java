@@ -8,6 +8,11 @@ final class OperatorAnd extends LogicalOperator {
         super(filterOperator1, filterOperator2, filterOperators);
     }
 
+    @Override
+    public String getLogicalOperatorType() {
+        return "and";
+    }
+
     public static OperatorAnd newOperatorAnd(FilterOperator filterOperator1, FilterOperator filterOperator2, FilterOperator... filterOperators) {
         return new OperatorAnd(filterOperator1, filterOperator2, filterOperators);
     }

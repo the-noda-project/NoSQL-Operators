@@ -2,10 +2,20 @@ package gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators;
 
 import java.util.Date;
 
-final class OperatorGreaterThanEqual<T> extends ComparisonOperator<T> {
+public final class OperatorGreaterThanEqual<T> extends ComparisonOperator<T> {
 
     private OperatorGreaterThanEqual(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
+    }
+
+    @Override
+    protected String minumumRangeValue(){
+        return getFieldValue().toString();
+    }
+
+    @Override
+    public String getComparisonOperatorType() {
+        return "gte";
     }
 
     public static OperatorGreaterThanEqual<Double> newOperatorGreaterThanEqual(String fieldName, Double fieldValue) {

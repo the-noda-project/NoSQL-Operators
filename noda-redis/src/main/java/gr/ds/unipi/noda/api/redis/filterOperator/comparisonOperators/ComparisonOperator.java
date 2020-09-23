@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator<List<Map.Entry<Operator, String[]>> , U> {
+public abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator<List<Map.Entry<Operator, String[]>> , U> {
     protected ComparisonOperator(String fieldName, U fieldValue) {
         super(fieldName, fieldValue);
     }
@@ -16,7 +16,53 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
     @Override
     public List<Map.Entry<Operator, String[]>> getOperatorExpression() {
         List<Map.Entry<Operator, String[]>> list = new ArrayList();
-        list.add(new AbstractMap.SimpleImmutableEntry<>(this, new String[]{RandomStringGenerator.randomCharacterNumericString()}));
+        list.add(new AbstractMap.SimpleImmutableEntry<>(this, new String[]{getEvalExpression(), getFieldName(), getFieldName() + ":" + RandomStringGenerator.randomCharacterNumericString()}));
         return list;
     }
+
+    protected String getEvalExpression(){
+
+        return  "local t = redis.call('ZRANGEBYSCORE', KEYS[1], '" + minumumRangeValue() + "', '"+maximumRangeValue() + "', 'WITHSCORES')\n" +
+                        "local i = 1\n"+
+                        "local temp = {}\n"+
+                        "while(i <= #t) do\n"+
+                        "    table.insert(temp, t[i+1])\n"+
+                        "    table.insert(temp, t[i])\n"+
+                        "    if #temp >= 1000 then\n"+
+                        "        redis.call('ZADD', KEYS[2], unpack(temp))\n"+
+                        "        temp = {}\n"+
+                        "    end\n"+
+                        "    i = i+2\n"+
+                        "end\n"+
+                        "if #temp > 0 then\n"+
+                        "    redis.call('ZADD', KEYS[2], unpack(temp))\n"+
+                        "end\n"+
+                        "redis.call('EXPIRE' , KEYS[2], 100)\n"+
+                        "return 1";
+    }
+
+    protected String minumumRangeValue(){
+        return "-inf";
+    }
+
+    protected String maximumRangeValue(){
+        return "+inf";
+    }
+
+    public abstract String getComparisonOperatorType();
+
+    public static String sd = "local i = 1\n"+
+            "local temp = {}\n"+
+            "while(i <= #t) do\n"+
+            "    table.insert(temp, t[i+1])\n"+
+            "    table.insert(temp, t[i])\n"+
+            "    if #temp >= 1000 then\n"+
+            "        redis.call('ZADD', KEYS[2], unpack(temp))\n"+
+            "        temp = {}\n"+
+            "    end\n"+
+            "    i = i+2\n"+
+            "end\n"+
+            "if #temp > 0 then\n"+
+            "    redis.call('ZADD', KEYS[2], unpack(temp))\n"+
+            "end\n";
 }
