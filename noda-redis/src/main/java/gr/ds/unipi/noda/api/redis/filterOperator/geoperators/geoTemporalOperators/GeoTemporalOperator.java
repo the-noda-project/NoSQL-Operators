@@ -13,4 +13,6 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
     public Object getOperatorExpression(){
         return null;
     }
+
+
 }

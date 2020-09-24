@@ -2,6 +2,8 @@ package gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 
+import java.util.Arrays;
+
 public abstract class LogicalOperator<T> implements FilterOperator<T> {
 
     private FilterOperator[] filterOperatorChildren;//a set method has been added because redis module modifies children
@@ -34,6 +36,24 @@ public abstract class LogicalOperator<T> implements FilterOperator<T> {
     }
 
     public static BaseLogicalOperatorFactory logicalOperator;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LogicalOperator<?> that = (LogicalOperator<?>) o;
+
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(filterOperatorChildren, that.filterOperatorChildren);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Arrays.hashCode(filterOperatorChildren);
+        result = 31 * result + getClass().hashCode();
+        return result;
+    }
 
 //    private void checkNumberOfChildrenCondition(FilterOperator... filterOperatorChildren) {
 //        if (filterOperatorChildren.length < 2) {

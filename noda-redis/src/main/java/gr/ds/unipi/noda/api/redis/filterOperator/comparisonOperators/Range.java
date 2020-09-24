@@ -2,6 +2,8 @@ package gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 
+import java.util.Objects;
+
 public class Range implements FilterOperator<String> {
 
     private final ComparisonOperator comparisonOperator1;
@@ -20,5 +22,19 @@ public class Range implements FilterOperator<String> {
 
     public static Range newRange(ComparisonOperator comparisonOperator1, ComparisonOperator comparisonOperator2){
         return new Range(comparisonOperator1, comparisonOperator2);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Range range = (Range) o;
+        return Objects.equals(comparisonOperator1, range.comparisonOperator1) &&
+                Objects.equals(comparisonOperator2, range.comparisonOperator2);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(comparisonOperator1, comparisonOperator2);
     }
 }

@@ -17,4 +17,19 @@ public abstract class GeoTextualOperator<T, U extends Geometry> implements Filte
     public GeographicalOperator<T,U> getGeographicalOperator() {
         return geographicalOperator;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GeoTextualOperator<?, ?> that = (GeoTextualOperator<?, ?>) o;
+
+        return geographicalOperator.equals(that.geographicalOperator);
+    }
+
+    @Override
+    public int hashCode() {
+        return geographicalOperator.hashCode();
+    }
 }

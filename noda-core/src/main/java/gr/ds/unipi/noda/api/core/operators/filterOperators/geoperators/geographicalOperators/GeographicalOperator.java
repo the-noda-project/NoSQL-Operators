@@ -23,4 +23,22 @@ public abstract class GeographicalOperator<T, U extends Geometry> implements Fil
 
     public static BaseGeographicalOperatorFactory geoSpatialOperator;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GeographicalOperator<?, ?> that = (GeographicalOperator<?, ?>) o;
+
+        if (!fieldName.equals(that.fieldName)) return false;
+        return geometry.equals(that.geometry);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = fieldName.hashCode();
+        result = 31 * result + geometry.hashCode();
+        result = 31 * result + getClass().hashCode();
+        return result;
+    }
 }

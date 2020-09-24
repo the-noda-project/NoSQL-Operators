@@ -28,4 +28,25 @@ public abstract class GeoTemporalOperator<T, U extends Geometry, S extends Tempo
     }
 
     protected GeographicalOperator<T,U> getGeographicalOperator(){return geographicalOperator;}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GeoTemporalOperator<?, ?, ?> that = (GeoTemporalOperator<?, ?, ?>) o;
+
+        if (!geographicalOperator.equals(that.geographicalOperator)) return false;
+        if (!temporalFieldName.equals(that.temporalFieldName)) return false;
+        return temporalType.equals(that.temporalType);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = geographicalOperator.hashCode();
+        result = 31 * result + temporalFieldName.hashCode();
+        result = 31 * result + temporalType.hashCode();
+        result = 31 * result + getClass().hashCode();
+        return result;
+    }
 }

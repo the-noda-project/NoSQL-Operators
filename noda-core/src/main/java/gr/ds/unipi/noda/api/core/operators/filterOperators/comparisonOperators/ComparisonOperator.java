@@ -22,4 +22,22 @@ public abstract class ComparisonOperator<T, U> implements FilterOperator<T> {
 
     public static BaseComparisonOperatorFactory comparisonOperator;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ComparisonOperator<?, ?> that = (ComparisonOperator<?, ?>) o;
+        
+        if (!fieldName.equals(that.fieldName)) return false;
+        return fieldValue.equals(that.fieldValue);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = fieldName.hashCode();
+        result = 31 * result + fieldValue.hashCode();
+        result = 31 * result + getClass().hashCode();
+        return result;
+    }
 }
