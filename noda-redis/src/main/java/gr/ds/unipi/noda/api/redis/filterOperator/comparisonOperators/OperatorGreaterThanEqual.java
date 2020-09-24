@@ -13,11 +13,6 @@ public final class OperatorGreaterThanEqual<T> extends ComparisonOperator<T> {
         return getFieldValue().toString();
     }
 
-    @Override
-    public String getComparisonOperatorType() {
-        return "gte";
-    }
-
     public static OperatorGreaterThanEqual<Double> newOperatorGreaterThanEqual(String fieldName, Double fieldValue) {
         return new OperatorGreaterThanEqual(fieldName, fieldValue);
     }

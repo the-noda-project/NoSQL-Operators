@@ -6,28 +6,25 @@ import gr.ds.unipi.noda.api.redis.filterOperator.RandomStringGenerator;
 import gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.*;
 import java.util.*;
 
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.gt;
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.lt;
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.or;
-
 public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator<List<Map.Entry<Operator, String[]>>> {
     protected LogicalOperator(FilterOperator filterOperator1, FilterOperator filterOperator2, FilterOperator... filterOperators) {
         super(filterOperator1, filterOperator2, filterOperators);
 
-
         FilterOperator[] fops = new FilterOperator[filterOperators.length+2];
         fops[0] = filterOperator1;
         fops[1] = filterOperator2;
+
         if(filterOperators.length != 0){
             int i = 2;
             while(i< fops.length){
-                fops[i++] = filterOperators[i-2];
+                fops[i] = filterOperators[i-2];
+                i++;
             }
         }
 
         Map<String, Map.Entry<ComparisonOperator[],List<ComparisonOperator>>> hashMap = new HashMap<>();
 
-        List<FilterOperator> fopsList = Arrays.asList(fops);
+        List<FilterOperator> fopsList = new ArrayList<>(Arrays.asList(fops));
 
         fopsList.forEach(filterOperator -> {
 
@@ -47,12 +44,12 @@ public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operator
                             comparisonOperator[0] = (ComparisonOperator) filterOperator;
                         }
                         else{
-                            if((Double.compare((Double) comparisonOperator[0].getFieldValue(), (Double) ((ComparisonOperator) filterOperator).getFieldValue())==1)){
+                            if((Double.compare(new Double(String.valueOf(comparisonOperator[0].getFieldValue())), new Double(String.valueOf(((ComparisonOperator) filterOperator).getFieldValue())))==1)){
                                 comparisonOperator[0] = (ComparisonOperator) filterOperator;
                             }
-                            else if((Double.compare((Double) comparisonOperator[0].getFieldValue(), (Double) ((ComparisonOperator) filterOperator).getFieldValue())==0)){
+                            else if((Double.compare(new Double(String.valueOf(comparisonOperator[0].getFieldValue())), new Double(String.valueOf(((ComparisonOperator) filterOperator).getFieldValue())))==0)){
                                 if(comparisonOperator[0].getClass() != filterOperator.getClass()){
-                                    if(comparisonOperator[0].getClass() != OperatorGreaterThan.class){
+                                    if(comparisonOperator[0].getClass() == OperatorGreaterThan.class){
                                         comparisonOperator[0] = (ComparisonOperator) filterOperator;
                                     }
                                 }
@@ -63,12 +60,12 @@ public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operator
                             comparisonOperator[1] = (ComparisonOperator) filterOperator;
                         }
                         else{
-                            if((Double.compare((Double) comparisonOperator[1].getFieldValue(), (Double) ((ComparisonOperator) filterOperator).getFieldValue())==-1)){
+                            if((Double.compare(new Double(String.valueOf(comparisonOperator[1].getFieldValue())), new Double(String.valueOf(((ComparisonOperator) filterOperator).getFieldValue())))==-1)){
                                 comparisonOperator[1] = (ComparisonOperator) filterOperator;
                             }
-                            else if((Double.compare((Double) comparisonOperator[1].getFieldValue(), (Double) ((ComparisonOperator) filterOperator).getFieldValue())==0)){
+                            else if((Double.compare(new Double(String.valueOf(comparisonOperator[1].getFieldValue())), new Double(String.valueOf(((ComparisonOperator) filterOperator).getFieldValue())))==0)){
                                 if(comparisonOperator[1].getClass() != filterOperator.getClass()){
-                                    if(comparisonOperator[1].getClass() != OperatorLessThan.class){
+                                    if(comparisonOperator[1].getClass() == OperatorLessThan.class){
                                         comparisonOperator[1] = (ComparisonOperator) filterOperator;
                                     }
                                 }
@@ -91,15 +88,14 @@ public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operator
 
 
             }
-            else if( (filterOperator instanceof OperatorNotEqual) &&
-                    !(((OperatorNotEqual) filterOperator).getFieldValue() instanceof String )){
-                        fopsList.set(fopsList.indexOf(filterOperator),or(lt(((OperatorNotEqual) filterOperator).getFieldName(),(Double)((OperatorNotEqual) filterOperator).getFieldValue()),gt(((OperatorNotEqual) filterOperator).getFieldName(),(Double) ((OperatorNotEqual) filterOperator).getFieldValue())));
-            }
+//            else if( (filterOperator instanceof OperatorNotEqual) &&
+//                    !(((OperatorNotEqual) filterOperator).getFieldValue() instanceof String )){
+//                        fopsList.set(fopsList.indexOf(filterOperator),or(lt(((OperatorNotEqual) filterOperator).getFieldName(),(Double)((OperatorNotEqual) filterOperator).getFieldValue()),gt(((OperatorNotEqual) filterOperator).getFieldName(),(Double) ((OperatorNotEqual) filterOperator).getFieldValue())));
+//            }
             else{
                 return;
             }
         });
-
 
         hashMap.forEach((i,v)->{
             if(v.getValue().size()>1){
@@ -112,18 +108,33 @@ public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operator
                 else if(v.getKey()[1] == null){
                     filt = v.getKey()[0];
                 }
+                else if(Double.compare(new Double(String.valueOf(v.getKey()[0].getFieldValue())),new Double(String.valueOf(v.getKey()[1].getFieldValue()))) == -1 && getClass() == OperatorAnd.class){
+                        filt = Range.newRange(v.getKey()[0], v.getKey()[1]);
+                }
                 else{
-                    filt = Range.newRange(v.getKey()[0],v.getKey()[1]);
+
+                    filt = v.getKey()[0];
+                    FilterOperator secondFilter = v.getKey()[1];
+
+                    List<ComparisonOperator> l =  v.getValue();
+
+                    int indexOfFilt = fopsList.indexOf(l.get(0));
+                    int indexOfSecondFilter = fopsList.indexOf(l.get(1));
+
+                    fopsList.set(indexOfFilt, filt);
+                    fopsList.set(indexOfSecondFilter, secondFilter);
+
+                    for (int y = 2; y < l.size(); y++) {
+                        fopsList.remove(l.get(y));
+                    }
+                    return;
                 }
 
                 List<ComparisonOperator> l =  v.getValue();
-
                 int indexOfReplacing = fopsList.indexOf(l.get(0));
-
                 fopsList.set(indexOfReplacing, filt);
-
                 for (int y = 1; y < l.size(); y++) {
-                    fopsList.remove(y);
+                    fopsList.remove(l.get(y));
                 }
             }
         });
@@ -149,7 +160,18 @@ public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operator
         return list;
     }
 
-    public abstract String getLogicalOperatorType();
+    public StringBuilder toString(String level){
 
+        if(getFilterOperatorChildren().length==1){
+            return getFilterOperatorChildren()[0].toString("");
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(level+getClass()+"\n");
+        for (int i = 0; i < getFilterOperatorChildren().length; i++) {
+            sb.append("-"+level+this.getFilterOperatorChildren()[i].toString(level+"-"));
+        }
+        return sb;
+    }
 
 }

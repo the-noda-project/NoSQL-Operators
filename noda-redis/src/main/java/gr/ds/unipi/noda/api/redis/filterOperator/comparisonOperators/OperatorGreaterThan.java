@@ -21,12 +21,6 @@ public final class OperatorGreaterThan<T> extends ComparisonOperator<T> {
         return "("+getFieldValue().toString();
     }
 
-
-    @Override
-    public String getComparisonOperatorType() {
-        return "gt";
-    }
-
     public static OperatorGreaterThan<Double> newOperatorGreaterThan(String fieldName, Double fieldValue) {
         return new OperatorGreaterThan(fieldName, fieldValue);
     }

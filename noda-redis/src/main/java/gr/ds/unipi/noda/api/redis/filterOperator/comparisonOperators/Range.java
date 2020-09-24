@@ -37,4 +37,10 @@ public class Range implements FilterOperator<String> {
     public int hashCode() {
         return Objects.hash(comparisonOperator1, comparisonOperator2);
     }
+
+    public StringBuilder toString(String level){
+        StringBuilder sb = new StringBuilder();
+        sb.append("-"+level+getClass()+"\n 1: "+ comparisonOperator1.toString(level) +" 2: "+ comparisonOperator2.toString(level));
+        return sb;
+    }
 }

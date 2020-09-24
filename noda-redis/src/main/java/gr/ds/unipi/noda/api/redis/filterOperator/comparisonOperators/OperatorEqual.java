@@ -19,11 +19,6 @@ public final class OperatorEqual<T> extends ComparisonOperator<T> {
         return super.getOperatorExpression();
     }
 
-    @Override
-    public String getComparisonOperatorType() {
-        return "eq";
-    }
-
     public static OperatorEqual<Double> newOperatorEqual(String fieldName, Double fieldValue) {
         return new OperatorEqual(fieldName, fieldValue);
     }

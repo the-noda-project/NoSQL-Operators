@@ -13,11 +13,6 @@ public final class OperatorLessThan<T> extends ComparisonOperator<T> {
         return "("+getFieldValue().toString();
     }
 
-    @Override
-    public String getComparisonOperatorType() {
-        return "lt";
-    }
-
     public static OperatorLessThan<Double> newOperatorLessThan(String fieldName, Double fieldValue) {
         return new OperatorLessThan(fieldName, fieldValue);
     }

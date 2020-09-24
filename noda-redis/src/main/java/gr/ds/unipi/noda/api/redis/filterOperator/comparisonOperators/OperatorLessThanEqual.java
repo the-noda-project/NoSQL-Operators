@@ -13,11 +13,6 @@ import java.util.Date;
         return getFieldValue().toString();
     }
 
-    @Override
-    public String getComparisonOperatorType() {
-        return "lte";
-    }
-
     public static OperatorLessThanEqual<Double> newOperatorLessThanEqual(String fieldName, Double fieldValue) {
         return new OperatorLessThanEqual(fieldName, fieldValue);
     }

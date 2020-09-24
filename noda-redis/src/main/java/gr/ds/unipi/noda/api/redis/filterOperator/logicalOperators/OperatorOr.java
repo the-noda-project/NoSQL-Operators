@@ -8,11 +8,6 @@ final class OperatorOr extends LogicalOperator {
         super(filterOperator1, filterOperator2, filterOperators);
     }
 
-    @Override
-    public String getLogicalOperatorType() {
-        return "or";
-    }
-
     public static OperatorOr newOperatorOr(FilterOperator filterOperator1, FilterOperator filterOperator2, FilterOperator... filterOperators) {
         return new OperatorOr(filterOperator1, filterOperator2, filterOperators);
     }

@@ -34,23 +34,25 @@ final class RedisOperators extends NoSqlDbOperators {
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
 
-        List<Map.Entry<Operator, String[]>> list = (List<Map.Entry<Operator, String[]>>) filterOperator.getOperatorExpression();
+//        List<Map.Entry<Operator, String[]>> list = (List<Map.Entry<Operator, String[]>>) filterOperator.getOperatorExpression();
+//
+//        for(int i =0; i<list.size();i++){
+//            pipeline.eval(list.get(i).getValue()[0],2, getDataCollection() +":"+list.get(i).getValue()[1], /*getDataCollection() +":"+list.get(i).getValue()[2]*/"ad");
+//            System.out.println("its ok "+ getDataCollection() +":"+list.get(i).getValue()[1]);
+//            System.out.println("its ok "+ getDataCollection() +":"+list.get(i).getValue()[2]);
+//            System.out.println(list.get(i).getValue()[0]);
+//
+//            if(list.get(i).getValue()[0].equals("eq")){
+//
+//            }else if(list.get(i).getValue()[0].equals("neqNumeric")){
+//
+//            }
+//        }
+//
+//
+//        pipeline.sync();
 
-        for(int i =0; i<list.size();i++){
-            pipeline.eval(list.get(i).getValue()[0],2, getDataCollection() +":"+list.get(i).getValue()[1], /*getDataCollection() +":"+list.get(i).getValue()[2]*/"ad");
-            System.out.println("its ok "+ getDataCollection() +":"+list.get(i).getValue()[1]);
-            System.out.println("its ok "+ getDataCollection() +":"+list.get(i).getValue()[2]);
-            System.out.println(list.get(i).getValue()[0]);
-
-            if(list.get(i).getValue()[0].equals("eq")){
-
-            }else if(list.get(i).getValue()[0].equals("neqNumeric")){
-
-            }
-        }
-
-
-        pipeline.sync();
+        System.out.println(filterOperator.toString(""));
 
 //        for (int i = 0; i < list.size(); i++) {
 //            Map.Entry<Operator, String[]> entry = list.get(i);

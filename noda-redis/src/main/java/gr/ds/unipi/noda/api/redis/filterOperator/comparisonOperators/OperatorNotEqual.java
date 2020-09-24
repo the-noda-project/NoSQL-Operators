@@ -13,11 +13,6 @@ public final class OperatorNotEqual<T> extends ComparisonOperator<T> {
         return null;
     }
 
-    @Override
-    public String getComparisonOperatorType() {
-        return "ne";
-    }
-
     public static OperatorNotEqual<Double> newOperatorNotEqual(String fieldName, Double fieldValue) {
         return new OperatorNotEqual(fieldName, fieldValue);
     }
