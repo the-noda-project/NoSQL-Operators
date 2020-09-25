@@ -46,20 +46,20 @@ public abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.op
         return "+inf";
     }
 
-    public static String sd = "local i = 1\n"+
-            "local temp = {}\n"+
-            "while(i <= #t) do\n"+
-            "    table.insert(temp, t[i+1])\n"+
-            "    table.insert(temp, t[i])\n"+
-            "    if #temp >= 1000 then\n"+
-            "        redis.call('ZADD', KEYS[2], unpack(temp))\n"+
-            "        temp = {}\n"+
-            "    end\n"+
-            "    i = i+2\n"+
-            "end\n"+
-            "if #temp > 0 then\n"+
-            "    redis.call('ZADD', KEYS[2], unpack(temp))\n"+
-            "end\n";
+//    public static String sd = "local i = 1\n"+
+//            "local temp = {}\n"+
+//            "while(i <= #t) do\n"+
+//            "    table.insert(temp, t[i+1])\n"+
+//            "    table.insert(temp, t[i])\n"+
+//            "    if #temp >= 1000 then\n"+
+//            "        redis.call('ZADD', KEYS[2], unpack(temp))\n"+
+//            "        temp = {}\n"+
+//            "    end\n"+
+//            "    i = i+2\n"+
+//            "end\n"+
+//            "if #temp > 0 then\n"+
+//            "    redis.call('ZADD', KEYS[2], unpack(temp))\n"+
+//            "end\n";
 
     public StringBuilder toString(String level){
         StringBuilder sb = new StringBuilder();

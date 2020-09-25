@@ -9,14 +9,6 @@ public final class OperatorGreaterThan<T> extends ComparisonOperator<T> {
     }
 
     @Override
-    protected String getEvalExpression() {
-        return "local t = redis.call('ZRANGEBYSCORE', KEYS[1], '(" + getFieldValue().toString() + "', '+inf', 'WITHSCORES')\n" +
-                sd
-
-                + super.getEvalExpression();
-    }
-
-    @Override
     protected String minumumRangeValue(){
         return "("+getFieldValue().toString();
     }
