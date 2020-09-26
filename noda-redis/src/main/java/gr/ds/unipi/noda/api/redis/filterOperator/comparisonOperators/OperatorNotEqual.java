@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators;
 
 import java.util.Date;
 
-public final class OperatorNotEqual<T> extends ComparisonOperator<T> {
+final class OperatorNotEqual<T> extends ComparisonOperator<T> {
 
     private OperatorNotEqual(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
@@ -11,46 +11,44 @@ public final class OperatorNotEqual<T> extends ComparisonOperator<T> {
     @Override
     protected String getEvalExpression() {
         if(!(getFieldValue() instanceof String)){
-            return  "local t1 = redis.call('ZRANGEBYSCORE', KEYS[1], '-inf', '("+getFieldValue() + "', 'WITHSCORES')\n" +
+            return  "local t1 = redis.call('ZRANGEBYSCORE', KEYS[1], '-inf', '("+getFieldValue() + "')\n" +
                     "local i1 = 1\n"+
                     "local temp1 = {}\n"+
                     "while(i1 <= #t1) do\n"+
                     "    table.insert(temp1, t1[i1+1])\n"+
                     "    table.insert(temp1, t1[i1])\n"+
                     "    if #temp1 >= 1000 then\n"+
-                    "        redis.call('ZADD', KEYS[2], unpack(temp1))\n"+
+                    "        redis.call('SADD', KEYS[2], unpack(temp1))\n"+
                     "        temp1 = {}\n"+
                     "    end\n"+
                     "    i1 = i1+2\n"+
                     "end\n"+
                     "if #temp1 > 0 then\n"+
-                    "    redis.call('ZADD', KEYS[2], unpack(temp1))\n"+
+                    "    redis.call('SADD', KEYS[2], unpack(temp1))\n"+
                     "end\n"+
                     "redis.call('EXPIRE' , KEYS[2], 100)\n"+
 
-                    "local t2 = redis.call('ZRANGEBYSCORE', KEYS[1], '("+getFieldValue() + "', '+inf', 'WITHSCORES')\n" +
+                    "local t2 = redis.call('ZRANGEBYSCORE', KEYS[1], '("+getFieldValue() + "', '+inf')\n" +
                     "local i2 = 1\n"+
                     "local temp2 = {}\n"+
                     "while(i2 <= #t2) do\n"+
                     "    table.insert(temp2, t2[i2+1])\n"+
                     "    table.insert(temp2, t2[i2])\n"+
                     "    if #temp2 >= 1000 then\n"+
-                    "        redis.call('ZADD', KEYS[2], unpack(temp2))\n"+
+                    "        redis.call('SADD', KEYS[3], unpack(temp2))\n"+
                     "        temp2 = {}\n"+
                     "    end\n"+
                     "    i2 = i2+2\n"+
                     "end\n"+
                     "if #temp2 > 0 then\n"+
-                    "    redis.call('ZADD', KEYS[2], unpack(temp2))\n"+
+                    "    redis.call('SADD', KEYS[3], unpack(temp2))\n"+
                     "end\n"+
-                    "redis.call('EXPIRE' , KEYS[2], 100)\n"+
+                    "redis.call('EXPIRE' , KEYS[3], 100)\n"+
 
-
+                    "redis.call('SUNIONSTORE' , KEYS[4], KEYS[2], KEYS[3])\n"+
+                    "redis.call('EXPIRE' , KEYS[4], 100)\n"+
 
                     "return 1";
-
-
-
         }
         return null;
     }

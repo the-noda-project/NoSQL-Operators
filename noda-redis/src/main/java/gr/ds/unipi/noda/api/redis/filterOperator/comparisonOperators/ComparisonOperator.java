@@ -19,20 +19,20 @@ public abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.op
 
     protected String getEvalExpression(){
 
-        return  "local t = redis.call('ZRANGEBYSCORE', KEYS[1], '" + minumumRangeValue() + "', '"+maximumRangeValue() + "', 'WITHSCORES')\n" +
+        return  "local t = redis.call('ZRANGEBYSCORE', KEYS[1], '" + minumumRangeValue() + "', '"+maximumRangeValue() + "')\n" +
                         "local i = 1\n"+
                         "local temp = {}\n"+
                         "while(i <= #t) do\n"+
                         "    table.insert(temp, t[i+1])\n"+
                         "    table.insert(temp, t[i])\n"+
                         "    if #temp >= 1000 then\n"+
-                        "        redis.call('ZADD', KEYS[2], unpack(temp))\n"+
+                        "        redis.call('SADD', KEYS[2], unpack(temp))\n"+
                         "        temp = {}\n"+
                         "    end\n"+
                         "    i = i+2\n"+
                         "end\n"+
                         "if #temp > 0 then\n"+
-                        "    redis.call('ZADD', KEYS[2], unpack(temp))\n"+
+                        "    redis.call('SADD', KEYS[2], unpack(temp))\n"+
                         "end\n"+
                         "redis.call('EXPIRE' , KEYS[2], 100)\n"+
                         "return 1";

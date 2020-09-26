@@ -3,7 +3,7 @@ package gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators;
 import gr.ds.unipi.noda.api.core.operators.Operator;
 import java.util.*;
 
-public final class OperatorEqual<T> extends ComparisonOperator<T> {
+final class OperatorEqual<T> extends ComparisonOperator<T> {
 
     private OperatorEqual(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
