@@ -10,10 +10,10 @@ final class OperatorEqual<T> extends ComparisonOperator<T> {
     }
 
     @Override
-    public List<Map.Entry<Operator, String[]>> getOperatorExpression() {
+    public List<Map.Entry<String, String[]>> getOperatorExpression() {
         if(getFieldValue() instanceof String){
-            List<Map.Entry<Operator, String[]>> list = new ArrayList();
-            list.add(new AbstractMap.SimpleImmutableEntry<>(this, new String[]{"eqString", getFieldName(), getFieldName()}));
+            List<Map.Entry<String, String[]>> list = new ArrayList();
+            list.add(new AbstractMap.SimpleImmutableEntry<>("return KEYS[1]\n", new String[]{getFieldName()}));
             return list;
         }
         return super.getOperatorExpression();

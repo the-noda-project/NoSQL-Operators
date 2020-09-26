@@ -5,15 +5,15 @@ import gr.ds.unipi.noda.api.redis.filterOperator.RandomStringGenerator;
 
 import java.util.*;
 
-public abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator<List<Map.Entry<Operator, String[]>> , U> {
+public abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator<List<Map.Entry<String, String[]>> , U> {
     protected ComparisonOperator(String fieldName, U fieldValue) {
         super(fieldName, fieldValue);
     }
 
     @Override
-    public List<Map.Entry<Operator, String[]>> getOperatorExpression() {
-        List<Map.Entry<Operator, String[]>> list = new ArrayList();
-        list.add(new AbstractMap.SimpleImmutableEntry<>(this, new String[]{getEvalExpression(), getFieldName(), getFieldName() + ":" + RandomStringGenerator.randomCharacterNumericString()}));
+    public List<Map.Entry<String, String[]>> getOperatorExpression() {
+        List<Map.Entry<String, String[]>> list = new ArrayList();
+        list.add(new AbstractMap.SimpleImmutableEntry<>(getEvalExpression(), new String[]{getFieldName(), RandomStringGenerator.randomCharacterNumericString()}));
         return list;
     }
 

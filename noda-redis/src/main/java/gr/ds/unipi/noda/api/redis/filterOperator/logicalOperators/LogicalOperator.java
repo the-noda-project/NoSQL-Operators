@@ -7,7 +7,7 @@ import gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.*;
 
 import java.util.*;
 
-public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator<List<Map.Entry<Operator, String[]>>> {
+public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator<List<Map.Entry<String, String[]>>> {
     protected LogicalOperator(int a, Class b, Class c, FilterOperator filterOperator1, FilterOperator filterOperator2, FilterOperator... filterOperators) {
         super(filterOperator1, filterOperator2, filterOperators);
         FilterOperator[] fops = new FilterOperator[filterOperators.length+2];
@@ -136,36 +136,78 @@ public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operator
         setFilterOperatorChildren(fopsList.toArray(new FilterOperator[fopsList.size()]));
     }
 
-    @Override
-    public List<Map.Entry<Operator, String[]>> getOperatorExpression() {
+//    @Override
+//    public List<Map.Entry<String, String[]>> getOperatorExpression() {
+//
+//        List<Map.Entry<String, String[]>> list = new ArrayList<>();
+//        String[] temporaryListsName = new String[this.getFilterOperatorChildren().length + 1];
+//        temporaryListsName[0] = RandomStringGenerator.randomCharacterNumericString();
+//
+//        for (int i = 0; i < this.getFilterOperatorChildren().length; i++) {
+//            list.addAll((Collection) getFilterOperatorChildren()[i].getOperatorExpression());
+//
+//            int sizeOfChildList = ((List<Map.Entry<String, String[]>>) getFilterOperatorChildren()[i].getOperatorExpression()).size();
+//            Map.Entry<Operator, String[]> entry = ((List<Map.Entry<String, String[]>>) getFilterOperatorChildren()[i].getOperatorExpression()).get(sizeOfChildList-1);
+//            temporaryListsName[i+1] = entry.getValue()[0];
+//        }
+//        list.add(new AbstractMap.SimpleImmutableEntry<>(this, temporaryListsName));
+//        return list;
+//    }
 
-        List<Map.Entry<Operator, String[]>> list = new ArrayList<>();
+    @Override
+    public List<Map.Entry<String, String[]>> getOperatorExpression() {
+
+        if(getFilterOperatorChildren().length == 1){
+            return (List<Map.Entry<String, String[]>>) getFilterOperatorChildren()[0].getOperatorExpression();
+        }
+
+        List<Map.Entry<String, String[]>> list = new ArrayList<>();
+        String[] o = new String[getFilterOperatorChildren().length + 1];
         String[] temporaryListsName = new String[this.getFilterOperatorChildren().length + 1];
-        temporaryListsName[0] = RandomStringGenerator.randomCharacterNumericString();
+        temporaryListsName[0] = RandomStringGenerator.randomCharacterNumericString();//add the random as the last element in the array
+
 
         for (int i = 0; i < this.getFilterOperatorChildren().length; i++) {
             list.addAll((Collection) getFilterOperatorChildren()[i].getOperatorExpression());
 
-            int sizeOfChildList = ((List<Map.Entry<Operator, String[]>>) getFilterOperatorChildren()[i].getOperatorExpression()).size();
-            Map.Entry<Operator, String[]> entry = ((List<Map.Entry<Operator, String[]>>) getFilterOperatorChildren()[i].getOperatorExpression()).get(sizeOfChildList-1);
-            temporaryListsName[i+1] = entry.getValue()[0];
+            if(getFilterOperatorChildren()[i] instanceof LogicalOperator){
+                temporaryListsName[i+1] = ((Map.Entry<String, String[]>) getFilterOperatorChildren()[i].getOperatorExpression()).getValue()[0];
+            }
+            else{
+                temporaryListsName[i+1] = ((Map.Entry<String, String[]>) getFilterOperatorChildren()[i].getOperatorExpression()).getValue()[((Map.Entry<String, String[]>) getFilterOperatorChildren()[i].getOperatorExpression()).getValue().length-1];
+            }
         }
-        list.add(new AbstractMap.SimpleImmutableEntry<>(this, temporaryListsName));
+
+        list.add(new AbstractMap.SimpleImmutableEntry<>(getEvalExpression(temporaryListsName.length), temporaryListsName));
         return list;
     }
 
-    public StringBuilder toString(String level){
-
-        if(getFilterOperatorChildren().length==1){
-            return getFilterOperatorChildren()[0].toString("");
-        }
+    protected String getEvalExpression(int numberOfKeys){
 
         StringBuilder sb = new StringBuilder();
-        sb.append(level+getClass()+"\n");
-        for (int i = 0; i < getFilterOperatorChildren().length; i++) {
-            sb.append("-"+level+this.getFilterOperatorChildren()[i].toString(level+"-"));
+        for (int i = 0; i < numberOfKeys; i++) {
+            sb.append(", KEYS[").append(i+1).append("]");
         }
-        return sb;
+
+        return  "local t = redis.call('"+setOperation()+"'"+sb.toString()+")\n" +
+                "redis.call('EXPIRE' , KEYS[1], 100)\n"+
+                "return 1";
     }
+
+    protected abstract String setOperation();
+
+//    public StringBuilder toString(String level){
+//
+//        if(getFilterOperatorChildren().length==1){
+//            return getFilterOperatorChildren()[0].toString("");
+//        }
+//
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(level+getClass()+"\n");
+//        for (int i = 0; i < getFilterOperatorChildren().length; i++) {
+//            sb.append("-"+level+this.getFilterOperatorChildren()[i].toString(level+"-"));
+//        }
+//        return sb;
+//    }
 
 }
