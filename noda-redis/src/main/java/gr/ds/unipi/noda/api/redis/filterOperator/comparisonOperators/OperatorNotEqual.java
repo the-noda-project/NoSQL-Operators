@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators;
 
-import java.util.Date;
+import java.util.*;
 
 final class OperatorNotEqual<T> extends ComparisonOperator<T> {
 
@@ -50,10 +50,22 @@ final class OperatorNotEqual<T> extends ComparisonOperator<T> {
 
                     "return 1";
         }
-        return null;
+        else{
+            return "local t = redis.call('SDIFFSTORE', KEYS[3], KEYS[2], KEYS[1])\n" +
+                    "redis.call('EXPIRE' , KEYS[3], 100)\n"+
+                    "return 1";
+        }
     }
 
-
+    @Override
+    public List<Map.Entry<String, String[]>> getOperatorExpression() {
+        if(getFieldValue() instanceof String){
+            List<Map.Entry<String, String[]>> list = new ArrayList();
+            list.add(new AbstractMap.SimpleImmutableEntry<>(getEvalExpression(), new String[]{getFieldName(), "primaryKey", getRandomString()}));
+            return list;
+        }
+        return super.getOperatorExpression();
+    }
 
     public static OperatorNotEqual<Double> newOperatorNotEqual(String fieldName, Double fieldValue) {
         return new OperatorNotEqual(fieldName, fieldValue);

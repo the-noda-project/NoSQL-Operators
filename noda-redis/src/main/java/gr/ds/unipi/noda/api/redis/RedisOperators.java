@@ -46,8 +46,15 @@ final class RedisOperators extends NoSqlDbOperators {
             for (int keyIndex = 0; keyIndex < keys.length; keyIndex++) {
                 keys[keyIndex] = getDataCollection() + ":" + keys[keyIndex];
             }
+            System.out.println(list.get(i).getKey());
+            for (String key : keys) {
+                System.out.print(key+" ");
+            }
 
-            pipeline.eval(list.get(i).getKey(),keys.length, keys);
+            System.out.println();
+
+            System.out.println("-----");
+            //pipeline.eval(list.get(i).getKey(),keys.length, keys);
 
 
 //            pipeline.eval(list.get(i).getValue()[0],2, getDataCollection() +":"+list.get(i).getValue()[1], /*getDataCollection() +":"+list.get(i).getValue()[2]*/"ad");

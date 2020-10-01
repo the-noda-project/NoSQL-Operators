@@ -6,14 +6,18 @@ import gr.ds.unipi.noda.api.redis.filterOperator.RandomStringGenerator;
 import java.util.*;
 
 public abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator<List<Map.Entry<String, String[]>> , U> {
+
+    private final String randomString;
+
     protected ComparisonOperator(String fieldName, U fieldValue) {
         super(fieldName, fieldValue);
+        randomString = RandomStringGenerator.randomCharacterNumericString();
     }
 
     @Override
     public List<Map.Entry<String, String[]>> getOperatorExpression() {
         List<Map.Entry<String, String[]>> list = new ArrayList();
-        list.add(new AbstractMap.SimpleImmutableEntry<>(getEvalExpression(), new String[]{getFieldName(), RandomStringGenerator.randomCharacterNumericString()}));
+        list.add(new AbstractMap.SimpleImmutableEntry<>(getEvalExpression(), new String[]{getFieldName(), randomString}));
         return list;
     }
 
@@ -65,5 +69,9 @@ public abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.op
         StringBuilder sb = new StringBuilder();
         sb.append("-"+level+getClass()+ "field: "+ getFieldName() +" - value: "+getFieldValue()+"\n");
         return sb;
+    }
+
+    public String getRandomString() {
+        return randomString;
     }
 }

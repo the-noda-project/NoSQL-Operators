@@ -1,10 +1,11 @@
 package gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.ds.unipi.noda.api.redis.filterOperator.RandomStringGenerator;
 
-import java.util.Objects;
+import java.util.*;
 
-public class Range implements FilterOperator<String> {
+public class Range implements FilterOperator<List<Map.Entry<String, String[]>>> {
 
     private final ComparisonOperator comparisonOperator1;
     private final ComparisonOperator comparisonOperator2;
@@ -16,8 +17,31 @@ public class Range implements FilterOperator<String> {
     }
 
     @Override
-    public String getOperatorExpression() {
-        return null;
+    public List<Map.Entry<String, String[]>> getOperatorExpression() {
+        List<Map.Entry<String, String[]>> list = new ArrayList();
+        list.add(new AbstractMap.SimpleImmutableEntry<>(getEvalExpression(), new String[]{comparisonOperator1.getFieldName(), comparisonOperator1.getRandomString()}));
+        return list;
+    }
+
+    protected String getEvalExpression(){
+
+        return  "local t = redis.call('ZRANGEBYSCORE', KEYS[1], '" + comparisonOperator1.minumumRangeValue() + "', '"+comparisonOperator2.maximumRangeValue() + "')\n" +
+                "local i = 1\n"+
+                "local temp = {}\n"+
+                "while(i <= #t) do\n"+
+                "    table.insert(temp, t[i+1])\n"+
+                "    table.insert(temp, t[i])\n"+
+                "    if #temp >= 1000 then\n"+
+                "        redis.call('SADD', KEYS[2], unpack(temp))\n"+
+                "        temp = {}\n"+
+                "    end\n"+
+                "    i = i+2\n"+
+                "end\n"+
+                "if #temp > 0 then\n"+
+                "    redis.call('SADD', KEYS[2], unpack(temp))\n"+
+                "end\n"+
+                "redis.call('EXPIRE' , KEYS[2], 100)\n"+
+                "return 1";
     }
 
     public static Range newRange(ComparisonOperator comparisonOperator1, ComparisonOperator comparisonOperator2){

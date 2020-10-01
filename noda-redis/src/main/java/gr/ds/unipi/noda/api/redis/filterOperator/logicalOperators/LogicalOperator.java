@@ -8,8 +8,14 @@ import gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.*;
 import java.util.*;
 
 public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator<List<Map.Entry<String, String[]>>> {
+
+    private final String randomString;
+
     protected LogicalOperator(int a, Class b, Class c, FilterOperator filterOperator1, FilterOperator filterOperator2, FilterOperator... filterOperators) {
         super(filterOperator1, filterOperator2, filterOperators);
+
+        randomString = RandomStringGenerator.randomCharacterNumericString();
+
         FilterOperator[] fops = new FilterOperator[filterOperators.length+2];
         fops[0] = filterOperator1;
         fops[1] = filterOperator2;
@@ -164,17 +170,19 @@ public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operator
         List<Map.Entry<String, String[]>> list = new ArrayList<>();
         String[] o = new String[getFilterOperatorChildren().length + 1];
         String[] temporaryListsName = new String[this.getFilterOperatorChildren().length + 1];
-        temporaryListsName[0] = RandomStringGenerator.randomCharacterNumericString();//add the random as the last element in the array
+        temporaryListsName[0] = randomString;//add the random as the first element in the array
 
 
         for (int i = 0; i < this.getFilterOperatorChildren().length; i++) {
             list.addAll((Collection) getFilterOperatorChildren()[i].getOperatorExpression());
 
+            Map.Entry<String, String[]> entry = ((List<Map.Entry<String, String[]>>) getFilterOperatorChildren()[i].getOperatorExpression()).get(((List<Map.Entry<String, String[]>>) getFilterOperatorChildren()[i].getOperatorExpression()).size()-1);
+
             if(getFilterOperatorChildren()[i] instanceof LogicalOperator){
-                temporaryListsName[i+1] = ((Map.Entry<String, String[]>) getFilterOperatorChildren()[i].getOperatorExpression()).getValue()[0];
+                temporaryListsName[i+1] = entry.getValue()[0];
             }
             else{
-                temporaryListsName[i+1] = ((Map.Entry<String, String[]>) getFilterOperatorChildren()[i].getOperatorExpression()).getValue()[((Map.Entry<String, String[]>) getFilterOperatorChildren()[i].getOperatorExpression()).getValue().length-1];
+                temporaryListsName[i+1] = entry.getValue()[entry.getValue().length-1];
             }
         }
 
