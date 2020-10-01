@@ -3,14 +3,18 @@ package gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperato
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.Temporal;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
+import gr.ds.unipi.noda.api.redis.filterOperator.Triplet;
 
-abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator<Object, T, U> {
-    protected GeoTemporalOperator(GeographicalOperator<Object,T> geographicalOperator, String temporalFieldName, U temporalType) {
+import java.util.List;
+import java.util.Map;
+
+abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator<List<Triplet>, T, U> {
+    protected GeoTemporalOperator(GeographicalOperator<List<Triplet>,T> geographicalOperator, String temporalFieldName, U temporalType) {
         super(geographicalOperator, temporalFieldName, temporalType);
     }
 
     @Override
-    public Object getOperatorExpression(){
+    public List<Triplet> getOperatorExpression(){
         return null;
     }
 

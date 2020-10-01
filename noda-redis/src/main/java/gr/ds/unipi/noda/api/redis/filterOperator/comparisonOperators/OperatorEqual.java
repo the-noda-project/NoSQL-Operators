@@ -1,6 +1,8 @@
 package gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators;
 
 import gr.ds.unipi.noda.api.core.operators.Operator;
+import gr.ds.unipi.noda.api.redis.filterOperator.Triplet;
+
 import java.util.*;
 
 final class OperatorEqual<T> extends ComparisonOperator<T> {
@@ -10,10 +12,10 @@ final class OperatorEqual<T> extends ComparisonOperator<T> {
     }
 
     @Override
-    public List<Map.Entry<String, String[]>> getOperatorExpression() {
+    public List<Triplet> getOperatorExpression() {
         if(getFieldValue() instanceof String){
-            List<Map.Entry<String, String[]>> list = new ArrayList();
-            list.add(new AbstractMap.SimpleImmutableEntry<>("return KEYS[1]\n", new String[]{getFieldName()}));
+            List<Triplet> list = new ArrayList();
+            list.add(Triplet.newTriplet("return KEYS[1]\n", new String[]{getFieldName()}, new String[]{}));
             return list;
         }
         return super.getOperatorExpression();

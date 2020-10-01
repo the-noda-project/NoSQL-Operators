@@ -1,5 +1,8 @@
 package gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators;
 
+import gr.ds.unipi.noda.api.redis.filterOperator.RandomStringGenerator;
+import gr.ds.unipi.noda.api.redis.filterOperator.Triplet;
+
 import java.util.*;
 
 final class OperatorNotEqual<T> extends ComparisonOperator<T> {
@@ -11,60 +14,61 @@ final class OperatorNotEqual<T> extends ComparisonOperator<T> {
     @Override
     protected String getEvalExpression() {
         if(!(getFieldValue() instanceof String)){
-            return  "local t1 = redis.call('ZRANGEBYSCORE', KEYS[1], '-inf', '("+getFieldValue() + "')\n" +
+            return  "local t1 = redis.call('ZRANGEBYSCORE', KEYS[2], '-inf', '("+getFieldValue() + "')\n" +
                     "local i1 = 1\n"+
                     "local temp1 = {}\n"+
                     "while(i1 <= #t1) do\n"+
                     "    table.insert(temp1, t1[i1+1])\n"+
                     "    table.insert(temp1, t1[i1])\n"+
                     "    if #temp1 >= 1000 then\n"+
-                    "        redis.call('SADD', KEYS[2], unpack(temp1))\n"+
+                    "        redis.call('SADD', KEYS[3], unpack(temp1))\n"+
                     "        temp1 = {}\n"+
                     "    end\n"+
                     "    i1 = i1+2\n"+
                     "end\n"+
                     "if #temp1 > 0 then\n"+
-                    "    redis.call('SADD', KEYS[2], unpack(temp1))\n"+
+                    "    redis.call('SADD', KEYS[3], unpack(temp1))\n"+
                     "end\n"+
-                    "redis.call('EXPIRE' , KEYS[2], 100)\n"+
+                    "redis.call('EXPIRE' , KEYS[3], 100)\n"+
 
-                    "local t2 = redis.call('ZRANGEBYSCORE', KEYS[1], '("+getFieldValue() + "', '+inf')\n" +
+                    "local t2 = redis.call('ZRANGEBYSCORE', KEYS[2], '("+getFieldValue() + "', '+inf')\n" +
                     "local i2 = 1\n"+
                     "local temp2 = {}\n"+
                     "while(i2 <= #t2) do\n"+
                     "    table.insert(temp2, t2[i2+1])\n"+
                     "    table.insert(temp2, t2[i2])\n"+
                     "    if #temp2 >= 1000 then\n"+
-                    "        redis.call('SADD', KEYS[3], unpack(temp2))\n"+
+                    "        redis.call('SADD', KEYS[4], unpack(temp2))\n"+
                     "        temp2 = {}\n"+
                     "    end\n"+
                     "    i2 = i2+2\n"+
                     "end\n"+
                     "if #temp2 > 0 then\n"+
-                    "    redis.call('SADD', KEYS[3], unpack(temp2))\n"+
+                    "    redis.call('SADD', KEYS[4], unpack(temp2))\n"+
                     "end\n"+
-                    "redis.call('EXPIRE' , KEYS[3], 100)\n"+
-
-                    "redis.call('SUNIONSTORE' , KEYS[4], KEYS[2], KEYS[3])\n"+
                     "redis.call('EXPIRE' , KEYS[4], 100)\n"+
+
+                    "redis.call('SUNIONSTORE' , KEYS[1], KEYS[3], KEYS[4])\n"+
+                    "redis.call('EXPIRE', KEYS[1], 100)\n"+
 
                     "return 1";
         }
         else{
-            return "local t = redis.call('SDIFFSTORE', KEYS[3], KEYS[2], KEYS[1])\n" +
-                    "redis.call('EXPIRE' , KEYS[3], 100)\n"+
+            return "local t = redis.call('SDIFFSTORE', KEYS[1], KEYS[3], KEYS[2])\n" +
+                    "redis.call('EXPIRE' , KEYS[1], 100)\n"+
                     "return 1";
         }
     }
 
     @Override
-    public List<Map.Entry<String, String[]>> getOperatorExpression() {
-        if(getFieldValue() instanceof String){
-            List<Map.Entry<String, String[]>> list = new ArrayList();
-            list.add(new AbstractMap.SimpleImmutableEntry<>(getEvalExpression(), new String[]{getFieldName(), "primaryKey", getRandomString()}));
+    public List<Triplet> getOperatorExpression() {
+        List<Triplet> list = new ArrayList();
+        if(!(getFieldValue() instanceof String)){
+            list.add(Triplet.newTriplet(getEvalExpression(), new String[]{getRandomString(), getFieldName(), RandomStringGenerator.randomCharacterNumericString(), RandomStringGenerator.randomCharacterNumericString()}, new String[]{}));
             return list;
         }
-        return super.getOperatorExpression();
+        list.add(Triplet.newTriplet(getEvalExpression(), new String[]{getRandomString(), getFieldName(), "primaryKey"}, new String[]{}));
+        return list;
     }
 
     public static OperatorNotEqual<Double> newOperatorNotEqual(String fieldName, Double fieldValue) {

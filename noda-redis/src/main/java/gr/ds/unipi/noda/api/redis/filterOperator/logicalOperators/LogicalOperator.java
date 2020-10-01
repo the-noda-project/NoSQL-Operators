@@ -1,13 +1,13 @@
 package gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators;
 
-import gr.ds.unipi.noda.api.core.operators.Operator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.redis.filterOperator.RandomStringGenerator;
+import gr.ds.unipi.noda.api.redis.filterOperator.Triplet;
 import gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.*;
 
 import java.util.*;
 
-public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator<List<Map.Entry<String, String[]>>> {
+public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator<List<Triplet>> {
 
     private final String randomString;
 
@@ -142,32 +142,14 @@ public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operator
         setFilterOperatorChildren(fopsList.toArray(new FilterOperator[fopsList.size()]));
     }
 
-//    @Override
-//    public List<Map.Entry<String, String[]>> getOperatorExpression() {
-//
-//        List<Map.Entry<String, String[]>> list = new ArrayList<>();
-//        String[] temporaryListsName = new String[this.getFilterOperatorChildren().length + 1];
-//        temporaryListsName[0] = RandomStringGenerator.randomCharacterNumericString();
-//
-//        for (int i = 0; i < this.getFilterOperatorChildren().length; i++) {
-//            list.addAll((Collection) getFilterOperatorChildren()[i].getOperatorExpression());
-//
-//            int sizeOfChildList = ((List<Map.Entry<String, String[]>>) getFilterOperatorChildren()[i].getOperatorExpression()).size();
-//            Map.Entry<Operator, String[]> entry = ((List<Map.Entry<String, String[]>>) getFilterOperatorChildren()[i].getOperatorExpression()).get(sizeOfChildList-1);
-//            temporaryListsName[i+1] = entry.getValue()[0];
-//        }
-//        list.add(new AbstractMap.SimpleImmutableEntry<>(this, temporaryListsName));
-//        return list;
-//    }
-
     @Override
-    public List<Map.Entry<String, String[]>> getOperatorExpression() {
+    public List<Triplet> getOperatorExpression() {
 
         if(getFilterOperatorChildren().length == 1){
-            return (List<Map.Entry<String, String[]>>) getFilterOperatorChildren()[0].getOperatorExpression();
+            return (List<Triplet>) getFilterOperatorChildren()[0].getOperatorExpression();
         }
 
-        List<Map.Entry<String, String[]>> list = new ArrayList<>();
+        List<Triplet> list = new ArrayList<>();
         String[] o = new String[getFilterOperatorChildren().length + 1];
         String[] temporaryListsName = new String[this.getFilterOperatorChildren().length + 1];
         temporaryListsName[0] = randomString;//add the random as the first element in the array
@@ -176,17 +158,17 @@ public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operator
         for (int i = 0; i < this.getFilterOperatorChildren().length; i++) {
             list.addAll((Collection) getFilterOperatorChildren()[i].getOperatorExpression());
 
-            Map.Entry<String, String[]> entry = ((List<Map.Entry<String, String[]>>) getFilterOperatorChildren()[i].getOperatorExpression()).get(((List<Map.Entry<String, String[]>>) getFilterOperatorChildren()[i].getOperatorExpression()).size()-1);
+            Triplet triplet = ((List<Triplet>) getFilterOperatorChildren()[i].getOperatorExpression()).get(((List<Triplet>) getFilterOperatorChildren()[i].getOperatorExpression()).size()-1);
 
             if(getFilterOperatorChildren()[i] instanceof LogicalOperator){
-                temporaryListsName[i+1] = entry.getValue()[0];
+                temporaryListsName[i+1] = triplet.getKeysArray()[0];
             }
             else{
-                temporaryListsName[i+1] = entry.getValue()[entry.getValue().length-1];
+                temporaryListsName[i+1] = triplet.getKeysArray()[triplet.getKeysArray().length-1];
             }
         }
 
-        list.add(new AbstractMap.SimpleImmutableEntry<>(getEvalExpression(temporaryListsName.length), temporaryListsName));
+        list.add(Triplet.newTriplet(getEvalExpression(temporaryListsName.length), temporaryListsName, new String[]{}));
         return list;
     }
 

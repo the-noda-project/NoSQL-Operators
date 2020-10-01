@@ -1,11 +1,11 @@
 package gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
-import gr.ds.unipi.noda.api.redis.filterOperator.RandomStringGenerator;
+import gr.ds.unipi.noda.api.redis.filterOperator.Triplet;
 
 import java.util.*;
 
-public class Range implements FilterOperator<List<Map.Entry<String, String[]>>> {
+public class Range implements FilterOperator<List<Triplet>> {
 
     private final ComparisonOperator comparisonOperator1;
     private final ComparisonOperator comparisonOperator2;
@@ -17,9 +17,9 @@ public class Range implements FilterOperator<List<Map.Entry<String, String[]>>> 
     }
 
     @Override
-    public List<Map.Entry<String, String[]>> getOperatorExpression() {
-        List<Map.Entry<String, String[]>> list = new ArrayList();
-        list.add(new AbstractMap.SimpleImmutableEntry<>(getEvalExpression(), new String[]{comparisonOperator1.getFieldName(), comparisonOperator1.getRandomString()}));
+    public List<Triplet> getOperatorExpression() {
+        List<Triplet> list = new ArrayList();
+        list.add(Triplet.newTriplet(getEvalExpression(), new String[]{comparisonOperator1.getFieldName(), comparisonOperator1.getRandomString()}, new String[]{}));
         return list;
     }
 
