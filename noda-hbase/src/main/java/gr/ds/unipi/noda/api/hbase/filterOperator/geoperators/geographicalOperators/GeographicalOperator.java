@@ -9,8 +9,10 @@ import org.apache.hadoop.hbase.filter.FilterList;
 import org.apache.hadoop.hbase.filter.FuzzyRowFilter;
 import org.apache.hadoop.hbase.util.Bytes;
 
+import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 abstract class GeographicalOperator<T extends Geometry> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator<Filter, T> {
     protected GeographicalOperator(String fieldName, T geometry) {
@@ -19,25 +21,15 @@ abstract class GeographicalOperator<T extends Geometry> extends gr.ds.unipi.noda
 
     private final FilterList filterList = new FilterList();
 
-    @Override
-    public Filter getOperatorExpression() {
+    public Map.Entry<String, byte[]> getMatchingPattern(){
 
-        Rectangle mbr = getGeometry().getMbr();
+        String geoHashPart = HBaseGeographicalOperatorFactory.getGeoHashPart(this.getGeometry());
 
-        int length = 8;
-        String geoHash = (String) GeoHash.coverBoundingBoxMaxHashes(mbr.getUpperBound().getLatitude(), mbr.getLowerBound().getLongitude(), mbr.getLowerBound().getLatitude(),mbr.getUpperBound().getLongitude(),1).getHashes().toArray()[0];
-
-        if(geoHash.length()>length){
-            geoHash = geoHash.substring(0,length);
-        }
-
-        geoHash = String.format("%-"+length+"s",geoHash).replace(' ','?');
-
-        byte[] digits = new byte[length+25];
+        byte[] digits = new byte[geoHashPart.length()+25];
 
         //geohash
-        for(int i =0; i<geoHash.length();i++){
-            if(geoHash.charAt(i) != '?'){
+        for(int i =0; i<geoHashPart.length();i++){
+            if(geoHashPart.charAt(i) != '?'){
                 digits[i] = 0;
             }
             else{
@@ -45,14 +37,22 @@ abstract class GeographicalOperator<T extends Geometry> extends gr.ds.unipi.noda
             }
         }
 
-        for(int i = length; i< digits.length;i++){
+        for(int i = geoHashPart.length(); i< digits.length;i++){
             digits[i] = 1;
         }
-        digits[length]=0;
-        digits[length+13+1] =0;
+        digits[geoHashPart.length()]=0;
+        digits[geoHashPart.length()+13+1] =0;
+
+        return new AbstractMap.SimpleImmutableEntry<>(geoHashPart+"-?????????????-??????????",digits);
+    }
+
+    @Override
+    public Filter getOperatorExpression() {
+
+        Map.Entry<String, byte[]> entry = getMatchingPattern();
 
         List list = Arrays.asList(
-                new Pair<>(Bytes.toBytes(geoHash+"-?????????????-??????????"), digits
+                new Pair<>(Bytes.toBytes(entry.getKey()), entry.getValue()
                 ));
 
         filterList.addFilter(new FuzzyRowFilter(list));

@@ -19,28 +19,28 @@ public class Range implements FilterOperator<List<Triplet>> {
     @Override
     public List<Triplet> getOperatorExpression() {
         List<Triplet> list = new ArrayList();
-        list.add(Triplet.newTriplet(getEvalExpression(), new String[]{comparisonOperator1.getFieldName(), comparisonOperator1.getRandomString()}, new String[]{}));
+        list.add(Triplet.newTriplet(getEvalExpression(), new String[]{comparisonOperator1.getRandomString(), comparisonOperator1.getFieldName()}, new String[]{}));
         return list;
     }
 
     protected String getEvalExpression(){
 
-        return  "local t = redis.call('ZRANGEBYSCORE', KEYS[1], '" + comparisonOperator1.minumumRangeValue() + "', '"+comparisonOperator2.maximumRangeValue() + "')\n" +
+        return  "local t = redis.call('ZRANGEBYSCORE', KEYS[2], '" + comparisonOperator1.minumumRangeValue() + "', '"+comparisonOperator2.maximumRangeValue() + "')\n" +
                 "local i = 1\n"+
                 "local temp = {}\n"+
                 "while(i <= #t) do\n"+
                 "    table.insert(temp, t[i+1])\n"+
                 "    table.insert(temp, t[i])\n"+
                 "    if #temp >= 1000 then\n"+
-                "        redis.call('SADD', KEYS[2], unpack(temp))\n"+
+                "        redis.call('SADD', KEYS[1], unpack(temp))\n"+
                 "        temp = {}\n"+
                 "    end\n"+
                 "    i = i+2\n"+
                 "end\n"+
                 "if #temp > 0 then\n"+
-                "    redis.call('SADD', KEYS[2], unpack(temp))\n"+
+                "    redis.call('SADD', KEYS[1], unpack(temp))\n"+
                 "end\n"+
-                "redis.call('EXPIRE' , KEYS[2], 100)\n"+
+                "redis.call('EXPIRE' , KEYS[1], 100)\n"+
                 "return 1";
     }
 

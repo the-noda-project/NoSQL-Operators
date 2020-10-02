@@ -29,7 +29,7 @@ final class OperatorNotEqual<T> extends ComparisonOperator<T> {
                     "if #temp1 > 0 then\n"+
                     "    redis.call('SADD', KEYS[3], unpack(temp1))\n"+
                     "end\n"+
-                    "redis.call('EXPIRE' , KEYS[3], 100)\n"+
+                    "redis.call('EXPIRE', KEYS[3], 100)\n"+
 
                     "local t2 = redis.call('ZRANGEBYSCORE', KEYS[2], '("+getFieldValue() + "', '+inf')\n" +
                     "local i2 = 1\n"+
@@ -46,9 +46,9 @@ final class OperatorNotEqual<T> extends ComparisonOperator<T> {
                     "if #temp2 > 0 then\n"+
                     "    redis.call('SADD', KEYS[4], unpack(temp2))\n"+
                     "end\n"+
-                    "redis.call('EXPIRE' , KEYS[4], 100)\n"+
+                    "redis.call('EXPIRE', KEYS[4], 100)\n"+
 
-                    "redis.call('SUNIONSTORE' , KEYS[1], KEYS[3], KEYS[4])\n"+
+                    "redis.call('SUNIONSTORE', KEYS[1], KEYS[3], KEYS[4])\n"+
                     "redis.call('EXPIRE', KEYS[1], 100)\n"+
 
                     "return 1";
