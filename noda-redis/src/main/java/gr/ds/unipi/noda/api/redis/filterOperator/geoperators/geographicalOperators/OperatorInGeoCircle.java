@@ -12,4 +12,14 @@ public final class OperatorInGeoCircle extends GeographicalOperator<Circle> {
         return new OperatorInGeoCircle(fieldName, circle);
     }
 
+    @Override
+    protected String getEvalExpression() {
+        return null;
+    }
+
+    @Override
+    protected String[] getArgvArray() {
+        return new String[]{getMatchingPattern(), "longitude", "latitude", String.valueOf(getGeometry().getCircleCenter().getLongitude()), String.valueOf(getGeometry().getCircleCenter().getLatitude()), String.valueOf(getGeometry().getRadius())};
+    }
+
 }

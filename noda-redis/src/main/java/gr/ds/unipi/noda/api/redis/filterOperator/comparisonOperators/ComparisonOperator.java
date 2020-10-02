@@ -57,7 +57,7 @@ public abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.op
         return sb;
     }
 
-    public String getRandomString() {
+    protected String getRandomString() {
         return randomString;
     }
 }
