@@ -55,11 +55,14 @@ final class OperatorEqual<T> extends ComparisonOperator<T> {
 
     @Override
     protected String minumumRangeValue(){
+        if(getFieldValue() instanceof Date){
+            return String.valueOf(((Date) getFieldValue()).getTime());
+        }
         return getFieldValue().toString();
     }
 
     @Override
     protected String maximumRangeValue(){
-        return getFieldValue().toString();
+        return minumumRangeValue();
     }
 }

@@ -10,6 +10,9 @@ public final class OperatorLessThan<T> extends ComparisonOperator<T> {
 
     @Override
     protected String maximumRangeValue(){
+        if(getFieldValue() instanceof Date){
+            return "("+String.valueOf(((Date) getFieldValue()).getTime());
+        }
         return "("+getFieldValue().toString();
     }
 

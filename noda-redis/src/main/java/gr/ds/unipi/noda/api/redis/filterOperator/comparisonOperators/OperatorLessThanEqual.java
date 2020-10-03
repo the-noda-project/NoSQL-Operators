@@ -2,7 +2,7 @@ package gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators;
 
 import java.util.Date;
 
- public final class OperatorLessThanEqual<T> extends ComparisonOperator<T> {
+public final class OperatorLessThanEqual<T> extends ComparisonOperator<T> {
 
     private OperatorLessThanEqual(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
@@ -10,6 +10,9 @@ import java.util.Date;
 
     @Override
     protected String maximumRangeValue(){
+        if(getFieldValue() instanceof Date){
+            return String.valueOf(((Date) getFieldValue()).getTime());
+        }
         return getFieldValue().toString();
     }
 

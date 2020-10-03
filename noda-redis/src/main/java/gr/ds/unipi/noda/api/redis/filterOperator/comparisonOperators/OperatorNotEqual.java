@@ -13,8 +13,13 @@ final class OperatorNotEqual<T> extends ComparisonOperator<T> {
 
     @Override
     protected String getEvalExpression() {
+
+
         if(!(getFieldValue() instanceof String)){
-            return  "local t1 = redis.call('ZRANGEBYSCORE', KEYS[2], '-inf', '("+getFieldValue() + "')\n" +
+
+            String fieldValue = (!(getFieldValue() instanceof Date))? getFieldValue().toString():String.valueOf(((Date) getFieldValue()).getTime());
+
+            return  "local t1 = redis.call('ZRANGEBYSCORE', KEYS[2], '-inf', '("+fieldValue + "')\n" +
                     "local i1 = 1\n"+
                     "local temp1 = {}\n"+
                     "while(i1 <= #t1) do\n"+
@@ -31,7 +36,7 @@ final class OperatorNotEqual<T> extends ComparisonOperator<T> {
                     "end\n"+
                     "redis.call('EXPIRE', KEYS[3], 100)\n"+
 
-                    "local t2 = redis.call('ZRANGEBYSCORE', KEYS[2], '("+getFieldValue() + "', '+inf')\n" +
+                    "local t2 = redis.call('ZRANGEBYSCORE', KEYS[2], '("+fieldValue + "', '+inf')\n" +
                     "local i2 = 1\n"+
                     "local temp2 = {}\n"+
                     "while(i2 <= #t2) do\n"+
