@@ -14,4 +14,55 @@ final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, Temp
         return new OperatorInGeoTemporalCircle(fieldName, circle, temporalFieldName, temporalType);
     }
 
+    @Override
+    protected String getEvalExpression() {
+        return "local r =0.017453292519943295769236907684886127;\n" +
+                "  local function haversine(x1, y1, x2, y2)\n" +
+                "  x1= x1*r; x2= x2*r; y1= y1*r; y2= y2*r; local dy = y2-y1; local dx = x2-x1;\n" +
+                "  local a = math.pow(math.sin(dx/2),2) + math.cos(x1) * math.cos(x2) * math.pow(math.sin(dy/2),2); local c = 2 * math.asin(math.sqrt(a));\n" +
+                "  return 6372.8 * c;\n" +
+                "end\n" +
+                "\n" +
+                "local temp = {}\n" +
+                "\n" +
+                "local patternMatch = ARGV[1]\n" +
+                "local longitudeField = ARGV[2]\n" +
+                "local latitudeField = ARGV[3]\n" +
+                "local centerLongitude = tonumber(ARGV[4])\n" +
+                "local centerLatitude = tonumber(ARGV[5])\n" +
+                "local radius = tonumber(ARGV[6])\n" +
+                "local timestampField = ARGV[7]\n" +
+                "local minDate = tonumber(ARGV[8])\n" +
+                "local maxDate = tonumber(ARGV[9]) \n" +
+                "\n" +
+                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch)\n" +
+                "\n" +
+                "for i, key_name in ipairs(t[2]) do \n" +
+                "\n" +
+                "  local s = redis.call(\"HMGET\", key_name, longitudeField, latitudeField, timestampField)\n" +
+                "  local longitude = tonumber(s[1])\n" +
+                "  local latitude = tonumber(s[2])\n" +
+                "  local timestamp = tonumber(s[3])\n" +
+                "\n" +
+                "  if (timestamp >= minDate and timestamp <= maxDate and haversine(centerLongitude, centerLatitude, longitude, latitude) <= radius) then\n" +
+                "    table.insert(temp, key_name)\n" +
+                "  end\n" +
+                "\n" +
+                "  if #temp >= 1000 then\n" +
+                "    redis.call('SADD', KEYS[1], unpack(temp))\n" +
+                "    temp = {}\n" +
+                "  end\n" +
+                "end \n" +
+                "if #temp > 0 then\n" +
+                "  redis.call('SADD', KEYS[1], unpack(temp))\n" +
+                "end\n" +
+                "redis.call('EXPIRE' , KEYS[1], 100)\n" +
+                "return 1";
+    }
+
+    @Override
+    protected String[] getArgvArray() {
+        return new String[]{getMatchingPattern(), "longitude", "latitude", String.valueOf(getGeographicalOperator().getGeometry().getCircleCenter().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getCircleCenter().getLatitude()), String.valueOf(getGeographicalOperator().getGeometry().getRadius()), String.valueOf(getTemporalFieldName()), String.valueOf(getTemporalType().getLowerBound().getTime()), String.valueOf(getTemporalType().getUpperBound().getTime())};
+    }
+
 }
