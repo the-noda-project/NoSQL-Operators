@@ -15,6 +15,6 @@ final class OperatorOr extends LogicalOperator {
 
     @Override
     protected String setOperation() {
-        return "SINTERSTORE";
+        return "SUNIONSTORE";
     }
 }

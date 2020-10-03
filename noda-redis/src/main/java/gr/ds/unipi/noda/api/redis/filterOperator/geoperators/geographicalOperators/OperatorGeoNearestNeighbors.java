@@ -15,4 +15,13 @@ final class OperatorGeoNearestNeighbors extends GeographicalOperator<Point> {
         return new OperatorGeoNearestNeighbors(fieldName, point, neighbors);
     }
 
+    @Override
+    protected String getEvalExpression() {
+        return null;
+    }
+
+    @Override
+    protected String[] getArgvArray() {
+        return new String[0];
+    }
 }

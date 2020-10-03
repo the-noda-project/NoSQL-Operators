@@ -150,7 +150,7 @@ public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operator
         }
 
         List<Triplet> list = new ArrayList<>();
-        String[] o = new String[getFilterOperatorChildren().length + 1];
+        //String[] o = new String[getFilterOperatorChildren().length + 1];
         String[] temporaryListsName = new String[this.getFilterOperatorChildren().length + 1];
         temporaryListsName[0] = randomString;//add the random as the first element in the array
 
@@ -159,13 +159,12 @@ public abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operator
             list.addAll((Collection) getFilterOperatorChildren()[i].getOperatorExpression());
 
             Triplet triplet = ((List<Triplet>) getFilterOperatorChildren()[i].getOperatorExpression()).get(((List<Triplet>) getFilterOperatorChildren()[i].getOperatorExpression()).size()-1);
-
-            if(getFilterOperatorChildren()[i] instanceof LogicalOperator){
+//            if(getFilterOperatorChildren()[i] instanceof LogicalOperator){
                 temporaryListsName[i+1] = triplet.getKeysArray()[0];
-            }
-            else{
-                temporaryListsName[i+1] = triplet.getKeysArray()[triplet.getKeysArray().length-1];
-            }
+//            }
+//            else{
+//                temporaryListsName[i+1] = triplet.getKeysArray()[triplet.getKeysArray().length-1];
+//            }
         }
 
         list.add(Triplet.newTriplet(getEvalExpression(temporaryListsName.length), temporaryListsName, new String[]{}));

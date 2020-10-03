@@ -128,7 +128,7 @@ final class OperatorAnd extends LogicalOperator {
 
     @Override
     protected String setOperation() {
-        return "SUNIONSTORE";
+        return "SINTERSTORE";
     }
 
 }

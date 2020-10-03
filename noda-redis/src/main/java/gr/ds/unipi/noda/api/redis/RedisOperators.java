@@ -2,26 +2,25 @@ package gr.ds.unipi.noda.api.redis;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
-import gr.ds.unipi.noda.api.core.operators.Operator;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
-import gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.ComparisonOperator;
-import gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.LogicalOperator;
+import gr.ds.unipi.noda.api.redis.filterOperator.Triplet;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import redis.clients.jedis.Pipeline;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import redis.clients.jedis.Response;
+
+import java.util.*;
+
+import static gr.ds.unipi.noda.api.core.operators.FilterOperators.and;
 
 final class RedisOperators extends NoSqlDbOperators {
 
     private final RedisConnectionManager redisConnectionManager = RedisConnectionManager.getInstance();
     private final Pipeline pipeline;
+    private final List<FilterOperator> filterOperatorsList = new ArrayList<>();
 
     private RedisOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
         super(noSqlDbConnector, dataCollection, sparkSession);
@@ -31,46 +30,63 @@ final class RedisOperators extends NoSqlDbOperators {
         return new RedisOperators(noSqlDbConnector, dataCollection, sparkSession);
     }
 
-    @Override
-    public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
+    private String executionOfOperators(){
 
-        List<Map.Entry<String, String[]>> list = (List<Map.Entry<String, String[]>>) filterOperator.getOperatorExpression();
+        FilterOperator fop;
 
-        for(int i =0; i<list.size();i++){
+        if(filterOperatorsList.size() == 0) {
+            return "primaryKey";
+        }
+        else if(filterOperatorsList.size() == 1){
+            fop = filterOperatorsList.get(0);
 
-            //if string has 4 elements
-            //else if equals eqString
-            //else
-
-            String[] keys = list.get(i).getValue();
-            for (int keyIndex = 0; keyIndex < keys.length; keyIndex++) {
-                keys[keyIndex] = getDataCollection() + ":" + keys[keyIndex];
+        }
+        else if(filterOperatorsList.size() ==2){
+            fop = and(filterOperatorsList.get(0),filterOperatorsList.get(1));
+        }
+        else{
+            FilterOperator[] fops = new FilterOperator[filterOperatorsList.size()-2];
+            for (int i = 2; i < filterOperatorsList.size(); i++) {
+                fops[i-2] = filterOperatorsList.get(i);
             }
-            System.out.println(list.get(i).getKey());
-            for (String key : keys) {
-                System.out.print(key+" ");
-            }
-
-            System.out.println();
-
-            System.out.println("-----");
-            pipeline.eval(list.get(i).getKey(),keys.length, keys);
-
-
-//            pipeline.eval(list.get(i).getValue()[0],2, getDataCollection() +":"+list.get(i).getValue()[1], /*getDataCollection() +":"+list.get(i).getValue()[2]*/"ad");
-//            System.out.println("its ok "+ getDataCollection() +":"+list.get(i).getValue()[1]);
-//            System.out.println("its ok "+ getDataCollection() +":"+list.get(i).getValue()[2]);
-//            System.out.println(list.get(i).getValue()[0]);
-//
-//            if(list.get(i).getValue()[0].equals("eq")){
-//
-//            }else if(list.get(i).getValue()[0].equals("neqNumeric")){
-//
-//            }
+            fop = and(filterOperatorsList.get(0),filterOperatorsList.get(1),fops);
         }
 
+        List<Triplet> triplets = (List<Triplet>) fop.getOperatorExpression();
 
-        pipeline.sync();
+        //System.out.println("Triplets "+ triplets.size());
+
+        for (Triplet triplet : triplets) {
+
+            String[] arrayOfArguments = new String[triplet.getKeysArray().length + triplet.getArgvArray().length];
+
+            for (int i = 0; i < triplet.getKeysArray().length; i++) {
+                arrayOfArguments[i] = getDataCollection() + ":" + triplet.getKeysArray()[i];
+            }
+
+            for (int i = triplet.getKeysArray().length; i < triplet.getKeysArray().length + triplet.getArgvArray().length; i++) {
+                arrayOfArguments[i] = triplet.getArgvArray()[i-triplet.getKeysArray().length];
+            }
+
+            pipeline.eval(triplet.getEvalExpression(), triplet.getKeysArray().length, arrayOfArguments);
+        }
+
+        //System.out.println(triplets.get(triplets.size()-1).getKeysArray()[0] + " " + triplets.get(triplets.size()-1).getKeysArray()[1] + "" +triplets.get(triplets.size()-1).getKeysArray()[2]);
+
+
+        return getDataCollection() + ":" + triplets.get(triplets.size()-1).getKeysArray()[0];
+
+    }
+
+    @Override
+    public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
+        filterOperatorsList.add(filterOperator);
+        for (FilterOperator operator : filterOperators) {
+            filterOperatorsList.add(operator);
+        }
+        return this;
+    }
+
 
 //        System.out.println(filterOperator.toString(""));
 
@@ -163,9 +179,9 @@ final class RedisOperators extends NoSqlDbOperators {
 //                }
 //            }
 //        }
-
-        return this;
-    }
+//
+//        return this;
+//    }
 
     @Override
     public NoSqlDbOperators groupBy(String fieldName, String... fieldNames) {
@@ -209,7 +225,9 @@ final class RedisOperators extends NoSqlDbOperators {
 
     @Override
     public int count() {
-        return 0;
+        Response<Object> count = pipeline.eval("local s = redis.call('SCARD', KEYS[1])\nreturn s;",1, executionOfOperators());
+        pipeline.sync();
+        return Integer.valueOf(count.get().toString());
     }
 
     @Override
