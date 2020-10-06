@@ -76,8 +76,8 @@ final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, Te
 
         String[] argvArray = new String[6 + getGeographicalOperator().getGeometry().getCoordinatesArray().length*2];
         argvArray[0] = getMatchingPattern();
-        argvArray[1] = "longitude";
-        argvArray[2] = "latitude";
+        argvArray[1] = this.getGeographicalOperator().getFieldName()+":"+"longitude";
+        argvArray[2] = this.getGeographicalOperator().getFieldName()+":"+"latitude";
         argvArray[3] = String.valueOf(getTemporalFieldName());
         argvArray[4] = String.valueOf(getTemporalType().getLowerBound().getTime());
         argvArray[5] = String.valueOf(getTemporalType().getUpperBound().getTime());

@@ -57,7 +57,7 @@ final class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangle
 
     @Override
     protected String[] getArgvArray() {
-        return new String[]{getMatchingPattern(), "longitude", "latitude", String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLatitude()), String.valueOf(getTemporalFieldName()), String.valueOf(getTemporalType().getLowerBound().getTime()), String.valueOf(getTemporalType().getUpperBound().getTime())};
+        return new String[]{getMatchingPattern(), this.getGeographicalOperator().getFieldName()+":"+"longitude", this.getGeographicalOperator().getFieldName()+":"+"latitude", String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLatitude()), String.valueOf(getTemporalFieldName()), String.valueOf(getTemporalType().getLowerBound().getTime()), String.valueOf(getTemporalType().getUpperBound().getTime())};
     }
 
 }

@@ -41,7 +41,7 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
     protected abstract String getEvalExpression();
 
     private String[] getKeysArray(){
-        return new String[]{getRandomString(), getGeographicalOperator().getFieldName()};
+        return new String[]{getRandomString(), "primaryKeys"};
     }
 
     protected abstract String[] getArgvArray();

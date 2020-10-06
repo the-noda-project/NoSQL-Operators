@@ -70,8 +70,8 @@ public final class OperatorInGeoPolygon extends GeographicalOperator<Polygon> {
 
         String[] argvArray = new String[3 + getGeometry().getCoordinatesArray().length*2];
         argvArray[0] = getMatchingPattern();
-        argvArray[1] = "longitude";
-        argvArray[2] = "latitude";
+        argvArray[1] = getFieldName()+":"+"longitude";
+        argvArray[2] = getFieldName()+":"+"latitude";
 
         int j = 0;
         for (int i = 3; i < argvArray.length; i = i + 2) {

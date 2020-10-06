@@ -54,7 +54,7 @@ final class RedisOperators extends NoSqlDbOperators {
 
         List<Triplet> triplets = (List<Triplet>) fop.getOperatorExpression();
 
-        //System.out.println("Triplets "+ triplets.size());
+        System.out.println("Triplets "+ triplets.size());
 
         for (Triplet triplet : triplets) {
 
@@ -68,10 +68,11 @@ final class RedisOperators extends NoSqlDbOperators {
                 arrayOfArguments[i] = triplet.getArgvArray()[i-triplet.getKeysArray().length];
             }
 
+            System.out.println(triplet.getKeysArray()[0]);
             pipeline.eval(triplet.getEvalExpression(), triplet.getKeysArray().length, arrayOfArguments);
         }
 
-        //System.out.println(triplets.get(triplets.size()-1).getKeysArray()[0] + " " + triplets.get(triplets.size()-1).getKeysArray()[1] + "" +triplets.get(triplets.size()-1).getKeysArray()[2]);
+//        System.out.println(triplets.get(triplets.size()-1).getKeysArray()[0] + " " + triplets.get(triplets.size()-1).getKeysArray()[1] + " " +triplets.get(triplets.size()-1).getKeysArray()[2] + " " +triplets.get(triplets.size()-1).getKeysArray()[3]);
 
 
         return getDataCollection() + ":" + triplets.get(triplets.size()-1).getKeysArray()[0];

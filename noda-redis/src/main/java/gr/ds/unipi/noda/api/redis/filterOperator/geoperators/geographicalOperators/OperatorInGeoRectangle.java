@@ -46,7 +46,7 @@ public final class OperatorInGeoRectangle extends GeographicalOperator<Rectangle
 
     @Override
     protected String[] getArgvArray() {
-        return new String[]{getMatchingPattern(), "longitude", "latitude", String.valueOf(getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeometry().getUpperBound().getLatitude())};
+        return new String[]{getMatchingPattern(), getFieldName()+":"+"longitude", getFieldName()+":"+"latitude", String.valueOf(getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeometry().getUpperBound().getLatitude())};
     }
 
     public static OperatorInGeoRectangle newOperatorInGeoRectangle(String fieldName, Rectangle rectangle) {

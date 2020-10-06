@@ -15,7 +15,7 @@ final class OperatorEqual<T> extends ComparisonOperator<T> {
     public List<Triplet> getOperatorExpression() {
         if(getFieldValue() instanceof String){
             List<Triplet> list = new ArrayList();
-            list.add(Triplet.newTriplet("return KEYS[1]\n", new String[]{getFieldName()}, new String[]{}));
+            list.add(Triplet.newTriplet("return KEYS[1]\n", new String[]{getFieldName() + ":" + getFieldValue()}, new String[]{}));
             return list;
         }
         return super.getOperatorExpression();

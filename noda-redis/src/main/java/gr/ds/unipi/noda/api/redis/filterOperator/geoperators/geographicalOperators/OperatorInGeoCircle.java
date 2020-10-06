@@ -18,7 +18,7 @@ public final class OperatorInGeoCircle extends GeographicalOperator<Circle> {
                 "  local function haversine(x1, y1, x2, y2)\n" +
                 "  x1= x1*r; x2= x2*r; y1= y1*r; y2= y2*r; local dy = y2-y1; local dx = x2-x1;\n" +
                 "  local a = math.pow(math.sin(dx/2),2) + math.cos(x1) * math.cos(x2) * math.pow(math.sin(dy/2),2); local c = 2 * math.asin(math.sqrt(a));\n" +
-                "  return 6372.8 * c;\n" +
+                "  return 6372.8 * c * 1000;\n" +
                 "end\n" +
                 "\n" +
                 "local temp = {}\n" +
@@ -56,7 +56,7 @@ public final class OperatorInGeoCircle extends GeographicalOperator<Circle> {
 
     @Override
     protected String[] getArgvArray() {
-        return new String[]{getMatchingPattern(), "longitude", "latitude", String.valueOf(getGeometry().getCircleCenter().getLongitude()), String.valueOf(getGeometry().getCircleCenter().getLatitude()), String.valueOf(getGeometry().getRadius())};
+        return new String[]{getMatchingPattern(), getFieldName()+":"+"longitude", getFieldName()+":"+"latitude", String.valueOf(getGeometry().getCircleCenter().getLongitude()), String.valueOf(getGeometry().getCircleCenter().getLatitude()), String.valueOf(getGeometry().getRadius())};
     }
 
 }
