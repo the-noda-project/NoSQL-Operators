@@ -3,11 +3,11 @@ package gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geographicalOperat
 import com.github.davidmoten.geo.GeoHash;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
-import javafx.util.Pair;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.FilterList;
 import org.apache.hadoop.hbase.filter.FuzzyRowFilter;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.hadoop.hbase.util.Pair;
 
 import java.util.AbstractMap;
 import java.util.Arrays;

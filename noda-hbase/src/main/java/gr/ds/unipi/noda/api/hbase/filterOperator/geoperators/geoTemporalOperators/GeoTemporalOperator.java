@@ -5,11 +5,11 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTempor
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
 import gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geographicalOperators.HBaseGeographicalOperatorFactory;
-import javafx.util.Pair;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.FilterList;
 import org.apache.hadoop.hbase.filter.FuzzyRowFilter;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.hadoop.hbase.util.Pair;
 
 import java.util.AbstractMap;
 import java.util.Arrays;
