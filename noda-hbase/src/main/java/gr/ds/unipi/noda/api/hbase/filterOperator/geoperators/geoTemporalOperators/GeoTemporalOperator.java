@@ -44,18 +44,18 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
 
             //temporal part
             for (int i = geoHashPart.length() + 1; i < geoHashPart.length() + 1 + temporalPart.length(); i++) {
-                if (temporalPart.charAt(i) != '?') {
+                if (temporalPart.charAt(i - geoHashPart.length() - 1 ) != '?') {
                     digits[i] = 0;
                 } else {
                     digits[i] = 1;
                 }
             }
 
-            for (int i = geoHashPart.length() + 1 + temporalPart.length(); i < digits.length; i++) {
+            for (int i = geoHashPart.length() + 1 + temporalPart.length() + 1; i < digits.length; i++) {
                 digits[i] = 1;
             }
             digits[geoHashPart.length()] = 0;
-            digits[geoHashPart.length() + 13 + 1] = 0;
+            digits[geoHashPart.length() + 1 + temporalPart.length()] = 0;
 
             return new AbstractMap.SimpleImmutableEntry<>(geoHashPart + "-"+temporalPart+"-??????????", digits);
         }
