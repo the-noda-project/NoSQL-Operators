@@ -9,10 +9,7 @@ import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
-import org.apache.hadoop.hbase.filter.ColumnRangeFilter;
-import org.apache.hadoop.hbase.filter.Filter;
-import org.apache.hadoop.hbase.filter.FilterList;
-import org.apache.hadoop.hbase.filter.PageFilter;
+import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -149,9 +146,9 @@ final class HBaseOperators extends NoSqlDbOperators {
     @Override
     public NoSqlDbOperators project(String fieldName, String... fieldNames) {
 
-        projectionFilterList.addFilter(new ColumnRangeFilter(Bytes.toBytes(fieldName),true, Bytes.toBytes(fieldName),true));
+        projectionFilterList.addFilter(new MultipleColumnPrefixFilter(new byte[][]{Bytes.toBytes(fieldName)}));
         for (int i = 0; i < fieldNames.length; i++) {
-            projectionFilterList.addFilter(new ColumnRangeFilter(Bytes.toBytes(fieldNames[i]),true, Bytes.toBytes(fieldNames[i]),true));
+            projectionFilterList.addFilter(new MultipleColumnPrefixFilter(new byte[][]{Bytes.toBytes(fieldNames[i])}));
         }
 //        scanProjection(fieldName);
 //
