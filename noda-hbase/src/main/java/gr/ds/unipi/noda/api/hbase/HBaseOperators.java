@@ -5,6 +5,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
+import org.apache.hadoop.hbase.CompareOperator;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
@@ -146,9 +147,12 @@ final class HBaseOperators extends NoSqlDbOperators {
     @Override
     public NoSqlDbOperators project(String fieldName, String... fieldNames) {
 
-        projectionFilterList.addFilter(new ColumnPrefixFilter(Bytes.toBytes(fieldName)));
+        projectionFilterList.addFilter(new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(fieldName))));
+
         for (int i = 0; i < fieldNames.length; i++) {
-            projectionFilterList.addFilter(new ColumnPrefixFilter(Bytes.toBytes(fieldNames[i])));
+            //projectionFilterList.addFilter(new ColumnPrefixFilter(Bytes.toBytes(fieldNames[i])));
+            new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(fieldNames[i])));
+
         }
 //        scanProjection(fieldName);
 //
