@@ -127,7 +127,28 @@ final class HBaseOperators extends NoSqlDbOperators {
         return this;
     }
 
+    private void scanProjection(String fieldName) {
+        String[] names = fieldName.split(":");
 
+        if (names.length == 1) {
+            projectionFilterList.addFilter(new FamilyFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(names[0]))));
+        } else if (names.length == 2) {
+
+            FilterList flist = new FilterList(FilterList.Operator.MUST_PASS_ALL);
+
+            flist.addFilter(new FamilyFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(names[0]))));
+            flist.addFilter(new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(names[1]))));
+
+            projectionFilterList.addFilter(flist);
+
+        } else {
+            try {
+                throw new Exception("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 //    private void scanProjection(String fieldName) {
 //        String[] names = fieldName.split(":");
 //
@@ -147,18 +168,18 @@ final class HBaseOperators extends NoSqlDbOperators {
     @Override
     public NoSqlDbOperators project(String fieldName, String... fieldNames) {
 
-        projectionFilterList.addFilter(new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(fieldName))));
-
-        for (int i = 0; i < fieldNames.length; i++) {
-            //projectionFilterList.addFilter(new ColumnPrefixFilter(Bytes.toBytes(fieldNames[i])));
-            projectionFilterList.addFilter(new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(fieldNames[i]))));
-
-        }
-//        scanProjection(fieldName);
+//        projectionFilterList.addFilter(new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(fieldName))));
 //
 //        for (int i = 0; i < fieldNames.length; i++) {
-//            scanProjection(fieldNames[i]);
+//            //projectionFilterList.addFilter(new ColumnPrefixFilter(Bytes.toBytes(fieldNames[i])));
+//            projectionFilterList.addFilter(new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(fieldNames[i]))));
+//
 //        }
+        scanProjection(fieldName);
+
+        for (int i = 0; i < fieldNames.length; i++) {
+            scanProjection(fieldNames[i]);
+        }
 
         return this;
     }
