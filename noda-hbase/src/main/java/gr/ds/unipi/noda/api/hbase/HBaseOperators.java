@@ -9,6 +9,7 @@ import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.filter.ColumnRangeFilter;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.FilterList;
 import org.apache.hadoop.hbase.filter.PageFilter;
@@ -25,7 +26,8 @@ final class HBaseOperators extends NoSqlDbOperators {
     private final HBaseConnectionManager hbaseConnectionManager = HBaseConnectionManager.getInstance();
     private final Scan scan = new Scan();
     private final FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
-    private final List<Map.Entry<byte[],byte[]>> projection = new ArrayList<>();
+//    private final List<Map.Entry<byte[],byte[]>> projection = new ArrayList<>();
+    private final FilterList projectionFilterList = new FilterList(FilterList.Operator.MUST_PASS_ONE);
 
     private HBaseOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
@@ -63,15 +65,18 @@ final class HBaseOperators extends NoSqlDbOperators {
     public void printScreen() {
         Table table = null;
         ResultScanner resultScanner = null;
+
+        filterList.addFilter(projectionFilterList);
         scan.setFilter(filterList);
-        projection.forEach(entry -> {
-            if(entry.getValue()==null){
-                scan.addFamily(entry.getKey());
-            }
-            else{
-                scan.addColumn(entry.getKey(),entry.getValue());
-            }
-        });
+
+//        projection.forEach(entry -> {
+//            if(entry.getValue()==null){
+//                scan.addFamily(entry.getKey());
+//            }
+//            else{
+//                scan.addColumn(entry.getKey(),entry.getValue());
+//            }
+//        });
         try {
 
             table = hbaseConnectionManager.getConnection(getNoSqlDbConnector()).getTable(TableName.valueOf(getDataCollection()));
@@ -125,30 +130,34 @@ final class HBaseOperators extends NoSqlDbOperators {
     }
 
 
-    private void scanProjection(String fieldName) {
-        String[] names = fieldName.split(":");
-
-        if (names.length == 1) {
-            projection.add(new AbstractMap.SimpleImmutableEntry(Bytes.toBytes(names[0]),null));
-        } else if (names.length == 2) {
-            projection.add(new AbstractMap.SimpleImmutableEntry(Bytes.toBytes(names[0]),Bytes.toBytes(names[1])));
-        } else {
-            try {
-                throw new Exception("");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    private void scanProjection(String fieldName) {
+//        String[] names = fieldName.split(":");
+//
+//        if (names.length == 1) {
+//            projection.add(new AbstractMap.SimpleImmutableEntry(Bytes.toBytes(names[0]),null));
+//        } else if (names.length == 2) {
+//            projection.add(new AbstractMap.SimpleImmutableEntry(Bytes.toBytes(names[0]),Bytes.toBytes(names[1])));
+//        } else {
+//            try {
+//                throw new Exception("");
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     @Override
     public NoSqlDbOperators project(String fieldName, String... fieldNames) {
 
-        scanProjection(fieldName);
-
+        projectionFilterList.addFilter(new ColumnRangeFilter(Bytes.toBytes(fieldName),true, Bytes.toBytes(fieldName),true));
         for (int i = 0; i < fieldNames.length; i++) {
-            scanProjection(fieldNames[i]);
+            projectionFilterList.addFilter(new ColumnRangeFilter(Bytes.toBytes(fieldNames[i]),true, Bytes.toBytes(fieldNames[i]),true));
         }
+//        scanProjection(fieldName);
+//
+//        for (int i = 0; i < fieldNames.length; i++) {
+//            scanProjection(fieldNames[i]);
+//        }
 
         return this;
     }

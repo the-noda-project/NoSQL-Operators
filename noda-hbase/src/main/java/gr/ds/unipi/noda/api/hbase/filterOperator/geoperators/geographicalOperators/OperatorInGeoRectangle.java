@@ -18,6 +18,7 @@ public final class OperatorInGeoRectangle extends GeographicalOperator<Rectangle
 
     @Override
     protected Filter geometryRefactor() {
+
         RectangleFilterProtos.RectangleFilter.Coordinates lowerCoordinates = RectangleFilterProtos.RectangleFilter.Coordinates.newBuilder().setLongitude(getGeometry().getLowerBound().getLongitude()).setLatitude(getGeometry().getLowerBound().getLatitude()).build();
         RectangleFilterProtos.RectangleFilter.Coordinates upperCoordinates = RectangleFilterProtos.RectangleFilter.Coordinates.newBuilder().setLongitude(getGeometry().getUpperBound().getLongitude()).setLatitude(getGeometry().getUpperBound().getLatitude()).build();
         return RectangleFilter.newRectangleFilter(Bytes.toBytes(getFieldName()), Bytes.toBytes("lon"),Bytes.toBytes("lat"),lowerCoordinates, upperCoordinates);
