@@ -35,6 +35,6 @@ public final class HBaseGeographicalOperatorFactory extends BaseGeographicalOper
             geoHash = geoHash.substring(0,length);
         }
 
-        return String.format("%-"+length+"s",geoHash).replace(' ','?');
+        return geoHash;
     }
 }

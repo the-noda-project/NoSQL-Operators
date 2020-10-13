@@ -28,7 +28,7 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
 
         if(getTemporalType() instanceof TemporalBounds) {
 
-            String geoHashPart = HBaseGeographicalOperatorFactory.getGeoHashPart(this.getGeographicalOperator().getGeometry());
+            String geoHashPart = HBaseGeoTemporalOperatorFactory.getGeoHashPart(this.getGeographicalOperator().getGeometry());
             String temporalPart = HBaseGeoTemporalOperatorFactory.getTemporalPart(((TemporalBounds) getTemporalType()).getLowerBound(), ((TemporalBounds) getTemporalType()).getUpperBound());
 
             byte[] digits = new byte[geoHashPart.length() + 25];
