@@ -146,9 +146,9 @@ final class HBaseOperators extends NoSqlDbOperators {
     @Override
     public NoSqlDbOperators project(String fieldName, String... fieldNames) {
 
-        projectionFilterList.addFilter(new MultipleColumnPrefixFilter(new byte[][]{Bytes.toBytes(fieldName)}));
+        projectionFilterList.addFilter(new ColumnPrefixFilter(Bytes.toBytes(fieldName)));
         for (int i = 0; i < fieldNames.length; i++) {
-            projectionFilterList.addFilter(new MultipleColumnPrefixFilter(new byte[][]{Bytes.toBytes(fieldNames[i])}));
+            projectionFilterList.addFilter(new ColumnPrefixFilter(Bytes.toBytes(fieldNames[i])));
         }
 //        scanProjection(fieldName);
 //
