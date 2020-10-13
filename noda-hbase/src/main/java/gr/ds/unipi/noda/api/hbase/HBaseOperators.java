@@ -151,7 +151,7 @@ final class HBaseOperators extends NoSqlDbOperators {
 
         for (int i = 0; i < fieldNames.length; i++) {
             //projectionFilterList.addFilter(new ColumnPrefixFilter(Bytes.toBytes(fieldNames[i])));
-            new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(fieldNames[i])));
+            projectionFilterList.addFilter(new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(fieldNames[i]))));
 
         }
 //        scanProjection(fieldName);
