@@ -1,10 +1,13 @@
 package visTest;
 
 import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import gr.ds.unipi.noda.api.visualization.visualization.Visualize;
+
+import java.util.Date;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.lt;
@@ -20,11 +23,14 @@ public class Main {
                 .config("spark.neo4j.url","bolt://localhost:7687")
                 .getOrCreate();
 
+        Date datemax = new Date(1547078400);
+        Date datemin = new Date(1546992000);
 
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos").host("localhost").port(7687).sparkSession(spark).build();
-        Dataset<Row> dtfr = noSqlDbSystem.operateOn("Ship").filter(eq("CRAFT_ID", 	98867615.0)).toDataframe();
 
-        Visualize.trajectoriesTimelapse(dtfr);
+//        Dataset<Row> dtfr =  noSqlDbSystem.operateOn("Ship").filter(inGeoTemporalRectangle("spatialPoint", Coordinates.newCoordinates( -118.54179, 33.82936), Coordinates.newCoordinates( -118.44566, 33.93083), "secondTimestamp",  datemin, datemax)).toDataframe();
+        Dataset<Row> dtfr =  noSqlDbSystem.operateOn("Ship").filter(or(eq("MMSI", 	538002283), eq("MMSI", 		338822000))).toDataframe();
+        Visualize.trajectoriesTimelapse(dtfr, "MMSI", "spatialPoint", "secondTimestamp");
 
         noSqlDbSystem.closeConnection();
 

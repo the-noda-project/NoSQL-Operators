@@ -296,7 +296,8 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
     @Override
     public Dataset<Row> toDataframe() {
-        sb.append(" RETURN s.CRAFT_ID, s.LAT, s.LON, s.EPOCHTIMESTAMP");
+        //ΤODO  inside dataframe method use must put the name of the columns
+        sb.append(" RETURN s.MMSI AS MMSI, toString(s.spatialPoint) AS spatialPoint, s.LAT as LAT, s.LON as LON, s.secondTimestamp AS secondTimestamp");
         System.out.println(sb);
 
 
@@ -306,12 +307,29 @@ final class Neo4jOperators extends NoSqlDbOperators {
         o.printSchema();
 //        o.show();
 
+        Row r = o.first();
 
-        o.toJSON().show();
+        for(int i = 0; i < r.size(); i++) {
+            if(r.get(i) instanceof String) {
+                if(((String) r.get(i)).startsWith("point({")) {
+                    System.out.println("msmdks" + r.get(i));
+                }
+
+            } else {
+                continue;
+            }
+
+        }
+
+//        o.toJSON().show();
+        o.show();
+
+        o.printSchema();
 
         System.out.println("--------------------: " + o);
 
-        return o.sort("`s.EPOCHTIMESTAMP`");
+//        return o.sort("`s.secondTimestamp`");
+        return o;
     }
 
 
