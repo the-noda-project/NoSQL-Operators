@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.mongo;
 
+import gr.ds.unipi.noda.api.core.dataframe.BaseDataframeManipulator;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
@@ -76,6 +77,11 @@ public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
     @Override
     protected BaseTextualOperatorFactory getBaseTextualOperatorFactory() {
         return new MongoDBTextualOperatorFactory();
+    }
+
+    @Override
+    protected BaseDataframeManipulator getBaseDataframeManipulator() {
+        return null;
     }
 
 }
