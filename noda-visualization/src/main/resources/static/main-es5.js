@@ -168,6 +168,313 @@ function _classCallCheck(instance, Constructor) {
       },
 
     /***/
+    "./node_modules/moment/locale sync recursive ^\\.\\/.*$":
+      /*!**************************************************!*\
+    !*** ./node_modules/moment/locale sync ^\.\/.*$ ***!
+    \**************************************************/
+
+      /*! no static exports found */
+
+      /***/
+      function node_modulesMomentLocaleSyncRecursive$(
+        module,
+        exports,
+        __webpack_require__
+      ) {
+        var map = {
+          "./af": "./node_modules/moment/locale/af.js",
+          "./af.js": "./node_modules/moment/locale/af.js",
+          "./ar": "./node_modules/moment/locale/ar.js",
+          "./ar-dz": "./node_modules/moment/locale/ar-dz.js",
+          "./ar-dz.js": "./node_modules/moment/locale/ar-dz.js",
+          "./ar-kw": "./node_modules/moment/locale/ar-kw.js",
+          "./ar-kw.js": "./node_modules/moment/locale/ar-kw.js",
+          "./ar-ly": "./node_modules/moment/locale/ar-ly.js",
+          "./ar-ly.js": "./node_modules/moment/locale/ar-ly.js",
+          "./ar-ma": "./node_modules/moment/locale/ar-ma.js",
+          "./ar-ma.js": "./node_modules/moment/locale/ar-ma.js",
+          "./ar-sa": "./node_modules/moment/locale/ar-sa.js",
+          "./ar-sa.js": "./node_modules/moment/locale/ar-sa.js",
+          "./ar-tn": "./node_modules/moment/locale/ar-tn.js",
+          "./ar-tn.js": "./node_modules/moment/locale/ar-tn.js",
+          "./ar.js": "./node_modules/moment/locale/ar.js",
+          "./az": "./node_modules/moment/locale/az.js",
+          "./az.js": "./node_modules/moment/locale/az.js",
+          "./be": "./node_modules/moment/locale/be.js",
+          "./be.js": "./node_modules/moment/locale/be.js",
+          "./bg": "./node_modules/moment/locale/bg.js",
+          "./bg.js": "./node_modules/moment/locale/bg.js",
+          "./bm": "./node_modules/moment/locale/bm.js",
+          "./bm.js": "./node_modules/moment/locale/bm.js",
+          "./bn": "./node_modules/moment/locale/bn.js",
+          "./bn.js": "./node_modules/moment/locale/bn.js",
+          "./bo": "./node_modules/moment/locale/bo.js",
+          "./bo.js": "./node_modules/moment/locale/bo.js",
+          "./br": "./node_modules/moment/locale/br.js",
+          "./br.js": "./node_modules/moment/locale/br.js",
+          "./bs": "./node_modules/moment/locale/bs.js",
+          "./bs.js": "./node_modules/moment/locale/bs.js",
+          "./ca": "./node_modules/moment/locale/ca.js",
+          "./ca.js": "./node_modules/moment/locale/ca.js",
+          "./cs": "./node_modules/moment/locale/cs.js",
+          "./cs.js": "./node_modules/moment/locale/cs.js",
+          "./cv": "./node_modules/moment/locale/cv.js",
+          "./cv.js": "./node_modules/moment/locale/cv.js",
+          "./cy": "./node_modules/moment/locale/cy.js",
+          "./cy.js": "./node_modules/moment/locale/cy.js",
+          "./da": "./node_modules/moment/locale/da.js",
+          "./da.js": "./node_modules/moment/locale/da.js",
+          "./de": "./node_modules/moment/locale/de.js",
+          "./de-at": "./node_modules/moment/locale/de-at.js",
+          "./de-at.js": "./node_modules/moment/locale/de-at.js",
+          "./de-ch": "./node_modules/moment/locale/de-ch.js",
+          "./de-ch.js": "./node_modules/moment/locale/de-ch.js",
+          "./de.js": "./node_modules/moment/locale/de.js",
+          "./dv": "./node_modules/moment/locale/dv.js",
+          "./dv.js": "./node_modules/moment/locale/dv.js",
+          "./el": "./node_modules/moment/locale/el.js",
+          "./el.js": "./node_modules/moment/locale/el.js",
+          "./en-au": "./node_modules/moment/locale/en-au.js",
+          "./en-au.js": "./node_modules/moment/locale/en-au.js",
+          "./en-ca": "./node_modules/moment/locale/en-ca.js",
+          "./en-ca.js": "./node_modules/moment/locale/en-ca.js",
+          "./en-gb": "./node_modules/moment/locale/en-gb.js",
+          "./en-gb.js": "./node_modules/moment/locale/en-gb.js",
+          "./en-ie": "./node_modules/moment/locale/en-ie.js",
+          "./en-ie.js": "./node_modules/moment/locale/en-ie.js",
+          "./en-il": "./node_modules/moment/locale/en-il.js",
+          "./en-il.js": "./node_modules/moment/locale/en-il.js",
+          "./en-in": "./node_modules/moment/locale/en-in.js",
+          "./en-in.js": "./node_modules/moment/locale/en-in.js",
+          "./en-nz": "./node_modules/moment/locale/en-nz.js",
+          "./en-nz.js": "./node_modules/moment/locale/en-nz.js",
+          "./en-sg": "./node_modules/moment/locale/en-sg.js",
+          "./en-sg.js": "./node_modules/moment/locale/en-sg.js",
+          "./eo": "./node_modules/moment/locale/eo.js",
+          "./eo.js": "./node_modules/moment/locale/eo.js",
+          "./es": "./node_modules/moment/locale/es.js",
+          "./es-do": "./node_modules/moment/locale/es-do.js",
+          "./es-do.js": "./node_modules/moment/locale/es-do.js",
+          "./es-us": "./node_modules/moment/locale/es-us.js",
+          "./es-us.js": "./node_modules/moment/locale/es-us.js",
+          "./es.js": "./node_modules/moment/locale/es.js",
+          "./et": "./node_modules/moment/locale/et.js",
+          "./et.js": "./node_modules/moment/locale/et.js",
+          "./eu": "./node_modules/moment/locale/eu.js",
+          "./eu.js": "./node_modules/moment/locale/eu.js",
+          "./fa": "./node_modules/moment/locale/fa.js",
+          "./fa.js": "./node_modules/moment/locale/fa.js",
+          "./fi": "./node_modules/moment/locale/fi.js",
+          "./fi.js": "./node_modules/moment/locale/fi.js",
+          "./fil": "./node_modules/moment/locale/fil.js",
+          "./fil.js": "./node_modules/moment/locale/fil.js",
+          "./fo": "./node_modules/moment/locale/fo.js",
+          "./fo.js": "./node_modules/moment/locale/fo.js",
+          "./fr": "./node_modules/moment/locale/fr.js",
+          "./fr-ca": "./node_modules/moment/locale/fr-ca.js",
+          "./fr-ca.js": "./node_modules/moment/locale/fr-ca.js",
+          "./fr-ch": "./node_modules/moment/locale/fr-ch.js",
+          "./fr-ch.js": "./node_modules/moment/locale/fr-ch.js",
+          "./fr.js": "./node_modules/moment/locale/fr.js",
+          "./fy": "./node_modules/moment/locale/fy.js",
+          "./fy.js": "./node_modules/moment/locale/fy.js",
+          "./ga": "./node_modules/moment/locale/ga.js",
+          "./ga.js": "./node_modules/moment/locale/ga.js",
+          "./gd": "./node_modules/moment/locale/gd.js",
+          "./gd.js": "./node_modules/moment/locale/gd.js",
+          "./gl": "./node_modules/moment/locale/gl.js",
+          "./gl.js": "./node_modules/moment/locale/gl.js",
+          "./gom-deva": "./node_modules/moment/locale/gom-deva.js",
+          "./gom-deva.js": "./node_modules/moment/locale/gom-deva.js",
+          "./gom-latn": "./node_modules/moment/locale/gom-latn.js",
+          "./gom-latn.js": "./node_modules/moment/locale/gom-latn.js",
+          "./gu": "./node_modules/moment/locale/gu.js",
+          "./gu.js": "./node_modules/moment/locale/gu.js",
+          "./he": "./node_modules/moment/locale/he.js",
+          "./he.js": "./node_modules/moment/locale/he.js",
+          "./hi": "./node_modules/moment/locale/hi.js",
+          "./hi.js": "./node_modules/moment/locale/hi.js",
+          "./hr": "./node_modules/moment/locale/hr.js",
+          "./hr.js": "./node_modules/moment/locale/hr.js",
+          "./hu": "./node_modules/moment/locale/hu.js",
+          "./hu.js": "./node_modules/moment/locale/hu.js",
+          "./hy-am": "./node_modules/moment/locale/hy-am.js",
+          "./hy-am.js": "./node_modules/moment/locale/hy-am.js",
+          "./id": "./node_modules/moment/locale/id.js",
+          "./id.js": "./node_modules/moment/locale/id.js",
+          "./is": "./node_modules/moment/locale/is.js",
+          "./is.js": "./node_modules/moment/locale/is.js",
+          "./it": "./node_modules/moment/locale/it.js",
+          "./it-ch": "./node_modules/moment/locale/it-ch.js",
+          "./it-ch.js": "./node_modules/moment/locale/it-ch.js",
+          "./it.js": "./node_modules/moment/locale/it.js",
+          "./ja": "./node_modules/moment/locale/ja.js",
+          "./ja.js": "./node_modules/moment/locale/ja.js",
+          "./jv": "./node_modules/moment/locale/jv.js",
+          "./jv.js": "./node_modules/moment/locale/jv.js",
+          "./ka": "./node_modules/moment/locale/ka.js",
+          "./ka.js": "./node_modules/moment/locale/ka.js",
+          "./kk": "./node_modules/moment/locale/kk.js",
+          "./kk.js": "./node_modules/moment/locale/kk.js",
+          "./km": "./node_modules/moment/locale/km.js",
+          "./km.js": "./node_modules/moment/locale/km.js",
+          "./kn": "./node_modules/moment/locale/kn.js",
+          "./kn.js": "./node_modules/moment/locale/kn.js",
+          "./ko": "./node_modules/moment/locale/ko.js",
+          "./ko.js": "./node_modules/moment/locale/ko.js",
+          "./ku": "./node_modules/moment/locale/ku.js",
+          "./ku.js": "./node_modules/moment/locale/ku.js",
+          "./ky": "./node_modules/moment/locale/ky.js",
+          "./ky.js": "./node_modules/moment/locale/ky.js",
+          "./lb": "./node_modules/moment/locale/lb.js",
+          "./lb.js": "./node_modules/moment/locale/lb.js",
+          "./lo": "./node_modules/moment/locale/lo.js",
+          "./lo.js": "./node_modules/moment/locale/lo.js",
+          "./lt": "./node_modules/moment/locale/lt.js",
+          "./lt.js": "./node_modules/moment/locale/lt.js",
+          "./lv": "./node_modules/moment/locale/lv.js",
+          "./lv.js": "./node_modules/moment/locale/lv.js",
+          "./me": "./node_modules/moment/locale/me.js",
+          "./me.js": "./node_modules/moment/locale/me.js",
+          "./mi": "./node_modules/moment/locale/mi.js",
+          "./mi.js": "./node_modules/moment/locale/mi.js",
+          "./mk": "./node_modules/moment/locale/mk.js",
+          "./mk.js": "./node_modules/moment/locale/mk.js",
+          "./ml": "./node_modules/moment/locale/ml.js",
+          "./ml.js": "./node_modules/moment/locale/ml.js",
+          "./mn": "./node_modules/moment/locale/mn.js",
+          "./mn.js": "./node_modules/moment/locale/mn.js",
+          "./mr": "./node_modules/moment/locale/mr.js",
+          "./mr.js": "./node_modules/moment/locale/mr.js",
+          "./ms": "./node_modules/moment/locale/ms.js",
+          "./ms-my": "./node_modules/moment/locale/ms-my.js",
+          "./ms-my.js": "./node_modules/moment/locale/ms-my.js",
+          "./ms.js": "./node_modules/moment/locale/ms.js",
+          "./mt": "./node_modules/moment/locale/mt.js",
+          "./mt.js": "./node_modules/moment/locale/mt.js",
+          "./my": "./node_modules/moment/locale/my.js",
+          "./my.js": "./node_modules/moment/locale/my.js",
+          "./nb": "./node_modules/moment/locale/nb.js",
+          "./nb.js": "./node_modules/moment/locale/nb.js",
+          "./ne": "./node_modules/moment/locale/ne.js",
+          "./ne.js": "./node_modules/moment/locale/ne.js",
+          "./nl": "./node_modules/moment/locale/nl.js",
+          "./nl-be": "./node_modules/moment/locale/nl-be.js",
+          "./nl-be.js": "./node_modules/moment/locale/nl-be.js",
+          "./nl.js": "./node_modules/moment/locale/nl.js",
+          "./nn": "./node_modules/moment/locale/nn.js",
+          "./nn.js": "./node_modules/moment/locale/nn.js",
+          "./oc-lnc": "./node_modules/moment/locale/oc-lnc.js",
+          "./oc-lnc.js": "./node_modules/moment/locale/oc-lnc.js",
+          "./pa-in": "./node_modules/moment/locale/pa-in.js",
+          "./pa-in.js": "./node_modules/moment/locale/pa-in.js",
+          "./pl": "./node_modules/moment/locale/pl.js",
+          "./pl.js": "./node_modules/moment/locale/pl.js",
+          "./pt": "./node_modules/moment/locale/pt.js",
+          "./pt-br": "./node_modules/moment/locale/pt-br.js",
+          "./pt-br.js": "./node_modules/moment/locale/pt-br.js",
+          "./pt.js": "./node_modules/moment/locale/pt.js",
+          "./ro": "./node_modules/moment/locale/ro.js",
+          "./ro.js": "./node_modules/moment/locale/ro.js",
+          "./ru": "./node_modules/moment/locale/ru.js",
+          "./ru.js": "./node_modules/moment/locale/ru.js",
+          "./sd": "./node_modules/moment/locale/sd.js",
+          "./sd.js": "./node_modules/moment/locale/sd.js",
+          "./se": "./node_modules/moment/locale/se.js",
+          "./se.js": "./node_modules/moment/locale/se.js",
+          "./si": "./node_modules/moment/locale/si.js",
+          "./si.js": "./node_modules/moment/locale/si.js",
+          "./sk": "./node_modules/moment/locale/sk.js",
+          "./sk.js": "./node_modules/moment/locale/sk.js",
+          "./sl": "./node_modules/moment/locale/sl.js",
+          "./sl.js": "./node_modules/moment/locale/sl.js",
+          "./sq": "./node_modules/moment/locale/sq.js",
+          "./sq.js": "./node_modules/moment/locale/sq.js",
+          "./sr": "./node_modules/moment/locale/sr.js",
+          "./sr-cyrl": "./node_modules/moment/locale/sr-cyrl.js",
+          "./sr-cyrl.js": "./node_modules/moment/locale/sr-cyrl.js",
+          "./sr.js": "./node_modules/moment/locale/sr.js",
+          "./ss": "./node_modules/moment/locale/ss.js",
+          "./ss.js": "./node_modules/moment/locale/ss.js",
+          "./sv": "./node_modules/moment/locale/sv.js",
+          "./sv.js": "./node_modules/moment/locale/sv.js",
+          "./sw": "./node_modules/moment/locale/sw.js",
+          "./sw.js": "./node_modules/moment/locale/sw.js",
+          "./ta": "./node_modules/moment/locale/ta.js",
+          "./ta.js": "./node_modules/moment/locale/ta.js",
+          "./te": "./node_modules/moment/locale/te.js",
+          "./te.js": "./node_modules/moment/locale/te.js",
+          "./tet": "./node_modules/moment/locale/tet.js",
+          "./tet.js": "./node_modules/moment/locale/tet.js",
+          "./tg": "./node_modules/moment/locale/tg.js",
+          "./tg.js": "./node_modules/moment/locale/tg.js",
+          "./th": "./node_modules/moment/locale/th.js",
+          "./th.js": "./node_modules/moment/locale/th.js",
+          "./tl-ph": "./node_modules/moment/locale/tl-ph.js",
+          "./tl-ph.js": "./node_modules/moment/locale/tl-ph.js",
+          "./tlh": "./node_modules/moment/locale/tlh.js",
+          "./tlh.js": "./node_modules/moment/locale/tlh.js",
+          "./tr": "./node_modules/moment/locale/tr.js",
+          "./tr.js": "./node_modules/moment/locale/tr.js",
+          "./tzl": "./node_modules/moment/locale/tzl.js",
+          "./tzl.js": "./node_modules/moment/locale/tzl.js",
+          "./tzm": "./node_modules/moment/locale/tzm.js",
+          "./tzm-latn": "./node_modules/moment/locale/tzm-latn.js",
+          "./tzm-latn.js": "./node_modules/moment/locale/tzm-latn.js",
+          "./tzm.js": "./node_modules/moment/locale/tzm.js",
+          "./ug-cn": "./node_modules/moment/locale/ug-cn.js",
+          "./ug-cn.js": "./node_modules/moment/locale/ug-cn.js",
+          "./uk": "./node_modules/moment/locale/uk.js",
+          "./uk.js": "./node_modules/moment/locale/uk.js",
+          "./ur": "./node_modules/moment/locale/ur.js",
+          "./ur.js": "./node_modules/moment/locale/ur.js",
+          "./uz": "./node_modules/moment/locale/uz.js",
+          "./uz-latn": "./node_modules/moment/locale/uz-latn.js",
+          "./uz-latn.js": "./node_modules/moment/locale/uz-latn.js",
+          "./uz.js": "./node_modules/moment/locale/uz.js",
+          "./vi": "./node_modules/moment/locale/vi.js",
+          "./vi.js": "./node_modules/moment/locale/vi.js",
+          "./x-pseudo": "./node_modules/moment/locale/x-pseudo.js",
+          "./x-pseudo.js": "./node_modules/moment/locale/x-pseudo.js",
+          "./yo": "./node_modules/moment/locale/yo.js",
+          "./yo.js": "./node_modules/moment/locale/yo.js",
+          "./zh-cn": "./node_modules/moment/locale/zh-cn.js",
+          "./zh-cn.js": "./node_modules/moment/locale/zh-cn.js",
+          "./zh-hk": "./node_modules/moment/locale/zh-hk.js",
+          "./zh-hk.js": "./node_modules/moment/locale/zh-hk.js",
+          "./zh-mo": "./node_modules/moment/locale/zh-mo.js",
+          "./zh-mo.js": "./node_modules/moment/locale/zh-mo.js",
+          "./zh-tw": "./node_modules/moment/locale/zh-tw.js",
+          "./zh-tw.js": "./node_modules/moment/locale/zh-tw.js",
+        };
+
+        function webpackContext(req) {
+          var id = webpackContextResolve(req);
+          return __webpack_require__(id);
+        }
+
+        function webpackContextResolve(req) {
+          if (!__webpack_require__.o(map, req)) {
+            var e = new Error("Cannot find module '" + req + "'");
+            e.code = "MODULE_NOT_FOUND";
+            throw e;
+          }
+
+          return map[req];
+        }
+
+        webpackContext.keys = function webpackContextKeys() {
+          return Object.keys(map);
+        };
+
+        webpackContext.resolve = webpackContextResolve;
+        module.exports = webpackContext;
+        webpackContext.id =
+          "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
+        /***/
+      },
+
+    /***/
     "./src/app/@core/core.module.ts":
       /*!**************************************!*\
     !*** ./src/app/@core/core.module.ts ***!
@@ -3254,6 +3561,7 @@ function _classCallCheck(instance, Constructor) {
             this.quoteService = quoteService;
             this.data = [];
             this.idArray = [];
+            this.activeArray = [];
             this.value = 5;
             this.maxValue = 8;
             this.opt = {
@@ -3275,8 +3583,8 @@ function _classCallCheck(instance, Constructor) {
               ],
               zoom: 4,
               center: leaflet__WEBPACK_IMPORTED_MODULE_3__["latLng"](
-                -27.750998,
-                127.581219
+                33.88889,
+                -118.48143
               ),
             };
           }
@@ -3287,9 +3595,9 @@ function _classCallCheck(instance, Constructor) {
               value: function ngOnInit() {
                 var _this4 = this;
 
-                this.refreshTime = 0.5;
+                this.refreshTime = 0.2;
                 this.dataRefreshTime = 10;
-                this.windowBetweenFloorAndCeil = 4;
+                this.windowBetweenFloorAndCeil = 3;
                 this.changeFloor = false;
                 this.changeCeil = false; // Responce for noda server connection
 
@@ -3364,7 +3672,7 @@ function _classCallCheck(instance, Constructor) {
                           ")",
                       });
                     }
-                  });
+                  }); // this.createActiveArray()
 
                   console.log(" auto einai to id array: ", _this4.idArray);
                 });
@@ -3411,7 +3719,19 @@ function _classCallCheck(instance, Constructor) {
                   return el.id === id;
                 });
                 return this.idArray[index].color;
-              },
+              }, // createActiveArray() {
+              //   this.activeArray = [];
+              //   for (let key in this.groupedData) {
+              //     let parsedKey = parseInt(this.timestampManipulation(key));
+              //     console.log(parsedKey, this.value, this.maxValue);
+              //     if( parsedKey >= this.value && parsedKey <= this.maxValue) {
+              //       this.groupedData[key].forEach((el: any) => {
+              //         this.activeArray.push(el)
+              //       });
+              //     }
+              //   }
+              //   console.log('re', this.activeArray);
+              // }
             },
             {
               key: "playSpatioTemporal",
@@ -3443,8 +3763,7 @@ function _classCallCheck(instance, Constructor) {
                             '<div style="background-color: ' +
                             _this5.getRGBofPin(element.id) +
                             ' ; height: 10px; width: 10px; border-radius: 100%;"></div>',
-                        });
-                        _this5.layers = [];
+                        }); // this.layers = [];
 
                         _this5.layers.push(
                           leaflet__WEBPACK_IMPORTED_MODULE_3__["marker"](
@@ -3473,6 +3792,10 @@ function _classCallCheck(instance, Constructor) {
                     _this5.maxValue =
                       _this5.value +
                       _this5.windowBetweenFloorAndCeil * 60 * 60 * 1000;
+
+                    if (_this5.layers.length >= 80) {
+                      _this5.layers.splice(0, 30);
+                    } // console.log("auta einai ta layers", this.layers);
                   }, i * (_this5.refreshTime * 1000));
                 };
 
@@ -3935,7 +4258,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 39,
-                "\n    "
+                "\n      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -4160,7 +4483,7 @@ function _classCallCheck(instance, Constructor) {
                 function HomeComponent_Template_input_ngModelChange_71_listener(
                   $event
                 ) {
-                  return (ctx.refreshTime = $event);
+                  return (ctx.dataRefreshTime = $event);
                 }
               );
 
@@ -4353,7 +4676,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
                 "ngModel",
-                ctx.refreshTime
+                ctx.dataRefreshTime
               )(
                 "ngModelOptions",
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](
@@ -6357,6 +6680,12 @@ function _classCallCheck(instance, Constructor) {
           /*! ./sidebar/sidebar.component */
           "./src/app/shell/sidebar/sidebar.component.ts"
         );
+        /* harmony import */
+
+        var ng2_charts__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+          /*! ng2-charts */
+          "./node_modules/ng2-charts/__ivy_ngcc__/fesm2015/ng2-charts.js"
+        );
 
         var ShellModule = function ShellModule() {
           _classCallCheck(this, ShellModule);
@@ -6379,6 +6708,7 @@ function _classCallCheck(instance, Constructor) {
               _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__[
                 "TranslateModule"
               ],
+              ng2_charts__WEBPACK_IMPORTED_MODULE_9__["ChartsModule"],
               _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__[
                 "NgbModule"
               ],
@@ -6409,6 +6739,7 @@ function _classCallCheck(instance, Constructor) {
                   _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__[
                     "TranslateModule"
                   ],
+                  ng2_charts__WEBPACK_IMPORTED_MODULE_9__["ChartsModule"],
                   _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__[
                     "NgbModule"
                   ],
@@ -6435,6 +6766,7 @@ function _classCallCheck(instance, Constructor) {
                       _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__[
                         "TranslateModule"
                       ],
+                      ng2_charts__WEBPACK_IMPORTED_MODULE_9__["ChartsModule"],
                       _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__[
                         "NgbModule"
                       ],
@@ -6583,13 +6915,79 @@ function _classCallCheck(instance, Constructor) {
           /*! @app/home/quote.service */
           "./src/app/home/quote.service.ts"
         );
+        /* harmony import */
+
+        var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! lodash */
+          "./node_modules/lodash/lodash.js"
+        );
+        /* harmony import */
+
+        var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/ __webpack_require__.n(
+          lodash__WEBPACK_IMPORTED_MODULE_2__
+        );
+        /* harmony import */
+
+        var ng2_charts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! ng2-charts */
+          "./node_modules/ng2-charts/__ivy_ngcc__/fesm2015/ng2-charts.js"
+        );
 
         var SidebarComponent = /*#__PURE__*/ (function () {
           function SidebarComponent(quoteService) {
             _classCallCheck(this, SidebarComponent);
 
             this.quoteService = quoteService;
-            this.data = [];
+            this.data = []; // bar chart data
+
+            this.barChartOptions = {
+              responsive: true,
+              // We use these empty structures as placeholders for dynamic theming.
+              scales: {
+                xAxes: [{}],
+                yAxes: [{}],
+              },
+              plugins: {
+                datalabels: {
+                  anchor: "end",
+                  align: "end",
+                },
+              },
+            };
+            this.barChartLabels = [
+              "2006",
+              "2007",
+              "2008",
+              "2009",
+              "2010",
+              "2011",
+              "2012",
+            ];
+            this.barChartType = "bar";
+            this.barChartLegend = true; // barChartPlugins = [pluginDataLabels];
+
+            this.barChartData = [
+              {
+                data: [65, 59, 80, 81, 56, 55, 40],
+                label: "Series A",
+              },
+              {
+                data: [28, 48, 40, 19, 86, 27, 90],
+                label: "Series B",
+              },
+            ]; // doughnutChart Data
+
+            this.doughnutChartLabels = [
+              "Download Sales",
+              "In-Store Sales",
+              "Mail-Order Sales",
+            ];
+            this.doughnutChartData = [
+              [350, 450, 100],
+              [50, 150, 120],
+              [250, 130, 70],
+            ];
+            this.doughnutChartType = "doughnut";
           }
 
           _createClass(SidebarComponent, [
@@ -6601,6 +6999,9 @@ function _classCallCheck(instance, Constructor) {
                 this.quoteService.getNodaSTData().then(function (res) {
                   var parsedData = JSON.parse(res);
                   _this6.data = parsedData["data"];
+                  _this6.groupedData = lodash__WEBPACK_IMPORTED_MODULE_2__[
+                    "groupBy"
+                  ](_this6.data, "time");
                 });
               },
             },
@@ -6624,8 +7025,8 @@ function _classCallCheck(instance, Constructor) {
         ]({
           type: SidebarComponent,
           selectors: [["app-sidebar"]],
-          decls: 42,
-          vars: 1,
+          decls: 68,
+          vars: 9,
           consts: [
             [1, "container-fluid", "p-0", "text-dark"],
             [
@@ -6653,6 +7054,19 @@ function _classCallCheck(instance, Constructor) {
             [1, "font-weight-bold", 2, "font-size", "1.1rem"],
             [1, "col-12", "mt-3"],
             [1, "font-weight-bold"],
+            [1, "col-12", "mt-5", "p-0"],
+            [2, "display", "block"],
+            ["baseChart", "", 3, "data", "labels", "chartType"],
+            [
+              "baseChart",
+              "",
+              3,
+              "datasets",
+              "labels",
+              "options",
+              "legend",
+              "chartType",
+            ],
           ],
           template: function SidebarComponent_Template(rf, ctx) {
             if (rf & 1) {
@@ -6662,7 +7076,7 @@ function _classCallCheck(instance, Constructor) {
                 0
               );
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "\n\n  ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "\n  ");
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "\n  ");
 
@@ -6770,7 +7184,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 22,
-                "\n\n    "
+                "\n    "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
@@ -6848,7 +7262,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 36,
-                "\n          Results: \n        "
+                "\n          Results:\n        "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -6864,30 +7278,199 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](39, "\n\n");
+
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                39,
-                "\n\n\n  "
+                40,
+                "\n    "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                41,
+                "div",
+                11
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                42,
+                "\n      "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                43,
+                "div"
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                44,
+                "\n        "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                45,
+                "div",
+                12
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                46,
+                "\n          "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                47,
+                "canvas",
+                13
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                48,
+                "\n          "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](40, "\n");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                49,
+                "\n        "
+              );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](41, "\n");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                50,
+                "\n      "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                51,
+                "\n    "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](52, "\n\n");
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                53,
+                "\n    "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                54,
+                "div",
+                11
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                55,
+                "\n      "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                56,
+                "div"
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                57,
+                "\n        "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                58,
+                "div",
+                12
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                59,
+                "\n          "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                60,
+                "canvas",
+                14
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                61,
+                "\n          "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                62,
+                "\n        "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                63,
+                "\n      "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                64,
+                "\n    "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                65,
+                "\n\n\n\n\n  "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](66, "\n");
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](67, "\n");
             }
 
             if (rf & 2) {
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](37);
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](
-                " \n        ",
+                "\n        ",
                 ctx.data.length,
                 "\n      "
               );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](10);
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
+                "data",
+                ctx.doughnutChartData
+              )("labels", ctx.doughnutChartLabels)(
+                "chartType",
+                ctx.doughnutChartType
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](13);
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
+                "datasets",
+                ctx.barChartData
+              )("labels", ctx.barChartLabels)("options", ctx.barChartOptions)(
+                "legend",
+                ctx.barChartLegend
+              )("chartType", ctx.barChartType);
             }
           },
+          directives: [
+            ng2_charts__WEBPACK_IMPORTED_MODULE_3__["BaseChartDirective"],
+          ],
           styles: [
             ".container-fluid[_ngcontent-%COMP%] {\n  box-shadow: 0 3px 10px 4px #eeeeee38;\n  height: 100vh;\n}\n\n.sideBarTitle[_ngcontent-%COMP%] {\n  height: 20vh;\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n  border-bottom: 0.8px solid #222831;\n}\n\n.buttonsNav[_ngcontent-%COMP%] {\n  border-radius: 14px;\n  border: 0.8px solid #222831;\n  color: #222831;\n}\n\n.buttonsNav[_ngcontent-%COMP%]:hover {\n  border: 0.8px solid #222831;\n  background-color: #222831;\n  color: white;\n}\n\n.activeRoute[_ngcontent-%COMP%] {\n  border: 0.8px solid #222831;\n  background-color: #222831;\n  color: white;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9uaWtvc2tvdXMvTm9TUUwtT3BlcmF0b3JzL25vZGEtdmlzdWFsaXphdGlvbi9zcmMvbWFpbi91aS9zcmMvYXBwL3NoZWxsL3NpZGViYXIvc2lkZWJhci5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvc2hlbGwvc2lkZWJhci9zaWRlYmFyLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usb0NBQUE7RUFDQSxhQUFBO0FDQ0Y7O0FERUE7RUFDRSxZQUFBO0VBQ0EsaUJBQUE7RUFDQSxvQkFBQTtFQUNBLGtDQUFBO0FDQ0Y7O0FERUE7RUFDRSxtQkFBQTtFQUNBLDJCQUFBO0VBQ0EsY0FBQTtBQ0NGOztBREVBO0VBQ0UsMkJBQUE7RUFDQSx5QkFBQTtFQUNBLFlBQUE7QUNDRjs7QURFQTtFQUNFLDJCQUFBO0VBQ0EseUJBQUE7RUFDQSxZQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9zaGVsbC9zaWRlYmFyL3NpZGViYXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY29udGFpbmVyLWZsdWlkIHtcbiAgYm94LXNoYWRvdzogMCAzcHggMTBweCA0cHggI2VlZWVlZTM4O1xuICBoZWlnaHQ6IDEwMHZoO1xufVxuXG4uc2lkZUJhclRpdGxlIHtcbiAgaGVpZ2h0OiAyMHZoO1xuICBwYWRkaW5nLXRvcDogMXJlbTtcbiAgcGFkZGluZy1ib3R0b206IDFyZW07XG4gIGJvcmRlci1ib3R0b206IDAuOHB4IHNvbGlkICMyMjI4MzE7XG59XG5cbi5idXR0b25zTmF2IHtcbiAgYm9yZGVyLXJhZGl1czogMTRweDtcbiAgYm9yZGVyOiAwLjhweCBzb2xpZCAjMjIyODMxO1xuICBjb2xvcjogIzIyMjgzMTtcbn1cblxuLmJ1dHRvbnNOYXY6aG92ZXIge1xuICBib3JkZXI6IDAuOHB4IHNvbGlkICMyMjI4MzE7XG4gIGJhY2tncm91bmQtY29sb3I6ICMyMjI4MzE7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cblxuLmFjdGl2ZVJvdXRlIHtcbiAgYm9yZGVyOiAwLjhweCBzb2xpZCAjMjIyODMxO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMjIyODMxO1xuICBjb2xvcjogd2hpdGU7XG59XG4iLCIuY29udGFpbmVyLWZsdWlkIHtcbiAgYm94LXNoYWRvdzogMCAzcHggMTBweCA0cHggI2VlZWVlZTM4O1xuICBoZWlnaHQ6IDEwMHZoO1xufVxuXG4uc2lkZUJhclRpdGxlIHtcbiAgaGVpZ2h0OiAyMHZoO1xuICBwYWRkaW5nLXRvcDogMXJlbTtcbiAgcGFkZGluZy1ib3R0b206IDFyZW07XG4gIGJvcmRlci1ib3R0b206IDAuOHB4IHNvbGlkICMyMjI4MzE7XG59XG5cbi5idXR0b25zTmF2IHtcbiAgYm9yZGVyLXJhZGl1czogMTRweDtcbiAgYm9yZGVyOiAwLjhweCBzb2xpZCAjMjIyODMxO1xuICBjb2xvcjogIzIyMjgzMTtcbn1cblxuLmJ1dHRvbnNOYXY6aG92ZXIge1xuICBib3JkZXI6IDAuOHB4IHNvbGlkICMyMjI4MzE7XG4gIGJhY2tncm91bmQtY29sb3I6ICMyMjI4MzE7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cblxuLmFjdGl2ZVJvdXRlIHtcbiAgYm9yZGVyOiAwLjhweCBzb2xpZCAjMjIyODMxO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMjIyODMxO1xuICBjb2xvcjogd2hpdGU7XG59Il19 */",
           ],

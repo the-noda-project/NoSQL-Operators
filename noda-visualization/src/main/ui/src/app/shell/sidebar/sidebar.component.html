@@ -34,5 +34,37 @@
         {{ data.length }}
       </p>
     </div>
+
+    <!-- Doughnut chart -->
+    <div class="col-12 mt-5 p-0">
+      <div>
+        <div style="display: block;">
+          <canvas
+            baseChart
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [chartType]="doughnutChartType"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bar cHART -->
+    <div class="col-12 mt-5 p-0">
+      <div>
+        <div style="display: block;">
+          <canvas
+            baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

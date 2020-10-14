@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 import 'leaflet/dist/images/marker-icon.png';
 import 'leaflet/dist/images/marker-icon-2x.png';
 import 'leaflet/dist/images/marker-shadow.png';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-home',
@@ -22,9 +23,11 @@ export class HomeComponent implements OnInit {
 
   changeFloor: boolean;
   changeCeil: boolean;
-  refreshTime: number;
+  fps: number;
+  addTime: number;
   windowBetweenFloorAndCeil: number;
-  dataRefreshTime: number;
+
+  activeArray: Array<any> = [];
 
   value: number = 5;
   maxValue: number = 8;
@@ -38,15 +41,14 @@ export class HomeComponent implements OnInit {
   options = {
     layers: [L.tileLayer(themeFromMapBox, { maxZoom: 18, attribution: '...' })],
     zoom: 4,
-    center: L.latLng(-27.750998, 127.581219),
+    center: L.latLng(33.88889, -118.48143),
   };
 
   constructor(private quoteService: QuoteService) {}
 
   ngOnInit() {
-    this.refreshTime = 0.5;
-    this.dataRefreshTime = 10;
-    this.windowBetweenFloorAndCeil = 4;
+    this.fps = 0.2;
+    this.windowBetweenFloorAndCeil = 3;
     this.changeFloor = false;
     this.changeCeil = false;
 
@@ -105,6 +107,8 @@ export class HomeComponent implements OnInit {
         }
       });
 
+      // this.createActiveArray()
+
       console.log(' auto einai to id array: ', this.idArray);
     });
   }
@@ -141,6 +145,23 @@ export class HomeComponent implements OnInit {
     return this.idArray[index].color;
   }
 
+  // createActiveArray() {
+  //   this.activeArray = [];
+
+  //   for (let key in this.groupedData) {
+  //     let parsedKey = parseInt(this.timestampManipulation(key));
+  //     console.log(parsedKey, this.value, this.maxValue);
+
+  //     if( parsedKey >= this.value && parsedKey <= this.maxValue) {
+  //       this.groupedData[key].forEach((el: any) => {
+  //         this.activeArray.push(el)
+  //       });
+  //     }
+  //   }
+  //   console.log('re', this.activeArray);
+
+  // }
+
   playSpatioTemporal() {
     // this.value = this.opt.floor;
     this.maxValue =
@@ -165,12 +186,11 @@ export class HomeComponent implements OnInit {
                 ' ; height: 10px; width: 10px; border-radius: 100%;"></div>',
             });
 
-            this.layers = [];
+            // this.layers = [];
 
             this.layers.push(
               L.marker([lat, lon], {
                 icon: myIcon,
-                // icon: this.greenIcon
               })
               // .bindPopup(
               //   `<div>CraftID: ` +
@@ -192,7 +212,12 @@ export class HomeComponent implements OnInit {
         this.value = parseInt(this.timestampManipulation(key));
         this.maxValue =
           this.value + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
-      }, i * (this.refreshTime * 1000));
+
+        if (this.layers.length >= 80) {
+          this.layers.splice(0, 30);
+        }
+        // console.log("auta einai ta layers", this.layers);
+      }, i * (this.fps * 1000));
     }
   }
 }
