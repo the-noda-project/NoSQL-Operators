@@ -27,13 +27,12 @@ public class Main {
         Date datemin = new Date(1546992000);
 
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos").host("localhost").port(7687).sparkSession(spark).build();
-<<<<<<< HEAD
-        Dataset<Row> dtfr = noSqlDbSystem.operateOn("Ship").filter(and(lt("LAT",-38.31416), lt("LON",145.004403333), gt("SPEED", 20), lt("SPEED", 40))).toDataframe().sort("c");
-=======
->>>>>>> 85514896103e0cd31f9ad137c98bf4f931942251
 
-//        Dataset<Row> dtfr =  noSqlDbSystem.operateOn("Ship").filter(inGeoTemporalRectangle("spatialPoint", Coordinates.newCoordinates( -118.54179, 33.82936), Coordinates.newCoordinates( -118.44566, 33.93083), "secondTimestamp",  datemin, datemax)).toDataframe();
-        Dataset<Row> dtfr =  noSqlDbSystem.operateOn("Ship").filter(or(eq("MMSI", 	538002283), eq("MMSI", 		338822000))).toDataframe();
+        Dataset<Row> dtfr = noSqlDbSystem.operateOn("Ship").filter(and(lt("LAT",-38.31416), lt("LON",145.004403333), gt("SPEED", 20), lt("SPEED", 40))).toDataframe().sort("c");
+
+
+//       Dataset<Row> dtfr =  noSqlDbSystem.operateOn("Ship").filter(inGeoTemporalRectangle("spatialPoint", Coordinates.newCoordinates( -118.54179, 33.82936), Coordinates.newCoordinates( -118.44566, 33.93083), "secondTimestamp",  datemin, datemax)).toDataframe();
+//        Dataset<Row> dtfr =  noSqlDbSystem.operateOn("Ship").filter(or(eq("MMSI", 	538002283), eq("MMSI", 		338822000))).toDataframe();
         Visualize.trajectoriesTimelapse(dtfr, "MMSI", "spatialPoint", "secondTimestamp");
 
         noSqlDbSystem.closeConnection();
