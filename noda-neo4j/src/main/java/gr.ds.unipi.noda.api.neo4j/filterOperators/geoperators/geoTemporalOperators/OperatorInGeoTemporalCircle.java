@@ -30,8 +30,8 @@ final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, Temp
         SmallHilbertCurve f = HilbertCurve.small().bits(bits).dimensions(3);
 
 
-        long[] point1 = scalePoint(getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLatitude(), getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLongitude(), getTemporalType().getLowerBound().getTime(), 1567296299, 1569887618, maxOrdinates);
-        long[] point2 = scalePoint(getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLatitude(), getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLongitude(), getTemporalType().getLowerBound().getTime(),  1567296299, 1569887618, maxOrdinates);
+        long[] point1 = scalePoint(getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLatitude(), getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLongitude(), getTemporalType().getLowerBound().getTime(), 1546992000, 1554854399, maxOrdinates);
+        long[] point2 = scalePoint(getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLatitude(), getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLongitude(), getTemporalType().getLowerBound().getTime(),  1546992000, 1554854399, maxOrdinates);
 //// return just one range
         System.out.println("POINT 1 = " + point1);
         System.out.println("POINT 2 = " + point2);
@@ -46,7 +46,13 @@ final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, Temp
             System.out.println(range.low());
             System.out.println(range.high());
 
-            sb.append("s.STHilbertIndex > " + low + " AND s.STHilbertIndex < " + high + " WITH s WHERE distance(point({ srid :4326, x: " + getGeographicalOperator().getGeometry().getCircleCenter().getLongitude() + " , y: " + getGeographicalOperator().getGeometry().getCircleCenter().getLatitude() + " }), s." + getGeographicalOperator().getFieldName() + ") < " + getGeographicalOperator().getGeometry().getRadius() + " AND " + getTemporalType().getLowerBound().getTime() + " < s." + getTemporalFieldName()  + " < " + getTemporalType().getUpperBound().getTime() );
+            if(low != high) {
+                sb.append("s.STHilbertIndex > " + low + " AND s.STHilbertIndex < " + high + " WITH s WHERE distance(point({ srid :7203, x: " + getGeographicalOperator().getGeometry().getCircleCenter().getLatitude() + " , y: " + getGeographicalOperator().getGeometry().getCircleCenter().getLongitude() + " }), s." + getGeographicalOperator().getFieldName() + ") < " + getGeographicalOperator().getGeometry().getRadius() + " AND " + getTemporalType().getLowerBound().getTime() + " < s." + getTemporalFieldName()  + " < " + getTemporalType().getUpperBound().getTime() );
+
+            } else {
+                sb.append("s.STHilbertIndex = " + low + " WITH s WHERE distance(point({ srid :7203, x: " + getGeographicalOperator().getGeometry().getCircleCenter().getLatitude() + " , y: " + getGeographicalOperator().getGeometry().getCircleCenter().getLongitude() + " }), s." + getGeographicalOperator().getFieldName() + ") < " + getGeographicalOperator().getGeometry().getRadius() + " AND " + getTemporalType().getLowerBound().getTime() + " < s." + getTemporalFieldName()  + " < " + getTemporalType().getUpperBound().getTime() );
+
+            }
 
         });
 

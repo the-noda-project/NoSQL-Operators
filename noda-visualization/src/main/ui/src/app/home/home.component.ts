@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { finalize } from 'rxjs/operators';
 
 import { QuoteService } from './quote.service';
 import { themeFromMapBox } from '../shell/shell.service';
@@ -10,6 +9,7 @@ import * as _ from 'lodash';
 import 'leaflet/dist/images/marker-icon.png';
 import 'leaflet/dist/images/marker-icon-2x.png';
 import 'leaflet/dist/images/marker-shadow.png';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-home',
@@ -17,122 +17,112 @@ import 'leaflet/dist/images/marker-shadow.png';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  // data = [
-  //   {
-  //     id: 1,
-  //     lat: -27.3641383333,
-  //     lon: 153.176081667,
-  //     time: '2019-09-07T00:07:54Z',
-  //   },
-  //   {
-  //     id: 2,
-  //     lat: -27.336745,
-  //     lon: 153.190841667,
-  //     time: '2019-09-07T01:09:52Z',
-  //   },
-  //   {
-  //     id: 3,
-  //     lat: -27.336745,
-  //     lon: 153.190841667,
-  //     time: '2019-09-07T01:09:52Z',
-  //   },
-  //   {
-  //     id: 4,
-  //     lat: -27.148075,
-  //     lon: 153.350708333,
-  //     time: '2019-09-07T02:09:58Z',
-  //   },
-  //   {
-  //     id: 5,
-  //     lat: -26.915405,
-  //     lon: 153.19185,
-  //     time: '2019-09-07T03:09:58Z',
-  //   },
-  //   {
-  //     id: 6,
-  //     lat: -26.7047333333,
-  //     lon: 153.182855,
-  //     time: '2019-09-07T04:09:59Z',
-  //   },
-  //   {
-  //     id: 7,
-  //     lat: -26.4476166667,
-  //     lon: 153.338056667,
-  //     time: '2019-09-07T05:14:57Z',
-  //   },
-  //   {
-  //     id: 8,
-  //     lat: -26.1195666667,
-  //     lon: 153.46412,
-  //     time: '2019-09-07T06:19:57Z',
-  //   },
-  // ];
-
   data: Array<any> = [];
+  groupedData: any;
+  idArray: Array<any> = [];
 
   changeFloor: boolean;
   changeCeil: boolean;
-  refreshTime: number;
+  fps: number;
+  addTime: number;
   windowBetweenFloorAndCeil: number;
-  dataRefreshTime: number;
 
-  value: number;
-  maxValue: number;
+  activeArray: Array<any> = [];
 
-  opt: Options = {};
+  value: number = 5;
+  maxValue: number = 8;
+
+  opt: Options = {
+    floor: 0,
+    ceil: 10,
+  };
   map: L.Map;
   layers: Array<any> = [];
   options = {
     layers: [L.tileLayer(themeFromMapBox, { maxZoom: 18, attribution: '...' })],
     zoom: 4,
-    center: L.latLng(-27.750998, 127.581219),
+    center: L.latLng(33.88889, -118.48143),
   };
 
   constructor(private quoteService: QuoteService) {}
 
   ngOnInit() {
+    this.fps = 0.2;
+    this.windowBetweenFloorAndCeil = 3;
+    this.changeFloor = false;
+    this.changeCeil = false;
+
+    // Responce for noda server connection
     this.quoteService.getConnectionMessage().then((res: any) => {
       console.log(res);
     });
 
+    // Call api to get noda spatio-temporal data
     this.quoteService.getNodaSTData().then((res: any) => {
-      console.log(res);
+      // json parse the responce and import in data variable
+      let parsedData = JSON.parse(res);
+      this.data = parsedData['data'];
+
+      // JS Date needs milli Epoch Timestamp (so below is a milli epoch converter)
+      console.log(
+        this.data,
+        'ayto einai ena date: ' +
+          new Date(parseInt(this.timestampManipulation(this.data[0]['time'])))
+      );
+
+      this.opt = {
+        floor: parseInt(this.timestampManipulation(this.data[0]['time'])),
+        ceil: parseInt(
+          this.timestampManipulation(this.data[this.data.length - 1]['time'])
+        ),
+      };
+
+      console.log('floor', this.opt.floor, 'ceil', this.opt.ceil);
+
+      this.value = this.opt.floor;
+      this.maxValue =
+        this.opt.floor + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
+
+      this.groupedData = _.groupBy(this.data, 'time');
+      console.log('auta einai ta grouparismena data', this.groupedData);
+
+      // for (let key in this.groupedData) {
+      //   this.opt.ticksArray.push(parseInt(this.timestampManipulation(key)));
+      // }
+
+      // console.log('ticksArray: ', this.opt.ticksArray);
+
+      let o = Math.round;
+      let r = Math.random;
+      let s = 255;
+      this.data.forEach((element) => {
+        let index = this.idArray.findIndex((id) => id.id === element.id);
+
+        if (index === -1) {
+          this.idArray.push({
+            id: element.id,
+            color:
+              'rgb(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ')',
+          });
+        }
+      });
+
+      // this.createActiveArray()
+
+      console.log(' auto einai to id array: ', this.idArray);
     });
+  }
 
-    // this.quoteService
-    //   .temporalRange('2019-09-13T14:15', '2019-09-16T14:15')
-    //   .then((res: any) => {
-    //     this.opt = {
-    //       floor: new Date('2019-09-07T00:07:54Z').getTime(),
-    //       ceil: new Date('2019-09-07T06:19:57Z').getTime(),
-    //     };
+  timestampManipulation(time: any) {
+    let manipulatedTime;
 
-    //     console.log('ayto einai to res', res['results']['records']);
-    //     this.data = res['results']['records'];
+    if (time.length === 13) {
+      manipulatedTime = time;
+    } else {
+      manipulatedTime = parseInt((time += '000'));
+    }
 
-    //     const length = this.data.length;
-    //     console.log(length);
-    //     this.opt.floor = new Date(
-    //       this.data[0]['_fields'][0]['properties']['TIMESTAMP']
-    //     ).getTime();
-    //     this.opt.ceil = new Date(
-    //       this.data[length - 1]['_fields'][0]['properties']['TIMESTAMP']
-    //     ).getTime();
-    //     this.value = this.opt.floor;
-    //     this.maxValue =
-    //       this.value + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
-    //   });
-
-    this.refreshTime = 0.5;
-    this.dataRefreshTime = 10;
-    this.windowBetweenFloorAndCeil = 4;
-    this.changeFloor = false;
-    this.changeCeil = false;
-
-    // this.opt.ticksArray = [];
-    // this.data.forEach((position) => {
-    // this.opt.ticksArray.push(new Date(position.time).getTime());
-    // });
+    return manipulatedTime;
   }
 
   changeFloorOrCeil(type: string) {
@@ -150,58 +140,84 @@ export class HomeComponent implements OnInit {
     this.map = map;
   }
 
+  getRGBofPin(id: string) {
+    const index = this.idArray.findIndex((el) => el.id === id);
+    return this.idArray[index].color;
+  }
+
+  // createActiveArray() {
+  //   this.activeArray = [];
+
+  //   for (let key in this.groupedData) {
+  //     let parsedKey = parseInt(this.timestampManipulation(key));
+  //     console.log(parsedKey, this.value, this.maxValue);
+
+  //     if( parsedKey >= this.value && parsedKey <= this.maxValue) {
+  //       this.groupedData[key].forEach((el: any) => {
+  //         this.activeArray.push(el)
+  //       });
+  //     }
+  //   }
+  //   console.log('re', this.activeArray);
+
+  // }
+
   playSpatioTemporal() {
-    this.value = this.opt.floor;
+    // this.value = this.opt.floor;
     this.maxValue =
       this.opt.floor + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
     let i = 0;
-    let myIcon = L.divIcon({
-      html:
-        '<div style="background-color: red; color: rgba(255, 0, 0, 0); height: 10px; width: 10px; border-radius: 100%;">sdfsf</div>',
-    });
 
-    let path = '_fields[0].properties.TIMESTAMP';
+    // for (let key in this.groupedData) {
+    for (let key in this.groupedData) {
+      console.log('eimai akrivos apekso!');
 
-    let mpla = _(this.data)
-      .filter((object) => _.has(object, path))
-      .groupBy(path)
-      .value();
+      i++;
+      setTimeout(() => {
+        if (parseInt(this.timestampManipulation(key)) > this.opt.floor) {
+          this.groupedData[key].forEach((element: any) => {
+            const lat = element.lat;
+            const lon = element.lon;
+            const time = element.time;
+            let myIcon = L.divIcon({
+              html:
+                '<div style="background-color: ' +
+                this.getRGBofPin(element.id) +
+                ' ; height: 10px; width: 10px; border-radius: 100%;"></div>',
+            });
 
-    console.log(mpla);
+            // this.layers = [];
 
-    // this.data.forEach((el) => {
-    //   if (new Date(el.time) > new Date(this.opt.floor)) {
-    //     i++;
-    //     setTimeout(() => {
-    //       const lat = el.lat;
-    //       const lon = el.lon;
-    //       const time = el.time;
+            this.layers.push(
+              L.marker([lat, lon], {
+                icon: myIcon,
+              })
+              // .bindPopup(
+              //   `<div>CraftID: ` +
+              //     craftID +
+              //     `</div>` +
+              //     `<div>TimeStamp: ` +
+              //     TimeStamp +
+              //     `</div>` +
+              //     `<div>Speed: ` +
+              //     Speed +
+              //     `</div>`
+              // )
+            );
+            // this.value = parseInt(this.timestampManipulation(time));
+            // this.maxValue = this.value + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
+            // this.map.panTo(new L.LatLng(lat, lon));
+          });
+        }
+        this.value = parseInt(this.timestampManipulation(key));
+        this.maxValue =
+          this.value + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
 
-    //       // console.log(this.latlngsPolyline);
-    //       this.layers = [];
-    //       // this.map.setZoom(7);
-    //       this.map.panTo(new L.LatLng(lat, lon));
-    //       this.layers.push(
-    //         L.marker([lat, lon], {
-    //           icon: myIcon,
-    //           // icon: this.greenIcon
-    //         })
-    //         // .bindPopup(
-    //         //   `<div>CraftID: ` +
-    //         //     craftID +
-    //         //     `</div>` +
-    //         //     `<div>TimeStamp: ` +
-    //         //     TimeStamp +
-    //         //     `</div>` +
-    //         //     `<div>Speed: ` +
-    //         //     Speed +
-    //         //     `</div>`
-    //         // )
-    //       );
-    //       this.value = new Date(time).getTime();
-    //       this.maxValue = this.value + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
-    //     }, i * (this.refreshTime * 1000));
-    //   }
-    // });
+        if (this.layers.length >= 80) {
+          this.layers.splice(0, 30);
+        }
+        // console.log("auta einai ta layers", this.layers);
+      }, i * (this.fps * 1000));
+    }
   }
 }

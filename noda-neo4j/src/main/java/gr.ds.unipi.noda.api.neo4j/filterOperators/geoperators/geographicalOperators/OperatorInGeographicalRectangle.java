@@ -34,7 +34,12 @@ public final class OperatorInGeographicalRectangle extends GeographicalOperator<
             System.out.println(range.low());
             System.out.println(range.high());
 
-            sb.append("s.HilbertIndex > " + low + " AND s.HilbertIndex < " + high + " WITH s WHERE point({ srid:4326 , x: " + getGeometry().getLowerBound().getLongitude() + ", y: "+ getGeometry().getLowerBound().getLatitude() +" }) < s." + getFieldName() + " < point({ srid: 4326 , x: " + getGeometry().getUpperBound().getLongitude() + ", y: "+ getGeometry().getUpperBound().getLatitude() + " })" );
+            if(low != high) {
+                sb.append("s.HilbertIndex > " + low + " AND s.HilbertIndex < " + high + " WITH s WHERE point({ srid:7203 , x: " + getGeometry().getLowerBound().getLatitude() + ", y: "+ getGeometry().getLowerBound().getLongitude() +" }) < s." + getFieldName() + " < point({ srid: 7203 , x: " + getGeometry().getUpperBound().getLatitude() + ", y: "+ getGeometry().getUpperBound().getLongitude() + " })" );
+
+            } else {
+                sb.append("s.HilbertIndex = " + low + "WITH s WHERE point({ srid:7203 , x: " + getGeometry().getLowerBound().getLatitude() + ", y: "+ getGeometry().getLowerBound().getLongitude() +" }) < s." + getFieldName() + " < point({ srid: 7203 , x: " + getGeometry().getUpperBound().getLatitude() + ", y: "+ getGeometry().getUpperBound().getLongitude() + " })" );
+            }
 //            point({ x: 1, y: 5 })< person.location < point({ x: 2, y: 6 })
 
         });

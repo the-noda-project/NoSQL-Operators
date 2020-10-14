@@ -39,7 +39,13 @@ public final class OperatorInGeographicalCircle extends GeographicalOperator<Cir
             System.out.println(range.low());
             System.out.println(range.high());
 
-            sb.append("s.HilbertIndex > " + low + " AND s.HilbertIndex < " + high + " WITH s WHERE distance(point({ srid:4326, x: " + getGeometry().getCircleCenter().getLongitude() + " , y: " + getGeometry().getCircleCenter().getLatitude() + "}), s." + getFieldName() + ") < " + getGeometry().getRadius() );
+            if(low != high) {
+                sb.append("s.HilbertIndex > " + low + " AND s.HilbertIndex < " + high + " WITH s WHERE distance(point({ srid:7203, x: " + getGeometry().getCircleCenter().getLatitude() + " , y: " + getGeometry().getCircleCenter().getLongitude() + "}), s." + getFieldName() + ") < " + getGeometry().getRadius() );
+
+            } else {
+                sb.append("s.HilbertIndex = " + low + " WITH s WHERE distance(point({ srid:7203, x: " + getGeometry().getCircleCenter().getLatitude() + " , y: " + getGeometry().getCircleCenter().getLongitude() + "}), s." + getFieldName() + ") < " + getGeometry().getRadius() );
+
+            }
 
         });
 

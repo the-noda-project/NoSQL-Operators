@@ -1,8 +1,9 @@
-<div
-  class="row w-100 m-0"
-  style="height: 185px; z-index: 100; overflow-x: hidden;"
->
-  <div class="col-12 mt-3">
+<!-- web player -->
+<div class="row w-100 m-0 p-0 webPlayerPositioning">
+  <div
+    class="col-12 p-0"
+    style="box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.283) !important;"
+  >
     <div
       class="row w-100 m-0 p-2"
       style="background-color: rgb(85, 85, 85); border-radius: 12px;"
@@ -42,7 +43,8 @@
           <i class="fa fa-forward"></i>
         </div>
       </div>
-      <ng5-slider [(value)]="value" [options]="opt"></ng5-slider>
+      <ng5-slider [(value)]="value" [(highValue)]="maxValue" [(options)]="opt">
+      </ng5-slider>
       <div class="col-6 pl-0 text-white font12">
         <input
           *ngIf="changeFloor"
@@ -102,20 +104,11 @@
         />
       </div>
       <div class="col-auto text-white font12 mt-3 pl-0">
-        Data Step (sec) :
+        FPS :
         <input
           type="number"
           class="inputs"
-          [(ngModel)]="refreshTime"
-          [ngModelOptions]="{ standalone: true }"
-        />
-      </div>
-      <div class="col-auto text-white font12 mt-3 pl-0">
-        User Step (sec) :
-        <input
-          type="number"
-          class="inputs"
-          [(ngModel)]="refreshTime"
+          [(ngModel)]="fps"
           [ngModelOptions]="{ standalone: true }"
         />
       </div>
@@ -123,8 +116,9 @@
   </div>
 </div>
 
+<!-- Leaflet map for visualization -->
 <div
-  style="height: calc(100vh - 185px);"
+  style="height: 100vh;"
   leaflet
   [leafletOptions]="options"
   [leafletLayers]="layers"
