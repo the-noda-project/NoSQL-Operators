@@ -19,11 +19,14 @@ export class QuoteService {
   constructor(private httpClient: HttpClient) {}
 
   getConnectionMessage() {
-    return this.httpClient.get('/connection-message', { responseType: 'text' }).toPromise();
+    return this.httpClient
+      .get('/connection-message', { responseType: 'text' })
+      .toPromise();
   }
 
   getNodaSTData() {
-    return this.httpClient.get('/noda-trajectories-timelapse', { responseType: 'text' }).toPromise();
+    return this.httpClient
+      .get('/noda-st-timelapse', { responseType: 'text' })
+      .toPromise();
   }
-
 }

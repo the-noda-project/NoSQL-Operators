@@ -1,4 +1,5 @@
 <div class="container-fluid p-0 text-dark">
+  <!-- Sidebar Header -->
   <div class="row w-100 m-0 sideBarTitle d-flex align-content-center">
     <div class="col-12 text-center">
       <p class="font-weight-bold font26 mt-2">NoDa Spatial Visualization</p>
@@ -16,11 +17,54 @@
       </a>
     </div>
   </div>
+
+  <!-- Analytics section -->
   <div class="row w-100 m-0 mt-2 p-2">
-    <p>Data Analytics</p>
-    <!-- <a class="col-auto buttonsNav pt-2 pb-2 pointerToClick m-1 font12" [routerLink]="route.routeLink"
-      routerLinkActive="activeRoute" [routerLinkActiveOptions]="{exact: true}" *ngFor="let route of navigationRoutes">
-      {{ route.routeName }}
-    </a> -->
+    <!-- Title -->
+    <div class="col-12">
+      <p class="font-weight-bold" style="font-size: 1.1rem;">Data Analytics</p>
+    </div>
+
+    <!-- Results to show from noda-spring sever -->
+    <div class="col-12 mt-3">
+      <p>
+        <span class="font-weight-bold">
+          Results:
+        </span>
+        {{ data.length }}
+      </p>
+    </div>
+
+    <!-- Doughnut chart -->
+    <div class="col-12 mt-5 p-0">
+      <div>
+        <div style="display: block;">
+          <canvas
+            baseChart
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [chartType]="doughnutChartType"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bar cHART -->
+    <div class="col-12 mt-5 p-0">
+      <div>
+        <div style="display: block;">
+          <canvas
+            baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
