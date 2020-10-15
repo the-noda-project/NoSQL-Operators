@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.hbase;
 
+import gr.ds.unipi.noda.api.core.dataframe.BaseDataframeManipulator;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
@@ -12,6 +13,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.Base
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.hbase.aggregateOperator.HBaseAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.dataframe.HBaseDataframeManipulator;
 import gr.ds.unipi.noda.api.hbase.filterOperator.comparisonOperators.HBaseComparisonOperatorFactory;
 import gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geoTemporalOperators.HBaseGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geoTextualOperators.HBaseGeoTextualOperatorFactory;
@@ -76,5 +78,10 @@ public final class HBaseConnectionFactory extends NoSqlConnectionFactory {
     @Override
     protected BaseTextualOperatorFactory getBaseTextualOperatorFactory() {
         return new HBaseTextualOperatorFactory();
+    }
+
+    @Override
+    protected BaseDataframeManipulator getBaseDataframeManipulator() {
+        return new HBaseDataframeManipulator();
     }
 }
