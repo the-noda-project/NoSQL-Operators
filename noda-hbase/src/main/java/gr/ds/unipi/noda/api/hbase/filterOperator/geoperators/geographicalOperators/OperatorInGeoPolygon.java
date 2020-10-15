@@ -24,7 +24,7 @@ public final class OperatorInGeoPolygon extends GeographicalOperator<Polygon> {
             coordinatesList.add(PolygonFilterProtos.PolygonFilter.Coordinates.newBuilder().setLongitude(coordinates.getLongitude()).setLatitude(coordinates.getLatitude()).build());
         }
 
-        return PolygonFilter.newPolygonFilter(Bytes.toBytes(getFieldName()),Bytes.toBytes("lon"),Bytes.toBytes("lat"),coordinatesList);
+        return PolygonFilter.newPolygonFilter(Bytes.toBytes(getFieldName()),Bytes.toBytes("longitude"),Bytes.toBytes("latitude"),coordinatesList);
     }
 
     public static OperatorInGeoPolygon newOperatorInGeoPolygon(String fieldName, Polygon polygon) {

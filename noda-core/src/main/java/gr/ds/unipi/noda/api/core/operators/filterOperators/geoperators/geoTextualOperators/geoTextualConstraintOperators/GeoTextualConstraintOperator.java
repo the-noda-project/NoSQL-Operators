@@ -14,6 +14,24 @@ public abstract class GeoTextualConstraintOperator<T,U extends Geometry> extends
         this.conditionalTextualOperator = conditionalTextualOperator;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        GeoTextualConstraintOperator<?, ?> that = (GeoTextualConstraintOperator<?, ?>) o;
+
+        return conditionalTextualOperator.equals(that.conditionalTextualOperator);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + conditionalTextualOperator.hashCode();
+        return result;
+    }
+
     public ConditionalTextualOperator getConditionalTextualOperator() {
         return conditionalTextualOperator;
     }

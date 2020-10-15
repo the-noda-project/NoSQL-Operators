@@ -1,5 +1,7 @@
 package gr.ds.unipi.noda.api.core.nosqldb;
 
+import gr.ds.unipi.noda.api.core.dataframe.BaseDataframeManipulator;
+import gr.ds.unipi.noda.api.core.dataframe.DataframeManipulator;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory;
@@ -42,6 +44,8 @@ public abstract class NoSqlConnectionFactory {
         SortOperator.sortOperator = getBaseSortOperatorFactory();
 
         TextualOperator.textualOperator = getBaseTextualOperatorFactory();
+
+        DataframeManipulator.baseDataframeManipulator = getBaseDataframeManipulator();
     }
 
     protected abstract BaseAggregateOperatorFactory getBaseAggregateOperatorFactory();
@@ -60,5 +64,6 @@ public abstract class NoSqlConnectionFactory {
 
     protected abstract BaseTextualOperatorFactory getBaseTextualOperatorFactory();
 
+    protected abstract BaseDataframeManipulator getBaseDataframeManipulator();
 
 }

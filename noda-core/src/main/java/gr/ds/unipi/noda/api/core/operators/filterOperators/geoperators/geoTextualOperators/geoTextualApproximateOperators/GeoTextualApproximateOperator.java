@@ -4,6 +4,8 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextua
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
 
+import java.util.Arrays;
+
 public abstract class GeoTextualApproximateOperator<T,U extends Geometry> extends GeoTextualOperator<T,U> {
 
     private final String fieldName;
@@ -30,5 +32,26 @@ public abstract class GeoTextualApproximateOperator<T,U extends Geometry> extend
 
     public String[] getKeywords() {
         return keywords.clone();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        GeoTextualApproximateOperator<?, ?> that = (GeoTextualApproximateOperator<?, ?>) o;
+
+        if (!fieldName.equals(that.fieldName)) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(keywords, that.keywords);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + fieldName.hashCode();
+        result = 31 * result + Arrays.hashCode(keywords);
+        return result;
     }
 }

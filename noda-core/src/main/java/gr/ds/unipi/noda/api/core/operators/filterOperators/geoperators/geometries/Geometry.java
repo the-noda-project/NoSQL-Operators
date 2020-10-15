@@ -2,6 +2,7 @@ package gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometri
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
 
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 public abstract class Geometry {
@@ -35,4 +36,21 @@ public abstract class Geometry {
 
     public abstract Rectangle getMbr();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Geometry geometry = (Geometry) o;
+
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(coordinatesArray, geometry.coordinatesArray);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Arrays.hashCode(coordinatesArray);
+        result = 31 * result + getClass().hashCode();
+        return result;
+    }
 }

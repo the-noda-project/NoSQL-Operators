@@ -1,11 +1,13 @@
 package gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geoTemporalOperators;
 
+import com.github.davidmoten.geo.GeoHash;
+import gr.ds.unipi.noda.api.core.constants.Commons;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Point;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.*;
+import gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geographicalOperators.HBaseGeographicalOperatorFactory;
+
+import java.util.Date;
 
 public final class HBaseGeoTemporalOperatorFactory extends BaseGeoTemporalOperatorFactory {
     @Override
@@ -36,5 +38,17 @@ public final class HBaseGeoTemporalOperatorFactory extends BaseGeoTemporalOperat
     @Override
     public GeoTemporalOperator newOperatorGeoTemporalNearestNeighbors(String fieldName, Point point, int neighbors) {
         return null;
+    }
+
+    public static String getGeoHashPart(Geometry geometry){
+
+        int length = 8;
+        String geoHash = HBaseGeographicalOperatorFactory.getGeoHashPart(geometry);
+
+        return String.format("%-"+length+"s",geoHash).replace(' ','?');
+    }
+
+    public static String getTemporalPart(Date lowerDate, Date upperDate){
+        return String.format("%-13s", Commons.commonPrefix(String.valueOf(lowerDate.getTime()), String.valueOf(upperDate.getTime()))).replace(' ','?');
     }
 }

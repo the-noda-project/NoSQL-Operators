@@ -5,13 +5,12 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
+import org.apache.hadoop.hbase.CompareOperator;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
-import org.apache.hadoop.hbase.filter.Filter;
-import org.apache.hadoop.hbase.filter.FilterList;
-import org.apache.hadoop.hbase.filter.PageFilter;
+import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -25,7 +24,8 @@ final class HBaseOperators extends NoSqlDbOperators {
     private final HBaseConnectionManager hbaseConnectionManager = HBaseConnectionManager.getInstance();
     private final Scan scan = new Scan();
     private final FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
-    private final List<Map.Entry<byte[],byte[]>> projection = new ArrayList<>();
+//    private final List<Map.Entry<byte[],byte[]>> projection = new ArrayList<>();
+    private final FilterList projectionFilterList = new FilterList(FilterList.Operator.MUST_PASS_ONE);
 
     private HBaseOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
@@ -63,18 +63,23 @@ final class HBaseOperators extends NoSqlDbOperators {
     public void printScreen() {
         Table table = null;
         ResultScanner resultScanner = null;
+
+        filterList.addFilter(projectionFilterList);
         scan.setFilter(filterList);
-        projection.forEach(entry -> {
-            if(entry.getValue()==null){
-                scan.addFamily(entry.getKey());
-            }
-            else{
-                scan.addColumn(entry.getKey(),entry.getValue());
-            }
-        });
+
+//        projection.forEach(entry -> {
+//            if(entry.getValue()==null){
+//                scan.addFamily(entry.getKey());
+//            }
+//            else{
+//                scan.addColumn(entry.getKey(),entry.getValue());
+//            }
+//        });
         try {
 
             table = hbaseConnectionManager.getConnection(getNoSqlDbConnector()).getTable(TableName.valueOf(getDataCollection()));
+            System.out.println("print screen2");
+
             resultScanner = table.getScanner(scan);
 
             resultScanner.forEach(result -> System.out.println(result));
@@ -122,14 +127,20 @@ final class HBaseOperators extends NoSqlDbOperators {
         return this;
     }
 
-
     private void scanProjection(String fieldName) {
         String[] names = fieldName.split(":");
 
         if (names.length == 1) {
-            projection.add(new AbstractMap.SimpleImmutableEntry(Bytes.toBytes(names[0]),null));
+            projectionFilterList.addFilter(new FamilyFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(names[0]))));
         } else if (names.length == 2) {
-            projection.add(new AbstractMap.SimpleImmutableEntry(Bytes.toBytes(names[0]),Bytes.toBytes(names[1])));
+
+            FilterList flist = new FilterList(FilterList.Operator.MUST_PASS_ALL);
+
+            flist.addFilter(new FamilyFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(names[0]))));
+            flist.addFilter(new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(names[1]))));
+
+            projectionFilterList.addFilter(flist);
+
         } else {
             try {
                 throw new Exception("");
@@ -138,10 +149,32 @@ final class HBaseOperators extends NoSqlDbOperators {
             }
         }
     }
+//    private void scanProjection(String fieldName) {
+//        String[] names = fieldName.split(":");
+//
+//        if (names.length == 1) {
+//            projection.add(new AbstractMap.SimpleImmutableEntry(Bytes.toBytes(names[0]),null));
+//        } else if (names.length == 2) {
+//            projection.add(new AbstractMap.SimpleImmutableEntry(Bytes.toBytes(names[0]),Bytes.toBytes(names[1])));
+//        } else {
+//            try {
+//                throw new Exception("");
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     @Override
     public NoSqlDbOperators project(String fieldName, String... fieldNames) {
 
+//        projectionFilterList.addFilter(new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(fieldName))));
+//
+//        for (int i = 0; i < fieldNames.length; i++) {
+//            //projectionFilterList.addFilter(new ColumnPrefixFilter(Bytes.toBytes(fieldNames[i])));
+//            projectionFilterList.addFilter(new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(fieldNames[i]))));
+//
+//        }
         scanProjection(fieldName);
 
         for (int i = 0; i < fieldNames.length; i++) {

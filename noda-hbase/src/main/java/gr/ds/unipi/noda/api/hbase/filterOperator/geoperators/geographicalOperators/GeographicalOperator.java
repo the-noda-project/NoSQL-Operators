@@ -3,14 +3,17 @@ package gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geographicalOperat
 import com.github.davidmoten.geo.GeoHash;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
-import javafx.util.Pair;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.FilterList;
 import org.apache.hadoop.hbase.filter.FuzzyRowFilter;
+import org.apache.hadoop.hbase.filter.PrefixFilter;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.hadoop.hbase.util.Pair;
 
+import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 abstract class GeographicalOperator<T extends Geometry> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator<Filter, T> {
     protected GeographicalOperator(String fieldName, T geometry) {
@@ -19,43 +22,41 @@ abstract class GeographicalOperator<T extends Geometry> extends gr.ds.unipi.noda
 
     private final FilterList filterList = new FilterList();
 
+//    public Map.Entry<String, byte[]> getMatchingPattern(){
+//
+//        String geoHashPart = HBaseGeographicalOperatorFactory.getGeoHashPart(this.getGeometry());
+//
+//        byte[] digits = new byte[geoHashPart.length()+25];
+//
+//        //geohash
+//        for(int i =0; i<geoHashPart.length();i++){
+//            if(geoHashPart.charAt(i) != '?'){
+//                digits[i] = 0;
+//            }
+//            else{
+//                digits[i] = 1;
+//            }
+//        }
+//
+//        for(int i = geoHashPart.length(); i< digits.length;i++){
+//            digits[i] = 1;
+//        }
+//        digits[geoHashPart.length()]=0;
+//        digits[geoHashPart.length()+13+1] =0;
+//
+//        return new AbstractMap.SimpleImmutableEntry<>(geoHashPart+"-?????????????-??????????",digits);
+//    }
+
     @Override
     public Filter getOperatorExpression() {
 
-        Rectangle mbr = getGeometry().getMbr();
+        //Map.Entry<String, byte[]> entry = getMatchingPattern();
 
-        int length = 8;
-        String geoHash = (String) GeoHash.coverBoundingBoxMaxHashes(mbr.getUpperBound().getLatitude(), mbr.getLowerBound().getLongitude(), mbr.getLowerBound().getLatitude(),mbr.getUpperBound().getLongitude(),1).getHashes().toArray()[0];
+//        List list = Arrays.asList(
+//                new Pair<>(Bytes.toBytes(entry.getKey()), entry.getValue()
+//                ));
 
-        if(geoHash.length()>length){
-            geoHash = geoHash.substring(0,length);
-        }
-
-        geoHash = String.format("%-"+length+"s",geoHash).replace(' ','?');
-
-        byte[] digits = new byte[length+25];
-
-        //geohash
-        for(int i =0; i<geoHash.length();i++){
-            if(geoHash.charAt(i) != '?'){
-                digits[i] = 0;
-            }
-            else{
-                digits[i] = 1;
-            }
-        }
-
-        for(int i = length; i< digits.length;i++){
-            digits[i] = 1;
-        }
-        digits[length]=0;
-        digits[length+13+1] =0;
-
-        List list = Arrays.asList(
-                new Pair<>(Bytes.toBytes(geoHash+"-?????????????-??????????"), digits
-                ));
-
-        filterList.addFilter(new FuzzyRowFilter(list));
+        filterList.addFilter(new PrefixFilter(Bytes.toBytes(HBaseGeographicalOperatorFactory.getGeoHashPart(this.getGeometry()))));
         filterList.addFilter(geometryRefactor());
 
         return filterList;

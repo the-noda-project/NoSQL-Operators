@@ -37,6 +37,20 @@ public class Circle extends Geometry {
         return Rectangle.newRectangle(lowerBound, upperBound);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o) && Double.compare(((Circle )o).radius, radius) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        long temp;
+        temp = Double.doubleToLongBits(radius);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
 //    public boolean contains(Point point) {
 //
 //        if (Double.compare(radius, haversine(getCircleCenter().getLongitude(), getCircleCenter().getLatitude(), point.getPoint().getLongitude(), point.getPoint().getLatitude())) != -1) {

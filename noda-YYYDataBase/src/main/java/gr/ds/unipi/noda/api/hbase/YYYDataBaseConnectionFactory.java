@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.hbase;
 
+import gr.ds.unipi.noda.api.core.dataframe.BaseDataframeManipulator;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
@@ -78,5 +79,10 @@ public final class YYYDataBaseConnectionFactory extends NoSqlConnectionFactory {
     @Override
     protected BaseTextualOperatorFactory getBaseTextualOperatorFactory() {
         return new YYYDataBaseTextualOperatorFactory();
+    }
+
+    @Override
+    protected BaseDataframeManipulator getBaseDataframeManipulator() {
+        return null;
     }
 }

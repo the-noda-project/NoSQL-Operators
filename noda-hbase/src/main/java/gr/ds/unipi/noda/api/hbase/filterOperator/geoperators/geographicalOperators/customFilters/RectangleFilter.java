@@ -91,7 +91,7 @@ public class RectangleFilter extends FilterBase {
             builder.setLowerCoordinates(lowerCoordinates);
         }
         if (upperCoordinates != null) {
-            builder.setUpperCoordinates(lowerCoordinates);
+            builder.setUpperCoordinates(upperCoordinates);
         }
         return builder.build().toByteArray();
     }

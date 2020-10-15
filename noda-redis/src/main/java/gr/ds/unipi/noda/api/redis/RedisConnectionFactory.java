@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.redis;
 
+import gr.ds.unipi.noda.api.core.dataframe.BaseDataframeManipulator;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
@@ -25,17 +26,17 @@ public final class RedisConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
-        return null;
+        return RedisOperators.newRedisOperators(connector, s, sparkSession);
     }
 
     @Override
     public void closeConnection(NoSqlDbConnector noSqlDbConnector) {
-
+        RedisConnectionManager.getInstance().closeConnection(noSqlDbConnector);
     }
 
     @Override
     public boolean closeConnections() {
-        return false;
+        return RedisConnectionManager.getInstance().closeConnections();
     }
 
     @Override
@@ -76,5 +77,10 @@ public final class RedisConnectionFactory extends NoSqlConnectionFactory {
     @Override
     protected BaseTextualOperatorFactory getBaseTextualOperatorFactory() {
         return new RedisTextualOperatorFactory();
+    }
+
+    @Override
+    protected BaseDataframeManipulator getBaseDataframeManipulator() {
+        return null;
     }
 }

@@ -103,7 +103,7 @@ public class RectangleTemporalFilter extends FilterBase {
             builder.setLowerCoordinates(lowerCoordinates);
         }
         if (upperCoordinates != null) {
-            builder.setUpperCoordinates(lowerCoordinates);
+            builder.setUpperCoordinates(upperCoordinates);
         }
         if(columnFamilyTemporal != null){
             builder.setColumnFamilyTemporal(ByteStringer.wrap(columnFamilyTemporal));
