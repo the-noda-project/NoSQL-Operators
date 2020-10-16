@@ -29,4 +29,10 @@ export class QuoteService {
       .get('/noda-st-timelapse', { responseType: 'text' })
       .toPromise();
   }
+
+  getNodaSpatialData() {
+    return this.httpClient
+      .get('/noda-spatial', { responseType: 'text' })
+      .toPromise();
+  }
 }
