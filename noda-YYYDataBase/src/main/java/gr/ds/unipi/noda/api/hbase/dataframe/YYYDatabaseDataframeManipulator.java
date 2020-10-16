@@ -6,7 +6,12 @@ import org.apache.spark.sql.Row;
 
 public class YYYDatabaseDataframeManipulator extends BaseDataframeManipulator {
     @Override
-    public Dataset<Row> spatialDataframeManipulator(Dataset<Row> dataset, String location) {
+    public Dataset<Row> spatialView(Dataset<Row> dataset, String location) {
+        return null;
+    }
+
+    @Override
+    public Dataset<Row> trajectoriesTimelapse(Dataset<Row> dataset, String location, String time) {
         return null;
     }
 }

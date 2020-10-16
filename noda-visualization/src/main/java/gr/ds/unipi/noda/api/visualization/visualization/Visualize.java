@@ -15,7 +15,9 @@ public class Visualize {
 
     public static void trajectoriesTimelapse(Dataset<Row> stData, String idName, String locationName, String timestampName) {
 
-        datare = DataframeManipulator.spatialDataframeManipulator(stData, locationName).select(idName,locationName,timestampName).sort(timestampName);
+        datare = DataframeManipulator.trajectoriesTimelapse(stData, locationName, timestampName).select(idName,locationName,timestampName).sort(timestampName);
+
+        datare.show();
 
         StringBuilder sb = new StringBuilder();
 
@@ -49,7 +51,7 @@ public class Visualize {
     public static void spatialView(Dataset<Row> stData, String idName, String locationName) {
 
 
-        datare = DataframeManipulator.spatialDataframeManipulator(stData, locationName).select(idName,locationName);
+        datare = DataframeManipulator.spatialView(stData, locationName).select(idName,locationName);
 
         datare.show();
 
@@ -83,7 +85,7 @@ public class Visualize {
     public static void spatialView(Dataset<Row> stData, String locationName) {
 
 
-        datare = DataframeManipulator.spatialDataframeManipulator(stData, locationName).select(locationName);
+        datare = DataframeManipulator.spatialView(stData, locationName).select(locationName);
 
         datare.show();
 

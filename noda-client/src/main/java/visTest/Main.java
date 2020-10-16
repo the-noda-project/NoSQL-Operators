@@ -33,9 +33,9 @@ public class Main {
 
 //       Dataset<Row> dtfr =  noSqlDbSystem.operateOn("Ship").filter(inGeoTemporalRectangle("spatialPoint", Coordinates.newCoordinates( -118.54179, 33.82936), Coordinates.newCoordinates( -118.44566, 33.93083), "secondTimestamp",  datemin, datemax)).toDataframe();
         Dataset<Row> dtfr =  noSqlDbSystem.operateOn("Ship").filter(or(eq("MMSI", 	538002283), eq("MMSI", 		338822000))).toDataframe();
-//        Visualize.trajectoriesTimelapse(dtfr, "MMSI", "spatialPoint", "secondTimestamp");
+        Visualize.trajectoriesTimelapse(dtfr, "MMSI", "spatialPoint", "secondTimestamp");
 //        Visualize.spatialView(dtfr, "spatialPoint");
-        Visualize.spatialView(dtfr, "MMSI", "spatialPoint");
+//        Visualize.spatialView(dtfr, "MMSI", "spatialPoint");
 
         noSqlDbSystem.closeConnection();
 
