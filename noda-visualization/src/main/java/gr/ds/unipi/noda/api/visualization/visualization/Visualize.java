@@ -1,35 +1,38 @@
 package gr.ds.unipi.noda.api.visualization.visualization;
 
+import gr.ds.unipi.noda.api.core.dataframe.DataframeManipulator;
 import gr.ds.unipi.noda.api.visualization.server.ServerManager;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
+import java.util.List;
 
 public class Visualize {
 
     public static Dataset<Row> datare;
     public static String stDataToVisualize;
+    public static String spatialDataToVisualize;
 
     public static void trajectoriesTimelapse(Dataset<Row> stData, String idName, String locationName, String timestampName) {
 
-
-        datare = stData.select(idName,locationName,timestampName).sort(timestampName);
-
-        datare.show();
+        datare = DataframeManipulator.spatialDataframeManipulator(stData, locationName).select(idName,locationName,timestampName).sort(timestampName);
 
         StringBuilder sb = new StringBuilder();
 
         sb.append("{ \"status\": \"ok\", \"data\": [ ");
 
         datare.collectAsList().forEach(row -> {
+
+           List<String> locationList = row.getList(1);
+
             sb.append("{");
             sb.append(" \"id\": " + " \"" + row.get(0) + "\"");
             sb.append(",");
-            sb.append(" \"lat\": " + " \"" + row.get(1) + "\"" );
+            sb.append(" \"lat\": " + " \"" + locationList.get(0) + "\"" );
             sb.append(",");
-            sb.append(" \"lon\": " + " \"" + row.get(2) + "\"");
+            sb.append(" \"lon\": " + " \"" + locationList.get(1) + "\"");
             sb.append(",");
-            sb.append(" \"time\": " + " \"" + row.get(3) + "\"");
+            sb.append(" \"time\": " + " \"" + row.get(2) + "\"");
             sb.append("},");
         });
 
@@ -46,7 +49,7 @@ public class Visualize {
     public static void spatialView(Dataset<Row> stData, String idName, String locationName) {
 
 
-        datare = stData.select(idName,locationName);
+        datare = DataframeManipulator.spatialDataframeManipulator(stData, locationName).select(idName,locationName);
 
         datare.show();
 
@@ -55,12 +58,15 @@ public class Visualize {
         sb.append("{ \"status\": \"ok\", \"data\": [ ");
 
         datare.collectAsList().forEach(row -> {
+
+            List<String> locationList = row.getList(1);
+
             sb.append("{");
             sb.append(" \"id\": " + " \"" + row.get(0) + "\"");
             sb.append(",");
-            sb.append(" \"lat\": " + " \"" + row.get(1) + "\"" );
+            sb.append(" \"lat\": " + " \"" + locationList.get(0) + "\"" );
             sb.append(",");
-            sb.append(" \"lon\": " + " \"" + row.get(2) + "\"" );
+            sb.append(" \"lon\": " + " \"" + locationList.get(1) + "\"" );
             sb.append("},");
         });
 
@@ -68,7 +74,7 @@ public class Visualize {
         sb.append("] }");
         sb.deleteCharAt(sb.lastIndexOf(","));
 
-        stDataToVisualize = sb.toString();
+        spatialDataToVisualize = sb.toString();
 
         ServerManager.main(new String[]{});
 
@@ -77,7 +83,7 @@ public class Visualize {
     public static void spatialView(Dataset<Row> stData, String locationName) {
 
 
-        datare = stData.select(locationName);
+        datare = DataframeManipulator.spatialDataframeManipulator(stData, locationName).select(locationName);
 
         datare.show();
 
@@ -86,12 +92,13 @@ public class Visualize {
         sb.append("{ \"status\": \"ok\", \"data\": [ ");
 
         datare.collectAsList().forEach(row -> {
+
+            List<String> locationList = row.getList(0);
+
             sb.append("{");
-            sb.append(" \"id\": " + " \"" + row.get(0) + "\"");
+            sb.append(" \"lat\": " + " \"" + locationList.get(0) + "\"" );
             sb.append(",");
-            sb.append(" \"lat\": " + " \"" + row.get(1) + "\"" );
-            sb.append(",");
-            sb.append(" \"lon\": " + " \"" + row.get(2) + "\"" );
+            sb.append(" \"lon\": " + " \"" + locationList.get(1) + "\"" );
             sb.append("},");
         });
 
@@ -99,7 +106,7 @@ public class Visualize {
         sb.append("] }");
         sb.deleteCharAt(sb.lastIndexOf(","));
 
-        stDataToVisualize = sb.toString();
+        spatialDataToVisualize = sb.toString();
 
         ServerManager.main(new String[]{});
 
