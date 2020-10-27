@@ -1,7 +1,5 @@
 package gr.ds.unipi.noda.api.visualization.server;
 
-
-import org.apache.spark.Accumulable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

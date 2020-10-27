@@ -18,10 +18,9 @@
         </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>3.8.2</version>
+            <artifactId>mongodb-driver-legacy</artifactId>
+            <version>4.1.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.mongodb.spark/mongo-spark-connector -->
         <dependency>
             <groupId>org.mongodb.spark</groupId>
             <artifactId>mongo-spark-connector_2.11</artifactId>
