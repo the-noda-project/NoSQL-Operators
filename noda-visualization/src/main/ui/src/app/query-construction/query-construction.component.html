@@ -1,0 +1,27 @@
+<div
+  class="container d-flex justify-content-center align-items-center"
+  style="height: 100vh !important;"
+>
+  <div class="row rowStyle">
+    <b>SQL query editor</b>
+    <textarea
+      class="mt-3"
+      placeholder="Write SQL queries here"
+      [(ngModel)]="query"
+    ></textarea>
+    <div class="col-12 p-0 mt-3 text-center">
+      <button
+        class="btn btn-outline-dark btn-sm"
+        (click)="openModal('spatiotemporal')"
+      >
+        Run Spatiotemporal View
+      </button>
+      <button
+        class="btn btn-outline-dark btn-sm"
+        (click)="openModal('spatial')"
+      >
+        Run Spatial View
+      </button>
+    </div>
+  </div>
+</div>
