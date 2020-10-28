@@ -14,9 +14,4 @@ public final class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Re
     public static OperatorInGeoTemporalRectangle newOperatorInGeoTemporalRectangle(String fieldName, Rectangle rectangle, String temporalFieldName, TemporalBounds temporalType) {
         return new OperatorInGeoTemporalRectangle(fieldName, rectangle, temporalFieldName, temporalType);
     }
-
-    @Override
-    public StringBuilder getOperatorExpression() {
-        return GeoTemporalOperator.formGeometryAndTemporalBoundsExpression(this.getGeographicalOperator().getOperatorExpression(), this.getTemporalFieldName(), this.getTemporalType());
-    }
 }

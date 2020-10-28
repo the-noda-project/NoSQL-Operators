@@ -13,9 +13,4 @@ public final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Poly
     public static OperatorInGeoTemporalPolygon newOperatorInGeoTemporalPolygon(String fieldName, Polygon polygon, String temporalFieldName, TemporalBounds temporalType) {
         return new OperatorInGeoTemporalPolygon(fieldName, polygon, temporalFieldName, temporalType);
     }
-
-    @Override
-    public StringBuilder getOperatorExpression() {
-        return GeoTemporalOperator.formGeometryAndTemporalBoundsExpression(this.getGeographicalOperator().getOperatorExpression(), this.getTemporalFieldName(), this.getTemporalType());
-    }
 }

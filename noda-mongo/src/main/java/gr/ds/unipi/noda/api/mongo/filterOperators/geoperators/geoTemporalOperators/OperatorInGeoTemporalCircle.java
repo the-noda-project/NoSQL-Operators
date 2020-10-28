@@ -13,9 +13,4 @@ public final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circl
     public static OperatorInGeoTemporalCircle newOperatorInGeoTemporalCircle(String fieldName, Circle circle, String temporalFieldName, TemporalBounds temporalType) {
         return new OperatorInGeoTemporalCircle(fieldName, circle, temporalFieldName, temporalType);
     }
-
-    @Override
-    public StringBuilder getOperatorExpression() {
-        return GeoTemporalOperator.formGeometryAndTemporalBoundsExpression(this.getGeographicalOperator().getOperatorExpression(), this.getTemporalFieldName(), this.getTemporalType());
-    }
 }

@@ -12,8 +12,4 @@ public final class OperatorInGeoRectangle extends GeographicalOperator<Rectangle
         return new OperatorInGeoRectangle(fieldName, rectangle);
     }
 
-    @Override
-    public StringBuilder getOperatorExpression() {
-        return formOperatorExpressionForMultiPointGeometry(getFieldName(), getGeometry().getCoordinatesArray());
-    }
 }
