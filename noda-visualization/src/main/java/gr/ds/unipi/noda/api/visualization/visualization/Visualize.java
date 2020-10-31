@@ -13,6 +13,10 @@ public class Visualize {
     public static String stDataToVisualize;
     public static String spatialDataToVisualize;
 
+    public static void startQueryVisualization(gr.ds.unipi.noda.api.client.NoSqlDbSystem noSqlDbSystem) {
+        ServerManager.main(new String[]{});
+    }
+
     public static void trajectoriesTimelapse(Dataset<Row> stData, String idName, String locationName, String timestampName) {
 
         datare = DataframeManipulator.trajectoriesTimelapse(stData, locationName, timestampName).select(idName,locationName,timestampName).sort(timestampName);
