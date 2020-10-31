@@ -1717,6 +1717,18 @@
         );
 
         const routes = [
+          {
+            path: "visualization",
+            loadChildren: () =>
+              Promise.resolve(/*! import() */)
+                .then(
+                  __webpack_require__.bind(
+                    null,
+                    /*! ./home/home.module */ "./src/app/home/home.module.ts"
+                  )
+                )
+                .then((m) => m.HomeModule),
+          },
           // Fallback when no prior route is matched
           { path: "**", redirectTo: "", pathMatch: "full" },
         ];
@@ -2051,6 +2063,9 @@
         /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
           /*! ./app-routing.module */ "./src/app/app-routing.module.ts"
         );
+        /* harmony import */ var _query_construction_query_construction_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+          /*! ./query-construction/query-construction.module */ "./src/app/query-construction/query-construction.module.ts"
+        );
 
         class AppModule {}
         AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__[
@@ -2087,6 +2102,9 @@
               _shared__WEBPACK_IMPORTED_MODULE_7__["SharedModule"],
               _shell_shell_module__WEBPACK_IMPORTED_MODULE_9__["ShellModule"],
               _home_home_module__WEBPACK_IMPORTED_MODULE_8__["HomeModule"],
+              _query_construction_query_construction_module__WEBPACK_IMPORTED_MODULE_13__[
+                "QueryConstructionModule"
+              ],
               _about_about_module__WEBPACK_IMPORTED_MODULE_10__["AboutModule"],
               _app_routing_module__WEBPACK_IMPORTED_MODULE_12__[
                 "AppRoutingModule"
@@ -2120,6 +2138,9 @@
                 _shared__WEBPACK_IMPORTED_MODULE_7__["SharedModule"],
                 _shell_shell_module__WEBPACK_IMPORTED_MODULE_9__["ShellModule"],
                 _home_home_module__WEBPACK_IMPORTED_MODULE_8__["HomeModule"],
+                _query_construction_query_construction_module__WEBPACK_IMPORTED_MODULE_13__[
+                  "QueryConstructionModule"
+                ],
                 _about_about_module__WEBPACK_IMPORTED_MODULE_10__[
                   "AboutModule"
                 ],
@@ -2160,6 +2181,9 @@
                       ],
                       _home_home_module__WEBPACK_IMPORTED_MODULE_8__[
                         "HomeModule"
+                      ],
+                      _query_construction_query_construction_module__WEBPACK_IMPORTED_MODULE_13__[
+                        "QueryConstructionModule"
                       ],
                       _about_about_module__WEBPACK_IMPORTED_MODULE_10__[
                         "AboutModule"
@@ -2215,21 +2239,13 @@
         /* harmony import */ var _home_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
           /*! ./home.component */ "./src/app/home/home.component.ts"
         );
-        /* harmony import */ var _app_shell_shell_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-          /*! @app/shell/shell.service */ "./src/app/shell/shell.service.ts"
-        );
 
         const routes = [
-          _app_shell_shell_service__WEBPACK_IMPORTED_MODULE_3__[
-            "Shell"
-          ].childRoutes([
-            { path: "", redirectTo: "/", pathMatch: "full" },
-            {
-              path: "",
-              component:
-                _home_component__WEBPACK_IMPORTED_MODULE_2__["HomeComponent"],
-            },
-          ]),
+          {
+            path: "visualization",
+            component:
+              _home_component__WEBPACK_IMPORTED_MODULE_2__["HomeComponent"],
+          },
         ];
         class HomeRoutingModule {}
         HomeRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
@@ -4633,6 +4649,1167 @@
                 },
               ],
             }
+          );
+        })();
+
+        /***/
+      },
+
+    /***/ "./src/app/query-construction/fieldnames-modal/fieldnames-modal.component.ts":
+      /*!***********************************************************************************!*\
+  !*** ./src/app/query-construction/fieldnames-modal/fieldnames-modal.component.ts ***!
+  \***********************************************************************************/
+      /*! exports provided: FieldnamesModalComponent */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        "use strict";
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          "FieldnamesModalComponent",
+          function () {
+            return FieldnamesModalComponent;
+          }
+        );
+        /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js"
+        );
+        /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/__ivy_ngcc__/fesm2015/ng-bootstrap.js"
+        );
+        /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js"
+        );
+        /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js"
+        );
+
+        function FieldnamesModalComponent_div_52_Template(rf, ctx) {
+          if (rf & 1) {
+            const _r2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
+              "ɵɵgetCurrentView"
+            ]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+              0,
+              "div",
+              11
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+              1,
+              "\n        "
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+              2,
+              "div",
+              2
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+              3,
+              "\n          "
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+              4,
+              "label"
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+              5,
+              "Time Field Name"
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+              6,
+              "\n        "
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+              7,
+              "\n        "
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+              8,
+              "div",
+              2
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+              9,
+              "\n          "
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+              10,
+              "input",
+              10
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
+              "ngModelChange",
+              function FieldnamesModalComponent_div_52_Template_input_ngModelChange_10_listener(
+                $event
+              ) {
+                _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](
+                  _r2
+                );
+                const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
+                  "ɵɵnextContext"
+                ]();
+                return (ctx_r1.objectTimeFieldName = $event);
+              }
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+              11,
+              "\n        "
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+              12,
+              "\n      "
+            );
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+          }
+          if (rf & 2) {
+            const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
+              "ɵɵnextContext"
+            ]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](10);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
+              "ngModel",
+              ctx_r0.objectTimeFieldName
+            );
+          }
+        }
+        class FieldnamesModalComponent {
+          constructor(modal) {
+            this.modal = modal;
+          }
+          ngOnInit() {
+            console.log("The case is: ", this.case);
+            console.log("The query is: ", this.query);
+          }
+          closeModal() {
+            this.modal.dismissAll();
+          }
+        }
+        FieldnamesModalComponent.ɵfac = function FieldnamesModalComponent_Factory(
+          t
+        ) {
+          return new (t || FieldnamesModalComponent)(
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](
+              _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__[
+                "NgbModal"
+              ]
+            )
+          );
+        };
+        FieldnamesModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
+          "ɵɵdefineComponent"
+        ]({
+          type: FieldnamesModalComponent,
+          selectors: [["app-fieldnames-modal"]],
+          inputs: { case: "case", query: "query" },
+          decls: 63,
+          vars: 3,
+          consts: [
+            [
+              1,
+              "modal-content",
+              2,
+              "margin-top",
+              "15vh",
+              "position",
+              "absolute",
+              "width",
+              "fit-content",
+            ],
+            [1, "modal-header"],
+            [1, "row", "w-100", "m-0"],
+            [1, "col", "align-self-center"],
+            ["id", "exampleModalLabel", 1, "modal-title", "title"],
+            [
+              1,
+              "col",
+              "align-self-center",
+              "text-right",
+              "pointerToClick",
+              2,
+              "font-size",
+              "1.7rem",
+            ],
+            [1, "xButtonStyle", 3, "click"],
+            [
+              1,
+              "container",
+              "d-flex",
+              "justify-content-center",
+              "align-items-center",
+              "pl-5",
+              "pr-5",
+              "pt-3",
+              "pb-4",
+            ],
+            [1, "row"],
+            [1, "col-12", "p-0", "mt-3"],
+            [
+              "type",
+              "text",
+              1,
+              "w-100",
+              "inputsStyling",
+              3,
+              "ngModel",
+              "ngModelChange",
+            ],
+            [1, "col-12", "p-0", "mt-2"],
+            ["class", "col-12 p-0 mt-2", 4, "ngIf"],
+            [1, "col-12", "p-0", "mt-3", "text-center"],
+            [1, "btn", "btn-outline-dark", "btn-sm", "float-right"],
+          ],
+          template: function FieldnamesModalComponent_Template(rf, ctx) {
+            if (rf & 1) {
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                0,
+                "div",
+                0
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "\n  ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                2,
+                "div",
+                1
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "\n    ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                4,
+                "div",
+                2
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                5,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                6,
+                "div",
+                3
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                7,
+                "\n        "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                8,
+                "h6",
+                4
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                9,
+                "\n          Add required fieldnames\n        "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                10,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                11,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                12,
+                "div",
+                5
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                13,
+                "\n        "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                14,
+                "span",
+                6
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
+                "click",
+                function FieldnamesModalComponent_Template_span_click_14_listener() {
+                  return ctx.closeModal();
+                }
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                15,
+                "\u00D7"
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                16,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                17,
+                "\n    "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](18, "\n  ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](19, "\n  ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                20,
+                "div",
+                7
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                21,
+                "\n    "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                22,
+                "div",
+                8
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                23,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                24,
+                "div",
+                9
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                25,
+                "\n        "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                26,
+                "div",
+                2
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                27,
+                "\n          "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                28,
+                "label"
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                29,
+                "ID Field Name"
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                30,
+                "\n        "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                31,
+                "\n        "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                32,
+                "div",
+                2
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                33,
+                "\n          "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                34,
+                "input",
+                10
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
+                "ngModelChange",
+                function FieldnamesModalComponent_Template_input_ngModelChange_34_listener(
+                  $event
+                ) {
+                  return (ctx.objectIdFieldName = $event);
+                }
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                35,
+                "\n        "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                36,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                37,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                38,
+                "div",
+                11
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                39,
+                "\n        "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                40,
+                "div",
+                2
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                41,
+                "\n          "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                42,
+                "label"
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                43,
+                "Location Field Name"
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                44,
+                "\n        "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                45,
+                "\n        "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                46,
+                "div",
+                2
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                47,
+                "\n          "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                48,
+                "input",
+                10
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
+                "ngModelChange",
+                function FieldnamesModalComponent_Template_input_ngModelChange_48_listener(
+                  $event
+                ) {
+                  return (ctx.objectLocationFieldName = $event);
+                }
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                49,
+                "\n        "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                50,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                51,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
+                52,
+                FieldnamesModalComponent_div_52_Template,
+                13,
+                1,
+                "div",
+                12
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                53,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                54,
+                "div",
+                13
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                55,
+                "\n        "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                56,
+                "button",
+                14
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](57, "Run");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                58,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                59,
+                "\n    "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](60, "\n  ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](61, "\n");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](62, "\n");
+            }
+            if (rf & 2) {
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](34);
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
+                "ngModel",
+                ctx.objectIdFieldName
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](14);
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
+                "ngModel",
+                ctx.objectLocationFieldName
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
+                "ngIf",
+                ctx.case === "spatiotemporal"
+              );
+            }
+          },
+          directives: [
+            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["DefaultValueAccessor"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatus"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgModel"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"],
+          ],
+          styles: [
+            ".inputsStyling[_ngcontent-%COMP%] {\n  border: none;\n  outline: none;\n  box-shadow: none;\n  background-color: #f0f0f0;\n  border: 1px solid black;\n  border-radius: 12px;\n  padding-left: 0.5rem;\n  height: 2.4rem;\n  font-size: 0.9rem;\n}\n\n.xButtonStyle[_ngcontent-%COMP%] {\n  color: grey;\n}\n\n.xButtonStyle[_ngcontent-%COMP%]:hover {\n  color: black;\n}\n\n@media screen and (max-width: 1000px) {\n  .modal-content[_ngcontent-%COMP%] {\n    width: 74vw;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9uaWtvc2tvdXMvTm9TUUwtT3BlcmF0b3JzL25vZGEtdmlzdWFsaXphdGlvbi9zcmMvbWFpbi91aS9zcmMvYXBwL3F1ZXJ5LWNvbnN0cnVjdGlvbi9maWVsZG5hbWVzLW1vZGFsL2ZpZWxkbmFtZXMtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3F1ZXJ5LWNvbnN0cnVjdGlvbi9maWVsZG5hbWVzLW1vZGFsL2ZpZWxkbmFtZXMtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxZQUFBO0VBQ0EsYUFBQTtFQUNBLGdCQUFBO0VBQ0EseUJBQUE7RUFDQSx1QkFBQTtFQUNBLG1CQUFBO0VBQ0Esb0JBQUE7RUFDQSxjQUFBO0VBQ0EsaUJBQUE7QUNDRjs7QURFQTtFQUNFLFdBQUE7QUNDRjs7QURFQTtFQUNFLFlBQUE7QUNDRjs7QURFQTtFQUNFO0lBQ0UsV0FBQTtFQ0NGO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9xdWVyeS1jb25zdHJ1Y3Rpb24vZmllbGRuYW1lcy1tb2RhbC9maWVsZG5hbWVzLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmlucHV0c1N0eWxpbmcge1xuICBib3JkZXI6IG5vbmU7XG4gIG91dGxpbmU6IG5vbmU7XG4gIGJveC1zaGFkb3c6IG5vbmU7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYigyNDAsIDI0MCwgMjQwKTtcbiAgYm9yZGVyOiAxcHggc29saWQgYmxhY2s7XG4gIGJvcmRlci1yYWRpdXM6IDEycHg7XG4gIHBhZGRpbmctbGVmdDogMC41cmVtO1xuICBoZWlnaHQ6IDIuNHJlbTtcbiAgZm9udC1zaXplOiAwLjlyZW07XG59XG5cbi54QnV0dG9uU3R5bGUge1xuICBjb2xvcjogZ3JleTtcbn1cblxuLnhCdXR0b25TdHlsZTpob3ZlciB7XG4gIGNvbG9yOiBibGFjaztcbn1cblxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogMTAwMHB4KSB7XG4gIC5tb2RhbC1jb250ZW50IHtcbiAgICB3aWR0aDogNzR2dztcbiAgfVxufVxuIiwiLmlucHV0c1N0eWxpbmcge1xuICBib3JkZXI6IG5vbmU7XG4gIG91dGxpbmU6IG5vbmU7XG4gIGJveC1zaGFkb3c6IG5vbmU7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmMGYwZjA7XG4gIGJvcmRlcjogMXB4IHNvbGlkIGJsYWNrO1xuICBib3JkZXItcmFkaXVzOiAxMnB4O1xuICBwYWRkaW5nLWxlZnQ6IDAuNXJlbTtcbiAgaGVpZ2h0OiAyLjRyZW07XG4gIGZvbnQtc2l6ZTogMC45cmVtO1xufVxuXG4ueEJ1dHRvblN0eWxlIHtcbiAgY29sb3I6IGdyZXk7XG59XG5cbi54QnV0dG9uU3R5bGU6aG92ZXIge1xuICBjb2xvcjogYmxhY2s7XG59XG5cbkBtZWRpYSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6IDEwMDBweCkge1xuICAubW9kYWwtY29udGVudCB7XG4gICAgd2lkdGg6IDc0dnc7XG4gIH1cbn0iXX0= */",
+          ],
+        });
+        /*@__PURE__*/ (function () {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](
+            FieldnamesModalComponent,
+            [
+              {
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
+                args: [
+                  {
+                    selector: "app-fieldnames-modal",
+                    templateUrl: "./fieldnames-modal.component.html",
+                    styleUrls: ["./fieldnames-modal.component.scss"],
+                  },
+                ],
+              },
+            ],
+            function () {
+              return [
+                {
+                  type:
+                    _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__[
+                      "NgbModal"
+                    ],
+                },
+              ];
+            },
+            {
+              case: [
+                {
+                  type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"],
+                },
+              ],
+              query: [
+                {
+                  type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"],
+                },
+              ],
+            }
+          );
+        })();
+
+        /***/
+      },
+
+    /***/ "./src/app/query-construction/query-construction-routing.module.ts":
+      /*!*************************************************************************!*\
+  !*** ./src/app/query-construction/query-construction-routing.module.ts ***!
+  \*************************************************************************/
+      /*! exports provided: QueryConstructionRoutingModule */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        "use strict";
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          "QueryConstructionRoutingModule",
+          function () {
+            return QueryConstructionRoutingModule;
+          }
+        );
+        /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js"
+        );
+        /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js"
+        );
+        /* harmony import */ var _app_shell_shell_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! @app/shell/shell.service */ "./src/app/shell/shell.service.ts"
+        );
+        /* harmony import */ var _query_construction_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! ./query-construction.component */ "./src/app/query-construction/query-construction.component.ts"
+        );
+
+        const routes = [
+          // { path: '', component: QueryConstructionComponent }
+          _app_shell_shell_service__WEBPACK_IMPORTED_MODULE_2__[
+            "Shell"
+          ].childRoutes([
+            { path: "", redirectTo: "/", pathMatch: "full" },
+            {
+              path: "",
+              component:
+                _query_construction_component__WEBPACK_IMPORTED_MODULE_3__[
+                  "QueryConstructionComponent"
+                ],
+            },
+          ]),
+        ];
+        class QueryConstructionRoutingModule {}
+        QueryConstructionRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
+          "ɵɵdefineNgModule"
+        ]({ type: QueryConstructionRoutingModule });
+        QueryConstructionRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
+          "ɵɵdefineInjector"
+        ]({
+          factory: function QueryConstructionRoutingModule_Factory(t) {
+            return new (t || QueryConstructionRoutingModule)();
+          },
+          imports: [
+            [
+              _angular_router__WEBPACK_IMPORTED_MODULE_1__[
+                "RouterModule"
+              ].forChild(routes),
+            ],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"],
+          ],
+        });
+        (function () {
+          (typeof ngJitMode === "undefined" || ngJitMode) &&
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__[
+              "ɵɵsetNgModuleScope"
+            ](QueryConstructionRoutingModule, {
+              imports: [
+                _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"],
+              ],
+              exports: [
+                _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"],
+              ],
+            });
+        })();
+        /*@__PURE__*/ (function () {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](
+            QueryConstructionRoutingModule,
+            [
+              {
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
+                args: [
+                  {
+                    imports: [
+                      _angular_router__WEBPACK_IMPORTED_MODULE_1__[
+                        "RouterModule"
+                      ].forChild(routes),
+                    ],
+                    exports: [
+                      _angular_router__WEBPACK_IMPORTED_MODULE_1__[
+                        "RouterModule"
+                      ],
+                    ],
+                  },
+                ],
+              },
+            ],
+            null,
+            null
+          );
+        })();
+
+        /***/
+      },
+
+    /***/ "./src/app/query-construction/query-construction.component.ts":
+      /*!********************************************************************!*\
+  !*** ./src/app/query-construction/query-construction.component.ts ***!
+  \********************************************************************/
+      /*! exports provided: QueryConstructionComponent */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        "use strict";
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          "QueryConstructionComponent",
+          function () {
+            return QueryConstructionComponent;
+          }
+        );
+        /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js"
+        );
+        /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/__ivy_ngcc__/fesm2015/ng-bootstrap.js"
+        );
+        /* harmony import */ var _fieldnames_modal_fieldnames_modal_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! ./fieldnames-modal/fieldnames-modal.component */ "./src/app/query-construction/fieldnames-modal/fieldnames-modal.component.ts"
+        );
+        /* harmony import */ var _query_construction_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! ./query-construction.service */ "./src/app/query-construction/query-construction.service.ts"
+        );
+        /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js"
+        );
+
+        class QueryConstructionComponent {
+          constructor(modal, queryConstructionServ) {
+            this.modal = modal;
+            this.queryConstructionServ = queryConstructionServ;
+          }
+          ngOnInit() {}
+          runpost() {
+            this.queryConstructionServ
+              .sendQuery(this.query)
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+          openModal(selsectedCase) {
+            if (this.query) {
+              const x = this.modal.open(
+                _fieldnames_modal_fieldnames_modal_component__WEBPACK_IMPORTED_MODULE_2__[
+                  "FieldnamesModalComponent"
+                ]
+              );
+              x.componentInstance.ref = x;
+              x.componentInstance.case = selsectedCase;
+              x.componentInstance.query = this.query;
+            } else {
+              alert("You must write a query first");
+            }
+          }
+        }
+        QueryConstructionComponent.ɵfac = function QueryConstructionComponent_Factory(
+          t
+        ) {
+          return new (t || QueryConstructionComponent)(
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](
+              _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__[
+                "NgbModal"
+              ]
+            ),
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](
+              _query_construction_service__WEBPACK_IMPORTED_MODULE_3__[
+                "QueryConstructionService"
+              ]
+            )
+          );
+        };
+        QueryConstructionComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
+          "ɵɵdefineComponent"
+        ]({
+          type: QueryConstructionComponent,
+          selectors: [["app-query-construction"]],
+          decls: 23,
+          vars: 1,
+          consts: [
+            [
+              1,
+              "container",
+              "d-flex",
+              "justify-content-center",
+              "align-items-center",
+              2,
+              "height",
+              "100vh !important",
+            ],
+            [1, "row", "rowStyle"],
+            [
+              "placeholder",
+              "Write SQL queries here",
+              1,
+              "mt-3",
+              3,
+              "ngModel",
+              "ngModelChange",
+            ],
+            [1, "col-12", "p-0", "mt-3", "text-center"],
+            [1, "btn", "btn-outline-dark", "btn-sm", 3, "click"],
+          ],
+          template: function QueryConstructionComponent_Template(rf, ctx) {
+            if (rf & 1) {
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                0,
+                "div",
+                0
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "\n  ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                2,
+                "div",
+                1
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "\n    ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                4,
+                "b"
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                5,
+                "SQL query editor"
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6, "\n    ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                7,
+                "textarea",
+                2
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
+                "ngModelChange",
+                function QueryConstructionComponent_Template_textarea_ngModelChange_7_listener(
+                  $event
+                ) {
+                  return (ctx.query = $event);
+                }
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "\n    ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                9,
+                "div",
+                3
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                10,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                11,
+                "button",
+                4
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
+                "click",
+                function QueryConstructionComponent_Template_button_click_11_listener() {
+                  return ctx.openModal("spatiotemporal");
+                }
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                12,
+                "\n        Run Spatiotemporal View\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                13,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                14,
+                "button",
+                4
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
+                "click",
+                function QueryConstructionComponent_Template_button_click_14_listener() {
+                  return ctx.openModal("spatial");
+                }
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                15,
+                "\n        Run Spatial View\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                16,
+                "\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+                17,
+                "button",
+                4
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
+                "click",
+                function QueryConstructionComponent_Template_button_click_17_listener() {
+                  return ctx.runpost();
+                }
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                18,
+                "\n        test\n      "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                19,
+                "\n    "
+              );
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](20, "\n  ");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](21, "\n");
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](22, "\n");
+            }
+            if (rf & 2) {
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
+                "ngModel",
+                ctx.query
+              );
+            }
+          },
+          directives: [
+            _angular_forms__WEBPACK_IMPORTED_MODULE_4__["DefaultValueAccessor"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControlStatus"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgModel"],
+          ],
+          styles: [
+            "@media screen and (min-width: 1000px) {\n  .rowStyle[_ngcontent-%COMP%] {\n    width: 25vw !important;\n  }\n\n  textarea[_ngcontent-%COMP%] {\n    width: 25vw;\n    height: 15vh;\n    padding: 0.5rem;\n    outline: none;\n    border: none;\n    box-shadow: none;\n    border-radius: 12px;\n    background-color: #f0f0f0;\n    border: 1px solid black;\n    font-size: 0.9rem;\n  }\n}\n@media screen and (max-width: 1000px) {\n  .rowStyle[_ngcontent-%COMP%] {\n    width: 90vw !important;\n  }\n\n  textarea[_ngcontent-%COMP%] {\n    width: 90vw;\n    height: 15vh;\n    padding: 0.5rem;\n    outline: none;\n    border: none;\n    box-shadow: none;\n    border-radius: 12px;\n    background-color: #f0f0f0;\n    border: 1px solid black;\n    font-size: 0.9rem;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9uaWtvc2tvdXMvTm9TUUwtT3BlcmF0b3JzL25vZGEtdmlzdWFsaXphdGlvbi9zcmMvbWFpbi91aS9zcmMvYXBwL3F1ZXJ5LWNvbnN0cnVjdGlvbi9xdWVyeS1jb25zdHJ1Y3Rpb24uY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3F1ZXJ5LWNvbnN0cnVjdGlvbi9xdWVyeS1jb25zdHJ1Y3Rpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtJQUNFLHNCQUFBO0VDQ0Y7O0VEQ0E7SUFDRSxXQUFBO0lBQ0EsWUFBQTtJQUNBLGVBQUE7SUFDQSxhQUFBO0lBQ0EsWUFBQTtJQUNBLGdCQUFBO0lBQ0EsbUJBQUE7SUFDQSx5QkFBQTtJQUNBLHVCQUFBO0lBQ0EsaUJBQUE7RUNFRjtBQUNGO0FEQ0E7RUFDRTtJQUNFLHNCQUFBO0VDQ0Y7O0VEQ0E7SUFDRSxXQUFBO0lBQ0EsWUFBQTtJQUNBLGVBQUE7SUFDQSxhQUFBO0lBQ0EsWUFBQTtJQUNBLGdCQUFBO0lBQ0EsbUJBQUE7SUFDQSx5QkFBQTtJQUNBLHVCQUFBO0lBQ0EsaUJBQUE7RUNFRjtBQUNGIiwiZmlsZSI6InNyYy9hcHAvcXVlcnktY29uc3RydWN0aW9uL3F1ZXJ5LWNvbnN0cnVjdGlvbi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIkBtZWRpYSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDEwMDBweCkge1xuICAucm93U3R5bGUge1xuICAgIHdpZHRoOiAyNXZ3ICFpbXBvcnRhbnQ7XG4gIH1cbiAgdGV4dGFyZWEge1xuICAgIHdpZHRoOiAyNXZ3O1xuICAgIGhlaWdodDogMTV2aDtcbiAgICBwYWRkaW5nOiAwLjVyZW07XG4gICAgb3V0bGluZTogbm9uZTtcbiAgICBib3JkZXI6IG5vbmU7XG4gICAgYm94LXNoYWRvdzogbm9uZTtcbiAgICBib3JkZXItcmFkaXVzOiAxMnB4O1xuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigyNDAsIDI0MCwgMjQwKTtcbiAgICBib3JkZXI6IDFweCBzb2xpZCBibGFjaztcbiAgICBmb250LXNpemU6IDAuOXJlbTtcbiAgfVxufVxuXG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAxMDAwcHgpIHtcbiAgLnJvd1N0eWxlIHtcbiAgICB3aWR0aDogOTB2dyAhaW1wb3J0YW50O1xuICB9XG4gIHRleHRhcmVhIHtcbiAgICB3aWR0aDogOTB2dztcbiAgICBoZWlnaHQ6IDE1dmg7XG4gICAgcGFkZGluZzogMC41cmVtO1xuICAgIG91dGxpbmU6IG5vbmU7XG4gICAgYm9yZGVyOiBub25lO1xuICAgIGJveC1zaGFkb3c6IG5vbmU7XG4gICAgYm9yZGVyLXJhZGl1czogMTJweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjQwLCAyNDAsIDI0MCk7XG4gICAgYm9yZGVyOiAxcHggc29saWQgYmxhY2s7XG4gICAgZm9udC1zaXplOiAwLjlyZW07XG4gIH1cbn1cbiIsIkBtZWRpYSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDEwMDBweCkge1xuICAucm93U3R5bGUge1xuICAgIHdpZHRoOiAyNXZ3ICFpbXBvcnRhbnQ7XG4gIH1cblxuICB0ZXh0YXJlYSB7XG4gICAgd2lkdGg6IDI1dnc7XG4gICAgaGVpZ2h0OiAxNXZoO1xuICAgIHBhZGRpbmc6IDAuNXJlbTtcbiAgICBvdXRsaW5lOiBub25lO1xuICAgIGJvcmRlcjogbm9uZTtcbiAgICBib3gtc2hhZG93OiBub25lO1xuICAgIGJvcmRlci1yYWRpdXM6IDEycHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2YwZjBmMDtcbiAgICBib3JkZXI6IDFweCBzb2xpZCBibGFjaztcbiAgICBmb250LXNpemU6IDAuOXJlbTtcbiAgfVxufVxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogMTAwMHB4KSB7XG4gIC5yb3dTdHlsZSB7XG4gICAgd2lkdGg6IDkwdncgIWltcG9ydGFudDtcbiAgfVxuXG4gIHRleHRhcmVhIHtcbiAgICB3aWR0aDogOTB2dztcbiAgICBoZWlnaHQ6IDE1dmg7XG4gICAgcGFkZGluZzogMC41cmVtO1xuICAgIG91dGxpbmU6IG5vbmU7XG4gICAgYm9yZGVyOiBub25lO1xuICAgIGJveC1zaGFkb3c6IG5vbmU7XG4gICAgYm9yZGVyLXJhZGl1czogMTJweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjBmMGYwO1xuICAgIGJvcmRlcjogMXB4IHNvbGlkIGJsYWNrO1xuICAgIGZvbnQtc2l6ZTogMC45cmVtO1xuICB9XG59Il19 */",
+          ],
+        });
+        /*@__PURE__*/ (function () {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](
+            QueryConstructionComponent,
+            [
+              {
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
+                args: [
+                  {
+                    selector: "app-query-construction",
+                    templateUrl: "./query-construction.component.html",
+                    styleUrls: ["./query-construction.component.scss"],
+                  },
+                ],
+              },
+            ],
+            function () {
+              return [
+                {
+                  type:
+                    _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__[
+                      "NgbModal"
+                    ],
+                },
+                {
+                  type:
+                    _query_construction_service__WEBPACK_IMPORTED_MODULE_3__[
+                      "QueryConstructionService"
+                    ],
+                },
+              ];
+            },
+            null
+          );
+        })();
+
+        /***/
+      },
+
+    /***/ "./src/app/query-construction/query-construction.module.ts":
+      /*!*****************************************************************!*\
+  !*** ./src/app/query-construction/query-construction.module.ts ***!
+  \*****************************************************************/
+      /*! exports provided: QueryConstructionModule */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        "use strict";
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          "QueryConstructionModule",
+          function () {
+            return QueryConstructionModule;
+          }
+        );
+        /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js"
+        );
+        /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js"
+        );
+        /* harmony import */ var _query_construction_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+          /*! ./query-construction-routing.module */ "./src/app/query-construction/query-construction-routing.module.ts"
+        );
+        /* harmony import */ var _query_construction_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+          /*! ./query-construction.component */ "./src/app/query-construction/query-construction.component.ts"
+        );
+        /* harmony import */ var _fieldnames_modal_fieldnames_modal_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+          /*! ./fieldnames-modal/fieldnames-modal.component */ "./src/app/query-construction/fieldnames-modal/fieldnames-modal.component.ts"
+        );
+        /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+          /*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js"
+        );
+
+        class QueryConstructionModule {}
+        QueryConstructionModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
+          "ɵɵdefineNgModule"
+        ]({ type: QueryConstructionModule });
+        QueryConstructionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
+          "ɵɵdefineInjector"
+        ]({
+          factory: function QueryConstructionModule_Factory(t) {
+            return new (t || QueryConstructionModule)();
+          },
+          imports: [
+            [
+              _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+              _angular_forms__WEBPACK_IMPORTED_MODULE_5__[
+                "ReactiveFormsModule"
+              ],
+              _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"],
+              _query_construction_routing_module__WEBPACK_IMPORTED_MODULE_2__[
+                "QueryConstructionRoutingModule"
+              ],
+            ],
+          ],
+        });
+        (function () {
+          (typeof ngJitMode === "undefined" || ngJitMode) &&
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__[
+              "ɵɵsetNgModuleScope"
+            ](QueryConstructionModule, {
+              declarations: [
+                _query_construction_component__WEBPACK_IMPORTED_MODULE_3__[
+                  "QueryConstructionComponent"
+                ],
+                _fieldnames_modal_fieldnames_modal_component__WEBPACK_IMPORTED_MODULE_4__[
+                  "FieldnamesModalComponent"
+                ],
+              ],
+              imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_5__[
+                  "ReactiveFormsModule"
+                ],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"],
+                _query_construction_routing_module__WEBPACK_IMPORTED_MODULE_2__[
+                  "QueryConstructionRoutingModule"
+                ],
+              ],
+            });
+        })();
+        /*@__PURE__*/ (function () {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](
+            QueryConstructionModule,
+            [
+              {
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
+                args: [
+                  {
+                    declarations: [
+                      _query_construction_component__WEBPACK_IMPORTED_MODULE_3__[
+                        "QueryConstructionComponent"
+                      ],
+                      _fieldnames_modal_fieldnames_modal_component__WEBPACK_IMPORTED_MODULE_4__[
+                        "FieldnamesModalComponent"
+                      ],
+                    ],
+                    imports: [
+                      _angular_common__WEBPACK_IMPORTED_MODULE_1__[
+                        "CommonModule"
+                      ],
+                      _angular_forms__WEBPACK_IMPORTED_MODULE_5__[
+                        "ReactiveFormsModule"
+                      ],
+                      _angular_forms__WEBPACK_IMPORTED_MODULE_5__[
+                        "FormsModule"
+                      ],
+                      _query_construction_routing_module__WEBPACK_IMPORTED_MODULE_2__[
+                        "QueryConstructionRoutingModule"
+                      ],
+                    ],
+                  },
+                ],
+              },
+            ],
+            null,
+            null
+          );
+        })();
+
+        /***/
+      },
+
+    /***/ "./src/app/query-construction/query-construction.service.ts":
+      /*!******************************************************************!*\
+  !*** ./src/app/query-construction/query-construction.service.ts ***!
+  \******************************************************************/
+      /*! exports provided: QueryConstructionService */
+      /***/ function (module, __webpack_exports__, __webpack_require__) {
+        "use strict";
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          "QueryConstructionService",
+          function () {
+            return QueryConstructionService;
+          }
+        );
+        /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+          /*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js"
+        );
+        /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+          /*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js"
+        );
+
+        class QueryConstructionService {
+          constructor(httpClient) {
+            this.httpClient = httpClient;
+          }
+          sendQuery(query) {
+            const body = query;
+            return this.httpClient
+              .post("/sql-query", body, { responseType: "text" })
+              .toPromise();
+          }
+        }
+        QueryConstructionService.ɵfac = function QueryConstructionService_Factory(
+          t
+        ) {
+          return new (t || QueryConstructionService)(
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](
+              _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]
+            )
+          );
+        };
+        QueryConstructionService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__[
+          "ɵɵdefineInjectable"
+        ]({
+          token: QueryConstructionService,
+          factory: QueryConstructionService.ɵfac,
+          providedIn: "root",
+        });
+        /*@__PURE__*/ (function () {
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](
+            QueryConstructionService,
+            [
+              {
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"],
+                args: [
+                  {
+                    providedIn: "root",
+                  },
+                ],
+              },
+            ],
+            function () {
+              return [
+                {
+                  type:
+                    _angular_common_http__WEBPACK_IMPORTED_MODULE_0__[
+                      "HttpClient"
+                    ],
+                },
+              ];
+            },
+            null
           );
         })();
 
