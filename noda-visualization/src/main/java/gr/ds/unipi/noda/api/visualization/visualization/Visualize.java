@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.visualization.visualization;
 
+import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.dataframe.DataframeManipulator;
 import gr.ds.unipi.noda.api.visualization.server.ServerManager;
 import org.apache.spark.sql.Dataset;
@@ -9,12 +10,18 @@ import java.util.List;
 
 public class Visualize {
 
+    public static gr.ds.unipi.noda.api.client.NoSqlDbSystem dbSystem;
     public static Dataset<Row> datare;
     public static String stDataToVisualize;
     public static String spatialDataToVisualize;
 
     public static void startQueryVisualization(gr.ds.unipi.noda.api.client.NoSqlDbSystem noSqlDbSystem) {
+
         ServerManager.main(new String[]{});
+
+        dbSystem = noSqlDbSystem;
+//        noSqlDbSystem.sql("SELECT* FROM geoPoints WHERE GEO_TEMPORAL_CIRCLEKM(location, (-122.5993238, 37.7995747), 47.90, date, '5/9/2019 00:00:00', '5/9/2019 23:59:50')").toDataframe();
+
     }
 
     public static void trajectoriesTimelapse(Dataset<Row> stData, String idName, String locationName, String timestampName) {

@@ -8,7 +8,6 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.junit.Ignore;
 import org.junit.Test;
-import gr.ds.unipi.noda.api.visualization.visualization.Visualize;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -60,7 +59,6 @@ public class NoSqlDbSystemTest {
 
 //        noSqlDbSystem.operateOn("Ship").filter(inGeoRectangle("LOCATION", Coordinates.newCoordinates(119.693533333, -39.22696), Coordinates.newCoordinates(120.693533333, -32.22696) )).printScreen();
         Dataset<Row> dtfr =  noSqlDbSystem.operateOn("Ship").filter(inGeoTemporalRectangle("spatialPoint", Coordinates.newCoordinates( -118.54179, 33.82936), Coordinates.newCoordinates( -118.44566, 33.93083), "secondTimestamp",  datemin, datemax)).toDataframe();
-        Visualize.trajectoriesTimelapse(dtfr, "MMSI", "spatialPoint", "secondTimestamp");
 //          noSqlDbSystem.operateOn("Ship").filter(inGeoTemporalCircleKm("LOCATION", Coordinates.newCoordinates(119.693533333, -39.22696), 212, "EPOCHTIMESTAMP", datemin, datemax )).printScreen();
 
 //                .groupBy("DATEANDTIME", "TIMESTAMP")
