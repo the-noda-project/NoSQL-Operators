@@ -396,7 +396,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                     break;
                 case "GEO_TEMPORAL_POLYGON":
                     checkForDoubleColumn();
-                    checkForNoneNumbers();
+                    checkForNoneValues();
                     if (coordinatesList.size() < 3) {
                         try {
                             logger.error("At least three coordinates are required for forming the {} function",functionName);
@@ -418,7 +418,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                     break;
                 case "GEO_TEMPORAL_RECTANGLE":
                     checkForDoubleColumn();
-                    checkForNoneNumbers();
+                    checkForNoneValues();
                     if (coordinatesList.size() != 2) {
                         try {
                             logger.error("Two coordinates are required for forming the {} function",functionName);
@@ -541,7 +541,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
     private void checkForSingleNumber(){
         if((functionNumbers.size()-coordinatesList.size())!=1){
             try {
-                logger.error("{} function requires one number", functionName);
+                logger.error("{} function requires one number as an argument", functionName);
                 throw new Exception();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -552,7 +552,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
     private void checkForNoneStrings(){
         if(functionStrings.size()!=0){
             try {
-                logger.error("{} function does not require string", functionName);
+                logger.error("{} function does not require string as an argument", functionName);
                 throw new Exception();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -563,7 +563,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
     private void checkForNoneNumbers(){
         if(functionNumbers.size()!=coordinatesList.size()*2){
             try {
-                logger.error("{} function does not require number", functionName);
+                logger.error("{} function does not require number as an argument", functionName);
                 throw new Exception();
             } catch (Exception e) {
                 e.printStackTrace();
