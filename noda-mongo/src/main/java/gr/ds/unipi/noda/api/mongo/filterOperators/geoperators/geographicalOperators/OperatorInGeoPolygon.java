@@ -12,8 +12,4 @@ public final class OperatorInGeoPolygon extends GeographicalOperator<Polygon> {
         return new OperatorInGeoPolygon(fieldName, polygon);
     }
 
-    @Override
-    public StringBuilder getOperatorExpression() {
-        return formOperatorExpressionForMultiPointGeometry(getFieldName(), getGeometry().getCoordinatesArray());
-    }
 }

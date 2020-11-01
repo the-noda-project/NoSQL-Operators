@@ -1,6 +1,5 @@
 package gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators;
 
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
 
 abstract class GeographicalOperator<T extends Geometry> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator<StringBuilder, T> {
@@ -8,36 +7,17 @@ abstract class GeographicalOperator<T extends Geometry> extends gr.ds.unipi.noda
         super(fieldName, geometry);
     }
 
-    protected static StringBuilder formOperatorExpressionForMultiPointGeometry(String fieldName, Coordinates[] coordinates) {
+    @Override
+    public StringBuilder getOperatorExpression(){
         StringBuilder sb = new StringBuilder();
-        sb.append("{ ");
 
-        if (!fieldName.contains(".")) {
-            sb.append(fieldName);
-        } else {
-            sb.append("\"" + fieldName + "\"");
-        }
+        sb.append("{ $and: [");
 
-        sb.append(": { $geoWithin: { $geometry: { type:\"Polygon\", coordinates:[ [");
+        sb.append(MongoDBGeographicalOperatorFactory.getGeometryExpression(getFieldName(), getGeometry()));
+        sb.append(", ");
 
-        for (Coordinates c : coordinates) {
-            sb.append(" [");
-            sb.append(c.getLongitude());
-            sb.append(",");
-            sb.append(c.getLatitude());
-
-            sb.append("]");
-            sb.append(",");
-        }
-
-        //In MongoDB the last point should coincide with the coordinates of the starting point
-        sb.append(" [");
-        sb.append(coordinates[0].getLongitude());
-        sb.append(",");
-        sb.append(coordinates[0].getLatitude());
-        sb.append("]");
-
-        sb.append("] ] } } } }");
+        sb.append(MongoDBGeographicalOperatorFactory.getExpressionOfSpatialHilbertIndexes(getGeometry().getMbr()));
+        sb.append(" ] }");
 
         return sb;
     }

@@ -101,7 +101,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                 selectOperator.add(column.get(0));
                 column.remove(0);
             }
-            else{//if it is function - implying aggregationg since it is select
+            else{//if it is function - implying aggregation since it is select
                 selectOperator.add(aggregateOperators.get(aggregateOperators.size()-1).getAlias());
             }
         }
@@ -374,6 +374,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                 case "GEO_CIRCLE_MI":
                     checkForSingleColumn();
                     checkForNoneStrings();
+                    checkForSingleNumber();
 
                     if (coordinatesList.size() != 1) {
                         try {
@@ -395,7 +396,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                     break;
                 case "GEO_TEMPORAL_POLYGON":
                     checkForDoubleColumn();
-                    checkForNoneNumbers();
+                    checkForNoneValues();
                     if (coordinatesList.size() < 3) {
                         try {
                             logger.error("At least three coordinates are required for forming the {} function",functionName);
@@ -417,7 +418,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                     break;
                 case "GEO_TEMPORAL_RECTANGLE":
                     checkForDoubleColumn();
-                    checkForNoneNumbers();
+                    checkForNoneValues();
                     if (coordinatesList.size() != 2) {
                         try {
                             logger.error("Two coordinates are required for forming the {} function",functionName);
@@ -434,6 +435,8 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                 case "GEO_TEMPORAL_CIRCLE_ME":
                 case "GEO_TEMPORAL_CIRCLE_MI":
                     checkForDoubleColumn();
+                    checkForNoneStrings();
+                    checkForSingleNumber();
 
                     if (coordinatesList.size() != 1) {
                         try {
@@ -536,9 +539,9 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
     }
 
     private void checkForSingleNumber(){
-        if(functionNumbers.size()!=1){
+        if((functionNumbers.size()-coordinatesList.size())!=1){
             try {
-                logger.error("{} function requires one number", functionName);
+                logger.error("{} function requires one number as an argument", functionName);
                 throw new Exception();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -549,7 +552,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
     private void checkForNoneStrings(){
         if(functionStrings.size()!=0){
             try {
-                logger.error("{} function does not require string", functionName);
+                logger.error("{} function does not require string as an argument", functionName);
                 throw new Exception();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -558,9 +561,9 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
     }
 
     private void checkForNoneNumbers(){
-        if(functionNumbers.size()!=0){
+        if(functionNumbers.size()!=coordinatesList.size()*2){
             try {
-                logger.error("{} function does not require number", functionName);
+                logger.error("{} function does not require number as an argument", functionName);
                 throw new Exception();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -672,6 +675,9 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
 
         if(groupBy.size()==0){
             finalFilterOperator = formFinalFilter();
+            if(finalFilterOperator!=null) {
+                noSqlDbOperators.filter(finalFilterOperator);
+            }
         }else{
             if(finalFilterOperator!=null){
                 noSqlDbOperators.filter(finalFilterOperator);
