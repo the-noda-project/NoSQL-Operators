@@ -434,6 +434,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                 case "GEO_TEMPORAL_CIRCLE_ME":
                 case "GEO_TEMPORAL_CIRCLE_MI":
                     checkForDoubleColumn();
+                    checkForNoneStrings();
 
                     if (coordinatesList.size() != 1) {
                         try {
@@ -536,7 +537,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
     }
 
     private void checkForSingleNumber(){
-        if(functionNumbers.size()!=1){
+        if((functionNumbers.size()-coordinatesList.size())!=1){
             try {
                 logger.error("{} function requires one number", functionName);
                 throw new Exception();
