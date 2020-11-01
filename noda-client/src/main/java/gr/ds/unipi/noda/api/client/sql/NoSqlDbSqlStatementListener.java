@@ -101,7 +101,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                 selectOperator.add(column.get(0));
                 column.remove(0);
             }
-            else{//if it is function - implying aggregationg since it is select
+            else{//if it is function - implying aggregation since it is select
                 selectOperator.add(aggregateOperators.get(aggregateOperators.size()-1).getAlias());
             }
         }
@@ -558,7 +558,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
     }
 
     private void checkForNoneNumbers(){
-        if(functionNumbers.size()!=0){
+        if(functionNumbers.size()!=coordinatesList.size()*2){
             try {
                 logger.error("{} function does not require number", functionName);
                 throw new Exception();
@@ -672,6 +672,9 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
 
         if(groupBy.size()==0){
             finalFilterOperator = formFinalFilter();
+            if(finalFilterOperator!=null) {
+                noSqlDbOperators.filter(finalFilterOperator);
+            }
         }else{
             if(finalFilterOperator!=null){
                 noSqlDbOperators.filter(finalFilterOperator);

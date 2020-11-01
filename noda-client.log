@@ -1027,3 +1027,13 @@ Caused by: java.net.ConnectException: Connection refused
 	at org.neo4j.driver.internal.shaded.io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
 	at org.neo4j.driver.internal.shaded.io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
 	at java.lang.Thread.run(Thread.java:748)
+01-11-2020 19:15:35 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_TEMPORAL_RECTANGLE function does not require number
+01-11-2020 19:15:57 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_TEMPORAL_RECTANGLE function does not require number
+01-11-2020 19:16:29 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_TEMPORAL_RECTANGLE function does not require number
+01-11-2020 19:18:44 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_TEMPORAL_RECTANGLE function does not require number
+01-11-2020 19:19:32 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_TEMPORAL_RECTANGLE function does not require number
+01-11-2020 19:20:56 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_TEMPORAL_RECTANGLE function does not require number
+01-11-2020 19:23:31 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_TEMPORAL_RECTANGLE function does not require number
+01-11-2020 19:34:04 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_TEMPORAL_RECTANGLE function does not require number
+01-11-2020 19:40:52 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_TEMPORAL_RECTANGLE function does not require number
+01-11-2020 19:42:42 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_TEMPORAL_RECTANGLE function does not require number
