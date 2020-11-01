@@ -5,7 +5,6 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinat
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import gr.ds.unipi.noda.api.visualization.visualization.Visualize;
 
 import java.util.Date;
 
@@ -13,8 +12,6 @@ import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.lt;
 
 public class Main {
-
-    public static NoSqlDbSystem noSqlDbSystem;
 
     public static void main(String[] args) {
         SparkSession spark = SparkSession
@@ -28,9 +25,8 @@ public class Main {
         Date datemax = new Date(1547078400);
         Date datemin = new Date(1546992000);
 
-        noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos").host("localhost").port(7687).sparkSession(spark).build();
+        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos").host("localhost").port(7687).sparkSession(spark).build();
 
-        Visualize.startQueryVisualization(noSqlDbSystem);
 
 //        Dataset<Row> dtfr = noSqlDbSystem.operateOn("Ship").filter(and(lt("LAT",-38.31416), lt("LON",145.004403333), gt("SPEED", 20), lt("SPEED", 40))).toDataframe().sort("c");
 
