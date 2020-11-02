@@ -186,7 +186,6 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
     }
 
     @Override public void enterDecimalLiteral(SqlBaseParser.DecimalLiteralContext ctx) {
-
         if(comparison != null){
             createFilter(Double.parseDouble(ctx.getText()));
         }
@@ -386,11 +385,11 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                     }
 
                     if (functionName.equals("GEO_CIRCLE_KM")) {
-                        addFilter(FilterOperators.inGeoCircleKm(column.get(0), coordinatesList.get(0), (double) functionNumbers.get(0)));
+                        addFilter(FilterOperators.inGeoCircleKm(column.get(0), coordinatesList.get(0), functionNumbers.get(0).doubleValue()));
                     } else if (functionName.equals("GEO_CIRCLE_ME")) {
-                        addFilter(FilterOperators.inGeoCircleMeters(column.get(0), coordinatesList.get(0), (double) functionNumbers.get(0)));
+                        addFilter(FilterOperators.inGeoCircleMeters(column.get(0), coordinatesList.get(0), functionNumbers.get(0).doubleValue()));
                     } else {
-                        addFilter(FilterOperators.inGeoCircleMiles(column.get(0), coordinatesList.get(0), (double) functionNumbers.get(0)));
+                        addFilter(FilterOperators.inGeoCircleMiles(column.get(0), coordinatesList.get(0), functionNumbers.get(0).doubleValue()));
                     }
 
                     break;
@@ -421,7 +420,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                     checkForNoneValues();
                     if (coordinatesList.size() != 2) {
                         try {
-                            logger.error("Two coordinates are required for forming the {} function",functionName);
+                            logger.error("Two coordinates are required for forming the {} function", functionName);
                             throw new Exception();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -448,11 +447,11 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                     }
 
                     if (functionName.equals("GEO_TEMPORAL_CIRCLE_KM")) {
-                        addFilter(FilterOperators.inGeoTemporalCircleKm(column.get(0), coordinatesList.get(0), (double) functionNumbers.get(0), column.get(1), simpleDateFormat.parse(functionStrings.get(0)), simpleDateFormat.parse(functionStrings.get(1))));
+                        addFilter(FilterOperators.inGeoTemporalCircleKm(column.get(0), coordinatesList.get(0), functionNumbers.get(0).doubleValue(), column.get(1), simpleDateFormat.parse(functionStrings.get(0)), simpleDateFormat.parse(functionStrings.get(1))));
                     } else if (functionName.equals("GEO_TEMPORAL_CIRCLE_ME")) {
-                        addFilter(FilterOperators.inGeoTemporalCircleMeters(column.get(0), coordinatesList.get(0), (double) functionNumbers.get(0), column.get(1), simpleDateFormat.parse(functionStrings.get(0)), simpleDateFormat.parse(functionStrings.get(1))));
+                        addFilter(FilterOperators.inGeoTemporalCircleMeters(column.get(0), coordinatesList.get(0), functionNumbers.get(0).doubleValue(), column.get(1), simpleDateFormat.parse(functionStrings.get(0)), simpleDateFormat.parse(functionStrings.get(1))));
                     } else {
-                        addFilter(FilterOperators.inGeoTemporalCircleMiles(column.get(0), coordinatesList.get(0), (double) functionNumbers.get(0), column.get(1), simpleDateFormat.parse(functionStrings.get(0)), simpleDateFormat.parse(functionStrings.get(1))));
+                        addFilter(FilterOperators.inGeoTemporalCircleMiles(column.get(0), coordinatesList.get(0), functionNumbers.get(0).doubleValue(), column.get(1), simpleDateFormat.parse(functionStrings.get(0)), simpleDateFormat.parse(functionStrings.get(1))));
                     }
 
                     break;
@@ -539,7 +538,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
     }
 
     private void checkForSingleNumber(){
-        if((functionNumbers.size()-coordinatesList.size())!=1){
+        if((functionNumbers.size())!=1){
             try {
                 logger.error("{} function requires one number as an argument", functionName);
                 throw new Exception();
@@ -561,7 +560,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
     }
 
     private void checkForNoneNumbers(){
-        if(functionNumbers.size()!=coordinatesList.size()*2){
+        if(functionNumbers.size()>0){
             try {
                 logger.error("{} function does not require number as an argument", functionName);
                 throw new Exception();
@@ -612,6 +611,13 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
         functionNumbers.clear();
         functionStrings.clear();
 
+    }
+
+    @Override public void exitRowConstructor(SqlBaseParser.RowConstructorContext ctx){
+        if(hashMap.get(functionName) == 2){
+            functionNumbers.remove(functionNumbers.size()-1);
+            functionNumbers.remove(functionNumbers.size()-1);
+        }
     }
 
     @Override public void enterRowConstructor(SqlBaseParser.RowConstructorContext ctx) {
