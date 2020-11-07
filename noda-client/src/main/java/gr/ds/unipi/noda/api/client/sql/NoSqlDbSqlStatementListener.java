@@ -434,7 +434,6 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                 case "GEO_TEMPORAL_CIRCLE_ME":
                 case "GEO_TEMPORAL_CIRCLE_MI":
                     checkForDoubleColumn();
-                    checkForNoneStrings();
                     checkForSingleNumber();
 
                     if (coordinatesList.size() != 1) {
