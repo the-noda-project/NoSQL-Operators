@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 import 'leaflet/dist/images/marker-icon.png';
 import 'leaflet/dist/images/marker-icon-2x.png';
 import 'leaflet/dist/images/marker-shadow.png';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import 'leaflet/dist/images/marker-shadow.png';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  dataFromServer: string;
   data: Array<any> = [];
   groupedData: any;
   idArray: Array<any> = [];
@@ -44,7 +46,10 @@ export class HomeComponent implements OnInit {
     center: L.latLng(33.88889, -118.48143),
   };
 
-  constructor(private quoteService: QuoteService) {}
+  constructor(
+    private quoteService: QuoteService,
+    private activeRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.fps = 0.2;
@@ -52,10 +57,109 @@ export class HomeComponent implements OnInit {
     this.changeFloor = false;
     this.changeCeil = false;
 
+    this.activeRoute.paramMap.subscribe((params: any) => {
+      const caseOfView = params.get('case');
+      if (caseOfView === 'spatial') {
+        this.isSpatial = true;
+      }
+      if (caseOfView === 'spatiotemporal') {
+        this.isSpatial = false;
+      }
+    });
+
+    // Take data from serve from quoteService
+    this.dataFromServer = this.quoteService.getData();
+
+    console.log(
+      'edwwwwwwwwwwwwwwwwwwwedwwwwwwwwwwwwwwwwwwwedwwwwwwwwwwwwwwwwwwwedwwwwwwwwwwwwwwwwwwwedwwwwwwwwwwwwwwwwwww',
+      this.dataFromServer
+    );
+
     // Responce for noda server connection
     this.quoteService.getConnectionMessage().then((res: any) => {
       console.log(res);
     });
+
+    if (this.isSpatial === false) {
+      let parsedData = JSON.parse(this.dataFromServer);
+      this.data = parsedData['data'];
+
+      // JS Date needs milli Epoch Timestamp (so below is a milli epoch converter)
+      console.log(
+        this.data,
+        'ayto einai ena date: ' +
+          new Date(parseInt(this.timestampManipulation(this.data[0]['time'])))
+      );
+
+      this.opt = {
+        floor: parseInt(this.timestampManipulation(this.data[0]['time'])),
+        ceil: parseInt(
+          this.timestampManipulation(this.data[this.data.length - 1]['time'])
+        ),
+      };
+
+      console.log('floor', this.opt.floor, 'ceil', this.opt.ceil);
+
+      this.value = this.opt.floor;
+      this.maxValue =
+        this.opt.floor + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
+
+      this.groupedData = _.groupBy(this.data, 'time');
+      console.log('auta einai ta grouparismena data', this.groupedData);
+
+      // for (let key in this.groupedData) {
+      //   this.opt.ticksArray.push(parseInt(this.timestampManipulation(key)));
+      // }
+
+      // console.log('ticksArray: ', this.opt.ticksArray);
+
+      let o = Math.round;
+      let r = Math.random;
+      let s = 255;
+      this.data.forEach((element) => {
+        let index = this.idArray.findIndex((id) => id.id === element.id);
+
+        if (index === -1) {
+          this.idArray.push({
+            id: element.id,
+            color:
+              'rgb(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ')',
+          });
+        }
+      });
+
+      // this.createActiveArray()
+
+      console.log(' auto einai to id array: ', this.idArray);
+    } else {
+      let parsedData = JSON.parse(this.dataFromServer);
+      this.data = parsedData['data'];
+
+      this.groupedData = this.data;
+      console.log('auta einai ta grouparismena data', this.groupedData);
+      if (this.groupedData[0].id) {
+        let o = Math.round;
+        let r = Math.random;
+        let s = 255;
+        this.data.forEach((element) => {
+          let index = this.idArray.findIndex((id) => id.id === element.id);
+
+          if (index === -1) {
+            this.idArray.push({
+              id: element.id,
+              color:
+                'rgb(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ')',
+            });
+          }
+        });
+
+        // this.createActiveArray()
+
+        console.log(' auto einai to id array: ', this.idArray);
+      }
+
+      this.spatialVisualization();
+    }
 
     // Call api to get noda spatio-temporal data
     this.quoteService
@@ -195,6 +299,10 @@ export class HomeComponent implements OnInit {
   }
 
   spatialVisualization() {
+    const myRenderer = L.canvas({
+      padding: 0.5,
+    });
+
     this.groupedData.forEach((position: any) => {
       const lat = position.lat;
       const lon = position.lon;
@@ -207,8 +315,13 @@ export class HomeComponent implements OnInit {
         });
 
         this.layers.push(
-          L.marker([lat, lon], {
-            icon: myIcon,
+          L.circleMarker([lat, lon], {
+            renderer: myRenderer,
+            color: this.getRGBofPin(position.id),
+            fillColor: this.getRGBofPin(position.id),
+            fill: true,
+            stroke: false,
+            fillOpacity: 1,
           })
           // .bindPopup(
           //   `<div>CraftID: ` +
@@ -229,8 +342,13 @@ export class HomeComponent implements OnInit {
         });
 
         this.layers.push(
-          L.marker([lat, lon], {
-            icon: myIcon,
+          L.circleMarker([lat, lon], {
+            renderer: myRenderer,
+            color: '#228B22',
+            fillColor: '#228B22',
+            fill: true,
+            stroke: false,
+            fillOpacity: 1,
           })
           // .bindPopup(
           //   `<div>CraftID: ` +
@@ -246,8 +364,13 @@ export class HomeComponent implements OnInit {
         );
 
         this.layers.push(
-          L.marker([lat, lon], {
-            icon: myIcon,
+          L.circleMarker([lat, lon], {
+            renderer: myRenderer,
+            color: '#228B22',
+            fillColor: '#228B22',
+            fill: true,
+            stroke: false,
+            fillOpacity: 1,
           })
           // .bindPopup(
           //   `<div>CraftID: ` +
@@ -290,11 +413,22 @@ export class HomeComponent implements OnInit {
             });
 
             // this.layers = [];
+            const myRenderer = L.canvas({
+              padding: 0.5,
+            });
 
             this.layers.push(
-              L.marker([lat, lon], {
-                icon: myIcon,
+              L.circleMarker([lat, lon], {
+                renderer: myRenderer,
+                color: this.getRGBofPin(element.id),
+                fillColor: this.getRGBofPin(element.id),
+                fill: true,
+                stroke: false,
+                fillOpacity: 1,
               })
+              // L.marker([lat, lon], {
+              //   icon: myIcon,
+              // })
               // .bindPopup(
               //   `<div>CraftID: ` +
               //     craftID +

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FieldnamesModalComponent } from './fieldnames-modal/fieldnames-modal.component';
-import { QueryConstructionService } from './query-construction.service';
 
 @Component({
   selector: 'app-query-construction',
@@ -11,23 +10,9 @@ import { QueryConstructionService } from './query-construction.service';
 export class QueryConstructionComponent implements OnInit {
   query: string;
 
-  constructor(
-    private modal: NgbModal,
-    private queryConstructionServ: QueryConstructionService
-  ) {}
+  constructor(private modal: NgbModal) {}
 
   ngOnInit(): void {}
-
-  runpost() {
-    this.queryConstructionServ
-      .sendQuery(this.query)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
 
   openModal(selsectedCase: string) {
     if (this.query) {
