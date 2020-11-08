@@ -103,6 +103,7 @@ public class SqlQueryAPI {
 
 
     @RequestMapping(value = "/spatiotemporal-sql-query", method = RequestMethod.POST)
+    @ResponseBody
     public String spatioTemporalSQLQueryPost(@RequestBody Map<String, String> json) throws Exception {
         System.out.println(json.get("query") + " /// " + json.get("idFieldName") + " /// " + json.get("locationFieldName") + " /// " + json.get("timeFieldName"));
 
