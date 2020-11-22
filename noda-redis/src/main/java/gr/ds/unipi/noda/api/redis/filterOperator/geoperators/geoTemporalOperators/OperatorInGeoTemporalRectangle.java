@@ -30,7 +30,7 @@ final class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangle
                 "local minDate = tonumber(ARGV[9])\n" +
                 "local maxDate = tonumber(ARGV[10]) \n" +
                 "\n" +
-                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch)\n" +
+                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch, 'count', 100000000)\n" +
                 "\n" +
                 "for i, key_name in ipairs(t[2]) do \n" +
                 "\n" +
@@ -57,7 +57,7 @@ final class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangle
 
     @Override
     protected String[] getArgvArray() {
-        return new String[]{getMatchingPattern(), this.getGeographicalOperator().getFieldName()+":"+"longitude", this.getGeographicalOperator().getFieldName()+":"+"latitude", String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLatitude()), String.valueOf(getTemporalFieldName()), String.valueOf(getTemporalType().getLowerBound().getTime()), String.valueOf(getTemporalType().getUpperBound().getTime())};
+        return new String[]{getMatchingPattern(), /*this.getGeographicalOperator().getFieldName()+":"+*/"longitude", /*this.getGeographicalOperator().getFieldName()+":"+*/"latitude", String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLatitude()), String.valueOf(getTemporalFieldName()), String.valueOf(getTemporalType().getLowerBound().getTime()), String.valueOf(getTemporalType().getUpperBound().getTime())};
     }
 
 }

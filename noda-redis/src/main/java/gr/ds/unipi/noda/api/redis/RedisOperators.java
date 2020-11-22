@@ -19,23 +19,23 @@ import static gr.ds.unipi.noda.api.core.operators.FilterOperators.and;
 final class RedisOperators extends NoSqlDbOperators {
 
     private final RedisConnectionManager redisConnectionManager = RedisConnectionManager.getInstance();
-    private final Pipeline pipeline;
+    private final Map<String, Pipeline> pipelines;
     private final List<FilterOperator> filterOperatorsList = new ArrayList<>();
 
     private RedisOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
         super(noSqlDbConnector, dataCollection, sparkSession);
-        pipeline = redisConnectionManager.getConnection(getNoSqlDbConnector()).getResource().pipelined(); }
+        pipelines = redisConnectionManager.getConnection(getNoSqlDbConnector());
+    }
 
     static RedisOperators newRedisOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession){
         return new RedisOperators(noSqlDbConnector, dataCollection, sparkSession);
     }
 
-    private String executionOfOperators(){
-
+    private String executionOfOperators(String crc16Slot){
         FilterOperator fop;
 
         if(filterOperatorsList.size() == 0) {
-            return "primaryKey";
+            return getDataCollection()+":primaryKeys"+crc16Slot;
         }
         else if(filterOperatorsList.size() == 1){
             fop = filterOperatorsList.get(0);
@@ -54,28 +54,29 @@ final class RedisOperators extends NoSqlDbOperators {
 
         List<Triplet> triplets = (List<Triplet>) fop.getOperatorExpression();
 
-        System.out.println("Triplets "+ triplets.size());
+        //System.out.println("Triplets "+ triplets.size());
 
         for (Triplet triplet : triplets) {
 
             String[] arrayOfArguments = new String[triplet.getKeysArray().length + triplet.getArgvArray().length];
 
             for (int i = 0; i < triplet.getKeysArray().length; i++) {
-                arrayOfArguments[i] = getDataCollection() + ":" + triplet.getKeysArray()[i];
+                arrayOfArguments[i] = getDataCollection() + ":" + triplet.getKeysArray()[i]+crc16Slot;
             }
 
             for (int i = triplet.getKeysArray().length; i < triplet.getKeysArray().length + triplet.getArgvArray().length; i++) {
                 arrayOfArguments[i] = triplet.getArgvArray()[i-triplet.getKeysArray().length];
             }
 
-            System.out.println(triplet.getKeysArray()[0]);
-            pipeline.eval(triplet.getEvalExpression(), triplet.getKeysArray().length, arrayOfArguments);
+            pipelines.get(crc16Slot).eval(triplet.getEvalExpression(), triplet.getKeysArray().length, arrayOfArguments);
+            //pipelines.forEach(entry -> entry.getValue().eval(triplet.getEvalExpression(), triplet.getKeysArray().length, arrayOfArguments));
+            //pipeline.eval(triplet.getEvalExpression(), triplet.getKeysArray().length, arrayOfArguments);
         }
 
 //        System.out.println(triplets.get(triplets.size()-1).getKeysArray()[0] + " " + triplets.get(triplets.size()-1).getKeysArray()[1] + " " +triplets.get(triplets.size()-1).getKeysArray()[2] + " " +triplets.get(triplets.size()-1).getKeysArray()[3]);
 
 
-        return getDataCollection() + ":" + triplets.get(triplets.size()-1).getKeysArray()[0];
+        return getDataCollection() + ":" + triplets.get(triplets.size()-1).getKeysArray()[0]+crc16Slot;
 
     }
 
@@ -226,9 +227,29 @@ final class RedisOperators extends NoSqlDbOperators {
 
     @Override
     public int count() {
-        Response<Object> count = pipeline.eval("local s = redis.call('SCARD', KEYS[1])\nreturn s;",1, executionOfOperators());
-        pipeline.sync();
-        return Integer.valueOf(count.get().toString());
+        List<Response<Object>> counts = new ArrayList<>();
+
+        pipelines.forEach((s,pipeline)->
+            counts.add(pipeline.eval("local s = redis.call('SCARD', KEYS[1])\nreturn s;",1, executionOfOperators(s)))
+        );
+
+        long t1 = System.currentTimeMillis();
+        pipelines.entrySet().parallelStream().forEach((entry)->{
+            entry.getValue().sync();
+            System.out.println(entry.getKey());}
+        );
+
+        int count = 0;
+        for (Response<Object> response : counts) {
+            count = Integer.valueOf(response.get().toString()) + count;
+        }
+
+        System.out.println("required time "+(System.currentTimeMillis()- t1));
+
+        //Response<Object> count = pipeline.eval("local s = redis.call('SCARD', KEYS[1])\nreturn s;",1, executionOfOperators());
+        //pipeline.sync();
+        //return Integer.valueOf(count.get().toString());
+        return count;
     }
 
     @Override
