@@ -13,6 +13,9 @@ import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Response;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.and;
 
@@ -234,10 +237,29 @@ final class RedisOperators extends NoSqlDbOperators {
         );
 
         long t1 = System.currentTimeMillis();
-        pipelines.entrySet().parallelStream().forEach((entry)->{
-            entry.getValue().sync();
-            System.out.println(entry.getKey());}
+//        pipelines.entrySet().parallelStream().forEach((entry)->{
+//            entry.getValue().sync();
+//            System.out.println(entry.getKey());}
+//        );
+
+
+        ExecutorService es = Executors.newCachedThreadPool();
+        pipelines.forEach((s,pipeline)->
+                {es.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        pipeline.sync();
+                    }
+                });
+                }
         );
+        es.shutdown();
+
+        try {
+            boolean finshed = es.awaitTermination(1, TimeUnit.DAYS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         int count = 0;
         for (Response<Object> response : counts) {
