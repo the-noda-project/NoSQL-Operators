@@ -1,126 +1,127 @@
-<!-- web player -->
-<div class="row w-100 m-0 p-0 webPlayerPositioning" *ngIf="isSpatial === false">
-  <div
-    class="col-12 p-0"
-    style="box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.283) !important;"
-  >
+<div class="container-fluid p-0" style="height: 100vh; width: 100vw;">
+  <div class="row w-100 m-0" style="height: 8rem;">
     <div
-      class="row w-100 m-0 p-2"
-      style="background-color: rgb(85, 85, 85); border-radius: 12px;"
+      class="col-auto d-flex justify-content-center align-items-center"
+      style="background-color: #14274e; border-bottom-right-radius: 12px;"
     >
-      <div class="col-auto align-self-center" style="z-index: 1000;">
-        <div
-          class="btn btn-light font12 mr-2 p-0 pl-2 pr-2"
-          style="padding-top: 2px; padding-bottom: 2px;"
-          (click)="playSpatioTemporal()"
-        >
-          <i class="fa fa-play"></i>
+      <img
+        src="../../assets/logopapei3.png"
+        class="img-fluid"
+        style="width: 85%;"
+      />
+    </div>
+  </div>
+
+  <div
+    class="row w-100 m-0 d-flex justify-content-center"
+    style="height: calc(100vh-8rem); padding-top: 4rem;"
+  >
+    <div class="col-12">
+      <div
+        class="row w-100 m-0 d-flex justify-content-center font-weight-bold"
+        style="font-size: 2rem; color: #14274e;"
+      >
+        Choose a Database Store to connect
+      </div>
+      <div
+        class="row w-100 m-0 d-flex justify-content-center font-weight-bold"
+        style="font-size: 2rem; color: #14274e; padding-top: 8rem;"
+      >
+        <div class="col-auto">
+          <div
+            [ngClass]="{
+              oval: chosenDatabaseStore !== 'mongodb',
+              'oval-active': chosenDatabaseStore === 'mongodb'
+            }"
+            class="oval"
+          ></div>
+          <div
+            [ngClass]="{
+              lines: chosenDatabaseStore !== 'mongodb',
+              'lines-active': chosenDatabaseStore === 'mongodb'
+            }"
+            class="lines d-flex justify-content-center align-items-center"
+          >
+            <img
+              src="../../assets/MongoDB-Logo.png"
+              class="img-fluid"
+              style="height: 2.2rem; margin-top: -1rem;"
+            />
+          </div>
+          <div
+            [ngClass]="{
+              oval: chosenDatabaseStore !== 'mongodb',
+              'oval-active': chosenDatabaseStore === 'mongodb'
+            }"
+            class="oval"
+            style="margin-top: 2.4rem;"
+          ></div>
+          <div class="text-center mt-3">
+            <i
+              *ngIf="chosenDatabaseStore !== 'mongodb'"
+              (click)="chooseDatabaseStore('mongodb')"
+              class="far fa-square pointerToClick"
+            ></i>
+            <i
+              *ngIf="chosenDatabaseStore === 'mongodb'"
+              class="fas fa-check-square pointerToClick"
+            ></i>
+          </div>
         </div>
-        <div
-          class="btn btn-light font12 mr-2 p-0 pl-2 pr-2"
-          style="padding-top: 2px; padding-bottom: 2px;"
-        >
-          <i class="fa fa-pause"></i>
+        <div class="col-auto ml-5">
+          <div
+            [ngClass]="{
+              oval: chosenDatabaseStore !== 'neo4j',
+              'oval-active': chosenDatabaseStore === 'neo4j'
+            }"
+            class="oval"
+          ></div>
+          <div
+            [ngClass]="{
+              lines: chosenDatabaseStore !== 'neo4j',
+              'lines-active': chosenDatabaseStore === 'neo4j'
+            }"
+            class="lines d-flex justify-content-center align-items-center"
+          >
+            <img
+              src="../../assets/neo4j_logo.png"
+              class="img-fluid"
+              style="height: 2.2rem;"
+            />
+          </div>
+          <div
+            [ngClass]="{
+              oval: chosenDatabaseStore !== 'neo4j',
+              'oval-active': chosenDatabaseStore === 'neo4j'
+            }"
+            class="oval"
+            style="margin-top: 2.4rem;"
+          ></div>
+          <div class="text-center mt-3">
+            <i
+              *ngIf="chosenDatabaseStore !== 'neo4j'"
+              (click)="chooseDatabaseStore('neo4j')"
+              class="far fa-square pointerToClick"
+            ></i>
+            <i
+              *ngIf="chosenDatabaseStore === 'neo4j'"
+              class="fas fa-check-square pointerToClick"
+            ></i>
+          </div>
         </div>
       </div>
       <div
-        class="col-12 p-0 text-center text-white font14"
-        style="position: absolute; top: 10px;"
+        class="row w-100 m-0 d-flex justify-content-center font-weight-bold"
+        style="font-size: 2rem; color: #14274e; padding-top: 6rem;"
       >
-        <span class="font-weight-bold mr-3">Period Displayed :</span>
-        <div
-          class="btn btn-light font12 mr-2 p-0 pl-2 pr-2"
-          style="padding-top: 2px; padding-bottom: 2px;"
+        <button
+          class="btn font-weight-bold"
+          (click)="goToVisualization()"
+          style="color: #14274e; font-size: 1.6rem; border: 2px solid #14274e;"
         >
-          <i class="fa fa-backward"></i>
-        </div>
-        {{ value | date: 'dd/MM/yyyy HH:mm:ss' }} -
-        {{ maxValue | date: 'dd/MM/yyyy HH:mm:ss' }}
-        <div
-          class="btn btn-light font12 ml-2 p-0 pl-2 pr-2"
-          style="padding-top: 2px; padding-bottom: 2px;"
-        >
-          <i class="fa fa-forward"></i>
-        </div>
-      </div>
-      <ng5-slider [(value)]="value" [(highValue)]="maxValue" [(options)]="opt">
-      </ng5-slider>
-      <div class="col-6 pl-0 text-white font12">
-        <input
-          *ngIf="changeFloor"
-          type="datetime-local"
-          class="inputOfDates"
-          [(ngModel)]="opt.floor"
-          [ngModelOptions]="{ standalone: true }"
-        />
-        <span *ngIf="!changeFloor">{{
-          opt.floor | date: 'dd/MM/yyyy HH:mm:ss'
-        }}</span>
-        <i
-          class="fa fa-edit ml-2 pointerToClick"
-          *ngIf="!changeFloor"
-          (click)="changeFloorOrCeil('floor')"
-          style="color: white !important;"
-        ></i>
-        <i
-          class="fa fa-check ml-2 pointerToClick"
-          *ngIf="changeFloor"
-          (click)="changeFloorOrCeil('floor')"
-          style="color: white !important;"
-        ></i>
-      </div>
-      <div class="col-6 text-right pr-0 text-white font12">
-        <input
-          *ngIf="changeCeil"
-          type="datetime-local"
-          class="inputOfDates"
-          [(ngModel)]="opt.ceil"
-          [ngModelOptions]="{ standalone: true }"
-        />
-        <span *ngIf="!changeCeil">{{
-          opt.ceil | date: 'dd/MM/yyyy HH:mm:ss'
-        }}</span>
-        <i
-          class="fa fa-edit ml-2 pointerToClick"
-          *ngIf="!changeCeil"
-          (click)="changeFloorOrCeil('ceil')"
-          style="color: white !important;"
-        ></i>
-        <i
-          class="fa fa-check ml-2 pointerToClick"
-          *ngIf="changeCeil"
-          (click)="changeFloorOrCeil('ceil')"
-          style="color: white !important;"
-        ></i>
-      </div>
-      <!-- <div class="col-auto pl-0 text-white font12 mt-2">Window : <input type="number" class="inputs" ></div> -->
-      <div class="col-auto text-white font12 mt-3 pl-0">
-        Window (hours) :
-        <input
-          type="number"
-          class="inputs"
-          [(ngModel)]="windowBetweenFloorAndCeil"
-          [ngModelOptions]="{ standalone: true }"
-        />
-      </div>
-      <div class="col-auto text-white font12 mt-3 pl-0">
-        FPS :
-        <input
-          type="number"
-          class="inputs"
-          [(ngModel)]="fps"
-          [ngModelOptions]="{ standalone: true }"
-        />
+          Next <i style="color: #14274e;" class="fa fa-angle-right ml-2"></i>
+        </button>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Leaflet map for visualization -->
-<div
-  style="height: 100vh;"
-  leaflet
-  [leafletOptions]="options"
-  [leafletLayers]="layers"
-  (leafletMapReady)="onMapReady($event)"
-></div>

@@ -24,15 +24,15 @@ export class QuoteService {
       .toPromise();
   }
 
-  getNodaSTData() {
-    return this.httpClient
-      .get('/noda-st-timelapse', { responseType: 'text' })
-      .toPromise();
-  }
+  // getNodaSTData() {
+  //   return this.httpClient
+  //     .get('/noda-st-timelapse', { responseType: 'text' })
+  //     .toPromise();
+  // }
 
-  getNodaSpatialData() {
-    return this.httpClient
-      .get('/noda-spatial', { responseType: 'text' })
-      .toPromise();
-  }
+  // getNodaSpatialData() {
+  //   return this.httpClient
+  //     .get('/noda-spatial', { responseType: 'text' })
+  //     .toPromise();
+  // }
 }

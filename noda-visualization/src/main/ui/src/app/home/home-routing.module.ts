@@ -1,9 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
+import { Shell } from '@app/shell/shell.service';
 
 const routes: Routes = [
-  { path: 'visualization/:case', component: HomeComponent },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
+  Shell.childRoutes([
+    {
+      path: '',
+      component: HomeComponent,
+      // data: { title: extract('Home') },
+    },
+  ]),
+
+  // { path: 'visualization/:case', component: HomeComponent },
 ];
 
 @NgModule({

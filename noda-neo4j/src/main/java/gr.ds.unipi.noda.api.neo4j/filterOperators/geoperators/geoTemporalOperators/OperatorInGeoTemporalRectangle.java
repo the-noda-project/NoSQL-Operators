@@ -33,8 +33,8 @@ final class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangle
         Date lowerDate = new Date(getTemporalType().getLowerBound().getTime());
         Date upperDate = new Date(getTemporalType().getUpperBound().getTime());
 
-        Date lowerHilbertDate = new Date(1546992000000L);
-        Date upperHilbertDate = new Date(1554854399000L);
+        Date lowerHilbertDate = new Date(1180332000000L);
+        Date upperHilbertDate = new Date(1180830647000L);
 
         long[] point1 = scalePoint(getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLatitude(), getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLongitude(), lowerDate.getTime(), lowerHilbertDate.getTime(), upperHilbertDate.getTime(), maxOrdinates);
         long[] point2 = scalePoint(getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLatitude(), getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLongitude(), lowerDate.getTime(), lowerHilbertDate.getTime(), upperHilbertDate.getTime(), maxOrdinates);

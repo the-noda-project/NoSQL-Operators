@@ -298,7 +298,7 @@ final class Neo4jOperators extends NoSqlDbOperators {
     @Override
     public Dataset<Row> toDataframe() {
         //ΤODO  inside dataframe method use must put the name of the columns
-        sb.append(" RETURN s.MMSI AS MMSI, toString(s.spatialPoint) AS spatialPoint, s.LAT as LAT, s.LON as LON, s.Timestamp AS Timestamp");
+        sb.append(" RETURN s.car_Id AS car_Id, toString(s.location) AS location, s.Timestamp AS Timestamp");
         System.out.println(sb);
 
 

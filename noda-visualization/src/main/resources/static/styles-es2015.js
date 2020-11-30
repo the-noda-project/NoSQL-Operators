@@ -1,6 +1,40 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([
   ["styles"],
   {
+    /***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/leaflet-draw/dist/leaflet.draw.css":
+      /*!******************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--12-1!./node_modules/postcss-loader/src??embedded!./node_modules/leaflet-draw/dist/leaflet.draw.css ***!
+  \******************************************************************************************************************************************************/
+      /*! no static exports found */
+      /***/ function (module, exports, __webpack_require__) {
+        // Imports
+        var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(
+          /*! ../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js"
+        );
+        exports = ___CSS_LOADER_API_IMPORT___(true);
+        // Module
+        exports.push([
+          module.i,
+          ".leaflet-draw-section{position:relative}.leaflet-draw-toolbar{margin-top:12px}.leaflet-draw-toolbar-top{margin-top:0}.leaflet-draw-toolbar-notop a:first-child{border-top-right-radius:0}.leaflet-draw-toolbar-nobottom a:last-child{border-bottom-right-radius:0}.leaflet-draw-toolbar a{background-image:url('spritesheet.png');background-image:linear-gradient(transparent,transparent),url('spritesheet.svg');background-repeat:no-repeat;background-size:300px 30px;background-clip:padding-box}.leaflet-retina .leaflet-draw-toolbar a{background-image:url('spritesheet-2x.png');background-image:linear-gradient(transparent,transparent),url('spritesheet.svg')}.leaflet-draw a{display:block;text-align:center;text-decoration:none}.leaflet-draw a .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}.leaflet-draw-actions{display:none;list-style:none;margin:0;padding:0;position:absolute;left:26px;top:0;white-space:nowrap}.leaflet-touch .leaflet-draw-actions{left:32px}.leaflet-right .leaflet-draw-actions{right:26px;left:auto}.leaflet-touch .leaflet-right .leaflet-draw-actions{right:32px;left:auto}.leaflet-draw-actions li{display:inline-block}.leaflet-draw-actions li:first-child a{border-left:0}.leaflet-draw-actions li:last-child a{border-radius:0 4px 4px 0}.leaflet-right .leaflet-draw-actions li:last-child a{border-radius:0}.leaflet-right .leaflet-draw-actions li:first-child a{border-radius:4px 0 0 4px}.leaflet-draw-actions a{background-color:#919187;border-left:1px solid #AAA;color:#FFF;font:11px/19px \"Helvetica Neue\",Arial,Helvetica,sans-serif;line-height:28px;text-decoration:none;padding-left:10px;padding-right:10px;height:28px}.leaflet-touch .leaflet-draw-actions a{font-size:12px;line-height:30px;height:30px}.leaflet-draw-actions-bottom{margin-top:0}.leaflet-draw-actions-top{margin-top:1px}.leaflet-draw-actions-top a,.leaflet-draw-actions-bottom a{height:27px;line-height:27px}.leaflet-draw-actions a:hover{background-color:#a0a098}.leaflet-draw-actions-top.leaflet-draw-actions-bottom a{height:26px;line-height:26px}.leaflet-draw-toolbar .leaflet-draw-draw-polyline{background-position:-2px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polyline{background-position:0 -1px}.leaflet-draw-toolbar .leaflet-draw-draw-polygon{background-position:-31px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polygon{background-position:-29px -1px}.leaflet-draw-toolbar .leaflet-draw-draw-rectangle{background-position:-62px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-rectangle{background-position:-60px -1px}.leaflet-draw-toolbar .leaflet-draw-draw-circle{background-position:-92px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-circle{background-position:-90px -1px}.leaflet-draw-toolbar .leaflet-draw-draw-marker{background-position:-122px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-marker{background-position:-120px -1px}.leaflet-draw-toolbar .leaflet-draw-draw-circlemarker{background-position:-273px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-circlemarker{background-position:-271px -1px}.leaflet-draw-toolbar .leaflet-draw-edit-edit{background-position:-152px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit{background-position:-150px -1px}.leaflet-draw-toolbar .leaflet-draw-edit-remove{background-position:-182px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove{background-position:-180px -1px}.leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled{background-position:-212px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled{background-position:-210px -1px}.leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled{background-position:-242px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled{background-position:-240px -2px}.leaflet-mouse-marker{background-color:#fff;cursor:crosshair}.leaflet-draw-tooltip{background:#363636;background:rgba(0,0,0,0.5);border:1px solid transparent;border-radius:4px;color:#fff;font:12px/18px \"Helvetica Neue\",Arial,Helvetica,sans-serif;margin-left:20px;margin-top:-21px;padding:4px 8px;position:absolute;visibility:hidden;white-space:nowrap;z-index:6}.leaflet-draw-tooltip:before{border-right:6px solid black;border-right-color:rgba(0,0,0,0.5);border-top:6px solid transparent;border-bottom:6px solid transparent;content:\"\";position:absolute;top:7px;left:-7px}.leaflet-error-draw-tooltip{background-color:#f2dede;border:1px solid #e6b6bd;color:#b94a48}.leaflet-error-draw-tooltip:before{border-right-color:#e6b6bd}.leaflet-draw-tooltip-single{margin-top:-12px}.leaflet-draw-tooltip-subtext{color:#f8d5e4}.leaflet-draw-guide-dash{font-size:1%;opacity:.6;position:absolute;width:5px;height:5px}.leaflet-edit-marker-selected{background-color:rgba(254,87,161,0.1);border:4px dashed rgba(254,87,161,0.6);border-radius:4px;box-sizing:content-box}.leaflet-edit-move{cursor:move}.leaflet-edit-resize{cursor:pointer}.leaflet-oldie .leaflet-draw-toolbar{border:1px solid #999}",
+          "",
+          {
+            version: 3,
+            sources: ["leaflet.draw.css"],
+            names: [],
+            mappings:
+              "AAAA,sBAAsB,iBAAiB,CAAC,sBAAsB,eAAe,CAAC,0BAA0B,YAAY,CAAC,0CAA0C,yBAAyB,CAAC,4CAA4C,4BAA4B,CAAC,wBAAwB,uCAA8C,CAAC,gFAAuF,CAAC,2BAA2B,CAAC,0BAA0B,CAAC,2BAA2B,CAAC,wCAAwC,0CAAiD,CAAC,gFAAuF,CACrqB,gBAAgB,aAAa,CAAC,iBAAiB,CAAC,oBAAoB,CAAC,yBAAyB,iBAAiB,CAAC,SAAS,CAAC,UAAU,CAAC,SAAS,CAAC,WAAW,CAAC,eAAe,CAAC,kBAAkB,CAAC,QAAQ,CAAC,sBAAsB,YAAY,CAAC,eAAe,CAAC,QAAQ,CAAC,SAAS,CAAC,iBAAiB,CAAC,SAAS,CAAC,KAAK,CAAC,kBAAkB,CAAC,qCAAqC,SAAS,CAAC,qCAAqC,UAAU,CAAC,SAAS,CAAC,oDAAoD,UAAU,CAAC,SAAS,CAAC,yBAAyB,oBAAoB,CACjiB,uCAAuC,aAAa,CAAC,sCAAwE,yBAAyB,CAAC,qDAA6E,eAAe,CAAC,sDAAwF,yBAAyB,CAAC,wBAAwB,wBAAwB,CAAC,0BAA0B,CAAC,UAAU,CAAC,0DAA0D,CAAC,gBAAgB,CAAC,oBAAoB,CAAC,iBAAiB,CAAC,kBAAkB,CAAC,WAAW,CAC9kB,uCAAuC,cAAc,CAAC,gBAAgB,CAAC,WAAW,CAAC,6BAA6B,YAAY,CAAC,0BAA0B,cAAc,CAAC,2DAA2D,WAAW,CAAC,gBAAgB,CAAC,8BAA8B,wBAAwB,CAAC,wDAAwD,WAAW,CAAC,gBAAgB,CAAC,kDAAkD,6BAA6B,CAAC,iEAAiE,0BAA0B,CACrjB,iDAAiD,8BAA8B,CAAC,gEAAgE,8BAA8B,CAAC,mDAAmD,8BAA8B,CAAC,kEAAkE,8BAA8B,CAAC,gDAAgD,8BAA8B,CAAC,+DAA+D,8BAA8B,CAC9gB,gDAAgD,+BAA+B,CAAC,+DAA+D,+BAA+B,CAAC,sDAAsD,+BAA+B,CAAC,qEAAqE,+BAA+B,CAAC,8CAA8C,+BAA+B,CAAC,6DAA6D,+BAA+B,CACphB,gDAAgD,+BAA+B,CAAC,+DAA+D,+BAA+B,CAAC,+DAA+D,+BAA+B,CAAC,8EAA8E,+BAA+B,CAAC,iEAAiE,+BAA+B,CAAC,gFAAgF,+BAA+B,CAC5kB,sBAAsB,qBAAqB,CAAC,gBAAgB,CAAC,sBAAsB,kBAAkB,CAAC,0BAA0B,CAAC,4BAA4B,CAA2B,iBAAiB,CAAC,UAAU,CAAC,0DAA0D,CAAC,gBAAgB,CAAC,gBAAgB,CAAC,eAAe,CAAC,iBAAiB,CAAC,iBAAiB,CAAC,kBAAkB,CAAC,SAAS,CAAC,6BAA6B,4BAA4B,CAAC,kCAAkC,CAAC,gCAAgC,CAAC,mCAAmC,CAAC,UAAU,CAAC,iBAAiB,CAAC,OAAO,CAAC,SAAS,CACnlB,4BAA4B,wBAAwB,CAAC,wBAAwB,CAAC,aAAa,CAAC,mCAAmC,0BAA0B,CAAC,6BAA6B,gBAAgB,CAAC,8BAA8B,aAAa,CAAC,yBAAyB,YAAY,CAAC,UAAU,CAAC,iBAAiB,CAAC,SAAS,CAAC,UAAU,CAAC,8BAA8B,qCAAqC,CAAC,sCAAsC,CAA2B,iBAAiB,CAAC,sBAAsB,CACzf,mBAAmB,WAAW,CAAC,qBAAqB,cAAc,CAAC,qCAAqC,qBAAqB",
+            file: "leaflet.draw.css",
+            sourcesContent: [
+              ".leaflet-draw-section{position:relative}.leaflet-draw-toolbar{margin-top:12px}.leaflet-draw-toolbar-top{margin-top:0}.leaflet-draw-toolbar-notop a:first-child{border-top-right-radius:0}.leaflet-draw-toolbar-nobottom a:last-child{border-bottom-right-radius:0}.leaflet-draw-toolbar a{background-image:url('images/spritesheet.png');background-image:linear-gradient(transparent,transparent),url('images/spritesheet.svg');background-repeat:no-repeat;background-size:300px 30px;background-clip:padding-box}.leaflet-retina .leaflet-draw-toolbar a{background-image:url('images/spritesheet-2x.png');background-image:linear-gradient(transparent,transparent),url('images/spritesheet.svg')}\n.leaflet-draw a{display:block;text-align:center;text-decoration:none}.leaflet-draw a .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}.leaflet-draw-actions{display:none;list-style:none;margin:0;padding:0;position:absolute;left:26px;top:0;white-space:nowrap}.leaflet-touch .leaflet-draw-actions{left:32px}.leaflet-right .leaflet-draw-actions{right:26px;left:auto}.leaflet-touch .leaflet-right .leaflet-draw-actions{right:32px;left:auto}.leaflet-draw-actions li{display:inline-block}\n.leaflet-draw-actions li:first-child a{border-left:0}.leaflet-draw-actions li:last-child a{-webkit-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0}.leaflet-right .leaflet-draw-actions li:last-child a{-webkit-border-radius:0;border-radius:0}.leaflet-right .leaflet-draw-actions li:first-child a{-webkit-border-radius:4px 0 0 4px;border-radius:4px 0 0 4px}.leaflet-draw-actions a{background-color:#919187;border-left:1px solid #AAA;color:#FFF;font:11px/19px \"Helvetica Neue\",Arial,Helvetica,sans-serif;line-height:28px;text-decoration:none;padding-left:10px;padding-right:10px;height:28px}\n.leaflet-touch .leaflet-draw-actions a{font-size:12px;line-height:30px;height:30px}.leaflet-draw-actions-bottom{margin-top:0}.leaflet-draw-actions-top{margin-top:1px}.leaflet-draw-actions-top a,.leaflet-draw-actions-bottom a{height:27px;line-height:27px}.leaflet-draw-actions a:hover{background-color:#a0a098}.leaflet-draw-actions-top.leaflet-draw-actions-bottom a{height:26px;line-height:26px}.leaflet-draw-toolbar .leaflet-draw-draw-polyline{background-position:-2px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polyline{background-position:0 -1px}\n.leaflet-draw-toolbar .leaflet-draw-draw-polygon{background-position:-31px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polygon{background-position:-29px -1px}.leaflet-draw-toolbar .leaflet-draw-draw-rectangle{background-position:-62px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-rectangle{background-position:-60px -1px}.leaflet-draw-toolbar .leaflet-draw-draw-circle{background-position:-92px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-circle{background-position:-90px -1px}\n.leaflet-draw-toolbar .leaflet-draw-draw-marker{background-position:-122px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-marker{background-position:-120px -1px}.leaflet-draw-toolbar .leaflet-draw-draw-circlemarker{background-position:-273px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-circlemarker{background-position:-271px -1px}.leaflet-draw-toolbar .leaflet-draw-edit-edit{background-position:-152px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit{background-position:-150px -1px}\n.leaflet-draw-toolbar .leaflet-draw-edit-remove{background-position:-182px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove{background-position:-180px -1px}.leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled{background-position:-212px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-edit.leaflet-disabled{background-position:-210px -1px}.leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled{background-position:-242px -2px}.leaflet-touch .leaflet-draw-toolbar .leaflet-draw-edit-remove.leaflet-disabled{background-position:-240px -2px}\n.leaflet-mouse-marker{background-color:#fff;cursor:crosshair}.leaflet-draw-tooltip{background:#363636;background:rgba(0,0,0,0.5);border:1px solid transparent;-webkit-border-radius:4px;border-radius:4px;color:#fff;font:12px/18px \"Helvetica Neue\",Arial,Helvetica,sans-serif;margin-left:20px;margin-top:-21px;padding:4px 8px;position:absolute;visibility:hidden;white-space:nowrap;z-index:6}.leaflet-draw-tooltip:before{border-right:6px solid black;border-right-color:rgba(0,0,0,0.5);border-top:6px solid transparent;border-bottom:6px solid transparent;content:\"\";position:absolute;top:7px;left:-7px}\n.leaflet-error-draw-tooltip{background-color:#f2dede;border:1px solid #e6b6bd;color:#b94a48}.leaflet-error-draw-tooltip:before{border-right-color:#e6b6bd}.leaflet-draw-tooltip-single{margin-top:-12px}.leaflet-draw-tooltip-subtext{color:#f8d5e4}.leaflet-draw-guide-dash{font-size:1%;opacity:.6;position:absolute;width:5px;height:5px}.leaflet-edit-marker-selected{background-color:rgba(254,87,161,0.1);border:4px dashed rgba(254,87,161,0.6);-webkit-border-radius:4px;border-radius:4px;box-sizing:content-box}\n.leaflet-edit-move{cursor:move}.leaflet-edit-resize{cursor:pointer}.leaflet-oldie .leaflet-draw-toolbar{border:1px solid #999}",
+            ],
+          },
+        ]);
+        // Exports
+        module.exports = exports;
+
+        /***/
+      },
+
     /***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/leaflet/dist/leaflet.css":
       /*!********************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??ref--12-1!./node_modules/postcss-loader/src??embedded!./node_modules/leaflet/dist/leaflet.css ***!
@@ -376,6 +410,39 @@
         /***/
       },
 
+    /***/ "./node_modules/leaflet-draw/dist/leaflet.draw.css":
+      /*!*********************************************************!*\
+  !*** ./node_modules/leaflet-draw/dist/leaflet.draw.css ***!
+  \*********************************************************/
+      /*! no static exports found */
+      /***/ function (module, exports, __webpack_require__) {
+        var api = __webpack_require__(
+          /*! ../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js"
+        );
+        var content = __webpack_require__(
+          /*! !../../css-loader/dist/cjs.js??ref--12-1!../../postcss-loader/src??embedded!./leaflet.draw.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/leaflet-draw/dist/leaflet.draw.css"
+        );
+
+        content = content.__esModule ? content.default : content;
+
+        if (typeof content === "string") {
+          content = [[module.i, content, ""]];
+        }
+
+        var options = {};
+
+        options.insert = "head";
+        options.singleton = false;
+
+        var update = api(content, options);
+
+        var exported = content.locals ? content.locals : {};
+
+        module.exports = exported;
+
+        /***/
+      },
+
     /***/ "./node_modules/leaflet/dist/leaflet.css":
       /*!***********************************************!*\
   !*** ./node_modules/leaflet/dist/leaflet.css ***!
@@ -738,16 +805,19 @@
       },
 
     /***/ 3:
-      /*!*********************************************************************!*\
-  !*** multi ./src/main.scss ./node_modules/leaflet/dist/leaflet.css ***!
-  \*********************************************************************/
+      /*!***********************************************************************************************************************!*\
+  !*** multi ./src/main.scss ./node_modules/leaflet/dist/leaflet.css ./node_modules/leaflet-draw/dist/leaflet.draw.css ***!
+  \***********************************************************************************************************************/
       /*! no static exports found */
       /***/ function (module, exports, __webpack_require__) {
         __webpack_require__(
           /*! /Users/nikoskous/NoSQL-Operators/noda-visualization/src/main/ui/src/main.scss */ "./src/main.scss"
         );
-        module.exports = __webpack_require__(
+        __webpack_require__(
           /*! /Users/nikoskous/NoSQL-Operators/noda-visualization/src/main/ui/node_modules/leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css"
+        );
+        module.exports = __webpack_require__(
+          /*! /Users/nikoskous/NoSQL-Operators/noda-visualization/src/main/ui/node_modules/leaflet-draw/dist/leaflet.draw.css */ "./node_modules/leaflet-draw/dist/leaflet.draw.css"
         );
 
         /***/
