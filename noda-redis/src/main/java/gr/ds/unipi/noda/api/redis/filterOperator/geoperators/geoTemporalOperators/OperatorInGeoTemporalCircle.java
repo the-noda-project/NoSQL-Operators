@@ -39,13 +39,14 @@ final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, Temp
                 "\n" +
                 "for i, key_name in ipairs(t[2]) do \n" +
                 "\n" +
-                "  local s = redis.call(\"HMGET\", key_name, longitudeField, latitudeField, timestampField)\n" +
+                "  local pruned = string.match(key_name, \"-([^-]+)$\")"+
+                "  local s = redis.call(\"HMGET\", pruned, longitudeField, latitudeField, timestampField)\n" +
                 "  local longitude = tonumber(s[1])\n" +
                 "  local latitude = tonumber(s[2])\n" +
                 "  local timestamp = tonumber(s[3])\n" +
                 "\n" +
                 "  if (timestamp >= minDate and timestamp <= maxDate and haversine(centerLongitude, centerLatitude, longitude, latitude) <= radius) then\n" +
-                "    table.insert(temp, key_name)\n" +
+                "    table.insert(temp, pruned)\n" +
                 "  end\n" +
                 "\n" +
                 "  if #temp >= 1000 then\n" +

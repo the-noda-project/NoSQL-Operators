@@ -34,12 +34,13 @@ public final class OperatorInGeoCircle extends GeographicalOperator<Circle> {
                 "\n" +
                 "for i, key_name in ipairs(t[2]) do \n" +
                 "\n" +
-                "  local s = redis.call(\"HMGET\", key_name, longitudeField, latitudeField)\n" +
+                "  local pruned = string.match(key_name, \"-([^-]+)$\")"+
+                "  local s = redis.call(\"HMGET\", pruned, longitudeField, latitudeField)\n" +
                 "  local longitude = tonumber(s[1])\n" +
                 "  local latitude = tonumber(s[2])\n" +
                 "\n" +
                 "  if (haversine(centerLongitude, centerLatitude, longitude, latitude) <= radius) then\n" +
-                "    table.insert(temp, key_name)\n" +
+                "    table.insert(temp, pruned)\n" +
                 "  end\n" +
                 "\n" +
                 "  if #temp >= 1000 then\n" +

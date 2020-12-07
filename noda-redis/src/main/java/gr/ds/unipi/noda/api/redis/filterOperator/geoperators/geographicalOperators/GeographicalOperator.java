@@ -27,7 +27,7 @@ abstract class GeographicalOperator<T extends Geometry> extends gr.ds.unipi.noda
     protected abstract String getEvalExpression();
 
     private String[] getKeysArray(){
-        return new String[]{getRandomString(), "primaryKeys"};
+        return new String[]{getRandomString(), /*"primaryKeys"*/getFieldName()};
     }
 
     protected abstract String[] getArgvArray();
