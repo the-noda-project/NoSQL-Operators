@@ -41,8 +41,8 @@ final class OperatorEqual<T> extends ComparisonOperator<T> {
         return new OperatorEqual(fieldName, fieldValue);
     }
 
-    public static OperatorEqual<Date> newOperatorEqual(String fieldName, Date fieldValue) {
-        return new OperatorEqual(fieldName, fieldValue);
+    public static OperatorEqual<Long> newOperatorEqual(String fieldName, Date fieldValue) {
+        return new OperatorEqual(fieldName, fieldValue.getTime());
     }
 
     public static OperatorEqual<Boolean> newOperatorEqual(String fieldName, Boolean fieldValue) {

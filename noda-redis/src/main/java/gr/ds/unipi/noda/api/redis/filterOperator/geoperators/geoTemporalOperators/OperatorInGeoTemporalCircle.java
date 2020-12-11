@@ -16,11 +16,11 @@ final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, Temp
 
     @Override
     protected String getEvalExpression() {
-        return "local r =0.017453292519943295769236907684886127;\n" +
+        return "local r =0.017453292519943295769236907684886;\n" +
                 "  local function haversine(x1, y1, x2, y2)\n" +
-                "  x1= x1*r; x2= x2*r; y1= y1*r; y2= y2*r; local dy = y2-y1; local dx = x2-x1;\n" +
-                "  local a = math.pow(math.sin(dx/2),2) + math.cos(x1) * math.cos(x2) * math.pow(math.sin(dy/2),2); local c = 2 * math.asin(math.sqrt(a));\n" +
-                "  return 6372.8 * c * 1000;\n" +
+                "  x1= x1*r; x2= x2*r; y1= y1*r; y2= y2*r; local u = math.sin((y2-y1)/2); local v = math.sin((x2-x1)/2);\n" +
+                "  local a = math.pow(u,2) + math.cos(y1) * math.cos(y2) * math.pow(v,2); local c = 2 * math.asin(math.sqrt(a));\n" +
+                "  return 6372797.560856 * c ;\n" +
                 "end\n" +
                 "\n" +
                 "local temp = {}\n" +
@@ -35,7 +35,7 @@ final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, Temp
                 "local minDate = tonumber(ARGV[8])\n" +
                 "local maxDate = tonumber(ARGV[9]) \n" +
                 "\n" +
-                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch)\n" +
+                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch, 'count', 100000000)\n" +
                 "\n" +
                 "for i, key_name in ipairs(t[2]) do \n" +
                 "\n" +
@@ -63,7 +63,7 @@ final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, Temp
 
     @Override
     protected String[] getArgvArray() {
-        return new String[]{getMatchingPattern(), this.getGeographicalOperator().getFieldName()+":"+"longitude", this.getGeographicalOperator().getFieldName()+":"+"latitude", String.valueOf(getGeographicalOperator().getGeometry().getCircleCenter().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getCircleCenter().getLatitude()), String.valueOf(getGeographicalOperator().getGeometry().getRadius()), String.valueOf(getTemporalFieldName()), String.valueOf(getTemporalType().getLowerBound().getTime()), String.valueOf(getTemporalType().getUpperBound().getTime())};
+        return new String[]{getMatchingPattern(), /*this.getGeographicalOperator().getFieldName()+":"+*/"longitude", /*this.getGeographicalOperator().getFieldName()+":"+*/"latitude", String.valueOf(getGeographicalOperator().getGeometry().getCircleCenter().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getCircleCenter().getLatitude()), String.valueOf(getGeographicalOperator().getGeometry().getRadius()), String.valueOf(getTemporalFieldName()), String.valueOf(getTemporalType().getLowerBound().getTime()), String.valueOf(getTemporalType().getUpperBound().getTime())};
     }
 
 }

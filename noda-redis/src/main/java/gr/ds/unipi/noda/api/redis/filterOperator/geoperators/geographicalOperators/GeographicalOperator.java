@@ -16,7 +16,6 @@ abstract class GeographicalOperator<T extends Geometry> extends gr.ds.unipi.noda
     private final String randomString;
 
     public String getMatchingPattern(){
-        System.out.println(RedisGeographicalOperatorFactory.getGeoHashPart(this.getGeometry())+"-*");
         return RedisGeographicalOperatorFactory.getGeoHashPart(this.getGeometry())+"-*";
     }
 

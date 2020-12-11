@@ -20,7 +20,7 @@ public final class OperatorInGeoRectangle extends GeographicalOperator<Rectangle
                 "local minLat = tonumber(ARGV[6])\n" +
                 "local maxLat = tonumber(ARGV[7])\n" +
                 "\n" +
-                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch)\n" +
+                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch, 'count', 100000000)\n" +
                 "\n" +
                 "for i, key_name in ipairs(t[2]) do \n" +
                 "\n" +
@@ -47,7 +47,7 @@ public final class OperatorInGeoRectangle extends GeographicalOperator<Rectangle
 
     @Override
     protected String[] getArgvArray() {
-        return new String[]{getMatchingPattern(), getFieldName()+":"+"longitude", getFieldName()+":"+"latitude", String.valueOf(getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeometry().getUpperBound().getLatitude())};
+        return new String[]{getMatchingPattern(), /*getFieldName()+":"+*/"longitude", /*getFieldName()+":"+*/"latitude", String.valueOf(getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeometry().getUpperBound().getLatitude())};
     }
 
     public static OperatorInGeoRectangle newOperatorInGeoRectangle(String fieldName, Rectangle rectangle) {

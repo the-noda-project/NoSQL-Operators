@@ -42,6 +42,17 @@ public final class RedisGeoTemporalOperatorFactory extends BaseGeoTemporalOperat
     }
 
     public static String getTemporalPart(Date lowerDate, Date upperDate){
-        return String.format("%-13s", Commons.commonPrefix(String.valueOf(lowerDate.getTime()), String.valueOf(upperDate.getTime()))).replace(' ','?');
+
+        String lowerDateStr = String.valueOf(lowerDate.getTime());
+        String upperDateStr = String.valueOf(upperDate.getTime());
+
+        String commonPrefix = Commons.commonPrefix(String.valueOf(lowerDate.getTime()), String.valueOf(upperDate.getTime()));
+
+        if(commonPrefix.length()<13){
+            String criticalPosition = "[" + lowerDateStr.charAt(commonPrefix.length())+"-"+upperDateStr.charAt(commonPrefix.length())+"]";
+            return String.format("%-17s", commonPrefix + criticalPosition).replace(' ','?');
+        }else{
+            return String.format("%-13s", commonPrefix).replace(' ','?');
+        }
     }
 }

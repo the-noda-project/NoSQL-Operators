@@ -266,7 +266,7 @@ final class RedisOperators extends NoSqlDbOperators {
             count = Integer.valueOf(response.get().toString()) + count;
         }
 
-        System.out.println("required time "+(System.currentTimeMillis()- t1));
+        System.out.println((System.currentTimeMillis()- t1));
 
         //Response<Object> count = pipeline.eval("local s = redis.call('SCARD', KEYS[1])\nreturn s;",1, executionOfOperators());
         //pipeline.sync();

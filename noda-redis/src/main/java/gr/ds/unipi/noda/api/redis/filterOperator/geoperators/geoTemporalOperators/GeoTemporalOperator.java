@@ -22,6 +22,7 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
     public String getMatchingPattern(){
 
         if(getTemporalType() instanceof TemporalBounds){
+            System.out.println(RedisGeographicalOperatorFactory.getGeoHashPart(getGeographicalOperator().getGeometry()) +"-"+RedisGeoTemporalOperatorFactory.getTemporalPart(((TemporalBounds) getTemporalType()).getLowerBound(), ((TemporalBounds) getTemporalType()).getUpperBound())+"-*");
             return RedisGeographicalOperatorFactory.getGeoHashPart(getGeographicalOperator().getGeometry()) +"-"+RedisGeoTemporalOperatorFactory.getTemporalPart(((TemporalBounds) getTemporalType()).getLowerBound(), ((TemporalBounds) getTemporalType()).getUpperBound())+"-*";
         }
         else{

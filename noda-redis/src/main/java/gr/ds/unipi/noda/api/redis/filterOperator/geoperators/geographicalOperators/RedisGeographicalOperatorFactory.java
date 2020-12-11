@@ -28,6 +28,7 @@ public final class RedisGeographicalOperatorFactory extends BaseGeographicalOper
 
     public static String getGeoHashPart(Geometry geometry){
         Rectangle mbr = geometry.getMbr();
+        System.out.println("( "+mbr.getLowerBound().getLongitude()+ ", " +mbr.getLowerBound().getLatitude()+")"+", ("+mbr.getUpperBound().getLongitude()+ ", " +mbr.getUpperBound().getLatitude() +")");
         int length = 5;
         String geoHash = (String) GeoHash.coverBoundingBoxMaxHashes(mbr.getUpperBound().getLatitude(), mbr.getLowerBound().getLongitude(), mbr.getLowerBound().getLatitude(),mbr.getUpperBound().getLongitude(),1).getHashes().toArray()[0];
 

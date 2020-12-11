@@ -96,8 +96,8 @@ final class OperatorNotEqual<T> extends ComparisonOperator<T> {
         return new OperatorNotEqual(fieldName, fieldValue);
     }
 
-    public static OperatorNotEqual<Date> newOperatorNotEqual(String fieldName, Date fieldValue) {
-        return new OperatorNotEqual(fieldName, fieldValue);
+    public static OperatorNotEqual<Long> newOperatorNotEqual(String fieldName, Date fieldValue) {
+        return new OperatorNotEqual(fieldName, fieldValue.getTime());
     }
 
     public static OperatorNotEqual<Boolean> newOperatorNotEqual(String fieldName, Boolean fieldValue) {

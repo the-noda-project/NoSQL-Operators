@@ -36,8 +36,8 @@ public final class OperatorGreaterThan<T> extends ComparisonOperator<T> {
         return new OperatorGreaterThan(fieldName, fieldValue);
     }
 
-    public static OperatorGreaterThan<Date> newOperatorGreaterThan(String fieldName, Date fieldValue) {
-        return new OperatorGreaterThan(fieldName, fieldValue);
+    public static OperatorGreaterThan<Long> newOperatorGreaterThan(String fieldName, Date fieldValue) {
+        return new OperatorGreaterThan(fieldName, fieldValue.getTime());
     }
 
 }

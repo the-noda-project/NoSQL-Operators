@@ -46,7 +46,7 @@ final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, Te
                 "    i = i + 2\n" +
                 "end\n" +
                 "\n" +
-                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch)\n" +
+                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch, 'count', 100000000)\n" +
                 "\n" +
                 "for i, key_name in ipairs(t[2]) do \n" +
                 "\n" +
@@ -77,8 +77,8 @@ final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, Te
 
         String[] argvArray = new String[6 + getGeographicalOperator().getGeometry().getCoordinatesArray().length*2];
         argvArray[0] = getMatchingPattern();
-        argvArray[1] = this.getGeographicalOperator().getFieldName()+":"+"longitude";
-        argvArray[2] = this.getGeographicalOperator().getFieldName()+":"+"latitude";
+        argvArray[1] = /*this.getGeographicalOperator().getFieldName()+":"+*/"longitude";
+        argvArray[2] = /*this.getGeographicalOperator().getFieldName()+":"+*/"latitude";
         argvArray[3] = String.valueOf(getTemporalFieldName());
         argvArray[4] = String.valueOf(getTemporalType().getLowerBound().getTime());
         argvArray[5] = String.valueOf(getTemporalType().getUpperBound().getTime());

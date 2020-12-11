@@ -36,8 +36,8 @@ public final class OperatorLessThan<T> extends ComparisonOperator<T> {
         return new OperatorLessThan(fieldName, fieldValue);
     }
 
-    public static OperatorLessThan<Date> newOperatorLessThan(String fieldName, Date fieldValue) {
-        return new OperatorLessThan(fieldName, fieldValue);
+    public static OperatorLessThan<Long> newOperatorLessThan(String fieldName, Date fieldValue) {
+        return new OperatorLessThan(fieldName, fieldValue.getTime());
     }
 
 }

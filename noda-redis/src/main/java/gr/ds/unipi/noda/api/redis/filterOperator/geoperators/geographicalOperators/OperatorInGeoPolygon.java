@@ -41,7 +41,7 @@ public final class OperatorInGeoPolygon extends GeographicalOperator<Polygon> {
                 "    i = i + 2\n" +
                 "end\n" +
                 "\n" +
-                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch)\n" +
+                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch, 'count', 100000000)\n" +
                 "\n" +
                 "for i, key_name in ipairs(t[2]) do \n" +
                 "\n" +
@@ -71,8 +71,8 @@ public final class OperatorInGeoPolygon extends GeographicalOperator<Polygon> {
 
         String[] argvArray = new String[3 + getGeometry().getCoordinatesArray().length*2];
         argvArray[0] = getMatchingPattern();
-        argvArray[1] = getFieldName()+":"+"longitude";
-        argvArray[2] = getFieldName()+":"+"latitude";
+        argvArray[1] = /*getFieldName()+":"+*/"longitude";
+        argvArray[2] = /*getFieldName()+":"+*/"latitude";
 
         int j = 0;
         for (int i = 3; i < argvArray.length; i = i + 2) {
