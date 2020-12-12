@@ -23,7 +23,7 @@ abstract class GeographicalOperator<T extends Geometry> extends gr.ds.unipi.noda
 
     public Ranges getMatchingPattern(){
 
-        final int bits = 6;
+        final int bits = 13;
         final long maxOrdinates = 1L << bits;
 
         SmallHilbertCurve hc = HilbertCurve.small().bits(bits).dimensions(2);
