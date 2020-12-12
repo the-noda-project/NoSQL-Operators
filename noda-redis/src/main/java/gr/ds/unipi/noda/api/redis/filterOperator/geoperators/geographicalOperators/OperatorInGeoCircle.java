@@ -29,18 +29,20 @@ public final class OperatorInGeoCircle extends GeographicalOperator<Circle> {
 //                "local centerLongitude = tonumber(ARGV[4])\n" +
 //                "local centerLatitude = tonumber(ARGV[5])\n" +
 //                "local radius = tonumber(ARGV[6])\n" +
+//                "local a, b = string.match(patternMatch, '(.*)%-(.*)') \n" +
+//                "a = tonumber(a)\n" +
+//                "b = tonumber(b)\n" +
 //                "\n" +
-//                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch, 'count', 100000000)\n" +
+//                "local t = redis.call('ZRANGEBYSCORE', KEYS[2], a, b)\n" +
 //                "\n" +
-//                "for i, key_name in ipairs(t[2]) do \n" +
+//                "for i, key_name in ipairs(t) do \n" +
 //                "\n" +
-//                "  local pruned = string.match(key_name, \"-([^-]+)$\")"+
-//                "  local s = redis.call(\"HMGET\", pruned, longitudeField, latitudeField)\n" +
+//                "  local s = redis.call('HMGET', key_name, longitudeField, latitudeField, timestampField)\n" +
 //                "  local longitude = tonumber(s[1])\n" +
 //                "  local latitude = tonumber(s[2])\n" +
 //                "\n" +
 //                "  if (haversine(centerLongitude, centerLatitude, longitude, latitude) <= radius) then\n" +
-//                "    table.insert(temp, pruned)\n" +
+//                "    table.insert(temp, key_name)\n" +
 //                "  end\n" +
 //                "\n" +
 //                "  if #temp >= 1000 then\n" +
@@ -92,8 +94,8 @@ public final class OperatorInGeoCircle extends GeographicalOperator<Circle> {
     }
 
     @Override
-    protected String[] getArgvArray() {
-        return new String[]{getMatchingPattern(), /*getFieldName()+":"+*/"longitude", /*getFieldName()+":"+*/"latitude", String.valueOf(getGeometry().getCircleCenter().getLongitude()), String.valueOf(getGeometry().getCircleCenter().getLatitude()), String.valueOf(getGeometry().getRadius())};
+    protected String[] getArgvArray(String range) {
+        return new String[]{range, /*getFieldName()+":"+*/"longitude", /*getFieldName()+":"+*/"latitude", String.valueOf(getGeometry().getCircleCenter().getLongitude()), String.valueOf(getGeometry().getCircleCenter().getLatitude()), String.valueOf(getGeometry().getRadius())};
     }
 
 }

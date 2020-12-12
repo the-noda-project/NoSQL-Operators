@@ -21,7 +21,7 @@ final class OperatorGeoNearestNeighbors extends GeographicalOperator<Point> {
     }
 
     @Override
-    protected String[] getArgvArray() {
+    protected String[] getArgvArray(String range) {
         return new String[0];
     }
 }

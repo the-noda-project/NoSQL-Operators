@@ -19,18 +19,20 @@ public final class OperatorInGeoRectangle extends GeographicalOperator<Rectangle
                 "local maxLon = tonumber(ARGV[5])\n" +
                 "local minLat = tonumber(ARGV[6])\n" +
                 "local maxLat = tonumber(ARGV[7])\n" +
+                "local a, b = string.match(patternMatch, '(.*)%-(.*)') \n" +
+                "a = tonumber(a)\n" +
+                "b = tonumber(b)\n" +
                 "\n" +
-                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch, 'count', 100000000)\n" +
+                "local t = redis.call('ZRANGEBYSCORE', KEYS[2], a, b)\n" +
                 "\n" +
-                "for i, key_name in ipairs(t[2]) do \n" +
+                "for i, key_name in ipairs(t) do \n" +
                 "\n" +
-                "  local pruned = string.match(key_name, \"-([^-]+)$\")"+
-                "  local s = redis.call(\"HMGET\", pruned, longitudeField, latitudeField)\n" +
+                "  local s = redis.call('HMGET', key_name, longitudeField, latitudeField, timestampField)\n" +
                 "  local longitude = tonumber(s[1])\n" +
                 "  local latitude = tonumber(s[2])\n" +
                 "\n" +
                 "  if (longitude >= minLon and longitude <= maxLon and latitude >= minLat and latitude <= maxLat) then\n" +
-                "    table.insert(temp, pruned)\n" +
+                "    table.insert(temp, key_name)\n" +
                 "  end\n" +
                 "\n" +
                 "  if #temp >= 1000 then\n" +
@@ -46,8 +48,8 @@ public final class OperatorInGeoRectangle extends GeographicalOperator<Rectangle
     }
 
     @Override
-    protected String[] getArgvArray() {
-        return new String[]{getMatchingPattern(), /*getFieldName()+":"+*/"longitude", /*getFieldName()+":"+*/"latitude", String.valueOf(getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeometry().getUpperBound().getLatitude())};
+    protected String[] getArgvArray(String range) {
+        return new String[]{range, /*getFieldName()+":"+*/"longitude", /*getFieldName()+":"+*/"latitude", String.valueOf(getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeometry().getUpperBound().getLatitude())};
     }
 
     public static OperatorInGeoRectangle newOperatorInGeoRectangle(String fieldName, Rectangle rectangle) {

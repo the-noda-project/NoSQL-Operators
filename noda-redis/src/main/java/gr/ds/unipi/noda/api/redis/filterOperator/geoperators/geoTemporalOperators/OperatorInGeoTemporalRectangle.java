@@ -29,19 +29,21 @@ final class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangle
                 "local timestampField = ARGV[8]\n" +
                 "local minDate = tonumber(ARGV[9])\n" +
                 "local maxDate = tonumber(ARGV[10]) \n" +
+                "local a, b = string.match(patternMatch, '(.*)%-(.*)') \n" +
+                "a = tonumber(a)\n" +
+                "b = tonumber(b)\n" +
                 "\n" +
-                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch, 'count', 100000000)\n" +
+                "local t = redis.call('ZRANGEBYSCORE', KEYS[2], a, b)\n" +
                 "\n" +
-                "for i, key_name in ipairs(t[2]) do \n" +
+                "for i, key_name in ipairs(t) do \n" +
                 "\n" +
-                "  local pruned = string.match(key_name, \"-([^-]+)$\")"+
-                "  local s = redis.call(\"HMGET\", pruned, longitudeField, latitudeField, timestampField)\n" +
+                "  local s = redis.call('HMGET', key_name, longitudeField, latitudeField, timestampField)\n" +
                 "  local longitude = tonumber(s[1])\n" +
                 "  local latitude = tonumber(s[2])\n" +
                 "  local timestamp = tonumber(s[3])\n" +
                 "\n" +
                 "  if (longitude >= minLon and longitude <= maxLon and latitude >= minLat and latitude <= maxLat and timestamp >= minDate and timestamp <= maxDate ) then\n" +
-                "    table.insert(temp, pruned)\n" +
+                "    table.insert(temp, key_name)\n" +
                 "  end\n" +
                 "\n" +
                 "  if #temp >= 1000 then\n" +
@@ -57,8 +59,8 @@ final class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangle
     }
 
     @Override
-    protected String[] getArgvArray() {
-        return new String[]{getMatchingPattern(), /*this.getGeographicalOperator().getFieldName()+":"+*/"longitude", /*this.getGeographicalOperator().getFieldName()+":"+*/"latitude", String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLatitude()), String.valueOf(getTemporalFieldName()), String.valueOf(getTemporalType().getLowerBound().getTime()), String.valueOf(getTemporalType().getUpperBound().getTime())};
+    protected String[] getArgvArray(String range) {
+        return new String[]{range, /*this.getGeographicalOperator().getFieldName()+":"+*/"longitude", /*this.getGeographicalOperator().getFieldName()+":"+*/"latitude", String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLatitude()), String.valueOf(getTemporalFieldName()), String.valueOf(getTemporalType().getLowerBound().getTime()), String.valueOf(getTemporalType().getUpperBound().getTime())};
     }
 
 }

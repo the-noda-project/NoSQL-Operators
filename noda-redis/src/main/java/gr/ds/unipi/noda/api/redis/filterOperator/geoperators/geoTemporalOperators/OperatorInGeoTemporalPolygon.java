@@ -39,6 +39,9 @@ final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, Te
                 "local timestampField = ARGV[4]\n" +
                 "local minDate = tonumber(ARGV[5])\n" +
                 "local maxDate = tonumber(ARGV[6]) \n" +
+                "local a, b = string.match(patternMatch, '(.*)%-(.*)') \n" +
+                "a = tonumber(a)\n" +
+                "b = tonumber(b)\n" +
                 "\n" +
                 "local i = 7\n" +
                 "while i<=#ARGV do\n" +
@@ -46,18 +49,17 @@ final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, Te
                 "    i = i + 2\n" +
                 "end\n" +
                 "\n" +
-                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch, 'count', 100000000)\n" +
+                "local t = redis.call('ZRANGEBYSCORE', KEYS[2], a, b)\n" +
                 "\n" +
-                "for i, key_name in ipairs(t[2]) do \n" +
+                "for i, key_name in ipairs(t) do \n" +
                 "\n" +
-                "  local pruned = string.match(key_name, \"-([^-]+)$\")"+
-                "  local s = redis.call(\"HMGET\", pruned, longitudeField, latitudeField, timestampField)\n" +
+                "  local s = redis.call('HMGET', key_name, longitudeField, latitudeField, timestampField)\n" +
                 "  local longitude = tonumber(s[1])\n" +
                 "  local latitude = tonumber(s[2])\n" +
                 "  local timestamp = tonumber(s[3])\n" +
                 "\n" +
                 "  if (timestamp >= minDate and timestamp <= maxDate and insidePolygon(polygon, longitude, latitude)) then\n" +
-                "    table.insert(temp, pruned)\n" +
+                "    table.insert(temp, key_name)\n" +
                 "  end\n" +
                 "\n" +
                 "  if #temp >= 1000 then\n" +
@@ -73,10 +75,10 @@ final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, Te
     }
 
     @Override
-    protected String[] getArgvArray() {
+    protected String[] getArgvArray(String range) {
 
         String[] argvArray = new String[6 + getGeographicalOperator().getGeometry().getCoordinatesArray().length*2];
-        argvArray[0] = getMatchingPattern();
+        argvArray[0] = range;
         argvArray[1] = /*this.getGeographicalOperator().getFieldName()+":"+*/"longitude";
         argvArray[2] = /*this.getGeographicalOperator().getFieldName()+":"+*/"latitude";
         argvArray[3] = String.valueOf(getTemporalFieldName());

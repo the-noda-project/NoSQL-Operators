@@ -34,6 +34,9 @@ public final class OperatorInGeoPolygon extends GeographicalOperator<Polygon> {
                 "local patternMatch = ARGV[1]\n" +
                 "local longitudeField = ARGV[2]\n" +
                 "local latitudeField = ARGV[3]\n" +
+                "local a, b = string.match(patternMatch, '(.*)%-(.*)') \n" +
+                "a = tonumber(a)\n" +
+                "b = tonumber(b)\n" +
                 "\n" +
                 "local i = 4\n" +
                 "while i<=#ARGV do\n" +
@@ -41,17 +44,16 @@ public final class OperatorInGeoPolygon extends GeographicalOperator<Polygon> {
                 "    i = i + 2\n" +
                 "end\n" +
                 "\n" +
-                "local t = redis.call('SSCAN', KEYS[2], 0, 'match', patternMatch, 'count', 100000000)\n" +
+                "local t = redis.call('ZRANGEBYSCORE', KEYS[2], a, b)\n" +
                 "\n" +
-                "for i, key_name in ipairs(t[2]) do \n" +
+                "for i, key_name in ipairs(t) do \n" +
                 "\n" +
-                "  local pruned = string.match(key_name, \"-([^-]+)$\")"+
-                "  local s = redis.call(\"HMGET\", pruned, longitudeField, latitudeField)\n" +
+                "  local s = redis.call('HMGET', key_name, longitudeField, latitudeField, timestampField)\n" +
                 "  local longitude = tonumber(s[1])\n" +
                 "  local latitude = tonumber(s[2])\n" +
                 "\n" +
                 "  if (insidePolygon(polygon, longitude, latitude)) then\n" +
-                "    table.insert(temp, pruned)\n" +
+                "    table.insert(temp, key_name)\n" +
                 "  end\n" +
                 "\n" +
                 "  if #temp >= 1000 then\n" +
@@ -67,10 +69,10 @@ public final class OperatorInGeoPolygon extends GeographicalOperator<Polygon> {
     }
 
     @Override
-    protected String[] getArgvArray() {
+    protected String[] getArgvArray(String range) {
 
         String[] argvArray = new String[3 + getGeometry().getCoordinatesArray().length*2];
-        argvArray[0] = getMatchingPattern();
+        argvArray[0] = range;
         argvArray[1] = /*getFieldName()+":"+*/"longitude";
         argvArray[2] = /*getFieldName()+":"+*/"latitude";
 
