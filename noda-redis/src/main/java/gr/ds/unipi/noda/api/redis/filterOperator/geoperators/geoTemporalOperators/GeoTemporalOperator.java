@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators;
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.hilbert.HilbertUtil;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.Temporal;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
@@ -7,13 +8,9 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographi
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
 import gr.ds.unipi.noda.api.redis.filterOperator.RandomStringGenerator;
 import gr.ds.unipi.noda.api.redis.filterOperator.Triplet;
-import gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.RedisGeographicalOperatorFactory;
 import org.davidmoten.hilbert.HilbertCurve;
-import org.davidmoten.hilbert.Range;
 import org.davidmoten.hilbert.Ranges;
 import org.davidmoten.hilbert.SmallHilbertCurve;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,17 +24,15 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
 
     public Ranges getMatchingPattern(){
 
-        final int bits = 6;
+        final int bits = AppConfig.redis().getInt("spatiotempOp.bits");
         final long maxOrdinates = 1L << bits;
 
         SmallHilbertCurve hc = HilbertCurve.small().bits(bits).dimensions(3);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-
         if(getTemporalType() instanceof TemporalBounds){
             try {
-                long[] lower = HilbertUtil.scaleGeoTemporalPoint(getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLongitude(), 19.632533, 28.245286, getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLatitude(), 34.929233, 41.757798, ((TemporalBounds) getTemporalType()).getLowerBound().getTime(), sdf.parse("2018-07-01T00:00:00.000").getTime(), sdf.parse("2018-11-30T23:59:59.999").getTime(), maxOrdinates);
-                long[] upper = HilbertUtil.scaleGeoTemporalPoint(getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLongitude(), 19.632533, 28.245286, getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLatitude(), 34.929233, 41.757798, ((TemporalBounds) getTemporalType()).getUpperBound().getTime(), sdf.parse("2018-07-01T00:00:00.000").getTime(), sdf.parse("2018-11-30T23:59:59.999").getTime(), maxOrdinates);
+                long[] lower = HilbertUtil.scaleGeoTemporalPoint(getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLongitude(), AppConfig.redis().getDouble("spatiotempOp.minLon"), AppConfig.redis().getDouble("spatiotempOp.maxLon"), getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLatitude(), AppConfig.redis().getDouble("spatiotempOp.minLat"), AppConfig.redis().getDouble("spatiotempOp.maxLat"), ((TemporalBounds) getTemporalType()).getLowerBound().getTime(), AppConfig.redis().getLong("spatiotempOp.minDate"), AppConfig.redis().getLong("spatiotempOp.maxDate"), maxOrdinates);
+                long[] upper = HilbertUtil.scaleGeoTemporalPoint(getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLongitude(), AppConfig.redis().getDouble("spatiotempOp.minLon"), AppConfig.redis().getDouble("spatiotempOp.maxLon"), getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLatitude(), AppConfig.redis().getDouble("spatiotempOp.minLat"), AppConfig.redis().getDouble("spatiotempOp.maxLat"), ((TemporalBounds) getTemporalType()).getUpperBound().getTime(), AppConfig.redis().getLong("spatiotempOp.minDate"), AppConfig.redis().getLong("spatiotempOp.maxDate"), maxOrdinates);
 
                 long t1 = System.currentTimeMillis();
                 Ranges ranges = hc.query(lower,upper ,0);

@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators;
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.hilbert.HilbertUtil;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
@@ -8,8 +9,6 @@ import gr.ds.unipi.noda.api.redis.filterOperator.Triplet;
 import org.davidmoten.hilbert.HilbertCurve;
 import org.davidmoten.hilbert.Ranges;
 import org.davidmoten.hilbert.SmallHilbertCurve;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,16 +22,14 @@ abstract class GeographicalOperator<T extends Geometry> extends gr.ds.unipi.noda
 
     public Ranges getMatchingPattern(){
 
-        final int bits = 13;
+        final int bits = AppConfig.redis().getInt("spatialOp.bits");
         final long maxOrdinates = 1L << bits;
 
         SmallHilbertCurve hc = HilbertCurve.small().bits(bits).dimensions(2);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-
             try {
-                long[] lower = HilbertUtil.scaleGeoPoint(getGeometry().getMbr().getLowerBound().getLatitude(),getGeometry().getMbr().getLowerBound().getLongitude(), maxOrdinates);
-                long[] upper = HilbertUtil.scaleGeoPoint(getGeometry().getMbr().getUpperBound().getLatitude(),getGeometry().getMbr().getUpperBound().getLongitude(), maxOrdinates);
+                long[] lower = HilbertUtil.scaleGeoPoint(getGeometry().getMbr().getLowerBound().getLongitude(), AppConfig.redis().getDouble("spatialOp.minLon"), AppConfig.redis().getDouble("spatialOp.maxLon"), getGeometry().getMbr().getLowerBound().getLatitude(), AppConfig.redis().getDouble("spatialOp.minLat"), AppConfig.redis().getDouble("spatialOp.maxLat"), maxOrdinates);
+                long[] upper = HilbertUtil.scaleGeoPoint(getGeometry().getMbr().getUpperBound().getLongitude(), AppConfig.redis().getDouble("spatialOp.minLon"), AppConfig.redis().getDouble("spatialOp.maxLon"), getGeometry().getMbr().getUpperBound().getLatitude(), AppConfig.redis().getDouble("spatialOp.minLat"), AppConfig.redis().getDouble("spatialOp.maxLat"), maxOrdinates);
 
                 Ranges ranges = hc.query(lower, upper ,0);
                 return ranges;
