@@ -34,10 +34,7 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
                 long[] lower = HilbertUtil.scaleGeoTemporalPoint(getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLongitude(), AppConfig.redis().getDouble("spatiotempOp.minLon"), AppConfig.redis().getDouble("spatiotempOp.maxLon"), getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLatitude(), AppConfig.redis().getDouble("spatiotempOp.minLat"), AppConfig.redis().getDouble("spatiotempOp.maxLat"), ((TemporalBounds) getTemporalType()).getLowerBound().getTime(), AppConfig.redis().getLong("spatiotempOp.minDate"), AppConfig.redis().getLong("spatiotempOp.maxDate"), maxOrdinates);
                 long[] upper = HilbertUtil.scaleGeoTemporalPoint(getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLongitude(), AppConfig.redis().getDouble("spatiotempOp.minLon"), AppConfig.redis().getDouble("spatiotempOp.maxLon"), getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLatitude(), AppConfig.redis().getDouble("spatiotempOp.minLat"), AppConfig.redis().getDouble("spatiotempOp.maxLat"), ((TemporalBounds) getTemporalType()).getUpperBound().getTime(), AppConfig.redis().getLong("spatiotempOp.minDate"), AppConfig.redis().getLong("spatiotempOp.maxDate"), maxOrdinates);
 
-                long t1 = System.currentTimeMillis();
                 Ranges ranges = hc.query(lower,upper ,0);
-                System.out.println(System.currentTimeMillis()-t1+" ms");
-
                 return ranges;
 //                System.out.println("List "+rangesList.get(0).low()+" "+ rangesList.get(0).high());
 //                return rangesList.get(0).low()+"-"+rangesList.get(0).high();
@@ -77,7 +74,7 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
     protected abstract String getEvalExpression();
 
     private String[] getKeysArray(){
-        return new String[]{getRandomString(), /*"primaryKeys"*/getGeographicalOperator().getFieldName()};
+        return new String[]{getRandomString(), /*"primaryKeys"*/getGeographicalOperator().getFieldName()+":"+getTemporalFieldName()};
     }
 
     protected abstract String[] getArgvArray(String range);

@@ -7,7 +7,7 @@ import com.typesafe.config.ConfigValueFactory;
 public class AppConfig {
 
     private static final Config config = ConfigFactory.load()
-            .withFallback(ConfigFactory.parseResources("./redis.conf"));
+            .withFallback(ConfigFactory.parseResources("configs/redis.conf"));
 
     private AppConfig(){
     }
