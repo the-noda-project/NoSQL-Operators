@@ -20,6 +20,11 @@ public class HBaseSystemTest {
 
         //noSqlDbSystem.operateOn("points").filter(gte("location:lon",24)).printScreen();
         noSqlDbSystem.closeConnection();
+        
+        
+        
+        
+        
     }
 
 

@@ -11,12 +11,14 @@ public class OperatorInGeoTextualPolygon extends GeoTextualConstraintOperator<Po
         super(OperatorInGeoPolygon.newOperatorInGeoPolygon(fieldName, polygon), conditionalTextualOperator);
     }
 
-    public static OperatorInGeoTextualPolygon newOperatorInGeoTextualPolygon(String fieldName, Polygon polygon, ConditionalTextualOperator conditionalTextualOperator){
+    public  static OperatorInGeoTextualPolygon newOperatorInGeoTextualPolygon(String fieldName, Polygon polygon, ConditionalTextualOperator conditionalTextualOperator){
         return new OperatorInGeoTextualPolygon(fieldName, polygon, conditionalTextualOperator);   
     }
     
-    @Override
-    public StringBuilder getOperatorExpression() {
-        return GeoTextualConstraintOperator.formGeometryAndTextualExpression(this.getGeographicalOperator().getOperatorExpression(), this.getConditionalTextualOperator());
-    }
+  /*  @Override
+    public static StringBuilder getOperatorExpression() {
+        return GeoTextualConstraintOperator.formGeometryAndTextualExpression(this.getGeographicalOperator().getFieldName(),this.getGeographicalOperator().getGeometry().getCoordinatesArray(), this.getConditionalTextualOperator());
+
+        //return GeoTextualConstraintOperator.formGeometryAndTextualExpression(this.getGeographicalOperator().getOperatorExpression(), this.getConditionalTextualOperator());
+    }*/
 }

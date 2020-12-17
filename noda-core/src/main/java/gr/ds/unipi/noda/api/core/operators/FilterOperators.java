@@ -246,24 +246,24 @@ public class FilterOperators {
     }
 
     public static FilterOperator inGeoTextualRectangle(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint, ConditionalTextualOperator conditionalTextualOperator){
-        return GeoTextualConstraintOperator.geoTextualOperator.inGeoTextualRectangle(fieldName, Rectangle.newRectangle(lowerBoundPoint,upperBoundPoint),conditionalTextualOperator);
+        return GeoTextualConstraintOperator.geoTextualOperator.newOperatorInGeoTextualRectangle(fieldName, Rectangle.newRectangle(lowerBoundPoint,upperBoundPoint),conditionalTextualOperator);
     };
 
     public static FilterOperator inGeoTextualCircleKm(String fieldName, Coordinates point, double radius, ConditionalTextualOperator conditionalTextualOperator){
-        return GeoTextualConstraintOperator.geoTextualOperator.inGeoTextualCircle(fieldName,Circle.newCircle(point,radius * 1000),conditionalTextualOperator);
+        return GeoTextualConstraintOperator.geoTextualOperator.newOperatorInGeoTextualCircle(fieldName,Circle.newCircle(point,radius * 1000),conditionalTextualOperator);
     };
 
     public static FilterOperator inGeoTextualCircleMeters(String fieldName, Coordinates point, double radius, ConditionalTextualOperator conditionalTextualOperator){
-        return GeoTextualConstraintOperator.geoTextualOperator.inGeoTextualCircle(fieldName,Circle.newCircle(point,radius),conditionalTextualOperator);
+        return GeoTextualConstraintOperator.geoTextualOperator.newOperatorInGeoTextualCircle(fieldName,Circle.newCircle(point,radius),conditionalTextualOperator);
     };
 
     public static FilterOperator inGeoTextualCircleMiles(String fieldName, Coordinates point, double radius, ConditionalTextualOperator conditionalTextualOperator){
-        return GeoTextualConstraintOperator.geoTextualOperator.inGeoTextualCircle(fieldName,Circle.newCircle(point,radius * 1609.344),conditionalTextualOperator);
+        return GeoTextualConstraintOperator.geoTextualOperator.newOperatorInGeoTextualCircle(fieldName,Circle.newCircle(point,radius * 1609.344),conditionalTextualOperator);
     };
 
     public static FilterOperator inGeoTextualPolygon(String fieldName, ConditionalTextualOperator conditionalTextualOperator, Coordinates coordinates1, Coordinates coordinates2, Coordinates coordinates3, Coordinates... coordinates){
-        return GeoTextualConstraintOperator.geoTextualOperator.inGeoTextualPolygon(fieldName,Polygon.newPolygon(coordinates1,coordinates2,coordinates3,coordinates),conditionalTextualOperator);
-
+        return GeoTextualConstraintOperator.geoTextualOperator.newOperatorInGeoTextualPolygon(fieldName,Polygon.newPolygon(coordinates1,coordinates2,coordinates3,coordinates),conditionalTextualOperator);
+        
     };
 
     public static FilterOperator topRankInGeoTextualRectangle(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint, String keywordFieldName, Collection<String> keywords, int topK){

@@ -7,7 +7,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.cond
 
 public abstract class GeoTextualConstraintOperator<T,U extends Geometry> extends GeoTextualOperator<T,U> {
 
-    private final ConditionalTextualOperator conditionalTextualOperator;
+    protected final ConditionalTextualOperator conditionalTextualOperator;
 
     protected GeoTextualConstraintOperator(GeographicalOperator<T, U> geographicalOperator, ConditionalTextualOperator conditionalTextualOperator) {
         super(geographicalOperator);
