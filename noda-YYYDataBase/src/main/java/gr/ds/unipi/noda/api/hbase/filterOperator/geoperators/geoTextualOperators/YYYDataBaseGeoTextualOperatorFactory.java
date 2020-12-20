@@ -18,18 +18,18 @@ import java.util.Collection;
 
 public final class YYYDataBaseGeoTextualOperatorFactory extends BaseGeoTextualOperatorFactory {
     @Override
-    public GeoTextualConstraintOperator newOperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
-        return OperatorInGeoTextualRectangle.newOperatorInGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
+    public GeoTextualConstraintOperator inGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
+        return OperatorInGeoTextualRectangle.inGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
     }
 
     @Override
-    public GeoTextualConstraintOperator newOperatorInGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator) {
-        return OperatorInGeoTextualCircle.newOperatorInGeoTextualCircle(fieldName, circle, conditionalTextualOperator);
+    public GeoTextualConstraintOperator inGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator) {
+        return OperatorInGeoTextualCircle.inGeoTextualCircle(fieldName, circle, conditionalTextualOperator);
     }
 
     @Override
-    public GeoTextualConstraintOperator newOperatorInGeoTextualPolygon(String fieldName, Polygon polygon, ConditionalTextualOperator conditionalTextualOperator) {
-        return OperatorInGeoTextualPolygon.newOperatorInGeoTextualPolygon(fieldName, polygon, conditionalTextualOperator);
+    public GeoTextualConstraintOperator inGeoTextualPolygon(String fieldName, Polygon polygon, ConditionalTextualOperator conditionalTextualOperator) {
+        return OperatorInGeoTextualPolygon.inGeoTextualPolygon(fieldName, polygon, conditionalTextualOperator);
     }
 
     @Override

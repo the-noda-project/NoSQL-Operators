@@ -10,7 +10,7 @@ import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 
 public class GeoTextualOperatorsTest {
 
-	
+	@Ignore
     @Test
     public void mongoDB(){
     	NoSqlDbSystem noSqlDbSys =  NoSqlDbSystem.MongoDB().Builder("knest", "password", "mongodb").host("localhost").port(27017).build();

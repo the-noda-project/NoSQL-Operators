@@ -19,18 +19,18 @@ import  gr.ds.unipi.noda.api.core.hilbert.HilbertUtil;
 
 public final class HBaseGeoTextualOperatorFactory extends BaseGeoTextualOperatorFactory {
     @Override
-    public GeoTextualConstraintOperator  newOperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
-        return OperatorInGeoTextualRectangle.newOperatorInGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
+    public GeoTextualConstraintOperator  inGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
+        return OperatorInGeoTextualRectangle.inGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
 
     }
 
     @Override
-    public GeoTextualConstraintOperator  newOperatorInGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator) {
+    public GeoTextualConstraintOperator  inGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator) {
         return null;
     }
 
     @Override
-    public GeoTextualConstraintOperator  newOperatorInGeoTextualPolygon(String fieldName, Polygon polygon, ConditionalTextualOperator conditionalTextualOperator) {
+    public GeoTextualConstraintOperator  inGeoTextualPolygon(String fieldName, Polygon polygon, ConditionalTextualOperator conditionalTextualOperator) {
         return null;
     }
 
@@ -65,8 +65,8 @@ public final class HBaseGeoTextualOperatorFactory extends BaseGeoTextualOperator
         double lat1= coordinates[0].getLatitude();
         double lat2= coordinates[2].getLatitude();
         
-        Ranges rangesList = h.query(HilbertUtil.scaleGeoTextualPoint(lon1, minLon,maxLon,lat1, minLat,maxLat, max),
-       		 HilbertUtil.scaleGeoTextualPoint(lon2, minLon,maxLon,lat2, minLat,maxLat, max));
+        Ranges rangesList = h.query(HilbertUtil.scaleGeoPoint(lon1, minLon,maxLon,lat1, minLat,maxLat, max),
+       		 HilbertUtil.scaleGeoPoint(lon2, minLon,maxLon,lat2, minLat,maxLat, max));
        
         List<String> hilbertresults = new ArrayList<String>();
         

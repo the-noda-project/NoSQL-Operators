@@ -22,13 +22,7 @@ public class HilbertUtil {
         long z = scale(((double) time - minTime) / (maxTime - minTime), max);
         return new long[] { x, y, z };
     }
-    public static long[] scaleGeoTextualPoint(double lon, double minLon, double maxLon, double lat, double minLat, double maxLat, long maxOrdinates) {
-        long x = scale(( lon - minLon) / (maxLon - minLon), maxOrdinates);
-        long y = scale(( lat - minLat) / (maxLat - minLat), maxOrdinates);
-        //System.out.println(x);
-        //System.out.println(y);
-        return new long[] { x, y};
-    }
+
 
     private static long scale(double d, long max) {
         if (!(Double.compare(d,0) != -1 &&  Double.compare(d,1) != 1)) {

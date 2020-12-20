@@ -19,18 +19,18 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinat
 
 public final class MongoDBGeoTextualOperatorFactory extends BaseGeoTextualOperatorFactory {
     @Override
-    public GeoTextualConstraintOperator newOperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
-        return OperatorInGeoTextualRectangle.newOperatorInGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
+    public GeoTextualConstraintOperator inGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
+        return OperatorInGeoTextualRectangle.inGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
     }
 
     @Override
-    public GeoTextualConstraintOperator newOperatorInGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator) {
-        return OperatorInGeoTextualCircle.newOperatorInGeoTextualCircle(fieldName, circle, conditionalTextualOperator);
+    public GeoTextualConstraintOperator inGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator) {
+        return OperatorInGeoTextualCircle.inGeoTextualCircle(fieldName, circle, conditionalTextualOperator);
     }
 
     @Override
-    public GeoTextualConstraintOperator newOperatorInGeoTextualPolygon(String fieldName, Polygon polygon, ConditionalTextualOperator conditionalTextualOperator) {
-        return OperatorInGeoTextualPolygon.newOperatorInGeoTextualPolygon(fieldName, polygon, conditionalTextualOperator);
+    public GeoTextualConstraintOperator inGeoTextualPolygon(String fieldName, Polygon polygon, ConditionalTextualOperator conditionalTextualOperator) {
+        return OperatorInGeoTextualPolygon.inGeoTextualPolygon(fieldName, polygon, conditionalTextualOperator);
     }
 
     @Override
@@ -63,8 +63,10 @@ public final class MongoDBGeoTextualOperatorFactory extends BaseGeoTextualOperat
         double lat1= coordinates[0].getLatitude();
         double lat2= coordinates[2].getLatitude();
 
-        Ranges rangesList = h.query(HilbertUtil.scaleGeoTextualPoint(lon1, minLon,maxLon,lat1, minLat,maxLat, max),
-       		 HilbertUtil.scaleGeoTextualPoint(lon2, minLon,maxLon,lat2, minLat,maxLat, max));
+        Ranges rangesList = h.query(HilbertUtil.scaleGeoPoint(lon1, minLon,maxLon,lat1, minLat,maxLat, max),
+       		 HilbertUtil.scaleGeoPoint(lon2, minLon,maxLon,lat2, minLat,maxLat, max));
+        
+        
         StringBuilder sbfinal = new StringBuilder();
         StringBuilder sb = new StringBuilder();
         StringBuilder sbkewords = new StringBuilder();

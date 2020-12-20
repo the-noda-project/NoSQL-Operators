@@ -14,17 +14,17 @@ import java.util.Collection;
 
 public final class RediSearchGeoTextualOperatorFactory extends BaseGeoTextualOperatorFactory {
     @Override
-    public GeoTextualConstraintOperator  newOperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
+    public GeoTextualConstraintOperator  inGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
         throw new UnsupportedOperationException("inGeoTextualRectangle primitive is not supported");
     }
 
     @Override
-    public GeoTextualConstraintOperator  newOperatorInGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator) {
-        return OperatorInGeoTextualCircle.newOperatorInGeoTextualCircle(fieldName, circle, conditionalTextualOperator);
+    public GeoTextualConstraintOperator  inGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator) {
+        return OperatorInGeoTextualCircle.inGeoTextualCircle(fieldName, circle, conditionalTextualOperator);
     }
 
     @Override
-    public GeoTextualConstraintOperator  newOperatorInGeoTextualPolygon(String fieldName, Polygon polygon, ConditionalTextualOperator conditionalTextualOperator) {
+    public GeoTextualConstraintOperator  inGeoTextualPolygon(String fieldName, Polygon polygon, ConditionalTextualOperator conditionalTextualOperator) {
         throw new UnsupportedOperationException("inGeoTextualPolygon primitive is not supported");
     }
 
