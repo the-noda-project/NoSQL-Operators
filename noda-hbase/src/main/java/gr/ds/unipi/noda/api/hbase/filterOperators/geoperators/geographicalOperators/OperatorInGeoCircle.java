@@ -19,7 +19,7 @@ public final class OperatorInGeoCircle extends GeographicalOperator<Circle> {
     @Override
     protected Filter geometryRefactor() {
         CircleFilterProtos.CircleFilter.Coordinates centerCoordinates = CircleFilterProtos.CircleFilter.Coordinates.newBuilder().setLongitude(getGeometry().getCircleCenter().getLongitude()).setLatitude(getGeometry().getCircleCenter().getLatitude()).build();
-        return CircleFilter.newCircleFilter(Bytes.toBytes(getFieldName()), Bytes.toBytes("longitude"),Bytes.toBytes("latitude"),centerCoordinates, getGeometry().getRadius());
+        return CircleFilter.newCircleFilter(Bytes.toBytes(getFieldName()), Bytes.toBytes("longitude"), Bytes.toBytes("latitude"), centerCoordinates, getGeometry().getRadius());
     }
 
 }

@@ -43,8 +43,8 @@ public class PolygonTemporalFilter extends FilterBase {
         this.upperDateBound = upperDateBound;
     }
 
-    public static PolygonTemporalFilter newPolygonTemporalFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, List<PolygonTemporalFilterProtos.PolygonTemporalFilter.Coordinates> coordinates, byte[] columnFamilyTemporal, byte[] columnQualifierTemporal, long lowerDateBound, long upperDateBound){
-        return new PolygonTemporalFilter(columnFamily, longitudeColumnQualifier,  latitudeColumnQualifier, coordinates, columnFamilyTemporal, columnQualifierTemporal, lowerDateBound, upperDateBound);
+    public static PolygonTemporalFilter newPolygonTemporalFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, List<PolygonTemporalFilterProtos.PolygonTemporalFilter.Coordinates> coordinates, byte[] columnFamilyTemporal, byte[] columnQualifierTemporal, long lowerDateBound, long upperDateBound) {
+        return new PolygonTemporalFilter(columnFamily, longitudeColumnQualifier, latitudeColumnQualifier, coordinates, columnFamilyTemporal, columnQualifierTemporal, lowerDateBound, upperDateBound);
     }
 
     @Override
@@ -59,8 +59,7 @@ public class PolygonTemporalFilter extends FilterBase {
             longitude = PrivateCellUtil.getValueAsDouble(c);
         } else if (CellUtil.matchingColumn(c, this.columnFamily, this.latitudeColumnQualifier)) {
             latitude = PrivateCellUtil.getValueAsDouble(c);
-        }
-        else if (CellUtil.matchingColumn(c, this.columnFamilyTemporal, this.columnQualifierTemporal)) {
+        } else if (CellUtil.matchingColumn(c, this.columnFamilyTemporal, this.columnQualifierTemporal)) {
             date = PrivateCellUtil.getValueAsLong(c);
         }
         return ReturnCode.INCLUDE;
@@ -68,7 +67,7 @@ public class PolygonTemporalFilter extends FilterBase {
 
     private boolean contains(double longitude, double latitude, long date) {
 
-        if(Double.compare(date,lowerDateBound) == -1 || Double.compare(date, upperDateBound) == 1){
+        if (Double.compare(date, lowerDateBound) == -1 || Double.compare(date, upperDateBound) == 1) {
             return false;
         }
 
@@ -83,7 +82,7 @@ public class PolygonTemporalFilter extends FilterBase {
         }
         return result;
     }
-    
+
     @Override
     public boolean filterRow() {
 
@@ -109,10 +108,10 @@ public class PolygonTemporalFilter extends FilterBase {
         if (coordinates != null) {
             builder.addAllCoordinates(coordinates);
         }
-        if(columnFamilyTemporal != null){
+        if (columnFamilyTemporal != null) {
             builder.setColumnFamilyTemporal(ByteStringer.wrap(columnFamilyTemporal));
         }
-        if(columnQualifierTemporal != null){
+        if (columnQualifierTemporal != null) {
             builder.setColumnQualifierTemporal(ByteStringer.wrap(columnQualifierTemporal));
         }
 

@@ -33,8 +33,8 @@ public class RectangleFilter extends FilterBase {
         this.upperCoordinates = upperCoordinates;
     }
 
-    public static RectangleFilter newRectangleFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, RectangleFilterProtos.RectangleFilter.Coordinates lowerCoordinates, RectangleFilterProtos.RectangleFilter.Coordinates upperCoordinates){
-        return new RectangleFilter(columnFamily, longitudeColumnQualifier,  latitudeColumnQualifier, lowerCoordinates, upperCoordinates);
+    public static RectangleFilter newRectangleFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, RectangleFilterProtos.RectangleFilter.Coordinates lowerCoordinates, RectangleFilterProtos.RectangleFilter.Coordinates upperCoordinates) {
+        return new RectangleFilter(columnFamily, longitudeColumnQualifier, latitudeColumnQualifier, lowerCoordinates, upperCoordinates);
     }
 
     @Override
@@ -56,10 +56,10 @@ public class RectangleFilter extends FilterBase {
 
     private boolean contains(double longitude, double latitude) {
 
-        if(Double.compare(longitude, lowerCoordinates.getLongitude()) == -1 ||  Double.compare(latitude, lowerCoordinates.getLatitude()) == -1){
+        if (Double.compare(longitude, lowerCoordinates.getLongitude()) == -1 || Double.compare(latitude, lowerCoordinates.getLatitude()) == -1) {
             return false;
         }
-        if(Double.compare(longitude, upperCoordinates.getLongitude()) == 1 ||  Double.compare(latitude, upperCoordinates.getLatitude()) == 1){
+        if (Double.compare(longitude, upperCoordinates.getLongitude()) == 1 || Double.compare(latitude, upperCoordinates.getLatitude()) == 1) {
             return false;
         }
         return true;

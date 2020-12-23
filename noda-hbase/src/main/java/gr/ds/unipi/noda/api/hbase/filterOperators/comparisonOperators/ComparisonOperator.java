@@ -29,7 +29,7 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
         byte[] value = null;
 
         if (getFieldValue() instanceof Double) {
-            value = Bytes.toBytes( (double) (Object) getFieldValue());
+            value = Bytes.toBytes((double) (Object) getFieldValue());
         } else if (getFieldValue() instanceof Integer) {
             value = Bytes.toBytes((int) (Object) getFieldValue());
         } else if (getFieldValue() instanceof Float) {

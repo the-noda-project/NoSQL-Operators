@@ -41,7 +41,7 @@ final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, Te
             coordinatesList.add(PolygonTemporalFilterProtos.PolygonTemporalFilter.Coordinates.newBuilder().setLongitude(coordinates.getLongitude()).setLatitude(coordinates.getLatitude()).build());
         }
 
-        return PolygonTemporalFilter.newPolygonTemporalFilter(Bytes.toBytes(getGeographicalOperator().getFieldName()),Bytes.toBytes("longitude"),Bytes.toBytes("latitude"),coordinatesList, Bytes.toBytes(temporalNames[0]), Bytes.toBytes(temporalNames[1]), getTemporalType().getLowerBound().getTime(), getTemporalType().getUpperBound().getTime());
+        return PolygonTemporalFilter.newPolygonTemporalFilter(Bytes.toBytes(getGeographicalOperator().getFieldName()), Bytes.toBytes("longitude"), Bytes.toBytes("latitude"), coordinatesList, Bytes.toBytes(temporalNames[0]), Bytes.toBytes(temporalNames[1]), getTemporalType().getLowerBound().getTime(), getTemporalType().getUpperBound().getTime());
     }
 
 }

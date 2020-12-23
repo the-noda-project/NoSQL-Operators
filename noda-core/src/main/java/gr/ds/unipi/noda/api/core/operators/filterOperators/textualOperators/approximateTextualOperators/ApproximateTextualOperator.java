@@ -4,7 +4,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.Text
 
 public abstract class ApproximateTextualOperator extends TextualOperator {
 
-    protected ApproximateTextualOperator(String fieldName, String[] keywords){
+    protected ApproximateTextualOperator(String fieldName, String[] keywords) {
         super(fieldName, keywords);
     }
 }

@@ -26,13 +26,13 @@ public final class HBaseGeographicalOperatorFactory extends BaseGeographicalOper
         return OperatorGeoNearestNeighbors.newOperatorGeoNearestNeighbors(fieldName, point, neighbors);
     }
 
-    public static String getGeoHashPart(Geometry geometry){
+    public static String getGeoHashPart(Geometry geometry) {
         Rectangle mbr = geometry.getMbr();
         int length = 8;
-        String geoHash = (String) GeoHash.coverBoundingBoxMaxHashes(mbr.getUpperBound().getLatitude(), mbr.getLowerBound().getLongitude(), mbr.getLowerBound().getLatitude(),mbr.getUpperBound().getLongitude(),1).getHashes().toArray()[0];
+        String geoHash = (String) GeoHash.coverBoundingBoxMaxHashes(mbr.getUpperBound().getLatitude(), mbr.getLowerBound().getLongitude(), mbr.getLowerBound().getLatitude(), mbr.getUpperBound().getLongitude(), 1).getHashes().toArray()[0];
 
-        if(geoHash.length()>length){
-            geoHash = geoHash.substring(0,length);
+        if (geoHash.length() > length) {
+            geoHash = geoHash.substring(0, length);
         }
 
         return geoHash;

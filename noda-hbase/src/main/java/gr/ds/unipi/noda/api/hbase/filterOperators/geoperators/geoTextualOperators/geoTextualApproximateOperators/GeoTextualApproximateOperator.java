@@ -4,7 +4,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographi
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
 import org.apache.hadoop.hbase.filter.Filter;
 
-public abstract class GeoTextualApproximateOperator<U extends Geometry> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.GeoTextualApproximateOperator<Filter,U> {
+public abstract class GeoTextualApproximateOperator<U extends Geometry> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.GeoTextualApproximateOperator<Filter, U> {
 
     protected GeoTextualApproximateOperator(GeographicalOperator<Filter, U> geographicalOperator, String fieldName, String[] keywords) {
         super(geographicalOperator, fieldName, keywords);

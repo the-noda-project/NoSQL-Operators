@@ -17,14 +17,14 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Optional;
 
 final class HBaseOperators extends NoSqlDbOperators {
 
     private final HBaseConnectionManager hbaseConnectionManager = HBaseConnectionManager.getInstance();
     private final Scan scan = new Scan();
     private final FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
-//    private final List<Map.Entry<byte[],byte[]>> projection = new ArrayList<>();
+    //    private final List<Map.Entry<byte[],byte[]>> projection = new ArrayList<>();
     private final FilterList projectionFilterList = new FilterList(FilterList.Operator.MUST_PASS_ONE);
 
     private HBaseOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {

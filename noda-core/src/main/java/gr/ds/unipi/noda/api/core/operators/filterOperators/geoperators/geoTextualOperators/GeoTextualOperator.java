@@ -6,15 +6,15 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometrie
 
 public abstract class GeoTextualOperator<T, U extends Geometry> implements FilterOperator<T> {
 
-    private final GeographicalOperator<T,U> geographicalOperator;
+    private final GeographicalOperator<T, U> geographicalOperator;
 
-    protected GeoTextualOperator(GeographicalOperator<T,U> geographicalOperator) {
+    protected GeoTextualOperator(GeographicalOperator<T, U> geographicalOperator) {
         this.geographicalOperator = geographicalOperator;
     }
 
     public static BaseGeoTextualOperatorFactory geoTextualOperator;
 
-    public GeographicalOperator<T,U> getGeographicalOperator() {
+    public GeographicalOperator<T, U> getGeographicalOperator() {
         return geographicalOperator;
     }
 

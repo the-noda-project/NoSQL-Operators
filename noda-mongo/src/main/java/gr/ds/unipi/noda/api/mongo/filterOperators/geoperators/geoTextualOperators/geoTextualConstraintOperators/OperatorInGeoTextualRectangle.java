@@ -7,7 +7,7 @@ import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperat
 public class OperatorInGeoTextualRectangle extends GeoTextualConstraintOperator<Rectangle> {
 
     protected OperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
-        super(OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName,rectangle), conditionalTextualOperator);
+        super(OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName, rectangle), conditionalTextualOperator);
     }
 
  /*  @Override
@@ -17,7 +17,7 @@ public class OperatorInGeoTextualRectangle extends GeoTextualConstraintOperator<
 
     }*/
 
-    public static OperatorInGeoTextualRectangle newOperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator){
+    public static OperatorInGeoTextualRectangle newOperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
         return new OperatorInGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
     }
 }

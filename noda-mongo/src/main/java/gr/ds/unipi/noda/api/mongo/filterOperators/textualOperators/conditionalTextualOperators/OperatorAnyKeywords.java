@@ -4,11 +4,11 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.Text
 
 public final class OperatorAnyKeywords extends ConditionalTextualOperator {
 
-	protected  OperatorAnyKeywords(String fieldName, String[] elements){
+    protected OperatorAnyKeywords(String fieldName, String[] elements) {
         super(fieldName, elements);
     }
 
-    public static OperatorAnyKeywords newOperatorAnyKeywords(String fieldName, String keyword, String... keywords){
+    public static OperatorAnyKeywords newOperatorAnyKeywords(String fieldName, String keyword, String... keywords) {
         return new OperatorAnyKeywords(fieldName, TextualOperator.oneKeywordsAtLeastToArray(keyword, keywords));
     }
 

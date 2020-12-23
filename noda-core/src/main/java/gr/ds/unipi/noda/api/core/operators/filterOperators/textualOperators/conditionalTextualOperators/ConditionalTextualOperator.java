@@ -4,7 +4,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.Text
 
 public abstract class ConditionalTextualOperator<T> extends TextualOperator<T> {
 
-    protected ConditionalTextualOperator(String fieldName, String[] keywords){
+    protected ConditionalTextualOperator(String fieldName, String[] keywords) {
         super(fieldName, keywords);
     }
 }

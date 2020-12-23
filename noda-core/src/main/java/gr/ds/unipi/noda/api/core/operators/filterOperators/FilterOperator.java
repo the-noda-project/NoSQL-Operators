@@ -4,7 +4,7 @@ import gr.ds.unipi.noda.api.core.operators.Operator;
 
 public interface FilterOperator<T> extends Operator<T> {
 
-    default StringBuilder toString(String level){
+    default StringBuilder toString(String level) {
         return null;
     }
 }

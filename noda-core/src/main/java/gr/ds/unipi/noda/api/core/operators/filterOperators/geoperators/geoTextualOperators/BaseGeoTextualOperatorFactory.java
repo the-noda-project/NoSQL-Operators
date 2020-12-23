@@ -7,7 +7,6 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometrie
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator;
 
-
 import java.util.Collection;
 
 public abstract class BaseGeoTextualOperatorFactory {

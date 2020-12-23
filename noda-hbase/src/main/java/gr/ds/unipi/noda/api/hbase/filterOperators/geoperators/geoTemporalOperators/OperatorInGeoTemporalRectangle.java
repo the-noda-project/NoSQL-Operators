@@ -33,7 +33,7 @@ final class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangle
 
         RectangleTemporalFilterProtos.RectangleTemporalFilter.Coordinates lowerCoordinates = RectangleTemporalFilterProtos.RectangleTemporalFilter.Coordinates.newBuilder().setLongitude(getGeographicalOperator().getGeometry().getLowerBound().getLongitude()).setLatitude(getGeographicalOperator().getGeometry().getLowerBound().getLatitude()).build();
         RectangleTemporalFilterProtos.RectangleTemporalFilter.Coordinates upperCoordinates = RectangleTemporalFilterProtos.RectangleTemporalFilter.Coordinates.newBuilder().setLongitude(getGeographicalOperator().getGeometry().getUpperBound().getLongitude()).setLatitude(getGeographicalOperator().getGeometry().getUpperBound().getLatitude()).build();
-        return RectangleTemporalFilter.newRectangleTemporalFilter(Bytes.toBytes(getGeographicalOperator().getFieldName()), Bytes.toBytes("longitude"),Bytes.toBytes("latitude"),lowerCoordinates, upperCoordinates, Bytes.toBytes(temporalNames[0]), Bytes.toBytes(temporalNames[1]), getTemporalType().getLowerBound().getTime(), getTemporalType().getUpperBound().getTime());
+        return RectangleTemporalFilter.newRectangleTemporalFilter(Bytes.toBytes(getGeographicalOperator().getFieldName()), Bytes.toBytes("longitude"), Bytes.toBytes("latitude"), lowerCoordinates, upperCoordinates, Bytes.toBytes(temporalNames[0]), Bytes.toBytes(temporalNames[1]), getTemporalType().getLowerBound().getTime(), getTemporalType().getUpperBound().getTime());
     }
 
 }

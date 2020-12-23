@@ -25,7 +25,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
     private final String database;
     private final String uriSparkSession;
 
-    private final List<Map.Entry<List<String>,List<AggregateOperator>>> groupByAgg = new ArrayList<>();
+    private final List<Map.Entry<List<String>, List<AggregateOperator>>> groupByAgg = new ArrayList<>();
 
     private MongoDBOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
@@ -147,12 +147,12 @@ final class MongoDBOperators extends NoSqlDbOperators {
         sb.append("{ $group: ");
         sb.append("{ _id: {");
 
-        sb.append(fieldName+": " + "\"" + "$" + fieldName + "\"");
+        sb.append(fieldName + ": " + "\"" + "$" + fieldName + "\"");
 
-        if(fieldNames.length != 0){
-            for(String fn : fieldNames){
+        if (fieldNames.length != 0) {
+            for (String fn : fieldNames) {
                 sb.append(",");
-                sb.append(fieldName+": " + "\"" + "$" + fieldName + "\"");
+                sb.append(fieldName + ": " + "\"" + "$" + fieldName + "\"");
             }
         }
 
@@ -168,26 +168,26 @@ final class MongoDBOperators extends NoSqlDbOperators {
     @Override
     public NoSqlDbOperators aggregate(AggregateOperator aggregateOperator, AggregateOperator... aggregateOperators) {
 
-        if(stagesList.size() > 0 && ((Document) stagesList.get(stagesList.size()-1)).containsKey("$group")){
+        if (stagesList.size() > 0 && ((Document) stagesList.get(stagesList.size() - 1)).containsKey("$group")) {
 
             StringBuilder sb = new StringBuilder();
 
-            Document document = (Document) stagesList.get(stagesList.size()-1);
+            Document document = (Document) stagesList.get(stagesList.size() - 1);
             String json = document.toJson();
-            sb.append(json, 0, json.length()-3);
+            sb.append(json, 0, json.length() - 3);
 
             sb.append(aggregateOperator.getOperatorExpression());
 
-            if(aggregateOperators.length != 0){
-                for(AggregateOperator aop : aggregateOperators){
-                    sb.append(", "+aop.getOperatorExpression());
+            if (aggregateOperators.length != 0) {
+                for (AggregateOperator aop : aggregateOperators) {
+                    sb.append(", " + aop.getOperatorExpression());
                 }
             }
 
             sb.append(" } }");
             stagesList.add(Document.parse(sb.toString()));
 
-        }else{
+        } else {
             StringBuilder sb = new StringBuilder();
             sb.append("{ $group: ");
 
@@ -233,7 +233,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
         sb.append("\"_id\" : 0, ");
 
-        sb.append("\""+fieldName + "\""+ " : 1");
+        sb.append("\"" + fieldName + "\"" + " : 1");
 
         for (String s : fieldNames) {
             sb.append(", ");

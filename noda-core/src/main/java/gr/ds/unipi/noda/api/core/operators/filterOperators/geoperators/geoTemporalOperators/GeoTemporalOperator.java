@@ -7,11 +7,11 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometrie
 
 public abstract class GeoTemporalOperator<T, U extends Geometry, S extends Temporal> implements FilterOperator<T> {
 
-    private final GeographicalOperator<T,U> geographicalOperator;
+    private final GeographicalOperator<T, U> geographicalOperator;
     private final String temporalFieldName;
     private final S temporalType;
 
-    protected GeoTemporalOperator(GeographicalOperator<T,U> geographicalOperator, String temporalFieldName, S temporalType) {
+    protected GeoTemporalOperator(GeographicalOperator<T, U> geographicalOperator, String temporalFieldName, S temporalType) {
         this.geographicalOperator = geographicalOperator;
         this.temporalFieldName = temporalFieldName;
         this.temporalType = temporalType;
@@ -27,7 +27,9 @@ public abstract class GeoTemporalOperator<T, U extends Geometry, S extends Tempo
         return temporalType;
     }
 
-    protected GeographicalOperator<T,U> getGeographicalOperator(){return geographicalOperator;}
+    protected GeographicalOperator<T, U> getGeographicalOperator() {
+        return geographicalOperator;
+    }
 
     @Override
     public boolean equals(Object o) {

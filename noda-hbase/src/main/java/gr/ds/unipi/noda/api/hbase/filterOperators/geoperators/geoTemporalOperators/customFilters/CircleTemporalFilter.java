@@ -44,8 +44,8 @@ public class CircleTemporalFilter extends FilterBase {
         this.upperDateBound = upperDateBound;
     }
 
-    public static CircleTemporalFilter newCircleTemporalFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, CircleTemporalFilterProtos.CircleTemporalFilter.Coordinates centerCoordinates, double radius, byte[] columnFamilyTemporal, byte[] columnQualifierTemporal, long lowerDateBound, long upperDateBound){
-        return new CircleTemporalFilter(columnFamily, longitudeColumnQualifier,  latitudeColumnQualifier, centerCoordinates, radius, columnFamilyTemporal, columnQualifierTemporal, lowerDateBound, upperDateBound);
+    public static CircleTemporalFilter newCircleTemporalFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, CircleTemporalFilterProtos.CircleTemporalFilter.Coordinates centerCoordinates, double radius, byte[] columnFamilyTemporal, byte[] columnQualifierTemporal, long lowerDateBound, long upperDateBound) {
+        return new CircleTemporalFilter(columnFamily, longitudeColumnQualifier, latitudeColumnQualifier, centerCoordinates, radius, columnFamilyTemporal, columnQualifierTemporal, lowerDateBound, upperDateBound);
     }
 
     @Override
@@ -60,20 +60,19 @@ public class CircleTemporalFilter extends FilterBase {
             longitude = PrivateCellUtil.getValueAsDouble(c);
         } else if (CellUtil.matchingColumn(c, this.columnFamily, this.latitudeColumnQualifier)) {
             latitude = PrivateCellUtil.getValueAsDouble(c);
-        }
-        else if (CellUtil.matchingColumn(c, this.columnFamilyTemporal, this.columnQualifierTemporal)) {
+        } else if (CellUtil.matchingColumn(c, this.columnFamilyTemporal, this.columnQualifierTemporal)) {
             date = PrivateCellUtil.getValueAsLong(c);
         }
         return ReturnCode.INCLUDE;
     }
 
     private boolean contains(double longitude, double latitude, double date) {
-        if (Double.compare(radius, haversine(longitude, latitude)) != -1 && Double.compare(date,lowerDateBound) != -1 && Double.compare(date,upperDateBound) != 1) {
+        if (Double.compare(radius, haversine(longitude, latitude)) != -1 && Double.compare(date, lowerDateBound) != -1 && Double.compare(date, upperDateBound) != 1) {
             return true;
         }
         return false;
     }
-    
+
     @Override
     public boolean filterRow() {
 
@@ -101,10 +100,10 @@ public class CircleTemporalFilter extends FilterBase {
         }
         builder.setRadius(radius);
 
-        if(columnFamilyTemporal != null){
+        if (columnFamilyTemporal != null) {
             builder.setColumnFamilyTemporal(ByteStringer.wrap(columnFamilyTemporal));
         }
-        if(columnQualifierTemporal != null){
+        if (columnQualifierTemporal != null) {
             builder.setColumnQualifierTemporal(ByteStringer.wrap(columnQualifierTemporal));
         }
 

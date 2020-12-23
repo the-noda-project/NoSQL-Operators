@@ -32,7 +32,7 @@ final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, Temp
         }
 
         CircleTemporalFilterProtos.CircleTemporalFilter.Coordinates centerCoordinates = CircleTemporalFilterProtos.CircleTemporalFilter.Coordinates.newBuilder().setLongitude(getGeographicalOperator().getGeometry().getCircleCenter().getLongitude()).setLatitude(getGeographicalOperator().getGeometry().getCircleCenter().getLatitude()).build();
-        return CircleTemporalFilter.newCircleTemporalFilter(Bytes.toBytes(getGeographicalOperator().getFieldName()), Bytes.toBytes("longitude"),Bytes.toBytes("latitude"),centerCoordinates, getGeographicalOperator().getGeometry().getRadius(), Bytes.toBytes(temporalNames[0]), Bytes.toBytes(temporalNames[1]), getTemporalType().getLowerBound().getTime(), getTemporalType().getUpperBound().getTime());
+        return CircleTemporalFilter.newCircleTemporalFilter(Bytes.toBytes(getGeographicalOperator().getFieldName()), Bytes.toBytes("longitude"), Bytes.toBytes("latitude"), centerCoordinates, getGeographicalOperator().getGeometry().getRadius(), Bytes.toBytes(temporalNames[0]), Bytes.toBytes(temporalNames[1]), getTemporalType().getLowerBound().getTime(), getTemporalType().getUpperBound().getTime());
     }
 
 }

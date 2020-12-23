@@ -9,14 +9,14 @@ public class AppConfig {
     private static final Config config = ConfigFactory.load()
             .withFallback(ConfigFactory.parseResources("configs/redis.conf"));
 
-    private AppConfig(){
+    private AppConfig() {
     }
 
-    public static Config redis(){
+    public static Config redis() {
         return config.getConfig("redis");
     }
 
-    public static Config setOnRedis(String path, Object value){
+    public static Config setOnRedis(String path, Object value) {
         return config.getConfig("redis").withValue(path, ConfigValueFactory.fromAnyRef(value));
     }
 

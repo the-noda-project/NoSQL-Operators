@@ -5,12 +5,12 @@ import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperat
 
 import java.util.Collection;
 
-public class OperatorTopKInGeoTextualCircle extends GeoTextualApproximateOperator<Circle>{
+public class OperatorTopKInGeoTextualCircle extends GeoTextualApproximateOperator<Circle> {
     private final int topK;
 
     protected OperatorTopKInGeoTextualCircle(String fieldName, Circle circle, String keywordFieldName, Collection<String> keywords, int topK) {
         super(OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle), keywordFieldName, keywords.toArray(new String[0]));
-        this.topK= topK;
+        this.topK = topK;
     }
 
     @Override
@@ -18,7 +18,7 @@ public class OperatorTopKInGeoTextualCircle extends GeoTextualApproximateOperato
         return null;
     }
 
-    public static OperatorTopKInGeoTextualCircle newOperatorTopKInGeoTextualCircle(String fieldName, Circle circle, String keywordFieldName, Collection<String> keywords, int topK){
+    public static OperatorTopKInGeoTextualCircle newOperatorTopKInGeoTextualCircle(String fieldName, Circle circle, String keywordFieldName, Collection<String> keywords, int topK) {
         return new OperatorTopKInGeoTextualCircle(fieldName, circle, keywordFieldName, keywords, topK);
     }
 }

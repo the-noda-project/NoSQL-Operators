@@ -33,8 +33,8 @@ public class CircleFilter extends FilterBase {
         this.radius = radius;
     }
 
-    public static CircleFilter newCircleFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, CircleFilterProtos.CircleFilter.Coordinates centerCoordinates, double radius){
-        return new CircleFilter(columnFamily, longitudeColumnQualifier,  latitudeColumnQualifier, centerCoordinates, radius);
+    public static CircleFilter newCircleFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, CircleFilterProtos.CircleFilter.Coordinates centerCoordinates, double radius) {
+        return new CircleFilter(columnFamily, longitudeColumnQualifier, latitudeColumnQualifier, centerCoordinates, radius);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class CircleFilter extends FilterBase {
         }
         return false;
     }
-    
+
     @Override
     public boolean filterRow() {
 

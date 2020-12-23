@@ -44,8 +44,8 @@ public class RectangleTemporalFilter extends FilterBase {
         this.upperDateBound = upperDateBound;
     }
 
-    public static RectangleTemporalFilter newRectangleTemporalFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, RectangleTemporalFilterProtos.RectangleTemporalFilter.Coordinates lowerCoordinates, RectangleTemporalFilterProtos.RectangleTemporalFilter.Coordinates upperCoordinates, byte[] columnFamilyTemporal, byte[] columnQualifierTemporal, long lowerDateBound, long upperDateBound){
-        return new RectangleTemporalFilter(columnFamily, longitudeColumnQualifier,  latitudeColumnQualifier, lowerCoordinates, upperCoordinates, columnFamilyTemporal, columnQualifierTemporal, lowerDateBound, upperDateBound);
+    public static RectangleTemporalFilter newRectangleTemporalFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, RectangleTemporalFilterProtos.RectangleTemporalFilter.Coordinates lowerCoordinates, RectangleTemporalFilterProtos.RectangleTemporalFilter.Coordinates upperCoordinates, byte[] columnFamilyTemporal, byte[] columnQualifierTemporal, long lowerDateBound, long upperDateBound) {
+        return new RectangleTemporalFilter(columnFamily, longitudeColumnQualifier, latitudeColumnQualifier, lowerCoordinates, upperCoordinates, columnFamilyTemporal, columnQualifierTemporal, lowerDateBound, upperDateBound);
     }
 
     @Override
@@ -60,8 +60,7 @@ public class RectangleTemporalFilter extends FilterBase {
             longitude = PrivateCellUtil.getValueAsDouble(c);
         } else if (CellUtil.matchingColumn(c, this.columnFamily, this.latitudeColumnQualifier)) {
             latitude = PrivateCellUtil.getValueAsDouble(c);
-        }
-        else if (CellUtil.matchingColumn(c, this.columnFamilyTemporal, this.columnQualifierTemporal)) {
+        } else if (CellUtil.matchingColumn(c, this.columnFamilyTemporal, this.columnQualifierTemporal)) {
             date = PrivateCellUtil.getValueAsLong(c);
         }
         return ReturnCode.INCLUDE;
@@ -69,10 +68,10 @@ public class RectangleTemporalFilter extends FilterBase {
 
     private boolean contains(double longitude, double latitude, double date) {
 
-        if(Double.compare(longitude, lowerCoordinates.getLongitude()) == -1 ||  Double.compare(latitude, lowerCoordinates.getLatitude()) == -1 || Double.compare(date,lowerDateBound) == -1){
+        if (Double.compare(longitude, lowerCoordinates.getLongitude()) == -1 || Double.compare(latitude, lowerCoordinates.getLatitude()) == -1 || Double.compare(date, lowerDateBound) == -1) {
             return false;
         }
-        if(Double.compare(longitude, upperCoordinates.getLongitude()) == 1 ||  Double.compare(latitude, upperCoordinates.getLatitude()) == 1 || Double.compare(date, upperDateBound) == 1){
+        if (Double.compare(longitude, upperCoordinates.getLongitude()) == 1 || Double.compare(latitude, upperCoordinates.getLatitude()) == 1 || Double.compare(date, upperDateBound) == 1) {
             return false;
         }
         return true;
@@ -105,10 +104,10 @@ public class RectangleTemporalFilter extends FilterBase {
         if (upperCoordinates != null) {
             builder.setUpperCoordinates(upperCoordinates);
         }
-        if(columnFamilyTemporal != null){
+        if (columnFamilyTemporal != null) {
             builder.setColumnFamilyTemporal(ByteStringer.wrap(columnFamilyTemporal));
         }
-        if(columnQualifierTemporal != null){
+        if (columnQualifierTemporal != null) {
             builder.setColumnQualifierTemporal(ByteStringer.wrap(columnQualifierTemporal));
         }
 

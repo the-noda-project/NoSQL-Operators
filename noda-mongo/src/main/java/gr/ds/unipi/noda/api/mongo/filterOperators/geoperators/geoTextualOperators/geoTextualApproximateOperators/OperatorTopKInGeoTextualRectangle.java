@@ -9,7 +9,7 @@ public class OperatorTopKInGeoTextualRectangle extends GeoTextualApproximateOper
     private final int topK;
 
     protected OperatorTopKInGeoTextualRectangle(String fieldName, Rectangle rectangle, String keywordFieldName, Collection<String> keywords, int topK) {
-        super(OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName,rectangle), keywordFieldName, keywords.toArray(new String[0]));
+        super(OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName, rectangle), keywordFieldName, keywords.toArray(new String[0]));
         this.topK = topK;
     }
 
@@ -18,7 +18,7 @@ public class OperatorTopKInGeoTextualRectangle extends GeoTextualApproximateOper
         return null;
     }
 
-    public static OperatorTopKInGeoTextualRectangle newOperatorTopKInGeoTextualRectangle(String fieldName, Rectangle rectangle, String keywordFieldName, Collection<String> keywords, int topK){
+    public static OperatorTopKInGeoTextualRectangle newOperatorTopKInGeoTextualRectangle(String fieldName, Rectangle rectangle, String keywordFieldName, Collection<String> keywords, int topK) {
         return new OperatorTopKInGeoTextualRectangle(fieldName, rectangle, keywordFieldName, keywords, topK);
     }
 }

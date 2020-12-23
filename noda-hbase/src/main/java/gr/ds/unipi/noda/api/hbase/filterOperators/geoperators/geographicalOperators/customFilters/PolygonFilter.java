@@ -32,8 +32,8 @@ public class PolygonFilter extends FilterBase {
         this.coordinates = coordinates;
     }
 
-    public static PolygonFilter newPolygonFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, List<PolygonFilterProtos.PolygonFilter.Coordinates> coordinates){
-        return new PolygonFilter(columnFamily, longitudeColumnQualifier,  latitudeColumnQualifier, coordinates);
+    public static PolygonFilter newPolygonFilter(byte[] columnFamily, byte[] longitudeColumnQualifier, byte[] latitudeColumnQualifier, List<PolygonFilterProtos.PolygonFilter.Coordinates> coordinates) {
+        return new PolygonFilter(columnFamily, longitudeColumnQualifier, latitudeColumnQualifier, coordinates);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class PolygonFilter extends FilterBase {
         }
         return result;
     }
-    
+
     @Override
     public boolean filterRow() {
 

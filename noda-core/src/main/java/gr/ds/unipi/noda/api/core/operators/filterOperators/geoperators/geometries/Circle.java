@@ -39,7 +39,7 @@ public class Circle extends Geometry {
 
     @Override
     public boolean equals(Object o) {
-        return super.equals(o) && Double.compare(((Circle )o).radius, radius) == 0;
+        return super.equals(o) && Double.compare(((Circle) o).radius, radius) == 0;
     }
 
     @Override

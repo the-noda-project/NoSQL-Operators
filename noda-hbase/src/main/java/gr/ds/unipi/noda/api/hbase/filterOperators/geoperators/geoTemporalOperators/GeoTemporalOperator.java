@@ -19,13 +19,13 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
 
     private final FilterList filterList = new FilterList();
 
-    protected GeoTemporalOperator(GeographicalOperator<Filter,T> geographicalOperator, String temporalFieldName, U temporalType) {
+    protected GeoTemporalOperator(GeographicalOperator<Filter, T> geographicalOperator, String temporalFieldName, U temporalType) {
         super(geographicalOperator, temporalFieldName, temporalType);
     }
 
-    public Map.Entry<String, byte[]> getMatchingPattern(){
+    public Map.Entry<String, byte[]> getMatchingPattern() {
 
-        if(getTemporalType() instanceof TemporalBounds) {
+        if (getTemporalType() instanceof TemporalBounds) {
 
             String geoHashPart = HBaseGeoTemporalOperatorFactory.getGeoHashPart(this.getGeographicalOperator().getGeometry());
             String temporalPart = HBaseGeoTemporalOperatorFactory.getTemporalPart(((TemporalBounds) getTemporalType()).getLowerBound(), ((TemporalBounds) getTemporalType()).getUpperBound());
@@ -43,7 +43,7 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
 
             //temporal part
             for (int i = geoHashPart.length() + 1; i < geoHashPart.length() + 1 + temporalPart.length(); i++) {
-                if (temporalPart.charAt(i - geoHashPart.length() - 1 ) != '?') {
+                if (temporalPart.charAt(i - geoHashPart.length() - 1) != '?') {
                     digits[i] = 0;
                 } else {
                     digits[i] = 1;
@@ -56,9 +56,8 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
             digits[geoHashPart.length()] = 0;
             digits[geoHashPart.length() + 1 + temporalPart.length()] = 0;
 
-            return new AbstractMap.SimpleImmutableEntry<>(geoHashPart + "-"+temporalPart+"-??????????", digits);
-        }
-        else{
+            return new AbstractMap.SimpleImmutableEntry<>(geoHashPart + "-" + temporalPart + "-??????????", digits);
+        } else {
             try {
                 throw new Exception("Single Temporal Value cannot be handled");
             } catch (Exception e) {

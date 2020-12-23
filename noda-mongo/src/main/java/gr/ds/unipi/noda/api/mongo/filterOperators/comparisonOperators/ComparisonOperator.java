@@ -18,7 +18,7 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
 //        if (!getFieldName().contains(".")) {
 //            sb.append(getFieldName() );
 //        } else {
-            sb.append("\"" + getFieldName() + "\"");
+        sb.append("\"" + getFieldName() + "\"");
 //        }
 
         sb.append(": { $");

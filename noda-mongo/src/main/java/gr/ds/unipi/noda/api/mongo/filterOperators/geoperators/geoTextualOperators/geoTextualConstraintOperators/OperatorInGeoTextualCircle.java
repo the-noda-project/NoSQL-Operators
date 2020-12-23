@@ -6,7 +6,7 @@ import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperat
 
 public class OperatorInGeoTextualCircle extends GeoTextualConstraintOperator<Circle> {
     protected OperatorInGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator) {
-        super(OperatorInGeoCircle.newOperatorInGeoCircle(fieldName,circle), conditionalTextualOperator);
+        super(OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle), conditionalTextualOperator);
     }
 /*
     @Override
@@ -16,7 +16,7 @@ public class OperatorInGeoTextualCircle extends GeoTextualConstraintOperator<Cir
         //return GeoTextualConstraintOperator.formGeometryAndTextualExpression(this.getGeographicalOperator().getOperatorExpression(), this.getConditionalTextualOperator());
     }*/
 
-    public static OperatorInGeoTextualCircle newOperatorInGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator){
+    public static OperatorInGeoTextualCircle newOperatorInGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator) {
         return new OperatorInGeoTextualCircle(fieldName, circle, conditionalTextualOperator);
     }
 }

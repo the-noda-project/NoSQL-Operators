@@ -39,15 +39,15 @@ public final class HBaseGeoTemporalOperatorFactory extends BaseGeoTemporalOperat
         return null;
     }
 
-    public static String getGeoHashPart(Geometry geometry){
+    public static String getGeoHashPart(Geometry geometry) {
 
         int length = 8;
         String geoHash = HBaseGeographicalOperatorFactory.getGeoHashPart(geometry);
 
-        return String.format("%-"+length+"s",geoHash).replace(' ','?');
+        return String.format("%-" + length + "s", geoHash).replace(' ', '?');
     }
 
-    public static String getTemporalPart(Date lowerDate, Date upperDate){
-        return String.format("%-13s", Commons.commonPrefix(String.valueOf(lowerDate.getTime()), String.valueOf(upperDate.getTime()))).replace(' ','?');
+    public static String getTemporalPart(Date lowerDate, Date upperDate) {
+        return String.format("%-13s", Commons.commonPrefix(String.valueOf(lowerDate.getTime()), String.valueOf(upperDate.getTime()))).replace(' ', '?');
     }
 }
