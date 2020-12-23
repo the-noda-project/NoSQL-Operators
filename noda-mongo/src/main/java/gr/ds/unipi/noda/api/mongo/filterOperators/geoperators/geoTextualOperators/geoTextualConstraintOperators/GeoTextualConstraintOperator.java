@@ -27,7 +27,7 @@ public abstract class GeoTextualConstraintOperator<U extends Geometry> extends g
     public StringBuilder getOperatorExpression(){
     	
         StringBuilder sb = new StringBuilder();
-        String [] keywords=conditionalTextualOperator.getKeywords();
+        String [] keywords=getConditionalTextualOperator().getKeywords();
         sb.append("{ $and: [");
         sb.append(MongoDBGeographicalOperatorFactory.getGeometryExpression(getGeographicalOperator().getFieldName(), getGeographicalOperator().getGeometry()));
         sb.append(", ");
