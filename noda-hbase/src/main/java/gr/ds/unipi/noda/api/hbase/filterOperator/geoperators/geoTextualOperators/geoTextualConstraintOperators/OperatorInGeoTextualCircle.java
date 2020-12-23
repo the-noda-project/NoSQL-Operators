@@ -18,7 +18,7 @@ public class OperatorInGeoTextualCircle extends GeoTextualConstraintOperator<Cir
         //return GeoTextualConstraintOperator.formGeometryAndTextualExpression(this.getGeographicalOperator().getOperatorExpression(), this.getConditionalTextualOperator());
    // }
 
-    public static OperatorInGeoTextualCircle inGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator){
+    public static OperatorInGeoTextualCircle newOperatorInGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator){
         return new OperatorInGeoTextualCircle(fieldName, circle, conditionalTextualOperator);
     }
 }

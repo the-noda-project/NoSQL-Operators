@@ -15,7 +15,7 @@ public class OperatorInGeoTextualRectangle extends GeoTextualConstraintOperator<
         return null;
     }
 
-    public static OperatorInGeoTextualRectangle inGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator){
+    public static OperatorInGeoTextualRectangle newOperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator){
         return new OperatorInGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
     }
 }

@@ -20,17 +20,17 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinat
 public final class MongoDBGeoTextualOperatorFactory extends BaseGeoTextualOperatorFactory {
     @Override
     public GeoTextualConstraintOperator inGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
-        return OperatorInGeoTextualRectangle.inGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
+        return OperatorInGeoTextualRectangle.newOperatorInGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
     }
 
     @Override
     public GeoTextualConstraintOperator inGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator) {
-        return OperatorInGeoTextualCircle.inGeoTextualCircle(fieldName, circle, conditionalTextualOperator);
+        return OperatorInGeoTextualCircle.newOperatorInGeoTextualCircle(fieldName, circle, conditionalTextualOperator);
     }
 
     @Override
     public GeoTextualConstraintOperator inGeoTextualPolygon(String fieldName, Polygon polygon, ConditionalTextualOperator conditionalTextualOperator) {
-        return OperatorInGeoTextualPolygon.inGeoTextualPolygon(fieldName, polygon, conditionalTextualOperator);
+        return OperatorInGeoTextualPolygon.newOperatorInGeoTextualPolygon(fieldName, polygon, conditionalTextualOperator);
     }
 
     @Override

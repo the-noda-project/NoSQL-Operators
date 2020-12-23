@@ -64,7 +64,7 @@ public abstract class GeoTextualConstraintOperator<U extends Geometry> extends g
          OrderedBytes.encodeNumeric(poslon2, lon2, Order.ASCENDING);
          PositionedByteRange poslat2 = new SimplePositionedMutableByteRange(byteslat2, 0, 20);
          OrderedBytes.encodeNumeric(poslat2, lat2, Order.ASCENDING);
-         String [] keywords=conditionalTextualOperator.getKeywords();
+         String [] keywords=getConditionalTextualOperator().getKeywords();
 
          List<String> hilbertresults= HBaseGeoTextualOperatorFactory.getExpressionOfSpatioTextualHilbertIndexes(getGeographicalOperator().getGeometry().getCoordinatesArray(),keywords);
 

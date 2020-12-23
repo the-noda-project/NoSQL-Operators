@@ -20,7 +20,7 @@ import  gr.ds.unipi.noda.api.core.hilbert.HilbertUtil;
 public final class HBaseGeoTextualOperatorFactory extends BaseGeoTextualOperatorFactory {
     @Override
     public GeoTextualConstraintOperator  inGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
-        return OperatorInGeoTextualRectangle.inGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
+        return OperatorInGeoTextualRectangle.newOperatorInGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
 
     }
 
