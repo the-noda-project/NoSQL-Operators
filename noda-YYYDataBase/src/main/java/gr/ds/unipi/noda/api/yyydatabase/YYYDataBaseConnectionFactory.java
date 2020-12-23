@@ -1,4 +1,4 @@
-package gr.ds.unipi.noda.api.hbase;
+package gr.ds.unipi.noda.api.yyydatabase;
 
 import gr.ds.unipi.noda.api.core.dataframe.BaseDataframeManipulator;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
@@ -12,76 +12,77 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographi
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.aggregateOperators.HBaseAggregateOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.dataframe.HBaseDataframeManipulator;
-import gr.ds.unipi.noda.api.hbase.filterOperators.comparisonOperators.HBaseComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geoTemporalOperators.HBaseGeoTemporalOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geoTextualOperators.HBaseGeoTextualOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geographicalOperators.HBaseGeographicalOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperators.logicalOperators.HBaseLogicalOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperators.textualOperators.HBaseTextualOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.sortOperators.HBaseSortOperatorFactory;
+import gr.ds.unipi.noda.api.yyydatabase.aggregateOperators.YYYDataBaseAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.yyydatabase.filterOperators.comparisonOperators.YYYDataBaseComparisonOperatorFactory;
+import gr.ds.unipi.noda.api.yyydatabase.filterOperators.geoperators.geoTemporalOperators.YYYDataBaseGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.yyydatabase.filterOperators.geoperators.geoTextualOperators.YYYDataBaseGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.yyydatabase.filterOperators.geoperators.geographicalOperators.YYYDataBaseGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.yyydatabase.filterOperators.logicalOperators.YYYDataBaseLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.yyydatabase.filterOperators.textualOperators.YYYDataBaseTextualOperatorFactory;
+import gr.ds.unipi.noda.api.yyydatabase.sortOperators.YYYDataBaseSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
-public final class HBaseConnectionFactory extends NoSqlConnectionFactory {
+public final class YYYDataBaseConnectionFactory extends NoSqlConnectionFactory {
+
+    private final YYYDataBaseConnectionManager yYYDataBaseConnectionManager = YYYDataBaseConnectionManager.getInstance();
 
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
-        return HBaseOperators.newHBaseOperators(connector, s, sparkSession);
+        return null;
     }
 
     @Override
     public void closeConnection(NoSqlDbConnector noSqlDbConnector) {
-        HBaseConnectionManager.getInstance().closeConnection(noSqlDbConnector);
+
     }
 
     @Override
     public boolean closeConnections() {
-        return HBaseConnectionManager.getInstance().closeConnections();
+        return false;
     }
 
     @Override
     protected BaseAggregateOperatorFactory getBaseAggregateOperatorFactory() {
-        return new HBaseAggregateOperatorFactory();
+        return new YYYDataBaseAggregateOperatorFactory();
     }
 
     @Override
     protected BaseComparisonOperatorFactory getBaseComparisonOperatorFactory() {
-        return new HBaseComparisonOperatorFactory();
+        return new YYYDataBaseComparisonOperatorFactory();
     }
 
     @Override
     protected BaseGeographicalOperatorFactory getBaseGeoSpatialOperatorFactory() {
-        return new HBaseGeographicalOperatorFactory();
+        return new YYYDataBaseGeographicalOperatorFactory();
     }
 
     @Override
     protected BaseGeoTemporalOperatorFactory getBaseGeoTemporalOperatorFactory() {
-        return new HBaseGeoTemporalOperatorFactory();
+        return new YYYDataBaseGeoTemporalOperatorFactory();
     }
 
     @Override
     protected BaseGeoTextualOperatorFactory getBaseGeoTextualOperatorFactory() {
-        return new HBaseGeoTextualOperatorFactory();
+        return new YYYDataBaseGeoTextualOperatorFactory();
     }
 
     @Override
     protected BaseLogicalOperatorFactory getBaseLogicalOperatorFactory() {
-        return new HBaseLogicalOperatorFactory();
+        return new YYYDataBaseLogicalOperatorFactory();
     }
 
     @Override
     protected BaseSortOperatorFactory getBaseSortOperatorFactory() {
-        return new HBaseSortOperatorFactory();
+        return new YYYDataBaseSortOperatorFactory();
     }
 
     @Override
     protected BaseTextualOperatorFactory getBaseTextualOperatorFactory() {
-        return new HBaseTextualOperatorFactory();
+        return new YYYDataBaseTextualOperatorFactory();
     }
 
     @Override
     protected BaseDataframeManipulator getBaseDataframeManipulator() {
-        return new HBaseDataframeManipulator();
+        return null;
     }
 }
