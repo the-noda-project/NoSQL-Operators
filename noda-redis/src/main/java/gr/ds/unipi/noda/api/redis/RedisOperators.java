@@ -5,7 +5,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
-import gr.ds.unipi.noda.api.redis.filterOperator.Triplet;
+import gr.ds.unipi.noda.api.redis.filterOperators.Triplet;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -93,7 +93,7 @@ final class RedisOperators extends NoSqlDbOperators {
     }
 
 
-//        System.out.println(filterOperator.toString(""));
+//        System.out.println(filterOperators.toString(""));
 
 //        for (int i = 0; i < list.size(); i++) {
 //            Map.Entry<Operator, String[]> entry = list.get(i);

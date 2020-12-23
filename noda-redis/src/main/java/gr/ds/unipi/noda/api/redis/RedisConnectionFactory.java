@@ -12,14 +12,14 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographi
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
-import gr.ds.unipi.noda.api.redis.aggregateOperator.RedisAggregateOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.comparisonOperators.RedisComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTemporalOperators.RedisGeoTemporalOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geoTextualOperators.RedisGeoTextualOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.geoperators.geographicalOperators.RedisGeographicalOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.logicalOperators.RedisLogicalOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperator.textualOperators.RedisTextualOperatorFactory;
-import gr.ds.unipi.noda.api.redis.sortOperator.RedisSortOperatorFactory;
+import gr.ds.unipi.noda.api.redis.aggregateOperators.RedisAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperators.comparisonOperators.RedisComparisonOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geoTemporalOperators.RedisGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geoTextualOperators.RedisGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geographicalOperators.RedisGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperators.logicalOperators.RedisLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.redis.filterOperators.textualOperators.RedisTextualOperatorFactory;
+import gr.ds.unipi.noda.api.redis.sortOperators.RedisSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
 public final class RedisConnectionFactory extends NoSqlConnectionFactory {
