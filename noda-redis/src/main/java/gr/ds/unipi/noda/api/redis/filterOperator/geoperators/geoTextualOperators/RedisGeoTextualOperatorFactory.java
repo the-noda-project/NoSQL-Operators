@@ -12,7 +12,7 @@ import java.util.Collection;
 
 public final class RedisGeoTextualOperatorFactory extends BaseGeoTextualOperatorFactory {
     @Override
-    public GeoTextualConstraintOperator inGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
+    public GeoTextualConstraintOperator  inGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator) {
         return null;
     }
 

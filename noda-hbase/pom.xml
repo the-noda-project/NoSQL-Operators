@@ -39,6 +39,14 @@
             <artifactId>geo</artifactId>
             <version>0.7.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.davidmoten</groupId>
+            <artifactId>hilbert-curve</artifactId>
+            <version>0.2.2</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        
     </dependencies>
 
 

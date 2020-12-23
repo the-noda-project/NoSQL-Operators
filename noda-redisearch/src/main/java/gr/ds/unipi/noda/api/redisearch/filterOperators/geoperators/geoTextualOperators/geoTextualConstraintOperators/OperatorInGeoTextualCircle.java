@@ -16,7 +16,7 @@ public class OperatorInGeoTextualCircle extends GeoTextualConstraintOperator<Nod
         return QueryBuilder.intersect((Node) getConditionalTextualOperator().getOperatorExpression(), (Node) getGeographicalOperator().getOperatorExpression());
     }
 
-    public static OperatorInGeoTextualCircle newOperatorInGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator){
+    public static OperatorInGeoTextualCircle inGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator){
         return new OperatorInGeoTextualCircle(fieldName, circle, conditionalTextualOperator);
     }
 }

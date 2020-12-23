@@ -23,6 +23,7 @@ public class HilbertUtil {
         return new long[] { x, y, z };
     }
 
+
     private static long scale(double d, long max) {
         if (!(Double.compare(d,0) != -1 &&  Double.compare(d,1) != 1)) {
             throw new IllegalArgumentException();

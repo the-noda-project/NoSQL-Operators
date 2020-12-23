@@ -263,7 +263,7 @@ public class FilterOperators {
 
     public static FilterOperator inGeoTextualPolygon(String fieldName, ConditionalTextualOperator conditionalTextualOperator, Coordinates coordinates1, Coordinates coordinates2, Coordinates coordinates3, Coordinates... coordinates){
         return GeoTextualConstraintOperator.geoTextualOperator.inGeoTextualPolygon(fieldName,Polygon.newPolygon(coordinates1,coordinates2,coordinates3,coordinates),conditionalTextualOperator);
-
+        
     };
 
     public static FilterOperator topRankInGeoTextualRectangle(String fieldName, Coordinates lowerBoundPoint, Coordinates upperBoundPoint, String keywordFieldName, Collection<String> keywords, int topK){
