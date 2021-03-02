@@ -60,8 +60,7 @@ export class QueryConstructionComponent implements OnInit {
   objectTimeFieldName: string = 'default';
 
   drawItems: L.FeatureGroup = L.featureGroup();
-  actualQuery =
-    'MATCH (s:Car) WHERE s.STHilbertIndex = 8651786 WITH s WHERE distance(point({ srid :7203, x: 52.5067614 , y: 13.2846506 }), s.location) < 0.02 AND 1180429200000 < s.Timestamp < 1180688400000 WITH s RETURN *';
+  actualQuery = 'Not available yet.';
 
   drawOptions = {
     edit: {
@@ -215,7 +214,7 @@ export class QueryConstructionComponent implements OnInit {
     this.isLoading = true;
     this.queryConstructionServ
       .spatioTemporalSqlQueryPost(
-        this.query,
+        "SELECT* FROM Car WHERE GEO_TEMPORAL_CIRCLE_KM(location, (13.3401321, 52.509463), 0.00002, Timestamp, '29/05/2007 12:00:00', '30/06/2007 12:00:00')",
         this.objectIdFieldName,
         this.objectLocationFieldName,
         this.objectTimeFieldName
@@ -225,6 +224,10 @@ export class QueryConstructionComponent implements OnInit {
         const data = JSON.parse(res);
         if (data['status'] === 'ok') {
           this.isLoading = false;
+          this.query =
+            "SELECT* FROM Car WHERE GEO_TEMPORAL_CIRCLE_KM(location, (13.3401321, 52.509463), 0.002, Timestamp, '29/05/2007 12:00:00', '30/06/2007 12:00:00')";
+          this.actualQuery =
+            'MATCH (s:Car) WHERE s.STHilbertIndex = 8651829 WITH s WHERE distance(point({ srid :7203, x: 52.509463 , y: 13.3401321 }), s.location) < 0.02 AND 1180429200000 < s.Timestamp < 1180483200000 WITH s RETURN *';
           this.quoteService.updateData(res);
           // Take data from serve from quoteService
           this.dataFromServer = this.quoteService.getData();
@@ -487,7 +490,7 @@ export class QueryConstructionComponent implements OnInit {
         this.maxValue =
           this.value + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
 
-        if (this.layers.length >= 180) {
+        if (this.layers.length >= 250) {
           this.layers.splice(0, 30);
         }
         // console.log("auta einai ta layers", this.layers);

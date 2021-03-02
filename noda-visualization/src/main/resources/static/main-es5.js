@@ -4264,7 +4264,7 @@ function _classCallCheck(instance, Constructor) {
             _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgIf"],
           ],
           styles: [
-            '@charset "UTF-8";\n.logo[_ngcontent-%COMP%] {\n  width: 100px;\n}\nq[_ngcontent-%COMP%] {\n  font-style: italic;\n  font-size: 1.2rem;\n  quotes: "\xAB " " \xBB";\n}\n.match-parent[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n}\n.my-div-icon[_ngcontent-%COMP%] {\n  background-color: red !important;\n  color: 255 !important;\n  height: 2rem;\n  width: 2rem;\n}\n.inputOfDates[_ngcontent-%COMP%] {\n  background-color: rgba(255, 0, 0, 0);\n  color: white;\n  padding-left: 6px;\n  border: 1px solid white;\n  border-radius: 5px;\n  box-shadow: none;\n  outline: none;\n}\n.inputs[_ngcontent-%COMP%] {\n  background-color: rgba(255, 255, 255, 0.171);\n  color: white;\n  padding-left: 6px;\n  border: none;\n  border-radius: 5px;\n  box-shadow: none;\n  outline: none;\n}\n.fa[_ngcontent-%COMP%] {\n  color: #5a5a5a;\n}\ninput[type=date][_ngcontent-%COMP%]::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n  display: none;\n}\ninput[type=date][_ngcontent-%COMP%]::-webkit-calendar-picker-indicator {\n  background-color: rgba(255, 0, 0, 0);\n}\n.oval[_ngcontent-%COMP%] {\n  height: 60px;\n  width: 135px;\n  border: 1px solid black;\n  border-radius: 50%;\n  background-color: whitesmoke;\n  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.297) !important;\n}\n.lines[_ngcontent-%COMP%] {\n  height: 99px;\n  margin-top: -1.8rem;\n  width: 135px;\n  position: absolute;\n  border-left: 1px solid black;\n  border-right: 1px solid black;\n}\n.oval-active[_ngcontent-%COMP%] {\n  height: 60px;\n  width: 135px;\n  border: 3px solid black;\n  border-radius: 50%;\n  background-color: whitesmoke;\n  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.297) !important;\n}\n.lines-active[_ngcontent-%COMP%] {\n  height: 99px;\n  margin-top: -1.8rem;\n  width: 135px;\n  position: absolute;\n  border-left: 3px solid black;\n  border-right: 3px solid black;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5zY3NzIiwiL1VzZXJzL25pa29za291cy9Ob1NRTC1PcGVyYXRvcnMvbm9kYS12aXN1YWxpemF0aW9uL3NyYy9tYWluL3VpL3NyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGdCQUFnQjtBQ0FoQjtFQUNFLFlBQUE7QURFRjtBQ0NBO0VBQ0Usa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FERUY7QUNDQTtFQUNFLFdBQUE7RUFDQSxZQUFBO0FERUY7QUNDQTtFQUNFLGdDQUFBO0VBQ0EscUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtBREVGO0FDQ0E7RUFDRSxvQ0FBQTtFQUNBLFlBQUE7RUFDQSxpQkFBQTtFQUNBLHVCQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQkFBQTtFQUNBLGFBQUE7QURFRjtBQ0NBO0VBQ0UsNENBQUE7RUFDQSxZQUFBO0VBQ0EsaUJBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQkFBQTtFQUNBLGFBQUE7QURFRjtBQ0NBO0VBQ0UsY0FBQTtBREVGO0FDQ0E7RUFDRSx3QkFBQTtFQUNBLGFBQUE7QURFRjtBQ0FBO0VBQ0Usb0NBQUE7QURHRjtBQ0VBO0VBQ0UsWUFBQTtFQUNBLFlBQUE7RUFDQSx1QkFBQTtFQUNBLGtCQUFBO0VBQ0EsNEJBQUE7RUFDQSx1REFBQTtBRENGO0FDRUE7RUFDRSxZQUFBO0VBQ0EsbUJBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSw0QkFBQTtFQUNBLDZCQUFBO0FEQ0Y7QUNFQTtFQUNFLFlBQUE7RUFDQSxZQUFBO0VBQ0EsdUJBQUE7RUFDQSxrQkFBQTtFQUNBLDRCQUFBO0VBQ0EsdURBQUE7QURDRjtBQ0VBO0VBQ0UsWUFBQTtFQUNBLG1CQUFBO0VBQ0EsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsNEJBQUE7RUFDQSw2QkFBQTtBRENGIiwiZmlsZSI6InNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGNoYXJzZXQgXCJVVEYtOFwiO1xuLmxvZ28ge1xuICB3aWR0aDogMTAwcHg7XG59XG5cbnEge1xuICBmb250LXN0eWxlOiBpdGFsaWM7XG4gIGZvbnQtc2l6ZTogMS4ycmVtO1xuICBxdW90ZXM6IFwiwqsgXCIgXCIgwrtcIjtcbn1cblxuLm1hdGNoLXBhcmVudCB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG59XG5cbi5teS1kaXYtaWNvbiB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJlZCAhaW1wb3J0YW50O1xuICBjb2xvcjogMjU1ICFpbXBvcnRhbnQ7XG4gIGhlaWdodDogMnJlbTtcbiAgd2lkdGg6IDJyZW07XG59XG5cbi5pbnB1dE9mRGF0ZXMge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwgMCwgMCwgMCk7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgcGFkZGluZy1sZWZ0OiA2cHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkIHdoaXRlO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIGJveC1zaGFkb3c6IG5vbmU7XG4gIG91dGxpbmU6IG5vbmU7XG59XG5cbi5pbnB1dHMge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMTcxKTtcbiAgY29sb3I6IHdoaXRlO1xuICBwYWRkaW5nLWxlZnQ6IDZweDtcbiAgYm9yZGVyOiBub25lO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIGJveC1zaGFkb3c6IG5vbmU7XG4gIG91dGxpbmU6IG5vbmU7XG59XG5cbi5mYSB7XG4gIGNvbG9yOiAjNWE1YTVhO1xufVxuXG5pbnB1dFt0eXBlPWRhdGVdOjotd2Via2l0LWlubmVyLXNwaW4tYnV0dG9uIHtcbiAgLXdlYmtpdC1hcHBlYXJhbmNlOiBub25lO1xuICBkaXNwbGF5OiBub25lO1xufVxuXG5pbnB1dFt0eXBlPWRhdGVdOjotd2Via2l0LWNhbGVuZGFyLXBpY2tlci1pbmRpY2F0b3Ige1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwgMCwgMCwgMCk7XG59XG5cbi5vdmFsIHtcbiAgaGVpZ2h0OiA2MHB4O1xuICB3aWR0aDogMTM1cHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkIGJsYWNrO1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlc21va2U7XG4gIGJveC1zaGFkb3c6IDAgMCA2cHggMnB4IHJnYmEoMCwgMCwgMCwgMC4yOTcpICFpbXBvcnRhbnQ7XG59XG5cbi5saW5lcyB7XG4gIGhlaWdodDogOTlweDtcbiAgbWFyZ2luLXRvcDogLTEuOHJlbTtcbiAgd2lkdGg6IDEzNXB4O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkIGJsYWNrO1xufVxuXG4ub3ZhbC1hY3RpdmUge1xuICBoZWlnaHQ6IDYwcHg7XG4gIHdpZHRoOiAxMzVweDtcbiAgYm9yZGVyOiAzcHggc29saWQgYmxhY2s7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGVzbW9rZTtcbiAgYm94LXNoYWRvdzogMCAwIDZweCAycHggcmdiYSgwLCAwLCAwLCAwLjI5NykgIWltcG9ydGFudDtcbn1cblxuLmxpbmVzLWFjdGl2ZSB7XG4gIGhlaWdodDogOTlweDtcbiAgbWFyZ2luLXRvcDogLTEuOHJlbTtcbiAgd2lkdGg6IDEzNXB4O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJvcmRlci1sZWZ0OiAzcHggc29saWQgYmxhY2s7XG4gIGJvcmRlci1yaWdodDogM3B4IHNvbGlkIGJsYWNrO1xufSIsIi5sb2dvIHtcbiAgd2lkdGg6IDEwMHB4O1xufVxuXG5xIHtcbiAgZm9udC1zdHlsZTogaXRhbGljO1xuICBmb250LXNpemU6IDEuMnJlbTtcbiAgcXVvdGVzOiBcIsKrIFwiIFwiIMK7XCI7XG59XG5cbi5tYXRjaC1wYXJlbnQge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4ubXktZGl2LWljb24ge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQgIWltcG9ydGFudDtcbiAgY29sb3I6IHJlZCgkY29sb3I6ICNmZjA1MDUpICFpbXBvcnRhbnQ7XG4gIGhlaWdodDogMnJlbTtcbiAgd2lkdGg6IDJyZW07XG59XG5cbi5pbnB1dE9mRGF0ZXMge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwgMCwgMCwgMCk7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgcGFkZGluZy1sZWZ0OiA2cHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkIHdoaXRlO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIGJveC1zaGFkb3c6IG5vbmU7XG4gIG91dGxpbmU6IG5vbmU7XG59XG5cbi5pbnB1dHMge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMTcxKTtcbiAgY29sb3I6IHdoaXRlO1xuICBwYWRkaW5nLWxlZnQ6IDZweDtcbiAgYm9yZGVyOiBub25lO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIGJveC1zaGFkb3c6IG5vbmU7XG4gIG91dGxpbmU6IG5vbmU7XG59XG5cbi5mYSB7XG4gIGNvbG9yOiByZ2IoOTAsIDkwLCA5MCk7XG59XG5cbmlucHV0W3R5cGU9XCJkYXRlXCJdOjotd2Via2l0LWlubmVyLXNwaW4tYnV0dG9uIHtcbiAgLXdlYmtpdC1hcHBlYXJhbmNlOiBub25lO1xuICBkaXNwbGF5OiBub25lO1xufVxuaW5wdXRbdHlwZT1cImRhdGVcIl06Oi13ZWJraXQtY2FsZW5kYXItcGlja2VyLWluZGljYXRvciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMjU1LCAwLCAwLCAwKTtcbn1cblxuXG4vLyBuZXcgdWkgZm9yIHBhcGVyXG4ub3ZhbCB7XG4gIGhlaWdodDogNjBweDtcbiAgd2lkdGg6IDEzNXB4O1xuICBib3JkZXI6IDFweCBzb2xpZCBibGFjaztcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjQ1LCAyNDUsIDI0NSk7XG4gIGJveC1zaGFkb3c6IDAgMCA2cHggMnB4IHJnYmEoMCwgMCwgMCwgMC4yOTcpICFpbXBvcnRhbnQ7XG59XG5cbi5saW5lcyB7XG4gIGhlaWdodDogOTlweDtcbiAgbWFyZ2luLXRvcDogLTEuOHJlbTtcbiAgd2lkdGg6IDEzNXB4O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkIGJsYWNrO1xufVxuXG4ub3ZhbC1hY3RpdmUge1xuICBoZWlnaHQ6IDYwcHg7XG4gIHdpZHRoOiAxMzVweDtcbiAgYm9yZGVyOiAzcHggc29saWQgYmxhY2s7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI0NSwgMjQ1LCAyNDUpO1xuICBib3gtc2hhZG93OiAwIDAgNnB4IDJweCByZ2JhKDAsIDAsIDAsIDAuMjk3KSAhaW1wb3J0YW50O1xufVxuXG4ubGluZXMtYWN0aXZlIHtcbiAgaGVpZ2h0OiA5OXB4O1xuICBtYXJnaW4tdG9wOiAtMS44cmVtO1xuICB3aWR0aDogMTM1cHg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm9yZGVyLWxlZnQ6IDNweCBzb2xpZCBibGFjaztcbiAgYm9yZGVyLXJpZ2h0OiAzcHggc29saWQgYmxhY2s7XG59XG4iXX0= */',
+            '@charset "UTF-8";\n.logo[_ngcontent-%COMP%] {\n  width: 100px;\n}\nq[_ngcontent-%COMP%] {\n  font-style: italic;\n  font-size: 1.2rem;\n  quotes: "\xAB " " \xBB";\n}\n.match-parent[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n}\n.my-div-icon[_ngcontent-%COMP%] {\n  background-color: red !important;\n  color: 255 !important;\n  height: 2rem;\n  width: 2rem;\n}\n.inputOfDates[_ngcontent-%COMP%] {\n  background-color: rgba(255, 0, 0, 0);\n  color: white;\n  padding-left: 6px;\n  border: 1px solid white;\n  border-radius: 5px;\n  box-shadow: none;\n  outline: none;\n}\n.inputs[_ngcontent-%COMP%] {\n  background-color: rgba(255, 255, 255, 0.171);\n  color: white;\n  padding-left: 6px;\n  border: none;\n  border-radius: 5px;\n  box-shadow: none;\n  outline: none;\n}\n.fa[_ngcontent-%COMP%] {\n  color: #5a5a5a;\n}\ninput[type=date][_ngcontent-%COMP%]::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n  display: none;\n}\ninput[type=date][_ngcontent-%COMP%]::-webkit-calendar-picker-indicator {\n  background-color: rgba(255, 0, 0, 0);\n}\n.oval[_ngcontent-%COMP%] {\n  height: 60px;\n  width: 135px;\n  border: 1px solid black;\n  border-radius: 50%;\n  background-color: whitesmoke;\n  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.297) !important;\n}\n.lines[_ngcontent-%COMP%] {\n  height: 99px;\n  margin-top: -1.8rem;\n  width: 135px;\n  position: absolute;\n  border-left: 1px solid black;\n  border-right: 1px solid black;\n}\n.oval-active[_ngcontent-%COMP%] {\n  height: 60px;\n  width: 135px;\n  border: 3px solid black;\n  border-radius: 50%;\n  background-color: whitesmoke;\n  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.297) !important;\n}\n.lines-active[_ngcontent-%COMP%] {\n  height: 99px;\n  margin-top: -1.8rem;\n  width: 135px;\n  position: absolute;\n  border-left: 3px solid black;\n  border-right: 3px solid black;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5zY3NzIiwiL1VzZXJzL25pa29za291cy9Ob1NRTC1PcGVyYXRvcnMvbm9kYS12aXN1YWxpemF0aW9uL3NyYy9tYWluL3VpL3NyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGdCQUFnQjtBQ0FoQjtFQUNFLFlBQUE7QURFRjtBQ0NBO0VBQ0Usa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FERUY7QUNDQTtFQUNFLFdBQUE7RUFDQSxZQUFBO0FERUY7QUNDQTtFQUNFLGdDQUFBO0VBQ0EscUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtBREVGO0FDQ0E7RUFDRSxvQ0FBQTtFQUNBLFlBQUE7RUFDQSxpQkFBQTtFQUNBLHVCQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQkFBQTtFQUNBLGFBQUE7QURFRjtBQ0NBO0VBQ0UsNENBQUE7RUFDQSxZQUFBO0VBQ0EsaUJBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQkFBQTtFQUNBLGFBQUE7QURFRjtBQ0NBO0VBQ0UsY0FBQTtBREVGO0FDQ0E7RUFDRSx3QkFBQTtFQUNBLGFBQUE7QURFRjtBQ0FBO0VBQ0Usb0NBQUE7QURHRjtBQ0NBO0VBQ0UsWUFBQTtFQUNBLFlBQUE7RUFDQSx1QkFBQTtFQUNBLGtCQUFBO0VBQ0EsNEJBQUE7RUFDQSx1REFBQTtBREVGO0FDQ0E7RUFDRSxZQUFBO0VBQ0EsbUJBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSw0QkFBQTtFQUNBLDZCQUFBO0FERUY7QUNDQTtFQUNFLFlBQUE7RUFDQSxZQUFBO0VBQ0EsdUJBQUE7RUFDQSxrQkFBQTtFQUNBLDRCQUFBO0VBQ0EsdURBQUE7QURFRjtBQ0NBO0VBQ0UsWUFBQTtFQUNBLG1CQUFBO0VBQ0EsWUFBQTtFQUNBLGtCQUFBO0VBQ0EsNEJBQUE7RUFDQSw2QkFBQTtBREVGIiwiZmlsZSI6InNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGNoYXJzZXQgXCJVVEYtOFwiO1xuLmxvZ28ge1xuICB3aWR0aDogMTAwcHg7XG59XG5cbnEge1xuICBmb250LXN0eWxlOiBpdGFsaWM7XG4gIGZvbnQtc2l6ZTogMS4ycmVtO1xuICBxdW90ZXM6IFwiwqsgXCIgXCIgwrtcIjtcbn1cblxuLm1hdGNoLXBhcmVudCB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG59XG5cbi5teS1kaXYtaWNvbiB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJlZCAhaW1wb3J0YW50O1xuICBjb2xvcjogMjU1ICFpbXBvcnRhbnQ7XG4gIGhlaWdodDogMnJlbTtcbiAgd2lkdGg6IDJyZW07XG59XG5cbi5pbnB1dE9mRGF0ZXMge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwgMCwgMCwgMCk7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgcGFkZGluZy1sZWZ0OiA2cHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkIHdoaXRlO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIGJveC1zaGFkb3c6IG5vbmU7XG4gIG91dGxpbmU6IG5vbmU7XG59XG5cbi5pbnB1dHMge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMTcxKTtcbiAgY29sb3I6IHdoaXRlO1xuICBwYWRkaW5nLWxlZnQ6IDZweDtcbiAgYm9yZGVyOiBub25lO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIGJveC1zaGFkb3c6IG5vbmU7XG4gIG91dGxpbmU6IG5vbmU7XG59XG5cbi5mYSB7XG4gIGNvbG9yOiAjNWE1YTVhO1xufVxuXG5pbnB1dFt0eXBlPWRhdGVdOjotd2Via2l0LWlubmVyLXNwaW4tYnV0dG9uIHtcbiAgLXdlYmtpdC1hcHBlYXJhbmNlOiBub25lO1xuICBkaXNwbGF5OiBub25lO1xufVxuXG5pbnB1dFt0eXBlPWRhdGVdOjotd2Via2l0LWNhbGVuZGFyLXBpY2tlci1pbmRpY2F0b3Ige1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwgMCwgMCwgMCk7XG59XG5cbi5vdmFsIHtcbiAgaGVpZ2h0OiA2MHB4O1xuICB3aWR0aDogMTM1cHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkIGJsYWNrO1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlc21va2U7XG4gIGJveC1zaGFkb3c6IDAgMCA2cHggMnB4IHJnYmEoMCwgMCwgMCwgMC4yOTcpICFpbXBvcnRhbnQ7XG59XG5cbi5saW5lcyB7XG4gIGhlaWdodDogOTlweDtcbiAgbWFyZ2luLXRvcDogLTEuOHJlbTtcbiAgd2lkdGg6IDEzNXB4O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgYmxhY2s7XG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkIGJsYWNrO1xufVxuXG4ub3ZhbC1hY3RpdmUge1xuICBoZWlnaHQ6IDYwcHg7XG4gIHdpZHRoOiAxMzVweDtcbiAgYm9yZGVyOiAzcHggc29saWQgYmxhY2s7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGVzbW9rZTtcbiAgYm94LXNoYWRvdzogMCAwIDZweCAycHggcmdiYSgwLCAwLCAwLCAwLjI5NykgIWltcG9ydGFudDtcbn1cblxuLmxpbmVzLWFjdGl2ZSB7XG4gIGhlaWdodDogOTlweDtcbiAgbWFyZ2luLXRvcDogLTEuOHJlbTtcbiAgd2lkdGg6IDEzNXB4O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJvcmRlci1sZWZ0OiAzcHggc29saWQgYmxhY2s7XG4gIGJvcmRlci1yaWdodDogM3B4IHNvbGlkIGJsYWNrO1xufSIsIi5sb2dvIHtcbiAgd2lkdGg6IDEwMHB4O1xufVxuXG5xIHtcbiAgZm9udC1zdHlsZTogaXRhbGljO1xuICBmb250LXNpemU6IDEuMnJlbTtcbiAgcXVvdGVzOiBcIsKrIFwiIFwiIMK7XCI7XG59XG5cbi5tYXRjaC1wYXJlbnQge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4ubXktZGl2LWljb24ge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQgIWltcG9ydGFudDtcbiAgY29sb3I6IHJlZCgkY29sb3I6ICNmZjA1MDUpICFpbXBvcnRhbnQ7XG4gIGhlaWdodDogMnJlbTtcbiAgd2lkdGg6IDJyZW07XG59XG5cbi5pbnB1dE9mRGF0ZXMge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwgMCwgMCwgMCk7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgcGFkZGluZy1sZWZ0OiA2cHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkIHdoaXRlO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIGJveC1zaGFkb3c6IG5vbmU7XG4gIG91dGxpbmU6IG5vbmU7XG59XG5cbi5pbnB1dHMge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMTcxKTtcbiAgY29sb3I6IHdoaXRlO1xuICBwYWRkaW5nLWxlZnQ6IDZweDtcbiAgYm9yZGVyOiBub25lO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIGJveC1zaGFkb3c6IG5vbmU7XG4gIG91dGxpbmU6IG5vbmU7XG59XG5cbi5mYSB7XG4gIGNvbG9yOiByZ2IoOTAsIDkwLCA5MCk7XG59XG5cbmlucHV0W3R5cGU9XCJkYXRlXCJdOjotd2Via2l0LWlubmVyLXNwaW4tYnV0dG9uIHtcbiAgLXdlYmtpdC1hcHBlYXJhbmNlOiBub25lO1xuICBkaXNwbGF5OiBub25lO1xufVxuaW5wdXRbdHlwZT1cImRhdGVcIl06Oi13ZWJraXQtY2FsZW5kYXItcGlja2VyLWluZGljYXRvciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMjU1LCAwLCAwLCAwKTtcbn1cblxuLy8gbmV3IHVpIGZvciBwYXBlclxuLm92YWwge1xuICBoZWlnaHQ6IDYwcHg7XG4gIHdpZHRoOiAxMzVweDtcbiAgYm9yZGVyOiAxcHggc29saWQgYmxhY2s7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI0NSwgMjQ1LCAyNDUpO1xuICBib3gtc2hhZG93OiAwIDAgNnB4IDJweCByZ2JhKDAsIDAsIDAsIDAuMjk3KSAhaW1wb3J0YW50O1xufVxuXG4ubGluZXMge1xuICBoZWlnaHQ6IDk5cHg7XG4gIG1hcmdpbi10b3A6IC0xLjhyZW07XG4gIHdpZHRoOiAxMzVweDtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBib3JkZXItbGVmdDogMXB4IHNvbGlkIGJsYWNrO1xuICBib3JkZXItcmlnaHQ6IDFweCBzb2xpZCBibGFjaztcbn1cblxuLm92YWwtYWN0aXZlIHtcbiAgaGVpZ2h0OiA2MHB4O1xuICB3aWR0aDogMTM1cHg7XG4gIGJvcmRlcjogM3B4IHNvbGlkIGJsYWNrO1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYigyNDUsIDI0NSwgMjQ1KTtcbiAgYm94LXNoYWRvdzogMCAwIDZweCAycHggcmdiYSgwLCAwLCAwLCAwLjI5NykgIWltcG9ydGFudDtcbn1cblxuLmxpbmVzLWFjdGl2ZSB7XG4gIGhlaWdodDogOTlweDtcbiAgbWFyZ2luLXRvcDogLTEuOHJlbTtcbiAgd2lkdGg6IDEzNXB4O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJvcmRlci1sZWZ0OiAzcHggc29saWQgYmxhY2s7XG4gIGJvcmRlci1yaWdodDogM3B4IHNvbGlkIGJsYWNrO1xufVxuIl19 */',
           ],
         });
         /*@__PURE__*/
@@ -7461,7 +7461,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               32,
-              "\n             Timestamp\n            "
+              "\n              Timestamp\n            "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -7530,7 +7530,7 @@ function _classCallCheck(instance, Constructor) {
           }
         }
 
-        function QueryConstructionComponent_div_69_div_99_span_6_Template(
+        function QueryConstructionComponent_div_69_div_98_span_6_Template(
           rf,
           ctx
         ) {
@@ -7550,7 +7550,7 @@ function _classCallCheck(instance, Constructor) {
           }
         }
 
-        function QueryConstructionComponent_div_69_div_99_Template(rf, ctx) {
+        function QueryConstructionComponent_div_69_div_98_Template(rf, ctx) {
           if (rf & 1) {
             var _r29 = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
               "ɵɵgetCurrentView"
@@ -7564,7 +7564,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               1,
-              "\n                          "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7575,7 +7575,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               3,
-              "\n                            "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7586,12 +7586,12 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               5,
-              "\n                              ID Field "
+              "\n                        ID Field\n                        "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
               6,
-              QueryConstructionComponent_div_69_div_99_span_6_Template,
+              QueryConstructionComponent_div_69_div_98_span_6_Template,
               2,
               0,
               "span",
@@ -7600,14 +7600,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               7,
-              "\n                            "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               8,
-              "\n                            "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7618,7 +7618,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               10,
-              "\n                              "
+              "\n                        "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7629,7 +7629,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
               "ngModelChange",
-              function QueryConstructionComponent_div_69_div_99_Template_select_ngModelChange_11_listener(
+              function QueryConstructionComponent_div_69_div_98_Template_select_ngModelChange_11_listener(
                 $event
               ) {
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](
@@ -7646,7 +7646,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               12,
-              "\n                                "
+              "\n                          "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7661,7 +7661,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               15,
-              "\n                                "
+              "\n                          "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7679,7 +7679,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               18,
-              "\n                                "
+              "\n                          "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7697,7 +7697,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               21,
-              "\n                                "
+              "\n                          "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7715,7 +7715,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               24,
-              "\n                                "
+              "\n                          "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7733,28 +7733,28 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               27,
-              "\n                              "
+              "\n                        "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               28,
-              "\n                            "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               29,
-              "\n                          "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               30,
-              "\n                        "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -7782,7 +7782,7 @@ function _classCallCheck(instance, Constructor) {
           }
         }
 
-        function QueryConstructionComponent_div_69_div_108_div_26_Template(
+        function QueryConstructionComponent_div_69_div_106_div_26_Template(
           rf,
           ctx
         ) {
@@ -7795,14 +7795,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               1,
-              "\n                        Draw rectangle on map\n                      "
+              "\n                      Draw rectangle on map\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
           }
         }
 
-        function QueryConstructionComponent_div_69_div_108_div_28_Template(
+        function QueryConstructionComponent_div_69_div_106_div_28_Template(
           rf,
           ctx
         ) {
@@ -7815,14 +7815,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               1,
-              "\n                        Draw circle on map\n                      "
+              "\n                      Draw circle on map\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
           }
         }
 
-        function QueryConstructionComponent_div_69_div_108_Template(rf, ctx) {
+        function QueryConstructionComponent_div_69_div_106_Template(rf, ctx) {
           if (rf & 1) {
             var _r33 = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
               "ɵɵgetCurrentView"
@@ -7836,7 +7836,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               1,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7847,14 +7847,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               3,
-              "\n                        Location Field\n                      "
+              "\n                      Location Field\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               4,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7865,7 +7865,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               6,
-              "\n                        "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7876,7 +7876,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
               "ngModelChange",
-              function QueryConstructionComponent_div_69_div_108_Template_select_ngModelChange_7_listener(
+              function QueryConstructionComponent_div_69_div_106_Template_select_ngModelChange_7_listener(
                 $event
               ) {
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](
@@ -7893,7 +7893,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               8,
-              "\n                          "
+              "\n                        "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7908,7 +7908,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               11,
-              "\n                          "
+              "\n                        "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7926,7 +7926,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               14,
-              "\n                          "
+              "\n                        "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7944,7 +7944,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               17,
-              "\n                          "
+              "\n                        "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7962,7 +7962,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               20,
-              "\n                          "
+              "\n                        "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -7980,26 +7980,26 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               23,
-              "\n                        "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               24,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               25,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
               26,
-              QueryConstructionComponent_div_69_div_108_div_26_Template,
+              QueryConstructionComponent_div_69_div_106_div_26_Template,
               2,
               0,
               "div",
@@ -8008,12 +8008,12 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               27,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
               28,
-              QueryConstructionComponent_div_69_div_108_div_28_Template,
+              QueryConstructionComponent_div_69_div_106_div_28_Template,
               2,
               0,
               "div",
@@ -8022,7 +8022,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               29,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -8058,7 +8058,7 @@ function _classCallCheck(instance, Constructor) {
           }
         }
 
-        function QueryConstructionComponent_div_69_div_117_Template(rf, ctx) {
+        function QueryConstructionComponent_div_69_div_114_Template(rf, ctx) {
           if (rf & 1) {
             var _r35 = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
               "ɵɵgetCurrentView"
@@ -8072,7 +8072,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               1,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8083,7 +8083,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               3,
-              "\n                        "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8094,14 +8094,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               5,
-              "\n                          Timestamp Field\n                        "
+              "\n                        Timestamp Field\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               6,
-              "\n                        "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8112,7 +8112,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               8,
-              "\n                          "
+              "\n                        "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8123,7 +8123,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"](
               "ngModelChange",
-              function QueryConstructionComponent_div_69_div_117_Template_select_ngModelChange_9_listener(
+              function QueryConstructionComponent_div_69_div_114_Template_select_ngModelChange_9_listener(
                 $event
               ) {
                 _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](
@@ -8140,7 +8140,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               10,
-              "\n                            "
+              "\n                          "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8155,7 +8155,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               13,
-              "\n                            "
+              "\n                          "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8173,7 +8173,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               16,
-              "\n                            "
+              "\n                          "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8191,7 +8191,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               19,
-              "\n                            "
+              "\n                          "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8209,7 +8209,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               22,
-              "\n                            "
+              "\n                          "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8227,28 +8227,28 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               25,
-              "\n                          "
-            );
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              26,
               "\n                        "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              27,
+              26,
               "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+              27,
+              "\n                    "
+            );
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               28,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8259,7 +8259,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               30,
-              "\n                        "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8270,14 +8270,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               32,
-              "\n                          minTimestamp\n                        "
+              "\n                        minTimestamp\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               33,
-              "\n                        "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8288,7 +8288,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               35,
-              "\n                          "
+              "\n                        "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
@@ -8299,21 +8299,21 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               37,
-              "\n                        "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               38,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               39,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8324,7 +8324,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               41,
-              "\n                        "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8335,14 +8335,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               43,
-              "\n                          maxTimestamp\n                        "
+              "\n                        maxTimestamp\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               44,
-              "\n                        "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8353,7 +8353,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               46,
-              "\n                          "
+              "\n                        "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
@@ -8364,21 +8364,21 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               48,
-              "\n                        "
-            );
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              49,
               "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              50,
+              49,
               "\n                    "
+            );
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+              50,
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -8412,12 +8412,12 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               1,
-              "\n  \n                  "
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               2,
-              "\n                  "
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8428,7 +8428,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               4,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8439,7 +8439,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               6,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8454,14 +8454,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               9,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               10,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8472,7 +8472,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               12,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
@@ -8483,7 +8483,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               14,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8498,7 +8498,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               17,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8513,7 +8513,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               20,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8531,7 +8531,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               23,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8549,7 +8549,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               26,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8567,7 +8567,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               29,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8585,14 +8585,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               32,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               33,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8603,7 +8603,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               35,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
@@ -8614,26 +8614,26 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               37,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               38,
-              "\n                  "
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               39,
-              "\n  \n                  "
+              "\n\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               40,
-              "\n                  "
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8644,7 +8644,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               42,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8655,7 +8655,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               44,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8670,14 +8670,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               47,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               48,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8688,7 +8688,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               50,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8703,14 +8703,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               53,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               54,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8721,7 +8721,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               56,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
@@ -8732,26 +8732,26 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               58,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               59,
-              "\n                  "
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               60,
-              "\n  \n                  "
+              "\n\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               61,
-              "\n                  "
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8762,7 +8762,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               63,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8773,7 +8773,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               65,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8788,14 +8788,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               68,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               69,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8823,7 +8823,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               71,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
@@ -8834,7 +8834,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               73,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8852,7 +8852,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               76,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8870,7 +8870,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               79,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8888,7 +8888,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               82,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8906,14 +8906,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               85,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               86,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8924,7 +8924,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               88,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
@@ -8935,26 +8935,26 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               90,
-              "\n                    "
-            );
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              91,
               "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+              91,
+              "\n                "
+            );
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               92,
-              "\n  \n                       "
+              "\n\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               93,
-              "\n                       "
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -8965,10 +8965,10 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               95,
-              "\n                        "
+              "\n                  "
             );
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
               96,
               "div",
               68
@@ -8976,19 +8976,12 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               97,
-              "\n                        "
-            );
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              98,
-              "\n                        "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
-              99,
-              QueryConstructionComponent_div_69_div_99_Template,
+              98,
+              QueryConstructionComponent_div_69_div_98_Template,
               31,
               2,
               "div",
@@ -8996,54 +8989,47 @@ function _classCallCheck(instance, Constructor) {
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              100,
-              "\n                        "
+              99,
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              101,
-              "\n  \n                  "
+              100,
+              "\n\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              102,
-              "\n                  "
+              101,
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-              103,
+              102,
               "div",
               59
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              104,
-              "\n                    "
+              103,
+              "\n                  "
             );
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-              105,
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
+              104,
               "div",
               68
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              106,
-              "\n                    "
-            );
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              107,
-              "\n                    "
+              105,
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
-              108,
-              QueryConstructionComponent_div_69_div_108_Template,
+              106,
+              QueryConstructionComponent_div_69_div_106_Template,
               30,
               3,
               "div",
@@ -9051,54 +9037,47 @@ function _classCallCheck(instance, Constructor) {
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              109,
-              "\n                  "
+              107,
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              110,
-              "\n                    "
+              108,
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              111,
-              "\n                    "
+              109,
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-              112,
+              110,
               "div",
               59
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              113,
-              "\n                    "
+              111,
+              "\n                  "
             );
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
-              114,
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](
+              112,
               "div",
               68
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              115,
-              "\n                    "
-            );
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              116,
-              "\n                    "
+              113,
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
-              117,
-              QueryConstructionComponent_div_69_div_117_Template,
+              114,
+              QueryConstructionComponent_div_69_div_114_Template,
               51,
               1,
               "div",
@@ -9106,15 +9085,15 @@ function _classCallCheck(instance, Constructor) {
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              118,
-              "\n                    "
+              115,
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-              119,
-              "\n  \n               \n                "
+              116,
+              "\n              "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -9132,7 +9111,7 @@ function _classCallCheck(instance, Constructor) {
               ctx_r9.chosenGeoSQLFunction
             );
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](29);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](28);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
               "ngIf",
@@ -9142,14 +9121,14 @@ function _classCallCheck(instance, Constructor) {
                 ctx_r9.chosenGeoSQLFunction === "GEO_RECTANGLE"
             );
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](8);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
               "ngIf",
               ctx_r9.chosenGeoSQLFunction !== "default"
             );
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](8);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"](
               "ngIf",
@@ -9197,7 +9176,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               1,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -9211,14 +9190,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               3,
-              "\n                      Execute\n                      "
+              "\n                    Execute\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "i", 88);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               5,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -9276,7 +9255,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               1,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -9290,14 +9269,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               3,
-              "\n                      Execute\n                      "
+              "\n                    Execute\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "i", 88);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               5,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -9327,7 +9306,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               1,
-              "\n                  "
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -9338,7 +9317,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               3,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -9349,21 +9328,21 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               5,
-              "\n                      Add SQL line +\n                    "
+              "\n                    Add SQL line +\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               6,
-              "\n                  "
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               7,
-              "\n                  "
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -9374,12 +9353,12 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               9,
-              "\n                     "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               10,
-              "\n                     "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -9393,12 +9372,12 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               12,
-              "\n                     "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               13,
-              "\n                     "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -9412,14 +9391,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               15,
-              "\n                  "
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               16,
-              "\n                "
+              "\n              "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -9501,7 +9480,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               1,
-              "\n                        "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -9515,14 +9494,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               3,
-              "\n                        Execute\n                        "
+              "\n                      Execute\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "i", 88);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               5,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -9583,7 +9562,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               1,
-              "\n                        "
+              "\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -9597,14 +9576,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               3,
-              "\n                        Execute\n                        "
+              "\n                      Execute\n                      "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "i", 88);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               5,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -9638,7 +9617,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               1,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -9649,7 +9628,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               3,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -9679,14 +9658,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               5,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               6,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -9697,12 +9676,12 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               8,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               9,
-              "\n                      "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -9716,12 +9695,12 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               11,
-              "\n                       "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               12,
-              "\n                       "
+              "\n                    "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -9735,14 +9714,14 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               14,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               15,
-              "\n                  "
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -9800,7 +9779,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               1,
-              "\n                  "
+              "\n                "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -9811,7 +9790,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               3,
-              "\n                    "
+              "\n                  "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4);
@@ -9820,7 +9799,7 @@ function _classCallCheck(instance, Constructor) {
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
               5,
-              "\n                "
+              "\n              "
             );
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -9834,9 +9813,9 @@ function _classCallCheck(instance, Constructor) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](
-              "\n                    ",
+              "\n                  ",
               ctx_r16.actualQuery,
-              "\n                  "
+              "\n                "
             );
           }
         }
@@ -10838,8 +10817,7 @@ function _classCallCheck(instance, Constructor) {
             this.drawItems = leaflet__WEBPACK_IMPORTED_MODULE_3__[
               "featureGroup"
             ]();
-            this.actualQuery =
-              "MATCH (s:Car) WHERE s.STHilbertIndex = 8651786 WITH s WHERE distance(point({ srid :7203, x: 52.5067614 , y: 13.2846506 }), s.location) < 0.02 AND 1180429200000 < s.Timestamp < 1180688400000 WITH s RETURN *";
+            this.actualQuery = "Not available yet.";
             this.drawOptions = {
               edit: {
                 featureGroup: this.drawItems,
@@ -11036,7 +11014,7 @@ function _classCallCheck(instance, Constructor) {
                 this.isLoading = true;
                 this.queryConstructionServ
                   .spatioTemporalSqlQueryPost(
-                    this.query,
+                    "SELECT* FROM Car WHERE GEO_TEMPORAL_CIRCLE_KM(location, (13.3401321, 52.509463), 0.00002, Timestamp, '29/05/2007 12:00:00', '30/06/2007 12:00:00')",
                     this.objectIdFieldName,
                     this.objectLocationFieldName,
                     this.objectTimeFieldName
@@ -11047,6 +11025,10 @@ function _classCallCheck(instance, Constructor) {
 
                     if (data["status"] === "ok") {
                       _this8.isLoading = false;
+                      _this8.query =
+                        "SELECT* FROM Car WHERE GEO_TEMPORAL_CIRCLE_KM(location, (13.3401321, 52.509463), 0.002, Timestamp, '29/05/2007 12:00:00', '30/06/2007 12:00:00')";
+                      _this8.actualQuery =
+                        "MATCH (s:Car) WHERE s.STHilbertIndex = 8651829 WITH s WHERE distance(point({ srid :7203, x: 52.509463 , y: 13.3401321 }), s.location) < 0.02 AND 1180429200000 < s.Timestamp < 1180483200000 WITH s RETURN *";
 
                       _this8.quoteService.updateData(res); // Take data from serve from quoteService
 
@@ -11359,7 +11341,7 @@ function _classCallCheck(instance, Constructor) {
                       _this10.value +
                       _this10.windowBetweenFloorAndCeil * 60 * 60 * 1000;
 
-                    if (_this10.layers.length >= 180) {
+                    if (_this10.layers.length >= 250) {
                       _this10.layers.splice(0, 30);
                     } // console.log("auta einai ta layers", this.layers);
                   }, i * (_this10.fps * 1000));
@@ -11408,7 +11390,7 @@ function _classCallCheck(instance, Constructor) {
         ]({
           type: QueryConstructionComponent,
           selectors: [["app-query-construction"]],
-          decls: 146,
+          decls: 147,
           vars: 22,
           consts: [
             [
@@ -12244,7 +12226,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 44,
-                "\n\n        "
+                "\n        "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
@@ -12260,7 +12242,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 47,
-                "\n\n            "
+                "\n          "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12271,12 +12253,12 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 49,
-                "\n              "
+                "\n            "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 50,
-                "\n              "
+                "\n            "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12287,7 +12269,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 52,
-                "\n                "
+                "\n              "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12305,7 +12287,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 54,
-                "\n                  "
+                "\n                "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12316,7 +12298,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 56,
-                "\n                    "
+                "\n                  "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12334,14 +12316,14 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 59,
-                "\n                  "
+                "\n                "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 60,
-                "\n                  "
+                "\n                "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12352,7 +12334,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 62,
-                "\n                    "
+                "\n                  "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -12366,7 +12348,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 64,
-                "\n                    "
+                "\n                  "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -12380,27 +12362,27 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 66,
-                "\n                  "
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                67,
                 "\n                "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                67,
+                "\n              "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 68,
-                "\n  \n                "
+                "\n\n              "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
                 69,
                 QueryConstructionComponent_div_69_Template,
-                120,
+                117,
                 4,
                 "div",
                 20
@@ -12408,7 +12390,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 70,
-                "\n  \n                "
+                "\n\n              "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -12422,19 +12404,19 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 72,
-                "\n              "
+                "\n            "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 73,
-                "\n  \n              "
+                "\n\n            "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 74,
-                "\n              "
+                "\n            "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12445,7 +12427,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 76,
-                "\n                "
+                "\n              "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12456,7 +12438,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 78,
-                "\n                  "
+                "\n                "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12474,7 +12456,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 80,
-                "\n                    "
+                "\n                  "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12485,7 +12467,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 82,
-                "\n                      "
+                "\n                    "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12496,7 +12478,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 84,
-                "\n                        "
+                "\n                      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12514,7 +12496,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 87,
-                "\n                        "
+                "\n                      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12532,14 +12514,14 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 90,
-                "\n                      "
+                "\n                    "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 91,
-                "\n                      "
+                "\n                    "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12550,7 +12532,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 93,
-                "\n                        "
+                "\n                      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -12564,7 +12546,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 95,
-                "\n                        "
+                "\n                      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -12578,33 +12560,33 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 97,
-                "\n                      "
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                98,
                 "\n                    "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                99,
+                98,
                 "\n                  "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                99,
+                "\n                "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 100,
-                "\n  \n                  "
+                "\n\n                "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 101,
-                "\n                  "
+                "\n                "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -12618,26 +12600,26 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 103,
-                "\n                "
+                "\n              "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 104,
-                "\n              "
+                "\n            "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 105,
-                "\n  \n              "
+                "\n\n            "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 106,
-                "\n              "
+                "\n            "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12648,7 +12630,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 108,
-                "\n                "
+                "\n              "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12666,7 +12648,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 110,
-                "\n                  "
+                "\n                "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12677,7 +12659,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 112,
-                "\n                    "
+                "\n                  "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12695,14 +12677,14 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 115,
-                "\n                  "
+                "\n                "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 116,
-                "\n                  "
+                "\n                "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](
@@ -12713,7 +12695,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 118,
-                "\n                    "
+                "\n                  "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -12727,7 +12709,7 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 120,
-                "\n                    "
+                "\n                  "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -12741,21 +12723,21 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 122,
-                "\n                  "
+                "\n                "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 123,
-                "\n                "
+                "\n              "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 124,
-                "\n                "
+                "\n              "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -12769,21 +12751,21 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 126,
-                "\n              "
-              );
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
-                127,
                 "\n            "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
+                127,
+                "\n          "
+              );
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 128,
-                "\n\n         \n        "
+                "\n        "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -12806,12 +12788,12 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 132,
-                "\n\n           "
+                "\n          "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 133,
-                "\n           "
+                "\n          "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](
@@ -12875,14 +12857,14 @@ function _classCallCheck(instance, Constructor) {
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 141,
-                "\n\n        "
+                "\n        "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](
                 142,
-                "\n\n      "
+                "\n      "
               );
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -12901,6 +12883,8 @@ function _classCallCheck(instance, Constructor) {
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](145, "\n");
 
               _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+              _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](146, "\n");
             }
 
             if (rf & 2) {
@@ -13080,7 +13064,7 @@ function _classCallCheck(instance, Constructor) {
           ],
           pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_8__["DatePipe"]],
           styles: [
-            "@media screen and (min-width: 1000px) {\n  .rowStyle[_ngcontent-%COMP%] {\n    width: 25vw !important;\n  }\n\n  textarea[_ngcontent-%COMP%] {\n    width: 100%;\n    height: 15vh;\n    padding: 0.5rem;\n    outline: none;\n    border: none;\n    box-shadow: none;\n    border-radius: 12px;\n    border: 2.8px solid #14274e;\n    background-color: white;\n    font-size: 0.9rem;\n  }\n}\n@media screen and (max-width: 1000px) {\n  .rowStyle[_ngcontent-%COMP%] {\n    width: 90vw !important;\n  }\n\n  textarea[_ngcontent-%COMP%] {\n    width: 90vw;\n    height: 15vh;\n    padding: 0.5rem;\n    outline: none;\n    border: none;\n    box-shadow: none;\n    border-radius: 12px;\n    background-color: white;\n    border: 2.8px solid #14274e;\n    font-size: 0.9rem;\n  }\n}\n.box[_ngcontent-%COMP%] {\n  min-height: 3rem !important;\n  border-radius: 8px;\n  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.18) !important;\n}\n.openRowToChooseDB[_ngcontent-%COMP%] {\n  height: 4rem;\n  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.132);\n  position: absolute;\n  z-index: 1000 !important;\n  width: 97%;\n  margin-top: -0.3rem !important;\n  border-radius: 6px;\n}\n.selectStyle[_ngcontent-%COMP%] {\n  border-radius: 6px;\n  border: 2.8px solid #14274e;\n  color: #14274e;\n  min-height: 42px;\n  min-width: 6.5rem !important;\n  font-weight: 600;\n}\n.inputStyle[_ngcontent-%COMP%] {\n  border-radius: 6px;\n  border: 2.8px solid #14274e;\n  color: #14274e;\n  min-height: 42px;\n  width: 8rem !important;\n  font-weight: 600;\n}\n.whiteSpace[_ngcontent-%COMP%] {\n  min-width: 6.5rem !important;\n}\n.openRowToChooseDB[_ngcontent-%COMP%]:hover {\n  height: 4rem;\n  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.132);\n  position: absolute;\n  border: 3px solid #14274e;\n  z-index: 1000 !important;\n  width: 97%;\n  background-color: #f4f4f4 !important;\n  margin-top: -0.3rem !important;\n  border-radius: 6px;\n}\n.schemaStyle[_ngcontent-%COMP%] {\n  padding-top: 0.5rem;\n  font-weight: 500;\n  color: #14274e;\n  padding-bottom: 0.5rem;\n  border: 2px solid #14274e;\n  border-radius: 6px;\n}\n.webPlayerPositioning[_ngcontent-%COMP%] {\n  width: 99% !important;\n  overflow-x: hidden;\n  position: absolute;\n  z-index: 1000;\n  bottom: 1rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9uaWtvc2tvdXMvTm9TUUwtT3BlcmF0b3JzL25vZGEtdmlzdWFsaXphdGlvbi9zcmMvbWFpbi91aS9zcmMvYXBwL3F1ZXJ5LWNvbnN0cnVjdGlvbi9xdWVyeS1jb25zdHJ1Y3Rpb24uY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3F1ZXJ5LWNvbnN0cnVjdGlvbi9xdWVyeS1jb25zdHJ1Y3Rpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtJQUNFLHNCQUFBO0VDQ0Y7O0VEQ0E7SUFDRSxXQUFBO0lBQ0EsWUFBQTtJQUNBLGVBQUE7SUFDQSxhQUFBO0lBQ0EsWUFBQTtJQUNBLGdCQUFBO0lBQ0EsbUJBQUE7SUFDQSwyQkFBQTtJQUNBLHVCQUFBO0lBQ0EsaUJBQUE7RUNFRjtBQUNGO0FEQ0E7RUFDRTtJQUNFLHNCQUFBO0VDQ0Y7O0VEQ0E7SUFDRSxXQUFBO0lBQ0EsWUFBQTtJQUNBLGVBQUE7SUFDQSxhQUFBO0lBQ0EsWUFBQTtJQUNBLGdCQUFBO0lBQ0EsbUJBQUE7SUFDQSx1QkFBQTtJQUNBLDJCQUFBO0lBQ0EsaUJBQUE7RUNFRjtBQUNGO0FEQ0E7RUFDRSwyQkFBQTtFQUNBLGtCQUFBO0VBQ0EsdURBQUE7QUNDRjtBREVBO0VBQ0UsWUFBQTtFQUNBLDRDQUFBO0VBQ0Esa0JBQUE7RUFDQSx3QkFBQTtFQUNBLFVBQUE7RUFDQSw4QkFBQTtFQUNBLGtCQUFBO0FDQ0Y7QURFQTtFQUNFLGtCQUFBO0VBQ0EsMkJBQUE7RUFDQSxjQUFBO0VBQ0EsZ0JBQUE7RUFDQSw0QkFBQTtFQUNBLGdCQUFBO0FDQ0Y7QURFQTtFQUNFLGtCQUFBO0VBQ0EsMkJBQUE7RUFDQSxjQUFBO0VBQ0EsZ0JBQUE7RUFDQSxzQkFBQTtFQUNBLGdCQUFBO0FDQ0Y7QURFQTtFQUNFLDRCQUFBO0FDQ0Y7QURFQTtFQUNFLFlBQUE7RUFDQSw0Q0FBQTtFQUNBLGtCQUFBO0VBQ0EseUJBQUE7RUFDQSx3QkFBQTtFQUNBLFVBQUE7RUFDQSxvQ0FBQTtFQUNBLDhCQUFBO0VBQ0Esa0JBQUE7QUNDRjtBREVBO0VBQ0UsbUJBQUE7RUFDQSxnQkFBQTtFQUNBLGNBQUE7RUFDQSxzQkFBQTtFQUNBLHlCQUFBO0VBQ0Esa0JBQUE7QUNDRjtBREVBO0VBQ0UscUJBQUE7RUFDQSxrQkFBQTtFQUNBLGtCQUFBO0VBQ0EsYUFBQTtFQUNBLFlBQUE7QUNDRiIsImZpbGUiOiJzcmMvYXBwL3F1ZXJ5LWNvbnN0cnVjdGlvbi9xdWVyeS1jb25zdHJ1Y3Rpb24uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAbWVkaWEgc2NyZWVuIGFuZCAobWluLXdpZHRoOiAxMDAwcHgpIHtcbiAgLnJvd1N0eWxlIHtcbiAgICB3aWR0aDogMjV2dyAhaW1wb3J0YW50O1xuICB9XG4gIHRleHRhcmVhIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IDE1dmg7XG4gICAgcGFkZGluZzogMC41cmVtO1xuICAgIG91dGxpbmU6IG5vbmU7XG4gICAgYm9yZGVyOiBub25lO1xuICAgIGJveC1zaGFkb3c6IG5vbmU7XG4gICAgYm9yZGVyLXJhZGl1czogMTJweDtcbiAgICBib3JkZXI6IDIuOHB4IHNvbGlkICMxNDI3NGU7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgZm9udC1zaXplOiAwLjlyZW07XG4gIH1cbn1cblxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogMTAwMHB4KSB7XG4gIC5yb3dTdHlsZSB7XG4gICAgd2lkdGg6IDkwdncgIWltcG9ydGFudDtcbiAgfVxuICB0ZXh0YXJlYSB7XG4gICAgd2lkdGg6IDkwdnc7XG4gICAgaGVpZ2h0OiAxNXZoO1xuICAgIHBhZGRpbmc6IDAuNXJlbTtcbiAgICBvdXRsaW5lOiBub25lO1xuICAgIGJvcmRlcjogbm9uZTtcbiAgICBib3gtc2hhZG93OiBub25lO1xuICAgIGJvcmRlci1yYWRpdXM6IDEycHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgYm9yZGVyOiAyLjhweCBzb2xpZCAjMTQyNzRlO1xuICAgIGZvbnQtc2l6ZTogMC45cmVtO1xuICB9XG59XG5cbi5ib3gge1xuICBtaW4taGVpZ2h0OiAzcmVtICFpbXBvcnRhbnQ7XG4gIGJvcmRlci1yYWRpdXM6IDhweDtcbiAgYm94LXNoYWRvdzogMCAwIDEwcHggMnB4IHJnYmEoMCwgMCwgMCwgMC4xOCkgIWltcG9ydGFudDtcbn1cblxuLm9wZW5Sb3dUb0Nob29zZURCIHtcbiAgaGVpZ2h0OiA0cmVtO1xuICBib3gtc2hhZG93OiAwIDAgOHB4IDJweCByZ2JhKDAsIDAsIDAsIDAuMTMyKTtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB6LWluZGV4OiAxMDAwICFpbXBvcnRhbnQ7XG4gIHdpZHRoOiA5NyU7XG4gIG1hcmdpbi10b3A6IC0wLjNyZW0gIWltcG9ydGFudDtcbiAgYm9yZGVyLXJhZGl1czogNnB4O1xufVxuXG4uc2VsZWN0U3R5bGUge1xuICBib3JkZXItcmFkaXVzOiA2cHg7XG4gIGJvcmRlcjogMi44cHggc29saWQgIzE0Mjc0ZTtcbiAgY29sb3I6ICMxNDI3NGU7XG4gIG1pbi1oZWlnaHQ6IDQycHg7XG4gIG1pbi13aWR0aDogNi41cmVtICFpbXBvcnRhbnQ7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbi5pbnB1dFN0eWxlIHtcbiAgYm9yZGVyLXJhZGl1czogNnB4O1xuICBib3JkZXI6IDIuOHB4IHNvbGlkICMxNDI3NGU7XG4gIGNvbG9yOiAjMTQyNzRlO1xuICBtaW4taGVpZ2h0OiA0MnB4O1xuICB3aWR0aDogOHJlbSAhaW1wb3J0YW50O1xuICBmb250LXdlaWdodDogNjAwO1xufVxuXG4ud2hpdGVTcGFjZSB7XG4gIG1pbi13aWR0aDogNi41cmVtICFpbXBvcnRhbnQ7XG59XG5cbi5vcGVuUm93VG9DaG9vc2VEQjpob3ZlciB7XG4gIGhlaWdodDogNHJlbTtcbiAgYm94LXNoYWRvdzogMCAwIDhweCAycHggcmdiYSgwLCAwLCAwLCAwLjEzMik7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm9yZGVyOiAzcHggc29saWQgIzE0Mjc0ZTtcbiAgei1pbmRleDogMTAwMCAhaW1wb3J0YW50O1xuICB3aWR0aDogOTclO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjQ0LCAyNDQsIDI0NCkgIWltcG9ydGFudDtcbiAgbWFyZ2luLXRvcDogLTAuM3JlbSAhaW1wb3J0YW50O1xuICBib3JkZXItcmFkaXVzOiA2cHg7XG59XG5cbi5zY2hlbWFTdHlsZSB7XG4gIHBhZGRpbmctdG9wOiAwLjVyZW07XG4gIGZvbnQtd2VpZ2h0OiA1MDA7XG4gIGNvbG9yOiAjMTQyNzRlO1xuICBwYWRkaW5nLWJvdHRvbTogMC41cmVtO1xuICBib3JkZXI6IDJweCBzb2xpZCAjMTQyNzRlO1xuICBib3JkZXItcmFkaXVzOiA2cHg7XG59XG5cbi53ZWJQbGF5ZXJQb3NpdGlvbmluZyB7XG4gIHdpZHRoOiA5OSUgIWltcG9ydGFudDtcbiAgb3ZlcmZsb3cteDogaGlkZGVuO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHotaW5kZXg6IDEwMDA7XG4gIGJvdHRvbTogMXJlbTtcbn0iLCJAbWVkaWEgc2NyZWVuIGFuZCAobWluLXdpZHRoOiAxMDAwcHgpIHtcbiAgLnJvd1N0eWxlIHtcbiAgICB3aWR0aDogMjV2dyAhaW1wb3J0YW50O1xuICB9XG5cbiAgdGV4dGFyZWEge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGhlaWdodDogMTV2aDtcbiAgICBwYWRkaW5nOiAwLjVyZW07XG4gICAgb3V0bGluZTogbm9uZTtcbiAgICBib3JkZXI6IG5vbmU7XG4gICAgYm94LXNoYWRvdzogbm9uZTtcbiAgICBib3JkZXItcmFkaXVzOiAxMnB4O1xuICAgIGJvcmRlcjogMi44cHggc29saWQgIzE0Mjc0ZTtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbiAgICBmb250LXNpemU6IDAuOXJlbTtcbiAgfVxufVxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogMTAwMHB4KSB7XG4gIC5yb3dTdHlsZSB7XG4gICAgd2lkdGg6IDkwdncgIWltcG9ydGFudDtcbiAgfVxuXG4gIHRleHRhcmVhIHtcbiAgICB3aWR0aDogOTB2dztcbiAgICBoZWlnaHQ6IDE1dmg7XG4gICAgcGFkZGluZzogMC41cmVtO1xuICAgIG91dGxpbmU6IG5vbmU7XG4gICAgYm9yZGVyOiBub25lO1xuICAgIGJveC1zaGFkb3c6IG5vbmU7XG4gICAgYm9yZGVyLXJhZGl1czogMTJweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbiAgICBib3JkZXI6IDIuOHB4IHNvbGlkICMxNDI3NGU7XG4gICAgZm9udC1zaXplOiAwLjlyZW07XG4gIH1cbn1cbi5ib3gge1xuICBtaW4taGVpZ2h0OiAzcmVtICFpbXBvcnRhbnQ7XG4gIGJvcmRlci1yYWRpdXM6IDhweDtcbiAgYm94LXNoYWRvdzogMCAwIDEwcHggMnB4IHJnYmEoMCwgMCwgMCwgMC4xOCkgIWltcG9ydGFudDtcbn1cblxuLm9wZW5Sb3dUb0Nob29zZURCIHtcbiAgaGVpZ2h0OiA0cmVtO1xuICBib3gtc2hhZG93OiAwIDAgOHB4IDJweCByZ2JhKDAsIDAsIDAsIDAuMTMyKTtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB6LWluZGV4OiAxMDAwICFpbXBvcnRhbnQ7XG4gIHdpZHRoOiA5NyU7XG4gIG1hcmdpbi10b3A6IC0wLjNyZW0gIWltcG9ydGFudDtcbiAgYm9yZGVyLXJhZGl1czogNnB4O1xufVxuXG4uc2VsZWN0U3R5bGUge1xuICBib3JkZXItcmFkaXVzOiA2cHg7XG4gIGJvcmRlcjogMi44cHggc29saWQgIzE0Mjc0ZTtcbiAgY29sb3I6ICMxNDI3NGU7XG4gIG1pbi1oZWlnaHQ6IDQycHg7XG4gIG1pbi13aWR0aDogNi41cmVtICFpbXBvcnRhbnQ7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbi5pbnB1dFN0eWxlIHtcbiAgYm9yZGVyLXJhZGl1czogNnB4O1xuICBib3JkZXI6IDIuOHB4IHNvbGlkICMxNDI3NGU7XG4gIGNvbG9yOiAjMTQyNzRlO1xuICBtaW4taGVpZ2h0OiA0MnB4O1xuICB3aWR0aDogOHJlbSAhaW1wb3J0YW50O1xuICBmb250LXdlaWdodDogNjAwO1xufVxuXG4ud2hpdGVTcGFjZSB7XG4gIG1pbi13aWR0aDogNi41cmVtICFpbXBvcnRhbnQ7XG59XG5cbi5vcGVuUm93VG9DaG9vc2VEQjpob3ZlciB7XG4gIGhlaWdodDogNHJlbTtcbiAgYm94LXNoYWRvdzogMCAwIDhweCAycHggcmdiYSgwLCAwLCAwLCAwLjEzMik7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm9yZGVyOiAzcHggc29saWQgIzE0Mjc0ZTtcbiAgei1pbmRleDogMTAwMCAhaW1wb3J0YW50O1xuICB3aWR0aDogOTclO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjRmNGY0ICFpbXBvcnRhbnQ7XG4gIG1hcmdpbi10b3A6IC0wLjNyZW0gIWltcG9ydGFudDtcbiAgYm9yZGVyLXJhZGl1czogNnB4O1xufVxuXG4uc2NoZW1hU3R5bGUge1xuICBwYWRkaW5nLXRvcDogMC41cmVtO1xuICBmb250LXdlaWdodDogNTAwO1xuICBjb2xvcjogIzE0Mjc0ZTtcbiAgcGFkZGluZy1ib3R0b206IDAuNXJlbTtcbiAgYm9yZGVyOiAycHggc29saWQgIzE0Mjc0ZTtcbiAgYm9yZGVyLXJhZGl1czogNnB4O1xufVxuXG4ud2ViUGxheWVyUG9zaXRpb25pbmcge1xuICB3aWR0aDogOTklICFpbXBvcnRhbnQ7XG4gIG92ZXJmbG93LXg6IGhpZGRlbjtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB6LWluZGV4OiAxMDAwO1xuICBib3R0b206IDFyZW07XG59Il19 */",
+            "@media screen and (min-width: 1000px) {\n  .rowStyle[_ngcontent-%COMP%] {\n    width: 25vw !important;\n  }\n\n  textarea[_ngcontent-%COMP%] {\n    width: 100%;\n    height: 15vh;\n    padding: 0.5rem;\n    outline: none;\n    border: none;\n    box-shadow: none;\n    border-radius: 12px;\n    border: 2.8px solid #14274e;\n    background-color: white;\n    font-size: 0.9rem;\n  }\n}\n@media screen and (max-width: 1000px) {\n  .rowStyle[_ngcontent-%COMP%] {\n    width: 90vw !important;\n  }\n\n  textarea[_ngcontent-%COMP%] {\n    width: 90vw;\n    height: 15vh;\n    padding: 0.5rem;\n    outline: none;\n    border: none;\n    box-shadow: none;\n    border-radius: 12px;\n    background-color: white;\n    border: 2.8px solid #14274e;\n    font-size: 0.9rem;\n  }\n}\n.box[_ngcontent-%COMP%] {\n  min-height: 3rem !important;\n  border-radius: 8px;\n  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.18) !important;\n}\n.openRowToChooseDB[_ngcontent-%COMP%] {\n  height: 4rem;\n  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.132);\n  position: absolute;\n  z-index: 1000 !important;\n  width: 97%;\n  margin-top: -0.3rem !important;\n  border-radius: 6px;\n}\n.selectStyle[_ngcontent-%COMP%] {\n  border-radius: 6px;\n  border: 2.8px solid #14274e;\n  color: #14274e;\n  min-height: 42px;\n  min-width: 6.5rem !important;\n  font-weight: 600;\n}\n.inputStyle[_ngcontent-%COMP%] {\n  border-radius: 6px;\n  border: 2.8px solid #14274e;\n  color: #14274e;\n  min-height: 42px;\n  width: 8rem !important;\n  font-weight: 600;\n}\n.whiteSpace[_ngcontent-%COMP%] {\n  min-width: 6.5rem !important;\n}\n.openRowToChooseDB[_ngcontent-%COMP%]:hover {\n  height: 4rem;\n  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.132);\n  position: absolute;\n  border: 3px solid #14274e;\n  z-index: 1000 !important;\n  width: 97%;\n  background-color: #f4f4f4 !important;\n  margin-top: -0.3rem !important;\n  border-radius: 6px;\n}\n.schemaStyle[_ngcontent-%COMP%] {\n  padding-top: 0.5rem;\n  font-weight: 500;\n  color: #14274e;\n  padding-bottom: 0.5rem;\n  border: 2px solid #14274e;\n  border-radius: 6px;\n}\n.webPlayerPositioning[_ngcontent-%COMP%] {\n  width: 99% !important;\n  overflow-x: hidden;\n  position: absolute;\n  z-index: 1000;\n  bottom: 1rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9uaWtvc2tvdXMvTm9TUUwtT3BlcmF0b3JzL25vZGEtdmlzdWFsaXphdGlvbi9zcmMvbWFpbi91aS9zcmMvYXBwL3F1ZXJ5LWNvbnN0cnVjdGlvbi9xdWVyeS1jb25zdHJ1Y3Rpb24uY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3F1ZXJ5LWNvbnN0cnVjdGlvbi9xdWVyeS1jb25zdHJ1Y3Rpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtJQUNFLHNCQUFBO0VDQ0Y7O0VEQ0E7SUFDRSxXQUFBO0lBQ0EsWUFBQTtJQUNBLGVBQUE7SUFDQSxhQUFBO0lBQ0EsWUFBQTtJQUNBLGdCQUFBO0lBQ0EsbUJBQUE7SUFDQSwyQkFBQTtJQUNBLHVCQUFBO0lBQ0EsaUJBQUE7RUNFRjtBQUNGO0FEQ0E7RUFDRTtJQUNFLHNCQUFBO0VDQ0Y7O0VEQ0E7SUFDRSxXQUFBO0lBQ0EsWUFBQTtJQUNBLGVBQUE7SUFDQSxhQUFBO0lBQ0EsWUFBQTtJQUNBLGdCQUFBO0lBQ0EsbUJBQUE7SUFDQSx1QkFBQTtJQUNBLDJCQUFBO0lBQ0EsaUJBQUE7RUNFRjtBQUNGO0FEQ0E7RUFDRSwyQkFBQTtFQUNBLGtCQUFBO0VBQ0EsdURBQUE7QUNDRjtBREVBO0VBQ0UsWUFBQTtFQUNBLDRDQUFBO0VBQ0Esa0JBQUE7RUFDQSx3QkFBQTtFQUNBLFVBQUE7RUFDQSw4QkFBQTtFQUNBLGtCQUFBO0FDQ0Y7QURFQTtFQUNFLGtCQUFBO0VBQ0EsMkJBQUE7RUFDQSxjQUFBO0VBQ0EsZ0JBQUE7RUFDQSw0QkFBQTtFQUNBLGdCQUFBO0FDQ0Y7QURFQTtFQUNFLGtCQUFBO0VBQ0EsMkJBQUE7RUFDQSxjQUFBO0VBQ0EsZ0JBQUE7RUFDQSxzQkFBQTtFQUNBLGdCQUFBO0FDQ0Y7QURFQTtFQUNFLDRCQUFBO0FDQ0Y7QURFQTtFQUNFLFlBQUE7RUFDQSw0Q0FBQTtFQUNBLGtCQUFBO0VBQ0EseUJBQUE7RUFDQSx3QkFBQTtFQUNBLFVBQUE7RUFDQSxvQ0FBQTtFQUNBLDhCQUFBO0VBQ0Esa0JBQUE7QUNDRjtBREVBO0VBQ0UsbUJBQUE7RUFDQSxnQkFBQTtFQUNBLGNBQUE7RUFDQSxzQkFBQTtFQUNBLHlCQUFBO0VBQ0Esa0JBQUE7QUNDRjtBREVBO0VBQ0UscUJBQUE7RUFDQSxrQkFBQTtFQUNBLGtCQUFBO0VBQ0EsYUFBQTtFQUNBLFlBQUE7QUNDRiIsImZpbGUiOiJzcmMvYXBwL3F1ZXJ5LWNvbnN0cnVjdGlvbi9xdWVyeS1jb25zdHJ1Y3Rpb24uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAbWVkaWEgc2NyZWVuIGFuZCAobWluLXdpZHRoOiAxMDAwcHgpIHtcbiAgLnJvd1N0eWxlIHtcbiAgICB3aWR0aDogMjV2dyAhaW1wb3J0YW50O1xuICB9XG4gIHRleHRhcmVhIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IDE1dmg7XG4gICAgcGFkZGluZzogMC41cmVtO1xuICAgIG91dGxpbmU6IG5vbmU7XG4gICAgYm9yZGVyOiBub25lO1xuICAgIGJveC1zaGFkb3c6IG5vbmU7XG4gICAgYm9yZGVyLXJhZGl1czogMTJweDtcbiAgICBib3JkZXI6IDIuOHB4IHNvbGlkICMxNDI3NGU7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgZm9udC1zaXplOiAwLjlyZW07XG4gIH1cbn1cblxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogMTAwMHB4KSB7XG4gIC5yb3dTdHlsZSB7XG4gICAgd2lkdGg6IDkwdncgIWltcG9ydGFudDtcbiAgfVxuICB0ZXh0YXJlYSB7XG4gICAgd2lkdGg6IDkwdnc7XG4gICAgaGVpZ2h0OiAxNXZoO1xuICAgIHBhZGRpbmc6IDAuNXJlbTtcbiAgICBvdXRsaW5lOiBub25lO1xuICAgIGJvcmRlcjogbm9uZTtcbiAgICBib3gtc2hhZG93OiBub25lO1xuICAgIGJvcmRlci1yYWRpdXM6IDEycHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgYm9yZGVyOiAyLjhweCBzb2xpZCAjMTQyNzRlO1xuICAgIGZvbnQtc2l6ZTogMC45cmVtO1xuICB9XG59XG5cbi5ib3gge1xuICBtaW4taGVpZ2h0OiAzcmVtICFpbXBvcnRhbnQ7XG4gIGJvcmRlci1yYWRpdXM6IDhweDtcbiAgYm94LXNoYWRvdzogMCAwIDEwcHggMnB4IHJnYmEoMCwgMCwgMCwgMC4xOCkgIWltcG9ydGFudDtcbn1cblxuLm9wZW5Sb3dUb0Nob29zZURCIHtcbiAgaGVpZ2h0OiA0cmVtO1xuICBib3gtc2hhZG93OiAwIDAgOHB4IDJweCByZ2JhKDAsIDAsIDAsIDAuMTMyKTtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB6LWluZGV4OiAxMDAwICFpbXBvcnRhbnQ7XG4gIHdpZHRoOiA5NyU7XG4gIG1hcmdpbi10b3A6IC0wLjNyZW0gIWltcG9ydGFudDtcbiAgYm9yZGVyLXJhZGl1czogNnB4O1xufVxuXG4uc2VsZWN0U3R5bGUge1xuICBib3JkZXItcmFkaXVzOiA2cHg7XG4gIGJvcmRlcjogMi44cHggc29saWQgIzE0Mjc0ZTtcbiAgY29sb3I6ICMxNDI3NGU7XG4gIG1pbi1oZWlnaHQ6IDQycHg7XG4gIG1pbi13aWR0aDogNi41cmVtICFpbXBvcnRhbnQ7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbi5pbnB1dFN0eWxlIHtcbiAgYm9yZGVyLXJhZGl1czogNnB4O1xuICBib3JkZXI6IDIuOHB4IHNvbGlkICMxNDI3NGU7XG4gIGNvbG9yOiAjMTQyNzRlO1xuICBtaW4taGVpZ2h0OiA0MnB4O1xuICB3aWR0aDogOHJlbSAhaW1wb3J0YW50O1xuICBmb250LXdlaWdodDogNjAwO1xufVxuXG4ud2hpdGVTcGFjZSB7XG4gIG1pbi13aWR0aDogNi41cmVtICFpbXBvcnRhbnQ7XG59XG5cbi5vcGVuUm93VG9DaG9vc2VEQjpob3ZlciB7XG4gIGhlaWdodDogNHJlbTtcbiAgYm94LXNoYWRvdzogMCAwIDhweCAycHggcmdiYSgwLCAwLCAwLCAwLjEzMik7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm9yZGVyOiAzcHggc29saWQgIzE0Mjc0ZTtcbiAgei1pbmRleDogMTAwMCAhaW1wb3J0YW50O1xuICB3aWR0aDogOTclO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjQ0LCAyNDQsIDI0NCkgIWltcG9ydGFudDtcbiAgbWFyZ2luLXRvcDogLTAuM3JlbSAhaW1wb3J0YW50O1xuICBib3JkZXItcmFkaXVzOiA2cHg7XG59XG5cbi5zY2hlbWFTdHlsZSB7XG4gIHBhZGRpbmctdG9wOiAwLjVyZW07XG4gIGZvbnQtd2VpZ2h0OiA1MDA7XG4gIGNvbG9yOiAjMTQyNzRlO1xuICBwYWRkaW5nLWJvdHRvbTogMC41cmVtO1xuICBib3JkZXI6IDJweCBzb2xpZCAjMTQyNzRlO1xuICBib3JkZXItcmFkaXVzOiA2cHg7XG59XG5cbi53ZWJQbGF5ZXJQb3NpdGlvbmluZyB7XG4gIHdpZHRoOiA5OSUgIWltcG9ydGFudDtcbiAgb3ZlcmZsb3cteDogaGlkZGVuO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHotaW5kZXg6IDEwMDA7XG4gIGJvdHRvbTogMXJlbTtcbn1cbiIsIkBtZWRpYSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDEwMDBweCkge1xuICAucm93U3R5bGUge1xuICAgIHdpZHRoOiAyNXZ3ICFpbXBvcnRhbnQ7XG4gIH1cblxuICB0ZXh0YXJlYSB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiAxNXZoO1xuICAgIHBhZGRpbmc6IDAuNXJlbTtcbiAgICBvdXRsaW5lOiBub25lO1xuICAgIGJvcmRlcjogbm9uZTtcbiAgICBib3gtc2hhZG93OiBub25lO1xuICAgIGJvcmRlci1yYWRpdXM6IDEycHg7XG4gICAgYm9yZGVyOiAyLjhweCBzb2xpZCAjMTQyNzRlO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICAgIGZvbnQtc2l6ZTogMC45cmVtO1xuICB9XG59XG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAxMDAwcHgpIHtcbiAgLnJvd1N0eWxlIHtcbiAgICB3aWR0aDogOTB2dyAhaW1wb3J0YW50O1xuICB9XG5cbiAgdGV4dGFyZWEge1xuICAgIHdpZHRoOiA5MHZ3O1xuICAgIGhlaWdodDogMTV2aDtcbiAgICBwYWRkaW5nOiAwLjVyZW07XG4gICAgb3V0bGluZTogbm9uZTtcbiAgICBib3JkZXI6IG5vbmU7XG4gICAgYm94LXNoYWRvdzogbm9uZTtcbiAgICBib3JkZXItcmFkaXVzOiAxMnB4O1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICAgIGJvcmRlcjogMi44cHggc29saWQgIzE0Mjc0ZTtcbiAgICBmb250LXNpemU6IDAuOXJlbTtcbiAgfVxufVxuLmJveCB7XG4gIG1pbi1oZWlnaHQ6IDNyZW0gIWltcG9ydGFudDtcbiAgYm9yZGVyLXJhZGl1czogOHB4O1xuICBib3gtc2hhZG93OiAwIDAgMTBweCAycHggcmdiYSgwLCAwLCAwLCAwLjE4KSAhaW1wb3J0YW50O1xufVxuXG4ub3BlblJvd1RvQ2hvb3NlREIge1xuICBoZWlnaHQ6IDRyZW07XG4gIGJveC1zaGFkb3c6IDAgMCA4cHggMnB4IHJnYmEoMCwgMCwgMCwgMC4xMzIpO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHotaW5kZXg6IDEwMDAgIWltcG9ydGFudDtcbiAgd2lkdGg6IDk3JTtcbiAgbWFyZ2luLXRvcDogLTAuM3JlbSAhaW1wb3J0YW50O1xuICBib3JkZXItcmFkaXVzOiA2cHg7XG59XG5cbi5zZWxlY3RTdHlsZSB7XG4gIGJvcmRlci1yYWRpdXM6IDZweDtcbiAgYm9yZGVyOiAyLjhweCBzb2xpZCAjMTQyNzRlO1xuICBjb2xvcjogIzE0Mjc0ZTtcbiAgbWluLWhlaWdodDogNDJweDtcbiAgbWluLXdpZHRoOiA2LjVyZW0gIWltcG9ydGFudDtcbiAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cblxuLmlucHV0U3R5bGUge1xuICBib3JkZXItcmFkaXVzOiA2cHg7XG4gIGJvcmRlcjogMi44cHggc29saWQgIzE0Mjc0ZTtcbiAgY29sb3I6ICMxNDI3NGU7XG4gIG1pbi1oZWlnaHQ6IDQycHg7XG4gIHdpZHRoOiA4cmVtICFpbXBvcnRhbnQ7XG4gIGZvbnQtd2VpZ2h0OiA2MDA7XG59XG5cbi53aGl0ZVNwYWNlIHtcbiAgbWluLXdpZHRoOiA2LjVyZW0gIWltcG9ydGFudDtcbn1cblxuLm9wZW5Sb3dUb0Nob29zZURCOmhvdmVyIHtcbiAgaGVpZ2h0OiA0cmVtO1xuICBib3gtc2hhZG93OiAwIDAgOHB4IDJweCByZ2JhKDAsIDAsIDAsIDAuMTMyKTtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBib3JkZXI6IDNweCBzb2xpZCAjMTQyNzRlO1xuICB6LWluZGV4OiAxMDAwICFpbXBvcnRhbnQ7XG4gIHdpZHRoOiA5NyU7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmNGY0ZjQgIWltcG9ydGFudDtcbiAgbWFyZ2luLXRvcDogLTAuM3JlbSAhaW1wb3J0YW50O1xuICBib3JkZXItcmFkaXVzOiA2cHg7XG59XG5cbi5zY2hlbWFTdHlsZSB7XG4gIHBhZGRpbmctdG9wOiAwLjVyZW07XG4gIGZvbnQtd2VpZ2h0OiA1MDA7XG4gIGNvbG9yOiAjMTQyNzRlO1xuICBwYWRkaW5nLWJvdHRvbTogMC41cmVtO1xuICBib3JkZXI6IDJweCBzb2xpZCAjMTQyNzRlO1xuICBib3JkZXItcmFkaXVzOiA2cHg7XG59XG5cbi53ZWJQbGF5ZXJQb3NpdGlvbmluZyB7XG4gIHdpZHRoOiA5OSUgIWltcG9ydGFudDtcbiAgb3ZlcmZsb3cteDogaGlkZGVuO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHotaW5kZXg6IDEwMDA7XG4gIGJvdHRvbTogMXJlbTtcbn0iXX0= */",
           ],
         });
         /*@__PURE__*/
