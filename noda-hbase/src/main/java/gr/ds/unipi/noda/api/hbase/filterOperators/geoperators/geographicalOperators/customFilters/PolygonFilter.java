@@ -19,8 +19,8 @@ public class PolygonFilter extends FilterBase {
     private final byte[] latitudeColumnQualifier;
     private final List<PolygonFilterProtos.PolygonFilter.Coordinates> coordinates;
 
-    private double longitude = Integer.MIN_VALUE;
-    private double latitude = Integer.MIN_VALUE;
+    private double longitude;
+    private double latitude;
 
     private boolean filterRow = true;
 
@@ -38,19 +38,25 @@ public class PolygonFilter extends FilterBase {
 
     @Override
     public void reset() throws IOException {
+        longitude = Integer.MIN_VALUE;
+        latitude = Integer.MIN_VALUE;
+
         filterRow = true;
     }
 
     @Override
     public Filter.ReturnCode filterCell(Cell c) throws IOException {
-
         if (CellUtil.matchingColumn(c, this.columnFamily, this.longitudeColumnQualifier)) {
             longitude = PrivateCellUtil.getValueAsDouble(c);
         } else if (CellUtil.matchingColumn(c, this.columnFamily, this.latitudeColumnQualifier)) {
             latitude = PrivateCellUtil.getValueAsDouble(c);
         }
+        return Filter.ReturnCode.INCLUDE_AND_NEXT_COL;
+    }
 
-        return Filter.ReturnCode.INCLUDE;
+    @Override
+    public boolean hasFilterRow(){
+        return true;
     }
 
     private boolean contains(double longitude, double latitude) {

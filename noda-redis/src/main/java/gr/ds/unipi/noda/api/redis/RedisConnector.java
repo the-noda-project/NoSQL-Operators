@@ -2,6 +2,7 @@ package gr.ds.unipi.noda.api.redis;
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.*;
 
 import javax.net.ssl.HostnameVerifier;
@@ -90,14 +91,9 @@ public final class RedisConnector implements NoSqlDbConnector<Map<String, Pipeli
                     pipelinesOfNodes.put("{"+crc16Slot.get(entry.getKey().intValue()+1)+"}",nodeMap.get(entry.getValue()).getResource().pipelined())
             );
 
-            System.out.println("pipelinesofNodes "+ pipelinesOfNodes.size());
             return pipelinesOfNodes;
         }
         return null;
-
-            //return new JedisPool(poolConfig, addresses.get(0).getKey(), addresses.get(0).getValue(), connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
-        //else
-            //return new JedisSentinelPool(masterName, getSentinels(), poolConfig, connectionTimeout, soTimeout, password, database, clientName );
     }
 
     public void closeJedisPools(){

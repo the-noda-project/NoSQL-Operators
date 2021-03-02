@@ -4,6 +4,7 @@ import org.apache.hadoop.hbase.CompareOperator;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.SingleColumnValueFilter;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.hadoop.io.DoubleWritable;
 
 abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator<Filter, U> {
     protected ComparisonOperator(String fieldName, U fieldValue) {
@@ -29,17 +30,17 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
         byte[] value = null;
 
         if (getFieldValue() instanceof Double) {
-            value = Bytes.toBytes((double) (Object) getFieldValue());
+            value = Bytes.toBytes( ((Double) getFieldValue()).doubleValue());
         } else if (getFieldValue() instanceof Integer) {
-            value = Bytes.toBytes((int) (Object) getFieldValue());
+            value = Bytes.toBytes(((Integer) getFieldValue()).intValue());
         } else if (getFieldValue() instanceof Float) {
-            value = Bytes.toBytes((float) (Object) getFieldValue());
+            value = Bytes.toBytes(((Float) getFieldValue()).floatValue());
         } else if (getFieldValue() instanceof Short) {
-            value = Bytes.toBytes((short) (Object) getFieldValue());
+            value = Bytes.toBytes(((Short) getFieldValue()).shortValue());
         } else if (getFieldValue() instanceof Long) {
-            value = Bytes.toBytes((long) (Object) getFieldValue());
+            value = Bytes.toBytes(((Long) getFieldValue()).longValue());
         } else if (getFieldValue() instanceof Boolean) {
-            value = Bytes.toBytes((boolean) (Object) getFieldValue());
+            value = Bytes.toBytes(((Boolean) getFieldValue()).booleanValue());
         } else if (getFieldValue() instanceof String) {
             value = Bytes.toBytes((String) getFieldValue());
         } else {

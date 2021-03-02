@@ -8,6 +8,7 @@ import org.apache.hadoop.hbase.exceptions.DeserializationException;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.FilterBase;
 import org.apache.hadoop.hbase.util.ByteStringer;
+import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
 
@@ -24,8 +25,8 @@ public class RectangleTemporalFilter extends FilterBase {
     private final long lowerDateBound;
     private final long upperDateBound;
 
-    private double longitude = Integer.MIN_VALUE;
-    private double latitude = Integer.MIN_VALUE;
+    private double longitude;
+    private double latitude;
 
     private long date;
 
@@ -50,12 +51,15 @@ public class RectangleTemporalFilter extends FilterBase {
 
     @Override
     public void reset() throws IOException {
+        longitude = Integer.MIN_VALUE;
+        latitude = Integer.MIN_VALUE;
+        date =Long.MIN_VALUE;
+
         filterRow = true;
     }
 
     @Override
     public ReturnCode filterCell(Cell c) throws IOException {
-
         if (CellUtil.matchingColumn(c, this.columnFamily, this.longitudeColumnQualifier)) {
             longitude = PrivateCellUtil.getValueAsDouble(c);
         } else if (CellUtil.matchingColumn(c, this.columnFamily, this.latitudeColumnQualifier)) {
@@ -63,15 +67,15 @@ public class RectangleTemporalFilter extends FilterBase {
         } else if (CellUtil.matchingColumn(c, this.columnFamilyTemporal, this.columnQualifierTemporal)) {
             date = PrivateCellUtil.getValueAsLong(c);
         }
-        return ReturnCode.INCLUDE;
+        return ReturnCode.INCLUDE_AND_NEXT_COL;
     }
 
-    private boolean contains(double longitude, double latitude, double date) {
+    private boolean contains(double longitude, double latitude, long date) {
 
-        if (Double.compare(longitude, lowerCoordinates.getLongitude()) == -1 || Double.compare(latitude, lowerCoordinates.getLatitude()) == -1 || Double.compare(date, lowerDateBound) == -1) {
+        if (Double.compare(longitude, lowerCoordinates.getLongitude()) == -1 || Double.compare(latitude, lowerCoordinates.getLatitude()) == -1 || Long.compare(date, lowerDateBound) == -1) {
             return false;
         }
-        if (Double.compare(longitude, upperCoordinates.getLongitude()) == 1 || Double.compare(latitude, upperCoordinates.getLatitude()) == 1 || Double.compare(date, upperDateBound) == 1) {
+        if (Double.compare(longitude, upperCoordinates.getLongitude()) == 1 || Double.compare(latitude, upperCoordinates.getLatitude()) == 1 || Long.compare(date, upperDateBound) == 1) {
             return false;
         }
         return true;
@@ -83,6 +87,11 @@ public class RectangleTemporalFilter extends FilterBase {
             filterRow = false;
         }
         return filterRow;
+    }
+
+    @Override
+    public boolean hasFilterRow(){
+        return true;
     }
 
     public byte[] toByteArray() throws IOException {

@@ -41,7 +41,7 @@ public final class HBaseGeoTemporalOperatorFactory extends BaseGeoTemporalOperat
 
     public static String getGeoHashPart(Geometry geometry) {
 
-        int length = 8;
+        int length = 5;
         String geoHash = HBaseGeographicalOperatorFactory.getGeoHashPart(geometry);
 
         return String.format("%-" + length + "s", geoHash).replace(' ', '?');

@@ -57,8 +57,6 @@ final class RedisOperators extends NoSqlDbOperators {
 
         List<Triplet> triplets = (List<Triplet>) fop.getOperatorExpression();
 
-        //System.out.println("Triplets "+ triplets.size());
-
         for (Triplet triplet : triplets) {
 
             String[] arrayOfArguments = new String[triplet.getKeysArray().length + triplet.getArgvArray().length];
@@ -72,15 +70,9 @@ final class RedisOperators extends NoSqlDbOperators {
             }
 
             pipelines.get(crc16Slot).eval(triplet.getEvalExpression(), triplet.getKeysArray().length, arrayOfArguments);
-            //pipelines.forEach(entry -> entry.getValue().eval(triplet.getEvalExpression(), triplet.getKeysArray().length, arrayOfArguments));
-            //pipeline.eval(triplet.getEvalExpression(), triplet.getKeysArray().length, arrayOfArguments);
         }
 
-//        System.out.println(triplets.get(triplets.size()-1).getKeysArray()[0] + " " + triplets.get(triplets.size()-1).getKeysArray()[1] + " " +triplets.get(triplets.size()-1).getKeysArray()[2] + " " +triplets.get(triplets.size()-1).getKeysArray()[3]);
-
-
         return getDataCollection() + ":" + triplets.get(triplets.size()-1).getKeysArray()[0]+crc16Slot;
-
     }
 
     @Override
@@ -91,102 +83,6 @@ final class RedisOperators extends NoSqlDbOperators {
         }
         return this;
     }
-
-
-//        System.out.println(filterOperators.toString(""));
-
-//        for (int i = 0; i < list.size(); i++) {
-//            Map.Entry<Operator, String[]> entry = list.get(i);
-//
-//            if(entry.getKey() instanceof ComparisonOperator){
-//                ComparisonOperator comparisonOperator = (ComparisonOperator) entry.getKey();
-//
-//                if(comparisonOperator.getFieldValue() instanceof String){
-//                    if(comparisonOperator.getComparisonOperatorType().equals("eq")){
-//                        //REDIS OP
-//                    }
-//                    else if(comparisonOperator.getComparisonOperatorType().equals("ne")){
-//                        //REDIS OP
-//                    }
-//                    else{
-//                        try {
-//                            throw new Exception("Unknown comparison operator for String type constraint");
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//                else {
-//
-//                    String
-//
-//                    switch(comparisonOperator.getComparisonOperatorType()){
-//                        case "eq":
-//                            //REDIS OP
-//                            break;
-//                        case "gt":
-//                            //REDIS OP
-//                            break;
-//                        case "gte":
-//                            //REDIS OP
-//                            break;
-//                        case "lt":
-//                            //REDIS OP
-//                            break;
-//                        case "lte":
-//                            //REDIS OP
-//                            break;
-//                        case "ne":
-//                            //REDIS OP
-//                            break;
-//                            default:
-//                                try {
-//                                    throw new Exception("Unknown comparison operator for Numeric type constraint");
-//                                } catch (Exception e) {
-//                                    e.printStackTrace();
-//                                }
-//                    }
-//                }
-//            }
-//            else if(entry.getKey() instanceof LogicalOperator){
-//                LogicalOperator logicalOperator = (LogicalOperator) entry.getKey();
-//
-//                String destination = entry.getValue()[0];
-//                String[] existingSets = new String[entry.getValue().length-1];
-//                for (int k = 1; k < entry.getValue().length; k++) {
-//                    existingSets[k-1]=entry.getValue()[k];
-//                }
-//
-//                if(logicalOperator.getLogicalOperatorType().equals("and")){
-//                    pipeline.sunionstore(destination, existingSets);
-//                }else if(logicalOperator.getLogicalOperatorType().equals("or")){
-//                    pipeline.sinterstore(destination, existingSets);
-//                }else{
-//                    try {
-//                        throw new Exception("Unknown logical operator");
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-////            else if(entry.getKey() instanceof GeographicalOperator){
-////                GeographicalOperator geographicalOperator = (GeographicalOperator) entry.getKey();
-////
-////            }
-////            else if(entry.getKey() instanceof TextualOperator){
-////
-////            }
-//            else{
-//                try {
-//                    throw new Exception("Unknown Operator");
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//
-//        return this;
-//    }
 
     @Override
     public NoSqlDbOperators groupBy(String fieldName, String... fieldNames) {
@@ -236,13 +132,6 @@ final class RedisOperators extends NoSqlDbOperators {
             counts.add(pipeline.eval("local s = redis.call('SCARD', KEYS[1])\nreturn s;",1, executionOfOperators(s)))
         );
 
-        long t1 = System.currentTimeMillis();
-//        pipelines.entrySet().parallelStream().forEach((entry)->{
-//            entry.getValue().sync();
-//            System.out.println(entry.getKey());}
-//        );
-
-
         ExecutorService es = Executors.newCachedThreadPool();
         pipelines.forEach((s,pipeline)->
                 {es.execute(new Runnable() {
@@ -266,11 +155,6 @@ final class RedisOperators extends NoSqlDbOperators {
             count = Integer.valueOf(response.get().toString()) + count;
         }
 
-        System.out.println((System.currentTimeMillis()- t1));
-
-        //Response<Object> count = pipeline.eval("local s = redis.call('SCARD', KEYS[1])\nreturn s;",1, executionOfOperators());
-        //pipeline.sync();
-        //return Integer.valueOf(count.get().toString());
         return count;
     }
 

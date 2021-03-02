@@ -7,6 +7,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.hadoop.hbase.CompareOperator;
 import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
@@ -78,11 +79,17 @@ final class HBaseOperators extends NoSqlDbOperators {
         try {
 
             table = hbaseConnectionManager.getConnection(getNoSqlDbConnector()).getTable(TableName.valueOf(getDataCollection()));
-            System.out.println("print screen2");
 
+            long start = System.currentTimeMillis();
             resultScanner = table.getScanner(scan);
 
-            resultScanner.forEach(result -> System.out.println(result));
+            int p = 0;
+            for (Result result : resultScanner) {
+                p++;
+            }
+            System.out.println("Time: "+(System.currentTimeMillis()-start)+" Count "+p);
+
+            //resultScanner.forEach(result -> System.out.println(result));
 
             resultScanner.close();
             table.close();

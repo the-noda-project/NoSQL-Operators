@@ -19,8 +19,8 @@ public class RectangleFilter extends FilterBase {
     private final RectangleFilterProtos.RectangleFilter.Coordinates lowerCoordinates;
     private final RectangleFilterProtos.RectangleFilter.Coordinates upperCoordinates;
 
-    private double longitude = Integer.MIN_VALUE;
-    private double latitude = Integer.MIN_VALUE;
+    private double longitude;
+    private double latitude;
 
     private boolean filterRow = true;
 
@@ -39,6 +39,9 @@ public class RectangleFilter extends FilterBase {
 
     @Override
     public void reset() throws IOException {
+        longitude = Integer.MIN_VALUE;
+        latitude = Integer.MIN_VALUE;
+
         filterRow = true;
     }
 
@@ -51,7 +54,12 @@ public class RectangleFilter extends FilterBase {
             latitude = PrivateCellUtil.getValueAsDouble(c);
         }
 
-        return ReturnCode.INCLUDE;
+        return ReturnCode.INCLUDE_AND_NEXT_COL;
+    }
+
+    @Override
+    public boolean hasFilterRow(){
+        return true;
     }
 
     private boolean contains(double longitude, double latitude) {

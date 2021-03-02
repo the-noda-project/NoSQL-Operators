@@ -24,8 +24,8 @@ public class PolygonTemporalFilter extends FilterBase {
     private final long lowerDateBound;
     private final long upperDateBound;
 
-    private double longitude = Integer.MIN_VALUE;
-    private double latitude = Integer.MIN_VALUE;
+    private double longitude;
+    private double latitude;
 
     private long date;
 
@@ -49,12 +49,15 @@ public class PolygonTemporalFilter extends FilterBase {
 
     @Override
     public void reset() throws IOException {
+        longitude = Integer.MIN_VALUE;
+        latitude = Integer.MIN_VALUE;
+        date =Long.MIN_VALUE;
+
         filterRow = true;
     }
 
     @Override
     public ReturnCode filterCell(Cell c) throws IOException {
-
         if (CellUtil.matchingColumn(c, this.columnFamily, this.longitudeColumnQualifier)) {
             longitude = PrivateCellUtil.getValueAsDouble(c);
         } else if (CellUtil.matchingColumn(c, this.columnFamily, this.latitudeColumnQualifier)) {
@@ -62,12 +65,17 @@ public class PolygonTemporalFilter extends FilterBase {
         } else if (CellUtil.matchingColumn(c, this.columnFamilyTemporal, this.columnQualifierTemporal)) {
             date = PrivateCellUtil.getValueAsLong(c);
         }
-        return ReturnCode.INCLUDE;
+        return ReturnCode.INCLUDE_AND_NEXT_COL;
+    }
+
+    @Override
+    public boolean hasFilterRow(){
+        return true;
     }
 
     private boolean contains(double longitude, double latitude, long date) {
 
-        if (Double.compare(date, lowerDateBound) == -1 || Double.compare(date, upperDateBound) == 1) {
+        if (Long.compare(date, lowerDateBound) == -1 || Long.compare(date, upperDateBound) == 1) {
             return false;
         }
 
