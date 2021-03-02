@@ -71,15 +71,9 @@ final class HBaseOperators extends NoSqlDbOperators {
         try {
 
             table = hbaseConnectionManager.getConnection(getNoSqlDbConnector()).getTable(TableName.valueOf(getDataCollection()));
-
             resultScanner = table.getScanner(scan);
 
-            int p = 0;
-            for (Result result : resultScanner) {
-                p++;
-            }
-
-            //resultScanner.forEach(result -> System.out.println(result));
+            resultScanner.forEach(result -> System.out.println(result));
 
             resultScanner.close();
             table.close();
