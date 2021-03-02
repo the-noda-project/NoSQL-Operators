@@ -52,24 +52,39 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background-color: rgba(255, 0, 0, 0);
 }
 
-@media screen and (min-width: 1000px) {
-  .webPlayerPositioning {
-    width: 60% !important;
-    overflow-x: hidden;
-    position: absolute;
-    z-index: 1000;
-    bottom: 0.5rem;
-    left: 0.5rem;
-  }
+// new ui for paper
+.oval {
+  height: 60px;
+  width: 135px;
+  border: 1px solid black;
+  border-radius: 50%;
+  background-color: rgb(245, 245, 245);
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.297) !important;
 }
 
-@media screen and (max-width: 1000px) {
-  .webPlayerPositioning {
-    width: 98vw !important;
-    overflow-x: hidden;
-    position: absolute;
-    z-index: 1000;
-    bottom: 0.5rem;
-    left: 0.5rem;
-  }
+.lines {
+  height: 99px;
+  margin-top: -1.8rem;
+  width: 135px;
+  position: absolute;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.oval-active {
+  height: 60px;
+  width: 135px;
+  border: 3px solid black;
+  border-radius: 50%;
+  background-color: rgb(245, 245, 245);
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.297) !important;
+}
+
+.lines-active {
+  height: 99px;
+  margin-top: -1.8rem;
+  width: 135px;
+  position: absolute;
+  border-left: 3px solid black;
+  border-right: 3px solid black;
 }

@@ -1,4 +1,4 @@
-<div
+<!-- <div
   class="container d-flex justify-content-center align-items-center"
   style="height: 100vh !important;"
 >
@@ -22,9 +22,785 @@
       >
         Run Spatial View
       </button>
-      <button class="btn btn-outline-dark btn-sm" (click)="runpost()">
-        test
-      </button>
+    </div>
+  </div>
+</div> -->
+
+<div
+  class="container-fluid p-0"
+  style="min-height: 100vh; max-height: 100vh; min-width: 100vw;"
+>
+  <div class="row w-100 m-0">
+    <!-- sidebar -->
+    <div
+      class="col-2 p-0"
+      style="
+        min-height: 100vh;
+        max-height: 100vh;
+        border-right: 3px solid #14274e;
+      "
+    >
+      <!-- header if sidebar -->
+      <div
+        class="row w-100 m-0 d-flex justify-content-center align-items-center pointerToClick"
+        (click)="changeStateOfDropDown()"
+        style="height: 6rem; border-bottom: 3px solid #14274e;"
+      >
+        <div class="col-auto align-self-center">
+          <img
+            *ngIf="activeDatabase === 'neo4j'"
+            src="assets/neo4j_logo.png"
+            class="img-fluid"
+            style="width: 8rem;"
+          />
+          <img
+            *ngIf="activeDatabase === 'mongodb'"
+            src="assets/MongoDB-Logo.png"
+            class="img-fluid"
+            style="width: 9rem; margin-top: -0.3rem !important;"
+          />
+        </div>
+        <div class="col-auto align-self-center">
+          <i
+            *ngIf="!isDropDownOpen"
+            style="font-size: 1.4rem;"
+            class="fas fa-angle-down"
+          ></i>
+          <i
+            *ngIf="isDropDownOpen"
+            style="font-size: 1.4rem;"
+            class="fas fa-angle-up"
+          ></i>
+        </div>
+      </div>
+
+      <!-- dropdown to change db -->
+      <div
+        *ngIf="isDropDownOpen"
+        class="row m-0 d-flex justify-content-center align-items-center pointerToClick mt-3"
+      >
+        <div
+          *ngIf="activeDatabase === 'mongodb'"
+          class="col-12 p-0 bg-white openRowToChooseDB d-flex justify-content-center align-items-center"
+          (click)="goToOtherDb('neo4j')"
+        >
+          <img
+            src="assets/neo4j_logo.png"
+            class="img-fluid"
+            style="width: 6rem;"
+          />
+        </div>
+        <div
+          *ngIf="activeDatabase === 'neo4j'"
+          class="col-12 p-0 bg-white openRowToChooseDB d-flex justify-content-center align-items-center"
+          (click)="goToOtherDb('mongodb')"
+        >
+          <img
+            src="assets/MongoDB-Logo.png"
+            class="img-fluid"
+            style="width: 9rem; margin-top: -0.3rem !important;"
+          />
+        </div>
+      </div>
+
+      <!-- sidebar content -->
+      <div class="row w-100 m-0 pt-3 pb-3">
+        <!-- mongodb structure -->
+        <div class="col-12" *ngIf="activeDatabase === 'mongodb'">
+          <div
+            class="row w-100 m-0 pb-2"
+            style="color: #14274e; font-weight: 600; font-size: 1.2rem;"
+          >
+            DBs
+          </div>
+          <div class="row w-100 m-0 pt-2 pb-2">
+            <div class="col-auto m-1 schemaStyle">
+              SpatioTemporal_DB
+            </div>
+          </div>
+          <div
+            class="row w-100 m-0 pt-5 pb-2"
+            style="color: #14274e; font-weight: 600; font-size: 1.2rem;"
+          >
+            Collections
+          </div>
+          <div class="row w-100 m-0 pt-2 pb-2">
+            <div class="col-auto m-1 schemaStyle">
+              Car
+            </div>
+          </div>
+          <div
+            class="row w-100 m-0 pt-5 pb-2"
+            style="color: #14274e; font-weight: 600; font-size: 1.2rem;"
+          >
+            Keys
+          </div>
+          <div class="row w-100 m-0 pt-2 pb-2">
+            <div class="col-auto m-1 schemaStyle">
+              car_id
+            </div>
+            <div class="col-auto m-1 schemaStyle">
+              car_type
+            </div>
+            <div class="col-auto m-1 schemaStyle">
+              hilIndex
+            </div>
+            <div class="col-auto m-1 schemaStyle">
+              location
+            </div>
+            <div class="col-auto m-1 schemaStyle">
+              timestamp
+            </div>
+          </div>
+        </div>
+
+        <!-- neo4j structure -->
+        <div class="col-12" *ngIf="activeDatabase === 'neo4j'">
+          <div
+            class="row w-100 m-0 pb-2"
+            style="color: #14274e; font-weight: 600; font-size: 1.2rem;"
+          >
+            Nodes - Labels
+          </div>
+          <div class="row w-100 m-0 pt-2 pb-2">
+            <div class="col-auto m-1 schemaStyle">
+              2.965.074
+            </div>
+            <div class="col-auto m-1 schemaStyle">
+              Car
+            </div>
+          </div>
+          <div
+            class="row w-100 m-0 pt-5 pb-2"
+            style="color: #14274e; font-weight: 600; font-size: 1.2rem;"
+          >
+            Relationship Types
+          </div>
+          <div class="row w-100 m-0 pt-2 pb-2">
+            There are no relationships yet
+          </div>
+          <div
+            class="row w-100 m-0 pt-5 pb-2"
+            style="color: #14274e; font-weight: 600; font-size: 1.2rem;"
+          >
+            Property Keys
+          </div>
+          <div class="row w-100 m-0 pt-2 pb-2">
+            <div class="col-auto m-1 schemaStyle">
+              car_Id
+            </div>
+            <div class="col-auto m-1 schemaStyle">
+              location
+            </div>
+            <div class="col-auto m-1 schemaStyle">
+              Timestamp
+            </div>
+            <div class="col-auto m-1 schemaStyle">
+              HilbertIndex
+            </div>
+            <div class="col-auto m-1 schemaStyle">
+              STHilbertIndex
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- main -->
+    <div class="col-10 p-0" style="min-height: 100vh; max-height: 100vh;">
+      <div class="row w-100 m-0">
+        <!-- Main content and query builders -->
+        <div
+          class="col-6 pt-5 pb-5"
+          style="
+            min-height: 100vh;
+            max-height: 100vh;
+            overflow-y: auto !important;
+          "
+        >
+          <div class="row w-100 m-0">
+            <!-- Create query for visualization - TAB -->
+            <div class="col-12 box">
+              <div
+                class="row w-100 m-0 pointerToClick pt-3 pb-3"
+                (click)="openCloseQueryConstructorTab()"
+              >
+                <div class="col-auto align-self-center">
+                  <span
+                    style="
+                      color: #14274e;
+                      font-weight: 600;
+                      font-size: 1.2rem;
+                      text-decoration: underline;
+                    "
+                    >Create query for visualization</span
+                  >
+                </div>
+                <div class="col text-right align-self-center">
+                  <i
+                    *ngIf="!isQueryConstructorTabOpen"
+                    style="font-size: 1.2rem;"
+                    class="fas fa-angle-down mt-2"
+                  ></i>
+                  <i
+                    *ngIf="isQueryConstructorTabOpen"
+                    style="font-size: 1.2rem;"
+                    class="fas fa-angle-up mt-2"
+                  ></i>
+                </div>
+              </div>
+
+              <div
+                class="row w-100 m-0 pt-3 pb-3"
+                *ngIf="isQueryConstructorTabOpen"
+              >
+                <!-- SELECT -->
+                <div
+                  class="col-12 d-flex flex-nowrap"
+                  style="overflow-x: auto;"
+                >
+                  <select class="selectStyle p-2">
+                    <option value="SELECT">SELECT</option>
+                  </select>
+                  <select class="selectStyle ml-2 p-2">
+                    <option value="default" disabled></option>
+                    <option value="*">*</option>
+                    <option value="car_id">car_id</option>
+                    <option value="car_type">car_type</option>
+                    <option value="hilIndex">hilIndex</option>
+                    <option value="location">location</option>
+                    <option value="location">timestamp</option>
+                  </select>
+                  <button class="btn btn-link ml-2">
+                    <i class="fas fa-plus" style="color: #14274e;"></i>
+                  </button>
+                </div>
+
+                <!-- FROM -->
+                <div
+                  class="col-12 mt-3 d-flex flex-nowrap"
+                  style="overflow-x: auto;"
+                >
+                  <select class="selectStyle p-2">
+                    <option value="FROM">FROM</option>
+                  </select>
+                  <select class="selectStyle ml-2 p-2">
+                    <option value="SpatioTemporal_DB">Car</option>
+                  </select>
+                  <button class="btn btn-link ml-2">
+                    <i class="fas fa-plus" style="color: #14274e;"></i>
+                  </button>
+                </div>
+
+                <!-- WHERE -->
+                <div
+                  class="col-12 mt-3 d-flex flex-nowrap"
+                  style="overflow-x: auto;"
+                >
+                  <select class="selectStyle p-2">
+                    <option value="WHERE">WHERE</option>
+                  </select>
+                  <select
+                    class="selectStyle ml-2 p-2"
+                    [(ngModel)]="chosenGeoSQLFunction"
+                  >
+                    <option value="default" disabled></option>
+                    <option value="GEO_RECTANGLE">GEO_RECTANGLE</option>
+                    <option value="GEO_TEMPORAL_RECTANGLE"
+                      >GEO_TEMPORAL_RECTANGLE</option
+                    >
+                    <option value="GEO_CIRCLE_KM">GEO_CIRCLE_KM</option>
+                    <option value="GEO_TEMPORAL_CIRCLE_KM"
+                      >GEO_TEMPORAL_CIRCLE_KM</option
+                    >
+                  </select>
+                  <button class="btn btn-link ml-2">
+                    <i class="fas fa-plus" style="color: #14274e;"></i>
+                  </button>
+                </div>
+
+                <!-- Id field -->
+                <div
+                  class="col-12 mt-3 d-flex flex-nowrap"
+                  style="overflow-x: auto;"
+                >
+                  <div class="whiteSpace p-2"></div>
+                  <div
+                    class="row m-0"
+                    *ngIf="
+                      chosenGeoSQLFunction === 'GEO_TEMPORAL_CIRCLE_KM' ||
+                      chosenGeoSQLFunction === 'GEO_TEMPORAL_RECTANGLE' ||
+                      chosenGeoSQLFunction === 'GEO_CIRCLE_KM' ||
+                      chosenGeoSQLFunction === 'GEO_RECTANGLE'
+                    "
+                  >
+                    <div class="col-auto" style="font-size: 0.9rem;">
+                      <div class="row w-100 m-0">
+                        ID Field
+                        <span
+                          class="ml-2"
+                          *ngIf="
+                            chosenGeoSQLFunction === 'GEO_CIRCLE_KM' ||
+                            chosenGeoSQLFunction === 'GEO_RECTANGLE'
+                          "
+                          style="font-size: 0.7rem;"
+                          >(Optional)</span
+                        >
+                      </div>
+                      <div class="row w-100">
+                        <select
+                          class="selectStyle ml-2 p-2"
+                          [(ngModel)]="objectIdFieldName"
+                        >
+                          <option value="car_Id">car_Id</option>
+                          <option value="HilbertIndex">HilbertIndex</option>
+                          <option value="STHilbertIndex">STHilbertIndex</option>
+                          <option value="location">location</option>
+                          <option value="Timestamp">Timestamp</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Location field -->
+                <div
+                  class="col-12 mt-3 d-flex flex-nowrap"
+                  style="overflow-x: auto;"
+                >
+                  <div class="whiteSpace p-2"></div>
+                  <div
+                    class="row m-0"
+                    *ngIf="chosenGeoSQLFunction !== 'default'"
+                  >
+                    <div class="col-12" style="font-size: 0.9rem;">
+                      Location Field
+                    </div>
+                    <div class="col-auto pl-0">
+                      <select
+                        class="selectStyle ml-2 p-2"
+                        [(ngModel)]="objectLocationFieldName"
+                      >
+                        <option value="car_Id">car_Id</option>
+                        <option value="HilbertIndex">HilbertIndex</option>
+                        <option value="STHilbertIndex">STHilbertIndex</option>
+                        <option value="location">location</option>
+                        <option value="Timestamp">Timestamp</option>
+                      </select>
+                    </div>
+                    <div
+                      class="col pl-0 align-self-center"
+                      *ngIf="
+                        chosenGeoSQLFunction === 'GEO_RECTANGLE' ||
+                        chosenGeoSQLFunction === 'GEO_TEMPORAL_RECTANGLE'
+                      "
+                      style="color: grey;"
+                    >
+                      Draw rectangle on map
+                    </div>
+                    <div
+                      class="col pl-0 align-self-center"
+                      *ngIf="
+                        chosenGeoSQLFunction === 'GEO_CIRCLE_KM' ||
+                        chosenGeoSQLFunction === 'GEO_TEMPORAL_CIRCLE_KM'
+                      "
+                      style="color: grey;"
+                    >
+                      Draw circle on map
+                    </div>
+                  </div>
+                </div>
+                <!-- Time field -->
+                <div
+                  class="col-12 mt-3 d-flex flex-nowrap"
+                  style="overflow-x: auto;"
+                >
+                  <div class="whiteSpace p-2"></div>
+                  <div
+                    class="row m-0"
+                    *ngIf="
+                      chosenGeoSQLFunction === 'GEO_TEMPORAL_CIRCLE_KM' ||
+                      chosenGeoSQLFunction === 'GEO_TEMPORAL_RECTANGLE'
+                    "
+                  >
+                    <div class="col-auto" style="font-size: 0.9rem;">
+                      <div class="row w-100 m-0">
+                        Timestamp Field
+                      </div>
+                      <div class="row w-100">
+                        <select
+                          class="selectStyle ml-2 p-2"
+                          [(ngModel)]="objectTimeFieldName"
+                        >
+                          <option value="car_Id">car_Id</option>
+                          <option value="HilbertIndex">HilbertIndex</option>
+                          <option value="STHilbertIndex">STHilbertIndex</option>
+                          <option value="location">location</option>
+                          <option value="Timestamp">Timestamp</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-auto" style="font-size: 0.9rem;">
+                      <div class="row w-100 m-0">
+                        minTimestamp
+                      </div>
+                      <div class="row w-100">
+                        <input class="inputStyle ml-2 p-2" />
+                      </div>
+                    </div>
+                    <div class="col-auto" style="font-size: 0.9rem;">
+                      <div class="row w-100 m-0">
+                        maxTimestamp
+                      </div>
+                      <div class="row w-100">
+                        <input class="inputStyle ml-2 p-2" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="row w-100 m-0 pt-4 pb-3"
+                *ngIf="isQueryConstructorTabOpen"
+              >
+                <div class="col-auto align-self-center">
+                  <button
+                    class="btn btn-link"
+                    style="color: #14274e; font-weight: 300;"
+                  >
+                    Add SQL line +
+                  </button>
+                </div>
+                <div class="col text-right align-self-center">
+                  <!-- spatial BuTTON RUN -->
+                  <button
+                    class="btn btn-primary"
+                    style="background-color: #14274e;"
+                    (click)="runSpatialQuery()"
+                    *ngIf="
+                      chosenGeoSQLFunction === 'GEO_CIRCLE_KM' ||
+                      chosenGeoSQLFunction === 'GEO_RECTANGLE'
+                    "
+                  >
+                    <i
+                      *ngIf="isLoading === true"
+                      style="font-size: 1rem;"
+                      class="fa fa-spinner fa-pulse fa-3x fa-fw"
+                    ></i>
+                    Execute
+                    <i
+                      style="font-size: 1.2rem;"
+                      class="fas fa-angle-right ml-2"
+                    ></i>
+                  </button>
+                  <!-- spatiOtEMPORAL BuTTON RUN -->
+                  <button
+                    class="btn btn-primary"
+                    style="background-color: #14274e;"
+                    (click)="runSpatioTemporalQuery()"
+                    *ngIf="
+                      chosenGeoSQLFunction === 'GEO_TEMPORAL_CIRCLE_KM' ||
+                      chosenGeoSQLFunction === 'GEO_TEMPORAL_RECTANGLE'
+                    "
+                  >
+                    <i
+                      *ngIf="isLoading === true"
+                      style="font-size: 1rem;"
+                      class="fa fa-spinner fa-pulse fa-3x fa-fw"
+                    ></i>
+                    Execute
+                    <i
+                      style="font-size: 1.2rem;"
+                      class="fas fa-angle-right ml-2"
+                    ></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Final SQL query (editable) - TAB -->
+            <div class="col-12 box mt-4">
+              <div class="row w-100 m-0">
+                <div
+                  class="col-12 p-0 pointerToClick pt-3 pb-3"
+                  (click)="openCloseSQLQueryTab()"
+                >
+                  <div class="row m-0">
+                    <div class="col-auto align-self-center">
+                      <span
+                        style="
+                          color: #14274e;
+                          font-weight: 600;
+                          font-size: 1.2rem;
+                          text-decoration: underline;
+                        "
+                        >Final SQL query</span
+                      >
+                      <span style="color: #14274e; font-size: 0.9rem;"
+                        >(editable)</span
+                      >
+                    </div>
+                    <div class="col text-right align-self-center">
+                      <i
+                        *ngIf="!isSQLqueryTabOpen"
+                        style="font-size: 1.2rem;"
+                        class="fas fa-angle-down mt-2"
+                      ></i>
+                      <i
+                        *ngIf="isSQLqueryTabOpen"
+                        style="font-size: 1.2rem;"
+                        class="fas fa-angle-up mt-2"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- textarea -->
+                <div class="row w-100 m-0 mt-1" *ngIf="isSQLqueryTabOpen">
+                  <div class="col-12">
+                    <textarea
+                      class="mt-3"
+                      placeholder="No query available yet."
+                      [(ngModel)]="query"
+                    ></textarea>
+                  </div>
+                  <div class="col-12 text-right align-self-center pt-3 pb-3">
+                    <!-- spatial BuTTON RUN -->
+                    <button
+                      class="btn btn-primary"
+                      style="background-color: #14274e;"
+                      (click)="runSpatialQuery()"
+                      *ngIf="
+                        chosenGeoSQLFunction === 'GEO_CIRCLE_KM' ||
+                        chosenGeoSQLFunction === 'GEO_RECTANGLE'
+                      "
+                    >
+                      <i
+                        *ngIf="isLoading === true"
+                        style="font-size: 1rem;"
+                        class="fa fa-spinner fa-pulse fa-3x fa-fw"
+                      ></i>
+                      Execute
+                      <i
+                        style="font-size: 1.2rem;"
+                        class="fas fa-angle-right ml-2"
+                      ></i>
+                    </button>
+                    <!-- spatiOtEMPORAL BuTTON RUN -->
+                    <button
+                      class="btn btn-primary"
+                      style="background-color: #14274e;"
+                      (click)="runSpatioTemporalQuery()"
+                      *ngIf="
+                        chosenGeoSQLFunction === 'GEO_TEMPORAL_CIRCLE_KM' ||
+                        chosenGeoSQLFunction === 'GEO_TEMPORAL_RECTANGLE'
+                      "
+                    >
+                      <i
+                        *ngIf="isLoading === true"
+                        style="font-size: 1rem;"
+                        class="fa fa-spinner fa-pulse fa-3x fa-fw"
+                      ></i>
+                      Execute
+                      <i
+                        style="font-size: 1.2rem;"
+                        class="fas fa-angle-right ml-2"
+                      ></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Final Query in Db Language - TAB -->
+            <div class="col-12 box mt-4">
+              <div
+                class="row w-100 m-0 pointerToClick pt-3 pb-3"
+                (click)="openCloseActualDBTab()"
+              >
+                <div class="col-auto align-self-center">
+                  <span
+                    style="
+                      color: #14274e;
+                      font-weight: 600;
+                      font-size: 1.2rem;
+                      text-decoration: underline;
+                    "
+                    >Final Query in Cypher</span
+                  >
+                </div>
+                <div class="col text-right align-self-center">
+                  <i
+                    *ngIf="!isActualDBTabOpen"
+                    style="font-size: 1.2rem;"
+                    class="fas fa-angle-down mt-2"
+                  ></i>
+                  <i
+                    *ngIf="isActualDBTabOpen"
+                    style="font-size: 1.2rem;"
+                    class="fas fa-angle-up mt-2"
+                  ></i>
+                </div>
+              </div>
+              <div class="row w-100 m-0 pb-3" *ngIf="isActualDBTabOpen">
+                <div class="col-12" style="color: #14274e;">
+                  <!-- No query available yet. -->
+                  {{ actualQuery }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leaflet - Map & web player -->
+        <div class="col-6 pr-0" style="min-height: 100vh; max-height: 100vh;">
+          <!-- web player -->
+          <div
+            class="row w-100 m-0 p-0 webPlayerPositioning"
+            *ngIf="
+              chosenGeoSQLFunction === 'GEO_TEMPORAL_CIRCLE_KM' ||
+              chosenGeoSQLFunction === 'GEO_TEMPORAL_RECTANGLE'
+            "
+          >
+            <div
+              class="col-12"
+              style="box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.283) !important;"
+            >
+              <div
+                class="row w-100 m-0 p-2"
+                style="background-color: rgb(85, 85, 85); border-radius: 12px;"
+              >
+                <div class="col-auto align-self-center" style="z-index: 1000;">
+                  <div
+                    class="btn btn-light font12 mr-2 p-0 pl-2 pr-2"
+                    style="padding-top: 2px; padding-bottom: 2px;"
+                    (click)="playSpatioTemporal()"
+                  >
+                    <i class="fa fa-play"></i>
+                  </div>
+                  <div
+                    class="btn btn-light font12 mr-2 p-0 pl-2 pr-2"
+                    style="padding-top: 2px; padding-bottom: 2px;"
+                  >
+                    <i class="fa fa-pause"></i>
+                  </div>
+                </div>
+                <div
+                  class="col-12 p-0 text-center text-white font14"
+                  style="position: absolute; top: 10px;"
+                >
+                  <span class="font-weight-bold mr-3">Period Displayed :</span>
+                  <div
+                    class="btn btn-light font12 mr-2 p-0 pl-2 pr-2"
+                    style="padding-top: 2px; padding-bottom: 2px;"
+                  >
+                    <i class="fa fa-backward"></i>
+                  </div>
+                  {{ value | date: 'dd/MM/yyyy HH:mm:ss' }} -
+                  {{ maxValue | date: 'dd/MM/yyyy HH:mm:ss' }}
+                  <div
+                    class="btn btn-light font12 ml-2 p-0 pl-2 pr-2"
+                    style="padding-top: 2px; padding-bottom: 2px;"
+                  >
+                    <i class="fa fa-forward"></i>
+                  </div>
+                </div>
+                <ng5-slider
+                  [(value)]="value"
+                  [(highValue)]="maxValue"
+                  [(options)]="opt"
+                >
+                </ng5-slider>
+                <div class="col-6 pl-0 text-white font12">
+                  <input
+                    *ngIf="changeFloor"
+                    type="datetime-local"
+                    class="inputOfDates"
+                    [(ngModel)]="opt.floor"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  <span *ngIf="!changeFloor">{{
+                    opt.floor | date: 'dd/MM/yyyy HH:mm:ss'
+                  }}</span>
+                  <i
+                    class="fa fa-edit ml-2 pointerToClick"
+                    *ngIf="!changeFloor"
+                    (click)="changeFloorOrCeil('floor')"
+                    style="color: white !important;"
+                  ></i>
+                  <i
+                    class="fa fa-check ml-2 pointerToClick"
+                    *ngIf="changeFloor"
+                    (click)="changeFloorOrCeil('floor')"
+                    style="color: white !important;"
+                  ></i>
+                </div>
+                <div class="col-6 text-right pr-0 text-white font12">
+                  <input
+                    *ngIf="changeCeil"
+                    type="datetime-local"
+                    class="inputOfDates"
+                    [(ngModel)]="opt.ceil"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  <span *ngIf="!changeCeil">{{
+                    opt.ceil | date: 'dd/MM/yyyy HH:mm:ss'
+                  }}</span>
+                  <i
+                    class="fa fa-edit ml-2 pointerToClick"
+                    *ngIf="!changeCeil"
+                    (click)="changeFloorOrCeil('ceil')"
+                    style="color: white !important;"
+                  ></i>
+                  <i
+                    class="fa fa-check ml-2 pointerToClick"
+                    *ngIf="changeCeil"
+                    (click)="changeFloorOrCeil('ceil')"
+                    style="color: white !important;"
+                  ></i>
+                </div>
+                <div class="col-auto text-white font12 mt-3 pl-0">
+                  Window (hours) :
+                  <input
+                    type="number"
+                    class="inputs"
+                    [(ngModel)]="windowBetweenFloorAndCeil"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </div>
+                <div class="col-auto text-white font12 mt-3 pl-0">
+                  FPS :
+                  <input
+                    type="number"
+                    class="inputs"
+                    [(ngModel)]="fps"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LEAFLET MAP -->
+          <div
+            style="
+              min-height: 100vh;
+              max-height: 100vh;
+              box-shadow: -4px 0 10px 3px rgba(0, 0, 0, 0.221);
+            "
+            leaflet
+            leafletDraw
+            [leafletOptions]="options"
+            [leafletLayers]="layers"
+            (leafletMapReady)="onMapReady($event)"
+            [leafletDrawOptions]="drawOptions"
+            (leafletDrawCreated)="onDrawCreated($event)"
+          >
+            <div [leafletLayer]="drawItems"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

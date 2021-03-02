@@ -7,10 +7,36 @@ import { Injectable } from '@angular/core';
 export class QueryConstructionService {
   constructor(private httpClient: HttpClient) {}
 
-  sendQuery(query: string) {
-    const body = query;
+  spatialSqlQueryPost(
+    query: string,
+    idFieldName: string,
+    locationFieldName: string
+  ) {
+    const body = {
+      query: query,
+      idFieldName: idFieldName,
+      locationFieldName: locationFieldName,
+    };
+
     return this.httpClient
-      .post('/sql-query', body, { responseType: 'text' })
+      .post('/spatial-sql-query', body, { responseType: 'text' })
+      .toPromise();
+  }
+
+  spatioTemporalSqlQueryPost(
+    query: string,
+    idFieldName: string,
+    locationFieldName: string,
+    timeFieldName: string
+  ) {
+    const body = {
+      query: query,
+      idFieldName: idFieldName,
+      locationFieldName: locationFieldName,
+      timeFieldName: timeFieldName,
+    };
+    return this.httpClient
+      .post('/spatiotemporal-sql-query', body, { responseType: 'text' })
       .toPromise();
   }
 }

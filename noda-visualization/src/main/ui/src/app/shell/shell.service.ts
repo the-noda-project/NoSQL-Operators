@@ -23,4 +23,4 @@ export class Shell {
 }
 
 export const themeFromMapBox =
-  'https://api.mapbox.com/styles/v1/nikoskous/ckaid0c1y0sw21ipamlvgkzqt/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoibmlrb3Nrb3VzIiwiYSI6ImNrMnRjajM5NDBxZXczbXA1YmxueGdhcmMifQ.O0Fz93cltHQ10OfqGBS7FQ';
+  'https://api.mapbox.com/styles/v1/nikoskous/cki30mfyw42ll19om2sgz8e2q/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoibmlrb3Nrb3VzIiwiYSI6ImNrMnRjajM5NDBxZXczbXA1YmxueGdhcmMifQ.O0Fz93cltHQ10OfqGBS7FQ';

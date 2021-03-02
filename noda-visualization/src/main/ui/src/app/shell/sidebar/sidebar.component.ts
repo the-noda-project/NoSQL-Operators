@@ -59,10 +59,10 @@ export class SidebarComponent implements OnInit {
   constructor(private quoteService: QuoteService) {}
 
   ngOnInit() {
-    this.quoteService.getNodaSTData().then((res: any) => {
-      let parsedData = JSON.parse(res);
-      this.data = parsedData['data'];
-      this.groupedData = _.groupBy(this.data, 'time');
-    });
+    //   this.quoteService.getNodaSTData().then((res: any) => {
+    //     let parsedData = JSON.parse(res);
+    //     this.data = parsedData['data'];
+    //     this.groupedData = _.groupBy(this.data, 'time');
+    //   });
   }
 }

@@ -25,10 +25,10 @@
 
     <dependencies>
         <dependency>
-        <groupId>gr.unipi.noda</groupId>
-        <artifactId>nosql-operators-core</artifactId>
-        <version>${project.version}</version>
-    </dependency>
+            <groupId>gr.unipi.noda</groupId>
+            <artifactId>nosql-operators-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -57,7 +57,7 @@
         </dependency>
     </dependencies>
 
-<!--    UNCOMMENT for Angular build -->
+    <!--    UNCOMMENT for Angular build -->
 
 <!--    <build>-->
 <!--        <plugins>-->
