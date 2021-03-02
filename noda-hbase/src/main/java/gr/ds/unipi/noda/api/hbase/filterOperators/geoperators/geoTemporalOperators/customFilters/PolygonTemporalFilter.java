@@ -51,7 +51,7 @@ public class PolygonTemporalFilter extends FilterBase {
     public void reset() throws IOException {
         longitude = Integer.MIN_VALUE;
         latitude = Integer.MIN_VALUE;
-        date =Long.MIN_VALUE;
+        date = Long.MIN_VALUE;
 
         filterRow = true;
     }
@@ -69,7 +69,7 @@ public class PolygonTemporalFilter extends FilterBase {
     }
 
     @Override
-    public boolean hasFilterRow(){
+    public boolean hasFilterRow() {
         return true;
     }
 

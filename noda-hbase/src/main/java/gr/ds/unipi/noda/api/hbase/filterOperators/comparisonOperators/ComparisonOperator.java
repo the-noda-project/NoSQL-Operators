@@ -4,7 +4,6 @@ import org.apache.hadoop.hbase.CompareOperator;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.SingleColumnValueFilter;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.hadoop.io.DoubleWritable;
 
 abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator<Filter, U> {
     protected ComparisonOperator(String fieldName, U fieldValue) {
@@ -30,7 +29,7 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
         byte[] value = null;
 
         if (getFieldValue() instanceof Double) {
-            value = Bytes.toBytes( ((Double) getFieldValue()).doubleValue());
+            value = Bytes.toBytes(((Double) getFieldValue()).doubleValue());
         } else if (getFieldValue() instanceof Integer) {
             value = Bytes.toBytes(((Integer) getFieldValue()).intValue());
         } else if (getFieldValue() instanceof Float) {

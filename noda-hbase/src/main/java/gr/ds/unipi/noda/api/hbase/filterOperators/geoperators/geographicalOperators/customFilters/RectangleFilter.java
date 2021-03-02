@@ -58,7 +58,7 @@ public class RectangleFilter extends FilterBase {
     }
 
     @Override
-    public boolean hasFilterRow(){
+    public boolean hasFilterRow() {
         return true;
     }
 

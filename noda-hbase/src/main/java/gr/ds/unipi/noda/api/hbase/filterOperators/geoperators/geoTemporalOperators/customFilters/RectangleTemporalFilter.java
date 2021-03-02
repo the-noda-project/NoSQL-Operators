@@ -8,7 +8,6 @@ import org.apache.hadoop.hbase.exceptions.DeserializationException;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.FilterBase;
 import org.apache.hadoop.hbase.util.ByteStringer;
-import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
 
@@ -53,7 +52,7 @@ public class RectangleTemporalFilter extends FilterBase {
     public void reset() throws IOException {
         longitude = Integer.MIN_VALUE;
         latitude = Integer.MIN_VALUE;
-        date =Long.MIN_VALUE;
+        date = Long.MIN_VALUE;
 
         filterRow = true;
     }
@@ -90,7 +89,7 @@ public class RectangleTemporalFilter extends FilterBase {
     }
 
     @Override
-    public boolean hasFilterRow(){
+    public boolean hasFilterRow() {
         return true;
     }
 
