@@ -39,6 +39,11 @@ public final class HBaseConnector implements NoSqlDbConnector<Connection> {
         return Objects.hash(conf);
     }
 
+
+    public Configuration getConfiguration(){
+        return conf;
+    }
+
     public static HBaseConnector newHBaseConnector(Configuration conf) {
         return new HBaseConnector(conf);
     }
