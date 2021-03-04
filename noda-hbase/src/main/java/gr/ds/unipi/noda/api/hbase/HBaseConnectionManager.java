@@ -2,6 +2,7 @@ package gr.ds.unipi.noda.api.hbase;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnectionManager;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.client.Connection;
 
 import java.io.IOException;
@@ -42,6 +43,10 @@ final class HBaseConnectionManager extends NoSqlDbConnectionManager<Connection> 
 
     public static HBaseConnectionManager getInstance() {
         return INSTANCE;
+    }
+
+    public Configuration getConfiguration(NoSqlDbConnector noSqlDbConnector){
+        return ((HBaseConnector) noSqlDbConnector).getConfiguration();
     }
 
 }

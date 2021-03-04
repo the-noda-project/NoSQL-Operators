@@ -12,15 +12,15 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographi
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.aggregateOperator.HBaseAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.aggregateOperators.HBaseAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.hbase.dataframe.HBaseDataframeManipulator;
-import gr.ds.unipi.noda.api.hbase.filterOperator.comparisonOperators.HBaseComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geoTemporalOperators.HBaseGeoTemporalOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geoTextualOperators.HBaseGeoTextualOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.geoperators.geographicalOperators.HBaseGeographicalOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.logicalOperators.HBaseLogicalOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.filterOperator.textualOperators.HBaseTextualOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.sortOperator.HBaseSortOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperators.comparisonOperators.HBaseComparisonOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geoTemporalOperators.HBaseGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geoTextualOperators.HBaseGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geographicalOperators.HBaseGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperators.logicalOperators.HBaseLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.filterOperators.textualOperators.HBaseTextualOperatorFactory;
+import gr.ds.unipi.noda.api.hbase.sortOperators.HBaseSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
 public final class HBaseConnectionFactory extends NoSqlConnectionFactory {

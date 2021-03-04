@@ -5,7 +5,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographi
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator;
 
-public abstract class GeoTextualConstraintOperator<T,U extends Geometry> extends GeoTextualOperator<T,U> {
+public abstract class GeoTextualConstraintOperator<T, U extends Geometry> extends GeoTextualOperator<T, U> {
 
     private final ConditionalTextualOperator conditionalTextualOperator;
 

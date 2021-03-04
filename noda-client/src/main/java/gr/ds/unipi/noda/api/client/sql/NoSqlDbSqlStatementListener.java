@@ -6,6 +6,7 @@ import gr.ds.unipi.noda.api.core.operators.FilterOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -395,7 +396,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                     break;
                 case "GEO_TEMPORAL_POLYGON":
                     checkForDoubleColumn();
-                    checkForNoneValues();
+                    checkForNoneNumbers();
                     if (coordinatesList.size() < 3) {
                         try {
                             logger.error("At least three coordinates are required for forming the {} function",functionName);
@@ -417,7 +418,7 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
                     break;
                 case "GEO_TEMPORAL_RECTANGLE":
                     checkForDoubleColumn();
-                    checkForNoneValues();
+                    checkForNoneNumbers();
                     if (coordinatesList.size() != 2) {
                         try {
                             logger.error("Two coordinates are required for forming the {} function", functionName);

@@ -1040,3 +1040,4 @@ Caused by: java.net.ConnectException: Connection refused
 02-11-2020 17:35:38 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_CIRCLE_KM function requires one number as an argument
 02-11-2020 17:38:17 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_CIRCLE_KM function requires one number as an argument
 02-11-2020 17:51:10 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_CIRCLE_KM function requires one number as an argument
+07-11-2020 21:28:24 ERROR g.d.u.n.a.c.s.NoSqlDbSqlStatementListener - GEO_TEMPORAL_CIRCLE_KM function does not require string as an argument

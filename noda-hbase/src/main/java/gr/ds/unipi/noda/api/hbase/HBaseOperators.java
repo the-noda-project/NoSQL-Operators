@@ -5,26 +5,42 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CompareOperator;
 import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.filter.*;
+import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
+import org.apache.hadoop.hbase.mapreduce.TableInputFormat;
+import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
+import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.api.java.JavaSparkContext$;
+import org.apache.spark.api.java.function.Function;
+import org.apache.spark.sql.*;
+import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder;
+import org.apache.spark.sql.catalyst.encoders.RowEncoder;
+import org.apache.spark.sql.catalyst.expressions.GenericRowWithSchema;
+import org.apache.spark.sql.execution.datasources.csv.CSVInferSchema;
+import org.apache.spark.sql.types.*;
+import scala.Tuple2;
+import scala.collection.JavaConverters;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Optional;
 
 final class HBaseOperators extends NoSqlDbOperators {
 
     private final HBaseConnectionManager hbaseConnectionManager = HBaseConnectionManager.getInstance();
     private final Scan scan = new Scan();
     private final FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
-//    private final List<Map.Entry<byte[],byte[]>> projection = new ArrayList<>();
+
     private final FilterList projectionFilterList = new FilterList(FilterList.Operator.MUST_PASS_ONE);
 
     private HBaseOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
@@ -67,22 +83,11 @@ final class HBaseOperators extends NoSqlDbOperators {
         filterList.addFilter(projectionFilterList);
         scan.setFilter(filterList);
 
-//        projection.forEach(entry -> {
-//            if(entry.getValue()==null){
-//                scan.addFamily(entry.getKey());
-//            }
-//            else{
-//                scan.addColumn(entry.getKey(),entry.getValue());
-//            }
-//        });
         try {
 
             table = hbaseConnectionManager.getConnection(getNoSqlDbConnector()).getTable(TableName.valueOf(getDataCollection()));
-            System.out.println("print screen2");
-
             resultScanner = table.getScanner(scan);
-
-            resultScanner.forEach(result -> System.out.println(result));
+            resultScanner.forEach(System.out::println);
 
             resultScanner.close();
             table.close();
@@ -149,32 +154,9 @@ final class HBaseOperators extends NoSqlDbOperators {
             }
         }
     }
-//    private void scanProjection(String fieldName) {
-//        String[] names = fieldName.split(":");
-//
-//        if (names.length == 1) {
-//            projection.add(new AbstractMap.SimpleImmutableEntry(Bytes.toBytes(names[0]),null));
-//        } else if (names.length == 2) {
-//            projection.add(new AbstractMap.SimpleImmutableEntry(Bytes.toBytes(names[0]),Bytes.toBytes(names[1])));
-//        } else {
-//            try {
-//                throw new Exception("");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
     @Override
     public NoSqlDbOperators project(String fieldName, String... fieldNames) {
-
-//        projectionFilterList.addFilter(new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(fieldName))));
-//
-//        for (int i = 0; i < fieldNames.length; i++) {
-//            //projectionFilterList.addFilter(new ColumnPrefixFilter(Bytes.toBytes(fieldNames[i])));
-//            projectionFilterList.addFilter(new QualifierFilter(CompareOperator.EQUAL, new BinaryComparator(Bytes.toBytes(fieldNames[i]))));
-//
-//        }
         scanProjection(fieldName);
 
         for (int i = 0; i < fieldNames.length; i++) {
@@ -186,6 +168,25 @@ final class HBaseOperators extends NoSqlDbOperators {
 
     @Override
     public Dataset<Row> toDataframe() {
-        return null;
+
+        filterList.addFilter(projectionFilterList);
+        scan.setFilter(filterList);
+
+        Configuration conf = hbaseConnectionManager.getConfiguration(getNoSqlDbConnector());
+        conf.set(TableInputFormat.INPUT_TABLE,getDataCollection());
+        try {
+            conf.set(TableInputFormat.SCAN, TableMapReduceUtil.convertScanToString(scan));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        JavaPairRDD<ImmutableBytesWritable, Result> javaPairRDD = JavaSparkContext.fromSparkContext(getSparkSession().sparkContext()).newAPIHadoopRDD(conf,TableInputFormat.class, ImmutableBytesWritable.class, Result.class);
+
+        Dataset<Row> df = getSparkSession().sqlContext().createDataFrame(javaPairRDD.values(), Result.class);
+
+        df = df.select(new Column("row"),org.apache.spark.sql.functions.explode_outer(new Column("noVersionMap"))).select(new Column("row"), new Column("key").as("columnFamily"), org.apache.spark.sql.functions.explode_outer(new Column("value"))).select(new Column("row").cast(DataTypes.StringType),new Column("columnFamily").cast(DataTypes.StringType),new Column("key").cast(DataTypes.StringType).as("columnQualifier"),new Column("value").cast(DataTypes.StringType))
+                .withColumn("column",org.apache.spark.sql.functions.concat(new Column("columnFamily"),org.apache.spark.sql.functions.lit(":"), new Column("columnQualifier"))).drop("columnFamily","columnQualifier").groupBy("row").pivot("column").agg(org.apache.spark.sql.functions.first(new Column("value")));
+
+        return df;
     }
 }

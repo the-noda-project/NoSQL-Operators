@@ -12,7 +12,7 @@ import java.util.Map;
 
 public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
 
-    private final List<Map.Entry<String,Integer>> addresses;
+    private final List<Map.Entry<String, Integer>> addresses;
     private final MongoCredential mongoCredential;
     private final MongoClientOptions mongoClientOptions;
 
@@ -21,7 +21,7 @@ public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MongoDBConnector that = (MongoDBConnector) o;
-        return (addresses.containsAll(that.addresses) && addresses.size()==that.addresses.size()) &&
+        return (addresses.containsAll(that.addresses) && addresses.size() == that.addresses.size()) &&
                 mongoCredential.equals(that.mongoCredential) &&
                 mongoClientOptions.equals(that.mongoClientOptions);
     }
@@ -29,16 +29,16 @@ public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
     @Override
     public int hashCode() {
         int hashCode = 0;
-        for(Map.Entry<String,Integer> e : addresses){
-            hashCode = 31*hashCode+(e==null ?0:e.hashCode());
+        for (Map.Entry<String, Integer> e : addresses) {
+            hashCode = 31 * hashCode + (e == null ? 0 : e.hashCode());
         }
-        hashCode = 31*hashCode+ mongoCredential.hashCode();
-        hashCode = 31*hashCode+mongoClientOptions.hashCode();
+        hashCode = 31 * hashCode + mongoCredential.hashCode();
+        hashCode = 31 * hashCode + mongoClientOptions.hashCode();
 
         return hashCode;
     }
 
-    private MongoDBConnector(List<Map.Entry<String,Integer>> addresses, MongoCredential mongoCredential, MongoClientOptions mongoClientOptions) {
+    private MongoDBConnector(List<Map.Entry<String, Integer>> addresses, MongoCredential mongoCredential, MongoClientOptions mongoClientOptions) {
         this.addresses = addresses;
         this.mongoCredential = mongoCredential;
         this.mongoClientOptions = mongoClientOptions;
@@ -46,19 +46,18 @@ public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
 
     @Override
     public MongoClient createConnection() {
-        if(addresses.size()==1){
+        if (addresses.size() == 1) {
             return new MongoClient(new ServerAddress(addresses.get(0).getKey(), addresses.get(0).getValue()), mongoCredential, mongoClientOptions);
-        }
-        else{
+        } else {
             List<ServerAddress> servers = new ArrayList<>();
-            for(Map.Entry<String,Integer> entry : addresses){
-                servers.add(new ServerAddress(entry.getKey(),entry.getValue()));
+            for (Map.Entry<String, Integer> entry : addresses) {
+                servers.add(new ServerAddress(entry.getKey(), entry.getValue()));
             }
             return new MongoClient(servers, mongoCredential, mongoClientOptions);
         }
     }
 
-    public static MongoDBConnector newMongoDBConnector(List<Map.Entry<String,Integer>> addresses, MongoCredential mongoCredential, MongoClientOptions mongoClientOptions) {
+    public static MongoDBConnector newMongoDBConnector(List<Map.Entry<String, Integer>> addresses, MongoCredential mongoCredential, MongoClientOptions mongoClientOptions) {
         return new MongoDBConnector(addresses, mongoCredential, mongoClientOptions);
     }
 
@@ -80,7 +79,9 @@ public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
         return mongoCredential.getUserName();
     }
 
-    public String getPassword() { return mongoCredential.getPassword().toString(); }
+    public String getPassword() {
+        return mongoCredential.getPassword().toString();
+    }
 
 
     public String getDatabase() {

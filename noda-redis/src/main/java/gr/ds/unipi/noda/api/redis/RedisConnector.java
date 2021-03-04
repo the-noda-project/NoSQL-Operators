@@ -2,22 +2,18 @@ package gr.ds.unipi.noda.api.redis;
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.JedisSentinelPool;
-import redis.clients.jedis.util.Pool;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import redis.clients.jedis.*;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocketFactory;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
 import java.util.stream.Collectors;
 
-public final class RedisConnector implements NoSqlDbConnector<Pool<Jedis>> {
+public final class RedisConnector implements NoSqlDbConnector<Map<String, Pipeline>> {
     private final List<Map.Entry<String, Integer>> addresses;
     private final String masterName;
     private final JedisPoolConfig poolConfig;
@@ -30,6 +26,9 @@ public final class RedisConnector implements NoSqlDbConnector<Pool<Jedis>> {
     private final SSLSocketFactory sslSocketFactory;
     private final SSLParameters sslParameters;
     private final HostnameVerifier hostnameVerifier;
+
+    private JedisCluster jedisCluster;
+    private Map <String, JedisPool> nodeMap;
 
 
     public RedisConnector(List<Map.Entry<String, Integer>> addresses, String masterName, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
@@ -76,11 +75,33 @@ public final class RedisConnector implements NoSqlDbConnector<Pool<Jedis>> {
     }
 
     @Override
-    public Pool<Jedis> createConnection() {
-        if (masterName == null)
-            return new JedisPool(poolConfig, addresses.get(0).getKey(), addresses.get(0).getValue(), connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
-        else
-            return new JedisSentinelPool(masterName, getSentinels(), poolConfig, connectionTimeout, soTimeout, password, database, clientName );
+    public Map<String, Pipeline> createConnection() {
+        if (masterName == null){
+
+            Map<String, Pipeline> pipelinesOfNodes = new HashMap<>();
+
+            this.jedisCluster = new JedisCluster(new HostAndPort(addresses.get(0).getKey(), addresses.get(0).getValue()),0);
+            nodeMap = jedisCluster.getClusterNodes();
+
+            String anyHost = nodeMap.keySet().iterator().next();
+
+            // getSlotHostMap method has below
+
+            getSlotHostMap(anyHost).forEach(entry->
+                    pipelinesOfNodes.put("{"+crc16Slot.get(entry.getKey().intValue()+1)+"}",nodeMap.get(entry.getValue()).getResource().pipelined())
+            );
+
+            return pipelinesOfNodes;
+        }
+        return null;
+    }
+
+    public void closeJedisPools(){
+        nodeMap.forEach((s,j)-> j.close());
+    }
+
+    public void closeJedisCluster(){
+        jedisCluster.close();
     }
 
     public static RedisConnector newRedisConnector(List<Map.Entry<String, Integer>> addresses, String masterName, JedisPoolConfig poolConfig, int connectionTimeout, int soTimeout, String password, int database, String clientName, boolean ssl, SSLSocketFactory sslSocketFactory, SSLParameters sslParameters, HostnameVerifier hostnameVerifier) {
@@ -90,4 +111,27 @@ public final class RedisConnector implements NoSqlDbConnector<Pool<Jedis>> {
     private Set<String> getSentinels() {
         return addresses.stream().map(pair -> String.join(StringPool.COLON, pair.getKey(), pair.getValue().toString())).collect(Collectors.toSet());
     }
+
+    private static List<Map.Entry<Long, String>> getSlotHostMap (String anyHostAndPortStr) {
+        List<Map.Entry<Long, String>> entries = new ArrayList<>();
+        String parts [] = anyHostAndPortStr.split (":");
+        HostAndPort anyHostAndPort = new HostAndPort(parts [0], Integer.parseInt (parts [1]));
+        try {
+            Jedis jedis = new Jedis (anyHostAndPort.getHost (), anyHostAndPort.getPort ());
+            List <Object> list = jedis.clusterSlots ();
+            for (Object object: list) {
+                List <Object> list1 = (List <Object>) object;
+                List <Object> master = (List <Object>) list1.get (2);
+                String hostAndPort = new String ((byte []) master.get (0)) + ":" + master.get (1);
+                entries.add(new AbstractMap.SimpleImmutableEntry<>((Long) list1.get (0), hostAndPort));
+            }
+            jedis.close ();
+        } catch (Exception e) {
+
+        }
+        return entries;
+    }
+
+    private static List<String> crc16Slot = new BufferedReader(new InputStreamReader(RedisConnector.class.getResourceAsStream("/codes.txt"))).lines().collect(Collectors.toList());
+
 }

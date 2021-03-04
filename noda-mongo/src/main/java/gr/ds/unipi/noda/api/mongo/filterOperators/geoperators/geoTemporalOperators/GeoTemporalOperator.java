@@ -1,6 +1,5 @@
 package gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators;
 
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.SingleTemporalValue;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.Temporal;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
@@ -10,7 +9,7 @@ import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperat
 import java.text.SimpleDateFormat;
 
 abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator<StringBuilder, T, U> {
-    protected GeoTemporalOperator(GeographicalOperator<StringBuilder,T> geographicalOperator, String temporalFieldName, U temporalType) {
+    protected GeoTemporalOperator(GeographicalOperator<StringBuilder, T> geographicalOperator, String temporalFieldName, U temporalType) {
         super(geographicalOperator, temporalFieldName, temporalType);
     }
 
@@ -34,7 +33,7 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
     }
 
     @Override
-    public StringBuilder getOperatorExpression(){
+    public StringBuilder getOperatorExpression() {
 
         if (getTemporalType() instanceof TemporalBounds) {
 
@@ -47,10 +46,9 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
             sb.append(getTemporalBoundsExpression(getTemporalFieldName(), (TemporalBounds) getTemporalType()));
             sb.append(" ] }");
             return sb;
-        }
-        else{
+        } else {
             try {
-                throw new Exception(getTemporalType().getClass()+" is not supported on GeoTemporal operators");
+                throw new Exception(getTemporalType().getClass() + " is not supported on GeoTemporal operators");
             } catch (Exception e) {
                 e.printStackTrace();
             }

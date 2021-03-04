@@ -46,7 +46,7 @@ public final class MongoDBGeographicalOperatorFactory extends BaseGeographicalOp
             sb.append("\"" + fieldName + "\"");
         }
 
-        if(geometry instanceof Rectangle || geometry instanceof Polygon){
+        if (geometry instanceof Rectangle || geometry instanceof Polygon) {
             sb.append(": { $geoWithin: { $geometry: { type:\"Polygon\", coordinates:[ [");
 
             for (Coordinates c : geometry.getCoordinatesArray()) {
@@ -69,8 +69,7 @@ public final class MongoDBGeographicalOperatorFactory extends BaseGeographicalOp
             sb.append("] ] } } } }");
 
             return sb;
-        }
-        else if(geometry instanceof Circle){
+        } else if (geometry instanceof Circle) {
             sb.append(": { $geoWithin: { $centerSphere: [");
 
             sb.append(" [");
@@ -83,10 +82,9 @@ public final class MongoDBGeographicalOperatorFactory extends BaseGeographicalOp
 
             return sb;
 
-        }
-        else{
+        } else {
             try {
-                throw new Exception("Geometry type "+ geometry.getClass()+" is not supported");
+                throw new Exception("Geometry type " + geometry.getClass() + " is not supported");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -94,35 +92,33 @@ public final class MongoDBGeographicalOperatorFactory extends BaseGeographicalOp
         }
     }
 
-    public static StringBuilder getExpressionOfSpatialHilbertIndexes(Rectangle rectangle){
+    public static StringBuilder getExpressionOfSpatialHilbertIndexes(Rectangle rectangle) {
 
         final int bits = 13;
         final long maxOrdinates = 1L << bits;
 
         SmallHilbertCurve hc = HilbertCurve.small().bits(bits).dimensions(2);
 
-        Ranges rangesList = hc.query(HilbertUtil.scaleGeoPoint(rectangle.getLowerBound().getLatitude(),rectangle.getLowerBound().getLongitude(), maxOrdinates)
-                ,        HilbertUtil.scaleGeoPoint(rectangle.getUpperBound().getLatitude(),rectangle.getUpperBound().getLongitude(), maxOrdinates)
+        Ranges rangesList = hc.query(HilbertUtil.scaleGeoPoint(rectangle.getLowerBound().getLatitude(), rectangle.getLowerBound().getLongitude(), maxOrdinates)
+                , HilbertUtil.scaleGeoPoint(rectangle.getUpperBound().getLatitude(), rectangle.getUpperBound().getLongitude(), maxOrdinates)
                 , 0);
 
         StringBuilder cb = new StringBuilder();
         StringBuilder sb = new StringBuilder();
 
-        rangesList.stream().forEach(i->{
-            if(i.low() == i.high()){
-                cb.append(" "+i.low()+",");
-            }
-            else{
-                sb.append(" { hilIndex: { $gte: "+i.low()+", $lte: "+i.high()+" } },");
+        rangesList.stream().forEach(i -> {
+            if (i.low() == i.high()) {
+                cb.append(" " + i.low() + ",");
+            } else {
+                sb.append(" { hilIndex: { $gte: " + i.low() + ", $lte: " + i.high() + " } },");
             }
         });
 
         if (cb.length() != 0) {
-            cb.deleteCharAt(cb.length()-1);
-            sb.append(" { hilIndex: { $in : ["+cb.toString()+"] } }");
-        }
-        else{
-            sb.deleteCharAt(sb.length()-1);
+            cb.deleteCharAt(cb.length() - 1);
+            sb.append(" { hilIndex: { $in : [" + cb.toString() + "] } }");
+        } else {
+            sb.deleteCharAt(sb.length() - 1);
         }
 
         return sb;

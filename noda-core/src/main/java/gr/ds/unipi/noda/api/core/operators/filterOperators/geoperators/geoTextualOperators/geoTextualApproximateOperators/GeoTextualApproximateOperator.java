@@ -6,7 +6,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometrie
 
 import java.util.Arrays;
 
-public abstract class GeoTextualApproximateOperator<T,U extends Geometry> extends GeoTextualOperator<T,U> {
+public abstract class GeoTextualApproximateOperator<T, U extends Geometry> extends GeoTextualOperator<T, U> {
 
     private final String fieldName;
     private final String[] keywords;
@@ -16,7 +16,7 @@ public abstract class GeoTextualApproximateOperator<T,U extends Geometry> extend
         this.fieldName = fieldName;
         this.keywords = keywords;
 
-        if(keywords.length == 0){
+        if (keywords.length == 0) {
             try {
                 throw new Exception("No keywords have been defined");
             } catch (Exception e) {

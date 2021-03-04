@@ -28,7 +28,7 @@ public abstract class ComparisonOperator<T, U> implements FilterOperator<T> {
         if (o == null || getClass() != o.getClass()) return false;
 
         ComparisonOperator<?, ?> that = (ComparisonOperator<?, ?>) o;
-        
+
         if (!fieldName.equals(that.fieldName)) return false;
         return fieldValue.equals(that.fieldValue);
     }
