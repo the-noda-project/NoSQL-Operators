@@ -38,13 +38,25 @@ import java.util.Optional;
 final class HBaseOperators extends NoSqlDbOperators {
 
     private final HBaseConnectionManager hbaseConnectionManager = HBaseConnectionManager.getInstance();
-    private final Scan scan = new Scan();
-    private final FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
-
-    private final FilterList projectionFilterList = new FilterList(FilterList.Operator.MUST_PASS_ONE);
+    private Scan scan;
+    private FilterList filterList;
+    private FilterList projectionFilterList;
 
     private HBaseOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
+        scan = new Scan();
+        filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
+        projectionFilterList = new FilterList(FilterList.Operator.MUST_PASS_ONE);
+    }
+
+    private void clearState(){
+        scan = new Scan();
+        filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
+        projectionFilterList = new FilterList(FilterList.Operator.MUST_PASS_ONE);
+    }
+
+    private void formExpressionOfNoSQL(){
+
     }
 
     static HBaseOperators newHBaseOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {

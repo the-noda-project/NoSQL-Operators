@@ -15,6 +15,8 @@ public abstract class NoSqlDbOperators {
     private final String dataCollection;
     private final SparkSession sparkSession;
 
+    protected final StringBuilder expression = new StringBuilder();
+
     protected NoSqlDbOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
         this.noSqlDbConnector = noSqlDbConnector;
         this.dataCollection = dataCollection;
@@ -63,4 +65,6 @@ public abstract class NoSqlDbOperators {
     public SparkSession getSparkSession() {
         return sparkSession;
     }
+
+    public String getExpressionOfNoSQL() {return expression.toString();}
 }

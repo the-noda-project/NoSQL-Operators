@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.mongo;
 
+import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.spark.MongoSpark;
 import com.mongodb.spark.config.ReadConfig;
@@ -12,6 +13,7 @@ import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperat
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.bson.BsonDocument;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import scala.collection.JavaConversions;
@@ -25,11 +27,10 @@ final class MongoDBOperators extends NoSqlDbOperators {
     private final String database;
     private final String uriSparkSession;
 
-    private final List<Map.Entry<List<String>, List<AggregateOperator>>> groupByAgg = new ArrayList<>();
-
     private MongoDBOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
         stagesList = new ArrayList<>();
+        this.expression.setLength(0);
 
         MongoDBConnector mongoDBConnector = ((MongoDBConnector) connector);
         database = mongoDBConnector.getDatabase();
@@ -38,6 +39,21 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
     static MongoDBOperators newMongoDBOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         return new MongoDBOperators(connector, s, sparkSession);
+    }
+
+    private void clearState(){
+        stagesList.clear();
+    }
+
+    private void formExpressionOfNoSQL(){
+        this.expression.setLength(0);
+        this.expression.append("db."+getDataCollection()+".aggregate([ ");
+        stagesList.forEach(i-> {
+            i.toBsonDocument(BsonDocument.class, MongoClient.getDefaultCodecRegistry()).toJson();
+            this.expression.append(", ");
+        });
+        expression.deleteCharAt(expression.lastIndexOf(", "));
+        this.expression.append(" )]");
     }
 
     @Override
@@ -63,6 +79,9 @@ final class MongoDBOperators extends NoSqlDbOperators {
     public int count() {
         stagesList.add(Document.parse("{ $count: \"count\" }"));
         MongoCursor mc = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).iterator();
+
+        formExpressionOfNoSQL();
+        clearState();
 
         if (mc.hasNext()) {
             return ((Document) mc.next()).getInteger("count", -10);
@@ -103,6 +122,10 @@ final class MongoDBOperators extends NoSqlDbOperators {
     public Optional<Double> max(String fieldName) {
         stagesList.add(Document.parse("{ $group: { _id:null, " + AggregateOperator.aggregateOperator.newOperatorMax(fieldName).getOperatorExpression() + " } }"));
         MongoCursor mc = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).iterator();
+
+        formExpressionOfNoSQL();
+        clearState();
+
         if (mc.hasNext()) {
             return Optional.of(((Document) mc.next()).getDouble("max_" + fieldName));
         }
@@ -113,6 +136,10 @@ final class MongoDBOperators extends NoSqlDbOperators {
     public Optional<Double> min(String fieldName) {
         stagesList.add(Document.parse("{ $group: { _id:null, " + AggregateOperator.aggregateOperator.newOperatorMin(fieldName).getOperatorExpression() + " } }"));
         MongoCursor mc = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).iterator();
+
+        formExpressionOfNoSQL();
+        clearState();
+
         if (mc.hasNext()) {
             return Optional.of(((Document) mc.next()).getDouble("min_" + fieldName));
         }
@@ -123,6 +150,10 @@ final class MongoDBOperators extends NoSqlDbOperators {
     public Optional<Double> sum(String fieldName) {
         stagesList.add(Document.parse("{ $group: { _id:null, " + AggregateOperator.aggregateOperator.newOperatorSum(fieldName).getOperatorExpression() + " } }"));
         MongoCursor mc = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).iterator();
+
+        formExpressionOfNoSQL();
+        clearState();
+
         if (mc.hasNext()) {
             return Optional.of(((Document) mc.next()).getDouble("sum_" + fieldName));
         }
@@ -133,6 +164,10 @@ final class MongoDBOperators extends NoSqlDbOperators {
     public Optional<Double> avg(String fieldName) {
         stagesList.add(Document.parse("{ $group: { _id:null, " + AggregateOperator.aggregateOperator.newOperatorAvg(fieldName).getOperatorExpression() + " } }"));
         MongoCursor mc = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).iterator();
+
+        formExpressionOfNoSQL();
+        clearState();
+
         if (mc.hasNext()) {
             return Optional.of(((Document) mc.next()).getDouble("avg_" + fieldName));
         }
@@ -216,6 +251,10 @@ final class MongoDBOperators extends NoSqlDbOperators {
     @Override
     public void printScreen() {
         MongoCursor<Document> cursor = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).iterator();
+
+        formExpressionOfNoSQL();
+        clearState();
+
         try {
             while (cursor.hasNext()) {
                 System.out.println(cursor.next().toJson());
@@ -254,10 +293,13 @@ final class MongoDBOperators extends NoSqlDbOperators {
         readOverrides.put("spark.mongodb.input.uri", uriSparkSession);
         readOverrides.put("spark.mongodb.input.database", database);
         readOverrides.put("spark.mongodb.input.collection", getDataCollection());
-
         ReadConfig readConfig = ReadConfig.create(getSparkSession()).withOptions(readOverrides).withPipeline(JavaConversions.asScalaBuffer(Collections.unmodifiableList(stagesList)).toSeq());
+        Dataset<Row> df = MongoSpark.loadAndInferSchema(getSparkSession(), readConfig);
 
-        return MongoSpark.loadAndInferSchema(getSparkSession(), readConfig);
+        formExpressionOfNoSQL();
+        clearState();
+
+        return df;
 
     }
 
