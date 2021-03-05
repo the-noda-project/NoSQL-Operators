@@ -63,4 +63,5 @@ public abstract class NoSqlDbOperators {
     public SparkSession getSparkSession() {
         return sparkSession;
     }
+
 }
