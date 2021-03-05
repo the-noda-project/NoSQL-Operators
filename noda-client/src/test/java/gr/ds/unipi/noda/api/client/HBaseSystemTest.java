@@ -6,9 +6,7 @@ import org.apache.spark.sql.SparkSession;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.eq;
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.gte;
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.inGeoPolygon;
+import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 
 public class HBaseSystemTest {
     //@Ignore
@@ -27,8 +25,13 @@ public class HBaseSystemTest {
 
         NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("points");
 
-        noSqlDbOperators.filter(eq("cf2:dd","sd")).toDataframe();
-        noSqlDbOperators.toDataframe();
+        NoSqlDbOperators d = noSqlDbOperators.limit(34).project("sfg:sdgfsdfg");
+
+        noSqlDbOperators.project("cf", "isufusfd:v").toDataframe();
+
+
+        d.filter(inGeoRectangle("location", Coordinates.newCoordinates(24,38),Coordinates.newCoordinates(25,39))).toDataframe();
+
 
         noSqlDbSystem.closeConnection();
         

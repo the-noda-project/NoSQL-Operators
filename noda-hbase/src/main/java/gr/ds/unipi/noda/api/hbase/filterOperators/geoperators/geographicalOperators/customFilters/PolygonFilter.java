@@ -8,6 +8,7 @@ import org.apache.hadoop.hbase.exceptions.DeserializationException;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.FilterBase;
 import org.apache.hadoop.hbase.util.ByteStringer;
+import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
 import java.util.List;
@@ -112,4 +113,22 @@ public class PolygonFilter extends FilterBase {
         return new PolygonFilter(proto.getColumnFamily().toByteArray(), proto.getLongitudeColumnQualifier().toByteArray(), proto.getLatitudeColumnQualifier().toByteArray(), proto.getCoordinatesList());
 
     }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        coordinates.forEach(i -> {
+            sb.append("(");
+
+            sb.append(i.getLongitude()).append(", ").append(i.getLatitude());
+            sb.append("), ");
+        });
+
+        sb.deleteCharAt(sb.lastIndexOf(", "));
+
+        sb.append("]");
+
+        return String.format("%s (%s, %s, %s, %s)", this.getClass().getSimpleName(), Bytes.toStringBinary(this.columnFamily), Bytes.toStringBinary(this.longitudeColumnQualifier), Bytes.toStringBinary(this.latitudeColumnQualifier), sb);
+    }
+
 }

@@ -45,7 +45,7 @@ final class HBaseConnectionManager extends NoSqlDbConnectionManager<Connection> 
         return INSTANCE;
     }
 
-    public Configuration getConfiguration(NoSqlDbConnector noSqlDbConnector){
+    public Configuration getConfiguration(NoSqlDbConnector noSqlDbConnector) {
         return ((HBaseConnector) noSqlDbConnector).getConfiguration();
     }
 

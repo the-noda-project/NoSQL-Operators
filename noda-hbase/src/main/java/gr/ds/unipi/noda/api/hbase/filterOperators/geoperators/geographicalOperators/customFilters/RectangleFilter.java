@@ -8,6 +8,7 @@ import org.apache.hadoop.hbase.exceptions.DeserializationException;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.FilterBase;
 import org.apache.hadoop.hbase.util.ByteStringer;
+import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
 
@@ -114,6 +115,10 @@ public class RectangleFilter extends FilterBase {
         }
 
         return new RectangleFilter(proto.getColumnFamily().toByteArray(), proto.getLongitudeColumnQualifier().toByteArray(), proto.getLatitudeColumnQualifier().toByteArray(), proto.getLowerCoordinates(), proto.getUpperCoordinates());
-
     }
+
+    public String toString() {
+        return String.format("%s (%s, %s, %s, %s)", this.getClass().getSimpleName(), Bytes.toStringBinary(this.columnFamily), Bytes.toStringBinary(this.longitudeColumnQualifier), Bytes.toStringBinary(this.latitudeColumnQualifier), "[(" + lowerCoordinates.getLongitude() + " " + lowerCoordinates.getLatitude() + "), (" + lowerCoordinates.getLongitude() + " " + lowerCoordinates.getLatitude() + ")]");
+    }
+
 }
