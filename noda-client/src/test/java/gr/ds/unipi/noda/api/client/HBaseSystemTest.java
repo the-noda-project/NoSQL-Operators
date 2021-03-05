@@ -27,7 +27,7 @@ public class HBaseSystemTest {
 
         NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("points");
 
-        noSqlDbOperators.toDataframe();
+        noSqlDbOperators.filter(eq("cf2:dd","sd")).toDataframe();
         noSqlDbOperators.toDataframe();
 
         noSqlDbSystem.closeConnection();

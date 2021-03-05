@@ -9,6 +9,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
+import gr.ds.unipi.noda.api.core.visualization.NoSQLExpression;
 import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.MongoDBGeographicalOperatorFactory;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -30,30 +31,47 @@ final class MongoDBOperators extends NoSqlDbOperators {
     private MongoDBOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
         stagesList = new ArrayList<>();
-        this.expression.setLength(0);
 
         MongoDBConnector mongoDBConnector = ((MongoDBConnector) connector);
         database = mongoDBConnector.getDatabase();
         uriSparkSession = mongoDBConnector.getMongoURIForSparkSession();
     }
 
+    private MongoDBOperators(MongoDBOperators mongoDBOperators){
+        super(mongoDBOperators.getNoSqlDbConnector(), mongoDBOperators.getDataCollection(), mongoDBOperators.getSparkSession());
+        this.stagesList = mongoDBOperators.getStagesList();
+        this.database = mongoDBOperators.getDatabase();
+        this.uriSparkSession = mongoDBOperators.getUriSparkSession();
+    }
+
+    private List<Bson> getStagesList(){
+        return stagesList;
+    }
+
+    private String getDatabase(){
+        return database;
+    }
+
+    private String getUriSparkSession(){
+        return uriSparkSession;
+    }
+
     static MongoDBOperators newMongoDBOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         return new MongoDBOperators(connector, s, sparkSession);
     }
 
-    private void clearState(){
-        stagesList.clear();
-    }
-
     private void formExpressionOfNoSQL(){
-        this.expression.setLength(0);
-        this.expression.append("db."+getDataCollection()+".aggregate([ ");
+        StringBuilder expression = new StringBuilder();
+
+        expression.append("db."+getDataCollection()+".aggregate([ ");
         stagesList.forEach(i-> {
             i.toBsonDocument(BsonDocument.class, MongoClient.getDefaultCodecRegistry()).toJson();
-            this.expression.append(", ");
+            expression.append(", ");
         });
         expression.deleteCharAt(expression.lastIndexOf(", "));
-        this.expression.append(" )]");
+        expression.append(" )]");
+
+        NoSQLExpression.INSTANCE.setExpression(expression.toString());
     }
 
     @Override
@@ -72,7 +90,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
                 stagesList.add(Document.parse(" { $match: " + fops.getOperatorExpression() + " } "));
             }
         }
-        return this;
+        return new MongoDBOperators(this);
     }
 
     @Override
@@ -81,7 +99,6 @@ final class MongoDBOperators extends NoSqlDbOperators {
         MongoCursor mc = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).iterator();
 
         formExpressionOfNoSQL();
-        clearState();
 
         if (mc.hasNext()) {
             return ((Document) mc.next()).getInteger("count", -10);
@@ -109,13 +126,13 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
         stagesList.add(Document.parse(sb.toString()));
 
-        return this;
+        return new MongoDBOperators(this);
     }
 
     @Override
     public NoSqlDbOperators limit(int limit) {
         stagesList.add(Document.parse("{ $limit: " + limit + " }"));
-        return this;
+        return new MongoDBOperators(this);
     }
 
     @Override
@@ -124,7 +141,6 @@ final class MongoDBOperators extends NoSqlDbOperators {
         MongoCursor mc = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).iterator();
 
         formExpressionOfNoSQL();
-        clearState();
 
         if (mc.hasNext()) {
             return Optional.of(((Document) mc.next()).getDouble("max_" + fieldName));
@@ -138,7 +154,6 @@ final class MongoDBOperators extends NoSqlDbOperators {
         MongoCursor mc = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).iterator();
 
         formExpressionOfNoSQL();
-        clearState();
 
         if (mc.hasNext()) {
             return Optional.of(((Document) mc.next()).getDouble("min_" + fieldName));
@@ -152,7 +167,6 @@ final class MongoDBOperators extends NoSqlDbOperators {
         MongoCursor mc = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).iterator();
 
         formExpressionOfNoSQL();
-        clearState();
 
         if (mc.hasNext()) {
             return Optional.of(((Document) mc.next()).getDouble("sum_" + fieldName));
@@ -166,7 +180,6 @@ final class MongoDBOperators extends NoSqlDbOperators {
         MongoCursor mc = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).iterator();
 
         formExpressionOfNoSQL();
-        clearState();
 
         if (mc.hasNext()) {
             return Optional.of(((Document) mc.next()).getDouble("avg_" + fieldName));
@@ -197,7 +210,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
         stagesList.add(Document.parse(sb.toString()));
 
-        return this;
+        return new MongoDBOperators(this);
     }
 
     @Override
@@ -240,7 +253,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
             stagesList.add(Document.parse(sb.toString()));
         }
 
-        return this;
+        return new MongoDBOperators(this);
     }
 
     @Override
@@ -253,7 +266,6 @@ final class MongoDBOperators extends NoSqlDbOperators {
         MongoCursor<Document> cursor = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).iterator();
 
         formExpressionOfNoSQL();
-        clearState();
 
         try {
             while (cursor.hasNext()) {
@@ -282,7 +294,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
         sb.append(" } }");
 
         stagesList.add(Document.parse(sb.toString()));
-        return this;
+        return new MongoDBOperators(this);
 
     }
 
@@ -297,7 +309,6 @@ final class MongoDBOperators extends NoSqlDbOperators {
         Dataset<Row> df = MongoSpark.loadAndInferSchema(getSparkSession(), readConfig);
 
         formExpressionOfNoSQL();
-        clearState();
 
         return df;
 
