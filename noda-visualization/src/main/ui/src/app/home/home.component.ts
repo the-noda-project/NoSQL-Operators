@@ -50,219 +50,26 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private quoteService: QuoteService,
-    private router: Router,
-    private activeRoute: ActivatedRoute
+    private router: Router
   ) {}
 
   ngOnInit() {
-    // this.fps = 0.2;
-    // this.windowBetweenFloorAndCeil = 3;
-    // this.changeFloor = false;
-    // this.changeCeil = false;
-
-    // this.activeRoute.paramMap.subscribe((params: any) => {
-    //   const caseOfView = params.get('case');
-    //   if (caseOfView === 'spatial') {
-    //     this.isSpatial = true;
-    //   }
-    //   if (caseOfView === 'spatiotemporal') {
-    //     this.isSpatial = false;
-    //   }
-    // });
+ 
 
     // Responce for noda server connection
     this.quoteService.getConnectionMessage().then((res: any) => {
       console.log(res);
     });
 
-    // if (this.isSpatial === false) {
-    //   let parsedData = JSON.parse(this.dataFromServer);
-    //   this.data = parsedData['data'];
 
-    //   // JS Date needs milli Epoch Timestamp (so below is a milli epoch converter)
-    //   console.log(
-    //     this.data,
-    //     'ayto einai ena date: ' +
-    //       new Date(parseInt(this.timestampManipulation(this.data[0]['time'])))
-    //   );
-
-    //   this.opt = {
-    //     floor: parseInt(this.timestampManipulation(this.data[0]['time'])),
-    //     ceil: parseInt(
-    //       this.timestampManipulation(this.data[this.data.length - 1]['time'])
-    //     ),
-    //   };
-
-    //   console.log('floor', this.opt.floor, 'ceil', this.opt.ceil);
-
-    //   this.value = this.opt.floor;
-    //   this.maxValue =
-    //     this.opt.floor + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
-
-    //   this.groupedData = _.groupBy(this.data, 'time');
-    //   console.log('auta einai ta grouparismena data', this.groupedData);
-
-    //   // for (let key in this.groupedData) {
-    //   //   this.opt.ticksArray.push(parseInt(this.timestampManipulation(key)));
-    //   // }
-
-    //   // console.log('ticksArray: ', this.opt.ticksArray);
-
-    //   let o = Math.round;
-    //   let r = Math.random;
-    //   let s = 255;
-    //   this.data.forEach((element) => {
-    //     let index = this.idArray.findIndex((id) => id.id === element.id);
-
-    //     if (index === -1) {
-    //       this.idArray.push({
-    //         id: element.id,
-    //         color:
-    //           'rgb(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ')',
-    //       });
-    //     }
-    //   });
-
-    //   // this.createActiveArray()
-
-    //   console.log(' auto einai to id array: ', this.idArray);
-    // } else {
-    //   let parsedData = JSON.parse(this.dataFromServer);
-    //   this.data = parsedData['data'];
-
-    //   this.groupedData = this.data;
-    //   console.log('auta einai ta grouparismena data', this.groupedData);
-    //   if (this.groupedData[0].id) {
-    //     let o = Math.round;
-    //     let r = Math.random;
-    //     let s = 255;
-    //     this.data.forEach((element) => {
-    //       let index = this.idArray.findIndex((id) => id.id === element.id);
-
-    //       if (index === -1) {
-    //         this.idArray.push({
-    //           id: element.id,
-    //           color:
-    //             'rgb(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ')',
-    //         });
-    //       }
-    //     });
-
-    //     // this.createActiveArray()
-
-    //     console.log(' auto einai to id array: ', this.idArray);
-    //   }
-
-    //   this.spatialVisualization();
-    // }
-
-    // Call api to get noda spatio-temporal data
-    // this.quoteService
-    //   .getNodaSTData()
-    //   .then((res: any) => {
-    //     // json parse the responce and import in data variable
-    //     let parsedData = JSON.parse(res);
-    //     this.data = parsedData['data'];
-
-    //     // JS Date needs milli Epoch Timestamp (so below is a milli epoch converter)
-    //     console.log(
-    //       this.data,
-    //       'ayto einai ena date: ' +
-    //         new Date(parseInt(this.timestampManipulation(this.data[0]['time'])))
-    //     );
-
-    //     this.opt = {
-    //       floor: parseInt(this.timestampManipulation(this.data[0]['time'])),
-    //       ceil: parseInt(
-    //         this.timestampManipulation(this.data[this.data.length - 1]['time'])
-    //       ),
-    //     };
-
-    //     console.log('floor', this.opt.floor, 'ceil', this.opt.ceil);
-
-    //     this.value = this.opt.floor;
-    //     this.maxValue =
-    //       this.opt.floor + this.windowBetweenFloorAndCeil * 60 * 60 * 1000;
-
-    //     this.groupedData = _.groupBy(this.data, 'time');
-    //     console.log('auta einai ta grouparismena data', this.groupedData);
-
-    //     // for (let key in this.groupedData) {
-    //     //   this.opt.ticksArray.push(parseInt(this.timestampManipulation(key)));
-    //     // }
-
-    //     // console.log('ticksArray: ', this.opt.ticksArray);
-
-    //     let o = Math.round;
-    //     let r = Math.random;
-    //     let s = 255;
-    //     this.data.forEach((element) => {
-    //       let index = this.idArray.findIndex((id) => id.id === element.id);
-
-    //       if (index === -1) {
-    //         this.idArray.push({
-    //           id: element.id,
-    //           color:
-    //             'rgb(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ')',
-    //         });
-    //       }
-    //     });
-
-    //     // this.createActiveArray()
-
-    //     console.log(' auto einai to id array: ', this.idArray);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
-    // Spatial Manipulation
-    // this.quoteService
-    //   .getNodaSpatialData()
-    //   .then((res: any) => {
-    //     let parsedData = JSON.parse(res);
-    //     this.data = parsedData['data'];
-
-    //     this.groupedData = this.data;
-    //     console.log('auta einai ta grouparismena data', this.groupedData);
-    //     if (this.groupedData[0].id) {
-    //       let o = Math.round;
-    //       let r = Math.random;
-    //       let s = 255;
-    //       this.data.forEach((element) => {
-    //         let index = this.idArray.findIndex((id) => id.id === element.id);
-
-    //         if (index === -1) {
-    //           this.idArray.push({
-    //             id: element.id,
-    //             color:
-    //               'rgb(' +
-    //               o(r() * s) +
-    //               ',' +
-    //               o(r() * s) +
-    //               ',' +
-    //               o(r() * s) +
-    //               ')',
-    //           });
-    //         }
-    //       });
-
-    //       // this.createActiveArray()
-
-    //       console.log(' auto einai to id array: ', this.idArray);
-    //     }
-
-    //     this.spatialVisualization();
-    //   })
-    //   .catch((err) => {
-    //   console.log(err);
-    // });
   }
 
   goToVisualization() {
     if (
       this.chosenDatabaseStore === 'mongodb' ||
-      this.chosenDatabaseStore === 'neo4j'
+      this.chosenDatabaseStore === 'neo4j' ||
+      this.chosenDatabaseStore === 'hbase' ||
+      this.chosenDatabaseStore === 'redis'
     ) {
       this.router.navigate([
         '/visualization/dbtype/' + this.chosenDatabaseStore,

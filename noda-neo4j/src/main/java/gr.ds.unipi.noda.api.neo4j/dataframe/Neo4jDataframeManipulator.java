@@ -16,12 +16,7 @@ public class Neo4jDataframeManipulator extends BaseDataframeManipulator {
 
         Dataset<Row> manipulatedDataset = trimRight.withColumn(location, lit(split(col(location), " ")));
 
-//        System.out.println("edw eisai  " + manipulatedDataset.first());
-//        System.out.println("================================================================================");
         manipulatedDataset.show();
-//        System.out.println(o.first().get(1));
-//        System.out.println(manipulatedDataset.first().get(1));
-//        System.out.println("================================================================================");
 
         return manipulatedDataset;
     }

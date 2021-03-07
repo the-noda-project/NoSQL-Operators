@@ -14,7 +14,6 @@ abstract class GeographicalOperator<T extends Geometry> extends gr.ds.unipi.noda
     public static long[] scalePoint(double lat, double lon, long max) {
         long x = scale((lat + 90.0) / 180, max);
         long y = scale((lon + 180.0) / 360, max);
-//        long z = scale(((float) time - minTime) / (maxTime - minTime), max);
         return new long[] { x, y };
     }
 

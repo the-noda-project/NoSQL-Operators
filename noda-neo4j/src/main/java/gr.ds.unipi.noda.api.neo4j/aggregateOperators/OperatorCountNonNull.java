@@ -10,7 +10,6 @@ public class OperatorCountNonNull extends AggregateOperator {
         return new OperatorCountNonNull(fieldName);
     }
 
-
     @Override
     protected String getAggregateOperatorField() {
 

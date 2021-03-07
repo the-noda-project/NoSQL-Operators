@@ -39,14 +39,10 @@ final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, Temp
 
         long[] point1 = scalePoint(getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLatitude(), getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLongitude(), lowerDate.getTime(), lowerHilbertDate.getTime(), upperHilbertDate.getTime(), maxOrdinates);
         long[] point2 = scalePoint(getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLatitude(), getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLongitude(), lowerDate.getTime(),  lowerHilbertDate.getTime(), upperHilbertDate.getTime(), maxOrdinates);
-//// return just one range
-        System.out.println("POINT 1 = " + point1);
-        System.out.println("POINT 2 = " + point2);
+
         int maxRanges = 1;
         Ranges ranges = f.query(point1, point2, maxRanges);
-        System.out.println(ranges);
-        System.out.println("MIN: " + getTemporalType().getLowerBound().getTime());
-        System.out.println("MAX: " + getTemporalType().getUpperBound().getTime());
+
         ranges.forEach(range -> {
             long low = range.low();
             long high = range.high();

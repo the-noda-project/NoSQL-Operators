@@ -21,7 +21,6 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
 
 
     private Neo4jConnector(List<Map.Entry<String,Integer>> addresses, AuthToken authToken, Config config) {
-        System.out.println("eimai edw???");
         this.addresses = addresses;
         this.authToken = authToken;
         this.config = config;
@@ -31,7 +30,6 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
 
     @Override
     public Driver createConnection() {
-        System.out.println("eimai edw 2");
         //typeOfConnection => neo4j means server connection
         //typeOfConnection => bolt means localhost
         StringBuilder sb = new StringBuilder();
@@ -39,7 +37,6 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
         String firstHost = addresses.get(0).getKey();
         String firstPort = addresses.get(0).getValue().toString();
 
-        System.out.println("eimai edw 3");
 
         for (Map.Entry<String, Integer> address : addresses) {
             if (address.getKey().equals("localhost") || address.getKey().equals("127.0.0.1")) {
@@ -51,21 +48,18 @@ public final class Neo4jConnector implements NoSqlDbConnector<Driver> {
         List<ServerAddress> serverAddresses = null;
 
         for (Map.Entry<String, Integer> address : addresses) {
-//            sb.append(ServerAddress.of(address.getKey(), address.getValue() ));
-//            sb.append(address.getKey()).append(":").append(address.getValue()).append(",");
+
             if(address.getKey() != addresses.get(0).getKey() && address.getValue() != addresses.get(0).getValue()) {
                 serverAddresses.add(ServerAddress.of(address.getKey(), address.getValue()));
             }
         }
 
-//        Config config = Config.builder().withResolver( address -> new HashSet( Arrays.asList( addresses ) ) ).build();
 
         if(encryptionWithoutLocalhost == true) {
             Config config = Config.builder().withEncryption().build();
         }
 
 
-//        config.builder().withResolver( address -> new HashSet( Arrays.asList( addresses ) ) ).build();
 
         System.out.println("bolt://" + firstHost + ":" + firstPort);
 
