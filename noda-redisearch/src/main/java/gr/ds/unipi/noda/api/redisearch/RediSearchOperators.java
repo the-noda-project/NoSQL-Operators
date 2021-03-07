@@ -33,11 +33,16 @@ public final class RediSearchOperators extends NoSqlDbOperators {
         super(connector, indexName, sparkSession);
     }
 
+    private RediSearchOperators(RediSearchOperators operators, RediSearchQueryHelper queryHelper) {
+        super(operators.getNoSqlDbConnector(), operators.getDataCollection(), operators.getSparkSession());
+        this.queryHelper = queryHelper;
+    }
+
     static RediSearchOperators newRedisOperators(NoSqlDbConnector connector, String indexName, SparkSession sparkSession) {
         return new RediSearchOperators(connector, indexName, sparkSession);
     }
 
-    RediSearchQueryHelper queryHelper() {
+    private RediSearchQueryHelper queryHelper() {
         if (queryHelper == null) {
             queryHelper = new RediSearchQueryHelper(getDataCollection(), RediSearchConnectionManager.getInstance().getConnection(getNoSqlDbConnector()));
         }
@@ -56,20 +61,20 @@ public final class RediSearchOperators extends NoSqlDbOperators {
         } else {
             applyQuery(filterOperator, filterOperators);
         }
-        return this;
+        return new RediSearchOperators(this, queryHelper.copyOf());
     }
 
     @Override
     public NoSqlDbOperators groupBy(String fieldName, String... fieldNames) {
         queryHelper().applyGroupBy(StringPool.AT.concat(fieldName), Arrays.stream(fieldNames).map(StringPool.AT::concat).toArray(String[]::new));
-        return this;
+        return new RediSearchOperators(this, queryHelper.copyOf());
     }
 
     @Override
     public NoSqlDbOperators aggregate(AggregateOperator aggregateOperator, AggregateOperator... aggregateOperators) {
         queryHelper().applyAggregate((Reducer) aggregateOperator.getOperatorExpression(),
                 Arrays.stream(aggregateOperators).map(AggregateOperator::getOperatorExpression).map(Reducer.class::cast).toArray(Reducer[]::new));
-        return this;
+        return new RediSearchOperators(this, queryHelper.copyOf());
     }
 
     private void applyQuery(FilterOperator filterOperator, FilterOperator[] filterOperators) {
@@ -133,20 +138,20 @@ public final class RediSearchOperators extends NoSqlDbOperators {
         SortedField[] sortedFields = Stream.concat(Stream.of(sortOperator), Arrays.stream(sortingOperators))
                 .map(SortOperator::getOperatorExpression).map(SortedField.class::cast).toArray(SortedField[]::new);
         queryHelper().applySortBy(sortedFields);
-        return this;
+        return new RediSearchOperators(this, queryHelper.copyOf());
     }
 
     @Override
     public NoSqlDbOperators limit(int limit) {
         queryHelper().applyResultLimit(limit);
-        return this;
+        return new RediSearchOperators(this, queryHelper.copyOf());
     }
 
     @Override
     public NoSqlDbOperators project(String fieldName, String... fieldNames) {
         String[] fields = Stream.concat(Stream.of(fieldName), Arrays.stream(fieldNames)).toArray(String[]::new);
         queryHelper().applyReturnFields(fields);
-        return this;
+        return new RediSearchOperators(this, queryHelper.copyOf());
     }
 
     @Override

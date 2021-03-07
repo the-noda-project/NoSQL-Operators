@@ -50,6 +50,22 @@ class RediSearchQueryHelper {
         }, () -> PRINTER.findByValue(isAggregate).print(client, isAggregate ? getAggregationBuilder() : getQuery()));
     }
 
+    public RediSearchQueryHelper(Pool<Jedis> jedisPool, Client client, AggregationBuilder aggregationBuilder, Query query, ZRangeInfo zRangeInfo, boolean isAggregate, QueryNode queryBuilder, ArrayDeque<Group> groups, Consumer<Optional<ZRangeInfo>> optionalConsumer) {
+        this.jedisPool = jedisPool;
+        this.client = client;
+        this.aggregationBuilder = new AggregationBuilder(queryBuilder.toString());
+        this.query = new Query(queryBuilder.toString());
+        this.zRangeInfo = zRangeInfo;
+        this.isAggregate = isAggregate;
+        this.queryBuilder = QueryBuilder.intersect(queryBuilder);
+        this.groups = new ArrayDeque<>(groups);
+        this.optionalConsumer = optionalConsumer;
+    }
+
+    public RediSearchQueryHelper copyOf() {
+        return new RediSearchQueryHelper(jedisPool, client, aggregationBuilder, query, zRangeInfo, isAggregate, queryBuilder, groups, optionalConsumer);
+    }
+
     private void enableAggregate() {
         if(!isAggregate)
             isAggregate = true;
