@@ -38,17 +38,15 @@ final class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangle
 
         long[] point1 = scalePoint(getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLatitude(), getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLongitude(), lowerDate.getTime(), lowerHilbertDate.getTime(), upperHilbertDate.getTime(), maxOrdinates);
         long[] point2 = scalePoint(getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLatitude(), getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLongitude(), lowerDate.getTime(), lowerHilbertDate.getTime(), upperHilbertDate.getTime(), maxOrdinates);
-//// return just one range
-        System.out.println("POINT 1 = " + point1);
-        System.out.println("POINT 2 = " + point2);
+
+
         int maxRanges = 1;
         Ranges ranges = f.query(point1, point2, maxRanges);
-        System.out.println(ranges);
+
         ranges.forEach(range -> {
             long low = range.low();
             long high = range.high();
-            System.out.println(range.low());
-            System.out.println(range.high());
+
 
             if(low != high) {
                 sb.append("s.STHilbertIndex > " + low + " AND s.STHilbertIndex < " + high + " WITH s WHERE point({ srid:7203 , x: " + getGeographicalOperator().getGeometry().getLowerBound().getLatitude() + ", y: "+ getGeographicalOperator().getGeometry().getLowerBound().getLongitude() +" }) < s." + getGeographicalOperator().getFieldName() + " < point({ srid: 7203 , x: " + getGeographicalOperator().getGeometry().getUpperBound().getLatitude() + ", y: "+ getGeographicalOperator().getGeometry().getUpperBound().getLongitude() + " }) AND " + lowerDate.getTime() + " < s." + getTemporalFieldName()  + " < " + upperDate.getTime() );

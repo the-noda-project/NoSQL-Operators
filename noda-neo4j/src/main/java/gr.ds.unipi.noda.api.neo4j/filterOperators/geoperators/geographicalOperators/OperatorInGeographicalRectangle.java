@@ -24,7 +24,7 @@ public final class OperatorInGeographicalRectangle extends GeographicalOperator<
         System.out.println(getGeometry().getLowerBound().getLatitude() +" " + getGeometry().getLowerBound().getLongitude());
         long[] point1 = scalePoint(getGeometry().getLowerBound().getLatitude(), getGeometry().getLowerBound().getLongitude(), maxOrdinates);
         long[] point2 = scalePoint(getGeometry().getUpperBound().getLatitude(), getGeometry().getUpperBound().getLongitude(), maxOrdinates);
-//// return just one range
+
         int maxRanges = 1;
         Ranges ranges = f.query(point1, point2, maxRanges);
         System.out.println(ranges);
@@ -40,15 +40,10 @@ public final class OperatorInGeographicalRectangle extends GeographicalOperator<
             } else {
                 sb.append("s.HilbertIndex = " + low + " WITH s WHERE point({ srid:7203 , x: " + getGeometry().getLowerBound().getLatitude() + ", y: "+ getGeometry().getLowerBound().getLongitude() +" }) < s." + getFieldName() + " < point({ srid: 7203 , x: " + getGeometry().getUpperBound().getLatitude() + ", y: "+ getGeometry().getUpperBound().getLongitude() + " })" );
             }
-//            point({ x: 1, y: 5 })< person.location < point({ x: 2, y: 6 })
-
-//            sb.append(" point({ srid:7203 , x: " + getGeometry().getLowerBound().getLatitude() + ", y: "+ getGeometry().getLowerBound().getLongitude() +" }) < s." + getFieldName() + " < point({ srid: 7203 , x: " + getGeometry().getUpperBound().getLatitude() + ", y: "+ getGeometry().getUpperBound().getLongitude() + " })" );
-
 
         });
 
 
-//        System.out.println(getGeometry().getLowerBound());
         return sb;
     }
 

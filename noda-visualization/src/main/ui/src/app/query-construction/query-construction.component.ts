@@ -105,17 +105,6 @@ export class QueryConstructionComponent implements OnInit {
     });
   }
 
-  // openModal(selsectedCase: string) {
-  //   if (this.query) {
-  //     const x = this.modal.open(FieldnamesModalComponent);
-  //     x.componentInstance.ref = x;
-  //     x.componentInstance.case = selsectedCase;
-  //     x.componentInstance.query = this.query;
-  //   } else {
-  //     alert('You must write a query first');
-  //   }
-  // }
-
   openCloseQueryConstructorTab() {
     this.isQueryConstructorTabOpen = !this.isQueryConstructorTabOpen;
   }

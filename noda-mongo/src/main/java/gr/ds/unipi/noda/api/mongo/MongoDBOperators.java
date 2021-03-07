@@ -52,7 +52,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
     }
 
     private String getUriSparkSession(){
-        return uriSparkSession;
+        return uriSparkSession + getDataCollection();
     }
 
     static MongoDBOperators newMongoDBOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {

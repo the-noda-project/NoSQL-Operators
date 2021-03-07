@@ -10,12 +10,6 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
         super(geographicalOperator, temporalFieldName, temporalType);
     }
 
-
-//    @Override
-//    public StringBuilder getOperatorExpression(){
-//        return getOperatorExpression();
-//    }
-
     public static long[] scalePoint(double lat, double lon, long time, long minTime, long maxTime, long max) {
         long x = scale((lat + 90.0) / 180, max);
         long y = scale((lon + 180.0) / 360, max);

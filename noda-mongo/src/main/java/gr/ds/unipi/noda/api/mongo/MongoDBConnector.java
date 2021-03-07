@@ -80,7 +80,7 @@ public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
     }
 
     public String getPassword() {
-        return mongoCredential.getPassword().toString();
+        return String.valueOf(mongoCredential.getPassword());
     }
 
 

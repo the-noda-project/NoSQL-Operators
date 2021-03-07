@@ -29,7 +29,7 @@ public final class OperatorInGeographicalCircle extends GeographicalOperator<Cir
 
         long[] point1 = scalePoint(getGeometry().getMbr().getLowerBound().getLatitude(), getGeometry().getMbr().getLowerBound().getLongitude(), maxOrdinates);
         long[] point2 = scalePoint(getGeometry().getMbr().getUpperBound().getLatitude(), getGeometry().getMbr().getUpperBound().getLongitude(), maxOrdinates);
-//// return just one range
+
         int maxRanges = 1;
         Ranges ranges = f.query(point1, point2, maxRanges);
         System.out.println(ranges);
@@ -41,12 +41,9 @@ public final class OperatorInGeographicalCircle extends GeographicalOperator<Cir
 
             if(low != high) {
                 sb.append("s.HilbertIndex > " + low + " AND s.HilbertIndex < " + high + " WITH s WHERE distance(point({ srid:7203, x: " + getGeometry().getCircleCenter().getLatitude() + " , y: " + getGeometry().getCircleCenter().getLongitude() + "}), s." + getFieldName() + ") < " + getGeometry().getRadius() );
-//                sb.append(" distance(point({ srid:7203, x: " + getGeometry().getCircleCenter().getLatitude() + " , y: " + getGeometry().getCircleCenter().getLongitude() + "}), s." + getFieldName() + ") < " + getGeometry().getRadius() );
 
             } else {
                 sb.append("s.HilbertIndex = " + low + " WITH s WHERE distance(point({ srid:7203, x: " + getGeometry().getCircleCenter().getLatitude() + " , y: " + getGeometry().getCircleCenter().getLongitude() + "}), s." + getFieldName() + ") < " + getGeometry().getRadius() );
-//                sb.append(" distance(point({ srid:7203, x: " + getGeometry().getCircleCenter().getLatitude() + " , y: " + getGeometry().getCircleCenter().getLongitude() + "}), s." + getFieldName() + ") < " + getGeometry().getRadius() );
-
             }
 
         });

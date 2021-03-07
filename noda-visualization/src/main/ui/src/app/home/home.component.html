@@ -1,124 +1,119 @@
 <div class="container-fluid p-0" style="height: 100vh; width: 100vw;">
-  <div class="row w-100 m-0" style="height: 8rem;">
-    <div
-      class="col-auto d-flex justify-content-center align-items-center"
-      style="background-color: #14274e; border-bottom-right-radius: 12px;"
-    >
-      <img
-        src="../../assets/logopapei3.png"
-        class="img-fluid"
-        style="width: 85%;"
-      />
+  <div class="row w-100 m-0 pl-2 pr-2" style="height: 7rem; background-color: #14274e;">
+    <div class="col-12 d-flex align-items-center">
+      <img src="../../assets/logopapei3.png" class="img-fluid" style="width: 14rem;" />
     </div>
+    <!-- <div class="col-6 d-flex align-items-center justify-content-end">
+      <img
+      src="../../assets/data_stories.png"
+      class="img-fluid"
+      style="width: 7rem;"
+    />
+    </div> -->
+
   </div>
 
-  <div
-    class="row w-100 m-0 d-flex justify-content-center"
-    style="height: calc(100vh-8rem); padding-top: 4rem;"
-  >
+  <div class="row w-100 m-0 d-flex justify-content-center" style="height: calc(100vh-8rem); padding-top: 4rem;">
     <div class="col-12">
-      <div
-        class="row w-100 m-0 d-flex justify-content-center font-weight-bold"
-        style="font-size: 2rem; color: #14274e;"
-      >
+      <div class="row w-100 m-0 d-flex justify-content-center font-weight-bold"
+        style="font-size: 2rem; color: #14274e;">
         Choose a Database Store to connect
       </div>
-      <div
-        class="row w-100 m-0 d-flex justify-content-center font-weight-bold"
-        style="font-size: 2rem; color: #14274e; padding-top: 8rem;"
-      >
+      <div class="row w-100 m-0 d-flex justify-content-center font-weight-bold"
+        style="font-size: 2rem; color: #14274e; padding-top: 8rem;">
+        <!-- MongoDB -->
         <div class="col-auto">
-          <div
-            [ngClass]="{
+          <div [ngClass]="{
               oval: chosenDatabaseStore !== 'mongodb',
               'oval-active': chosenDatabaseStore === 'mongodb'
-            }"
-            class="oval"
-          ></div>
-          <div
-            [ngClass]="{
+            }" class="oval"></div>
+          <div [ngClass]="{
               lines: chosenDatabaseStore !== 'mongodb',
               'lines-active': chosenDatabaseStore === 'mongodb'
-            }"
-            class="lines d-flex justify-content-center align-items-center"
-          >
-            <img
-              src="../../assets/MongoDB-Logo.png"
-              class="img-fluid"
-              style="height: 2.2rem; margin-top: -1rem;"
-            />
+            }" class="lines d-flex justify-content-center align-items-center">
+            <img src="../../assets/MongoDB-Logo.png" class="img-fluid" style="height: 2.2rem; margin-top: -1rem;" />
           </div>
-          <div
-            [ngClass]="{
+          <div [ngClass]="{
               oval: chosenDatabaseStore !== 'mongodb',
               'oval-active': chosenDatabaseStore === 'mongodb'
-            }"
-            class="oval"
-            style="margin-top: 2.4rem;"
-          ></div>
+            }" class="oval" style="margin-top: 2.4rem;"></div>
           <div class="text-center mt-3">
-            <i
-              *ngIf="chosenDatabaseStore !== 'mongodb'"
-              (click)="chooseDatabaseStore('mongodb')"
-              class="far fa-square pointerToClick"
-            ></i>
-            <i
-              *ngIf="chosenDatabaseStore === 'mongodb'"
-              class="fas fa-check-square pointerToClick"
-            ></i>
+            <i *ngIf="chosenDatabaseStore !== 'mongodb'" (click)="chooseDatabaseStore('mongodb')"
+              class="far fa-square pointerToClick"></i>
+            <i *ngIf="chosenDatabaseStore === 'mongodb'" class="fas fa-check-square pointerToClick"></i>
           </div>
         </div>
+        <!-- Neo4j -->
         <div class="col-auto ml-5">
-          <div
-            [ngClass]="{
+          <div [ngClass]="{
               oval: chosenDatabaseStore !== 'neo4j',
               'oval-active': chosenDatabaseStore === 'neo4j'
-            }"
-            class="oval"
-          ></div>
-          <div
-            [ngClass]="{
+            }" class="oval"></div>
+          <div [ngClass]="{
               lines: chosenDatabaseStore !== 'neo4j',
               'lines-active': chosenDatabaseStore === 'neo4j'
-            }"
-            class="lines d-flex justify-content-center align-items-center"
-          >
-            <img
-              src="../../assets/neo4j_logo.png"
-              class="img-fluid"
-              style="height: 2.2rem;"
-            />
+            }" class="lines d-flex justify-content-center align-items-center">
+            <img src="../../assets/neo4j_logo.png" class="img-fluid" style="height: 2.2rem;" />
           </div>
-          <div
-            [ngClass]="{
+          <div [ngClass]="{
               oval: chosenDatabaseStore !== 'neo4j',
               'oval-active': chosenDatabaseStore === 'neo4j'
-            }"
-            class="oval"
-            style="margin-top: 2.4rem;"
-          ></div>
+            }" class="oval" style="margin-top: 2.4rem;"></div>
           <div class="text-center mt-3">
-            <i
-              *ngIf="chosenDatabaseStore !== 'neo4j'"
-              (click)="chooseDatabaseStore('neo4j')"
-              class="far fa-square pointerToClick"
-            ></i>
-            <i
-              *ngIf="chosenDatabaseStore === 'neo4j'"
-              class="fas fa-check-square pointerToClick"
-            ></i>
+            <i *ngIf="chosenDatabaseStore !== 'neo4j'" (click)="chooseDatabaseStore('neo4j')"
+              class="far fa-square pointerToClick"></i>
+            <i *ngIf="chosenDatabaseStore === 'neo4j'" class="fas fa-check-square pointerToClick"></i>
+          </div>
+        </div>
+        <!-- HBASE -->
+        <div class="col-auto ml-5">
+          <div [ngClass]="{
+              oval: chosenDatabaseStore !== 'hbase',
+              'oval-active': chosenDatabaseStore === 'hbase'
+            }" class="oval"></div>
+          <div [ngClass]="{
+              lines: chosenDatabaseStore !== 'hbase',
+              'lines-active': chosenDatabaseStore === 'hbase'
+            }" class="lines d-flex justify-content-center align-items-center">
+            <img src="../../assets/hbase1.png" class="img-fluid" style="height: 2rem;" />
+          </div>
+          <div [ngClass]="{
+              oval: chosenDatabaseStore !== 'hbase',
+              'oval-active': chosenDatabaseStore === 'hbase'
+            }" class="oval" style="margin-top: 2.4rem;"></div>
+          <div class="text-center mt-3">
+            <i *ngIf="chosenDatabaseStore !== 'hbase'" (click)="chooseDatabaseStore('hbase')"
+              class="far fa-square pointerToClick"></i>
+            <i *ngIf="chosenDatabaseStore === 'hbase'" class="fas fa-check-square pointerToClick"></i>
+          </div>
+        </div>
+        <!-- Redis -->
+        <div class="col-auto ml-5">
+          <div [ngClass]="{
+              oval: chosenDatabaseStore !== 'redis',
+              'oval-active': chosenDatabaseStore === 'redis'
+            }" class="oval"></div>
+          <div [ngClass]="{
+              lines: chosenDatabaseStore !== 'redis',
+              'lines-active': chosenDatabaseStore === 'redis'
+            }" class="lines d-flex justify-content-center align-items-center">
+            <img src="../../assets/Redis_Logo.svg" class="img-fluid" style="height: 2.2rem;" />
+          </div>
+          <div [ngClass]="{
+              oval: chosenDatabaseStore !== 'redis',
+              'oval-active': chosenDatabaseStore === 'redis'
+            }" class="oval" style="margin-top: 2.4rem;"></div>
+          <div class="text-center mt-3">
+            <i *ngIf="chosenDatabaseStore !== 'redis'" (click)="chooseDatabaseStore('redis')"
+              class="far fa-square pointerToClick"></i>
+            <i *ngIf="chosenDatabaseStore === 'redis'" class="fas fa-check-square pointerToClick"></i>
           </div>
         </div>
       </div>
-      <div
-        class="row w-100 m-0 d-flex justify-content-center font-weight-bold"
-        style="font-size: 2rem; color: #14274e; padding-top: 6rem;"
-      >
-        <button
-          class="btn font-weight-bold"
-          (click)="goToVisualization()"
-          style="color: #14274e; font-size: 1.6rem; border: 2px solid #14274e;"
-        >
+      <div class="row w-100 m-0 d-flex justify-content-center font-weight-bold"
+        style="font-size: 2rem; color: #14274e; padding-top: 6rem;">
+        <button class="btn font-weight-bold" (click)="goToVisualization()"
+          style="color: #14274e; font-size: 1.6rem; border: 2px solid #14274e;">
           Next <i style="color: #14274e;" class="fa fa-angle-right ml-2"></i>
         </button>
       </div>
