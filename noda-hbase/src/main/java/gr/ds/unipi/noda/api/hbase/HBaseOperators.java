@@ -50,10 +50,6 @@ final class HBaseOperators extends NoSqlDbOperators {
         this.projectionFilterList = projectionFilterList;
     }
 
-    private Scan getScan() {
-        return scan;
-    }
-
     private FilterList getFilterListCopy() {
         FilterList fl = new FilterList(FilterList.Operator.MUST_PASS_ALL);
         filterList.getFilters().forEach(fl::addFilter);

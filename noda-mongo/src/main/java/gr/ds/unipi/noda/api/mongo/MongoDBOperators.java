@@ -43,10 +43,6 @@ final class MongoDBOperators extends NoSqlDbOperators {
         this.uriSparkSession = mongoDBOperators.getUriSparkSession();
     }
 
-    private List<Bson> getStagesList(){
-        return stagesList;
-    }
-
     private String getDatabase(){
         return database;
     }
@@ -67,7 +63,9 @@ final class MongoDBOperators extends NoSqlDbOperators {
             i.toBsonDocument(BsonDocument.class, MongoClient.getDefaultCodecRegistry()).toJson();
             expression.append(", ");
         });
-        expression.deleteCharAt(expression.lastIndexOf(", "));
+        if(expression.lastIndexOf(", ") != -1){
+            expression.deleteCharAt(expression.lastIndexOf(", "));
+        }
         expression.append(" )]");
 
         NoSQLExpression.INSTANCE.setExpression(expression.toString());
