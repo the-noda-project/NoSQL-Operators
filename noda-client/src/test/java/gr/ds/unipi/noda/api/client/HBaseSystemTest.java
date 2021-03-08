@@ -2,13 +2,13 @@ package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.eq;
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.gte;
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.inGeoPolygon;
+import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 
 public class HBaseSystemTest {
     //@Ignore
@@ -27,8 +27,12 @@ public class HBaseSystemTest {
 
         NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("points");
 
-        noSqlDbOperators.filter(eq("cf2:dd","sd")).toDataframe();
-        noSqlDbOperators.toDataframe();
+        NoSqlDbOperators a = noSqlDbOperators.project("field").limit(34);
+
+        Dataset<Row> d1 = a.toDataframe();
+
+        a = noSqlDbOperators.filter(inGeoRectangle("location", Coordinates.newCoordinates(24,38),Coordinates.newCoordinates(25,39)));
+        Dataset<Row> d2  = a.toDataframe();
 
         noSqlDbSystem.closeConnection();
         

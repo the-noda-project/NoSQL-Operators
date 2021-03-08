@@ -31,21 +31,16 @@ final class MongoDBOperators extends NoSqlDbOperators {
     private MongoDBOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
         stagesList = new ArrayList<>();
-
         MongoDBConnector mongoDBConnector = ((MongoDBConnector) connector);
         database = mongoDBConnector.getDatabase();
         uriSparkSession = mongoDBConnector.getMongoURIForSparkSession();
     }
 
-    private MongoDBOperators(MongoDBOperators mongoDBOperators){
+    private MongoDBOperators(MongoDBOperators mongoDBOperators, List<Bson> stagesList){
         super(mongoDBOperators.getNoSqlDbConnector(), mongoDBOperators.getDataCollection(), mongoDBOperators.getSparkSession());
-        this.stagesList = mongoDBOperators.getStagesList();
+        this.stagesList = stagesList;
         this.database = mongoDBOperators.getDatabase();
         this.uriSparkSession = mongoDBOperators.getUriSparkSession();
-    }
-
-    private List<Bson> getStagesList(){
-        return stagesList;
     }
 
     private String getDatabase(){
@@ -68,7 +63,9 @@ final class MongoDBOperators extends NoSqlDbOperators {
             i.toBsonDocument(BsonDocument.class, MongoClient.getDefaultCodecRegistry()).toJson();
             expression.append(", ");
         });
-        expression.deleteCharAt(expression.lastIndexOf(", "));
+        if(expression.lastIndexOf(", ") != -1){
+            expression.deleteCharAt(expression.lastIndexOf(", "));
+        }
         expression.append(" )]");
 
         NoSQLExpression.INSTANCE.setExpression(expression.toString());
@@ -76,21 +73,21 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-
+        List<Bson> sl =new ArrayList<>(stagesList);
         if (MongoDBGeographicalOperatorFactory.isOperatorGeoNearestNeighbor(filterOperator)) {
-            stagesList.add(Document.parse(filterOperator.getOperatorExpression().toString()));
+            sl.add(Document.parse(filterOperator.getOperatorExpression().toString()));
         } else {
-            stagesList.add(Document.parse(" { $match: " + filterOperator.getOperatorExpression() + " } "));
+            sl.add(Document.parse(" { $match: " + filterOperator.getOperatorExpression() + " } "));
         }
 
         for (FilterOperator fops : filterOperators) {
             if (MongoDBGeographicalOperatorFactory.isOperatorGeoNearestNeighbor(fops)) {
-                stagesList.add(Document.parse(fops.getOperatorExpression().toString()));
+                sl.add(Document.parse(fops.getOperatorExpression().toString()));
             } else {
-                stagesList.add(Document.parse(" { $match: " + fops.getOperatorExpression() + " } "));
+                sl.add(Document.parse(" { $match: " + fops.getOperatorExpression() + " } "));
             }
         }
-        return new MongoDBOperators(this);
+        return new MongoDBOperators(this, sl);
     }
 
     @Override
@@ -110,6 +107,8 @@ final class MongoDBOperators extends NoSqlDbOperators {
     @Override
     public NoSqlDbOperators sort(SortOperator sortOperator, SortOperator... sortingOperators) {
 
+        List<Bson> sl =new ArrayList<>(stagesList);
+
         StringBuilder sb = new StringBuilder();
 
         sb.append("{ $sort : ");
@@ -124,15 +123,16 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
         sb.append(" } }");
 
-        stagesList.add(Document.parse(sb.toString()));
+        sl.add(Document.parse(sb.toString()));
 
-        return new MongoDBOperators(this);
+        return new MongoDBOperators(this, sl);
     }
 
     @Override
     public NoSqlDbOperators limit(int limit) {
-        stagesList.add(Document.parse("{ $limit: " + limit + " }"));
-        return new MongoDBOperators(this);
+        List<Bson> sl =new ArrayList<>(stagesList);
+        sl.add(Document.parse("{ $limit: " + limit + " }"));
+        return new MongoDBOperators(this, sl);
     }
 
     @Override
@@ -189,6 +189,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators groupBy(String fieldName, String... fieldNames) {
+        List<Bson> sl =new ArrayList<>(stagesList);
 
         StringBuilder sb = new StringBuilder();
 
@@ -208,19 +209,20 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
         sb.append(" } }");
 
-        stagesList.add(Document.parse(sb.toString()));
+        sl.add(Document.parse(sb.toString()));
 
-        return new MongoDBOperators(this);
+        return new MongoDBOperators(this, sl);
     }
 
     @Override
     public NoSqlDbOperators aggregate(AggregateOperator aggregateOperator, AggregateOperator... aggregateOperators) {
+        List<Bson> sl =new ArrayList<>(stagesList);
 
-        if (stagesList.size() > 0 && ((Document) stagesList.get(stagesList.size() - 1)).containsKey("$group")) {
+        if (sl.size() > 0 && ((Document) sl.get(sl.size() - 1)).containsKey("$group")) {
 
             StringBuilder sb = new StringBuilder();
 
-            Document document = (Document) stagesList.get(stagesList.size() - 1);
+            Document document = (Document) sl.get(sl.size() - 1);
             String json = document.toJson();
             sb.append(json, 0, json.length() - 3);
 
@@ -233,7 +235,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
             }
 
             sb.append(" } }");
-            stagesList.add(Document.parse(sb.toString()));
+            sl.add(Document.parse(sb.toString()));
 
         } else {
             StringBuilder sb = new StringBuilder();
@@ -250,10 +252,10 @@ final class MongoDBOperators extends NoSqlDbOperators {
             }
 
             sb.append(" } }");
-            stagesList.add(Document.parse(sb.toString()));
+            sl.add(Document.parse(sb.toString()));
         }
 
-        return new MongoDBOperators(this);
+        return new MongoDBOperators(this, sl);
     }
 
     @Override
@@ -278,6 +280,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators project(String fieldName, String... fieldNames) {
+        List<Bson> sl =new ArrayList<>(stagesList);
 
         StringBuilder sb = new StringBuilder();
         sb.append("{ $project : { ");
@@ -293,8 +296,8 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
         sb.append(" } }");
 
-        stagesList.add(Document.parse(sb.toString()));
-        return new MongoDBOperators(this);
+        sl.add(Document.parse(sb.toString()));
+        return new MongoDBOperators(this, sl);
 
     }
 

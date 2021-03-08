@@ -8,6 +8,7 @@ import org.apache.hadoop.hbase.exceptions.DeserializationException;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.FilterBase;
 import org.apache.hadoop.hbase.util.ByteStringer;
+import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
 
@@ -149,6 +150,10 @@ public class CircleTemporalFilter extends FilterBase {
         double rad = 6378137;
         double c = 2 * Math.asin(Math.sqrt(a));
         return rad * c;
+    }
+
+    public String toString() {
+        return String.format("%s (%s, %s, %s, %s, %s, %s, %s, %s)", this.getClass().getSimpleName(), Bytes.toStringBinary(this.columnFamily), Bytes.toStringBinary(this.longitudeColumnQualifier), Bytes.toStringBinary(this.latitudeColumnQualifier), "(" + centerCoordinates.getLongitude() + " " + centerCoordinates.getLatitude() + ")," + radius, Bytes.toStringBinary(this.columnFamilyTemporal), Bytes.toStringBinary(this.columnQualifierTemporal), String.valueOf(lowerDateBound), String.valueOf(upperDateBound));
     }
 
 }

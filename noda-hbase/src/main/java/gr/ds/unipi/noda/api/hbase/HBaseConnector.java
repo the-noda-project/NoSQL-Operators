@@ -40,7 +40,7 @@ public final class HBaseConnector implements NoSqlDbConnector<Connection> {
     }
 
 
-    public Configuration getConfiguration(){
+    public Configuration getConfiguration() {
         return conf;
     }
 

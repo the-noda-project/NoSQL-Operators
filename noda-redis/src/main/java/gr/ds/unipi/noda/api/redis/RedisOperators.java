@@ -22,12 +22,24 @@ import static gr.ds.unipi.noda.api.core.operators.FilterOperators.and;
 final class RedisOperators extends NoSqlDbOperators {
 
     private final RedisConnectionManager redisConnectionManager = RedisConnectionManager.getInstance();
+
     private final Map<String, Pipeline> pipelines;
-    private final List<FilterOperator> filterOperatorsList = new ArrayList<>();
+    private final List<FilterOperator> filterOperatorsList;
 
     private RedisOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
         super(noSqlDbConnector, dataCollection, sparkSession);
         pipelines = redisConnectionManager.getConnection(getNoSqlDbConnector());
+        this.filterOperatorsList = new ArrayList<>();
+    }
+
+    private RedisOperators(RedisOperators redisOperators, List<FilterOperator> filterOperatorsList) {
+        super(redisOperators.getNoSqlDbConnector(), redisOperators.getDataCollection(), redisOperators.getSparkSession());
+        pipelines = redisOperators.getPipelines();
+        this.filterOperatorsList = filterOperatorsList;
+    }
+
+    private Map<String, Pipeline> getPipelines() {
+        return pipelines;
     }
 
     static RedisOperators newRedisOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession){
@@ -77,11 +89,14 @@ final class RedisOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        filterOperatorsList.add(filterOperator);
+
+        List<FilterOperator> fl = new ArrayList<>(filterOperatorsList);
+
+        fl.add(filterOperator);
         for (FilterOperator operator : filterOperators) {
-            filterOperatorsList.add(operator);
+            fl.add(operator);
         }
-        return this;
+        return new RedisOperators(this, fl);
     }
 
     @Override
