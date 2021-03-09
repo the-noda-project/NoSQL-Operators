@@ -29,7 +29,7 @@ class RediSearchQueryHelper {
     private Query query;
     private ZRangeInfo zRangeInfo;
     private boolean isAggregate;
-    private final QueryNode queryBuilder;
+    private QueryNode queryBuilder;
     private final ArrayDeque<Group> groups;
     private final Consumer<Optional<ZRangeInfo>> optionalConsumer;
 
@@ -37,7 +37,6 @@ class RediSearchQueryHelper {
         this.jedisPool = jedisPool;
         this.isAggregate = false;
         this.client = new Client(indexName, jedisPool);
-        this.queryBuilder = QueryBuilder.intersect();
         this.groups = new ArrayDeque<>();
         this.optionalConsumer = OptionalConsumer.of(zRangeInfo1 -> {
             Map<String, Set<String>> rectangleSearchMember = zRangeInfo1.getKeys().stream()
@@ -50,20 +49,16 @@ class RediSearchQueryHelper {
         }, () -> PRINTER.findByValue(isAggregate).print(client, isAggregate ? getAggregationBuilder() : getQuery()));
     }
 
-    public RediSearchQueryHelper(Pool<Jedis> jedisPool, Client client, AggregationBuilder aggregationBuilder, Query query, ZRangeInfo zRangeInfo, boolean isAggregate, QueryNode queryBuilder, ArrayDeque<Group> groups, Consumer<Optional<ZRangeInfo>> optionalConsumer) {
+    private RediSearchQueryHelper(Pool<Jedis> jedisPool, Client client, AggregationBuilder aggregationBuilder, Query query, ZRangeInfo zRangeInfo, boolean isAggregate, QueryNode queryBuilder, ArrayDeque<Group> groups, Consumer<Optional<ZRangeInfo>> optionalConsumer) {
         this.jedisPool = jedisPool;
         this.client = client;
-        this.aggregationBuilder = new AggregationBuilder(queryBuilder.toString());
-        this.query = new Query(queryBuilder.toString());
+        this.aggregationBuilder = aggregationBuilder;
+        this.query = query;
         this.zRangeInfo = zRangeInfo;
         this.isAggregate = isAggregate;
-        this.queryBuilder = QueryBuilder.intersect(queryBuilder);
+        this.queryBuilder = queryBuilder;
         this.groups = new ArrayDeque<>(groups);
         this.optionalConsumer = optionalConsumer;
-    }
-
-    public RediSearchQueryHelper copyOf() {
-        return new RediSearchQueryHelper(jedisPool, client, aggregationBuilder, query, zRangeInfo, isAggregate, queryBuilder, groups, optionalConsumer);
     }
 
     private void enableAggregate() {
@@ -72,9 +67,16 @@ class RediSearchQueryHelper {
     }
 
     private String provideQuery() {
-        if (StringPool.BLANK.equalsIgnoreCase(queryBuilder.toString()))
+        if (StringPool.BLANK.equalsIgnoreCase(getQueryNode().toString()))
             return StringPool.STAR;
-        else return queryBuilder.toString();
+        else return getQueryNode().toString();
+    }
+
+    private QueryNode getQueryNode() {
+        if(queryBuilder == null) {
+            queryBuilder = QueryBuilder.intersect();
+        }
+        return queryBuilder;
     }
 
     private AggregationBuilder getAggregationBuilder() {
@@ -95,6 +97,10 @@ class RediSearchQueryHelper {
             query = new Query(provideQuery());
         }
         return query;
+    }
+
+    public RediSearchQueryHelper copyOf() {
+        return new RediSearchQueryHelper(jedisPool, client, aggregationBuilder, query, zRangeInfo, isAggregate, queryBuilder, groups, optionalConsumer);
     }
 
     public Jedis getJedisResource() {
@@ -159,7 +165,7 @@ class RediSearchQueryHelper {
     }
 
     public void applyPreQuery(Node node) {
-        queryBuilder.add(node);
+        getQueryNode().add(node);
     }
 
     public void applyPostQuery(String s) {
