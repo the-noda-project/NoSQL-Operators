@@ -106,6 +106,8 @@ public final class MongoDBGeographicalOperatorFactory extends BaseGeographicalOp
         StringBuilder cb = new StringBuilder();
         StringBuilder sb = new StringBuilder();
 
+        sb.append(" { $or: [ ");
+
         rangesList.stream().forEach(i -> {
             if (i.low() == i.high()) {
                 cb.append(" " + i.low() + ",");
@@ -120,6 +122,8 @@ public final class MongoDBGeographicalOperatorFactory extends BaseGeographicalOp
         } else {
             sb.deleteCharAt(sb.length() - 1);
         }
+
+        sb.append(" ] }");
 
         return sb;
     }
