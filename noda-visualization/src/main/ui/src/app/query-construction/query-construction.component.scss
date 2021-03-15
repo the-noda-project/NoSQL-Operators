@@ -41,13 +41,17 @@
 }
 
 .openRowToChooseDB {
-  height: 4rem;
   box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.132);
   position: absolute;
   z-index: 1000 !important;
-  width: 97%;
-  margin-top: -0.3rem !important;
+  margin-top: 6rem !important;
+  margin-left: 7rem;
   border-radius: 6px;
+  min-width: 8.5rem;
+}
+
+.rowToChoose:hover {
+  background-color: rgb(244, 244, 244) !important;
 }
 
 .selectStyle {
@@ -72,17 +76,16 @@
   min-width: 6.5rem !important;
 }
 
-.openRowToChooseDB:hover {
-  height: 4rem;
-  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.132);
-  position: absolute;
-  border: 3px solid #14274e;
-  z-index: 1000 !important;
-  width: 97%;
-  background-color: rgb(244, 244, 244) !important;
-  margin-top: -0.3rem !important;
-  border-radius: 6px;
-}
+// .openRowToChooseDB:hover {
+//   box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.132);
+//   position: absolute;
+//   border: 3px solid #14274e;
+
+//   z-index: 1000 !important;
+//   background-color: rgb(244, 244, 244) !important;
+//   margin-top: -0.3rem !important;
+//   border-radius: 6px;
+// }
 
 .schemaStyle {
   padding-top: 0.5rem;
