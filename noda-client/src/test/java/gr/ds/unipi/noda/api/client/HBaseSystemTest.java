@@ -27,12 +27,13 @@ public class HBaseSystemTest {
 
         NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("points");
 
-        NoSqlDbOperators a = noSqlDbOperators.project("field").limit(34);
+        NoSqlDbOperators a = noSqlDbOperators.limit(34);
 
         Dataset<Row> d1 = a.toDataframe();
 
-        a = noSqlDbOperators.filter(inGeoRectangle("location", Coordinates.newCoordinates(24,38),Coordinates.newCoordinates(25,39)));
-        Dataset<Row> d2  = a.toDataframe();
+        d1.show();
+//        a = noSqlDbOperators.filter(inGeoRectangle("location", Coordinates.newCoordinates(24,38),Coordinates.newCoordinates(25,39)));
+//        Dataset<Row> d2  = a.toDataframe();
 
         noSqlDbSystem.closeConnection();
         
