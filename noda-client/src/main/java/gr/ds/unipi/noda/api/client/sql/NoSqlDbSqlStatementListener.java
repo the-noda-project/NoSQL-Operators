@@ -682,60 +682,60 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
         if(groupBy.size()==0){
             finalFilterOperator = formFinalFilter();
             if(finalFilterOperator!=null) {
-                noSqlDbOperators.filter(finalFilterOperator);
+                noSqlDbOperators = noSqlDbOperators.filter(finalFilterOperator);
             }
         }else{
             if(finalFilterOperator!=null){
-                noSqlDbOperators.filter(finalFilterOperator);
+                noSqlDbOperators = noSqlDbOperators.filter(finalFilterOperator);
                 finalFilterOperator = null;
             }
         }
 
         if(groupBy.size() != 0){
             if(groupBy.size() ==1){
-                noSqlDbOperators.groupBy(groupBy.get(0));
+                noSqlDbOperators = noSqlDbOperators.groupBy(groupBy.get(0));
             }else{
                 String[] group = new String[groupBy.size()-1];
                 for(int i=1;i<groupBy.size();i++){
                     group[i-1] = groupBy.get(i);
                 }
-                noSqlDbOperators.groupBy(groupBy.get(0),group);
+                noSqlDbOperators = noSqlDbOperators.groupBy(groupBy.get(0),group);
             }
             //forming having
             finalFilterOperator = formFinalFilter();
             if(finalFilterOperator!=null){
-                noSqlDbOperators.filter(finalFilterOperator);
+                noSqlDbOperators = noSqlDbOperators.filter(finalFilterOperator);
                 finalFilterOperator = null;
             }
         }
 
         if(sortOperators.size() != 0){
             if(sortOperators.size() ==1){
-                noSqlDbOperators.sort(sortOperators.get(0));
+                noSqlDbOperators = noSqlDbOperators.sort(sortOperators.get(0));
             }else{
                 SortOperator[] sop = new SortOperator[sortOperators.size()-1];
 
                 for(int i=1;i<sortOperators.size();i++){
                     sop[i-1] = sortOperators.get(i);
                 }
-                noSqlDbOperators.sort(sortOperators.get(0),sop);
+                noSqlDbOperators = noSqlDbOperators.sort(sortOperators.get(0),sop);
             }
         }
 
         if(selectOperator.size()!=0 && !selectAll){
             if(selectOperator.size() ==1){
-                noSqlDbOperators.project(selectOperator.get(0));
+                noSqlDbOperators = noSqlDbOperators.project(selectOperator.get(0));
             }else{
                 String[] select = new String[selectOperator.size()-1];
                 for(int i=1;i<selectOperator.size();i++){
                     select[i-1] = selectOperator.get(i);
                 }
-                noSqlDbOperators.project(selectOperator.get(0),select);
+                noSqlDbOperators = noSqlDbOperators.project(selectOperator.get(0),select);
             }
         }
 
         if(limit != -1){
-            noSqlDbOperators.limit(limit);
+            noSqlDbOperators = noSqlDbOperators.limit(limit);
         }
         return noSqlDbOperators;
     }
