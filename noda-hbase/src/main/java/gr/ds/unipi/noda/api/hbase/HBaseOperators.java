@@ -28,6 +28,8 @@ import org.apache.spark.sql.types.DataTypes;
 import java.io.IOException;
 import java.util.Optional;
 
+import static org.apache.spark.sql.types.DataTypes.LongType;
+
 final class HBaseOperators extends NoSqlDbOperators {
 
     private final HBaseConnectionManager hbaseConnectionManager = HBaseConnectionManager.getInstance();
@@ -244,6 +246,7 @@ final class HBaseOperators extends NoSqlDbOperators {
 
         System.out.println(filterList.toString());
 
+        df.withColumn("location:latitude", df.col("location:latitude").cast(DataTypes.DoubleType)).show();
         return df;
     }
 }
