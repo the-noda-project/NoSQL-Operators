@@ -1,14 +1,12 @@
 package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
-import org.junit.Ignore;
+import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.spark.sql.*;
+import org.apache.spark.sql.api.java.UDF1;
+import org.apache.spark.sql.expressions.UserDefinedFunction;
+import org.apache.spark.sql.types.DataTypes;
 import org.junit.Test;
-
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 
 public class HBaseSystemTest {
     //@Ignore
@@ -31,10 +29,18 @@ public class HBaseSystemTest {
 
         Dataset<Row> d1 = a.toDataframe();
 
-        d1.show();
-//        a = noSqlDbOperators.filter(inGeoRectangle("location", Coordinates.newCoordinates(24,38),Coordinates.newCoordinates(25,39)));
-//        Dataset<Row> d2  = a.toDataframe();
+        //d1 = d1.withColumn("asd",new ColumnName("location:latitude").cast("Double"));
 
+
+        UDF1 udf1ConvertToDouble = (UDF1<String, Double>) b -> Bytes.toDouble(Bytes.toBytes(b));
+        UserDefinedFunction udfConvertToDouble = functions$.MODULE$.udf(udf1ConvertToDouble, DataTypes.DoubleType);
+
+        UDF1 udf1ConvertToLong = (UDF1<String, Long>) b -> Bytes.toLong(Bytes.toBytes(b));
+        UserDefinedFunction udfConvertToLong = functions$.MODULE$.udf(udf1ConvertToLong, DataTypes.LongType);
+
+        d1 = d1.withColumn("newCol",udfConvertToLong.apply(new Column("location:date")));
+
+        d1.show(false);
         noSqlDbSystem.closeConnection();
         
     }
