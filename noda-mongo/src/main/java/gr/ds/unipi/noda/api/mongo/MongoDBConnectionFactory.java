@@ -13,6 +13,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.Base
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.mongo.aggregateOperators.MongoDBAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.dataframe.MongoDBDataframeManipulator;
 import gr.ds.unipi.noda.api.mongo.filterOperators.comparisonOperators.MongoDBComparisonOperatorFactory;
 import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTemporalOperators.MongoDBGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperators.MongoDBGeoTextualOperatorFactory;
@@ -81,7 +82,7 @@ public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     protected BaseDataframeManipulator getBaseDataframeManipulator() {
-        return null;
+        return new MongoDBDataframeManipulator();
     }
 
 }

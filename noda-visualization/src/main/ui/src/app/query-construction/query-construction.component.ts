@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FieldnamesModalComponent } from './fieldnames-modal/fieldnames-modal.component';
 import { themeFromMapBox } from '../shell/shell.service';
 import * as L from 'leaflet';
 import { Options } from 'ng5-slider';
@@ -86,6 +85,18 @@ export class QueryConstructionComponent implements OnInit {
     },
   };
 
+  dropDownProps = {
+    mongo: ['vehicle', 'car_type', 'hilIndex', 'location', 'date'],
+    neo4j: [
+      'car_Id',
+      'location',
+      'Timestamp',
+      'HilbertIndex',
+      'STHilbertIndex',
+    ],
+    hbase: ['cf:vehicle', 'location:date', 'location:lat', 'location:lon'],
+  };
+
   map: L.Map;
   layers: Array<any> = [];
   options = {
@@ -95,6 +106,7 @@ export class QueryConstructionComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.isDropDownOpen = false;
     this.fps = 0.2;
     this.windowBetweenFloorAndCeil = 3;
     this.changeFloor = false;
@@ -118,7 +130,6 @@ export class QueryConstructionComponent implements OnInit {
   }
 
   goToOtherDb(db: string) {
-    this.changeStateOfDropDown();
     this.router.navigate(['/visualization/dbtype/' + db]);
   }
 
@@ -301,8 +312,12 @@ export class QueryConstructionComponent implements OnInit {
 
     if (time.length === 13) {
       manipulatedTime = time;
-    } else {
+    }
+    if (time.length < 13) {
       manipulatedTime = parseInt((time += '000'));
+    }
+    if (time.length > 13) {
+      manipulatedTime = new Date(time).getTime();
     }
 
     return manipulatedTime;

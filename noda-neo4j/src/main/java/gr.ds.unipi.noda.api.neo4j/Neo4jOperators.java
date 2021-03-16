@@ -286,13 +286,14 @@ final class Neo4jOperators extends NoSqlDbOperators {
     @Override
     public Dataset<Row> toDataframe() {
         //ΤODO  inside dataframe method use must put the name of the columns
-        sb.append(" RETURN s.car_Id AS car_Id, toString(s.location) AS location, s.Timestamp AS Timestamp");
-        System.out.println(sb);
+        StringBuilder sbCopy = getStringBuilderCopy();
+        sbCopy.append(" RETURN s.car_Id AS car_Id, toString(s.location) AS location, s.Timestamp AS Timestamp");
+        System.out.println(sbCopy);
 
 
         Neo4JavaSparkContext neo = Neo4JavaSparkContext.neo4jContext(getSparkSession().sparkContext());
         long maxId = 50L;
-        Dataset<Row> o = neo.queryDF(sb.toString(), Collections.singletonMap("maxId", maxId));
+        Dataset<Row> o = neo.queryDF(sbCopy.toString(), Collections.singletonMap("maxId", maxId));
 
         o.show();
 
