@@ -4,8 +4,6 @@ import gr.ds.unipi.noda.api.core.dataframe.BaseDataframeManipulator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-import java.util.List;
-
 import static org.apache.spark.sql.functions.*;
 
 public class MongoDBDataframeManipulator extends BaseDataframeManipulator {

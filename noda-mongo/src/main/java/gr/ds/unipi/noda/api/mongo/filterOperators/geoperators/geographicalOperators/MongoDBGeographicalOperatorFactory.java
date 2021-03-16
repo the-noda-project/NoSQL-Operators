@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators;
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.hilbert.HilbertUtil;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
@@ -94,14 +95,24 @@ public final class MongoDBGeographicalOperatorFactory extends BaseGeographicalOp
 
     public static StringBuilder getExpressionOfSpatialHilbertIndexes(Rectangle rectangle) {
 
-        final int bits = 13;
+        final int bits = AppConfig.mongodb().getInt("spatialOp.bits");
         final long maxOrdinates = 1L << bits;
+
+//        final int bits = 13;
+//        final long maxOrdinates = 1L << bits;
 
         SmallHilbertCurve hc = HilbertCurve.small().bits(bits).dimensions(2);
 
-        Ranges rangesList = hc.query(HilbertUtil.scaleGeoPoint(rectangle.getLowerBound().getLatitude(), rectangle.getLowerBound().getLongitude(), maxOrdinates)
-                , HilbertUtil.scaleGeoPoint(rectangle.getUpperBound().getLatitude(), rectangle.getUpperBound().getLongitude(), maxOrdinates)
-                , 0);
+        long[] lower = HilbertUtil.scaleGeoPoint(rectangle.getLowerBound().getLongitude(), AppConfig.mongodb().getDouble("spatialOp.minLon"), AppConfig.mongodb().getDouble("spatialOp.maxLon"), rectangle.getLowerBound().getLatitude(), AppConfig.mongodb().getDouble("spatialOp.minLat"), AppConfig.mongodb().getDouble("spatialOp.maxLat"), maxOrdinates);
+        long[] upper = HilbertUtil.scaleGeoPoint(rectangle.getUpperBound().getLongitude(), AppConfig.mongodb().getDouble("spatialOp.minLon"), AppConfig.mongodb().getDouble("spatialOp.maxLon"), rectangle.getUpperBound().getLatitude(), AppConfig.mongodb().getDouble("spatialOp.minLat"), AppConfig.mongodb().getDouble("spatialOp.maxLat"), maxOrdinates);
+
+
+        Ranges rangesList = hc.query(lower, upper ,0);
+
+
+//        Ranges rangesList = hc.query(HilbertUtil.scaleGeoPoint(rectangle.getLowerBound().getLatitude(), rectangle.getLowerBound().getLongitude(), maxOrdinates)
+//                , HilbertUtil.scaleGeoPoint(rectangle.getUpperBound().getLatitude(), rectangle.getUpperBound().getLongitude(), maxOrdinates)
+//                , 0);
 
         StringBuilder cb = new StringBuilder();
         StringBuilder sb = new StringBuilder();

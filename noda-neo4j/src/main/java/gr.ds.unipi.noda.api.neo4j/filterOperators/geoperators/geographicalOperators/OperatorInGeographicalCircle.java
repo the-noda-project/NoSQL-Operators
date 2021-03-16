@@ -1,5 +1,7 @@
 package gr.ds.unipi.noda.api.neo4j.filterOperators.geoperators.geographicalOperators;
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
+import gr.ds.unipi.noda.api.core.hilbert.HilbertUtil;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle;
 import org.davidmoten.hilbert.HilbertCurve;
 import org.davidmoten.hilbert.Ranges;
@@ -21,17 +23,23 @@ public final class OperatorInGeographicalCircle extends GeographicalOperator<Cir
 
         StringBuilder sb = new StringBuilder();
 
-        int bits = 8;
-
-        long maxOrdinates = 1L << bits;
+//        int bits = 8;
+//
+//        long maxOrdinates = 1L << bits;
+        final int bits = AppConfig.neo4j().getInt("spatialOp.bits");
+        final long maxOrdinates = 1L << bits;
 
         SmallHilbertCurve f = HilbertCurve.small().bits(bits).dimensions(2);
 
-        long[] point1 = scalePoint(getGeometry().getMbr().getLowerBound().getLatitude(), getGeometry().getMbr().getLowerBound().getLongitude(), maxOrdinates);
-        long[] point2 = scalePoint(getGeometry().getMbr().getUpperBound().getLatitude(), getGeometry().getMbr().getUpperBound().getLongitude(), maxOrdinates);
+//        long[] point1 = scalePoint(getGeometry().getMbr().getLowerBound().getLatitude(), getGeometry().getMbr().getLowerBound().getLongitude(), maxOrdinates);
+//        long[] point2 = scalePoint(getGeometry().getMbr().getUpperBound().getLatitude(), getGeometry().getMbr().getUpperBound().getLongitude(), maxOrdinates);
+        long[] lower = HilbertUtil.scaleGeoPoint(getGeometry().getMbr().getLowerBound().getLongitude(), AppConfig.neo4j().getDouble("spatialOp.minLon"), AppConfig.neo4j().getDouble("spatialOp.maxLon"), getGeometry().getMbr().getLowerBound().getLatitude(), AppConfig.neo4j().getDouble("spatialOp.minLat"), AppConfig.neo4j().getDouble("spatialOp.maxLat"), maxOrdinates);
+        long[] upper = HilbertUtil.scaleGeoPoint(getGeometry().getMbr().getUpperBound().getLongitude(), AppConfig.neo4j().getDouble("spatialOp.minLon"), AppConfig.neo4j().getDouble("spatialOp.maxLon"), getGeometry().getMbr().getUpperBound().getLatitude(), AppConfig.neo4j().getDouble("spatialOp.minLat"), AppConfig.neo4j().getDouble("spatialOp.maxLat"), maxOrdinates);
 
         int maxRanges = 1;
-        Ranges ranges = f.query(point1, point2, maxRanges);
+        //Ranges ranges = f.query(point1, point2, maxRanges);
+        Ranges ranges = f.query(lower, upper, maxRanges);
+
         System.out.println(ranges);
         ranges.forEach(range -> {
             long low = range.low();

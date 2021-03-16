@@ -10,22 +10,22 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
         super(geographicalOperator, temporalFieldName, temporalType);
     }
 
-    public static long[] scalePoint(double lat, double lon, long time, long minTime, long maxTime, long max) {
-        long x = scale((lat + 90.0) / 180, max);
-        long y = scale((lon + 180.0) / 360, max);
-        long z = scale(( time - minTime) / (maxTime - minTime), max);
-        return new long[] { x, y, z };
-    }
-
-    private static long scale(double d, long max) {
-
-        Preconditions.checkArgument(Double.compare(d,0) != -1 &&  Double.compare(d,1) != 1);
-        if ( Double.compare(d,1) == 0 ) {
-            return max;
-        } else {
-            return Math.round(Math.floor(d * (max + 1)));
-        }
-    }
+//    public static long[] scalePoint(double lat, double lon, long time, long minTime, long maxTime, long max) {
+//        long x = scale((lat + 90.0) / 180, max);
+//        long y = scale((lon + 180.0) / 360, max);
+//        long z = scale(( time - minTime) / (maxTime - minTime), max);
+//        return new long[] { x, y, z };
+//    }
+//
+//    private static long scale(double d, long max) {
+//
+//        Preconditions.checkArgument(Double.compare(d,0) != -1 &&  Double.compare(d,1) != 1);
+//        if ( Double.compare(d,1) == 0 ) {
+//            return max;
+//        } else {
+//            return Math.round(Math.floor(d * (max + 1)));
+//        }
+//    }
 
 
 

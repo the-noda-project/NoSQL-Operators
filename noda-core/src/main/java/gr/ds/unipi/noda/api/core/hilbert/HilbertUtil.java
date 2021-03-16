@@ -2,11 +2,11 @@ package gr.ds.unipi.noda.api.core.hilbert;
 
 public class HilbertUtil {
 
-    public static long[] scaleGeoPoint(double lat, double lon, long max) {
-        long x = scale((lat + 90.0) / 180, max);
-        long y = scale((lon + 180.0) / 360, max);
-        return new long[]{x, y};
-    }
+//    public static long[] scaleGeoPoint(double lat, double lon, long max) {
+//        long x = scale((lat + 90.0) / 180, max);
+//        long y = scale((lon + 180.0) / 360, max);
+//        return new long[]{y,x};
+//    }
 
     public static long[] scaleGeoPoint(double lon, double minLon, double maxLon, double lat, double minLat, double maxLat,
                                        long max) {
