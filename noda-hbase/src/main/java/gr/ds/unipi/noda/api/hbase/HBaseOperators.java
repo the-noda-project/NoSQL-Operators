@@ -246,7 +246,6 @@ final class HBaseOperators extends NoSqlDbOperators {
 
         System.out.println(filterList.toString());
 
-        df.withColumn("location:latitude", df.col("location:latitude").cast(DataTypes.DoubleType)).show();
         return df;
     }
 }

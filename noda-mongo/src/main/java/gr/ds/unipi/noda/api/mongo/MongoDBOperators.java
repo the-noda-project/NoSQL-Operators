@@ -314,12 +314,6 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
         formExpressionOfNoSQL();
 
-
-        df.show();
-
-        //
-//        DataframeManipulator.trajectoriesTimelapse(df, "location", "date");
-
         return df;
 
     }
