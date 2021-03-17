@@ -6,18 +6,26 @@ import com.typesafe.config.ConfigValueFactory;
 
 public class AppConfig {
 
-    private static final Config config = ConfigFactory.load()
-            .withFallback(ConfigFactory.parseResources("configs/redis.conf"));
-
     private AppConfig() {
     }
 
     public static Config redis() {
-        return config.getConfig("redis");
+        return ConfigFactory.load()
+                .withFallback(ConfigFactory.parseResources("configs/redis.conf")).getConfig("redis");
     }
 
-    public static Config setOnRedis(String path, Object value) {
-        return config.getConfig("redis").withValue(path, ConfigValueFactory.fromAnyRef(value));
+    public static Config neo4j() {
+        return ConfigFactory.load()
+                .withFallback(ConfigFactory.parseResources("configs/neo4j.conf")).getConfig("neo4j");
     }
+
+    public static Config mongodb() {
+        return ConfigFactory.load()
+                .withFallback(ConfigFactory.parseResources("configs/mongodb.conf")).getConfig("mongodb");
+    }
+
+//    public static Config setOnRedis(String path, Object value) {
+//        return config.getConfig("redis").withValue(path, ConfigValueFactory.fromAnyRef(value));
+//    }
 
 }
