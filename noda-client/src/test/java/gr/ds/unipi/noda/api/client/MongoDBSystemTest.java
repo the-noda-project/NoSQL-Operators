@@ -23,9 +23,9 @@ public class MongoDBSystemTest {
 
         //noSqlDbOperators = noSqlDbOperators.filter(inGeoCircleMeters("location",Coordinates.newCoordinates(25.975396, 39.543451),0.1));
 
-        noSqlDbOperators = noSqlDbOperators.filter(inGeoRectangle("location",Coordinates.newCoordinates(25.90, 39.6),Coordinates.newCoordinates(25.99, 39.7)));
+        //noSqlDbOperators = noSqlDbOperators.filter(inGeoRectangle("location",Coordinates.newCoordinates(25.90, 39.6),Coordinates.newCoordinates(25.99, 39.7)));
 
-        noSqlDbOperators.toDataframe().show();
+        System.out.println(noSqlDbOperators.limit(40000).toDataframe().count());
         noSqlDbSystem.closeConnection();
 
     }

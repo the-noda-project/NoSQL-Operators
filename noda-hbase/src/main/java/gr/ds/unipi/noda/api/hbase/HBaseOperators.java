@@ -5,6 +5,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
+import gr.ds.unipi.noda.api.core.visualization.NoSQLExpression;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.CompareOperator;
 import org.apache.hadoop.hbase.TableName;
@@ -242,7 +243,7 @@ final class HBaseOperators extends NoSqlDbOperators {
         df = df.select(new Column("row"), org.apache.spark.sql.functions.explode_outer(new Column("noVersionMap"))).select(new Column("row"), new Column("key").as("columnFamily"), org.apache.spark.sql.functions.explode_outer(new Column("value"))).select(new Column("row").cast(DataTypes.StringType), new Column("columnFamily").cast(DataTypes.StringType), new Column("key").cast(DataTypes.StringType).as("columnQualifier"), new Column("value").cast(DataTypes.StringType))
                 .withColumn("column", org.apache.spark.sql.functions.concat(new Column("columnFamily"), org.apache.spark.sql.functions.lit(":"), new Column("columnQualifier"))).drop("columnFamily", "columnQualifier").groupBy("row").pivot("column").agg(org.apache.spark.sql.functions.first(new Column("value")));
 
-        System.out.println(filterList.toString());
+        NoSQLExpression.INSTANCE.setExpression(filterList.toString());
 
         return df;
     }
