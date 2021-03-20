@@ -240,7 +240,8 @@ final class HBaseOperators extends NoSqlDbOperators {
 
         Dataset<Row> df = getSparkSession().sqlContext().createDataFrame(javaPairRDD.values(), Result.class);
 
-        df = df.select(new Column("row"), org.apache.spark.sql.functions.explode_outer(new Column("noVersionMap"))).select(new Column("row"), new Column("key").as("columnFamily"), org.apache.spark.sql.functions.explode_outer(new Column("value"))).select(new Column("row").cast(DataTypes.StringType), new Column("columnFamily").cast(DataTypes.StringType), new Column("key").cast(DataTypes.StringType).as("columnQualifier"), new Column("value").cast(DataTypes.StringType))
+        df = df.select(new Column("row"), org.apache.spark.sql.functions.explode_outer(new Column("noVersionMap"))).select(new Column("row"), new Column("key").as("columnFamily"), org.apache.spark.sql.functions.explode_outer(new Column("value"))).select(new Column("row"), new Column("columnFamily")
+                , new Column("key").as("columnQualifier"), new Column("value"))
                 .withColumn("column", org.apache.spark.sql.functions.concat(new Column("columnFamily"), org.apache.spark.sql.functions.lit(":"), new Column("columnQualifier"))).drop("columnFamily", "columnQualifier").groupBy("row").pivot("column").agg(org.apache.spark.sql.functions.first(new Column("value")));
 
         NoSQLExpression.INSTANCE.setExpression(filterList.toString());
