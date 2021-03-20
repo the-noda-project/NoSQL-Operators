@@ -4,7 +4,6 @@ import gr.ds.unipi.noda.api.core.constants.StringPool;
 import gr.ds.unipi.noda.api.redisearch.filterOperators.geoperators.geographicalOperators.ZRangeInfo;
 import io.redisearch.AggregationResult;
 import io.redisearch.Query;
-import io.redisearch.SearchResult;
 import io.redisearch.aggregation.AggregationBuilder;
 import io.redisearch.aggregation.Group;
 import io.redisearch.aggregation.SortedField;
@@ -25,31 +24,23 @@ import java.util.stream.Stream;
 class RediSearchQueryHelper {
     private final Pool<Jedis> jedisPool;
     private final Client client;
+    private Consumer<Optional<ZRangeInfo>> optionalConsumer;
     private AggregationBuilder aggregationBuilder;
     private Query query;
     private ZRangeInfo zRangeInfo;
     private boolean isAggregate;
     private QueryNode queryBuilder;
     private final ArrayDeque<Group> groups;
-    private final Consumer<Optional<ZRangeInfo>> optionalConsumer;
 
     public RediSearchQueryHelper(String indexName, Pool<Jedis> jedisPool) {
         this.jedisPool = jedisPool;
         this.isAggregate = false;
         this.client = new Client(indexName, jedisPool);
         this.groups = new ArrayDeque<>();
-        this.optionalConsumer = OptionalConsumer.of(zRangeInfo1 -> {
-            Map<String, Set<String>> rectangleSearchMember = zRangeInfo1.getKeys().stream()
-                    .collect(Collectors.toMap(o -> o, o -> jedisPool.getResource().zrangeByScore(o, zRangeInfo1.getLowerBoundScore(), zRangeInfo1.getUpperBoundScore())));
-            List<GeoCoordinate> geopos = rectangleSearchMember.entrySet().stream()
-                    .map(key -> jedisPool.getResource().geopos(key.getKey(), key.getValue().toArray(StringPool.EMPTY_ARRAY)))
-                    .flatMap(List::stream)
-                    .collect(Collectors.toList());
-            geopos.forEach(pos -> System.out.println(pos.toString()));
-        }, () -> PRINTER.findByValue(isAggregate).print(client, isAggregate ? getAggregationBuilder() : getQuery()));
+        initConsumers();
     }
 
-    private RediSearchQueryHelper(Pool<Jedis> jedisPool, Client client, AggregationBuilder aggregationBuilder, Query query, ZRangeInfo zRangeInfo, boolean isAggregate, QueryNode queryBuilder, ArrayDeque<Group> groups, Consumer<Optional<ZRangeInfo>> optionalConsumer) {
+    private RediSearchQueryHelper(Pool<Jedis> jedisPool, Client client, AggregationBuilder aggregationBuilder, Query query, ZRangeInfo zRangeInfo, boolean isAggregate, QueryNode queryBuilder, ArrayDeque<Group> groups) {
         this.jedisPool = jedisPool;
         this.client = client;
         this.aggregationBuilder = aggregationBuilder;
@@ -58,7 +49,21 @@ class RediSearchQueryHelper {
         this.isAggregate = isAggregate;
         this.queryBuilder = queryBuilder;
         this.groups = new ArrayDeque<>(groups);
-        this.optionalConsumer = optionalConsumer;
+        initConsumers();
+    }
+
+    private void initConsumers() {
+        Consumer<ZRangeInfo> optionalPoolBiConsumer = (zRangeInfo) -> {
+            Map<String, Set<String>> rectangleSearchMember = zRangeInfo.getKeys().stream()
+                    .collect(Collectors.toMap(o -> o, o -> jedisPool.getResource().zrangeByScore(o, zRangeInfo.getLowerBoundScore(), zRangeInfo.getUpperBoundScore())));
+            List<GeoCoordinate> geopos = rectangleSearchMember.entrySet().stream()
+                    .map(key -> jedisPool.getResource().geopos(key.getKey(), key.getValue().toArray(StringPool.EMPTY_ARRAY)))
+                    .flatMap(List::stream)
+                    .collect(Collectors.toList());
+            geopos.forEach(pos -> System.out.println(pos.toString()));
+        };
+        Runnable runnable = () -> Printer.findByValue(isAggregate).print(client, isAggregate ? getAggregationBuilder() : getQuery());
+        this.optionalConsumer = OptionalConsumer.of(optionalPoolBiConsumer, runnable);
     }
 
     private void enableAggregate() {
@@ -100,7 +105,7 @@ class RediSearchQueryHelper {
     }
 
     public RediSearchQueryHelper copyOf() {
-        return new RediSearchQueryHelper(jedisPool, client, aggregationBuilder, query, zRangeInfo, isAggregate, queryBuilder, groups, optionalConsumer);
+        return new RediSearchQueryHelper(jedisPool, client, aggregationBuilder, query, zRangeInfo, isAggregate, queryBuilder, groups);
     }
 
     public Jedis getJedisResource() {
@@ -174,40 +179,5 @@ class RediSearchQueryHelper {
 
     public AggregationResult executeAggregation() {
         return client.aggregate(getAggregationBuilder());
-    }
-
-    private enum PRINTER {
-        AGGREGATE(true) {
-            @Override
-            public void print(Client client, Object o) {
-                AggregationResult aggregate = client.aggregate((AggregationBuilder) o);
-                List<Map<String, Object>> results = aggregate.getResults();
-                int index = 0;
-                for (Map<String, Object> t : results) {
-                    int finalIndex = index;
-                    t.keySet().forEach(k -> System.out.println(k + StringPool.COLON + aggregate.getRow(finalIndex).getString(k)));
-                    index++;
-                }
-                System.out.println(aggregate.getResults());
-            }
-        },
-        SEARCH(false) {
-            @Override
-            public void print(Client client, Object o) {
-                SearchResult search = client.search((Query) o);
-                System.out.println(search.docs);
-            }
-        };
-        private final boolean isAggregate;
-
-        PRINTER(boolean isAggregate) {
-            this.isAggregate = isAggregate;
-        }
-
-        public abstract void print(Client client, Object o);
-
-        public static PRINTER findByValue(final boolean val){
-            return Arrays.stream(values()).filter(value -> value.isAggregate == val).findFirst().orElse(null);
-        }
     }
 }
