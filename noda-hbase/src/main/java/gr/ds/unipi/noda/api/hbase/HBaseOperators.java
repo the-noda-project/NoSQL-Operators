@@ -63,22 +63,6 @@ final class HBaseOperators extends NoSqlDbOperators {
         return pl;
     }
 
-//    private void formExpressionOfNoSQL(){
-//
-//        if(projectionFilterList.size() > 0 && filterList.size() == 1){
-//            NoSQLExpression.INSTANCE.setExpression(projectionFilterList.toString());
-//        }
-//
-//        if(projectionFilterList.size() == 0 && filterList.size()>1) {
-//            NoSQLExpression.INSTANCE.setExpression(filterList.toString());
-//        } else if(){
-//
-//        }
-//        else{
-//            NoSQLExpression.INSTANCE.setExpression(filterList.toString());
-//        }
-//    }
-
     static HBaseOperators newHBaseOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         return new HBaseOperators(connector, s, sparkSession);
     }

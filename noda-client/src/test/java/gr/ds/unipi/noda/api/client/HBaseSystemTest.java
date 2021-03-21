@@ -31,6 +31,8 @@ public class HBaseSystemTest {
 
         //d1 = d1.withColumn("asd",new ColumnName("location:latitude").cast("Double"));
 
+        UDF1 udf1ConvertToString = (UDF1<byte[], String>) Bytes::toString;
+        UserDefinedFunction udfConvertToString = functions$.MODULE$.udf(udf1ConvertToString, DataTypes.StringType);
 
         UDF1 udf1ConvertToDouble = (UDF1<byte[], Double>) Bytes::toDouble;
         UserDefinedFunction udfConvertToDouble = functions$.MODULE$.udf(udf1ConvertToDouble, DataTypes.DoubleType);
@@ -38,7 +40,7 @@ public class HBaseSystemTest {
         UDF1 udf1ConvertToLong = (UDF1<byte[], Long>) Bytes::toLong;
         UserDefinedFunction udfConvertToLong = functions$.MODULE$.udf(udf1ConvertToLong, DataTypes.LongType);
 
-        d1 = d1.withColumn("newCol",udfConvertToDouble.apply(new Column("location:longitude"))).withColumn("newCol1",udfConvertToDouble.apply(new Column("location:latitude")));
+        d1 = d1.withColumn("newCol",udfConvertToDouble.apply(new Column("location:longitude"))).withColumn("newCol1",udfConvertToDouble.apply(new Column("location:latitude"))).withColumn("newCol2",udfConvertToString.apply(new Column("row")));
 
         d1.show(false);
         noSqlDbSystem.closeConnection();
