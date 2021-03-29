@@ -9,7 +9,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
-import gr.ds.unipi.noda.api.core.visualization.NoSQLExpression;
+import gr.ds.unipi.noda.api.core.nosqldb.NoSQLExpression;
 import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.MongoDBGeographicalOperatorFactory;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;

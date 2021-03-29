@@ -1,4 +1,4 @@
-package gr.ds.unipi.noda.api.core.visualization;
+package gr.ds.unipi.noda.api.core.nosqldb;
 
 public enum NoSQLExpression {
     INSTANCE;

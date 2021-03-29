@@ -1,4 +1,4 @@
-package gr.ds.unipi.noda.api.core.dataframe;
+package gr.ds.unipi.noda.api.core.dataframe.visualization;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
