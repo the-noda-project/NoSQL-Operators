@@ -84,9 +84,16 @@
                   style="width: 6rem;"
                 />
               </div>
-              <!-- <div class="row w-100 m-0 p-2 rowToChoose" (click)="goToOtherDb('redis')">
-                <img src="assets/Redis_Logo.svg" class="img-fluid" style="width: 6rem;" />
-              </div> -->
+              <div
+                class="row w-100 m-0 p-2 rowToChoose"
+                (click)="goToOtherDb('redis')"
+              >
+                <img
+                  src="assets/Redis_Logo.svg"
+                  class="img-fluid"
+                  style="width: 6rem;"
+                />
+              </div>
             </div>
             <div
               *ngIf="activeDatabase === 'neo4j'"
@@ -112,9 +119,16 @@
                   style="width: 6rem;"
                 />
               </div>
-              <!-- <div class="row w-100 m-0 p-2 rowToChoose" (click)="goToOtherDb('redis')">
-                <img src="assets/Redis_Logo.svg" class="img-fluid" style="width: 6rem;" />
-              </div> -->
+              <div
+                class="row w-100 m-0 p-2 rowToChoose"
+                (click)="goToOtherDb('redis')"
+              >
+                <img
+                  src="assets/Redis_Logo.svg"
+                  class="img-fluid"
+                  style="width: 6rem;"
+                />
+              </div>
             </div>
             <div
               *ngIf="activeDatabase === 'hbase'"
@@ -140,9 +154,33 @@
                   style="width: 6rem;"
                 />
               </div>
-              <!-- <div class="row w-100 m-0 p-2 rowToChoose" (click)="goToOtherDb('redis')">
-                <img src="assets/Redis_Logo.svg" class="img-fluid" style="width: 6rem;" />
-              </div> -->
+              <div
+                class="row w-100 m-0 p-2 rowToChoose"
+                (click)="goToOtherDb('redis')"
+              >
+                <img
+                  src="assets/Redis_Logo.svg"
+                  class="img-fluid"
+                  style="width: 6rem;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row w-100 m-0" style="position: absolute; top: 4rem;">
+          <div class="col-12 text-right pr-1">
+            <div class="badge badge-success" *ngIf="!dbChangeConnectorLoading">
+              Connected
+            </div>
+            <div
+              class="badge badge-warning text-white"
+              *ngIf="dbChangeConnectorLoading"
+            >
+              Connecting
+              <i
+                style="font-size: 0.6rem;"
+                class="fa fa-spinner fa-pulse fa-3x fa-fw"
+              ></i>
             </div>
           </div>
         </div>
@@ -151,7 +189,10 @@
       <!-- Sidebar contents per RDBMS -->
       <div class="row w-100 m-0 pt-3 pb-3">
         <!-- mongodb structure -->
-        <div class="col-12" *ngIf="activeDatabase === 'mongodb'">
+        <div
+          class="col-12"
+          *ngIf="activeDatabase === 'mongodb' && !dbChangeConnectorLoading"
+        >
           <div
             class="row w-100 m-0 pb-2"
             style="color: #14274e; font-weight: 600; font-size: 1.2rem;"
@@ -191,7 +232,10 @@
         </div>
 
         <!-- neo4j structure -->
-        <div class="col-12" *ngIf="activeDatabase === 'neo4j'">
+        <div
+          class="col-12"
+          *ngIf="activeDatabase === 'neo4j' && !dbChangeConnectorLoading"
+        >
           <div
             class="row w-100 m-0 pb-2"
             style="color: #14274e; font-weight: 600; font-size: 1.2rem;"
@@ -203,7 +247,7 @@
               2.965.074
             </div>
             <div class="col-auto m-1 schemaStyle">
-              Car
+              car
             </div>
           </div>
           <div
@@ -232,7 +276,10 @@
         </div>
 
         <!-- hbase structure -->
-        <div class="col-12" *ngIf="activeDatabase === 'hbase'">
+        <div
+          class="col-12"
+          *ngIf="activeDatabase === 'hbase' && !dbChangeConnectorLoading"
+        >
           <div
             class="row w-100 m-0 pb-2"
             style="color: #14274e; font-weight: 600; font-size: 1.2rem;"
@@ -281,7 +328,7 @@
       <div class="row w-100 m-0">
         <!-- Main content and query builders -->
         <div
-          class="col-6 pt-5 pb-5"
+          class="col-6 pt-4 pb-5"
           style="
             min-height: 100vh;
             max-height: 100vh;
@@ -341,8 +388,8 @@
                     <option
                       *ngFor="let neo4jProp of dropDownProps.neo4j"
                       value="{{ neo4jProp }}"
-                      >{{ neo4jProp }}</option
-                    >
+                      >{{ neo4jProp }}
+                    </option>
                   </select>
                   <select
                     class="selectStyle ml-2 p-2"
@@ -353,8 +400,8 @@
                     <option
                       *ngFor="let mongoProp of dropDownProps.mongo"
                       value="{{ mongoProp }}"
-                      >{{ mongoProp }}</option
-                    >
+                      >{{ mongoProp }}
+                    </option>
                   </select>
                   <select
                     class="selectStyle ml-2 p-2"
@@ -365,8 +412,8 @@
                     <option
                       *ngFor="let hbaseProp of dropDownProps.hbase"
                       value="{{ hbaseProp }}"
-                      >{{ hbaseProp }}</option
-                    >
+                      >{{ hbaseProp }}
+                    </option>
                   </select>
                   <button class="btn btn-link ml-2">
                     <i class="fas fa-plus" style="color: #14274e;"></i>
@@ -385,7 +432,7 @@
                     <option
                       *ngIf="activeDatabase === 'neo4j'"
                       value="SpatioTemporal_DB"
-                      >Car</option
+                      >car</option
                     >
                     <option
                       *ngIf="activeDatabase === 'mongodb'"
@@ -467,8 +514,8 @@
                           <option
                             *ngFor="let neo4jProp of dropDownProps.neo4j"
                             value="{{ neo4jProp }}"
-                            >{{ neo4jProp }}</option
-                          >
+                            >{{ neo4jProp }}
+                          </option>
                         </select>
                         <select
                           class="selectStyle ml-2 p-2"
@@ -478,8 +525,8 @@
                           <option
                             *ngFor="let mongoProp of dropDownProps.mongo"
                             value="{{ mongoProp }}"
-                            >{{ mongoProp }}</option
-                          >
+                            >{{ mongoProp }}
+                          </option>
                         </select>
                         <select
                           class="selectStyle ml-2 p-2"
@@ -489,8 +536,8 @@
                           <option
                             *ngFor="let hbaseProp of dropDownProps.hbase"
                             value="{{ hbaseProp }}"
-                            >{{ hbaseProp }}</option
-                          >
+                            >{{ hbaseProp }}
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -519,8 +566,8 @@
                         <option
                           *ngFor="let neo4jProp of dropDownProps.neo4j"
                           value="{{ neo4jProp }}"
-                          >{{ neo4jProp }}</option
-                        >
+                          >{{ neo4jProp }}
+                        </option>
                       </select>
                       <select
                         class="selectStyle ml-2 p-2"
@@ -530,8 +577,8 @@
                         <option
                           *ngFor="let mongoProp of dropDownProps.mongo"
                           value="{{ mongoProp }}"
-                          >{{ mongoProp }}</option
-                        >
+                          >{{ mongoProp }}
+                        </option>
                       </select>
                       <select
                         class="selectStyle ml-2 p-2"
@@ -541,8 +588,8 @@
                         <option
                           *ngFor="let hbaseProp of dropDownProps.hbase"
                           value="{{ hbaseProp }}"
-                          >{{ hbaseProp }}</option
-                        >
+                          >{{ hbaseProp }}
+                        </option>
                       </select>
                     </div>
                     <div
@@ -593,8 +640,8 @@
                           <option
                             *ngFor="let neo4jProp of dropDownProps.neo4j"
                             value="{{ neo4jProp }}"
-                            >{{ neo4jProp }}</option
-                          >
+                            >{{ neo4jProp }}
+                          </option>
                         </select>
                         <select
                           class="selectStyle ml-2 p-2"
@@ -604,8 +651,8 @@
                           <option
                             *ngFor="let mongoProp of dropDownProps.mongo"
                             value="{{ mongoProp }}"
-                            >{{ mongoProp }}</option
-                          >
+                            >{{ mongoProp }}
+                          </option>
                         </select>
                         <select
                           class="selectStyle ml-2 p-2"
@@ -615,8 +662,8 @@
                           <option
                             *ngFor="let hbaseProp of dropDownProps.hbase"
                             value="{{ hbaseProp }}"
-                            >{{ hbaseProp }}</option
-                          >
+                            >{{ hbaseProp }}
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -640,10 +687,7 @@
                 </div>
               </div>
 
-              <div
-                class="row w-100 m-0 pt-4 pb-3"
-                *ngIf="isQueryConstructorTabOpen"
-              >
+              <div class="row w-100 m-0 pb-3" *ngIf="isQueryConstructorTabOpen">
                 <div class="col-auto align-self-center">
                   <button
                     class="btn btn-link"
@@ -807,7 +851,28 @@
                       font-size: 1.2rem;
                       text-decoration: underline;
                     "
+                    *ngIf="activeDatabase === 'neo4j'"
                     >Final Query in Cypher</span
+                  >
+                  <span
+                    style="
+                      color: #14274e;
+                      font-weight: 600;
+                      font-size: 1.2rem;
+                      text-decoration: underline;
+                    "
+                    *ngIf="activeDatabase === 'hbase'"
+                    >Final expression in Hbase</span
+                  >
+                  <span
+                    style="
+                      color: #14274e;
+                      font-weight: 600;
+                      font-size: 1.2rem;
+                      text-decoration: underline;
+                    "
+                    *ngIf="activeDatabase === 'mongodb'"
+                    >MongoDB pipeline expressions</span
                   >
                 </div>
                 <div class="col text-right align-self-center">

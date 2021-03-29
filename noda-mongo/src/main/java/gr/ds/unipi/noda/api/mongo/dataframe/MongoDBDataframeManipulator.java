@@ -12,13 +12,17 @@ public class MongoDBDataframeManipulator extends BaseDataframeManipulator {
     public Dataset<Row> spatialView(Dataset<Row> dataset, String location) {
 
         dataset = dataset.withColumn(location, dataset.col(location).cast("string"));
-        Dataset<Row> o = dataset.withColumn(location, lit(regexp_replace(col(location), "\\, Point", "")));
-        Dataset<Row> s = o.withColumn(location, lit(regexp_replace(col(location), "\\[", "")));
-        Dataset<Row> k = s.withColumn(location, lit(regexp_replace(col(location), "\\]", "")));
-        Dataset<Row> x = k.withColumn(location, lit(regexp_replace(col(location), "\\,", "")));
-        Dataset<Row> manipulatedDataset = x.withColumn(location, lit(split(col(location), " ")));
+        Dataset<Row> manipulatedDataset = dataset.withColumn(location, lit(regexp_replace(col(location), "\\, Point", "")))
+                                .withColumn(location, lit(regexp_replace(col(location), "\\[", "")))
+                                .withColumn(location, lit(regexp_replace(col(location), "\\]", "")))
+                                .withColumn(location, lit(regexp_replace(col(location), "\\,", "")))
+                                .withColumn(location, lit(split(col(location), " ")))
+                                .withColumn("lat",  col(location).getItem(1)).withColumn("lon", col(location).getItem(0))
+                                .withColumn(location, array(col("lat"), col("lon")));
+
 
         manipulatedDataset.show(20,false);
+        manipulatedDataset.printSchema();
         return manipulatedDataset;
     }
 
