@@ -18,7 +18,6 @@
         <module>noda-hbase</module>
         <module>noda-redis</module>
         <module>noda-YYYDataBase</module>
-        <module>noda-visualization</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

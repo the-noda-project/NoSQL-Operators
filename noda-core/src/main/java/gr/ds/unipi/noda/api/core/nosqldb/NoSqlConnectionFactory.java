@@ -1,7 +1,7 @@
 package gr.ds.unipi.noda.api.core.nosqldb;
 
-import gr.ds.unipi.noda.api.core.dataframe.BaseDataframeManipulator;
-import gr.ds.unipi.noda.api.core.dataframe.DataframeManipulator;
+import gr.ds.unipi.noda.api.core.dataframe.visualization.BaseDataframeManipulator;
+import gr.ds.unipi.noda.api.core.dataframe.visualization.DataframeManipulator;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory;
