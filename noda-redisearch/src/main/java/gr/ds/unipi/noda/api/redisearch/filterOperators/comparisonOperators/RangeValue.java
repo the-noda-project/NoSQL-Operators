@@ -6,11 +6,12 @@ import io.redisearch.querybuilder.Value;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@Deprecated
 final class RangeValue extends Value {
     private static final String POSITIVE_INFINITY = "+inf";
     private static final String NEGATIVE_INFINITY = "-inf";
-    private double from;
-    private double to;
+    private final double from;
+    private final double to;
     private boolean inclusiveMin = true;
     private boolean inclusiveMax = true;
 
