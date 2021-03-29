@@ -13,7 +13,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.Base
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.hbase.aggregateOperators.HBaseAggregateOperatorFactory;
-import gr.ds.unipi.noda.api.hbase.dataframe.HBaseDataframeManipulator;
+import gr.ds.unipi.noda.api.hbase.dataframe.visualization.HBaseDataframeManipulator;
 import gr.ds.unipi.noda.api.hbase.filterOperators.comparisonOperators.HBaseComparisonOperatorFactory;
 import gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geoTemporalOperators.HBaseGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geoTextualOperators.HBaseGeoTextualOperatorFactory;
