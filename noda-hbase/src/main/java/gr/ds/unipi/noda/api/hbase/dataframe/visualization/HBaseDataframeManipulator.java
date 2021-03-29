@@ -1,4 +1,4 @@
-package gr.ds.unipi.noda.api.hbase.dataframe;
+package gr.ds.unipi.noda.api.hbase.dataframe.visualization;
 
 
 import gr.ds.unipi.noda.api.core.dataframe.visualization.BaseDataframeManipulator;

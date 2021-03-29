@@ -13,7 +13,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.Base
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.neo4j.aggregateOperators.Neo4jAggregateOperatorFactory;
-import gr.ds.unipi.noda.api.neo4j.dataframe.Neo4jDataframeManipulator;
+import gr.ds.unipi.noda.api.neo4j.dataframe.visualization.Neo4jDataframeManipulator;
 import gr.ds.unipi.noda.api.neo4j.filterOperators.comparisonOperators.Neo4jComparisonOperatorFactory;
 import gr.ds.unipi.noda.api.neo4j.filterOperators.geoperators.geoTemporalOperators.Neo4JGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.neo4j.filterOperators.geoperators.geographicalOperators.Neo4JGeographicalOperatorFactory;

@@ -1,4 +1,4 @@
-package gr.ds.unipi.noda.api.mongo.dataframe;
+package gr.ds.unipi.noda.api.mongo.dataframe.visualization;
 
 import gr.ds.unipi.noda.api.core.dataframe.visualization.BaseDataframeManipulator;
 import org.apache.spark.sql.Dataset;
