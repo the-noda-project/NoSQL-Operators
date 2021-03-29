@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QueryConstructionService } from './query-construction.service';
 import { QuoteService } from '@app/home/quote.service';
+import * as turf from '@turf/turf';
 
 @Component({
   selector: 'app-query-construction',
@@ -15,6 +16,28 @@ import { QuoteService } from '@app/home/quote.service';
 })
 export class QueryConstructionComponent implements OnInit {
   query: string;
+
+  queryToRunMongo: string =
+    'SELECT* FROM car WHERE GEO_RECTANGLE(location, [(13.263160139322283, 52.49997397893388),(13.306762129068376, 52.52113031608697)] )';
+  queryToRunNeo4j: string =
+    "SELECT* FROM car WHERE GEO_TEMPORAL_CIRCLE_KM(location, (13.285476118326189, 52.51026611136366), 1.5, date, '29/05/2007 12:00:00', '1/06/2007 12:00:00')";
+  queryToRunHbase: string =
+    'SELECT* FROM car WHERE GEO_CIRCLE_KM(location, (13.272429853677751, 52.509430292042886), 1)';
+
+  mongoSQLQuery: string =
+    'SELECT* FROM car WHERE GEO_RECTANGLE(location, [(13.263160139322283, 52.49997397893388),(13.306762129068376, 52.52113031608697)] )';
+  neo4jSQLQuery: string =
+    "SELECT* FROM car WHERE GEO_TEMPORAL_CIRCLE_KM(location, (13.285476118326189, 52.51026611136366), 1.5, Timestamp, '29/05/2007 12:00:00', '1/06/2007 12:00:00')";
+  hbaseSQLQuery: string =
+    'SELECT* FROM car WHERE GEO_CIRCLE_KM(location, (13.272429853677751, 52.509430292042886), 1)';
+
+  mongoActualQuery: string =
+    "{'$match': {'$and': [{'location': {'$geoWithin': {'$geometry': {'type': 'Polygon', 'coordinates': [[[13.263160139322283, 52.49997397893388], [13.263160139322283, 52.52113031608697], [13.306762129068376, 52.52113031608697], [13.306762129068376, 52.49997397893388], [13.263160139322283, 52.49997397893388]]]}}}}, {'$or': [{'hilIndex': {'$in': [37893268]}}]}]}}, {'$limit': 10000}, {'$sample': {'size': 1000}}";
+  neo4jActualQuery: string =
+    "'MATCH (s:car) WHERE s.STHilbertIndex = 8651829 WITH s WHERE distance(point({ srid :7203, x: 52.51026611136366 , y: 13.285476118326189 }), s.location) < 1.5 AND 1180429200000 < s.Timestamp < 1180483200000 WITH s RETURN *'";
+  hbaseActualQuery: string =
+    'FilterList AND (2/2): [FilterList AND (2/2): [PrefixFilter u336w, CircleFilter (location, longitude, latitude, (13.272429853677751 52.509430292042886),1)], FilterList OR (0/0): []]';
+
   isLoading: boolean = false;
   constructor(
     private modal: NgbModal,
@@ -33,6 +56,7 @@ export class QueryConstructionComponent implements OnInit {
   fps: number;
   addTime: number;
   windowBetweenFloorAndCeil: number;
+  dbChangeConnectorLoading = false;
 
   dataFromServer: string;
   data: Array<any> = [];
@@ -94,7 +118,7 @@ export class QueryConstructionComponent implements OnInit {
       'HilbertIndex',
       'STHilbertIndex',
     ],
-    hbase: ['cf:vehicle', 'location:date', 'location:lat', 'location:lon'],
+    hbase: ['cf:vehicle', 'location:date', 'location'],
   };
 
   map: L.Map;
@@ -107,6 +131,7 @@ export class QueryConstructionComponent implements OnInit {
 
   ngOnInit(): void {
     this.isDropDownOpen = false;
+    this.dbChangeConnectorLoading = true;
     this.fps = 0.2;
     this.windowBetweenFloorAndCeil = 3;
     this.changeFloor = false;
@@ -115,6 +140,10 @@ export class QueryConstructionComponent implements OnInit {
     this.activeRoute.paramMap.subscribe((params: any) => {
       this.activeDatabase = params.get('dbType');
     });
+
+    setTimeout(() => {
+      this.dbChangeConnectorLoading = false;
+    }, 1500);
   }
 
   openCloseQueryConstructorTab() {
@@ -131,6 +160,21 @@ export class QueryConstructionComponent implements OnInit {
 
   goToOtherDb(db: string) {
     this.router.navigate(['/visualization/dbtype/' + db]);
+
+    this.dbChangeConnectorLoading = true;
+    this.query = null;
+    this.actualQuery = 'Not available yet.';
+    this.objectIdFieldName = 'default';
+    this.objectLocationFieldName = 'default';
+    this.objectTimeFieldName = 'default';
+
+    this.layers.splice(0, this.layers.length - 1);
+
+    this.chosenGeoSQLFunction = 'default';
+
+    setTimeout(() => {
+      this.dbChangeConnectorLoading = false;
+    }, 2000);
   }
 
   changeStateOfDropDown() {
@@ -143,17 +187,86 @@ export class QueryConstructionComponent implements OnInit {
 
   onMapReady(map: L.Map) {
     this.map = map;
+
+    map.on(L.Draw.Event.CREATED, (e) => {
+      this.drawLogic(e);
+    });
+  }
+
+  drawLogic(e: any) {
+    const type = (e as any).layerType,
+      layer = (e as any).layer;
+
+    if (type === 'circle') {
+      var theCenterPt = layer.getLatLng();
+
+      var center = [theCenterPt.lng, theCenterPt.lat];
+      console.log(center);
+
+      var theRadius = layer.getRadius();
+
+      console.log('radius: ', theRadius, 'Center: ', theCenterPt);
+
+      if (this.activeDatabase === 'mongodb') {
+        this.query = this.mongoSQLQuery;
+      }
+      if (this.activeDatabase === 'neo4j') {
+        this.query = this.neo4jSQLQuery;
+      }
+      if (this.activeDatabase === 'hbase') {
+        this.query = this.hbaseSQLQuery;
+      }
+    }
+
+    if (type === 'rectangle') {
+      console.log(layer.getLatLngs());
+
+      if (this.activeDatabase === 'mongodb') {
+        this.query = this.mongoSQLQuery;
+      }
+      if (this.activeDatabase === 'neo4j') {
+        this.query = this.neo4jSQLQuery;
+      }
+      if (this.activeDatabase === 'hbase') {
+        this.query = this.hbaseSQLQuery;
+      }
+    }
   }
 
   runSpatialQuery() {
+    let q = '';
+
+    if (this.activeDatabase === 'mongodb') {
+      q = this.queryToRunMongo;
+    }
+    if (this.activeDatabase === 'neo4j') {
+      q = this.queryToRunNeo4j;
+    }
+    if (this.activeDatabase === 'hbase') {
+      q = this.queryToRunHbase;
+    }
+
+    //must where strings karfota na valw auta
+    // this.objectIdFieldName
+    // this.objectLocationFieldName
+    // this.objectTimeFieldName
+
     this.isLoading = true;
     this.queryConstructionServ
-      .spatialSqlQueryPost(
-        this.query,
-        this.objectIdFieldName,
-        this.objectLocationFieldName
-      )
+      .spatialSqlQueryPost(q, 'vehicle', 'location')
       .then((res) => {
+        if (this.activeDatabase === 'mongodb') {
+          this.query = this.mongoSQLQuery;
+          this.actualQuery = this.mongoActualQuery;
+        }
+        if (this.activeDatabase === 'neo4j') {
+          this.query = this.neo4jSQLQuery;
+          this.actualQuery = this.neo4jActualQuery;
+        }
+        if (this.activeDatabase === 'hbase') {
+          this.query = this.hbaseSQLQuery;
+          this.actualQuery = this.hbaseActualQuery;
+        }
         console.log(res);
         const data = JSON.parse(res);
         if (data['status'] === 'ok') {
@@ -211,23 +324,43 @@ export class QueryConstructionComponent implements OnInit {
   }
 
   runSpatioTemporalQuery() {
+    let q = '';
+
+    if (this.activeDatabase === 'mongodb') {
+      q = this.queryToRunMongo;
+    }
+    if (this.activeDatabase === 'neo4j') {
+      q = this.queryToRunNeo4j;
+    }
+    if (this.activeDatabase === 'hbase') {
+      q = this.queryToRunHbase;
+    }
+
+    //must where strings karfota na valw auta
+    // this.objectIdFieldName
+    // this.objectLocationFieldName
+    // this.objectTimeFieldName
+
     this.isLoading = true;
     this.queryConstructionServ
-      .spatioTemporalSqlQueryPost(
-        "SELECT* FROM Car WHERE GEO_TEMPORAL_CIRCLE_KM(location, (13.3401321, 52.509463), 0.00002, Timestamp, '29/05/2007 12:00:00', '30/06/2007 12:00:00')",
-        this.objectIdFieldName,
-        this.objectLocationFieldName,
-        this.objectTimeFieldName
-      )
+      .spatioTemporalSqlQueryPost(q, 'vehicle', 'location', 'date')
       .then((res) => {
         console.log(res);
         const data = JSON.parse(res);
         if (data['status'] === 'ok') {
           this.isLoading = false;
-          this.query =
-            "SELECT* FROM Car WHERE GEO_TEMPORAL_CIRCLE_KM(location, (13.3401321, 52.509463), 0.002, Timestamp, '29/05/2007 12:00:00', '30/06/2007 12:00:00')";
-          this.actualQuery =
-            'MATCH (s:Car) WHERE s.STHilbertIndex = 8651829 WITH s WHERE distance(point({ srid :7203, x: 52.509463 , y: 13.3401321 }), s.location) < 0.02 AND 1180429200000 < s.Timestamp < 1180483200000 WITH s RETURN *';
+          if (this.activeDatabase === 'mongodb') {
+            this.query = this.mongoSQLQuery;
+            this.actualQuery = this.mongoActualQuery;
+          }
+          if (this.activeDatabase === 'neo4j') {
+            this.query = this.neo4jSQLQuery;
+            this.actualQuery = this.neo4jActualQuery;
+          }
+          if (this.activeDatabase === 'hbase') {
+            this.query = this.hbaseSQLQuery;
+            this.actualQuery = this.hbaseActualQuery;
+          }
           this.quoteService.updateData(res);
           // Take data from serve from quoteService
           this.dataFromServer = this.quoteService.getData();

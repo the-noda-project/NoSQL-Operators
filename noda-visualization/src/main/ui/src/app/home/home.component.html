@@ -161,27 +161,47 @@
           </div>
         </div>
         <!-- Redis -->
-        <!-- <div class="col-auto ml-5">
-          <div [ngClass]="{
+        <div class="col-auto ml-5">
+          <div
+            [ngClass]="{
               oval: chosenDatabaseStore !== 'redis',
               'oval-active': chosenDatabaseStore === 'redis'
-            }" class="oval"></div>
-          <div [ngClass]="{
+            }"
+            class="oval"
+          ></div>
+          <div
+            [ngClass]="{
               lines: chosenDatabaseStore !== 'redis',
               'lines-active': chosenDatabaseStore === 'redis'
-            }" class="lines d-flex justify-content-center align-items-center">
-            <img src="../../assets/Redis_Logo.svg" class="img-fluid" style="height: 2.2rem;" />
+            }"
+            class="lines d-flex justify-content-center align-items-center"
+          >
+            <img
+              src="../../assets/Redis_Logo.svg"
+              class="img-fluid"
+              style="height: 2.2rem;"
+            />
           </div>
-          <div [ngClass]="{
+          <div
+            [ngClass]="{
               oval: chosenDatabaseStore !== 'redis',
               'oval-active': chosenDatabaseStore === 'redis'
-            }" class="oval" style="margin-top: 2.4rem;"></div>
+            }"
+            class="oval"
+            style="margin-top: 2.4rem;"
+          ></div>
           <div class="text-center mt-3">
-            <i *ngIf="chosenDatabaseStore !== 'redis'" (click)="chooseDatabaseStore('redis')"
-              class="far fa-square pointerToClick"></i>
-            <i *ngIf="chosenDatabaseStore === 'redis'" class="fas fa-check-square pointerToClick"></i>
+            <i
+              *ngIf="chosenDatabaseStore !== 'redis'"
+              (click)="chooseDatabaseStore('redis')"
+              class="far fa-square pointerToClick"
+            ></i>
+            <i
+              *ngIf="chosenDatabaseStore === 'redis'"
+              class="fas fa-check-square pointerToClick"
+            ></i>
           </div>
-        </div> -->
+        </div>
       </div>
       <div
         class="row w-100 m-0 d-flex justify-content-center font-weight-bold"
