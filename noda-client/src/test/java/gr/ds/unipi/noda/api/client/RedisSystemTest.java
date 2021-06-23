@@ -32,7 +32,6 @@ public class RedisSystemTest {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
-
         Date d1 = sdf.parse("2019-11-11T11:00:00.000");
         Date d2 = sdf.parse("2019-11-11T11:30:00.000");
 
