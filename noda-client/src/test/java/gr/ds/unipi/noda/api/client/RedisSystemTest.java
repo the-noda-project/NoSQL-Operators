@@ -1,6 +1,7 @@
 package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
+import org.apache.spark.sql.SparkSession;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -15,7 +16,15 @@ public class RedisSystemTest {
     @Test
     public void redisTest() throws ParseException {
 
-        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Redis().Builder().port(7011).build();
+      SparkSession spark = SparkSession
+                .builder()
+                .appName("redis-df")
+                .master("local[*]")
+                .config("spark.redis.host", "localhost")
+                .config("spark.redis.port", "6379")
+                .getOrCreate();
+
+        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Redis().Builder().port(6379).sparkSession(spark).build();
         //noSqlDbSystem.operateOn("test").filter(eq("cf:name", "George")).project("cf:surname").printScreen();
         //noSqlDbSystem.operateOn("points").filter(inGeoRectangle("location", Coordinates.newCoordinates(24,38),Coordinates.newCoordinates(25,39))).printScreen();
         //noSqlDbSystem.operateOn("points").filter(and(lt("age",25),gt("age", 10),gt("fd",54))).printScreen();
@@ -29,7 +38,7 @@ public class RedisSystemTest {
 
         //System.out.println(noSqlDbSystem.operateOn("points").filter(inGeoTemporalRectangle("location",Coordinates.newCoordinates(38.0,24.0), Coordinates.newCoordinates(38.9,24.9), "timestamp", d1,d2)).count());
         System.out.println(noSqlDbSystem.operateOn("points").count());
-
+        noSqlDbSystem.operateOn("points").toDataframe();
 
         //noSqlDbSystem.operateOn("points").filter(gte("location:lon",24)).printScreen();
         noSqlDbSystem.closeConnection();
