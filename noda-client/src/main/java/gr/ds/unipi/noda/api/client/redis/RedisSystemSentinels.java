@@ -3,12 +3,12 @@ package gr.ds.unipi.noda.api.client.redis;
 import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.redis.RedisConnectionFactory;
-import gr.ds.unipi.noda.api.redis.RedisConnector;
+import gr.ds.unipi.noda.api.redis.RedisClusterConnector;
 import redis.clients.jedis.JedisPoolConfig;
 
 public class RedisSystemSentinels extends NoSqlDbSystem {
 
-    private final RedisConnector connector;
+    private final RedisClusterConnector connector;
 
     @Override
     protected NoSqlDbConnector getConnector() {
@@ -92,7 +92,7 @@ public class RedisSystemSentinels extends NoSqlDbSystem {
 
     private RedisSystemSentinels(Builder builder) {
         super(builder, new RedisConnectionFactory());
-        connector = RedisConnector.newRedisConnector(getAddresses(), builder.masterName, builder.poolConfig, builder.connectionTimeout, builder.soTimeout, builder.password, builder.database, builder.clientName, false, null, null, null);
+        connector = RedisClusterConnector.newRedisClusterConnector(getAddresses(), builder.masterName, builder.poolConfig, builder.connectionTimeout, builder.soTimeout, builder.password, builder.database, builder.clientName, false, null, null, null);
     }
 
 }

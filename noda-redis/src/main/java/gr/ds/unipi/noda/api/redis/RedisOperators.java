@@ -5,6 +5,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
+import gr.ds.unipi.noda.api.redis.filterOperators.RandomStringGenerator;
 import gr.ds.unipi.noda.api.redis.filterOperators.Triplet;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -190,7 +191,41 @@ final class RedisOperators extends NoSqlDbOperators {
 
     @Override
     public Dataset<Row> toDataframe() {
-        return null;
+
+        String randomPrefix = RandomStringGenerator.randomCharacterNumericString()+":";
+
+        String d = "local s = redis.call('SMEMBERS', KEYS[1])\n" +
+                "local i = 1\n" +
+                "local t = {}\n" +
+                "while(i <= #s) do\n" +
+                "    t = redis.call('DUMP', s[i])\n" +
+                "    redis.call('RESTORE', KEYS[2] .. s[i], 100000, t)\n" +
+                "    i = i + 1\n" +
+                "end\n" +
+                "return 1;\n";
+
+                pipelines.forEach((s,pipeline)->
+                pipeline.eval(d,2, executionOfOperators(s), randomPrefix)
+        );
+
+        ExecutorService es = Executors.newCachedThreadPool();
+        pipelines.forEach((s,pipeline)->
+                {es.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        pipeline.sync();
+
+                    }
+                });
+                }
+        );
+        es.shutdown();
+
+        Dataset<Row> dataset = getSparkSession().read().format("org.apache.spark.sql.redis")
+                .option("infer.schema", true).option("keys.pattern", randomPrefix+"*")
+                .load();
+
+        return dataset;
     }
 
 }

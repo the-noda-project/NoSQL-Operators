@@ -2,8 +2,10 @@ package gr.ds.unipi.noda.api.client.redis;
 
 import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
+import gr.ds.unipi.noda.api.redis.RedisClusterConnector;
 import gr.ds.unipi.noda.api.redis.RedisConnectionFactory;
 import gr.ds.unipi.noda.api.redis.RedisConnector;
+import gr.ds.unipi.noda.api.redis.RedisSingleInstanceConnector;
 import redis.clients.jedis.JedisPoolConfig;
 
 import javax.net.ssl.HostnameVerifier;
@@ -36,9 +38,9 @@ public class RedisSystem extends NoSqlDbSystem {
         private SSLSocketFactory sslSocketFactory = null;
         private SSLParameters sslParameters = null;
         private HostnameVerifier hostnameVerifier = null;
+        private boolean cluster = false;
 
         private int poolSize;
-
 
         public Builder() {
             this.poolConfig = initPoolConfig(8);
@@ -103,6 +105,11 @@ public class RedisSystem extends NoSqlDbSystem {
             return this;
         }
 
+        public Builder cluster(){
+            this.cluster = true;
+            return this;
+        }
+
         @Override
         public NoSqlDbSystem build() {
             return new RedisSystem(this);
@@ -125,7 +132,12 @@ public class RedisSystem extends NoSqlDbSystem {
             }
         }
 
-        connector = RedisConnector.newRedisConnector(getAddresses(), null, builder.poolConfig, builder.connectionTimeout, builder.soTimeout, builder.password, builder.database, builder.clientName, builder.ssl, builder.sslSocketFactory, builder.sslParameters, builder.hostnameVerifier);
+        if(builder.cluster){
+            connector = RedisClusterConnector.newRedisClusterConnector(getAddresses(), null, builder.poolConfig, builder.connectionTimeout, builder.soTimeout, builder.password, builder.database, builder.clientName, builder.ssl, builder.sslSocketFactory, builder.sslParameters, builder.hostnameVerifier);
+        }
+        else{
+            connector = RedisSingleInstanceConnector.newRedisSingleInstanceConnector(getAddresses(), builder.poolConfig, builder.connectionTimeout, builder.soTimeout, builder.password, builder.database, builder.clientName, builder.ssl, builder.sslSocketFactory, builder.sslParameters, builder.hostnameVerifier);
+        }
     }
 
     static JedisPoolConfig initPoolConfig(int poolSize) {
