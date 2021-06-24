@@ -8,6 +8,7 @@ import gr.ds.unipi.noda.api.redis.filterOperators.Triplet;
 import org.davidmoten.hilbert.HilbertCurve;
 import org.davidmoten.hilbert.Ranges;
 import org.davidmoten.hilbert.SmallHilbertCurve;
+
 import java.util.ArrayList;
 import java.util.List;
 

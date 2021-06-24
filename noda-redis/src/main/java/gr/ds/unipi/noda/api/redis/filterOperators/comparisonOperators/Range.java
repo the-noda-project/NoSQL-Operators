@@ -3,7 +3,9 @@ package gr.ds.unipi.noda.api.redis.filterOperators.comparisonOperators;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.redis.filterOperators.Triplet;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Range implements FilterOperator<List<Triplet>> {
 

@@ -1,10 +1,7 @@
 package gr.ds.unipi.noda.api.redis;
 
 import gr.ds.unipi.noda.api.core.constants.StringPool;
-import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
-import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.*;
-import redis.clients.jedis.util.Pool;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLParameters;

@@ -1,7 +1,8 @@
 package gr.ds.unipi.noda.api.redis.filterOperators.logicalOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
-import gr.ds.unipi.noda.api.redis.filterOperators.comparisonOperators.*;
+import gr.ds.unipi.noda.api.redis.filterOperators.comparisonOperators.OperatorGreaterThanEqual;
+import gr.ds.unipi.noda.api.redis.filterOperators.comparisonOperators.OperatorLessThanEqual;
 
 final class OperatorAnd extends LogicalOperator {
 

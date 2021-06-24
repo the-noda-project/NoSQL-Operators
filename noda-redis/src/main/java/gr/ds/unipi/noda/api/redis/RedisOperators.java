@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.redis;
 
+import gr.ds.unipi.noda.api.core.nosqldb.NoSQLExpression;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
@@ -13,7 +14,10 @@ import org.apache.spark.sql.SparkSession;
 import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Response;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -23,9 +27,10 @@ import static gr.ds.unipi.noda.api.core.operators.FilterOperators.and;
 final class RedisOperators extends NoSqlDbOperators {
 
     private final RedisConnectionManager redisConnectionManager = RedisConnectionManager.getInstance();
-
     private final Map<String, Pipeline> pipelines;
     private final List<FilterOperator> filterOperatorsList;
+    
+    private final StringBuilder sb = new StringBuilder();
 
     private RedisOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
         super(noSqlDbConnector, dataCollection, sparkSession);
@@ -82,6 +87,16 @@ final class RedisOperators extends NoSqlDbOperators {
                 arrayOfArguments[i] = triplet.getArgvArray()[i-triplet.getKeysArray().length];
             }
 
+            for (int k = 0; k < arrayOfArguments.length; k++) {
+                if(k<triplet.getKeysArray().length){
+                    sb.append("KEY["+(k+1)+"]="+arrayOfArguments[k]+", ");
+                }
+                else{
+                    sb.append("ARGV["+(k+1-triplet.getKeysArray().length)+"]="+arrayOfArguments[k]+", ");
+                }
+            }
+            sb.deleteCharAt(sb.length() - 2);
+            sb.append("\n"+triplet.getEvalExpression()+"\n\n");
             pipelines.get(crc16Slot).eval(triplet.getEvalExpression(), triplet.getKeysArray().length, arrayOfArguments);
         }
 
@@ -144,9 +159,16 @@ final class RedisOperators extends NoSqlDbOperators {
     public int count() {
         List<Response<Object>> counts = new ArrayList<>();
 
-        pipelines.forEach((s,pipeline)->
-            counts.add(pipeline.eval("local s = redis.call('SCARD', KEYS[1])\nreturn s;",1, executionOfOperators(s)))
+        pipelines.forEach((s,pipeline)->{
+            String expr = "local s = redis.call('SCARD', KEYS[1])\nreturn s;";
+            String entry = executionOfOperators(s);
+            counts.add(pipeline.eval(expr,1, entry));
+            sb.append("KEY[1]="+entry+" \n");
+            sb.append(expr+"\n\n");
+            }
         );
+
+        NoSQLExpression.INSTANCE.setExpression(sb.toString());
 
         ExecutorService es = Executors.newCachedThreadPool();
         pipelines.forEach((s,pipeline)->
@@ -204,9 +226,15 @@ final class RedisOperators extends NoSqlDbOperators {
                 "end\n" +
                 "return 1;\n";
 
-                pipelines.forEach((s,pipeline)->
-                pipeline.eval(d,2, executionOfOperators(s), randomPrefix)
+                pipelines.forEach((s,pipeline)-> {
+                    String entry = executionOfOperators(s);
+                    pipeline.eval(d, 2, entry, randomPrefix);
+                    sb.append("KEY[1]="+entry+", "+"KEY[2]="+randomPrefix+" \n");
+                    sb.append(d+"\n\n");
+                }
         );
+
+        NoSQLExpression.INSTANCE.setExpression(sb.toString());
 
         ExecutorService es = Executors.newCachedThreadPool();
         pipelines.forEach((s,pipeline)->
@@ -220,6 +248,12 @@ final class RedisOperators extends NoSqlDbOperators {
                 }
         );
         es.shutdown();
+
+        try {
+            boolean finshed = es.awaitTermination(1, TimeUnit.DAYS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         Dataset<Row> dataset = getSparkSession().read().format("org.apache.spark.sql.redis")
                 .option("infer.schema", true).option("keys.pattern", randomPrefix+"*")
