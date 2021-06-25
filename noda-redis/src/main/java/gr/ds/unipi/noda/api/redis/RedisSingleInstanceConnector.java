@@ -1,13 +1,19 @@
 package gr.ds.unipi.noda.api.redis;
 
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
-import redis.clients.jedis.*;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.util.Pool;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocketFactory;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public final class RedisSingleInstanceConnector extends RedisConnector {
     private final List<Map.Entry<String, Integer>> addresses;

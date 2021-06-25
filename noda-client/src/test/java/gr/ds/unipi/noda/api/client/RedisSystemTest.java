@@ -1,7 +1,9 @@
 package gr.ds.unipi.noda.api.client;
 
+import gr.ds.unipi.noda.api.core.nosqldb.NoSQLExpression;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.catalyst.expressions.NonSQLExpression;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -36,9 +38,9 @@ public class RedisSystemTest {
         Date d2 = sdf.parse("2019-11-11T11:30:00.000");
 
         //System.out.println(noSqlDbSystem.operateOn("points").filter(inGeoTemporalRectangle("location",Coordinates.newCoordinates(38.0,24.0), Coordinates.newCoordinates(38.9,24.9), "timestamp", d1,d2)).count());
-        System.out.println(noSqlDbSystem.operateOn("points").count());
-        noSqlDbSystem.operateOn("points").toDataframe();
+        //noSqlDbSystem.operateOn("points").toDataframe().show();
 
+        System.out.println(NoSQLExpression.INSTANCE.getExpression());
         //noSqlDbSystem.operateOn("points").filter(gte("location:lon",24)).printScreen();
         noSqlDbSystem.closeConnection();
     }

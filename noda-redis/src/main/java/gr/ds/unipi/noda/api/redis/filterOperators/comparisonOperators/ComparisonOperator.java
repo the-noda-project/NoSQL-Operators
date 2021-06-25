@@ -3,7 +3,8 @@ package gr.ds.unipi.noda.api.redis.filterOperators.comparisonOperators;
 import gr.ds.unipi.noda.api.redis.filterOperators.RandomStringGenerator;
 import gr.ds.unipi.noda.api.redis.filterOperators.Triplet;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator<List<Triplet> , U> {
 

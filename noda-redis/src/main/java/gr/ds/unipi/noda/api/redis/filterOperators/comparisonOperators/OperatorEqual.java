@@ -2,7 +2,9 @@ package gr.ds.unipi.noda.api.redis.filterOperators.comparisonOperators;
 
 import gr.ds.unipi.noda.api.redis.filterOperators.Triplet;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 final class OperatorEqual<T> extends ComparisonOperator<T> {
 
@@ -14,7 +16,7 @@ final class OperatorEqual<T> extends ComparisonOperator<T> {
     public List<Triplet> getOperatorExpression() {
         if(getFieldValue() instanceof String){
             List<Triplet> list = new ArrayList();
-            list.add(Triplet.newTriplet("return KEYS[1]\n", new String[]{getFieldName() + ":" + getFieldValue()}, new String[]{}));
+            list.add(Triplet.newTriplet("return KEYS[1]", new String[]{getFieldName() + ":" + getFieldValue()}, new String[]{}));
             return list;
         }
         return super.getOperatorExpression();
