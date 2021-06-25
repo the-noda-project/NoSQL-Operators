@@ -14,7 +14,7 @@
         </filter>
         <file>noda-client.log</file>
         <append>true</append>
-        <immediateFlush>true</immediateFlush>
+<!--        <immediateFlush>true</immediateFlush>-->
         <encoder>
             <pattern>%d{dd-MM-yyyy HH:mm:ss} %-5level %logger{35} - %msg%n</pattern>
         </encoder>
