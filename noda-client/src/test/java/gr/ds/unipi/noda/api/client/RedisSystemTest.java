@@ -38,9 +38,9 @@ public class RedisSystemTest {
         Date d2 = sdf.parse("2019-11-11T11:30:00.000");
 
         //System.out.println(noSqlDbSystem.operateOn("points").filter(inGeoTemporalRectangle("location",Coordinates.newCoordinates(38.0,24.0), Coordinates.newCoordinates(38.9,24.9), "timestamp", d1,d2)).count());
-        //noSqlDbSystem.operateOn("points").toDataframe().show();
+        noSqlDbSystem.operateOn("points").toDataframe().show();
 
-        System.out.println(NoSQLExpression.INSTANCE.getExpression());
+//        System.out.println(NoSQLExpression.INSTANCE.getExpression());
         //noSqlDbSystem.operateOn("points").filter(gte("location:lon",24)).printScreen();
         noSqlDbSystem.closeConnection();
     }
