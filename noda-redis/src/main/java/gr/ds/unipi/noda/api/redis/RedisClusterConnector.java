@@ -78,7 +78,7 @@ public final class RedisClusterConnector extends RedisConnector {
 
             Map<String, Pipeline> pipelinesOfNodes = new HashMap<>();
 
-            this.jedisCluster = new JedisCluster(new HostAndPort(addresses.get(0).getKey(), addresses.get(0).getValue()), 0);
+            this.jedisCluster = new JedisCluster(new HostAndPort(addresses.get(0).getKey(), addresses.get(0).getValue()), connectionTimeout, soTimeout,5, password, clientName, poolConfig, ssl);
             nodeMap = jedisCluster.getClusterNodes();
 
             String anyHost = nodeMap.keySet().iterator().next();

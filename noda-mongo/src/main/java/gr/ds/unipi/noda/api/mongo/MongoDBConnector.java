@@ -62,7 +62,7 @@ public final class MongoDBConnector implements NoSqlDbConnector<MongoClient> {
     }
 
     public String getMongoURIForSparkSession() {
-        return "mongodb://" + getUsername() + ":" + getPassword() + "@" + getHost() + ":" + getPort() + "/" + getDatabase() + ".";
+        return "mongodb://" + getUsername() + ":" + getPassword() + "@" + getHost() + ":" + getPort(); //+ "/" + getDatabase() + ".";
     }
 
     public int getPort() {
