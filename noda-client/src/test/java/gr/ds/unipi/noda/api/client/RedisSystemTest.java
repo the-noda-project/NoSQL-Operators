@@ -26,7 +26,7 @@ public class RedisSystemTest {
                 .config("spark.redis.port", "6379")
                 .getOrCreate();
 
-        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Redis().Builder().port(6379).sparkSession(spark).build();
+        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Redis().Builder().port(6379).sparkSession(spark).soTimeout(0).connectionTimeout(0).build();
         //noSqlDbSystem.operateOn("test").filter(eq("cf:name", "George")).project("cf:surname").printScreen();
         //noSqlDbSystem.operateOn("points").filter(inGeoRectangle("location", Coordinates.newCoordinates(24,38),Coordinates.newCoordinates(25,39))).printScreen();
         //noSqlDbSystem.operateOn("points").filter(and(lt("age",25),gt("age", 10),gt("fd",54))).printScreen();
@@ -38,7 +38,7 @@ public class RedisSystemTest {
         Date d2 = sdf.parse("2019-11-11T11:30:00.000");
 
         //System.out.println(noSqlDbSystem.operateOn("points").filter(inGeoTemporalRectangle("location",Coordinates.newCoordinates(38.0,24.0), Coordinates.newCoordinates(38.9,24.9), "timestamp", d1,d2)).count());
-        //noSqlDbSystem.operateOn("points").toDataframe().show();
+        noSqlDbSystem.operateOn("passengerCars").toDataframe().show();
 
         System.out.println(NoSQLExpression.INSTANCE.getExpression());
         //noSqlDbSystem.operateOn("points").filter(gte("location:lon",24)).printScreen();

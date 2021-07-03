@@ -31,17 +31,20 @@ final class RedisOperators extends NoSqlDbOperators {
     private final List<FilterOperator> filterOperatorsList;
     
     private final StringBuilder sb = new StringBuilder();
+    private final List<String> project;
 
     private RedisOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
         super(noSqlDbConnector, dataCollection, sparkSession);
         pipelines = redisConnectionManager.getConnection(getNoSqlDbConnector());
         this.filterOperatorsList = new ArrayList<>();
+        this.project = new ArrayList<>();
     }
 
-    private RedisOperators(RedisOperators redisOperators, List<FilterOperator> filterOperatorsList) {
+    private RedisOperators(RedisOperators redisOperators, List<FilterOperator> filterOperatorsList, List<String> project) {
         super(redisOperators.getNoSqlDbConnector(), redisOperators.getDataCollection(), redisOperators.getSparkSession());
         pipelines = redisOperators.getPipelines();
         this.filterOperatorsList = filterOperatorsList;
+        this.project = project;
     }
 
     private Map<String, Pipeline> getPipelines() {
@@ -112,7 +115,7 @@ final class RedisOperators extends NoSqlDbOperators {
         for (FilterOperator operator : filterOperators) {
             fl.add(operator);
         }
-        return new RedisOperators(this, fl);
+        return new RedisOperators(this, fl, project);
     }
 
     @Override
@@ -208,7 +211,11 @@ final class RedisOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators project(String fieldName, String... fieldNames) {
-        return null;
+        project.add(fieldName);
+        for (String name : fieldNames) {
+            project.add(name);
+        }
+        return new RedisOperators(this, filterOperatorsList, project);
     }
 
     @Override
@@ -216,22 +223,46 @@ final class RedisOperators extends NoSqlDbOperators {
 
         String randomPrefix = RandomStringGenerator.randomCharacterNumericString()+":";
 
-        String d = "local s = redis.call('SMEMBERS', KEYS[1])\n" +
-                "local i = 1\n" +
-                "local t = {}\n" +
-                "while(i <= #s) do\n" +
-                "    t = redis.call('DUMP', s[i])\n" +
-                "    redis.call('RESTORE', KEYS[2] .. s[i], 100000, t)\n" +
-                "    i = i + 1\n" +
-                "end\n" +
-                "return 1;\n";
+        String d;
 
-                pipelines.forEach((s,pipeline)-> {
-                    String entry = executionOfOperators(s);
-                    pipeline.eval(d, 2, entry, randomPrefix);
-                    sb.append("KEY[1]="+entry+", "+"KEY[2]="+randomPrefix+" \n");
-                    sb.append(d+"\n\n");
-                }
+        if(project.isEmpty()) {
+            d = "local s = redis.call('SMEMBERS', KEYS[1])\n" +
+                    "local i = 1\n" +
+                    "local t = {}\n" +
+                    "while(i <= #s) do\n" +
+                    "    t = redis.call('DUMP', s[i])\n" +
+                    "    redis.call('RESTORE', KEYS[2] .. s[i], 100000, t)\n" +
+                    "    i = i + 1\n" +
+                    "end\n" +
+                    "return 1;\n";
+        }
+        else {
+            StringBuilder fields = new StringBuilder();
+            project.forEach(s -> fields.append(", ").append("'"+s+"'"));
+
+            StringBuilder fieldsAndArgs = new StringBuilder();
+            for (int i = 0; i < project.size(); i++) {
+                fieldsAndArgs.append(", '"+project.get(i)).append("', ").append("t[" + (i + 1) + "]");
+            }
+
+            d = "local s = redis.call('SMEMBERS', KEYS[1])\n" +
+                    "local i = 1\n" +
+                    "local t = {}\n" +
+                    "while(i <= #s) do\n" +
+                    "    t = redis.call('HMGET', s[i]" + fields + " )\n" +
+                    "    redis.call('HMSET', KEYS[2] .. s[i] " + fieldsAndArgs + ")\n" +
+                    "    redis.call('EXPIRE' , KEYS[2] .. s[i], 100)\n"+
+                    "    i = i + 1\n" +
+                    "end\n" +
+                    "return 1;\n";
+        }
+
+        pipelines.forEach((s,pipeline)-> {
+            String entry = executionOfOperators(s);
+            pipeline.eval(d, 2, entry, randomPrefix);
+            sb.append("KEY[1]="+entry+", "+"KEY[2]="+randomPrefix+" \n");
+            sb.append(d+"\n\n");
+            }
         );
 
         NoSQLExpression.INSTANCE.setExpression(sb.toString());
@@ -242,7 +273,6 @@ final class RedisOperators extends NoSqlDbOperators {
                     @Override
                     public void run() {
                         pipeline.sync();
-
                     }
                 });
                 }
