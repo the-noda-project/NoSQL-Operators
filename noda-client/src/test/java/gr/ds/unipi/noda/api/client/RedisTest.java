@@ -1,9 +1,7 @@
 package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSQLExpression;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.catalyst.expressions.NonSQLExpression;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -11,9 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
-
-public class RedisSystemTest {
+public class RedisTest {
     @Ignore
     @Test
     public void redisTest() throws ParseException {
