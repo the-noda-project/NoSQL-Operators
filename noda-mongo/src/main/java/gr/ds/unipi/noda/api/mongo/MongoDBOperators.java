@@ -48,7 +48,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
     }
 
     private String getUriSparkSession(){
-        return uriSparkSession + getDataCollection();
+        return uriSparkSession /*+ getDataCollection()*/;
     }
 
     static MongoDBOperators newMongoDBOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
@@ -303,18 +303,15 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
     @Override
     public Dataset<Row> toDataframe() {
-
-        Map<String, String> readOverrides = new HashMap<>();
-        readOverrides.put("spark.mongodb.input.uri", uriSparkSession);
-        readOverrides.put("spark.mongodb.input.database", database);
-        readOverrides.put("spark.mongodb.input.collection", getDataCollection());
-        ReadConfig readConfig = ReadConfig.create(getSparkSession()).withOptions(readOverrides).withPipeline(JavaConversions.asScalaBuffer(Collections.unmodifiableList(stagesList)).toSeq());
+        //Map<String, String> readOverrides = new HashMap<>();
+        //readOverrides.put("spark.mongodb.input.uri", uriSparkSession);
+        //readOverrides.put("spark.mongodb.input.database", getDatabase());
+        //System.out.println(uriSparkSession);
+        //readOverrides.put("spark.mongodb.input.database", database);
+        //readOverrides.put("spark.mongodb.input.collection", getDataCollection());
+        ReadConfig readConfig = ReadConfig.create(getSparkSession())./*withOptions(readOverrides).*/withPipeline(JavaConversions.asScalaBuffer(Collections.unmodifiableList(stagesList)).toSeq());
         Dataset<Row> df = MongoSpark.loadAndInferSchema(getSparkSession(), readConfig);
-
         formExpressionOfNoSQL();
-
         return df;
-
     }
-
 }

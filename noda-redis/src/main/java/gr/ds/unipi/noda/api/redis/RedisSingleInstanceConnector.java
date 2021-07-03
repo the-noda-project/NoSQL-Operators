@@ -74,7 +74,7 @@ public final class RedisSingleInstanceConnector extends RedisConnector {
     @Override
     public Map<String, Pipeline> createConnection() {
         Map<String, Pipeline> pipelinesOfNodes = new HashMap<>();
-        pool = new JedisPool(new GenericObjectPoolConfig(), addresses.get(0).getKey(), addresses.get(0).getValue(), 2000, 2000, null, 0, null, false, null, null, null);
+        pool = new JedisPool(new GenericObjectPoolConfig(), addresses.get(0).getKey(), addresses.get(0).getValue(), connectionTimeout, soTimeout, password, database, clientName, ssl, sslSocketFactory, sslParameters, hostnameVerifier);
         pipelinesOfNodes.put("", pool.getResource().pipelined());
         return pipelinesOfNodes;
     }
