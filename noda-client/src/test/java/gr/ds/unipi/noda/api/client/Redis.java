@@ -29,7 +29,7 @@ public void redisTest() throws ParseException {
     Date d1 = sdf.parse("2019-11-11T11:00:00.000");
     Date d2 = sdf.parse("2019-11-11T11:30:00.000");
 
-    noSqlDbSystem.operateOn("passengerCars").toDataframe().show();
+    noSqlDbSystem.operateOn("passengerCars").limit(4).limit(1).limit(3).toDataframe().show();
 
     System.out.println(NoSQLExpression.INSTANCE.getExpression());
     noSqlDbSystem.closeConnection();

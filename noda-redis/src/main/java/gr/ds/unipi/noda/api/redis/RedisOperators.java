@@ -32,6 +32,7 @@ final class RedisOperators extends NoSqlDbOperators {
     
     private final StringBuilder sb = new StringBuilder();
     private final List<String> project;
+    private int limit = -1;
 
     private RedisOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
         super(noSqlDbConnector, dataCollection, sparkSession);
@@ -40,11 +41,12 @@ final class RedisOperators extends NoSqlDbOperators {
         this.project = new ArrayList<>();
     }
 
-    private RedisOperators(RedisOperators redisOperators, List<FilterOperator> filterOperatorsList, List<String> project) {
+    private RedisOperators(RedisOperators redisOperators, List<FilterOperator> filterOperatorsList, List<String> project, int limit) {
         super(redisOperators.getNoSqlDbConnector(), redisOperators.getDataCollection(), redisOperators.getSparkSession());
         pipelines = redisOperators.getPipelines();
         this.filterOperatorsList = filterOperatorsList;
         this.project = project;
+        this.limit = limit;
     }
 
     private Map<String, Pipeline> getPipelines() {
@@ -115,7 +117,7 @@ final class RedisOperators extends NoSqlDbOperators {
         for (FilterOperator operator : filterOperators) {
             fl.add(operator);
         }
-        return new RedisOperators(this, fl, project);
+        return new RedisOperators(this, fl, project, limit);
     }
 
     @Override
@@ -192,10 +194,15 @@ final class RedisOperators extends NoSqlDbOperators {
         }
 
         int count = 0;
-        for (Response<Object> response : counts) {
-            count = Integer.valueOf(response.get().toString()) + count;
+        if(limit == -1){
+            for (Response<Object> response : counts) {
+                count = Integer.valueOf(response.get().toString()) + count;
+            }
+        }else{
+            for (Response<Object> response : counts) {
+                count = Math.min(Integer.valueOf(response.get().toString()), limit) + count;
+            }
         }
-
         return count;
     }
 
@@ -206,7 +213,18 @@ final class RedisOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators limit(int limit) {
-        return null;
+        //the limit operator resembles to the PageFilter of HBase. It is applied individually on each node
+        //if a user defines more than once the limit, the min is chosen
+        if(limit<0){
+            throw new IllegalArgumentException("limit must be positive");
+        }else{
+            if(this.limit < limit && this.limit != -1){
+                return new RedisOperators(this, filterOperatorsList, project, this.limit);
+            }
+            else{
+                return new RedisOperators(this, filterOperatorsList, project, limit);
+            }
+        }
     }
 
     @Override
@@ -215,7 +233,7 @@ final class RedisOperators extends NoSqlDbOperators {
         for (String name : fieldNames) {
             project.add(name);
         }
-        return new RedisOperators(this, filterOperatorsList, project);
+        return new RedisOperators(this, filterOperatorsList, project, limit);
     }
 
     @Override
@@ -229,7 +247,12 @@ final class RedisOperators extends NoSqlDbOperators {
             d = "local s = redis.call('SMEMBERS', KEYS[1])\n" +
                     "local i = 1\n" +
                     "local t = {}\n" +
-                    "while(i <= #s) do\n" +
+                    "local r = #s\n" +
+                    "local limit = tonumber(ARGV[1])\n" +
+                    "if( limit ~= -1 and limit < r ) then\n" +
+                    "    r = limit\n" +
+                    "end\n" +
+                    "while(i <= r) do\n" +
                     "    t = redis.call('DUMP', s[i])\n" +
                     "    redis.call('RESTORE', KEYS[2] .. s[i], 100000, t)\n" +
                     "    i = i + 1\n" +
@@ -248,7 +271,12 @@ final class RedisOperators extends NoSqlDbOperators {
             d = "local s = redis.call('SMEMBERS', KEYS[1])\n" +
                     "local i = 1\n" +
                     "local t = {}\n" +
-                    "while(i <= #s) do\n" +
+                    "local r = #s\n" +
+                    "local limit = tonumber(ARGV[1])\n" +
+                    "if( limit ~= -1 and limit < r ) then\n" +
+                    "    r = limit\n" +
+                    "end\n" +
+                    "while(i <= r) do\n" +
                     "    t = redis.call('HMGET', s[i]" + fields + " )\n" +
                     "    redis.call('HMSET', KEYS[2] .. s[i] " + fieldsAndArgs + ")\n" +
                     "    redis.call('EXPIRE' , KEYS[2] .. s[i], 100)\n"+
@@ -259,8 +287,8 @@ final class RedisOperators extends NoSqlDbOperators {
 
         pipelines.forEach((s,pipeline)-> {
             String entry = executionOfOperators(s);
-            pipeline.eval(d, 2, entry, randomPrefix);
-            sb.append("KEY[1]="+entry+", "+"KEY[2]="+randomPrefix+" \n");
+            pipeline.eval(d, 2, entry, randomPrefix, String.valueOf(limit));
+            sb.append("KEY[1]="+entry+", "+"KEY[2]="+randomPrefix+" ARGV[1]="+limit+" \n");
             sb.append(d+"\n\n");
             }
         );
