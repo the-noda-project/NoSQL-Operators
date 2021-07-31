@@ -61,8 +61,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
         expression.append("db."+getDataCollection()+".aggregate([ ");
         stagesList.forEach(i-> {
-            i.toBsonDocument(BsonDocument.class, MongoClient.getDefaultCodecRegistry()).toJson();
-            expression.append(", ");
+            expression.append(i.toBsonDocument(BsonDocument.class, MongoClient.getDefaultCodecRegistry()).toJson()).append(", ");
         });
         if(expression.lastIndexOf(", ") != -1){
             expression.deleteCharAt(expression.lastIndexOf(", "));
