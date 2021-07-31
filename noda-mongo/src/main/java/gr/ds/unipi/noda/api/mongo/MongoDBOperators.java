@@ -304,7 +304,6 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
     @Override
     public Dataset<Row> toDataframe() {
-        //MongoDriverInformation m = MongoDriverInformation.builder().driverName("mongo-java-driver").driverVersion("3.12.5").driverPlatform("Java 1.8").build();
         Map<String, String> readOverrides = new HashMap<>();
         //readOverrides.put("spark.mongodb.input.uri", uriSparkSession);
         //readOverrides.put("spark.mongodb.input.database", getDatabase());
@@ -312,8 +311,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
         //readOverrides.put("spark.mongodb.input.database", database);
         //readOverrides.put("spark.mongodb.input.collection", getDataCollection());
         ReadConfig readConfig = ReadConfig.create(getSparkSession()).withOptions(readOverrides).withPipeline(JavaConversions.asScalaBuffer(Collections.unmodifiableList(stagesList)).toSeq());
-        /*Dataset<Row> df =*/return MongoSpark.loadAndInferSchema(getSparkSession(), readConfig);
-        //formExpressionOfNoSQL();
-        //return df;
+        formExpressionOfNoSQL();
+        return MongoSpark.loadAndInferSchema(getSparkSession(), readConfig);
     }
 }
