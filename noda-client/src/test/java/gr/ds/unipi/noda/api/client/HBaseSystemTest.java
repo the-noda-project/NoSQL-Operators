@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.client;
 
+import gr.ds.unipi.noda.api.client.sql.NoSqlDbSqlStatement;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.spark.sql.*;
@@ -23,9 +24,11 @@ public class HBaseSystemTest {
         //noSqlDbSystem.operateOn("points").filter(inGeoRectangle("location", Coordinates.newCoordinates(24,38),Coordinates.newCoordinates(25,39))).printScreen();
         //noSqlDbSystem.operateOn("points").filter(inGeoPolygon("location", Coordinates.newCoordinates(24,38),Coordinates.newCoordinates(24,39),Coordinates.newCoordinates(25,39),Coordinates.newCoordinates(25,38))).printScreen();
 
-        NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("points");
+        //NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("points");
+        NoSqlDbSqlStatement a = noSqlDbSystem.sql("SELECT* FROM passengerCars WHERE GEO_CIRCLE_KM(location, ( 23.532308835284518, 38.48745714328253 ), 1.0959086330315724 )");
 
-        NoSqlDbOperators a = noSqlDbOperators.limit(34);
+
+        //NoSqlDbOperators a = noSqlDbOperators.limit(34);
 
         Dataset<Row> d1 = a.toDataframe();
 
