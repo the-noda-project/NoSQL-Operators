@@ -19,10 +19,10 @@ public class HBaseDataframeManipulator extends BaseDataframeManipulator {
     @Override
     public Dataset<Row> spatialView(Dataset<Row> dataset, String location) {
 
-        UDF1 udf1ConvertToDouble = (UDF1<String, Double>) b -> Bytes.toDouble(Bytes.toBytes(b));
+        UDF1 udf1ConvertToDouble = (UDF1<byte[], Double>) Bytes::toDouble;
         UserDefinedFunction udfConvertToDouble = functions$.MODULE$.udf(udf1ConvertToDouble, DataTypes.DoubleType);
 
-        UDF1 udf1ConvertToLong = (UDF1<String, Long>) b -> Bytes.toLong(Bytes.toBytes(b));
+        UDF1 udf1ConvertToLong = (UDF1<byte[], Long>) Bytes::toLong;
         UserDefinedFunction udfConvertToLong = functions$.MODULE$.udf(udf1ConvertToLong, DataTypes.LongType);
 
         Dataset<Row> manipulatedDataset = dataset.withColumn(location+":latitude", udfConvertToDouble.apply(new Column(location+":latitude")))
