@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geographicalOperators;
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
 
 public final class OperatorInGeoRectangle extends GeographicalOperator<Rectangle> {
@@ -49,7 +50,7 @@ public final class OperatorInGeoRectangle extends GeographicalOperator<Rectangle
 
     @Override
     protected String[] getArgvArray(String range) {
-        return new String[]{range, /*getFieldName()+":"+*/"longitude", /*getFieldName()+":"+*/"latitude", String.valueOf(getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeometry().getUpperBound().getLatitude())};
+        return new String[]{range, AppConfig.redis().getString("spatialOp.longitudeField"), AppConfig.redis().getString("spatialOp.latitudeField"), String.valueOf(getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeometry().getUpperBound().getLatitude())};
     }
 
     public static OperatorInGeoRectangle newOperatorInGeoRectangle(String fieldName, Rectangle rectangle) {

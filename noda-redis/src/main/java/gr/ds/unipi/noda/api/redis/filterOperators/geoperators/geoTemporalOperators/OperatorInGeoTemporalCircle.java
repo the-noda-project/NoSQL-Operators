@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geoTemporalOperators;
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle;
 import gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geographicalOperators.OperatorInGeoCircle;
@@ -65,7 +66,7 @@ final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, Temp
 
     @Override
     protected String[] getArgvArray(String range) {
-        return new String[]{range, /*this.getGeographicalOperator().getFieldName()+":"+*/"longitude", /*this.getGeographicalOperator().getFieldName()+":"+*/"latitude", String.valueOf(getGeographicalOperator().getGeometry().getCircleCenter().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getCircleCenter().getLatitude()), String.valueOf(getGeographicalOperator().getGeometry().getRadius()), String.valueOf(getTemporalFieldName()), String.valueOf(getTemporalType().getLowerBound().getTime()), String.valueOf(getTemporalType().getUpperBound().getTime())};
+        return new String[]{range, AppConfig.redis().getString("spatioTempOp.longitudeField"), AppConfig.redis().getString("spatioTempOp.latitudeField"), String.valueOf(getGeographicalOperator().getGeometry().getCircleCenter().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getCircleCenter().getLatitude()), String.valueOf(getGeographicalOperator().getGeometry().getRadius()), String.valueOf(getTemporalFieldName()), String.valueOf(getTemporalType().getLowerBound().getTime()), String.valueOf(getTemporalType().getUpperBound().getTime())};
     }
 
 }

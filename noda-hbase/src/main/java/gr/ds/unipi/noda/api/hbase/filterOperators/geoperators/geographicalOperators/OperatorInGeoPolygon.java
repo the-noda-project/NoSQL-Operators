@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geographicalOperators;
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon;
 import gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geographicalOperators.customFilters.PolygonFilter;
@@ -24,7 +25,7 @@ public final class OperatorInGeoPolygon extends GeographicalOperator<Polygon> {
             coordinatesList.add(PolygonFilterProtos.PolygonFilter.Coordinates.newBuilder().setLongitude(coordinates.getLongitude()).setLatitude(coordinates.getLatitude()).build());
         }
 
-        return PolygonFilter.newPolygonFilter(Bytes.toBytes(getFieldName()), Bytes.toBytes("longitude"), Bytes.toBytes("latitude"), coordinatesList);
+        return PolygonFilter.newPolygonFilter(Bytes.toBytes(getFieldName()), Bytes.toBytes(AppConfig.hbase().getString("spatialOp.longitudeQualifier")), Bytes.toBytes(AppConfig.hbase().getString("spatialOp.latitudeQualifier")), coordinatesList);
     }
 
     public static OperatorInGeoPolygon newOperatorInGeoPolygon(String fieldName, Polygon polygon) {

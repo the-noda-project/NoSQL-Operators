@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geographicalOperators;
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon;
 
 public final class OperatorInGeoPolygon extends GeographicalOperator<Polygon> {
@@ -73,8 +74,8 @@ public final class OperatorInGeoPolygon extends GeographicalOperator<Polygon> {
 
         String[] argvArray = new String[3 + getGeometry().getCoordinatesArray().length*2];
         argvArray[0] = range;
-        argvArray[1] = /*getFieldName()+":"+*/"longitude";
-        argvArray[2] = /*getFieldName()+":"+*/"latitude";
+        argvArray[1] = AppConfig.redis().getString("spatialOp.longitudeField");
+        argvArray[2] = AppConfig.redis().getString("spatialOp.latitudeField");
 
         int j = 0;
         for (int i = 3; i < argvArray.length; i = i + 2) {

@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geoTemporalOperators;
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle;
 import gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geoTemporalOperators.customFilters.CircleTemporalFilter;
@@ -32,7 +33,7 @@ final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, Temp
         }
 
         CircleTemporalFilterProtos.CircleTemporalFilter.Coordinates centerCoordinates = CircleTemporalFilterProtos.CircleTemporalFilter.Coordinates.newBuilder().setLongitude(getGeographicalOperator().getGeometry().getCircleCenter().getLongitude()).setLatitude(getGeographicalOperator().getGeometry().getCircleCenter().getLatitude()).build();
-        return CircleTemporalFilter.newCircleTemporalFilter(Bytes.toBytes(getGeographicalOperator().getFieldName()), Bytes.toBytes("longitude"), Bytes.toBytes("latitude"), centerCoordinates, getGeographicalOperator().getGeometry().getRadius(), Bytes.toBytes(temporalNames[0]), Bytes.toBytes(temporalNames[1]), getTemporalType().getLowerBound().getTime(), getTemporalType().getUpperBound().getTime());
+        return CircleTemporalFilter.newCircleTemporalFilter(Bytes.toBytes(getGeographicalOperator().getFieldName()), Bytes.toBytes(AppConfig.hbase().getString("spatialOp.longitudeQualifier")), Bytes.toBytes(AppConfig.hbase().getString("spatialOp.latitudeQualifier")), centerCoordinates, getGeographicalOperator().getGeometry().getRadius(), Bytes.toBytes(temporalNames[0]), Bytes.toBytes(temporalNames[1]), getTemporalType().getLowerBound().getTime(), getTemporalType().getUpperBound().getTime());
     }
 
 }

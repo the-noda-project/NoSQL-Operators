@@ -1,6 +1,7 @@
 package gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geoTemporalOperators;
 
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
 import gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geoTemporalOperators.customFilters.RectangleTemporalFilter;
@@ -33,7 +34,7 @@ final class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangle
 
         RectangleTemporalFilterProtos.RectangleTemporalFilter.Coordinates lowerCoordinates = RectangleTemporalFilterProtos.RectangleTemporalFilter.Coordinates.newBuilder().setLongitude(getGeographicalOperator().getGeometry().getLowerBound().getLongitude()).setLatitude(getGeographicalOperator().getGeometry().getLowerBound().getLatitude()).build();
         RectangleTemporalFilterProtos.RectangleTemporalFilter.Coordinates upperCoordinates = RectangleTemporalFilterProtos.RectangleTemporalFilter.Coordinates.newBuilder().setLongitude(getGeographicalOperator().getGeometry().getUpperBound().getLongitude()).setLatitude(getGeographicalOperator().getGeometry().getUpperBound().getLatitude()).build();
-        return RectangleTemporalFilter.newRectangleTemporalFilter(Bytes.toBytes(getGeographicalOperator().getFieldName()), Bytes.toBytes("longitude"), Bytes.toBytes("latitude"), lowerCoordinates, upperCoordinates, Bytes.toBytes(temporalNames[0]), Bytes.toBytes(temporalNames[1]), getTemporalType().getLowerBound().getTime(), getTemporalType().getUpperBound().getTime());
+        return RectangleTemporalFilter.newRectangleTemporalFilter(Bytes.toBytes(getGeographicalOperator().getFieldName()), Bytes.toBytes(AppConfig.hbase().getString("spatialOp.longitudeQualifier")), Bytes.toBytes(AppConfig.hbase().getString("spatialOp.latitudeQualifier")), lowerCoordinates, upperCoordinates, Bytes.toBytes(temporalNames[0]), Bytes.toBytes(temporalNames[1]), getTemporalType().getLowerBound().getTime(), getTemporalType().getUpperBound().getTime());
     }
 
 }

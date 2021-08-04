@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geoTemporalOperators;
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon;
@@ -41,7 +42,7 @@ final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, Te
             coordinatesList.add(PolygonTemporalFilterProtos.PolygonTemporalFilter.Coordinates.newBuilder().setLongitude(coordinates.getLongitude()).setLatitude(coordinates.getLatitude()).build());
         }
 
-        return PolygonTemporalFilter.newPolygonTemporalFilter(Bytes.toBytes(getGeographicalOperator().getFieldName()), Bytes.toBytes("longitude"), Bytes.toBytes("latitude"), coordinatesList, Bytes.toBytes(temporalNames[0]), Bytes.toBytes(temporalNames[1]), getTemporalType().getLowerBound().getTime(), getTemporalType().getUpperBound().getTime());
+        return PolygonTemporalFilter.newPolygonTemporalFilter(Bytes.toBytes(getGeographicalOperator().getFieldName()), Bytes.toBytes(AppConfig.hbase().getString("spatialOp.longitudeQualifier")), Bytes.toBytes(AppConfig.hbase().getString("spatialOp.latitudeQualifier")), coordinatesList, Bytes.toBytes(temporalNames[0]), Bytes.toBytes(temporalNames[1]), getTemporalType().getLowerBound().getTime(), getTemporalType().getUpperBound().getTime());
     }
 
 }

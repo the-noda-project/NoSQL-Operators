@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geographicalOperators;
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle;
 
 public final class OperatorInGeoCircle extends GeographicalOperator<Circle> {
@@ -95,7 +96,7 @@ public final class OperatorInGeoCircle extends GeographicalOperator<Circle> {
 
     @Override
     protected String[] getArgvArray(String range) {
-        return new String[]{range, /*getFieldName()+":"+*/"longitude", /*getFieldName()+":"+*/"latitude", String.valueOf(getGeometry().getCircleCenter().getLongitude()), String.valueOf(getGeometry().getCircleCenter().getLatitude()), String.valueOf(getGeometry().getRadius())};
+        return new String[]{range, AppConfig.redis().getString("spatialOp.longitudeField"), AppConfig.redis().getString("spatialOp.latitudeField"), String.valueOf(getGeometry().getCircleCenter().getLongitude()), String.valueOf(getGeometry().getCircleCenter().getLatitude()), String.valueOf(getGeometry().getRadius())};
     }
 
 }

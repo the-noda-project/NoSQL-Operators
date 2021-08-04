@@ -1,6 +1,7 @@
 package gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geographicalOperators;
 
 import com.github.davidmoten.geo.GeoHash;
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.BaseGeographicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.*;
@@ -28,7 +29,7 @@ public final class HBaseGeographicalOperatorFactory extends BaseGeographicalOper
 
     public static String getGeoHashPart(Geometry geometry) {
         Rectangle mbr = geometry.getMbr();
-        int length = 5;
+        int length = AppConfig.hbase().getInt("spatialOp.geoHashLength");
         String geoHash = (String) GeoHash.coverBoundingBoxMaxHashes(mbr.getUpperBound().getLatitude(), mbr.getLowerBound().getLongitude(), mbr.getLowerBound().getLatitude(), mbr.getUpperBound().getLongitude(), 1).getHashes().toArray()[0];
 
         if (geoHash.length() > length) {

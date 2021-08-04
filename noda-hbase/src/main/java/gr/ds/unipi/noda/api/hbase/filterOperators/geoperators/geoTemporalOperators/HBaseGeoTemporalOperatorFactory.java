@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.hbase.filterOperators.geoperators.geoTemporalOperators;
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.constants.Commons;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
@@ -41,7 +42,7 @@ public final class HBaseGeoTemporalOperatorFactory extends BaseGeoTemporalOperat
 
     public static String getGeoHashPart(Geometry geometry) {
 
-        int length = 5;
+        int length = AppConfig.hbase().getInt("spatialOp.geoHashLength");
         String geoHash = HBaseGeographicalOperatorFactory.getGeoHashPart(geometry);
 
         return String.format("%-" + length + "s", geoHash).replace(' ', '?');

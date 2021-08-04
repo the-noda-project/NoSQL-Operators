@@ -24,8 +24,8 @@ public class AppConfig {
                 .withFallback(ConfigFactory.parseResources("configs/mongodb.conf")).getConfig("mongodb");
     }
 
-//    public static Config setOnRedis(String path, Object value) {
-//        return config.getConfig("redis").withValue(path, ConfigValueFactory.fromAnyRef(value));
-//    }
-
+    public static Config hbase() {
+        return ConfigFactory.load()
+                .withFallback(ConfigFactory.parseResources("configs/hbase.conf")).getConfig("hbase");
+    }
 }

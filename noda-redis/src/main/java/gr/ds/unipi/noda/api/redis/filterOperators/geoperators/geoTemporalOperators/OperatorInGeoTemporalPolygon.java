@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geoTemporalOperators;
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon;
 import gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geographicalOperators.OperatorInGeoPolygon;
@@ -79,8 +80,8 @@ final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, Te
 
         String[] argvArray = new String[6 + getGeographicalOperator().getGeometry().getCoordinatesArray().length*2];
         argvArray[0] = range;
-        argvArray[1] = /*this.getGeographicalOperator().getFieldName()+":"+*/"longitude";
-        argvArray[2] = /*this.getGeographicalOperator().getFieldName()+":"+*/"latitude";
+        argvArray[1] = AppConfig.redis().getString("spatioTempOp.longitudeField");
+        argvArray[2] = AppConfig.redis().getString("spatioTempOp.latitudeField");
         argvArray[3] = String.valueOf(getTemporalFieldName());
         argvArray[4] = String.valueOf(getTemporalType().getLowerBound().getTime());
         argvArray[5] = String.valueOf(getTemporalType().getUpperBound().getTime());

@@ -1,6 +1,7 @@
 package gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geoTemporalOperators;
 
 
+import gr.ds.unipi.noda.api.core.config.AppConfig;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
 import gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geographicalOperators.OperatorInGeoRectangle;
@@ -60,7 +61,7 @@ final class OperatorInGeoTemporalRectangle extends GeoTemporalOperator<Rectangle
 
     @Override
     protected String[] getArgvArray(String range) {
-        return new String[]{range, /*this.getGeographicalOperator().getFieldName()+":"+*/"longitude", /*this.getGeographicalOperator().getFieldName()+":"+*/"latitude", String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLatitude()), String.valueOf(getTemporalFieldName()), String.valueOf(getTemporalType().getLowerBound().getTime()), String.valueOf(getTemporalType().getUpperBound().getTime())};
+        return new String[]{range, AppConfig.redis().getString("spatioTempOp.longitudeField"), AppConfig.redis().getString("spatioTempOp.latitudeField"), String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLongitude()), String.valueOf(getGeographicalOperator().getGeometry().getLowerBound().getLatitude()), String.valueOf(getGeographicalOperator().getGeometry().getUpperBound().getLatitude()), String.valueOf(getTemporalFieldName()), String.valueOf(getTemporalType().getLowerBound().getTime()), String.valueOf(getTemporalType().getUpperBound().getTime())};
     }
 
 }
