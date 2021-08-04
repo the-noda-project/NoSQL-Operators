@@ -98,17 +98,12 @@ public final class MongoDBGeographicalOperatorFactory extends BaseGeographicalOp
         final int bits = AppConfig.mongodb().getInt("spatialOp.bits");
         final long maxOrdinates = 1L << bits;
 
-//        final int bits = 13;
-//        final long maxOrdinates = 1L << bits;
-
         SmallHilbertCurve hc = HilbertCurve.small().bits(bits).dimensions(2);
 
         long[] lower = HilbertUtil.scaleGeoPoint(rectangle.getLowerBound().getLongitude(), AppConfig.mongodb().getDouble("spatialOp.minLon"), AppConfig.mongodb().getDouble("spatialOp.maxLon"), rectangle.getLowerBound().getLatitude(), AppConfig.mongodb().getDouble("spatialOp.minLat"), AppConfig.mongodb().getDouble("spatialOp.maxLat"), maxOrdinates);
         long[] upper = HilbertUtil.scaleGeoPoint(rectangle.getUpperBound().getLongitude(), AppConfig.mongodb().getDouble("spatialOp.minLon"), AppConfig.mongodb().getDouble("spatialOp.maxLon"), rectangle.getUpperBound().getLatitude(), AppConfig.mongodb().getDouble("spatialOp.minLat"), AppConfig.mongodb().getDouble("spatialOp.maxLat"), maxOrdinates);
 
-
         Ranges rangesList = hc.query(lower, upper ,0);
-
 
 //        Ranges rangesList = hc.query(HilbertUtil.scaleGeoPoint(rectangle.getLowerBound().getLatitude(), rectangle.getLowerBound().getLongitude(), maxOrdinates)
 //                , HilbertUtil.scaleGeoPoint(rectangle.getUpperBound().getLatitude(), rectangle.getUpperBound().getLongitude(), maxOrdinates)

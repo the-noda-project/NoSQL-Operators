@@ -25,7 +25,7 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
 
     public Ranges getMatchingPattern(){
 
-        final int bits = 8;//AppConfig.redis().getInt("spatioTempOp.bits");
+        final int bits = AppConfig.redis().getInt("spatioTempOp.bits");
         final long maxOrdinates = 1L << bits;
 
         SmallHilbertCurve hc = HilbertCurve.small().bits(bits).dimensions(3);
@@ -35,13 +35,8 @@ abstract class GeoTemporalOperator<T extends Geometry, U extends Temporal> exten
                 long[] lower = HilbertUtil.scaleGeoTemporalPoint(getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLongitude(), AppConfig.redis().getDouble("spatioTempOp.minLon"), AppConfig.redis().getDouble("spatioTempOp.maxLon"), getGeographicalOperator().getGeometry().getMbr().getLowerBound().getLatitude(), AppConfig.redis().getDouble("spatioTempOp.minLat"), AppConfig.redis().getDouble("spatioTempOp.maxLat"), ((TemporalBounds) getTemporalType()).getLowerBound().getTime(), AppConfig.redis().getLong("spatioTempOp.minDate"), AppConfig.redis().getLong("spatioTempOp.maxDate"), maxOrdinates);
                 long[] upper = HilbertUtil.scaleGeoTemporalPoint(getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLongitude(), AppConfig.redis().getDouble("spatioTempOp.minLon"), AppConfig.redis().getDouble("spatioTempOp.maxLon"), getGeographicalOperator().getGeometry().getMbr().getUpperBound().getLatitude(), AppConfig.redis().getDouble("spatioTempOp.minLat"), AppConfig.redis().getDouble("spatioTempOp.maxLat"), ((TemporalBounds) getTemporalType()).getUpperBound().getTime(), AppConfig.redis().getLong("spatioTempOp.minDate"), AppConfig.redis().getLong("spatioTempOp.maxDate"), maxOrdinates);
 
-                System.out.println(AppConfig.redis().getLong("spatioTempOp.minDate") +" "+ AppConfig.redis().getLong("spatioTempOp.maxDate"));
-                System.out.println(((TemporalBounds) getTemporalType()).getLowerBound().getTime()+ " "+((TemporalBounds) getTemporalType()).getUpperBound().getTime());
                 Ranges ranges = hc.query(lower,upper ,0,0);
-                System.out.println(ranges.size());
                 return ranges;
-//                System.out.println("List "+rangesList.get(0).low()+" "+ rangesList.get(0).high());
-//                return rangesList.get(0).low()+"-"+rangesList.get(0).high();
             }
             catch (Exception e){
                 e.printStackTrace();

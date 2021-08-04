@@ -48,7 +48,7 @@ public final class OperatorInGeoPolygon extends GeographicalOperator<Polygon> {
                 "\n" +
                 "for i, key_name in ipairs(t) do \n" +
                 "\n" +
-                "  local s = redis.call('HMGET', key_name, longitudeField, latitudeField, timestampField)\n" +
+                "  local s = redis.call('HMGET', key_name, longitudeField, latitudeField)\n" +
                 "  local longitude = tonumber(s[1])\n" +
                 "  local latitude = tonumber(s[2])\n" +
                 "\n" +

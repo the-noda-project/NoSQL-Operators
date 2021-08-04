@@ -25,10 +25,14 @@ public class HBaseDataframeManipulator extends BaseDataframeManipulator {
         UDF1 udf1ConvertToLong = (UDF1<byte[], Long>) Bytes::toLong;
         UserDefinedFunction udfConvertToLong = functions$.MODULE$.udf(udf1ConvertToLong, DataTypes.LongType);
 
+        UDF1 udf1ConvertToString = (UDF1<byte[], String>) Bytes::toString;
+        UserDefinedFunction udfConvertToString = functions$.MODULE$.udf(udf1ConvertToString, DataTypes.StringType);
+
         Dataset<Row> manipulatedDataset = dataset.withColumn(location+":latitude", udfConvertToDouble.apply(new Column(location+":latitude")))
                 .withColumn(location+":longitude", udfConvertToDouble.apply(new Column(location+":longitude")))
                 .withColumn(location+":date", udfConvertToLong.apply(new Column(location+":date")))
-                .withColumn(location, array(col(location+":latitude").cast("string"),col(location+":longitude").cast("string")));
+                .withColumn(location, array(col(location+":latitude").cast("string"),col(location+":longitude").cast("string")))
+                .withColumn(location+":vehicle", udfConvertToString.apply(new Column(location+":vehicle")));
         manipulatedDataset.show(20,false);
         manipulatedDataset.printSchema();
         return manipulatedDataset;
