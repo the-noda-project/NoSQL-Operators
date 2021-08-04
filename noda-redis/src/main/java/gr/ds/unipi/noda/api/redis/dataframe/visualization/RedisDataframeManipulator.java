@@ -12,7 +12,7 @@ public class RedisDataframeManipulator extends BaseDataframeManipulator {
     @Override
     public Dataset<Row> spatialView(Dataset<Row> dataset, String location) {
 
-        Dataset<Row> manipulatedDataset = dataset.withColumn(location, array(col(location+":latitude"),col(location+":longitude")));
+        Dataset<Row> manipulatedDataset = dataset.withColumn(location, array(col("latitude"),col("longitude")));
         manipulatedDataset.show(20,false);
         manipulatedDataset.printSchema();
         return manipulatedDataset;
