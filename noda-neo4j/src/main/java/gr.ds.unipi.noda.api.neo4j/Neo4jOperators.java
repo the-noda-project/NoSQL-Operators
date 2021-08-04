@@ -287,7 +287,7 @@ final class Neo4jOperators extends NoSqlDbOperators {
     public Dataset<Row> toDataframe() {
         //ΤODO  inside dataframe method use must put the name of the columns
         StringBuilder sbCopy = getStringBuilderCopy();
-        sbCopy.append(" RETURN s.car_Id AS car_Id, toString(s.location) AS location, s.Timestamp AS Timestamp");
+        sbCopy.append(" RETURN s.vehicle AS vehicle, toString(s.location) AS location, s.date AS date");
         System.out.println(sbCopy);
 
 
