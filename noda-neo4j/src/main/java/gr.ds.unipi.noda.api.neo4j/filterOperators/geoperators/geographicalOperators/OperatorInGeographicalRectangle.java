@@ -45,10 +45,10 @@ public final class OperatorInGeographicalRectangle extends GeographicalOperator<
             System.out.println(range.high());
 
             if(low != high) {
-                sb.append("s.HilbertIndex > " + low + " AND s.HilbertIndex < " + high + " WITH s WHERE point({ srid:7203 , x: " + getGeometry().getLowerBound().getLatitude() + ", y: "+ getGeometry().getLowerBound().getLongitude() +" }) < s." + getFieldName() + " < point({ srid: 7203 , x: " + getGeometry().getUpperBound().getLatitude() + ", y: "+ getGeometry().getUpperBound().getLongitude() + " })" );
+                sb.append("s.hilIndex > " + low + " AND s.hilIndex < " + high + " WITH s WHERE point({ srid:4326 , x: " + getGeometry().getLowerBound().getLatitude() + ", y: "+ getGeometry().getLowerBound().getLongitude() +" }) < s." + getFieldName() + " < point({ srid: 4326 , x: " + getGeometry().getUpperBound().getLatitude() + ", y: "+ getGeometry().getUpperBound().getLongitude() + " })" );
 
             } else {
-                sb.append("s.HilbertIndex = " + low + " WITH s WHERE point({ srid:7203 , x: " + getGeometry().getLowerBound().getLatitude() + ", y: "+ getGeometry().getLowerBound().getLongitude() +" }) < s." + getFieldName() + " < point({ srid: 7203 , x: " + getGeometry().getUpperBound().getLatitude() + ", y: "+ getGeometry().getUpperBound().getLongitude() + " })" );
+                sb.append("s.hilIndex = " + low + " WITH s WHERE point({ srid:4326 , x: " + getGeometry().getLowerBound().getLatitude() + ", y: "+ getGeometry().getLowerBound().getLongitude() +" }) < s." + getFieldName() + " < point({ srid: 4326 , x: " + getGeometry().getUpperBound().getLatitude() + ", y: "+ getGeometry().getUpperBound().getLongitude() + " })" );
             }
 
         });
