@@ -13,6 +13,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.Base
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.redis.aggregateOperators.RedisAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.redis.dataframe.visualization.RedisDataframeManipulator;
 import gr.ds.unipi.noda.api.redis.filterOperators.comparisonOperators.RedisComparisonOperatorFactory;
 import gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geoTemporalOperators.RedisGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geoTextualOperators.RedisGeoTextualOperatorFactory;
@@ -81,6 +82,6 @@ public final class RedisConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     protected BaseDataframeManipulator getBaseDataframeManipulator() {
-        return null;
+        return new RedisDataframeManipulator();
     }
 }

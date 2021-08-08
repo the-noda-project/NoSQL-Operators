@@ -25,7 +25,7 @@ public class HBaseSystemTest {
         //noSqlDbSystem.operateOn("points").filter(inGeoPolygon("location", Coordinates.newCoordinates(24,38),Coordinates.newCoordinates(24,39),Coordinates.newCoordinates(25,39),Coordinates.newCoordinates(25,38))).printScreen();
 
         //NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("points");
-        NoSqlDbSqlStatement a = noSqlDbSystem.sql("SELECT* FROM passengerCars WHERE GEO_CIRCLE_KM(location, ( 23.532308835284518, 38.48745714328253 ), 1.0959086330315724 )");
+        NoSqlDbSqlStatement a = noSqlDbSystem.sql("SELECT * FROM passengerCars WHERE GEO_RECTANGLE( location , ( (22.420005798339844, 37.06873843120686 ), ( 22.441120147705078 , 37.06873843120686 ) ) )");
 
 
         //NoSqlDbOperators a = noSqlDbOperators.limit(34);
