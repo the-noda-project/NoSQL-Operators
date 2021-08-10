@@ -59,10 +59,10 @@ final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, Temp
             System.out.println(range.high());
 
             if(low != high) {
-                sb.append("s.stHilIndex > " + low + " AND s.stHilIndex < " + high + " WITH s WHERE distance(point({ srid :4326, x: " + getGeographicalOperator().getGeometry().getCircleCenter().getLatitude() + " , y: " + getGeographicalOperator().getGeometry().getCircleCenter().getLongitude() + " }), s." + getGeographicalOperator().getFieldName() + ") < " + getGeographicalOperator().getGeometry().getRadius() + " AND " + lowerDate.getTime() + " < s." + getTemporalFieldName()  + " < " + upperDate.getTime() );
+                sb.append("s.stHilIndex > " + low + " AND s.stHilIndex < " + high + " WITH s WHERE distance(point({ srid :4326, x: " + getGeographicalOperator().getGeometry().getCircleCenter().getLongitude() + " , y: " + getGeographicalOperator().getGeometry().getCircleCenter().getLatitude() + " }), s." + getGeographicalOperator().getFieldName() + ") < " + getGeographicalOperator().getGeometry().getRadius() + " AND " + lowerDate.getTime() + " < s." + getTemporalFieldName()  + " < " + upperDate.getTime() );
 
             } else {
-                sb.append("s.stHilIndex = " + low + " WITH s WHERE distance(point({ srid :4326, x: " + getGeographicalOperator().getGeometry().getCircleCenter().getLatitude() + " , y: " + getGeographicalOperator().getGeometry().getCircleCenter().getLongitude() + " }), s." + getGeographicalOperator().getFieldName() + ") < " + getGeographicalOperator().getGeometry().getRadius() + " AND " + lowerDate.getTime() + " < s." + getTemporalFieldName()  + " < " + upperDate.getTime() );
+                sb.append("s.stHilIndex = " + low + " WITH s WHERE distance(point({ srid :4326, x: " + getGeographicalOperator().getGeometry().getCircleCenter().getLongitude() + " , y: " + getGeographicalOperator().getGeometry().getCircleCenter().getLatitude() + " }), s." + getGeographicalOperator().getFieldName() + ") < " + getGeographicalOperator().getGeometry().getRadius() + " AND " + lowerDate.getTime() + " < s." + getTemporalFieldName()  + " < " + upperDate.getTime() );
 
             }
 
