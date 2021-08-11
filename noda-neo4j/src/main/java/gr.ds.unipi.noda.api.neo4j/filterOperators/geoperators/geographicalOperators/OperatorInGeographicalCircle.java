@@ -48,10 +48,10 @@ public final class OperatorInGeographicalCircle extends GeographicalOperator<Cir
             System.out.println(range.high());
 
             if(low != high) {
-                sb.append("s.hilIndex > " + low + " AND s.hilIndex < " + high + " WITH s WHERE distance(point({ srid:4326, x: " + getGeometry().getCircleCenter().getLongitude() + " , y: " + getGeometry().getCircleCenter().getLatitude() + "}), s." + getFieldName() + ") < " + getGeometry().getRadius() );
+                sb.append("s.hilIndex >= " + low + " AND s.hilIndex <= " + high + " WITH s WHERE distance(point({ srid:4326, x: " + getGeometry().getCircleCenter().getLongitude() + " , y: " + getGeometry().getCircleCenter().getLatitude() + "}), s." + getFieldName() + ") <= " + getGeometry().getRadius() );
 
             } else {
-                sb.append("s.hilIndex = " + low + " WITH s WHERE distance(point({ srid:4326, x: " + getGeometry().getCircleCenter().getLongitude() + " , y: " + getGeometry().getCircleCenter().getLatitude() + "}), s." + getFieldName() + ") < " + getGeometry().getRadius() );
+                sb.append("s.hilIndex = " + low + " WITH s WHERE distance(point({ srid:4326, x: " + getGeometry().getCircleCenter().getLongitude() + " , y: " + getGeometry().getCircleCenter().getLatitude() + "}), s." + getFieldName() + ") <= " + getGeometry().getRadius() );
             }
 
         });
