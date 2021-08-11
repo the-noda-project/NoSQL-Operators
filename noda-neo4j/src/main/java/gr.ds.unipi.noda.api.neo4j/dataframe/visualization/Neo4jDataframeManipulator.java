@@ -14,7 +14,7 @@ public class Neo4jDataframeManipulator extends BaseDataframeManipulator {
         Dataset<Row> trimleft = o.withColumn(location, lit(ltrim(col(location))));
         Dataset<Row> trimRight = trimleft.withColumn(location, lit(rtrim(col(location))));
 
-        Dataset<Row> manipulatedDataset = trimRight.withColumn(location, lit(split(col(location), " ")));
+        Dataset<Row> manipulatedDataset = trimRight.withColumn(location, lit(reverse(split(col(location), " "))));
 
         manipulatedDataset.show();
 
