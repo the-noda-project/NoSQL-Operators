@@ -1,4 +1,4 @@
-package gr.ds.unipi.noda.api.redis;
+package gr.ds.unipi.noda.api.couchdb;
 
 import gr.ds.unipi.noda.api.core.dataframe.visualization.BaseDataframeManipulator;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
@@ -12,81 +12,77 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographi
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
-import gr.ds.unipi.noda.api.redis.aggregateOperators.RedisAggregateOperatorFactory;
-import gr.ds.unipi.noda.api.redis.dataframe.visualization.RedisDataframeManipulator;
-import gr.ds.unipi.noda.api.redis.filterOperators.comparisonOperators.RedisComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geoTemporalOperators.RedisGeoTemporalOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geoTextualOperators.RedisGeoTextualOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperators.geoperators.geographicalOperators.RedisGeographicalOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperators.logicalOperators.RedisLogicalOperatorFactory;
-import gr.ds.unipi.noda.api.redis.filterOperators.textualOperators.RedisTextualOperatorFactory;
-import gr.ds.unipi.noda.api.redis.sortOperators.RedisSortOperatorFactory;
+import gr.ds.unipi.noda.api.couchdb.aggregateOperators.CouchDBAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.couchdb.filterOperators.comparisonOperators.CouchDBComparisonOperatorFactory;
+import gr.ds.unipi.noda.api.couchdb.filterOperators.geoperators.geoTemporalOperators.CouchDBGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.couchdb.filterOperators.geoperators.geoTextualOperators.CouchDBGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.couchdb.filterOperators.geoperators.geographicalOperators.CouchDBGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.couchdb.filterOperators.logicalOperators.CouchDBLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.couchdb.filterOperators.textualOperators.CouchDBTextualOperatorFactory;
+import gr.ds.unipi.noda.api.couchdb.sortOperators.CouchDBSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
-import java.util.ArrayList;
-import java.util.List;
+public final class CouchDBConnectionFactory extends NoSqlConnectionFactory {
 
-public final class RedisConnectionFactory extends NoSqlConnectionFactory {
-
-    public static final List<Long> times = new ArrayList<>();
+    private final CouchDBConnectionManager couchDBConnectionManager = CouchDBConnectionManager.getInstance();
 
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
-        return RedisOperators.newRedisOperators(connector, s, sparkSession);
+        return null;
     }
 
     @Override
     public void closeConnection(NoSqlDbConnector noSqlDbConnector) {
-        RedisConnectionManager.getInstance().closeConnection(noSqlDbConnector);
+
     }
 
     @Override
     public boolean closeConnections() {
-        return RedisConnectionManager.getInstance().closeConnections();
+        return false;
     }
 
     @Override
     protected BaseAggregateOperatorFactory getBaseAggregateOperatorFactory() {
-        return new RedisAggregateOperatorFactory();
+        return new CouchDBAggregateOperatorFactory();
     }
 
     @Override
     protected BaseComparisonOperatorFactory getBaseComparisonOperatorFactory() {
-        return new RedisComparisonOperatorFactory();
+        return new CouchDBComparisonOperatorFactory();
     }
 
     @Override
     protected BaseGeographicalOperatorFactory getBaseGeoSpatialOperatorFactory() {
-        return new RedisGeographicalOperatorFactory();
+        return new CouchDBGeographicalOperatorFactory();
     }
 
     @Override
     protected BaseGeoTemporalOperatorFactory getBaseGeoTemporalOperatorFactory() {
-        return new RedisGeoTemporalOperatorFactory();
+        return new CouchDBGeoTemporalOperatorFactory();
     }
 
     @Override
     protected BaseGeoTextualOperatorFactory getBaseGeoTextualOperatorFactory() {
-        return new RedisGeoTextualOperatorFactory();
+        return new CouchDBGeoTextualOperatorFactory();
     }
 
     @Override
     protected BaseLogicalOperatorFactory getBaseLogicalOperatorFactory() {
-        return new RedisLogicalOperatorFactory();
+        return new CouchDBLogicalOperatorFactory();
     }
 
     @Override
     protected BaseSortOperatorFactory getBaseSortOperatorFactory() {
-        return new RedisSortOperatorFactory();
+        return new CouchDBSortOperatorFactory();
     }
 
     @Override
     protected BaseTextualOperatorFactory getBaseTextualOperatorFactory() {
-        return new RedisTextualOperatorFactory();
+        return new CouchDBTextualOperatorFactory();
     }
 
     @Override
     protected BaseDataframeManipulator getBaseDataframeManipulator() {
-        return new RedisDataframeManipulator();
+        return null;
     }
 }

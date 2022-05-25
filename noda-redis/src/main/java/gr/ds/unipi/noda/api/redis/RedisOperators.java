@@ -174,7 +174,7 @@ final class RedisOperators extends NoSqlDbOperators {
         );
 
         NoSQLExpression.INSTANCE.setExpression(sb.toString());
-
+        long start = System.currentTimeMillis();
         ExecutorService es = Executors.newCachedThreadPool();
         pipelines.forEach((s,pipeline)->
                 {es.execute(new Runnable() {
@@ -203,6 +203,7 @@ final class RedisOperators extends NoSqlDbOperators {
                 count = Math.min(Integer.valueOf(response.get().toString()), limit) + count;
             }
         }
+        RedisConnectionFactory.times.add(System.currentTimeMillis()-start);
         return count;
     }
 
@@ -213,7 +214,7 @@ final class RedisOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators limit(int limit) {
-        //the limit operator resembles to the PageFilter of HBase. It is applied individually on each node
+        //the limit operator resembles to the PageFilter of HBase. It is applied individually on each node.
         //if a user defines more than once the limit, the min is chosen
         if(limit<0){
             throw new IllegalArgumentException("limit must be positive");

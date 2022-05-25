@@ -17,6 +17,7 @@
         <module>noda-neo4j</module>
         <module>noda-hbase</module>
         <module>noda-redis</module>
+        <module>noda-couchdb</module>
         <module>noda-YYYDataBase</module>
     </modules>
     <properties>

@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.client;
 
+import gr.ds.unipi.noda.api.client.couchdb.CouchDBBuilderFactory;
 import gr.ds.unipi.noda.api.client.hbase.HBaseBuilderFactory;
 import gr.ds.unipi.noda.api.client.mongo.MongoDBBuilderFactory;
 import gr.ds.unipi.noda.api.client.neo4j.Neo4jBuilderFactory;
@@ -148,6 +149,10 @@ public abstract class NoSqlDbSystem {
 
     public static RedisBuilderFactory Redis() {
         return new RedisBuilderFactory();
+    }
+
+    public static CouchDBBuilderFactory CouchDB() {
+        return new CouchDBBuilderFactory();
     }
 
     public String getDefaultHost() {
