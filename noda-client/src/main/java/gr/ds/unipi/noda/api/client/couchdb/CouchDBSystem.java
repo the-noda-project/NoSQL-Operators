@@ -1,23 +1,32 @@
 package gr.ds.unipi.noda.api.client.couchdb;
 
 import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
-import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
+import gr.ds.unipi.noda.api.couchdb.CouchDBConnector;
 
 public class CouchDBSystem extends NoSqlDbSystem {
 
-    private final NoSqlDbConnector connector;
+    private final CouchDBConnector connector;
 
     @Override
-    protected NoSqlDbConnector getConnector() {
+    protected CouchDBConnector getConnector() {
         return connector;
     }
 
     @Override
     public int getDefaultPort() {
-        return 0;
+        return 5984;
     }
 
     public static class Builder extends NoSqlDbSystem.Builder<Builder> {
+        private final String username;
+        private final String password;
+        private final String database;
+
+        public Builder(String username, String password, String database) {
+            this.username = username;
+            this.password = password;
+            this.database = database;
+        }
 
         @Override
         public NoSqlDbSystem build() {
@@ -32,6 +41,6 @@ public class CouchDBSystem extends NoSqlDbSystem {
 
     private CouchDBSystem(Builder builder) {
         super(builder, null);
-        connector = null;
+        connector = CouchDBConnector.newCouchDBConnector(getAddresses(),builder.username,builder.password,builder.database);
     }
 }
