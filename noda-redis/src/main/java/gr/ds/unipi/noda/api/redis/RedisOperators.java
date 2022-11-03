@@ -5,6 +5,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import gr.ds.unipi.noda.api.redis.filterOperators.RandomStringGenerator;
 import gr.ds.unipi.noda.api.redis.filterOperators.Triplet;
@@ -319,6 +320,11 @@ final class RedisOperators extends NoSqlDbOperators {
                 .load();
 
         return dataset;
+    }
+
+    @Override
+    public NoSqlDbOperators join(NoSqlDbOperators noSqlDbOperators, JoinOperator jo) {
+        return null;
     }
 
 }

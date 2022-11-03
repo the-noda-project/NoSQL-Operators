@@ -6,6 +6,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import gr.ds.unipi.noda.api.redisearch.filterOperators.RediSearchPostFilterOperator;
 import gr.ds.unipi.noda.api.redisearch.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.OperatorTopKInGeoTextualCircle;
@@ -157,6 +158,11 @@ public final class RediSearchOperators extends NoSqlDbOperators {
     @Override
     public Dataset<Row> toDataframe() {
         throw new UnsupportedOperationException("ToDataframe primitive is not supported");
+    }
+
+    @Override
+    public NoSqlDbOperators join(NoSqlDbOperators noSqlDbOperators, JoinOperator jo) {
+        return null;
     }
 
     private final BiFunction<FilterOperator, FilterOperator[], Stream<FilterOperator>> func = (filterOperator, filterOperators) -> Stream.concat(Stream.of(filterOperator), Arrays.stream(filterOperators));

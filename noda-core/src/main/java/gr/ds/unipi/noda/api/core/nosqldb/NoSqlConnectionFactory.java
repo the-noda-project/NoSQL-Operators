@@ -16,6 +16,8 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.Base
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator;
+import gr.ds.unipi.noda.api.core.operators.joinOperators.BaseJoinOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.SparkSession;
@@ -46,6 +48,8 @@ public abstract class NoSqlConnectionFactory {
         TextualOperator.textualOperator = getBaseTextualOperatorFactory();
 
         DataframeManipulator.baseDataframeManipulator = getBaseDataframeManipulator();
+
+        JoinOperator.joinOperator = getBaseJoinOperatorFactory();
     }
 
     protected abstract BaseAggregateOperatorFactory getBaseAggregateOperatorFactory();
@@ -65,5 +69,8 @@ public abstract class NoSqlConnectionFactory {
     protected abstract BaseTextualOperatorFactory getBaseTextualOperatorFactory();
 
     protected abstract BaseDataframeManipulator getBaseDataframeManipulator();
+
+    protected abstract BaseJoinOperatorFactory getBaseJoinOperatorFactory();
+
 
 }

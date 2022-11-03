@@ -11,6 +11,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextua
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.BaseGeographicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.joinOperators.BaseJoinOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.redisearch.aggregateOperators.RediSearchAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.redisearch.filterOperators.comparisonOperators.RediSearchComparisonOperatorFactory;
@@ -80,6 +81,11 @@ public final class RediSearchConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     protected BaseDataframeManipulator getBaseDataframeManipulator() {
+        return null;
+    }
+
+    @Override
+    protected BaseJoinOperatorFactory getBaseJoinOperatorFactory() {
         return null;
     }
 }

@@ -2,6 +2,7 @@ package gr.ds.unipi.noda.api.core.nosqldb;
 
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -51,6 +52,8 @@ public abstract class NoSqlDbOperators {
     abstract public Dataset<Row> toDataframe(); /*{
         throw new UnsupportedOperationException("ToDataframe primitive is not supported");
     }*/
+
+    abstract public NoSqlDbOperators join(NoSqlDbOperators noSqlDbOperators, JoinOperator jo);
 
     public NoSqlDbConnector getNoSqlDbConnector() {
         return noSqlDbConnector;

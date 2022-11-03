@@ -4,6 +4,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.*;
 import org.neo4j.driver.Record;
@@ -302,6 +303,11 @@ final class Neo4jOperators extends NoSqlDbOperators {
         System.out.println("--------------------: " + o);
 
         return o;
+    }
+
+    @Override
+    public NoSqlDbOperators join(NoSqlDbOperators noSqlDbOperators, JoinOperator jo) {
+        return null;
     }
 
 

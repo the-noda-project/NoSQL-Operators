@@ -11,6 +11,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextua
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.BaseGeographicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.joinOperators.BaseJoinOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.mongo.aggregateOperators.MongoDBAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.mongo.dataframe.visualization.MongoDBDataframeManipulator;
@@ -20,6 +21,7 @@ import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geoTextualOperator
 import gr.ds.unipi.noda.api.mongo.filterOperators.geoperators.geographicalOperators.MongoDBGeographicalOperatorFactory;
 import gr.ds.unipi.noda.api.mongo.filterOperators.logicalOperators.MongoDBLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.mongo.filterOperators.textualOperators.MongoDBTextualOperatorFactory;
+import gr.ds.unipi.noda.api.mongo.joinOperators.MongoDBJoinOperatorFactory;
 import gr.ds.unipi.noda.api.mongo.sortOperators.MongoDBSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
@@ -83,6 +85,11 @@ public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
     @Override
     protected BaseDataframeManipulator getBaseDataframeManipulator() {
         return new MongoDBDataframeManipulator();
+    }
+
+    @Override
+    protected BaseJoinOperatorFactory getBaseJoinOperatorFactory() {
+        return new MongoDBJoinOperatorFactory();
     }
 
 }

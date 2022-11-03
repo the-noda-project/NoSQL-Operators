@@ -4,6 +4,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSQLExpression;
 import org.apache.hadoop.conf.Configuration;
@@ -230,5 +231,10 @@ final class HBaseOperators extends NoSqlDbOperators {
         NoSQLExpression.INSTANCE.setExpression(filterList.toString());
 
         return df;
+    }
+
+    @Override
+    public NoSqlDbOperators join(NoSqlDbOperators noSqlDbOperators, JoinOperator jo) {
+        return null;
     }
 }
