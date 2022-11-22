@@ -1,7 +1,9 @@
-package gr.ds.unipi.noda.api.client.YYYDatabase;
+package gr.ds.unipi.noda.api.client.yyydatabase;
 
 import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
+import gr.ds.unipi.noda.api.yyydatabase.YYYDataBaseConnectionFactory;
+import gr.ds.unipi.noda.api.yyydatabase.YYYDataBaseConnector;
 
 public class YYYDatabaseSystem extends NoSqlDbSystem {
 
@@ -31,7 +33,7 @@ public class YYYDatabaseSystem extends NoSqlDbSystem {
     }
 
     private YYYDatabaseSystem(Builder builder) {
-        super(builder, null);
-        connector = null;
+        super(builder, new YYYDataBaseConnectionFactory());
+        connector = YYYDataBaseConnector.newYYYDataBaseConnector();
     }
 }

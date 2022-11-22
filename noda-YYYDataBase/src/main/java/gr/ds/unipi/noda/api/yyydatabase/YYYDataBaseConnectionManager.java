@@ -17,11 +17,26 @@ final class YYYDataBaseConnectionManager extends NoSqlDbConnectionManager<Object
 
     @Override
     public boolean closeConnection(NoSqlDbConnector noSqlDbConnector) {
-        return false;
+        if (getConnections().containsKey(noSqlDbConnector)) {
+
+            //write the command getConnections().get(noSqlDbConnector) to get the
+            //object whose type is defined by the generic parameter of NoSqlDbConnectionManager
+            // Get this object in order to close the connection.
+
+            getConnections().remove(noSqlDbConnector);
+        }
+        return true;
     }
 
     @Override
     public boolean closeConnections() {
-        return false;
+        getConnections().forEach((k, v) -> {
+
+            //v is an object whose type is defined by the generic parameter of NoSqlDbConnectionManager
+            //v should close the database connection.
+
+        });
+        getConnections().clear();
+        return true;
     }
 }

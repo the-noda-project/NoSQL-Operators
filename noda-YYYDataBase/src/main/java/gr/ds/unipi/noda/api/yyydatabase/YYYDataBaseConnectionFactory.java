@@ -14,32 +14,32 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.Base
 import gr.ds.unipi.noda.api.core.operators.joinOperators.BaseJoinOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.yyydatabase.aggregateOperators.YYYDataBaseAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.yyydatabase.dataframe.visualization.YYYDatabaseDataframeManipulator;
 import gr.ds.unipi.noda.api.yyydatabase.filterOperators.comparisonOperators.YYYDataBaseComparisonOperatorFactory;
 import gr.ds.unipi.noda.api.yyydatabase.filterOperators.geoperators.geoTemporalOperators.YYYDataBaseGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.yyydatabase.filterOperators.geoperators.geoTextualOperators.YYYDataBaseGeoTextualOperatorFactory;
 import gr.ds.unipi.noda.api.yyydatabase.filterOperators.geoperators.geographicalOperators.YYYDataBaseGeographicalOperatorFactory;
 import gr.ds.unipi.noda.api.yyydatabase.filterOperators.logicalOperators.YYYDataBaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.yyydatabase.filterOperators.textualOperators.YYYDataBaseTextualOperatorFactory;
+import gr.ds.unipi.noda.api.yyydatabase.joinOperators.YYYDataBaseJoinOperatorFactory;
 import gr.ds.unipi.noda.api.yyydatabase.sortOperators.YYYDataBaseSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
 public final class YYYDataBaseConnectionFactory extends NoSqlConnectionFactory {
 
-    private final YYYDataBaseConnectionManager yYYDataBaseConnectionManager = YYYDataBaseConnectionManager.getInstance();
-
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
-        return null;
+        return YYYDataBaseOperators.newYYYDataBaseOperators(connector, s, sparkSession);
     }
 
     @Override
     public void closeConnection(NoSqlDbConnector noSqlDbConnector) {
-
+        YYYDataBaseConnectionManager.getInstance().closeConnection(noSqlDbConnector);
     }
 
     @Override
     public boolean closeConnections() {
-        return false;
+        return YYYDataBaseConnectionManager.getInstance().closeConnections();
     }
 
     @Override
@@ -84,11 +84,11 @@ public final class YYYDataBaseConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     protected BaseDataframeManipulator getBaseDataframeManipulator() {
-        return null;
+        return new YYYDatabaseDataframeManipulator();
     }
 
     @Override
     protected BaseJoinOperatorFactory getBaseJoinOperatorFactory() {
-        return null;
+        return new YYYDataBaseJoinOperatorFactory();
     }
 }

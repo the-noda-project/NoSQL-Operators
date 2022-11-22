@@ -15,6 +15,9 @@ import java.util.Optional;
 final class YYYDataBaseOperators extends NoSqlDbOperators {
 
     private final YYYDataBaseConnectionManager yyyDataBaseConnectionManager = YYYDataBaseConnectionManager.getInstance();
+    //to access the database's object for connectivity, call yyyDataBaseConnectionManager.getConnection(getNoSqlDbConnector())
+    //to access the defined name of collection or table, call  getDataCollection()
+    //to access the SparkSession, call getSparkSession()
 
 
     private YYYDataBaseOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
