@@ -18,7 +18,6 @@
         <module>noda-hbase</module>
         <module>noda-redis</module>
         <module>noda-couchdb</module>
-        <module>noda-cassandra</module>
         <module>noda-YYYDataBase</module>
     </modules>
     <properties>
