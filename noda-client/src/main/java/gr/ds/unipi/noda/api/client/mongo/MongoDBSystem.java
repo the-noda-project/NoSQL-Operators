@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.client.mongo;
 
-import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
 import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
@@ -23,8 +23,8 @@ public class MongoDBSystem extends NoSqlDbSystem {
 
     public static class Builder extends NoSqlDbSystem.Builder<Builder> {
 
-        private final MongoCredential mongoCredential;
-        private MongoClientOptions mongoClientOptions = MongoClientOptions.builder().build();
+        private MongoCredential mongoCredential;
+        private MongoClientSettings mongoClientSettings = MongoClientSettings.builder().build();
 
         public Builder(MongoCredential mongoCredential) {
             this.mongoCredential = mongoCredential;
@@ -34,8 +34,8 @@ public class MongoDBSystem extends NoSqlDbSystem {
             this.mongoCredential = MongoCredential.createCredential(username, database, password.toCharArray());
         }
 
-        public Builder mongoClientOptions(MongoClientOptions mongoClientOptions) {
-            this.mongoClientOptions = mongoClientOptions;
+        public Builder mongoClientSettings(MongoClientSettings mongoClientSettings) {
+            this.mongoClientSettings = mongoClientSettings;
             return this;
         }
 
@@ -52,7 +52,16 @@ public class MongoDBSystem extends NoSqlDbSystem {
 
     private MongoDBSystem(Builder builder) {
         super(builder, new MongoDBConnectionFactory());
-        connector = MongoDBConnector.newMongoDBConnector(getAddresses(), builder.mongoCredential, builder.mongoClientOptions);
+
+        MongoClientSettings mongoClientSettings;
+
+        if(builder.mongoCredential != null){
+            mongoClientSettings = MongoClientSettings.builder(builder.mongoClientSettings).credential(builder.mongoCredential).build();
+        } else{
+            mongoClientSettings = builder.mongoClientSettings;
+        }
+
+        connector = MongoDBConnector.newMongoDBConnector(getAddresses(), /*builder.mongoCredential,*/ mongoClientSettings);
     }
 
 //    public static void initialize() {

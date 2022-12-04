@@ -1,7 +1,6 @@
 package gr.ds.unipi.noda.api.mongo;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoDriverInformation;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.spark.MongoSpark;
 import com.mongodb.spark.config.ReadConfig;
@@ -20,6 +19,8 @@ import org.bson.BsonDocument;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import scala.collection.JavaConversions;
+import scala.collection.JavaConverters;
+import scala.collection.Seq;
 
 import java.util.*;
 
@@ -62,7 +63,7 @@ final class MongoDBOperators extends NoSqlDbOperators {
 
         expression.append("db."+getDataCollection()+".aggregate([ ");
         stagesList.forEach(i-> {
-            expression.append(i.toBsonDocument(BsonDocument.class, MongoClient.getDefaultCodecRegistry()).toJson()).append(", ");
+            expression.append(i.toBsonDocument(BsonDocument.class, MongoClientSettings.getDefaultCodecRegistry()).toJson()).append(", ");
         });
         if(expression.lastIndexOf(", ") != -1){
             expression.deleteCharAt(expression.lastIndexOf(", "));

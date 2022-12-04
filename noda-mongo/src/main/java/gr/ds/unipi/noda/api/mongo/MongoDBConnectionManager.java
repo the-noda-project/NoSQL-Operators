@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.mongo;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnectionManager;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 
