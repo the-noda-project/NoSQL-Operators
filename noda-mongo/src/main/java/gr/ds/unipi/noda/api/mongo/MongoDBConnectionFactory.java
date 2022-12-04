@@ -4,6 +4,9 @@ import gr.ds.unipi.noda.api.core.dataframe.visualization.BaseDataframeManipulato
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbDeletes;
+import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbInserts;
+import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbUpdates;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory;
@@ -30,6 +33,21 @@ public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
     @Override
     public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         return MongoDBOperators.newMongoDBOperators(connector, s, sparkSession);
+    }
+
+    @Override
+    public NoSqlDbInserts noSqlDbInserts(NoSqlDbConnector connector, String s) {
+        return null;
+    }
+
+    @Override
+    public NoSqlDbUpdates noSqlDbUpdates(NoSqlDbConnector connector, String s) {
+        return null;
+    }
+
+    @Override
+    public NoSqlDbDeletes noSqlDbDeletes(NoSqlDbConnector connector, String s) {
+        return null;
     }
 
     @Override

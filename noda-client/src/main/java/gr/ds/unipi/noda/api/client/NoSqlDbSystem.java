@@ -11,6 +11,9 @@ import gr.ds.unipi.noda.api.client.sql.*;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbDeletes;
+import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbInserts;
+import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbUpdates;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -120,6 +123,18 @@ public abstract class NoSqlDbSystem {
 
     public NoSqlDbOperators operateOn(String s) {
         return nsdb.noSqlDbOperators(getConnector(), s, sparkSession);
+    }
+
+    public NoSqlDbInserts insertionsOn(String s) {
+        return nsdb.noSqlDbInserts(getConnector(), s);
+    }
+
+    public NoSqlDbDeletes deletionsOn(String s) {
+        return nsdb.noSqlDbDeletes(getConnector(), s);
+    }
+
+    public NoSqlDbUpdates updatesOn(String s) {
+        return nsdb.noSqlDbUpdates(getConnector(), s);
     }
 
     public void closeConnection() {

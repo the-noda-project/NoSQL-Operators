@@ -2,6 +2,9 @@ package gr.ds.unipi.noda.api.core.nosqldb;
 
 import gr.ds.unipi.noda.api.core.dataframe.visualization.BaseDataframeManipulator;
 import gr.ds.unipi.noda.api.core.dataframe.visualization.DataframeManipulator;
+import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbDeletes;
+import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbInserts;
+import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbUpdates;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.BaseComparisonOperatorFactory;
@@ -29,6 +32,12 @@ public abstract class NoSqlConnectionFactory {
     }
 
     public abstract NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession);
+
+    public abstract NoSqlDbInserts noSqlDbInserts(NoSqlDbConnector connector, String s);
+
+    public abstract NoSqlDbUpdates noSqlDbUpdates(NoSqlDbConnector connector, String s);
+
+    public abstract NoSqlDbDeletes noSqlDbDeletes(NoSqlDbConnector connector, String s);
 
     public abstract void closeConnection(NoSqlDbConnector noSqlDbConnector);
 

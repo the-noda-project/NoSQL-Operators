@@ -2,21 +2,13 @@ package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.client.sql.NoSqlDbSqlStatement;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSQLExpression;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
-import gr.ds.unipi.noda.api.redis.dataframe.visualization.RedisDataframeManipulator;
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 import static org.apache.spark.sql.functions.array;
-import static org.apache.spark.sql.functions.col;
 
 public class Redis {
     @Ignore
@@ -37,7 +29,7 @@ public void redisTest() throws ParseException {
 
     a.toDataframe().show();
 
-    //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
     //Date d1 = sdf.parse("2018-08-16T00:00:00.000");
     //Date d2 = sdf.parse("2018-08-18T00:00:00.000");
