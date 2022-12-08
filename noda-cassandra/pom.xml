@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>nosql-operators-Cassandra</artifactId>
+    <artifactId>nosql-operators-cassandra</artifactId>
     <dependencies>
         <dependency>
             <groupId>gr.unipi.noda</groupId>
@@ -18,7 +18,7 @@
             <scope>compile</scope>
         </dependency>
 <!-- ADD THE DEPENDENCY OF YOUR DATABASE-->
-<!--        <dependency>-->
+<!--        <dependency>4.14.1.-->
 <!--            <groupId></groupId>-->
 <!--            <artifactId></artifactId>-->
 <!--            <version></version>-->
@@ -29,19 +29,19 @@
         <dependency>
             <groupId>com.datastax.oss</groupId>
             <artifactId>java-driver-core</artifactId>
-            <version>${driver.version}</version>
+            <version>4.14.1.</version>
         </dependency>
 
         <dependency>
             <groupId>com.datastax.oss</groupId>
             <artifactId>java-driver-query-builder</artifactId>
-            <version>${driver.version}</version>
+            <version>4.14.1.</version>
         </dependency>
 
         <dependency>
             <groupId>com.datastax.oss</groupId>
             <artifactId>java-driver-mapper-runtime</artifactId>
-            <version>${driver.version}</version>
+            <version>4.14.1.</version>
         </dependency>
 
     </dependencies>
