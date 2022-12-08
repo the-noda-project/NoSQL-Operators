@@ -17,7 +17,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.Base
 import gr.ds.unipi.noda.api.core.operators.joinOperators.BaseJoinOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
 import gr.ds.unipi.noda.api.cassandra.aggregateOperators.CassandraAggregateOperatorFactory;
-import gr.ds.unipi.noda.api.cassandra.dataframe.visualization.cassandraDataframeManipulator;
+import gr.ds.unipi.noda.api.cassandra.dataframe.visualization.CassandraDataframeManipulator;
 import gr.ds.unipi.noda.api.cassandra.filterOperators.comparisonOperators.CassandraComparisonOperatorFactory;
 import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTemporalOperators.CassandraGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTextualOperators.CassandraGeoTextualOperatorFactory;
@@ -102,7 +102,7 @@ public final class CassandraConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     protected BaseDataframeManipulator getBaseDataframeManipulator() {
-        return new cassandraDataframeManipulator();
+        return new CassandraDataframeManipulator();
     }
 
     @Override

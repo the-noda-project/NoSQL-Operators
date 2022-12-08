@@ -4,7 +4,7 @@ import gr.ds.unipi.noda.api.core.dataframe.visualization.BaseDataframeManipulato
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-public class cassandraDataframeManipulator extends BaseDataframeManipulator {
+public class CassandraDataframeManipulator extends BaseDataframeManipulator {
     @Override
     public Dataset<Row> spatialView(Dataset<Row> dataset, String location) {
         return null;
