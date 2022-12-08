@@ -3,3 +3,4 @@ target/
 enrich.log
 *.iml
 QuadTree/
+java-driver*
