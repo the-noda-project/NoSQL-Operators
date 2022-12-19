@@ -10,4 +10,13 @@ final class OperatorSum extends AggregateOperator {
         return new OperatorSum(fieldName);
     }
 
+    @Override
+    protected String reduceStageExpression() {
+        return "sum(values.map(a => a[\"" + getFieldName() + "\"]))";
+    }
+
+    @Override
+    protected String rereduceStageExpression() {
+        return "values.reduce((a, b) => a + b[\"" + getAlias() + "\"], 0)";
+    }
 }

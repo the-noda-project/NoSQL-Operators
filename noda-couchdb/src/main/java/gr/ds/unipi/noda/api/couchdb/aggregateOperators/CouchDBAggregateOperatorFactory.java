@@ -5,37 +5,37 @@ import gr.ds.unipi.noda.api.core.operators.aggregateOperators.BaseAggregateOpera
 
 public final class CouchDBAggregateOperatorFactory extends BaseAggregateOperatorFactory {
     @Override
-    public AggregateOperator newOperatorMax(String fieldName) {
+    public AggregateOperator<String[]> newOperatorMax(String fieldName) {
         return OperatorMax.newOperatorMax(fieldName);
     }
 
     @Override
-    public AggregateOperator newOperatorMin(String fieldName) {
+    public AggregateOperator<String[]> newOperatorMin(String fieldName) {
         return OperatorMin.newOperatorMin(fieldName);
     }
 
     @Override
-    public AggregateOperator newOperatorAvg(String fieldName) {
+    public AggregateOperator<String[]> newOperatorAvg(String fieldName) {
         return OperatorAvg.newOperatorAvg(fieldName);
     }
 
     @Override
-    public AggregateOperator newOperatorSum(String fieldName) {
+    public AggregateOperator<String[]> newOperatorSum(String fieldName) {
         return OperatorSum.newOperatorSum(fieldName);
     }
 
     @Override
-    public AggregateOperator newOperatorCount() {
+    public AggregateOperator<String[]> newOperatorCount() {
         return OperatorCount.newOperatorCount();
     }
 
     @Override
-    public AggregateOperator newOperatorCountNonNull(String fieldName) {
+    public AggregateOperator<String[]> newOperatorCountNonNull(String fieldName) {
         return OperatorCountNonNull.newOperatorCountNonNull(fieldName);
     }
 
     @Override
-    public AggregateOperator newOperatorCountDistinct(String fieldName) {
+    public AggregateOperator<String[]> newOperatorCountDistinct(String fieldName) {
         return OperatorCountDistinct.newOperatorCountDistinct(fieldName);
     }
 }

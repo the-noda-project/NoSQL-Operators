@@ -10,4 +10,13 @@ final class OperatorMin extends AggregateOperator {
         return new OperatorMin(fieldName);
     }
 
+    @Override
+    protected String reduceStageExpression() {
+        return "Math.min.apply(null, values.map(a => a[\"" + getFieldName() + "\"]))";
+    }
+
+    @Override
+    protected String rereduceStageExpression() {
+        return "values.reduce((a, b) => Math.min(a, b[\"" + getAlias() + "\"]), Infinity)";
+    }
 }

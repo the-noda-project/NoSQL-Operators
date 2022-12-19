@@ -10,4 +10,13 @@ final class OperatorMax extends AggregateOperator {
         return new OperatorMax(fieldName);
     }
 
+    @Override
+    protected String reduceStageExpression() {
+        return "Math.max.apply(null, values.map(a => a[\"" + getFieldName() + "\"]))";
+    }
+
+    @Override
+    protected String rereduceStageExpression() {
+        return "values.reduce((a, b) => Math.max(a, b[\"" + getAlias() + "\"]), -Infinity)";
+    }
 }

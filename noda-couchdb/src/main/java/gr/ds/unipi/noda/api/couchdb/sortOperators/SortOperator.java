@@ -1,12 +1,17 @@
 package gr.ds.unipi.noda.api.couchdb.sortOperators;
 
-abstract class SortOperator extends gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator<Object> {
+import java.util.Collections;
+import java.util.Map;
+
+abstract class SortOperator extends gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator<Map<String, String>> {
     protected SortOperator(String fieldName) {
         super(fieldName);
     }
 
+    protected abstract String orderName();
+
     @Override
-    public Object getOperatorExpression() {
-        return null;
+    public Map<String, String> getOperatorExpression() {
+        return Collections.singletonMap(getFieldName(), orderName());
     }
 }

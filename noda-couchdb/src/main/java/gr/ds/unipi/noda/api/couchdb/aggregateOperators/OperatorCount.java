@@ -10,4 +10,13 @@ final class OperatorCount extends AggregateOperator {
         return new OperatorCount("");
     }
 
+    @Override
+    protected String reduceStageExpression() {
+        return "values.map(a => a[\"" + getFieldName() + "\"]).length";
+    }
+
+    @Override
+    protected String rereduceStageExpression() {
+        return "values.reduce((a, b) => a + b[\"" + getAlias() + "\"], 0)";
+    }
 }

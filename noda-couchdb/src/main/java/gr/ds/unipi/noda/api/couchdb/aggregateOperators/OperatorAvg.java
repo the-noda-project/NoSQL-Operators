@@ -10,4 +10,13 @@ final class OperatorAvg extends AggregateOperator {
         return new OperatorAvg(fieldName);
     }
 
+    @Override
+    protected String reduceStageExpression() {
+        return "sum(values.map(a => a[\"" + getFieldName() + "\"]))";
+    }
+
+    @Override
+    protected String rereduceStageExpression() {
+        return "values.reduce((a, b) => a + b[\"" + getAlias() + "\"], 0) / values.length";
+    }
 }

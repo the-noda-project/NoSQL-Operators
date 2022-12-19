@@ -10,4 +10,13 @@ public class OperatorCountDistinct extends AggregateOperator {
         return new OperatorCountDistinct(fieldName);
     }
 
+    @Override
+    protected String reduceStageExpression() {
+        return null;
+    }
+
+    @Override
+    protected String rereduceStageExpression() {
+        return null;
+    }
 }

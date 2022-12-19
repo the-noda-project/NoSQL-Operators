@@ -3,7 +3,6 @@ package gr.ds.unipi.noda.api.couchdb;
 import gr.ds.unipi.noda.api.core.dataframe.visualization.BaseDataframeManipulator;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
-import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbDeletes;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbInserts;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbUpdates;
@@ -28,36 +27,34 @@ import org.apache.spark.sql.SparkSession;
 
 public final class CouchDBConnectionFactory extends NoSqlConnectionFactory {
 
-    private final CouchDBConnectionManager couchDBConnectionManager = CouchDBConnectionManager.getInstance();
-
     @Override
-    public NoSqlDbOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
-        return null;
+    public CouchDBOperators noSqlDbOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
+        return CouchDBOperators.newCouchDBOperators((CouchDBConnector) connector, s, sparkSession);
     }
 
     @Override
     public NoSqlDbInserts noSqlDbInserts(NoSqlDbConnector connector, String s) {
-        return null;
+        return CouchDBInserts.newCouchDbInserts((CouchDBConnector) connector, s);
     }
 
     @Override
     public NoSqlDbUpdates noSqlDbUpdates(NoSqlDbConnector connector, String s) {
-        return null;
+        return CouchDBUpdates.newCouchDbUpdates((CouchDBConnector) connector, s);
     }
 
     @Override
     public NoSqlDbDeletes noSqlDbDeletes(NoSqlDbConnector connector, String s) {
-        return null;
+        return CouchDBDeletes.newCouchDbDeletes((CouchDBConnector) connector, s);
     }
 
     @Override
     public void closeConnection(NoSqlDbConnector noSqlDbConnector) {
-
+        CouchDBConnectionManager.getInstance().closeConnection(noSqlDbConnector);
     }
 
     @Override
     public boolean closeConnections() {
-        return false;
+        return CouchDBConnectionManager.getInstance().closeConnections();
     }
 
     @Override
