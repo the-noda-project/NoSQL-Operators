@@ -41,6 +41,6 @@ public class CassandraSystem extends NoSqlDbSystem {
 
     private CassandraSystem(Builder builder) {
         super(builder, null);
-        connector = CassandraConnector.newCassandraConnector(getAddresses(),builder.username,builder.password,builder.database);
+        connector = CassandraConnector.newCassandraConnector();
     }
 }

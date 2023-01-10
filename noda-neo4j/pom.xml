@@ -33,36 +33,52 @@
             <artifactId>hilbert-curve</artifactId>
             <version>0.2.1</version>
         </dependency>
-        <dependency>
-            <groupId>neo4j-contrib</groupId>
-            <artifactId>neo4j-spark-connector</artifactId>
-            <version>2.4.5-M1</version>
-            <exclusions>
-            <exclusion>  <!-- declare the exclusion here -->
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-            </exclusion>
+<!--        <dependency>-->
+<!--            <groupId>neo4j-contrib</groupId>-->
+<!--            <artifactId>neo4j-spark-connector</artifactId>-->
+<!--            <version>2.4.5-M1</version>-->
+<!--            <exclusions>-->
+<!--            <exclusion>  &lt;!&ndash; declare the exclusion here &ndash;&gt;-->
+<!--                    <groupId>ch.qos.logback</groupId>-->
+<!--                    <artifactId>logback-classic</artifactId>-->
+<!--            </exclusion>-->
 
-                    <exclusion>  <!-- declare the exclusion here -->
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-            </exclusions>
-        </dependency>
+<!--                    <exclusion>  &lt;!&ndash; declare the exclusion here &ndash;&gt;-->
+<!--                        <groupId>org.slf4j</groupId>-->
+<!--                        <artifactId>slf4j-log4j12</artifactId>-->
+<!--                    </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.9</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-connector-apache-spark_2.11</artifactId>
+            <version>4.1.0_for_spark_2.4</version>
+            <exclusions>
+                <exclusion>  <!-- declare the exclusion here -->
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+
+                <exclusion>  <!-- declare the exclusion here -->
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
 
     </dependencies>
-    <repositories>
-    <!-- list of other repositories -->
-        <repository>
-            <id>SparkPackagesRepo</id>
-            <url>http://dl.bintray.com/spark-packages/maven</url>
-        </repository>
-    </repositories>
+<!--    <repositories>-->
+<!--    &lt;!&ndash; list of other repositories &ndash;&gt;-->
+<!--        <repository>-->
+<!--            <id>SparkPackagesRepo</id>-->
+<!--            <url>http://dl.bintray.com/spark-packages/maven</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
 </project>
