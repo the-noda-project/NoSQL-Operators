@@ -19,11 +19,6 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>gr.unipi.noda</groupId>
-            <artifactId>nosql-operators-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.neo4j.driver</groupId>
             <artifactId>neo4j-java-driver</artifactId>
             <version>4.0.1</version>
