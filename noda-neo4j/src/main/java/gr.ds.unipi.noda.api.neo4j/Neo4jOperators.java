@@ -291,18 +291,19 @@ final class Neo4jOperators extends NoSqlDbOperators {
         sbCopy.append(" RETURN s.vehicle AS vehicle, toString(s.location) AS location, s.date AS date");
         System.out.println(sbCopy);
 
-
-        Neo4JavaSparkContext neo = Neo4JavaSparkContext.neo4jContext(getSparkSession().sparkContext());
-        long maxId = 50L;
-        Dataset<Row> o = neo.queryDF(sbCopy.toString(), Collections.singletonMap("maxId", maxId));
-
-        o.show();
-
-        o.printSchema();
-
-        System.out.println("--------------------: " + o);
-
-        return o;
+        //next line commented due to spark-neo4j library connector change
+//        Neo4JavaSparkContext neo = Neo4JavaSparkContext.neo4jContext(getSparkSession().sparkContext());
+//        long maxId = 50L;
+//        Dataset<Row> o = neo.queryDF(sbCopy.toString(), Collections.singletonMap("maxId", maxId));
+//
+//        o.show();
+//
+//        o.printSchema();
+//
+//        System.out.println("--------------------: " + o);
+//
+//        return o;
+        return null;
     }
 
     @Override
