@@ -6,6 +6,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
 
 public class CassandraDatabaseTest{
 
@@ -70,7 +71,16 @@ public class CassandraDatabaseTest{
 
     @Test
     public void testInterface() throws UnknownHostException {
-        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("").ipv4Address("192.168.2.4").build();
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").ipv4Address("192.168.2.4").build();
+    }
 
+    @Test
+    public void testConnection() throws UnknownHostException, InterruptedException {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").build();
+        cassandra.operateOn("").printScreen();
+        System.out.println("TIMER START");
+        TimeUnit.MINUTES.sleep(1);
+        System.out.println("TIMER FINISH");
+        cassandra.closeConnection();
     }
 }
