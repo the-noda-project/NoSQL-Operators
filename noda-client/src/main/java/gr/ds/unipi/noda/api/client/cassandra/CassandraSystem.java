@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.client.cassandra;
 
+import gr.ds.unipi.noda.api.cassandra.CassandraConnectionFactory;
 import gr.ds.unipi.noda.api.cassandra.CassandraConnector;
 import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import com.datastax.oss.driver.api.core.auth.ProgrammaticPlainTextAuthProvider;
@@ -54,7 +55,7 @@ public class CassandraSystem extends NoSqlDbSystem {
     }
 
     private CassandraSystem(Builder builder) {
-        super(builder, null);
+        super(builder, new CassandraConnectionFactory());
         connector = CassandraConnector.newCassandraConnector(builder.authProvider, builder.keyspace, builder.ipv4);
     }
 }
