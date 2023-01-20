@@ -8,17 +8,17 @@ import org.junit.Test;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
+import static gr.ds.unipi.noda.api.core.operators.FilterOperators.eq;
+
 public class CassandraDatabaseTest{
 
     @Ignore
     @Test
-    public void simpleFilterTest() {
+    public void simpleFilterTest() throws UnknownHostException {
 
-//        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.CassandraDataBase().Builder(/*Your defined parameters here*/).host("localhost").port(/*Set your port here*/)/*in case you have optional parameters, call the respective methods here*/.build();
-//
-//        noSqlDbSystem.operateOn(/*Your collection name or table name here*/).filter(gte("columnA",10)).printScreen();
-//
-//        noSqlDbSystem.closeConnection();
+        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").build();
+        noSqlDbSystem.operateOn("testTable").filter(eq("id",0)).printScreen();
+        noSqlDbSystem.closeConnection();
     }
 
     @Ignore

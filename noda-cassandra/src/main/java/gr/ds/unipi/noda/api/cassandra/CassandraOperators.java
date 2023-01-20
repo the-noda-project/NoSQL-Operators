@@ -9,8 +9,11 @@ import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-
-import java.util.Optional;
+import java.util.Optional;import com.datastax.oss.driver.api.core.CqlSession;
+import com.datastax.oss.driver.api.core.cql.*;
+import com.datastax.oss.driver.api.core.CqlSession;
+import java.util.ArrayList;
+import java.util.Collections;
 
 final class CassandraOperators extends NoSqlDbOperators {
 
@@ -18,10 +21,11 @@ final class CassandraOperators extends NoSqlDbOperators {
     //to access the database's object for connectivity, call cassandraConnectionManager.getConnection(getNoSqlDbConnector())
     //to access the defined name of collection or table, call  getDataCollection()
     //to access the SparkSession, call getSparkSession()
-
+    private ArrayList<String> stageList;
 
     private CassandraOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
         super(noSqlDbConnector, dataCollection, sparkSession);
+        this.stageList = new ArrayList<String>();
     }
 
     static CassandraOperators newCassandraOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession){
@@ -30,7 +34,8 @@ final class CassandraOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        return null;
+        this.stageList.add(filterOperator.getOperatorExpression().toString()); //To fix this make all the operators return a String
+        return this;
     }
 
     @Override
@@ -50,7 +55,17 @@ final class CassandraOperators extends NoSqlDbOperators {
 
     @Override
     public void printScreen() {
-
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT * FROM ");
+        query.append(getDataCollection().replace("[","").replace("]",""));
+        query.append(" WHERE ");
+        Collections.reverse(this.stageList);
+        for(String operation : this.stageList){
+            ResultSet rs = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute((new StringBuilder(query).append(operation)).toString());
+            for(com.datastax.oss.driver.api.core.cql.Row row : rs){
+                System.out.println(row.getInt("id")+" "+row.getString("rndText"));
+            }
+        }
     }
 
     @Override

@@ -4,6 +4,16 @@ import java.util.Date;
 
 final class OperatorEqual<T> extends ComparisonOperator<T> {
 
+
+    @Override
+    public StringBuilder getOperatorExpression(){
+        StringBuilder operation = new StringBuilder();
+        operation.append(getFieldName());
+        operation.append('=');
+        operation.append(getFieldValue());
+        return operation;
+    }
+
     private OperatorEqual(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
     }
