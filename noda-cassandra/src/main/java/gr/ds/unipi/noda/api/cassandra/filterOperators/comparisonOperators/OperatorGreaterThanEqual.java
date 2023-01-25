@@ -4,6 +4,15 @@ import java.util.Date;
 
 final class OperatorGreaterThanEqual<T> extends ComparisonOperator<T> {
 
+    @Override
+    public StringBuilder getOperatorExpression(){
+        StringBuilder operation = new StringBuilder();
+        operation.append(getFieldName());
+        operation.append(">=");
+        operation.append(getFieldValue());
+        return operation;
+    }
+
     private OperatorGreaterThanEqual(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
     }

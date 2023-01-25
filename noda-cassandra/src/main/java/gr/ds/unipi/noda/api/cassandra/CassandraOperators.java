@@ -34,7 +34,12 @@ final class CassandraOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        this.stageList.add(filterOperator.getOperatorExpression().toString()); //To fix this make all the operators return a String
+        this.stageList.add(filterOperator.getOperatorExpression().toString());
+
+        for (FilterOperator filterOperator1 : filterOperators){
+            this.stageList.add(filterOperator1.toString());
+        }
+
         return this;
     }
 
@@ -56,21 +61,30 @@ final class CassandraOperators extends NoSqlDbOperators {
     @Override
     public void printScreen() {
         StringBuilder query = new StringBuilder();
-        query.append("SELECT * FROM ");
-        query.append(getDataCollection().replace("[","").replace("]",""));
-        query.append(" WHERE ");
-        Collections.reverse(this.stageList);
-        for(String operation : this.stageList){
-            ResultSet rs = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute((new StringBuilder(query).append(operation)).toString());
-            for(com.datastax.oss.driver.api.core.cql.Row row : rs){
-                System.out.println(row.getInt("id")+" "+row.getString("rndText"));
-            }
+        query.append("SELECT * "); //Projection operator implementation later
+        query.append("FROM ");
+        query.append(getDataCollection());
+        query.append(" ");
+        query.append("WHERE ");
+
+        //Create the operations for the where clause
+        StringBuilder whereClause = new StringBuilder();
+        for (String filterOperator : stageList){
+            whereClause.append(filterOperator);
+        }
+        query.append(whereClause);
+        query.append(" ALLOW FILTERING;");
+        System.out.println(query.toString());
+        ResultSet rs = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(query.toString());
+        for(com.datastax.oss.driver.api.core.cql.Row row : rs){
+            System.out.println(row.getInt(0)+" "+row.getInt(1)+" "+row.getDouble(2)+" "+row.getString(3).replace(")",""));
         }
     }
 
     @Override
     public Optional<Double> max(String fieldName) {
-        return Optional.empty();
+        //  EXECUTE QUERY HERE TO GET THE MAX
+        return null;
     }
 
     @Override
