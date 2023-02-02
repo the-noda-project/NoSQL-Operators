@@ -4,8 +4,20 @@ import java.util.Date;
 
 final class OperatorNotEqual<T> extends ComparisonOperator<T> {
 
-    private OperatorNotEqual(String fieldName, T fieldValue) {
+    @Override
+    public StringBuilder getOperatorExpression(){
+        StringBuilder operation = new StringBuilder();
+        operation.append(getFieldName());
+        operation.append('<');
+        operation.append(getFieldValue());
+        operation.append(" AND ");
+        operation.append(getFieldName());
+        operation.append('>');
+        operation.append((getFieldValue()));
+        return operation;
+    }
 
+    private OperatorNotEqual(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
     }
 
