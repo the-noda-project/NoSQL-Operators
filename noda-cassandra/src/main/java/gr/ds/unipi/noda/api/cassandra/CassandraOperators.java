@@ -76,8 +76,9 @@ final class CassandraOperators extends NoSqlDbOperators {
         query.append(" ALLOW FILTERING;");
         System.out.println(query.toString());
         ResultSet rs = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(query.toString());
+        System.out.println("THE RESULTS ARE:");
         for(com.datastax.oss.driver.api.core.cql.Row row : rs){
-            System.out.println(row.getInt(0)+" "+row.getInt(1)+" "+row.getDouble(2)+" "+row.getString(3).replace(")",""));
+            System.out.println(row.getInt(0)+" "+row.getShort(1)+" "+row.getLong(2)+" "+row.getDouble(3)+" "+row.getLocalDate(4)+" "+ row.getFloat(5));
         }
     }
 

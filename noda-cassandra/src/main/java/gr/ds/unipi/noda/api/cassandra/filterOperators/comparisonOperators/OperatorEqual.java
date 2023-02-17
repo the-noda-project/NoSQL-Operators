@@ -9,8 +9,22 @@ final class OperatorEqual<T> extends ComparisonOperator<T> {
     public StringBuilder getOperatorExpression(){
         StringBuilder operation = new StringBuilder();
         operation.append(getFieldName());
-        operation.append('=');
-        operation.append(getFieldValue());
+        operation.append("=");
+        if (getFieldValue().getClass().getSimpleName().equals("Date")){
+            String stringDate = getFieldValue().toString();
+            String year = stringDate.split(" ")[5];
+            String month = monthInt.get(stringDate.split(" ")[1]);
+            String day = stringDate.split(" ")[2];
+            operation.append('\'');
+            operation.append(year);
+            operation.append('-');
+            operation.append(month);
+            operation.append('-');
+            operation.append(day);
+            operation.append('\'');
+        }else{
+            operation.append(getFieldValue());
+        }
         return operation;
     }
 

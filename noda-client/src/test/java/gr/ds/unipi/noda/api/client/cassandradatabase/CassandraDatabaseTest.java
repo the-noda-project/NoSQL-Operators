@@ -4,7 +4,7 @@ import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.client.cassandra.CassandraSystem;
 import org.junit.Ignore;
 import org.junit.Test;
-
+import java.util.Date;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +17,9 @@ public class CassandraDatabaseTest{
     public void simpleFilterTest() throws UnknownHostException {
 
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").build();
-        noSqlDbSystem.operateOn("testTable").filter(and(and(gt("id",3000),lt("id",4000),gt("age",40)),lt("age",50),gt("wage",5000))).printScreen();
+        long dateInMl = Long.parseLong("825166800000");
+        Date date = new Date(dateInMl);
+        noSqlDbSystem.operateOn("testtable").filter(gt("date",date)).printScreen();
         noSqlDbSystem.closeConnection();
     }
 
