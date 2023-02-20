@@ -2,12 +2,17 @@ package gr.ds.unipi.noda.api.couchdb.filterOperators.textualOperators.conditiona
 
 public final class OperatorAnyKeywords extends ConditionalTextualOperator {
 
-    private OperatorAnyKeywords(String fieldName, String[] elements){
+    private OperatorAnyKeywords(String fieldName, String[] elements) {
         super(fieldName, elements);
     }
 
-    public static OperatorAnyKeywords newOperatorAnyKeywords(String fieldName, String keyword, String... keywords){
+    public static OperatorAnyKeywords newOperatorAnyKeywords(String fieldName, String keyword, String... keywords) {
         return new OperatorAnyKeywords(fieldName, oneKeywordsAtLeastToArray(keyword, keywords));
+    }
+
+    @Override
+    protected String operatorSymbol() {
+        return "||";
     }
 
 }
