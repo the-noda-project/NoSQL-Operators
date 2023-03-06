@@ -123,4 +123,13 @@ public class CassandraDatabaseTest{
         cassandra.deletionsOn("testtable2").delete(and(eq("integer",51), eq("short",6)), "boolean");
         cassandra.deletionsOn("testtable2").flush();
     }
+
+    @Test
+    public void testUpdate() throws UnknownHostException {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").ipv4Address("172.18.0.2").build();
+        cassandra.updatesOn("testtable2").update(and(eq("short",6),eq("integer",1016)),FieldValue.newOFieldValue("string","Sally Abbott"));
+        Integer[] integers = {-2,-1,0,1,2,3,4,5,6,7,8};
+        cassandra.updatesOn("testtable2").update(and(eq("short",6),eq("integer",723)),FieldValue.newFieldValue("integerList",integers),FieldValue.newFieldValue("long",-600), FieldValue.newOFieldValue("string","Luis Patrick"));
+        cassandra.updatesOn("testtable2").flush();
+    }
 }
