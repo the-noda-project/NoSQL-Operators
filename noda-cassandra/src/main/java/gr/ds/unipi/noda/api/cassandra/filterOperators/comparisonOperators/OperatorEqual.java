@@ -22,6 +22,8 @@ final class OperatorEqual<T> extends ComparisonOperator<T> {
             operation.append('-');
             operation.append(day);
             operation.append('\'');
+        }else if(getFieldValue().getClass().getSimpleName().equals("String")){
+            operation.append('\'').append(getFieldValue()).append('\'');
         }else{
             operation.append(getFieldValue());
         }

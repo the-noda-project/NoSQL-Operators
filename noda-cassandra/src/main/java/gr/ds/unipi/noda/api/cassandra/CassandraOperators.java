@@ -9,7 +9,8 @@ import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import java.util.Optional;import com.datastax.oss.driver.api.core.CqlSession;
+import java.util.Optional;
+import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.*;
 import com.datastax.oss.driver.api.core.CqlSession;
 import java.util.ArrayList;
@@ -74,11 +75,10 @@ final class CassandraOperators extends NoSqlDbOperators {
         }
         query.append(whereClause);
         query.append(" ALLOW FILTERING;");
-        System.out.println(query.toString());
         ResultSet rs = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(query.toString());
         System.out.println("THE RESULTS ARE:");
         for(com.datastax.oss.driver.api.core.cql.Row row : rs){
-            System.out.println(row.getInt(0)+" "+row.getShort(1)+" "+row.getLong(2)+" "+row.getDouble(3)+" "+row.getLocalDate(4)+" "+ row.getFloat(5));
+            System.out.println(row.getFormattedContents());
         }
     }
 

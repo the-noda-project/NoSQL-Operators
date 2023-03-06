@@ -7,9 +7,7 @@ final class OperatorAnd extends LogicalOperator {
     public StringBuilder getOperatorExpression(){
         StringBuilder operation = new StringBuilder();
         operation.append(getFilterOperatorChildren()[0].getOperatorExpression());
-        System.out.println(getFilterOperatorChildren()[0].getOperatorExpression()); //REMOVE
         for(int i=1 ; i<getFilterOperatorChildren().length; i++){
-            System.out.println(getFilterOperatorChildren()[i].getOperatorExpression()); //REMOVE
             operation.append(" AND ");
             operation.append(getFilterOperatorChildren()[i].getOperatorExpression());
         }
