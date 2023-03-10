@@ -2,6 +2,7 @@ package gr.ds.unipi.noda.api.cassandra;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import gr.ds.unipi.noda.api.core.nosqldb.modifications.FieldValue;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
@@ -22,11 +23,13 @@ final class CassandraOperators extends NoSqlDbOperators {
     //to access the database's object for connectivity, call cassandraConnectionManager.getConnection(getNoSqlDbConnector())
     //to access the defined name of collection or table, call  getDataCollection()
     //to access the SparkSession, call getSparkSession()
-    private ArrayList<String> stageList;
+    private ArrayList<String> filterList;
+    private ArrayList<String> aggregateList;
 
     private CassandraOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
         super(noSqlDbConnector, dataCollection, sparkSession);
-        this.stageList = new ArrayList<String>();
+        this.filterList = new ArrayList<String>();
+        this.aggregateList = new ArrayList<String>();
     }
 
     static CassandraOperators newCassandraOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession){
@@ -35,12 +38,12 @@ final class CassandraOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        this.stageList.add(filterOperator.getOperatorExpression().toString());
-
-        for (FilterOperator filterOperator1 : filterOperators){
-            this.stageList.add(filterOperator1.toString());
+        FilterOperator[] filterOperatorsArray = new FilterOperator[filterOperators.length+1];
+        filterOperatorsArray[0] = filterOperator;
+        System.arraycopy(filterOperators, 0, filterOperatorsArray, 1, filterOperators.length);
+        for(FilterOperator filtOper : filterOperatorsArray) {
+            this.filterList.add(filtOper.getOperatorExpression().toString());
         }
-
         return this;
     }
 
@@ -51,7 +54,13 @@ final class CassandraOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators aggregate(AggregateOperator aggregateOperator, AggregateOperator... aggregateOperators) {
-        return null;
+        AggregateOperator[] aggregateOperatorsArray = new AggregateOperator[aggregateOperators.length+1];
+        aggregateOperatorsArray[0] = aggregateOperator;
+        System.arraycopy(aggregateOperators, 0, aggregateOperatorsArray, 1, aggregateOperators.length);
+        for(AggregateOperator aggrOper : aggregateOperatorsArray) {
+            this.aggregateList.add(aggrOper.getOperatorExpression().toString());
+        }
+        return this;
     }
 
     @Override
@@ -62,19 +71,23 @@ final class CassandraOperators extends NoSqlDbOperators {
     @Override
     public void printScreen() {
         StringBuilder query = new StringBuilder();
-        query.append("SELECT * "); //Projection operator implementation later
-        query.append("FROM ");
+        //Create the select clause
+        query.append("SELECT ");
+        query.append(aggregateList.toString().replace("[", "").replace("]", ""));
+        query.append(" FROM ");
         query.append(getDataCollection());
         query.append(" ");
-        query.append("WHERE ");
-
-        //Create the operations for the where clause
-        StringBuilder whereClause = new StringBuilder();
-        for (String filterOperator : stageList){
-            whereClause.append(filterOperator);
+        if(filterList.size() > 0) {
+            query.append("WHERE ");
+            //Create the where clause
+            StringBuilder whereClause = new StringBuilder();
+            for (String filterOperator : filterList){
+                whereClause.append(filterOperator);
+            }
+            query.append(whereClause);
         }
-        query.append(whereClause);
         query.append(" ALLOW FILTERING;");
+        //Print the results
         ResultSet rs = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(query.toString());
         System.out.println("THE RESULTS ARE:");
         for(com.datastax.oss.driver.api.core.cql.Row row : rs){

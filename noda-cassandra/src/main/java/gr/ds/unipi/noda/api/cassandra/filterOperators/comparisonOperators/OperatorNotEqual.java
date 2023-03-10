@@ -6,7 +6,7 @@ final class OperatorNotEqual<T> extends ComparisonOperator<T> {
 
     @Override
     public StringBuilder getOperatorExpression(){
-        throw new IllegalArgumentException("The != operation is not supported by Cassandra!");
+        throw new UnsupportedOperationException("The != operation is not supported by Cassandra!");
     }
 
     private OperatorNotEqual(String fieldName, T fieldValue) {

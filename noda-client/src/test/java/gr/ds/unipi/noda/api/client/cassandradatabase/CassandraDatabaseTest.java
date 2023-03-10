@@ -1,11 +1,16 @@
 package gr.ds.unipi.noda.api.client.cassandradatabase;
 
 import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
+import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.FieldValue;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbInserts;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import org.junit.Ignore;
 import org.junit.Test;
+import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,9 +27,10 @@ public class CassandraDatabaseTest{
     @Ignore
     @Test
     public void simpleFilterTest() throws UnknownHostException {
-        NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").ipv4Address("172.18.0.2").build();
-        noSqlDbSystem.operateOn("testtable").filter(eq("string","Frank Neal")).printScreen();
-        noSqlDbSystem.closeConnection();
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").ipv4Address("127.0.0.1").build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("testtable");
+        cassandraOperators.filter(eq("string", "Maria"));
+        cassandraOperators.printScreen();
     }
 
     @Ignore
@@ -91,23 +97,24 @@ public class CassandraDatabaseTest{
     }
 
     @Test
-    public void testInsert() throws UnknownHostException, FileNotFoundException {
-        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").ipv4Address("172.18.0.2").build();
-        NoSqlDbInserts cassandraInsert =  cassandra.insertionsOn("testtable2");
-        Scanner scanner = new Scanner(new File("/home/george/Projects/Test/insertLines.csv"));
+    public void testInsert() throws UnknownHostException, FileNotFoundException, ParseException {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").ipv4Address("127.0.0.1").build();
+        NoSqlDbInserts cassandraInsert =  cassandra.insertionsOn("testtable");
+        SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+        Scanner scanner = new Scanner(new File("/home/george/Downloads/records.csv"));
         while (scanner.hasNextLine()) {
-
-            // Simple fields
-            String[] currentLine = scanner.nextLine().split(",");
-            FieldValue<Short> shortFieldValue = FieldValue.newFieldValue("short", Short.parseShort(currentLine[0]));
-            FieldValue<Integer> integerFieldValue = FieldValue.newFieldValue("integer", Integer.parseInt(currentLine[1]));
-            FieldValue<Long> longFieldValue = FieldValue.newFieldValue("long", Long.parseLong(currentLine[2]));
-            FieldValue<Boolean> booleanFieldValue = FieldValue.newFieldValue("boolean", Boolean.parseBoolean(currentLine[3]));
-            FieldValue<Date> dateFieldValue = FieldValue.newFieldValue("date", new Date(Long.parseLong(currentLine[4])));
-            FieldValue<String> stringFieldValue = FieldValue.newOFieldValue("string", currentLine[5]);
-
-
-            cassandraInsert.insert(shortFieldValue, integerFieldValue, longFieldValue, booleanFieldValue, dateFieldValue, stringFieldValue);
+            String line = scanner.nextLine();
+            String[] fields = line.split(",");
+            short shortValue = Short.parseShort(fields[0]);
+            int integerValue = Integer.parseInt(fields[1]);
+            boolean booleanValue = Boolean.parseBoolean(fields[2]);
+            String stringDate = fields[3];
+            Date dateValue = df.parse(stringDate);
+            double doubleValue = Double.parseDouble(fields[4]);
+            float floatValue = Float.parseFloat(fields[5]);
+            long longValue = Long.parseLong(fields[6]);
+            String stringValue = fields[7];
+            cassandraInsert.insert(FieldValue.newFieldValue("short", shortValue), FieldValue.newFieldValue("integer", integerValue), FieldValue.newFieldValue("boolean",booleanValue), FieldValue.newFieldValue("date", dateValue), FieldValue.newFieldValue("double", doubleValue), FieldValue.newFieldValue("float", floatValue), FieldValue.newFieldValue("long", longValue), FieldValue.newOFieldValue("string", stringValue));
         }
     }
 
@@ -131,5 +138,18 @@ public class CassandraDatabaseTest{
         Integer[] integers = {-2,-1,0,1,2,3,4,5,6,7,8};
         cassandra.updatesOn("testtable2").update(and(eq("short",6),eq("integer",723)),FieldValue.newFieldValue("integerList",integers),FieldValue.newFieldValue("long",-600), FieldValue.newOFieldValue("string","Luis Patrick"));
         cassandra.updatesOn("testtable2").flush();
+    }
+
+    @Test
+    public void testAggregate() throws UnknownHostException {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").ipv4Address("127.0.0.1").build();
+        NoSqlDbOperators  cassandraOperators = cassandra.operateOn("testtable");
+        cassandraOperators.aggregate(sum("integer"));
+        cassandraOperators.aggregate(avg("short"));
+        cassandraOperators.aggregate(min("integer"));
+        cassandraOperators.aggregate(max("integer"));
+        cassandraOperators.aggregate(count());
+        cassandraOperators.printScreen();
+        cassandra.closeConnection();
     }
 }

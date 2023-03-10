@@ -10,4 +10,11 @@ final class OperatorMax extends AggregateOperator {
         return new OperatorMax(fieldName);
     }
 
+    public StringBuilder getOperatorExpression() {
+        StringBuilder operation = new StringBuilder();
+        operation.append("MAX(");
+        operation.append(getFieldName());
+        operation.append(")");
+        return operation;
+    }
 }

@@ -6,7 +6,7 @@ final class OperatorOr extends LogicalOperator {
 
     @Override
     public StringBuilder getOperatorExpression(){
-        throw new IllegalArgumentException("The OR(∨) operation is not supported by Cassandra!");
+        throw new UnsupportedOperationException("The OR(∨) operation is not supported by Cassandra!");
     }
 
     private OperatorOr(FilterOperator filterOperator1, FilterOperator filterOperator2, FilterOperator... filterOperators) {

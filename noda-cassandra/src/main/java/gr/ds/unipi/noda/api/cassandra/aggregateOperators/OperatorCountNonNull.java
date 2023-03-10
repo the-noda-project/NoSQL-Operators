@@ -10,4 +10,8 @@ public class OperatorCountNonNull extends AggregateOperator {
         return new OperatorCountNonNull(fieldName);
     }
 
+
+    public StringBuilder getOperatorExpression() {
+        throw new UnsupportedOperationException("The count not null operation is not supported by Cassandra!");
+    }
 }

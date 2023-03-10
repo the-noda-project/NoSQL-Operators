@@ -10,4 +10,12 @@ final class OperatorAvg extends AggregateOperator {
         return new OperatorAvg(fieldName);
     }
 
+    public StringBuilder getOperatorExpression() {
+        StringBuilder operation = new StringBuilder();
+        operation.append("AVG(");
+        operation.append(getFieldName());
+        operation.append(")");
+        return operation;
+    }
+
 }

@@ -10,4 +10,12 @@ final class OperatorSum extends AggregateOperator {
         return new OperatorSum(fieldName);
     }
 
+    public StringBuilder getOperatorExpression() {
+        StringBuilder operation = new StringBuilder();
+        operation.append("SUM(");
+        operation.append(getFieldName());
+        operation.append(")");
+        return operation;
+    }
+
 }
