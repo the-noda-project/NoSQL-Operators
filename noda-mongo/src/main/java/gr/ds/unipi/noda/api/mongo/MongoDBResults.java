@@ -13,17 +13,17 @@ public class MongoDBResults extends NoSqlDbResults<MongoCursor<Document>> {
 
     @Override
     public boolean hasNextRecord() {
-        return getBatchRecords().hasNext();
+        return getNoSqlDbResults().hasNext();
     }
 
     @Override
     public NoSqlDbRecord getRecord() {
-        return new MongoDBRecord(getBatchRecords().next());
+        return new MongoDBRecord(getNoSqlDbResults().next());
     }
 
     @Override
     public void close() {
-        getBatchRecords().close();
+        getNoSqlDbResults().close();
     }
 
 

@@ -4,8 +4,8 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbRecord;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
 
 public class YYYDataBaseResults extends NoSqlDbResults<Object> {
-    protected YYYDataBaseResults(Object batchRecords) {
-        super(batchRecords);
+    protected YYYDataBaseResults(Object noSqlDbResults) {
+        super(noSqlDbResults);
     }
 
     @Override

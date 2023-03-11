@@ -2,14 +2,14 @@ package gr.ds.unipi.noda.api.core.nosqldb;
 
 public abstract class NoSqlDbResults<T> {
 
-    private final T batchRecords;
+    private final T noSqlDbResults;
 
-    protected NoSqlDbResults(T batchRecords) {
-        this.batchRecords = batchRecords;
+    protected NoSqlDbResults(T noSqlDbResults) {
+        this.noSqlDbResults = noSqlDbResults;
     }
 
-    protected T getBatchRecords(){
-        return batchRecords;
+    protected T getNoSqlDbResults(){
+        return noSqlDbResults;
     }
 
     public abstract boolean hasNextRecord();
