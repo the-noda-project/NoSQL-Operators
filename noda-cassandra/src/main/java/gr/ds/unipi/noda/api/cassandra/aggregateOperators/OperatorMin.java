@@ -10,4 +10,12 @@ final class OperatorMin extends AggregateOperator {
         return new OperatorMin(fieldName);
     }
 
+    public StringBuilder getOperatorExpression() {
+        StringBuilder operation = new StringBuilder();
+        operation.append("MIN(");
+        operation.append(getFieldName());
+        operation.append(")");
+        return operation;
+    }
+
 }

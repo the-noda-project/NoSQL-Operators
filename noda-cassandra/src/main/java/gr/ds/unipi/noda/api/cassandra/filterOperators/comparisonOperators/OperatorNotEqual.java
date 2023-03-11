@@ -4,8 +4,12 @@ import java.util.Date;
 
 final class OperatorNotEqual<T> extends ComparisonOperator<T> {
 
-    private OperatorNotEqual(String fieldName, T fieldValue) {
+    @Override
+    public StringBuilder getOperatorExpression(){
+        throw new UnsupportedOperationException("The != operation is not supported by Cassandra!");
+    }
 
+    private OperatorNotEqual(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
     }
 
