@@ -2,6 +2,7 @@ package gr.ds.unipi.noda.api.cassandra;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.FieldValue;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
@@ -143,6 +144,11 @@ final class CassandraOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators join(NoSqlDbOperators noSqlDbOperators, JoinOperator jo) {
+        return null;
+    }
+
+    @Override
+    public NoSqlDbResults getResults() {
         return null;
     }
 }

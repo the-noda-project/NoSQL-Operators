@@ -6,6 +6,7 @@ import com.mongodb.spark.MongoSpark;
 import com.mongodb.spark.config.ReadConfig;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
@@ -19,8 +20,6 @@ import org.bson.BsonDocument;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import scala.collection.JavaConversions;
-import scala.collection.JavaConverters;
-import scala.collection.Seq;
 
 import java.util.*;
 
@@ -270,7 +269,6 @@ final class MongoDBOperators extends NoSqlDbOperators {
         MongoCursor<Document> cursor = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).iterator();
 
         formExpressionOfNoSQL();
-
         try {
             while (cursor.hasNext()) {
                 System.out.println(cursor.next().toJson());
@@ -319,5 +317,11 @@ final class MongoDBOperators extends NoSqlDbOperators {
     @Override
     public NoSqlDbOperators join(NoSqlDbOperators noSqlDbOperators, JoinOperator jo) {
         return null;
+    }
+
+    @Override
+    public NoSqlDbResults getResults() {
+        MongoCursor<Document> cursor = mongoDBConnectionManager.getConnection(getNoSqlDbConnector()).getDatabase(database).getCollection(getDataCollection()).aggregate(stagesList).cursor();
+        return new MongoDBResults(cursor);
     }
 }
