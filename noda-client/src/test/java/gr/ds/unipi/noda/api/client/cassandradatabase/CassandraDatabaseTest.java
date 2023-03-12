@@ -152,4 +152,25 @@ public class CassandraDatabaseTest{
         cassandraOperators.printScreen();
         cassandra.closeConnection();
     }
+
+    @Test
+    public void testAggregateFunctions() throws UnknownHostException {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").ipv4Address("127.0.0.1").build();
+        NoSqlDbOperators  cassandraOperators = cassandra.operateOn("testtable");
+        //Max function
+        cassandraOperators.filter(and(eq("boolean",true),lte("integer",70)));
+        System.out.println("MAX: "+cassandraOperators.max("short"));
+        //Min function
+        cassandraOperators.filter(and(eq("boolean",false),lte("integer",70)));
+        System.out.println("MIN: "+cassandraOperators.min("integer"));
+        //Sum function
+        cassandraOperators.filter(and(eq("string","Maria"),gte("integer",70)));
+        System.out.println("SUM: "+cassandraOperators.sum("float"));
+        //Avg function
+        cassandraOperators.filter(eq("string","Maria"));
+        System.out.println("AVG: "+cassandraOperators.avg("integer"));
+        //Count function
+        cassandraOperators.filter(eq("boolean",true));
+        System.out.println("COUNT: "+cassandraOperators.count());
+    }
 }

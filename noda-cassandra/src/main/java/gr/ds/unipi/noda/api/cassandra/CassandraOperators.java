@@ -94,32 +94,131 @@ final class CassandraOperators extends NoSqlDbOperators {
         for(com.datastax.oss.driver.api.core.cql.Row row : rs){
             System.out.println(row.getFormattedContents());
         }
+        this.filterList = new ArrayList<String>();
+        this.aggregateList = new ArrayList<String>();
     }
 
     @Override
     public Optional<Double> max(String fieldName) {
-        //  EXECUTE QUERY HERE TO GET THE MAX
-        return null;
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT MAX(");
+        query.append(fieldName);
+        query.append(") FROM ");
+        query.append(getDataCollection());
+        query.append(" ");
+        if(filterList.size() > 0) {
+            query.append("WHERE ");
+            //Create the where clause
+            StringBuilder whereClause = new StringBuilder();
+            for (String filterOperator : filterList){
+                whereClause.append(filterOperator);
+            }
+            query.append(whereClause);
+        }
+        query.append(" ALLOW FILTERING;");
+        //Print the results
+        ResultSet rs = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(query.toString());
+        String results = rs.one().getFormattedContents().split(":")[1].replace("]","");
+        this.filterList = new ArrayList<String>();
+        return Optional.of(Double.parseDouble(results));
     }
 
     @Override
     public Optional<Double> min(String fieldName) {
-        return Optional.empty();
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT MIN(");
+        query.append(fieldName);
+        query.append(") FROM ");
+        query.append(getDataCollection());
+        query.append(" ");
+        if(filterList.size() > 0) {
+            query.append("WHERE ");
+            //Create the where clause
+            StringBuilder whereClause = new StringBuilder();
+            for (String filterOperator : filterList){
+                whereClause.append(filterOperator);
+            }
+            query.append(whereClause);
+        }
+        query.append(" ALLOW FILTERING;");
+        //Print the results
+        ResultSet rs = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(query.toString());
+        String results = rs.one().getFormattedContents().split(":")[1].replace("]","");
+        this.filterList = new ArrayList<String>();
+        return Optional.of(Double.parseDouble(results));
     }
 
     @Override
     public Optional<Double> sum(String fieldName) {
-        return Optional.empty();
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT SUM(");
+        query.append(fieldName);
+        query.append(") FROM ");
+        query.append(getDataCollection());
+        query.append(" ");
+        if(filterList.size() > 0) {
+            query.append("WHERE ");
+            //Create the where clause
+            StringBuilder whereClause = new StringBuilder();
+            for (String filterOperator : filterList){
+                whereClause.append(filterOperator);
+            }
+            query.append(whereClause);
+        }
+        query.append(" ALLOW FILTERING;");
+        //Print the results
+        ResultSet rs = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(query.toString());
+        String results = rs.one().getFormattedContents().split(":")[1].replace("]","");
+        this.filterList = new ArrayList<String>();
+        return Optional.of(Double.parseDouble(results));
     }
 
     @Override
     public Optional<Double> avg(String fieldName) {
-        return Optional.empty();
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT AVG(");
+        query.append(fieldName);
+        query.append(") FROM ");
+        query.append(getDataCollection());
+        query.append(" ");
+        if(filterList.size() > 0) {
+            query.append("WHERE ");
+            //Create the where clause
+            StringBuilder whereClause = new StringBuilder();
+            for (String filterOperator : filterList){
+                whereClause.append(filterOperator);
+            }
+            query.append(whereClause);
+        }
+        query.append(" ALLOW FILTERING;");
+        //Print the results
+        ResultSet rs = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(query.toString());
+        String results = rs.one().getFormattedContents().split(":")[1].replace("]","");
+        this.filterList = new ArrayList<String>();
+        return Optional.of(Double.parseDouble(results));
     }
 
     @Override
     public int count() {
-        return 0;
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT COUNT(*) FROM ");
+        query.append(getDataCollection());
+        query.append(" ");
+        if(filterList.size() > 0) {
+            query.append("WHERE ");
+            //Create the where clause
+            StringBuilder whereClause = new StringBuilder();
+            for (String filterOperator : filterList){
+                whereClause.append(filterOperator);
+            }
+            query.append(whereClause);
+        }
+        query.append(" ALLOW FILTERING;");
+        //Print the results
+        ResultSet rs = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(query.toString());
+        String results = rs.one().getFormattedContents().split(":")[1].replace("]","");
+        this.filterList = new ArrayList<String>();
+        return Integer.parseInt(results);
     }
 
     @Override
