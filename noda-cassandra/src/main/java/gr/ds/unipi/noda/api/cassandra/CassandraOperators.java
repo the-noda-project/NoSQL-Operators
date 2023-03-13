@@ -3,7 +3,6 @@ package gr.ds.unipi.noda.api.cassandra;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
-import gr.ds.unipi.noda.api.core.nosqldb.modifications.FieldValue;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
@@ -12,11 +11,9 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import java.util.Optional;
-import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.*;
-import com.datastax.oss.driver.api.core.CqlSession;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
 final class CassandraOperators extends NoSqlDbOperators {
 
@@ -26,11 +23,13 @@ final class CassandraOperators extends NoSqlDbOperators {
     //to access the SparkSession, call getSparkSession()
     private ArrayList<String> filterList;
     private ArrayList<String> aggregateList;
+    private ArrayList<String> groupByFieldsList;
 
     private CassandraOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
         super(noSqlDbConnector, dataCollection, sparkSession);
         this.filterList = new ArrayList<String>();
         this.aggregateList = new ArrayList<String>();
+        this.groupByFieldsList = new ArrayList<String>();
     }
 
     static CassandraOperators newCassandraOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession){
@@ -50,7 +49,11 @@ final class CassandraOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators groupBy(String fieldName, String... fieldNames) {
-        return null;
+        String[] fieldNamesArray = new String[fieldNames.length+1];
+        fieldNamesArray[0] = fieldName;
+        System.arraycopy(fieldNames, 0, fieldNamesArray, 1, fieldNames.length);
+        groupByFieldsList.addAll(Arrays.asList(fieldNamesArray));
+        return this;
     }
 
     @Override
