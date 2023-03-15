@@ -10,4 +10,12 @@ final class OperatorAsc extends SortOperator {
         return new OperatorAsc(fieldName);
     }
 
+    @Override
+    public StringBuilder getOperatorExpression() {
+        StringBuilder operation = new StringBuilder();
+        operation.append(getFieldName());
+        operation.append(" ASC");
+        return operation;
+    }
+
 }
