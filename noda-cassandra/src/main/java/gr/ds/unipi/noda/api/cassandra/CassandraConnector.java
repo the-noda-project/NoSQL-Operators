@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.cassandra;
 
+import com.datastax.oss.driver.api.core.CqlIdentifier;
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.*;
 import com.datastax.oss.driver.api.core.auth.ProgrammaticPlainTextAuthProvider;
@@ -28,7 +29,7 @@ public final class CassandraConnector implements NoSqlDbConnector<CqlSession> {
     @Override
     public CqlSession createConnection() {
         try{
-            CqlSession session = CqlSession.builder().withAuthProvider(this.authProvider).withLocalDatacenter(this.datacenter).addContactPoint(new InetSocketAddress(this.ipv4,9042)).build();
+            CqlSession session = CqlSession.builder().withAuthProvider(this.authProvider).withLocalDatacenter(this.datacenter).withKeyspace(CqlIdentifier.fromCql(this.keyspace)).addContactPoint(new InetSocketAddress(this.ipv4,9042)).build();
             return session;
         }catch (Exception e){
             e.printStackTrace();

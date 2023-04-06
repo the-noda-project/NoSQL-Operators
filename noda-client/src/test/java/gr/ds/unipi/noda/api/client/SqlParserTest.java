@@ -7,8 +7,7 @@ import gr.ds.unipi.noda.api.client.sql.SqlBaseParser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.*;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -20,7 +19,8 @@ public class SqlParserTest {
     public void parseStatement() throws IOException {
         //String sql = "SELECT columnFamily-columnQualifier, anotherColumns, fdf FROM students, sk.pk WHERE surname = 1.423 AND postalCode = 4 AND GEOTEMPORAL(3,4) >3 OR KLASS(43) != d";
         //String sql = "SELECT columnFamily-columnQualifier, anotherColumns, fdf FROM students, sk.pk WHERE surname = INTEGER(142.88766688993) AND name='dfkjnijn' OR sd=23 OR se=3";
-        String sql = "select * from x where fd='ref' AND re=23.3 AND( rrj !='W' OR hgu=>4) AND CIRCLE( pointCol.kf, (45.21, 56.3), 5) GROUP BY id, year LIMIT 55743";
+        //String sql = "select * from x where fd='ref' AND re=23.3 AND( rrj !='W' OR hgu=>4) AND CIRCLE( pointCol.kf, (45.21, 56.3), 5) GROUP BY id, year LIMIT 55743";
+        String sql = "select * FROM y where vehicleId IN (select * from x GROUP BY id) AND cd=2";
 
 
         long o = System.currentTimeMillis();
@@ -47,9 +47,7 @@ public class SqlParserTest {
 
         //mySqlParser.querySpecification().relation().size();
 
-        ParseTree tree = mySqlParser.singleStatement();
-
-        //System.out.println(mySqlParser.singleStatement().getText());
+        ParseTree tree = mySqlParser.statement();
 
         //mySqlParser.selectElements().selectElement().forEach(g-> System.out.println(g.getText()));
 
@@ -70,7 +68,6 @@ public class SqlParserTest {
         NoSqlDbSqlStatementListener listener = NoSqlDbSqlStatementListener.newNodaSqlListener();
         walker.walk(listener,tree);
 
-        System.out.println(listener.getSource());
 
     }
 

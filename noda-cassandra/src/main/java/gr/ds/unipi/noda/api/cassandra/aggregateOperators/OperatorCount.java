@@ -10,4 +10,9 @@ final class OperatorCount extends AggregateOperator {
         return new OperatorCount("");
     }
 
+    public StringBuilder getOperatorExpression() {
+        StringBuilder operation = new StringBuilder(" COUNT(*) ");
+        return operation;
+    }
+
 }

@@ -73,8 +73,29 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
 
     private NoSqlDbSqlStatementListener(){}
 
-    @Override public void enterQuerySpecification(SqlBaseParser.QuerySpecificationContext ctx) {
+//    @Override public void enterStatementDefault(SqlBaseParser.StatementDefaultContext ctx) {
+//        System.out.println("DEFAULT STATEMENT");
+//        ctx.children.forEach(System.out::println);
+//    }
+//
+//    @Override public void exitStatementDefault(SqlBaseParser.StatementDefaultContext ctx) {
+//        System.out.println("DEFAULT STATEMENT");
+//    }
+//
+//    @Override public void enterInSubquery(SqlBaseParser.InSubqueryContext ctx) {
+//        System.out.println(source);
+//        System.out.println(filterOperatorsFirstStage.size());
+//        System.out.println(filterOperatorSecondStage.size());
+//        System.out.println("SUBQUERY");
+//    }
+//
+//    @Override public void exitInSubquery(SqlBaseParser.InSubqueryContext ctx) {
+//        System.out.println("exit SUBQUERY");
+//        System.out.println(source);
+//
+//    }
 
+    @Override public void enterQuerySpecification(SqlBaseParser.QuerySpecificationContext ctx) {
         if(ctx.relation().size() != 1){
             try {
                 logger.error("Only one data source (table declaration in the SQL statement) is required");

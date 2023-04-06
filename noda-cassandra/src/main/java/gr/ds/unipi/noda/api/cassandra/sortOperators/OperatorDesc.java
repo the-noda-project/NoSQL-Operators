@@ -10,4 +10,12 @@ final class OperatorDesc extends SortOperator {
         return new OperatorDesc(fieldName);
     }
 
+    @Override
+    public StringBuilder getOperatorExpression() {
+        StringBuilder operation = new StringBuilder();
+        operation.append(getFieldName());
+        operation.append(" DESC");
+        return operation;
+    }
+
 }

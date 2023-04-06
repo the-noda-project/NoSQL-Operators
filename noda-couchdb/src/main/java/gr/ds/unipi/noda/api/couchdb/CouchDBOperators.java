@@ -2,6 +2,7 @@ package gr.ds.unipi.noda.api.couchdb;
 
 import com.google.gson.GsonBuilder;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
@@ -212,6 +213,11 @@ final class CouchDBOperators extends NoSqlDbOperators {
     @Override
     @SuppressWarnings("rawtypes")
     public CouchDBOperators join(NoSqlDbOperators noSqlDbOperators, JoinOperator jo) {
+        return null;
+    }
+
+    @Override
+    public NoSqlDbResults getResults() {
         return null;
     }
 }
