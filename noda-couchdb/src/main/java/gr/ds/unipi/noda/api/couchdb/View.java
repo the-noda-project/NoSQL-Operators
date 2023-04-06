@@ -11,6 +11,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
 
+/**
+ * View is used for creating CouchDB map and reduce functions for querying a database.
+ */
 final class View {
     private final String database;
     private final String name;
@@ -150,7 +153,7 @@ final class View {
             return new View(this, map.toString(), reduce.toString(), sortDescending);
         }
 
-        public Builder filter(String filter) {
+        public Builder addFilter(String filter) {
             this.filters.add(filter);
             return this;
         }
@@ -170,27 +173,27 @@ final class View {
             return this;
         }
 
-        public Builder groupField(String groupField) {
+        public Builder addGroupField(String groupField) {
             this.groupFields.add(groupField);
             return this;
         }
 
-        public Builder sortFields(Map<String, String> sortFields) {
+        public Builder addSortFields(Map<String, String> sortFields) {
             this.sortFields.putAll(sortFields);
             return this;
         }
 
-        public Builder valueField(String valueField) {
+        public Builder addValueField(String valueField) {
             this.valueFields.add(valueField);
             return this;
         }
 
-        public Builder projectField(String projectField) {
+        public Builder addProjectField(String projectField) {
             this.projectFields.add(projectField);
             return this;
         }
 
-        public Builder reduceExpressions(String alias, String[] reduceExpressions) {
+        public Builder addReduceExpressions(String alias, String[] reduceExpressions) {
             assert reduceExpressions.length == 2;
             this.reduceExpressions.put(alias, reduceExpressions);
             return this;
@@ -208,7 +211,7 @@ final class View {
             public String id;
             public Object key;
             public Map<String, Object> value;
-            public Object doc;
+            public Map<String, Object> doc;
         }
     }
 }

@@ -40,7 +40,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
         Stream.concat(Stream.of(filterOperator), Stream.of(filterOperators))
                 .map(op -> (String) op.getOperatorExpression())
-                .forEach(builder::filter);
+                .forEach(builder::addFilter);
 
         return new CouchDBOperators(this, builder);
     }
@@ -49,7 +49,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
     public CouchDBOperators groupBy(String fieldName, String... fieldNames) {
         View.Builder builder = new View.Builder(viewBuilder);
 
-        Stream.concat(Stream.of(fieldName), Stream.of(fieldNames)).forEach(builder::groupField);
+        Stream.concat(Stream.of(fieldName), Stream.of(fieldNames)).forEach(builder::addGroupField);
         builder.group(true).reduce(true);
 
         return new CouchDBOperators(this, builder);
@@ -61,8 +61,8 @@ final class CouchDBOperators extends NoSqlDbOperators {
         View.Builder builder = new View.Builder(viewBuilder);
 
         Stream.concat(Stream.of(aggregateOperator), Stream.of(aggregateOperators))
-                .forEach(op -> builder.reduceExpressions(op.getAlias(), (String[]) op.getOperatorExpression())
-                        .valueField(op.getFieldName()));
+                .forEach(op -> builder.addReduceExpressions(op.getAlias(), (String[]) op.getOperatorExpression())
+                        .addValueField(op.getFieldName()));
 
         builder.reduce(true);
 
@@ -87,8 +87,8 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorMax(fieldName);
 
-        viewBuilder.reduceExpressions(operator.getAlias(), (String[]) operator.getOperatorExpression())
-                .valueField(fieldName)
+        viewBuilder.addReduceExpressions(operator.getAlias(), (String[]) operator.getOperatorExpression())
+                .addValueField(fieldName)
                 .reduce(true)
                 .group(false);
 
@@ -107,8 +107,8 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorMin(fieldName);
 
-        viewBuilder.reduceExpressions(operator.getAlias(), (String[]) operator.getOperatorExpression())
-                .valueField(fieldName)
+        viewBuilder.addReduceExpressions(operator.getAlias(), (String[]) operator.getOperatorExpression())
+                .addValueField(fieldName)
                 .reduce(true)
                 .group(false);
 
@@ -127,8 +127,8 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorSum(fieldName);
 
-        viewBuilder.reduceExpressions(operator.getAlias(), (String[]) operator.getOperatorExpression())
-                .valueField(fieldName)
+        viewBuilder.addReduceExpressions(operator.getAlias(), (String[]) operator.getOperatorExpression())
+                .addValueField(fieldName)
                 .reduce(true)
                 .group(false);
 
@@ -147,8 +147,8 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorAvg(fieldName);
 
-        viewBuilder.reduceExpressions(operator.getAlias(), (String[]) operator.getOperatorExpression())
-                .valueField(fieldName)
+        viewBuilder.addReduceExpressions(operator.getAlias(), (String[]) operator.getOperatorExpression())
+                .addValueField(fieldName)
                 .reduce(true)
                 .group(false);
 
@@ -181,7 +181,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
         Stream.concat(Stream.of(sortOperator), Stream.of(sortingOperators))
                 .map(op -> ((Map) op.getOperatorExpression()))
-                .forEach(builder::sortFields);
+                .forEach(builder::addSortFields);
 
         return new CouchDBOperators(this, builder);
     }
@@ -200,7 +200,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
     @Override
     public CouchDBOperators project(String fieldName, String... fieldNames) {
         View.Builder builder = new View.Builder(viewBuilder);
-        Stream.concat(Stream.of(fieldName), Stream.of(fieldNames)).forEach(builder::projectField);
+        Stream.concat(Stream.of(fieldName), Stream.of(fieldNames)).forEach(builder::addProjectField);
         return new CouchDBOperators(this, builder);
     }
 

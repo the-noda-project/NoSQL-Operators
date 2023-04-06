@@ -12,6 +12,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -68,6 +69,10 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
     }
 
     static class CouchDBConnection {
+        /**
+         * The name of the internal CouchDB Design Document.
+         */
+        private final static String DDOC = "noda";
         private final OkHttpClient client;
         private final HttpUrl serverUrl;
         private final Headers headers;
@@ -76,6 +81,42 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
             this.client = client;
             this.serverUrl = serverUrl;
             this.headers = new Headers.Builder().add("accept", "application/json").build();
+        }
+
+        public View.Response allDocs(String db) {
+            HttpUrl url = resolveUrl(db, "_all_docs");
+
+            Request request = new Request.Builder().url(url)
+                    .headers(headers)
+                    .post(RequestBody.create(GSON.toJson(Collections.singletonMap("include_docs", true)), JSON))
+                    .build();
+
+            try (Response res = client.newCall(request).execute()) {
+                assert res.body() != null;
+
+                return GSON.fromJson(res.body().charStream(), View.Response.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        public void bulkDocs(String db, List<Map<String, Object>> docs) {
+            HttpUrl url = resolveUrl(db, "_bulk_docs");
+
+            Request request = new Request.Builder().url(url)
+                    .headers(headers)
+                    .post(RequestBody.create(GSON.toJson(Collections.singletonMap("docs", docs)), JSON))
+                    .build();
+
+            try (Response res = client.newCall(request).execute()) {
+                if (!res.isSuccessful()) {
+                    assert res.body() != null;
+                    System.err.println(res.body().string());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         public View.Response execute(View view) {
@@ -87,7 +128,7 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
                 return null;
             }
 
-            HttpUrl url = resolveUrl(view.getDatabase(), "_design", "noda", "_view", view.getName());
+            HttpUrl url = resolveUrl(view.getDatabase(), "_design", DDOC, "_view", view.getName());
 
             Request request = new Request.Builder().url(url)
                     .headers(headers)
@@ -97,7 +138,7 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
             try (Response res = client.newCall(request).execute()) {
                 assert res.body() != null;
 
-                if (res.code() != 200) {
+                if (!res.isSuccessful()) {
                     System.err.println(res.body().string());
                     return null;
                 }
@@ -114,22 +155,24 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
         }
 
         private DesignDoc getDesignDoc(String db) throws IOException {
-            HttpUrl url = resolveUrl(db, "_design", "noda");
+            HttpUrl url = resolveUrl(db, "_design", DDOC);
 
             Request request = new Request.Builder().url(url).headers(headers).get().build();
 
             try (Response res = client.newCall(request).execute()) {
-                if (res.code() != 200) {
+                assert res.body() != null;
+
+                if (!res.isSuccessful()) {
+                    System.err.println(res.body().string());
                     return null;
                 }
 
-                assert res.body() != null;
                 return GSON.fromJson(res.body().charStream(), DesignDoc.class);
             }
         }
 
         private void ensureDesignDocIsUpdated(View view) throws IOException {
-            HttpUrl url = resolveUrl(view.getDatabase(), "_design", "noda");
+            HttpUrl url = resolveUrl(view.getDatabase(), "_design", DDOC);
 
             DesignDoc designDoc = getDesignDoc(view.getDatabase());
             if (designDoc == null) {
