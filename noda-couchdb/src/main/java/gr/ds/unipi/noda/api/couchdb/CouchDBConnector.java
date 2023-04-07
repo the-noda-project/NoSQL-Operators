@@ -3,7 +3,6 @@ package gr.ds.unipi.noda.api.couchdb;
 import com.google.gson.Gson;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import okhttp3.Credentials;
-import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -12,13 +11,14 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector.CouchDBConnection> {
+public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector.Connection> {
     private final static MediaType JSON = MediaType.get("application/json; charset=utf-8");
     private final static Gson GSON = new Gson();
     private final HttpUrl serverUrl;
@@ -44,15 +44,21 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
     }
 
     @Override
-    public CouchDBConnection createConnection() {
-        OkHttpClient client = new OkHttpClient.Builder().authenticator((route, response) -> response.request()
-                        .newBuilder()
-                        .header("authorization", credentials)
-                        .build())
+    public Connection createConnection() {
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
+                    Request request = chain.request()
+                            .newBuilder()
+                            .addHeader("authorization", credentials)
+                            .addHeader("accept", "application/json")
+                            .build();
+
+                    return chain.proceed(request);
+                })
                 .connectTimeout(connectTimeout, TimeUnit.SECONDS)
                 .readTimeout(readTimeout, TimeUnit.SECONDS)
                 .build();
-        return new CouchDBConnection(client, serverUrl);
+
+        return new Connection(client, serverUrl);
     }
 
     @Override
@@ -68,26 +74,23 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
         return Objects.equals(serverUrl, connector.serverUrl) && Objects.equals(credentials, connector.credentials);
     }
 
-    static class CouchDBConnection {
+    static class Connection {
         /**
          * The name of the internal CouchDB Design Document.
          */
-        private final static String DDOC = "noda";
+        private final static String DESIGN_DOC = "noda";
         private final OkHttpClient client;
         private final HttpUrl serverUrl;
-        private final Headers headers;
 
-        CouchDBConnection(OkHttpClient client, HttpUrl serverUrl) {
+        Connection(OkHttpClient client, HttpUrl serverUrl) {
             this.client = client;
             this.serverUrl = serverUrl;
-            this.headers = new Headers.Builder().add("accept", "application/json").build();
         }
 
         public View.Response allDocs(String db) {
             HttpUrl url = resolveUrl(db, "_all_docs");
 
             Request request = new Request.Builder().url(url)
-                    .headers(headers)
                     .post(RequestBody.create(GSON.toJson(Collections.singletonMap("include_docs", true)), JSON))
                     .build();
 
@@ -105,7 +108,6 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
             HttpUrl url = resolveUrl(db, "_bulk_docs");
 
             Request request = new Request.Builder().url(url)
-                    .headers(headers)
                     .post(RequestBody.create(GSON.toJson(Collections.singletonMap("docs", docs)), JSON))
                     .build();
 
@@ -128,10 +130,9 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
                 return null;
             }
 
-            HttpUrl url = resolveUrl(view.getDatabase(), "_design", DDOC, "_view", view.getName());
+            HttpUrl url = resolveUrl(view.getDatabase(), "_design", DESIGN_DOC, "_view", view.getName());
 
             Request request = new Request.Builder().url(url)
-                    .headers(headers)
                     .post(RequestBody.create(GSON.toJson(view.getRequestBody()), JSON))
                     .build();
 
@@ -154,53 +155,48 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
             client.connectionPool().evictAll();
         }
 
-        private DesignDoc getDesignDoc(String db) throws IOException {
-            HttpUrl url = resolveUrl(db, "_design", DDOC);
+        private void ensureDesignDocIsUpdated(View view) throws IOException {
+            DesignDoc designDoc;
+            HttpUrl url = resolveUrl(view.getDatabase(), "_design", DESIGN_DOC);
 
-            Request request = new Request.Builder().url(url).headers(headers).get().build();
-
+            // Get the internal design document
+            Request request = new Request.Builder().url(url).get().build();
             try (Response res = client.newCall(request).execute()) {
-                assert res.body() != null;
-
-                if (!res.isSuccessful()) {
+                if (res.code() == 404) {
+                    // Create a new design document if it does not exist...
+                    designDoc = DesignDoc.createDesignDoc(view);
+                } else if (res.isSuccessful()) {
+                    assert res.body() != null;
+                    designDoc = GSON.fromJson(res.body().charStream(), DesignDoc.class);
+                } else {
+                    assert res.body() != null;
                     System.err.println(res.body().string());
-                    return null;
+                    return;
                 }
 
-                return GSON.fromJson(res.body().charStream(), DesignDoc.class);
-            }
-        }
+                // ...skip if the view already exists...
+                if (designDoc.views.containsKey(view.getName())) {
+                    return;
+                }
 
-        private void ensureDesignDocIsUpdated(View view) throws IOException {
-            HttpUrl url = resolveUrl(view.getDatabase(), "_design", DDOC);
-
-            DesignDoc designDoc = getDesignDoc(view.getDatabase());
-            if (designDoc == null) {
-                designDoc = DesignDoc.createDesignDoc(view);
-            } else if (!designDoc.views.containsKey(view.getName())) {
+                // ...or update the existing one with the new view
                 designDoc.addView(view);
-            } else {
-                return;
             }
 
-            Request request = new Request.Builder().url(url)
-                    .headers(headers)
-                    .put(RequestBody.create(GSON.toJson(designDoc), JSON))
-                    .build();
+            url = resolveUrl(view.getDatabase(), "_design", DESIGN_DOC);
+            request = new Request.Builder().url(url).put(RequestBody.create(GSON.toJson(designDoc), JSON)).build();
 
             try (Response res = client.newCall(request).execute()) {
-                if (res.code() != 201) {
+                if (!res.isSuccessful()) {
                     assert res.body() != null;
-                    throw new RuntimeException("Failed to create design document. " + res.body().string());
+                    System.err.println(res.body().string());
                 }
             }
         }
 
         private HttpUrl resolveUrl(String... paths) {
             HttpUrl.Builder url = serverUrl.newBuilder();
-            for (String path : paths) {
-                url.addPathSegment(path);
-            }
+            Arrays.stream(paths).forEach(url::addPathSegment);
             return url.build();
         }
     }

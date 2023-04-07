@@ -34,7 +34,7 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
             return this;
         }
 
-        CouchDBConnector.CouchDBConnection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         for (Delete delete : deletes) {
             View.Response res;

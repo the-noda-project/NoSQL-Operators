@@ -35,7 +35,7 @@ final class CouchDBUpdates extends NoSqlDbUpdates {
             return this;
         }
 
-        CouchDBConnector.CouchDBConnection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         for (Update update : updates) {
             View.Response res = connection.execute(update.viewBuilder.build());

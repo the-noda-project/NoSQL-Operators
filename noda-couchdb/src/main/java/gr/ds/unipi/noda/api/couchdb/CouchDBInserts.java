@@ -34,7 +34,7 @@ final class CouchDBInserts extends NoSqlDbInserts {
             return this;
         }
 
-        CouchDBConnector.CouchDBConnection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
         connection.bulkDocs(getDataCollection(), documents);
 
         return this;

@@ -77,14 +77,14 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public void printScreen() {
-        CouchDBConnector.CouchDBConnection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
         View.Response response = connection.execute(viewBuilder.build());
         System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(response));
     }
 
     @Override
     public Optional<Double> max(String fieldName) {
-        CouchDBConnector.CouchDBConnection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorMax(fieldName);
 
@@ -104,7 +104,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> min(String fieldName) {
-        CouchDBConnector.CouchDBConnection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorMin(fieldName);
 
@@ -124,7 +124,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> sum(String fieldName) {
-        CouchDBConnector.CouchDBConnection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorSum(fieldName);
 
@@ -144,7 +144,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> avg(String fieldName) {
-        CouchDBConnector.CouchDBConnection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorAvg(fieldName);
 
@@ -164,7 +164,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public int count() {
-        CouchDBConnector.CouchDBConnection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         View.Response response = connection.execute(viewBuilder.build());
 
