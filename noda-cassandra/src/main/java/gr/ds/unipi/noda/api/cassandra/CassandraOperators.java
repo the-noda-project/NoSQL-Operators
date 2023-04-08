@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.cassandra;
 
+import gr.ds.unipi.noda.api.cassandra.CassandraDBResults;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
@@ -11,7 +12,6 @@ import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.StringJoiner;
@@ -79,6 +79,7 @@ final class CassandraOperators extends NoSqlDbOperators {
         for (com.datastax.oss.driver.api.core.cql.Row row : results) {
             System.out.println(row.getFormattedContents());
         }
+        resetLists();
     }
 
     @Override
@@ -151,7 +152,10 @@ final class CassandraOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbResults getResults() {
-        return null;
+        String query = queryDirector.makeFullQuery(projectFieldList, aggregateList, filterList, groupByFieldsList, orderByFieldsList, limit);
+        resetLists();
+        cassandraConnectionManager.getConnection(getNoSqlDbConnector());
+        return new CassandraDBResults(cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(query));
     }
 
     private static StringJoiner expandList(Operator[] array, Operator elem, StringJoiner list){
@@ -176,6 +180,16 @@ final class CassandraOperators extends NoSqlDbOperators {
 
     private static String formatResult(String result){
         return result.split(":")[1].replace("]","");
+    }
+
+    private void resetLists(){
+        filterList = new StringJoiner(" AND ");
+        aggregateList = new StringJoiner(", ");
+        groupByFieldsList = new StringJoiner(", ");
+        orderByFieldsList = new StringJoiner(", ");
+        limit = 0;
+        projectFieldList = new StringJoiner(", ");
+        queryBuilder.reset();
     }
 
 }
