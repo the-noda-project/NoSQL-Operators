@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.couchdb;
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -19,23 +20,23 @@ final class View {
     private final String name;
     private final String mapFunction;
     private final String reduceFunction;
-    private final Map<String, Object> requestBody;
+    private final JsonObject requestBody;
 
     private View(Builder builder, String map, String reduce, boolean sortDescending) {
         database = builder.database;
         name = Integer.toString(Objects.hash(map, reduce));
         mapFunction = map;
         reduceFunction = reduce;
-        requestBody = new HashMap<>();
-        requestBody.put("reduce", builder.isReduce);
-        requestBody.put("include_docs", !builder.isReduce);
-        requestBody.put("descending", sortDescending);
+        requestBody = new JsonObject();
+        requestBody.addProperty("reduce", builder.isReduce);
+        requestBody.addProperty("include_docs", !builder.isReduce);
+        requestBody.addProperty("descending", sortDescending);
         if (builder.limit >= 0) {
-            requestBody.put("limit", builder.limit);
+            requestBody.addProperty("limit", builder.limit);
         }
         if (builder.isGroup) {
-            requestBody.put("group", true);
-            requestBody.put("group_level", builder.groupFields.size());
+            requestBody.addProperty("group", true);
+            requestBody.addProperty("group_level", builder.groupFields.size());
         }
     }
 
@@ -55,7 +56,7 @@ final class View {
         return reduceFunction;
     }
 
-    public Map<String, Object> getRequestBody() {
+    public JsonObject getRequestBody() {
         return requestBody;
     }
 
@@ -211,7 +212,7 @@ final class View {
             public String id;
             public Object key;
             public Map<String, Object> value;
-            public Map<String, Object> doc;
+            public JsonObject doc;
         }
     }
 }

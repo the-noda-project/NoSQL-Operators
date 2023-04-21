@@ -1,13 +1,14 @@
 package gr.ds.unipi.noda.api.couchdb;
 
+import com.google.gson.JsonObject;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbDeletes;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 final class CouchDBDeletes extends NoSqlDbDeletes {
@@ -24,7 +25,7 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
         this.deletes = deletes;
     }
 
-    public static NoSqlDbDeletes newCouchDbDeletes(CouchDBConnector connector, String s) {
+    public static CouchDBDeletes newCouchDbDeletes(CouchDBConnector connector, String s) {
         return new CouchDBDeletes(connector, s);
     }
 
@@ -37,28 +38,32 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         for (Delete delete : deletes) {
-            View.Response res;
-            if (delete.viewBuilder == null) {
-                res = connection.allDocs(getDataCollection());
-            } else {
-                res = connection.execute(delete.viewBuilder.build());
-            }
-
-            List<Map<String, Object>> docs = res.rows.stream().map(row -> {
-                // Delete the document if no fields were specified
-                if (delete.fields.isEmpty()) {
-                    // Marks the document as deleted in CouchDB
-                    row.doc.put("_deleted", true);
+            try {
+                View.Response res;
+                if (delete.viewBuilder == null) {
+                    res = connection.allDocs(getDataCollection());
                 } else {
-                    for (String field : delete.fields) {
-                        row.doc.remove(field);
-                    }
+                    res = connection.execute(delete.viewBuilder.build());
                 }
 
-                return row.doc;
-            }).collect(Collectors.toList());
+                List<JsonObject> docs = res.rows.stream().map(row -> {
+                    // Delete the document if no fields were specified
+                    if (delete.fields.isEmpty()) {
+                        // Marks the document as deleted in CouchDB
+                        row.doc.addProperty("_deleted", true);
+                    } else {
+                        for (String field : delete.fields) {
+                            row.doc.remove(field);
+                        }
+                    }
 
-            connection.bulkDocs(getDataCollection(), docs);
+                    return row.doc;
+                }).collect(Collectors.toList());
+
+                connection.bulkDocs(getDataCollection(), docs);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return this;

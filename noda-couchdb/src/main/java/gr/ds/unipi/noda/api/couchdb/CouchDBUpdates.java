@@ -1,14 +1,16 @@
 package gr.ds.unipi.noda.api.couchdb;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.FieldValue;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbUpdates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 final class CouchDBUpdates extends NoSqlDbUpdates {
@@ -25,7 +27,7 @@ final class CouchDBUpdates extends NoSqlDbUpdates {
         this.updates = updates;
     }
 
-    public static NoSqlDbUpdates newCouchDbUpdates(CouchDBConnector connector, String s) {
+    public static CouchDBUpdates newCouchDbUpdates(CouchDBConnector connector, String s) {
         return new CouchDBUpdates(connector, s);
     }
 
@@ -38,21 +40,21 @@ final class CouchDBUpdates extends NoSqlDbUpdates {
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         for (Update update : updates) {
-            View.Response res = connection.execute(update.viewBuilder.build());
+            try {
+                View.Response res = connection.execute(update.viewBuilder.build());
 
-            List<Map<String, Object>> docs = res.rows.stream().map(row -> {
-                for (FieldValue<?> fv : update.fieldValues) {
-                    if (row.doc.containsKey(fv.getField())) {
-                        row.doc.replace(fv.getField(), fv.getValue());
-                    } else {
-                        row.doc.put(fv.getField(), fv.getValue());
+                List<JsonObject> docs = res.rows.stream().map(row -> {
+                    for (FieldValue<?> fv : update.fieldValues) {
+                        row.doc.add(fv.getField(), new Gson().toJsonTree(fv.getValue()));
                     }
-                }
 
-                return row.doc;
-            }).collect(Collectors.toList());
+                    return row.doc;
+                }).collect(Collectors.toList());
 
-            connection.bulkDocs(getDataCollection(), docs);
+                connection.bulkDocs(getDataCollection(), docs);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return this;

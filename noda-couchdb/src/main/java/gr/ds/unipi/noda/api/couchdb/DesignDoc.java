@@ -5,24 +5,22 @@ import java.util.Map;
 
 @SuppressWarnings("unused")
 final class DesignDoc {
-    public String _id;
-    public String _rev;
-    public Map<String, Map<String, String>> views;
-
-    private DesignDoc() {
-        views = new HashMap<>();
-    }
-
-    public static DesignDoc createDesignDoc(View view) {
-        DesignDoc designDoc = new DesignDoc();
-        designDoc.addView(view);
-        return designDoc;
-    }
+    public final String _id = null;
+    public final String _rev = null;
+    public final Map<String, Map<String, String>> views = new HashMap<>();
 
     public void addView(View view) {
         Map<String, String> map = new HashMap<>();
         map.put("map", view.getMapFunction());
         map.put("reduce", view.getReduceFunction());
         views.put(view.getName(), map);
+    }
+
+    public Map<String, String> getView(View view) {
+        return views.get(view.getName());
+    }
+
+    public boolean hasView(View view) {
+        return views.containsKey(view.getName());
     }
 }

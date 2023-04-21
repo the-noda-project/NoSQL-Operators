@@ -2,19 +2,21 @@ package gr.ds.unipi.noda.api.couchdb;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
 
-public class CouchDBResults extends NoSqlDbResults<Object> {
-    protected CouchDBResults(Object noSqlDbResults) {
+import java.util.Iterator;
+
+public class CouchDBResults extends NoSqlDbResults<Iterator<View.Response.Row>> {
+    protected CouchDBResults(Iterator<View.Response.Row> noSqlDbResults) {
         super(noSqlDbResults);
     }
 
     @Override
     public boolean hasNextRecord() {
-        return false;
+        return getNoSqlDbResults().hasNext();
     }
 
     @Override
     public CouchDBRecord getRecord() {
-        return null;
+        return new CouchDBRecord(getNoSqlDbResults().next().doc);
     }
 
     @Override

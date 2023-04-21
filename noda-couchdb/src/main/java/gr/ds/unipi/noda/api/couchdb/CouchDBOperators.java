@@ -10,6 +10,8 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
+import javax.annotation.Nullable;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -77,8 +79,13 @@ final class CouchDBOperators extends NoSqlDbOperators {
     @Override
     public void printScreen() {
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
-        View.Response response = connection.execute(viewBuilder.build());
-        System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(response));
+
+        try {
+            View.Response response = connection.execute(viewBuilder.build());
+            System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(response));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -92,13 +99,14 @@ final class CouchDBOperators extends NoSqlDbOperators {
                 .reduce(true)
                 .group(false);
 
-        View.Response response = connection.execute(viewBuilder.build());
-
-        if (response.rows.isEmpty()) {
+        try {
+            View.Response response = connection.execute(viewBuilder.build());
+            return response.rows.isEmpty() ? Optional.empty()
+                                           : Optional.of((Double) response.rows.get(0).value.get(operator.getAlias()));
+        } catch (IOException e) {
+            e.printStackTrace();
             return Optional.empty();
         }
-
-        return Optional.of((Double) ((Map<String, ?>) response.rows.get(0).value).get(operator.getAlias()));
     }
 
     @Override
@@ -112,13 +120,14 @@ final class CouchDBOperators extends NoSqlDbOperators {
                 .reduce(true)
                 .group(false);
 
-        View.Response response = connection.execute(viewBuilder.build());
-
-        if (response.rows.isEmpty()) {
+        try {
+            View.Response response = connection.execute(viewBuilder.build());
+            return response.rows.isEmpty() ? Optional.empty()
+                                           : Optional.of((Double) response.rows.get(0).value.get(operator.getAlias()));
+        } catch (IOException e) {
+            e.printStackTrace();
             return Optional.empty();
         }
-
-        return Optional.of((Double) response.rows.get(0).value.get(operator.getAlias()));
     }
 
     @Override
@@ -132,13 +141,14 @@ final class CouchDBOperators extends NoSqlDbOperators {
                 .reduce(true)
                 .group(false);
 
-        View.Response response = connection.execute(viewBuilder.build());
-
-        if (response.rows.isEmpty()) {
+        try {
+            View.Response response = connection.execute(viewBuilder.build());
+            return response.rows.isEmpty() ? Optional.empty()
+                                           : Optional.of((Double) response.rows.get(0).value.get(operator.getAlias()));
+        } catch (IOException e) {
+            e.printStackTrace();
             return Optional.empty();
         }
-
-        return Optional.of((Double) response.rows.get(0).value.get(operator.getAlias()));
     }
 
     @Override
@@ -152,25 +162,26 @@ final class CouchDBOperators extends NoSqlDbOperators {
                 .reduce(true)
                 .group(false);
 
-        View.Response response = connection.execute(viewBuilder.build());
-
-        if (response.rows.isEmpty()) {
+        try {
+            View.Response response = connection.execute(viewBuilder.build());
+            return response.rows.isEmpty() ? Optional.empty()
+                                           : Optional.of((Double) response.rows.get(0).value.get(operator.getAlias()));
+        } catch (IOException e) {
+            e.printStackTrace();
             return Optional.empty();
         }
-
-        return Optional.of((Double) ((Map<String, ?>) response.rows.get(0).value).get(operator.getAlias()));
     }
 
     @Override
     public int count() {
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
-        View.Response response = connection.execute(viewBuilder.build());
-
-        if (response.totalRows != null) {
-            return response.totalRows;
-        } else {
-            return response.rows.size();
+        try {
+            View.Response response = connection.execute(viewBuilder.build());
+            return response.totalRows != null ? response.totalRows : response.rows.size();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 
@@ -189,7 +200,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
     @Override
     public CouchDBOperators limit(int limit) {
         if (limit < 0) {
-            throw new IllegalArgumentException("limit must be positive or 0");
+            throw new IllegalArgumentException("Limit must be a positive number");
         }
 
         View.Builder builder = new View.Builder(viewBuilder);
@@ -216,7 +227,17 @@ final class CouchDBOperators extends NoSqlDbOperators {
     }
 
     @Override
+    @Nullable
     public CouchDBResults getResults() {
+        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+
+        try {
+            View.Response response = connection.execute(viewBuilder.build());
+            return new CouchDBResults(response.rows.iterator());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 }
