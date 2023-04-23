@@ -232,4 +232,15 @@ public class CassandraDatabaseTest{
         cassandraOperators.filter(inGeoPolygon("geoHash", Coordinates.newCoordinates(28.16956, -25.60), Coordinates.newCoordinates(28.15, -25.62), Coordinates.newCoordinates(28.20, -25.62)));
         cassandraOperators.printScreen();
     }
+
+    @Test
+    public void testGeoTemporalOperator() throws  InterruptedException {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("spatioTemporalTable");
+        Date startDate = new Date(Long.parseLong("1081185752000"));
+        Date endDate = new Date(Long.parseLong("1081963352000"));
+        cassandraOperators.filter(inGeoTemporalRectangle("geoHash",Coordinates.newCoordinates(-48.889,-39.749), Coordinates.newCoordinates(-48.801,-39.661), "date", startDate, endDate));
+        cassandraOperators.printScreen();
+        cassandra.closeConnection();
+    }
 }
