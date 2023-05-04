@@ -102,7 +102,8 @@ final class CouchDBOperators extends NoSqlDbOperators {
         try {
             View.Response response = connection.execute(viewBuilder.build());
             return response.rows.isEmpty() ? Optional.empty()
-                                           : Optional.of((Double) response.rows.get(0).value.get(operator.getAlias()));
+                                           : Optional.of(response.rows.get(0).value.get(operator.getAlias())
+                                                   .getAsDouble());
         } catch (IOException e) {
             e.printStackTrace();
             return Optional.empty();
@@ -123,7 +124,8 @@ final class CouchDBOperators extends NoSqlDbOperators {
         try {
             View.Response response = connection.execute(viewBuilder.build());
             return response.rows.isEmpty() ? Optional.empty()
-                                           : Optional.of((Double) response.rows.get(0).value.get(operator.getAlias()));
+                                           : Optional.of(response.rows.get(0).value.get(operator.getAlias())
+                                                   .getAsDouble());
         } catch (IOException e) {
             e.printStackTrace();
             return Optional.empty();
@@ -144,7 +146,8 @@ final class CouchDBOperators extends NoSqlDbOperators {
         try {
             View.Response response = connection.execute(viewBuilder.build());
             return response.rows.isEmpty() ? Optional.empty()
-                                           : Optional.of((Double) response.rows.get(0).value.get(operator.getAlias()));
+                                           : Optional.of(response.rows.get(0).value.get(operator.getAlias())
+                                                   .getAsDouble());
         } catch (IOException e) {
             e.printStackTrace();
             return Optional.empty();
@@ -165,7 +168,8 @@ final class CouchDBOperators extends NoSqlDbOperators {
         try {
             View.Response response = connection.execute(viewBuilder.build());
             return response.rows.isEmpty() ? Optional.empty()
-                                           : Optional.of((Double) response.rows.get(0).value.get(operator.getAlias()));
+                                           : Optional.of(response.rows.get(0).value.get(operator.getAlias())
+                                                   .getAsDouble());
         } catch (IOException e) {
             e.printStackTrace();
             return Optional.empty();
@@ -223,7 +227,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
     @Override
     @SuppressWarnings("rawtypes")
     public CouchDBOperators join(NoSqlDbOperators noSqlDbOperators, JoinOperator jo) {
-        return null;
+        throw new UnsupportedOperationException("The join operation is not supported in CouchDB");
     }
 
     @Override
@@ -233,7 +237,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
         try {
             View.Response response = connection.execute(viewBuilder.build());
-            return new CouchDBResults(response.rows.iterator());
+            return new CouchDBResults(response.rows.stream().map(r -> r.doc != null ? r.doc : r.value).iterator());
         } catch (IOException e) {
             e.printStackTrace();
         }

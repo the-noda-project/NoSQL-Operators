@@ -208,10 +208,10 @@ final class View {
         public Integer offset;
         public List<Row> rows;
 
-        public static class Row {
+        static class Row {
             public String id;
             public Object key;
-            public Map<String, Object> value;
+            public JsonObject value;
             public JsonObject doc;
         }
     }
