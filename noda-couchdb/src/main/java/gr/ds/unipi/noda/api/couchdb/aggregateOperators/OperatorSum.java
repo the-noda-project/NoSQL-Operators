@@ -1,5 +1,7 @@
 package gr.ds.unipi.noda.api.couchdb.aggregateOperators;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 final class OperatorSum extends AggregateOperator {
 
     private OperatorSum(String fieldName) {
@@ -12,11 +14,13 @@ final class OperatorSum extends AggregateOperator {
 
     @Override
     protected String reduceStageExpression() {
-        return "sum(values.map(a => a[\"" + getFieldName() + "\"]))";
+        String escapedFieldName = StringEscapeUtils.escapeJavaScript(getFieldName());
+        return "sum(values.map(a => a[\"" + escapedFieldName + "\"]))";
     }
 
     @Override
     protected String rereduceStageExpression() {
-        return "values.reduce((a, b) => a + b[\"" + getAlias() + "\"], 0)";
+        String escapedAlias = StringEscapeUtils.escapeJavaScript(getAlias());
+        return "values.reduce((a, b) => a + b[\"" + escapedAlias + "\"], 0)";
     }
 }

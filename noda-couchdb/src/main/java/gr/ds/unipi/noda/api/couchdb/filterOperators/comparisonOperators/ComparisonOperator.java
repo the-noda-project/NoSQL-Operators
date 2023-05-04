@@ -1,6 +1,6 @@
 package gr.ds.unipi.noda.api.couchdb.filterOperators.comparisonOperators;
 
-import com.google.gson.Gson;
+import org.apache.commons.lang.StringEscapeUtils;
 
 abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.ComparisonOperator<String, U> {
     protected ComparisonOperator(String fieldName, U fieldValue) {
@@ -11,7 +11,7 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
 
     @Override
     public String getOperatorExpression() {
-        String fieldValue = new Gson().toJson(getFieldValue());
-        return "doc[\"" + getFieldName() + "\"]" + operatorSymbol() + fieldValue;
+        String escapedFieldName = '"' + StringEscapeUtils.escapeJavaScript(getFieldName()) + '"';
+        return "doc[" + escapedFieldName + "]" + operatorSymbol() + escapedFieldName;
     }
 }

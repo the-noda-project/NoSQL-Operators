@@ -39,12 +39,8 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
 
         for (Delete delete : deletes) {
             try {
-                View.Response res;
-                if (delete.viewBuilder == null) {
-                    res = connection.allDocs(getDataCollection());
-                } else {
-                    res = connection.execute(delete.viewBuilder.build());
-                }
+                View.Response res = delete.viewBuilder == null ? connection.allDocs(getDataCollection())
+                                                               : connection.execute(delete.viewBuilder.build());
 
                 List<JsonObject> docs = res.rows.stream().map(row -> {
                     // Delete the document if no fields were specified
