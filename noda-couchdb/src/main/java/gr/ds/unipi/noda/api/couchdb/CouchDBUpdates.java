@@ -41,7 +41,11 @@ final class CouchDBUpdates extends NoSqlDbUpdates {
 
         for (Update update : updates) {
             try {
-                View.Response res = connection.execute(update.viewBuilder.build());
+                ViewResponse res = connection.runQuery(getDataCollection(), update.viewQuery);
+
+                if (res == null) {
+                    continue;
+                }
 
                 List<JsonObject> docs = res.rows.stream().map(row -> {
                     for (FieldValue<?> fv : update.fieldValues) {
@@ -66,21 +70,21 @@ final class CouchDBUpdates extends NoSqlDbUpdates {
         fieldValues.add(fv);
         Collections.addAll(fieldValues, fvs);
 
-        View.Builder viewBuilder = new View.Builder(getDataCollection());
-        viewBuilder.addFilter((String) filterOperator.getOperatorExpression());
+        ViewQuery viewQuery = new ViewQuery();
+        viewQuery.addFilter(filterOperator);
 
         List<Update> updates = new ArrayList<>(this.updates);
-        updates.add(new Update(viewBuilder, fieldValues));
+        updates.add(new Update(viewQuery, fieldValues));
 
         return new CouchDBUpdates(this, updates);
     }
 
     private static class Update {
-        private final View.Builder viewBuilder;
+        private final ViewQuery viewQuery;
         private final List<FieldValue> fieldValues;
 
-        private Update(View.Builder viewBuilder, List<FieldValue> fieldValues) {
-            this.viewBuilder = viewBuilder;
+        private Update(ViewQuery viewQuery, List<FieldValue> fieldValues) {
+            this.viewQuery = viewQuery;
             this.fieldValues = fieldValues;
         }
     }

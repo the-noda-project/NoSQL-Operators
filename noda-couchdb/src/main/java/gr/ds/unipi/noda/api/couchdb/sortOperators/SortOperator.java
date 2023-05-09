@@ -1,9 +1,8 @@
 package gr.ds.unipi.noda.api.couchdb.sortOperators;
 
-import java.util.Collections;
-import java.util.Map;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
-abstract class SortOperator extends gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator<Map<String, String>> {
+abstract class SortOperator extends gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator<ImmutablePair<String, String>> {
     protected SortOperator(String fieldName) {
         super(fieldName);
     }
@@ -11,7 +10,7 @@ abstract class SortOperator extends gr.ds.unipi.noda.api.core.operators.sortOper
     protected abstract String orderName();
 
     @Override
-    public Map<String, String> getOperatorExpression() {
-        return Collections.singletonMap(getFieldName(), orderName());
+    public ImmutablePair<String, String> getOperatorExpression() {
+        return new ImmutablePair<>(getFieldName(), orderName());
     }
 }

@@ -39,8 +39,12 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
 
         for (Delete delete : deletes) {
             try {
-                View.Response res = delete.viewBuilder == null ? connection.allDocs(getDataCollection())
-                                                               : connection.execute(delete.viewBuilder.build());
+                ViewResponse res = delete.viewQuery == null ? connection.allDocs(getDataCollection())
+                                                            : connection.runQuery(getDataCollection(), delete.viewQuery);
+
+                if (res == null) {
+                    continue;
+                }
 
                 List<JsonObject> docs = res.rows.stream().map(row -> {
                     // Delete the document if no fields were specified
@@ -78,19 +82,20 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
     public NoSqlDbDeletes delete(FilterOperator fop, String... fields) {
         List<Delete> deletes = new ArrayList<>(this.deletes);
 
-        View.Builder viewBuilder = new View.Builder(getDataCollection()).addFilter((String) fop.getOperatorExpression());
+        ViewQuery viewQuery = new ViewQuery();
+        viewQuery.addFilter(fop);
 
-        deletes.add(new Delete(viewBuilder, Arrays.asList(fields)));
+        deletes.add(new Delete(viewQuery, Arrays.asList(fields)));
 
         return new CouchDBDeletes(this, deletes);
     }
 
     private static class Delete {
-        private final View.Builder viewBuilder;
+        private final ViewQuery viewQuery;
         private final List<String> fields;
 
-        private Delete(View.Builder viewBuilder, List<String> fields) {
-            this.viewBuilder = viewBuilder;
+        private Delete(ViewQuery viewQuery, List<String> fields) {
+            this.viewQuery = viewQuery;
             this.fields = fields;
         }
     }

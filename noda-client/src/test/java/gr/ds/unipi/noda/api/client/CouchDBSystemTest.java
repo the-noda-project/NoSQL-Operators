@@ -1,10 +1,10 @@
 package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
 import org.junit.Test;
 
-import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.min;
-import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.sum;
+import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.avg;
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 
 public class CouchDBSystemTest {
@@ -20,45 +20,63 @@ public class CouchDBSystemTest {
 
     @Test
     public void couchdbTest() {
-        getSystem().operateOn("movies").groupBy("genres").aggregate(min("year")).printScreen();
     }
 
     @Test
     public void simpleFilterTest() {
         NoSqlDbSystem noSqlDbSystem = getSystem();
-        noSqlDbSystem.operateOn("animals").filter(gte("weight", 100)).printScreen();
+        noSqlDbSystem.operateOn("people").filter(gte("age", 30)).printScreen();
         noSqlDbSystem.closeConnection();
     }
 
     @Test
     public void simpleGroupByTest() {
         NoSqlDbSystem noSqlDbSystem = getSystem();
-        noSqlDbSystem.operateOn("animals").groupBy("species").printScreen();
+        noSqlDbSystem.operateOn("people").groupBy("eyeColor").printScreen();
         noSqlDbSystem.closeConnection();
     }
 
     @Test
     public void groupByCombinedWithAggregationTest() {
         NoSqlDbSystem noSqlDbSystem = getSystem();
-        noSqlDbSystem.operateOn("animals").groupBy("species").aggregate(sum("weight")).printScreen();
+        NoSqlDbResults<?> res = noSqlDbSystem.operateOn("people")
+                .groupBy("eyeColor", "isActive")
+                .aggregate(avg("age"))
+                .getResults();
+        while (res.hasNextRecord()) {
+            System.out.println(res.getRecord().toString());
+        }
         noSqlDbSystem.closeConnection();
     }
 
     @Test
     public void logicalOperatorTest() {
         NoSqlDbSystem noSqlDbSystem = getSystem();
-        noSqlDbSystem.operateOn("animals").filter(and(gte("weight", 200), lte("weight", 500))).printScreen();
+        noSqlDbSystem.operateOn("people").filter(and(gte("age", 22), lte("age", 40))).printScreen();
         noSqlDbSystem.closeConnection();
     }
 
     @Test
     public void stucturalSharingTest() {
         NoSqlDbSystem noSqlDbSystem = getSystem();
-        NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("animals");
+        NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("people");
 
         NoSqlDbOperators var = noSqlDbOperators.filter(and(gte("weight", 200), lte("weight", 500)));
-        var = noSqlDbOperators.groupBy("weight").project("name");
+        var = noSqlDbOperators.groupBy("age").project("name");
         var.printScreen();
+
+        noSqlDbSystem.closeConnection();
+    }
+
+    @Test
+    public void getResultsTest() {
+        NoSqlDbSystem noSqlDbSystem = getSystem();
+
+        NoSqlDbResults<?> results = noSqlDbSystem.operateOn("people").filter(gte("age", 10)).getResults();
+
+        while (results.hasNextRecord()) {
+            System.out.println(results.getRecord());
+        }
 
         noSqlDbSystem.closeConnection();
     }
