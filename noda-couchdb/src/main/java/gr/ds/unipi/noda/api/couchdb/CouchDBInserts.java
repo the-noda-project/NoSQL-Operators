@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.FieldValue;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbInserts;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +39,7 @@ final class CouchDBInserts extends NoSqlDbInserts {
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
         try {
             connection.bulkDocs(getDataCollection(), documents);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

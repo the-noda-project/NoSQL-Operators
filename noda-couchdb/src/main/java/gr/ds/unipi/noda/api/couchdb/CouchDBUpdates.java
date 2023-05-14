@@ -7,7 +7,6 @@ import gr.ds.unipi.noda.api.core.nosqldb.modifications.FieldValue;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbUpdates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -56,7 +55,7 @@ final class CouchDBUpdates extends NoSqlDbUpdates {
                 }).collect(Collectors.toList());
 
                 connection.bulkDocs(getDataCollection(), docs);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

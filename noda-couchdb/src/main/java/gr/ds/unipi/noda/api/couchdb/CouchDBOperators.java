@@ -13,7 +13,6 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -81,7 +80,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
         try {
             ViewResponse response = connection.runQuery(getDataCollection(), viewQuery);
             System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(response));
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -102,7 +101,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
             if (response != null && !response.rows.isEmpty()) {
                 return Optional.of(response.rows.get(0).value.getAsJsonObject().get(operator.getAlias()).getAsDouble());
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -125,7 +124,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
             if (response != null && !response.rows.isEmpty()) {
                 return Optional.of(response.rows.get(0).value.getAsJsonObject().get(operator.getAlias()).getAsDouble());
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -148,7 +147,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
             if (response != null && !response.rows.isEmpty()) {
                 return Optional.of(response.rows.get(0).value.getAsJsonObject().get(operator.getAlias()).getAsDouble());
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -171,7 +170,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
             if (response != null && !response.rows.isEmpty()) {
                 return Optional.of(response.rows.get(0).value.getAsJsonObject().get(operator.getAlias()).getAsDouble());
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -187,7 +186,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
             if (response != null) {
                 return response.totalRows != null ? response.totalRows : response.rows.size();
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -258,7 +257,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
                     return null;
                 }).iterator());
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

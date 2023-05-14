@@ -2,6 +2,7 @@ package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
+import gr.ds.unipi.noda.api.couchdb.aggregateOperators.OperatorCountDistinct;
 import org.junit.Test;
 
 import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.avg;
@@ -20,6 +21,9 @@ public class CouchDBSystemTest {
 
     @Test
     public void couchdbTest() {
+        getSystem().operateOn("people")
+                .aggregate(OperatorCountDistinct.newOperatorCountDistinct("favoriteFruit"))
+                .printScreen();
     }
 
     @Test
@@ -57,7 +61,7 @@ public class CouchDBSystemTest {
     }
 
     @Test
-    public void stucturalSharingTest() {
+    public void structuralSharingTest() {
         NoSqlDbSystem noSqlDbSystem = getSystem();
         NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("people");
 

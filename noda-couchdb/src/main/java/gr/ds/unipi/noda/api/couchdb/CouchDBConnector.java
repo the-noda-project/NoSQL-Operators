@@ -13,8 +13,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import javax.annotation.Nullable;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -89,7 +89,7 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
             this.designDocuments = new HashMap<>();
         }
 
-        public ViewResponse allDocs(String db) throws IOException {
+        public ViewResponse allDocs(String db) throws IOException, CouchDBError {
             HttpUrl url = serverUrl.newBuilder()
                     .addPathSegment(db)
                     .addPathSegment("_all_docs")
@@ -98,23 +98,27 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
 
             try (Response res = get(url).execute()) {
                 assert res.body() != null;
+
+                if (!res.isSuccessful()) {
+                    throw new CouchDBError(res.body().charStream());
+                }
+
                 return GSON.fromJson(res.body().charStream(), ViewResponse.class);
             }
         }
 
-        public void bulkDocs(String db, List<JsonObject> docs) throws IOException {
+        public void bulkDocs(String db, List<JsonObject> docs) throws IOException, CouchDBError {
             HttpUrl url = serverUrl.newBuilder().addPathSegment(db).addPathSegment("_bulk_docs").build();
 
             try (Response res = post(url, Collections.singletonMap("docs", docs)).execute()) {
                 if (!res.isSuccessful()) {
                     assert res.body() != null;
-                    System.err.println(res.body().string());
+                    throw new CouchDBError(res.body().charStream());
                 }
             }
         }
 
-        @Nullable
-        public ViewResponse runQuery(String db, ViewQuery viewQuery) throws IOException {
+        public ViewResponse runQuery(String db, ViewQuery viewQuery) throws IOException, CouchDBError {
             String viewName = viewQuery.getViewName();
             DesignDocument designDocument = getDesignDocument(db);
 
@@ -135,8 +139,7 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
                 assert res.body() != null;
 
                 if (!res.isSuccessful()) {
-                    System.err.println("runQuery:" + res.body().string());
-                    return null;
+                    throw new CouchDBError(res.body().charStream());
                 }
 
                 return GSON.fromJson(res.body().charStream(), ViewResponse.class);
@@ -147,7 +150,7 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
             client.connectionPool().evictAll();
         }
 
-        private void updateDesignDocument(String db, DesignDocument designDocument) throws IOException {
+        private void updateDesignDocument(String db, DesignDocument designDocument) throws IOException, CouchDBError {
             HttpUrl url = serverUrl.newBuilder()
                     .addPathSegment(db)
                     .addPathSegment("_design")
@@ -157,12 +160,12 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
             try (Response res = put(url, designDocument).execute()) {
                 if (!res.isSuccessful()) {
                     assert res.body() != null;
-                    System.err.println("updateDesignDocument: " + res.body().string());
+                    throw new CouchDBError(res.body().charStream());
                 }
             }
         }
 
-        private DesignDocument getDesignDocument(String db) throws IOException {
+        private DesignDocument getDesignDocument(String db) throws IOException, CouchDBError {
             if (designDocuments.containsKey(db)) {
                 return designDocuments.get(db);
             }
@@ -179,6 +182,10 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
                 }
 
                 assert res.body() != null;
+
+                if (!res.isSuccessful()) {
+                    throw new CouchDBError(res.body().charStream());
+                }
 
                 designDocuments.put(db, GSON.fromJson(res.body().charStream(), DesignDocument.class));
                 return designDocuments.get(db);
@@ -200,6 +207,22 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
             RequestBody body = RequestBody.create(GSON.toJson(data), JSON);
             Request request = new Request.Builder().url(url).post(body).build();
             return client.newCall(request);
+        }
+    }
+
+    static class CouchDBError extends Exception {
+        private final String error;
+        private final String reason;
+
+        CouchDBError(Reader reader) {
+            JsonObject error = GSON.fromJson(reader, JsonObject.class);
+            this.error = error.get("error").getAsString();
+            this.reason = error.get("reason").getAsString();
+        }
+
+        @Override
+        public String getMessage() {
+            return error + ": " + reason;
         }
     }
 }

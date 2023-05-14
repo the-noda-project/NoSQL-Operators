@@ -88,7 +88,7 @@ final class ViewQuery {
 
     @Override
     public int hashCode() {
-        return Objects.hash(filters, aggregates, sortFields, groupFields, valueFields);
+        return Objects.hash(filters, aggregates, sortFields, groupFields, valueFields, projectFields);
     }
 
     @Override
@@ -101,7 +101,7 @@ final class ViewQuery {
 
         return viewQuery.filters.equals(this.filters) && viewQuery.aggregates.equals(this.aggregates) &&
                 viewQuery.sortFields.equals(this.sortFields) && viewQuery.groupFields.equals(this.groupFields) &&
-                viewQuery.valueFields.equals(this.valueFields);
+                viewQuery.valueFields.equals(this.valueFields) && viewQuery.projectFields.equals(this.projectFields);
     }
 
     public String getMapFunction() {
@@ -109,6 +109,7 @@ final class ViewQuery {
         HashSet<String> keys = new HashSet<>();
         HashSet<String> values = new HashSet<>();
 
+        // Note, sorting only works without grouping
         if (groupFields.isEmpty()) {
             keys.addAll(sortFields.keySet());
         } else {
@@ -118,17 +119,17 @@ final class ViewQuery {
         values.addAll(valueFields);
         values.addAll(projectFields);
 
-        sb.append("function(doc) {\n");
+        sb.append("function(doc) {");
 
         if (!filters.isEmpty()) {
             String filter = filters.stream()
                     .map(f -> (String) f.getOperatorExpression())
-                    .collect(Collectors.joining("&&"));
+                    .collect(Collectors.joining(" && "));
 
-            sb.append("if (").append(filter).append(")");
+            sb.append("if (").append(filter).append(") ");
         }
 
-        sb.append("emit(");
+        sb.append("{ emit(");
 
         if (keys.isEmpty()) {
             sb.append("null");
@@ -141,15 +142,16 @@ final class ViewQuery {
             sb.append("]");
         }
 
-        sb.append(",");
+        sb.append(", ");
 
         if (values.isEmpty()) {
             sb.append("null");
         } else {
             sb.append("{");
             for (String val : values) {
-                sb.append(StringEscapeUtils.escapeEcmaScript(val))
-                        .append(": doc[\"")
+                sb.append('"')
+                        .append(StringEscapeUtils.escapeEcmaScript(val))
+                        .append("\": doc[\"")
                         .append(StringEscapeUtils.escapeEcmaScript(val))
                         .append("\"],");
             }
@@ -157,7 +159,7 @@ final class ViewQuery {
             sb.append("}");
         }
 
-        sb.append(")\n}");
+        sb.append(");}}");
 
         return sb.toString();
     }
@@ -172,20 +174,20 @@ final class ViewQuery {
             assert operatorExpression.length == 2;
 
             String alias = StringEscapeUtils.escapeEcmaScript(op.getAlias());
-            reduce.append('"').append(alias).append("\": ").append(operatorExpression[0]).append(",\n");
-            rereduce.append('"').append(alias).append("\": ").append(operatorExpression[1]).append(",\n");
+            reduce.append('"').append(alias).append("\": ").append(operatorExpression[0]).append(",");
+            rereduce.append('"').append(alias).append("\": ").append(operatorExpression[1]).append(",");
         }
 
         for (String field : projectFields) {
-            reduce.append('"').append(field).append("\": values.map(a => a[\"").append(field).append("\"]),\n");
-            rereduce.append('"').append(field).append("\": values.flatMap(a => a[\"").append(field).append("\"]),\n");
+            reduce.append('"').append(field).append("\": values.map(a => a[\"").append(field).append("\"]),");
+            rereduce.append('"').append(field).append("\": values.flatMap(a => a[\"").append(field).append("\"]),");
         }
 
-        sb.append("function(keys, values, rereduce) {\nif (rereduce) {\nreturn {\n")
+        sb.append("function(keys, values, rereduce) { if (rereduce) { return {")
                 .append(rereduce)
-                .append("\n}\n} else {\nreturn {\n")
+                .append("}} else { return {")
                 .append(reduce)
-                .append("\n}\n}\n}");
+                .append("}}}");
 
         return sb.toString();
     }

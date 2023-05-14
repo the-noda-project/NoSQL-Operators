@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbDeletes;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -61,7 +60,7 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
                 }).collect(Collectors.toList());
 
                 connection.bulkDocs(getDataCollection(), docs);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
