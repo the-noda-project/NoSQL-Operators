@@ -13,7 +13,12 @@ final class OperatorAnd extends LogicalOperator {
     }
 
     @Override
-    protected String operatorSymbol() {
+    protected String mapOperatorSymbol() {
         return "&&";
+    }
+
+    @Override
+    protected String mangoOperatorSymbol() {
+        return "$and";
     }
 }

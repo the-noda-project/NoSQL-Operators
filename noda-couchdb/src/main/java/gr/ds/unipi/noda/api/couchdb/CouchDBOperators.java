@@ -19,16 +19,16 @@ import java.util.stream.Stream;
 final class CouchDBOperators extends NoSqlDbOperators {
 
     private final CouchDBConnectionManager couchDBConnectionManager = CouchDBConnectionManager.getInstance();
-    private final ViewQuery viewQuery;
+    private final Query query;
 
     private CouchDBOperators(CouchDBConnector connector, String dataCollection, SparkSession sparkSession) {
         super(connector, dataCollection, sparkSession);
-        viewQuery = new ViewQuery();
+        query = new Query();
     }
 
-    private CouchDBOperators(CouchDBOperators self, ViewQuery viewQuery) {
+    private CouchDBOperators(CouchDBOperators self, Query query) {
         super(self.getNoSqlDbConnector(), self.getDataCollection(), self.getSparkSession());
-        this.viewQuery = viewQuery;
+        this.query = query;
     }
 
     static CouchDBOperators newCouchDBOperators(CouchDBConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
@@ -38,34 +38,34 @@ final class CouchDBOperators extends NoSqlDbOperators {
     @Override
     @SuppressWarnings("rawtypes")
     public CouchDBOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        ViewQuery viewQuery = new ViewQuery(this.viewQuery);
-        Stream.concat(Stream.of(filterOperator), Stream.of(filterOperators)).forEach(viewQuery::addFilter);
-        return new CouchDBOperators(this, viewQuery);
+        Query query = new Query(this.query);
+        Stream.concat(Stream.of(filterOperator), Stream.of(filterOperators)).forEach(query::addFilter);
+        return new CouchDBOperators(this, query);
     }
 
     @Override
     public CouchDBOperators groupBy(String fieldName, String... fieldNames) {
-        ViewQuery viewQuery = new ViewQuery(this.viewQuery);
+        Query query = new Query(this.query);
 
-        Stream.concat(Stream.of(fieldName), Stream.of(fieldNames)).forEach(viewQuery::addGroupField);
-        viewQuery.setGroup(true);
-        viewQuery.setReduce(true);
+        Stream.concat(Stream.of(fieldName), Stream.of(fieldNames)).forEach(query::addGroupField);
+        query.setGroup(true);
+        query.setReduce(true);
 
-        return new CouchDBOperators(this, viewQuery);
+        return new CouchDBOperators(this, query);
     }
 
     @Override
     @SuppressWarnings("rawtypes")
     public CouchDBOperators aggregate(AggregateOperator aggregateOperator, AggregateOperator... aggregateOperators) {
-        ViewQuery viewQuery = new ViewQuery(this.viewQuery);
+        Query query = new Query(this.query);
 
         Stream.concat(Stream.of(aggregateOperator), Stream.of(aggregateOperators)).forEach(op -> {
-            viewQuery.addAggregate(op);
-            viewQuery.addValueField(op.getFieldName());
+            query.addAggregate(op);
+            query.addValueField(op.getFieldName());
         });
-        viewQuery.setReduce(true);
+        query.setReduce(true);
 
-        return new CouchDBOperators(this, viewQuery);
+        return new CouchDBOperators(this, query);
     }
 
     @Override
@@ -75,10 +75,11 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public void printScreen() {
+        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         try {
-            ViewResponse response = connection.runQuery(getDataCollection(), viewQuery);
+            CouchDBConnector.AbstractResponse response = connection.runQuery(getDataCollection(), query);
             System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(response));
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,17 +88,21 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> max(String fieldName) {
+        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorMax(fieldName);
 
-        viewQuery.addAggregate(operator);
-        viewQuery.addValueField(fieldName);
-        viewQuery.setReduce(true);
-        viewQuery.setGroup(false);
+        query.addAggregate(operator);
+        query.addValueField(fieldName);
+        query.setReduce(true);
+        query.setGroup(false);
 
         try {
-            ViewResponse response = connection.runQuery(getDataCollection(), viewQuery);
+            CouchDBConnector.ViewResponse response = (CouchDBConnector.ViewResponse) connection.runQuery(
+                    getDataCollection(),
+                    query
+            );
             if (response != null && !response.rows.isEmpty()) {
                 return Optional.of(response.rows.get(0).value.getAsJsonObject().get(operator.getAlias()).getAsDouble());
             }
@@ -110,17 +115,21 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> min(String fieldName) {
+        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorMin(fieldName);
 
-        viewQuery.addAggregate(operator);
-        viewQuery.addValueField(fieldName);
-        viewQuery.setReduce(true);
-        viewQuery.setGroup(false);
+        query.addAggregate(operator);
+        query.addValueField(fieldName);
+        query.setReduce(true);
+        query.setGroup(false);
 
         try {
-            ViewResponse response = connection.runQuery(getDataCollection(), viewQuery);
+            CouchDBConnector.ViewResponse response = (CouchDBConnector.ViewResponse) connection.runQuery(
+                    getDataCollection(),
+                    query
+            );
             if (response != null && !response.rows.isEmpty()) {
                 return Optional.of(response.rows.get(0).value.getAsJsonObject().get(operator.getAlias()).getAsDouble());
             }
@@ -133,17 +142,21 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> sum(String fieldName) {
+        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorSum(fieldName);
 
-        viewQuery.addAggregate(operator);
-        viewQuery.addValueField(fieldName);
-        viewQuery.setReduce(true);
-        viewQuery.setGroup(false);
+        query.addAggregate(operator);
+        query.addValueField(fieldName);
+        query.setReduce(true);
+        query.setGroup(false);
 
         try {
-            ViewResponse response = connection.runQuery(getDataCollection(), viewQuery);
+            CouchDBConnector.ViewResponse response = (CouchDBConnector.ViewResponse) connection.runQuery(
+                    getDataCollection(),
+                    query
+            );
             if (response != null && !response.rows.isEmpty()) {
                 return Optional.of(response.rows.get(0).value.getAsJsonObject().get(operator.getAlias()).getAsDouble());
             }
@@ -156,17 +169,21 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> avg(String fieldName) {
+        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorAvg(fieldName);
 
-        viewQuery.addAggregate(operator);
-        viewQuery.addValueField(fieldName);
-        viewQuery.setReduce(true);
-        viewQuery.setGroup(false);
+        query.addAggregate(operator);
+        query.addValueField(fieldName);
+        query.setReduce(true);
+        query.setGroup(false);
 
         try {
-            ViewResponse response = connection.runQuery(getDataCollection(), viewQuery);
+            CouchDBConnector.ViewResponse response = (CouchDBConnector.ViewResponse) connection.runQuery(
+                    getDataCollection(),
+                    query
+            );
             if (response != null && !response.rows.isEmpty()) {
                 return Optional.of(response.rows.get(0).value.getAsJsonObject().get(operator.getAlias()).getAsDouble());
             }
@@ -179,12 +196,13 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public int count() {
+        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         try {
-            ViewResponse response = connection.runQuery(getDataCollection(), viewQuery);
+            CouchDBConnector.AbstractResponse response = connection.runQuery(getDataCollection(), query);
             if (response != null) {
-                return response.totalRows != null ? response.totalRows : response.rows.size();
+                return response.getTotalRows();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -196,13 +214,13 @@ final class CouchDBOperators extends NoSqlDbOperators {
     @Override
     @SuppressWarnings("rawtypes")
     public CouchDBOperators sort(SortOperator sortOperator, SortOperator... sortingOperators) {
-        ViewQuery viewQuery = new ViewQuery(this.viewQuery);
+        Query query = new Query(this.query);
 
         Stream.concat(Stream.of(sortOperator), Stream.of(sortingOperators))
                 .map(op -> (ImmutablePair<?, ?>) op.getOperatorExpression())
-                .forEach(op -> viewQuery.addSortField((String) op.getLeft(), (String) op.getRight()));
+                .forEach(op -> query.addSortField((String) op.getLeft(), (String) op.getRight()));
 
-        return new CouchDBOperators(this, viewQuery);
+        return new CouchDBOperators(this, query);
     }
 
     @Override
@@ -211,17 +229,17 @@ final class CouchDBOperators extends NoSqlDbOperators {
             throw new IllegalArgumentException("Limit must be a positive number.");
         }
 
-        ViewQuery viewQuery = new ViewQuery(this.viewQuery);
-        viewQuery.setLimit(limit);
+        Query query = new Query(this.query);
+        query.setLimit(limit);
 
-        return new CouchDBOperators(this, viewQuery);
+        return new CouchDBOperators(this, query);
     }
 
     @Override
     public CouchDBOperators project(String fieldName, String... fieldNames) {
-        ViewQuery viewQuery = new ViewQuery(this.viewQuery);
-        Stream.concat(Stream.of(fieldName), Stream.of(fieldNames)).forEach(viewQuery::addProjectField);
-        return new CouchDBOperators(this, viewQuery);
+        Query query = new Query(this.query);
+        Stream.concat(Stream.of(fieldName), Stream.of(fieldNames)).forEach(query::addProjectField);
+        return new CouchDBOperators(this, query);
     }
 
     @Override
@@ -238,24 +256,27 @@ final class CouchDBOperators extends NoSqlDbOperators {
     @Override
     @Nullable
     public CouchDBResults getResults() {
+        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         try {
-            ViewResponse response = connection.runQuery(getDataCollection(), viewQuery);
-            if (response != null) {
-                return new CouchDBResults(response.rows.stream().map(r -> {
-                    if (r.doc != null) {
-                        return r.doc;
-                    }
+            CouchDBConnector.AbstractResponse response = connection.runQuery(getDataCollection(), query);
 
-                    if (r.value != null) {
-                        JsonObject value = new JsonObject();
-                        value.add(r.key.toString(), r.value);
-                        return value;
-                    }
+            if (response instanceof CouchDBConnector.ViewResponse) {
+                Stream<JsonObject> docsStream;
+                if (query.isReduce()) {
+                    docsStream = ((CouchDBConnector.ViewResponse) response).rows.stream().map(row -> {
+                        JsonObject newRow = new JsonObject();
+                        newRow.add(row.key.toString(), row.value);
+                        return newRow;
+                    });
+                } else {
+                    docsStream = ((CouchDBConnector.ViewResponse) response).rows.stream().map(row -> row.doc);
+                }
 
-                    return null;
-                }).iterator());
+                return new CouchDBResults(docsStream.iterator());
+            } else if (response instanceof CouchDBConnector.FindResponse) {
+                return new CouchDBResults(((CouchDBConnector.FindResponse) response).docs.iterator());
             }
         } catch (Exception e) {
             e.printStackTrace();

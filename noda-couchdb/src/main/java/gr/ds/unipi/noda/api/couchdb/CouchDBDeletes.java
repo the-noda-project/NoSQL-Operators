@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 final class CouchDBDeletes extends NoSqlDbDeletes {
     private final CouchDBConnectionManager couchDBConnectionManager = CouchDBConnectionManager.getInstance();
@@ -38,28 +39,23 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
 
         for (Delete delete : deletes) {
             try {
-                ViewResponse res = delete.viewQuery == null ? connection.allDocs(getDataCollection())
-                                                            : connection.runQuery(getDataCollection(), delete.viewQuery);
+                Stream<JsonObject> docs =
+                        delete.query == null ? connection.allDocs(getDataCollection()).rows.stream().map(row -> row.doc)
+                                             : connection.postFind(getDataCollection(), delete.query).docs.stream();
 
-                if (res == null) {
-                    continue;
-                }
-
-                List<JsonObject> docs = res.rows.stream().map(row -> {
+                List<JsonObject> deletedDocs = docs.peek(doc -> {
                     // Delete the document if no fields were specified
                     if (delete.fields.isEmpty()) {
                         // Marks the document as deleted in CouchDB
-                        row.doc.addProperty("_deleted", true);
+                        doc.addProperty("_deleted", true);
                     } else {
                         for (String field : delete.fields) {
-                            row.doc.remove(field);
+                            doc.remove(field);
                         }
                     }
-
-                    return row.doc;
                 }).collect(Collectors.toList());
 
-                connection.bulkDocs(getDataCollection(), docs);
+                connection.bulkDocs(getDataCollection(), deletedDocs);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -81,20 +77,20 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
     public NoSqlDbDeletes delete(FilterOperator fop, String... fields) {
         List<Delete> deletes = new ArrayList<>(this.deletes);
 
-        ViewQuery viewQuery = new ViewQuery();
-        viewQuery.addFilter(fop);
+        Query query = new Query();
+        query.addFilter(fop);
 
-        deletes.add(new Delete(viewQuery, Arrays.asList(fields)));
+        deletes.add(new Delete(query, Arrays.asList(fields)));
 
         return new CouchDBDeletes(this, deletes);
     }
 
     private static class Delete {
-        private final ViewQuery viewQuery;
+        private final Query query;
         private final List<String> fields;
 
-        private Delete(ViewQuery viewQuery, List<String> fields) {
-            this.viewQuery = viewQuery;
+        private Delete(Query query, List<String> fields) {
+            this.query = query;
             this.fields = fields;
         }
     }

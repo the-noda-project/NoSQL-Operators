@@ -3,7 +3,6 @@ package gr.ds.unipi.noda.api.couchdb.filterOperators.comparisonOperators;
 import java.util.Date;
 
 final class OperatorLessThan<T> extends ComparisonOperator<T> {
-
     private OperatorLessThan(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
     }
@@ -33,8 +32,12 @@ final class OperatorLessThan<T> extends ComparisonOperator<T> {
     }
 
     @Override
-    protected String operatorSymbol() {
+    protected String mapOperatorSymbol() {
         return "<";
     }
 
+    @Override
+    protected String mangoOperatorSymbol() {
+        return "$lt";
+    }
 }

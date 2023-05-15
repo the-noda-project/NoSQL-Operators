@@ -1,7 +1,9 @@
 package gr.ds.unipi.noda.api.couchdb;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.SerializedName;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import okhttp3.Call;
 import okhttp3.Credentials;
@@ -114,24 +116,22 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
             }
         }
 
-        public ViewResponse runQuery(String db, ViewQuery viewQuery) throws IOException, CouchDBError {
-            String viewName = viewQuery.getViewName();
+        public ViewResponse postView(String db, Query query) throws IOException, CouchDBError {
             DesignDocument designDocument = getDesignDocument(db);
+            String viewName = query.getViewName();
 
             if (!designDocument.hasView(viewName)) {
-                designDocument.addView(viewName, viewQuery.getMapFunction(), viewQuery.getReduceFunction());
+                designDocument.addView(viewName, query.getMapFunction(), query.getReduceFunction());
                 updateDesignDocument(db, designDocument);
             }
 
             HttpUrl url = serverUrl.newBuilder()
                     .addPathSegment(db)
-                    .addPathSegment("_design")
-                    .addPathSegment(DesignDocument.NAME)
-                    .addPathSegment("_view")
-                    .addPathSegment(viewName)
+                    .addPathSegments("_design/NODA/_view")
+                    .addPathSegment(query.getViewName())
                     .build();
 
-            try (Response res = post(url, viewQuery.getRequestBody()).execute()) {
+            try (Response res = post(url, query.getRequestBody()).execute()) {
                 assert res.body() != null;
 
                 if (!res.isSuccessful()) {
@@ -139,6 +139,31 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
                 }
 
                 return GSON.fromJson(res.body().charStream(), ViewResponse.class);
+            }
+        }
+
+        public FindResponse postFind(String db, Query query) throws IOException, CouchDBError {
+            HttpUrl url = serverUrl.newBuilder()
+                    .addPathSegment(db)
+                    .addPathSegments("_find")
+                    .build();
+
+            try (Response res = post(url, query.getRequestBody()).execute()) {
+                assert res.body() != null;
+
+                if (!res.isSuccessful()) {
+                    throw new CouchDBError(res.body().charStream());
+                }
+
+                return GSON.fromJson(res.body().charStream(), FindResponse.class);
+            }
+        }
+
+        public AbstractResponse runQuery(String db, Query query) throws IOException, CouchDBError {
+            if (query.isViewQuery()) {
+                return postView(db, query);
+            } else {
+                return postFind(db, query);
             }
         }
 
@@ -214,6 +239,40 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
         @Override
         public String getMessage() {
             return error + ": " + reason;
+        }
+    }
+
+    static abstract class AbstractResponse {
+        abstract public int getTotalRows();
+    }
+
+    static class ViewResponse extends AbstractResponse {
+        @SerializedName("total_rows")
+        public Integer totalRows;
+        public List<Row> rows;
+
+        @Override
+        public int getTotalRows() {
+            if (totalRows != null) {
+                return totalRows;
+            } else {
+                return rows.size();
+            }
+        }
+
+        static class Row {
+            JsonElement key;
+            JsonElement value;
+            JsonObject doc;
+        }
+    }
+
+    static class FindResponse extends AbstractResponse {
+        List<JsonObject> docs;
+
+        @Override
+        public int getTotalRows() {
+            return docs.size();
         }
     }
 }

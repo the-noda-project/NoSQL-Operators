@@ -3,7 +3,6 @@ package gr.ds.unipi.noda.api.couchdb.filterOperators.comparisonOperators;
 import java.util.Date;
 
 final class OperatorEqual<T> extends ComparisonOperator<T> {
-
     private OperatorEqual(String fieldName, T fieldValue) {
         super(fieldName, fieldValue);
     }
@@ -41,8 +40,12 @@ final class OperatorEqual<T> extends ComparisonOperator<T> {
     }
 
     @Override
-    protected String operatorSymbol() {
+    protected String mapOperatorSymbol() {
         return "==";
     }
 
+    @Override
+    protected String mangoOperatorSymbol() {
+        return "$eq";
+    }
 }

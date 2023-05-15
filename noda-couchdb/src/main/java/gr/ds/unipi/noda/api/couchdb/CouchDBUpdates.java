@@ -9,7 +9,6 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 final class CouchDBUpdates extends NoSqlDbUpdates {
     private final CouchDBConnectionManager couchDBConnectionManager = CouchDBConnectionManager.getInstance();
@@ -39,19 +38,13 @@ final class CouchDBUpdates extends NoSqlDbUpdates {
 
         for (Update update : updates) {
             try {
-                ViewResponse res = connection.runQuery(getDataCollection(), update.viewQuery);
+                List<JsonObject> docs = connection.postFind(getDataCollection(), update.query).docs;
 
-                if (res == null) {
-                    continue;
-                }
-
-                List<JsonObject> docs = res.rows.stream().map(row -> {
+                for (JsonObject doc : docs) {
                     for (FieldValue<?> fv : update.fieldValues) {
-                        row.doc.add(fv.getField(), new Gson().toJsonTree(fv.getValue()));
+                        doc.add(fv.getField(), new Gson().toJsonTree(fv.getValue()));
                     }
-
-                    return row.doc;
-                }).collect(Collectors.toList());
+                }
 
                 connection.bulkDocs(getDataCollection(), docs);
             } catch (Exception e) {
@@ -68,21 +61,21 @@ final class CouchDBUpdates extends NoSqlDbUpdates {
         fieldValues.add(fv);
         Collections.addAll(fieldValues, fvs);
 
-        ViewQuery viewQuery = new ViewQuery();
-        viewQuery.addFilter(filterOperator);
+        Query query = new Query();
+        query.addFilter(filterOperator);
 
         List<Update> updates = new ArrayList<>(this.updates);
-        updates.add(new Update(viewQuery, fieldValues));
+        updates.add(new Update(query, fieldValues));
 
         return new CouchDBUpdates(this, updates);
     }
 
     private static class Update {
-        private final ViewQuery viewQuery;
+        private final Query query;
         private final List<FieldValue> fieldValues;
 
-        private Update(ViewQuery viewQuery, List<FieldValue> fieldValues) {
-            this.viewQuery = viewQuery;
+        private Update(Query query, List<FieldValue> fieldValues) {
+            this.query = query;
             this.fieldValues = fieldValues;
         }
     }

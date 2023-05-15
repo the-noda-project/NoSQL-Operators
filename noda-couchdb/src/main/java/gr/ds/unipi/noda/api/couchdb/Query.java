@@ -1,18 +1,22 @@
 package gr.ds.unipi.noda.api.couchdb;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.ds.unipi.noda.api.couchdb.filterOperators.FilterStrategy;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-final class ViewQuery {
-    final private ArrayList<FilterOperator<?>> filters;
+final class Query {
+    final private ArrayList<FilterOperator<FilterStrategy>> filters;
     final private ArrayList<AggregateOperator<?>> aggregates;
     final private HashMap<String, String> sortFields;
     final private HashSet<String> groupFields;
@@ -22,7 +26,7 @@ final class ViewQuery {
     private boolean isReduce;
     private int limit;
 
-    public ViewQuery() {
+    public Query() {
         filters = new ArrayList<>();
         aggregates = new ArrayList<>();
         sortFields = new HashMap<>();
@@ -34,7 +38,7 @@ final class ViewQuery {
         limit = -1;
     }
 
-    public ViewQuery(ViewQuery another) {
+    public Query(Query another) {
         filters = new ArrayList<>(another.filters);
         aggregates = new ArrayList<>(another.aggregates);
         sortFields = new HashMap<>(another.sortFields);
@@ -46,7 +50,7 @@ final class ViewQuery {
         limit = another.limit;
     }
 
-    public void addFilter(FilterOperator<?> filterOperator) {
+    public void addFilter(FilterOperator<FilterStrategy> filterOperator) {
         filters.add(filterOperator);
     }
 
@@ -93,15 +97,15 @@ final class ViewQuery {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof ViewQuery)) {
+        if (!(obj instanceof Query)) {
             return false;
         }
 
-        ViewQuery viewQuery = (ViewQuery) obj;
+        Query query = (Query) obj;
 
-        return viewQuery.filters.equals(this.filters) && viewQuery.aggregates.equals(this.aggregates) &&
-                viewQuery.sortFields.equals(this.sortFields) && viewQuery.groupFields.equals(this.groupFields) &&
-                viewQuery.valueFields.equals(this.valueFields) && viewQuery.projectFields.equals(this.projectFields);
+        return query.filters.equals(this.filters) && query.aggregates.equals(this.aggregates) &&
+                query.sortFields.equals(this.sortFields) && query.groupFields.equals(this.groupFields) &&
+                query.valueFields.equals(this.valueFields) && query.projectFields.equals(this.projectFields);
     }
 
     public String getMapFunction() {
@@ -123,7 +127,7 @@ final class ViewQuery {
 
         if (!filters.isEmpty()) {
             String filter = filters.stream()
-                    .map(f -> (String) f.getOperatorExpression())
+                    .map(f -> f.getOperatorExpression().getMapFilter())
                     .collect(Collectors.joining(" && "));
 
             sb.append("if (").append(filter).append(") ");
@@ -194,21 +198,39 @@ final class ViewQuery {
 
     public JsonObject getRequestBody() {
         JsonObject body = new JsonObject();
+        Gson gson = new Gson();
 
-        body.addProperty("reduce", isReduce);
-        body.addProperty("include_docs", !isReduce);
-        body.addProperty("descending", isSortDescending());
+        if (isViewQuery()) {
+            body.addProperty("reduce", isReduce);
+            body.addProperty("include_docs", !isReduce);
+            body.addProperty("descending", isSortDescending());
+
+            if (isGroup) {
+                body.addProperty("group", true);
+                body.addProperty("group_level", groupFields.size());
+            }
+        } else {
+            Map<String, Object> selector = Collections.singletonMap("$and",
+                    filters.stream().map(f -> f.getOperatorExpression().getMangoFilter()).collect(Collectors.toList())
+            );
+
+            body.add("selector", gson.toJsonTree(selector));
+            body.add("fields", gson.toJsonTree(projectFields));
+        }
 
         if (limit >= 0) {
             body.addProperty("limit", limit);
         }
 
-        if (isGroup) {
-            body.addProperty("group", true);
-            body.addProperty("group_level", groupFields.size());
-        }
-
         return body;
+    }
+
+    public boolean isViewQuery() {
+        return isGroup || isReduce || !sortFields.isEmpty();
+    }
+
+    public boolean isReduce() {
+        return isReduce;
     }
 
     private boolean isSortDescending() {

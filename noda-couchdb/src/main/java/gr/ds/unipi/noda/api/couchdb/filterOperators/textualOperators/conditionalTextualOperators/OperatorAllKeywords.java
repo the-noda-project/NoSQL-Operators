@@ -1,7 +1,6 @@
 package gr.ds.unipi.noda.api.couchdb.filterOperators.textualOperators.conditionalTextualOperators;
 
 public final class OperatorAllKeywords extends ConditionalTextualOperator {
-
     private OperatorAllKeywords(String fieldName, String[] elements) {
         super(fieldName, elements);
     }
@@ -11,8 +10,12 @@ public final class OperatorAllKeywords extends ConditionalTextualOperator {
     }
 
     @Override
-    protected String operatorSymbol() {
+    protected String mapOperatorSymbol() {
         return "&&";
     }
 
+    @Override
+    protected String mangoOperatorSymbol() {
+        return "$allMatch";
+    }
 }
