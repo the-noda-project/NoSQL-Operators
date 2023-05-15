@@ -2,7 +2,6 @@ package gr.ds.unipi.noda.api.couchdb;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.FieldValue;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbUpdates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
@@ -16,7 +15,7 @@ final class CouchDBUpdates extends NoSqlDbUpdates {
     private final CouchDBConnectionManager couchDBConnectionManager = CouchDBConnectionManager.getInstance();
     private final List<Update> updates;
 
-    private CouchDBUpdates(NoSqlDbConnector noSqlDbConnector, String dataCollection) {
+    private CouchDBUpdates(CouchDBConnector noSqlDbConnector, String dataCollection) {
         super(noSqlDbConnector, dataCollection);
         updates = Collections.emptyList();
     }

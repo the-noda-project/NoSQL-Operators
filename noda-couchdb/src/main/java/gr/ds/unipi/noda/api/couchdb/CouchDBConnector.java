@@ -1,7 +1,6 @@
 package gr.ds.unipi.noda.api.couchdb;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import okhttp3.Call;
@@ -16,7 +15,6 @@ import okhttp3.Response;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -24,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector.Connection> {
     private final static MediaType JSON = MediaType.get("application/json; charset=utf-8");
-    private final static Gson GSON = new GsonBuilder().create();
+    private final static Gson GSON = new Gson();
     private final HttpUrl serverUrl;
     private final String credentials;
     private final int connectTimeout;
@@ -81,12 +79,10 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
     static class Connection {
         private final OkHttpClient client;
         private final HttpUrl serverUrl;
-        private final HashMap<String, DesignDocument> designDocuments;
 
         Connection(OkHttpClient client, HttpUrl serverUrl) {
             this.client = client;
             this.serverUrl = serverUrl;
-            this.designDocuments = new HashMap<>();
         }
 
         public ViewResponse allDocs(String db) throws IOException, CouchDBError {
@@ -166,10 +162,6 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
         }
 
         private DesignDocument getDesignDocument(String db) throws IOException, CouchDBError {
-            if (designDocuments.containsKey(db)) {
-                return designDocuments.get(db);
-            }
-
             HttpUrl url = serverUrl.newBuilder()
                     .addPathSegment(db)
                     .addPathSegment("_design")
@@ -187,8 +179,7 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
                     throw new CouchDBError(res.body().charStream());
                 }
 
-                designDocuments.put(db, GSON.fromJson(res.body().charStream(), DesignDocument.class));
-                return designDocuments.get(db);
+                return GSON.fromJson(res.body().charStream(), DesignDocument.class);
             }
         }
 
