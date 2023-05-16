@@ -3,6 +3,7 @@ package gr.ds.unipi.noda.api.couchdb;
 import com.google.gson.JsonObject;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbDeletes;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.ds.unipi.noda.api.couchdb.filterOperators.FilterStrategy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,11 +45,10 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
                                              : connection.postFind(getDataCollection(), delete.query).docs.stream();
 
                 List<JsonObject> deletedDocs = docs.peek(doc -> {
-                    // Delete the document if no fields were specified
-                    if (delete.fields.isEmpty()) {
+                    if (delete.fields.isEmpty()) { // Delete the entire document if no fields were specified...
                         // Marks the document as deleted in CouchDB
                         doc.addProperty("_deleted", true);
-                    } else {
+                    } else { // ...or delete specific fields from the document
                         for (String field : delete.fields) {
                             doc.remove(field);
                         }
@@ -78,7 +78,7 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
         List<Delete> deletes = new ArrayList<>(this.deletes);
 
         Query query = new Query();
-        query.addFilter(fop);
+        query.addFilter((FilterStrategy) fop.getOperatorExpression());
 
         deletes.add(new Delete(query, Arrays.asList(fields)));
 

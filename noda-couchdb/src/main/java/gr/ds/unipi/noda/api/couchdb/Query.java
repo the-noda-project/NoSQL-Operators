@@ -2,10 +2,9 @@ package gr.ds.unipi.noda.api.couchdb;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.couchdb.filterOperators.FilterStrategy;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,8 +15,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 final class Query {
-    final private ArrayList<FilterOperator<FilterStrategy>> filters;
-    final private ArrayList<AggregateOperator<?>> aggregates;
+    final private ArrayList<FilterStrategy> filters;
+    final private HashMap<String, ImmutablePair<String, String>> aggregates;
     final private HashMap<String, String> sortFields;
     final private HashSet<String> groupFields;
     final private HashSet<String> projectFields;
@@ -28,7 +27,7 @@ final class Query {
 
     public Query() {
         filters = new ArrayList<>();
-        aggregates = new ArrayList<>();
+        aggregates = new HashMap<>();
         sortFields = new HashMap<>();
         groupFields = new HashSet<>();
         projectFields = new HashSet<>();
@@ -38,24 +37,24 @@ final class Query {
         limit = -1;
     }
 
-    public Query(Query another) {
-        filters = new ArrayList<>(another.filters);
-        aggregates = new ArrayList<>(another.aggregates);
-        sortFields = new HashMap<>(another.sortFields);
-        groupFields = new HashSet<>(another.groupFields);
-        projectFields = new HashSet<>(another.projectFields);
-        valueFields = new HashSet<>(another.valueFields);
-        isGroup = another.isGroup;
-        isReduce = another.isReduce;
-        limit = another.limit;
+    public Query(Query other) {
+        filters = new ArrayList<>(other.filters);
+        aggregates = new HashMap<>(other.aggregates);
+        sortFields = new HashMap<>(other.sortFields);
+        groupFields = new HashSet<>(other.groupFields);
+        projectFields = new HashSet<>(other.projectFields);
+        valueFields = new HashSet<>(other.valueFields);
+        isGroup = other.isGroup;
+        isReduce = other.isReduce;
+        limit = other.limit;
     }
 
-    public void addFilter(FilterOperator<FilterStrategy> filterOperator) {
-        filters.add(filterOperator);
+    public void addFilter(FilterStrategy filter) {
+        filters.add(filter);
     }
 
-    public void addAggregate(AggregateOperator<?> aggregateOperator) {
-        aggregates.add(aggregateOperator);
+    public void addAggregate(String alias, ImmutablePair<String, String> aggregate) {
+        aggregates.put(alias, aggregate);
     }
 
     public void addSortField(String field, String direction) {
@@ -127,7 +126,7 @@ final class Query {
 
         if (!filters.isEmpty()) {
             String filter = filters.stream()
-                    .map(f -> f.getOperatorExpression().getMapFilter())
+                    .map(FilterStrategy::getMapFilter)
                     .collect(Collectors.joining(" && "));
 
             sb.append("if (").append(filter).append(") ");
@@ -173,14 +172,11 @@ final class Query {
         StringBuilder reduce = new StringBuilder(50);
         StringBuilder rereduce = new StringBuilder(50);
 
-        for (AggregateOperator<?> op : aggregates) {
-            String[] operatorExpression = (String[]) op.getOperatorExpression();
-            assert operatorExpression.length == 2;
-
-            String alias = StringEscapeUtils.escapeEcmaScript(op.getAlias());
-            reduce.append('"').append(alias).append("\": ").append(operatorExpression[0]).append(",");
-            rereduce.append('"').append(alias).append("\": ").append(operatorExpression[1]).append(",");
-        }
+        aggregates.forEach((alias, expression) -> {
+            String escapedAlias = StringEscapeUtils.escapeEcmaScript(alias);
+            reduce.append('"').append(escapedAlias).append("\": ").append(expression.getLeft()).append(",");
+            rereduce.append('"').append(escapedAlias).append("\": ").append(expression.getRight()).append(",");
+        });
 
         for (String field : projectFields) {
             reduce.append('"').append(field).append("\": values.map(a => a[\"").append(field).append("\"]),");
@@ -211,7 +207,7 @@ final class Query {
             }
         } else {
             Map<String, Object> selector = Collections.singletonMap("$and",
-                    filters.stream().map(f -> f.getOperatorExpression().getMangoFilter()).collect(Collectors.toList())
+                    filters.stream().map(FilterStrategy::getMangoFilter).collect(Collectors.toList())
             );
 
             body.add("selector", gson.toJsonTree(selector));

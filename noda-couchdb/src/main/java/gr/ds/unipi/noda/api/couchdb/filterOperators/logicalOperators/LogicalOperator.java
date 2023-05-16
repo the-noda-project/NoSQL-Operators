@@ -1,6 +1,5 @@
 package gr.ds.unipi.noda.api.couchdb.filterOperators.logicalOperators;
 
-import gr.ds.unipi.noda.api.core.operators.Operator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.couchdb.filterOperators.FilterStrategy;
 
@@ -24,9 +23,7 @@ abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operators.filte
             @Override
             public String getMapFilter() {
                 return "(" + Arrays.stream(getFilterOperatorChildren())
-                        .map(Operator::getOperatorExpression)
-                        .map(FilterStrategy.class::cast)
-                        .map(FilterStrategy::getMapFilter)
+                        .map(op -> ((FilterStrategy) op.getOperatorExpression()).getMapFilter())
                         .collect(Collectors.joining(mapOperatorSymbol())) + ")";
             }
 
@@ -34,9 +31,7 @@ abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operators.filte
             public Map<String, Object> getMangoFilter() {
                 return Collections.singletonMap(mangoOperatorSymbol(),
                         Arrays.stream(getFilterOperatorChildren())
-                                .map(Operator::getOperatorExpression)
-                                .map(FilterStrategy.class::cast)
-                                .map(FilterStrategy::getMangoFilter)
+                                .map(op -> ((FilterStrategy) op.getOperatorExpression()).getMangoFilter())
                                 .collect(Collectors.toList())
                 );
             }

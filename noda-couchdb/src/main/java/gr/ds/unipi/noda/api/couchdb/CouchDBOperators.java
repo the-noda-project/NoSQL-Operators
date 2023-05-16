@@ -3,6 +3,7 @@ package gr.ds.unipi.noda.api.couchdb;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import gr.ds.unipi.noda.api.core.operators.Operator;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
@@ -36,10 +37,9 @@ final class CouchDBOperators extends NoSqlDbOperators {
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
     public CouchDBOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
         Query query = new Query(this.query);
-        Stream.concat(Stream.of(filterOperator), Stream.of(filterOperators)).forEach(query::addFilter);
+        Stream.concat(Stream.of(filterOperator), Stream.of(filterOperators)).forEach(Operator::getOperatorExpression);
         return new CouchDBOperators(this, query);
     }
 
@@ -55,12 +55,11 @@ final class CouchDBOperators extends NoSqlDbOperators {
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
     public CouchDBOperators aggregate(AggregateOperator aggregateOperator, AggregateOperator... aggregateOperators) {
         Query query = new Query(this.query);
 
         Stream.concat(Stream.of(aggregateOperator), Stream.of(aggregateOperators)).forEach(op -> {
-            query.addAggregate(op);
+            query.addAggregate(op.getAlias(), (ImmutablePair<String, String>) op.getOperatorExpression());
             query.addValueField(op.getFieldName());
         });
         query.setReduce(true);
@@ -75,7 +74,6 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public void printScreen() {
-        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         try {
@@ -88,12 +86,11 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> max(String fieldName) {
-        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorMax(fieldName);
 
-        query.addAggregate(operator);
+        query.addAggregate(operator.getAlias(), (ImmutablePair<String, String>) operator.getOperatorExpression());
         query.addValueField(fieldName);
         query.setReduce(true);
         query.setGroup(false);
@@ -115,12 +112,11 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> min(String fieldName) {
-        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorMin(fieldName);
 
-        query.addAggregate(operator);
+        query.addAggregate(operator.getAlias(), (ImmutablePair<String, String>) operator.getOperatorExpression());
         query.addValueField(fieldName);
         query.setReduce(true);
         query.setGroup(false);
@@ -142,12 +138,11 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> sum(String fieldName) {
-        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorSum(fieldName);
 
-        query.addAggregate(operator);
+        query.addAggregate(operator.getAlias(), (ImmutablePair<String, String>) operator.getOperatorExpression());
         query.addValueField(fieldName);
         query.setReduce(true);
         query.setGroup(false);
@@ -169,12 +164,11 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> avg(String fieldName) {
-        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorAvg(fieldName);
 
-        query.addAggregate(operator);
+        query.addAggregate(operator.getAlias(), (ImmutablePair<String, String>) operator.getOperatorExpression());
         query.addValueField(fieldName);
         query.setReduce(true);
         query.setGroup(false);
@@ -196,7 +190,6 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public int count() {
-        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         try {
@@ -212,7 +205,6 @@ final class CouchDBOperators extends NoSqlDbOperators {
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
     public CouchDBOperators sort(SortOperator sortOperator, SortOperator... sortingOperators) {
         Query query = new Query(this.query);
 
@@ -248,7 +240,6 @@ final class CouchDBOperators extends NoSqlDbOperators {
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
     public CouchDBOperators join(NoSqlDbOperators noSqlDbOperators, JoinOperator jo) {
         throw new UnsupportedOperationException("The join operation is not supported in CouchDB");
     }
@@ -256,7 +247,6 @@ final class CouchDBOperators extends NoSqlDbOperators {
     @Override
     @Nullable
     public CouchDBResults getResults() {
-        @SuppressWarnings("unchecked")
         CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         try {

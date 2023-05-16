@@ -1,6 +1,8 @@
 package gr.ds.unipi.noda.api.couchdb.aggregateOperators;
 
-abstract class AggregateOperator extends gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator<String[]> {
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
+abstract class AggregateOperator extends gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator<ImmutablePair<String, String>> {
 
     protected AggregateOperator(String fieldName, String alias) {
         super(fieldName, alias);
@@ -11,7 +13,7 @@ abstract class AggregateOperator extends gr.ds.unipi.noda.api.core.operators.agg
     abstract protected String rereduceStageExpression();
 
     @Override
-    public String[] getOperatorExpression() {
-        return new String[]{reduceStageExpression(), rereduceStageExpression()};
+    public ImmutablePair<String, String> getOperatorExpression() {
+        return new ImmutablePair<>(reduceStageExpression(), rereduceStageExpression());
     }
 }

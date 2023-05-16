@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.FieldValue;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbUpdates;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
+import gr.ds.unipi.noda.api.couchdb.filterOperators.FilterStrategy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,7 +63,7 @@ final class CouchDBUpdates extends NoSqlDbUpdates {
         Collections.addAll(fieldValues, fvs);
 
         Query query = new Query();
-        query.addFilter(filterOperator);
+        query.addFilter((FilterStrategy) filterOperator.getOperatorExpression());
 
         List<Update> updates = new ArrayList<>(this.updates);
         updates.add(new Update(query, fieldValues));
