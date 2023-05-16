@@ -216,11 +216,19 @@ public class CouchDBRecord extends NoSqlDbRecord<JsonObject> {
                         throw new UnsupportedOperationException("For: " + clazz);
                     }
                 } else if (element.isJsonArray()) {
-                    throw new UnsupportedOperationException();
+                    if (List.class.isAssignableFrom(clazz)) {
+                        result.add(clazz.cast(element.getAsJsonArray().asList()));
+                    } else {
+                        throw new UnsupportedOperationException("For: " + clazz);
+                    }
                 } else if (element.isJsonObject()) {
-                    throw new UnsupportedOperationException();
+                    if (Map.class.isAssignableFrom(clazz)) {
+                        result.add(clazz.cast(element.getAsJsonObject().asMap()));
+                    } else {
+                        throw new UnsupportedOperationException("For: " + clazz);
+                    }
                 } else if (element.isJsonNull()) {
-                    throw new UnsupportedOperationException();
+                    result.add(null);
                 }
             }
 
