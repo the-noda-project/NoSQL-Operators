@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface FilterStrategy {
     CharSequence getMapFilter();
-    Map<String, Object> getMangoFilter();
+    Map<String, Object> getFindFilter();
 }

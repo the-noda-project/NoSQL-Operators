@@ -31,7 +31,7 @@ public abstract class ConditionalTextualOperator extends gr.ds.unipi.noda.api.co
             }
 
             @Override
-            public Map<String, Object> getMangoFilter() {
+            public Map<String, Object> getFindFilter() {
                 ArrayList<Map<String, String>> matches = new ArrayList<>();
 
                 for (String keyword : getKeywords()) {

@@ -41,7 +41,7 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
             }
 
             @Override
-            public Map<String, Object> getMangoFilter() {
+            public Map<String, Object> getFindFilter() {
                 return Collections.singletonMap(getFieldName(),
                         Collections.singletonMap(mangoOperatorSymbol(), getFieldValue())
                 );

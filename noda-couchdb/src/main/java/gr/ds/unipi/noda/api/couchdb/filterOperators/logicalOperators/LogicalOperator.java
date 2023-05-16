@@ -28,10 +28,10 @@ abstract class LogicalOperator extends gr.ds.unipi.noda.api.core.operators.filte
             }
 
             @Override
-            public Map<String, Object> getMangoFilter() {
+            public Map<String, Object> getFindFilter() {
                 return Collections.singletonMap(mangoOperatorSymbol(),
                         Arrays.stream(getFilterOperatorChildren())
-                                .map(op -> ((FilterStrategy) op.getOperatorExpression()).getMangoFilter())
+                                .map(op -> ((FilterStrategy) op.getOperatorExpression()).getFindFilter())
                                 .collect(Collectors.toList())
                 );
             }

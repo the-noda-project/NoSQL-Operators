@@ -190,26 +190,23 @@ public class CouchDBRecord extends NoSqlDbRecord<JsonObject> {
 
             for (JsonElement element : array) {
                 if (element.isJsonPrimitive()) {
-                    if (Number.class.isAssignableFrom(clazz)) {
-                        // result.add(clazz.cast(element.getAsJsonPrimitive().getAsNumber()));
-                        if (Integer.class.isAssignableFrom(clazz)) {
-                            result.add(clazz.cast(element.getAsJsonPrimitive().getAsInt()));
-                        } else if (Long.class.isAssignableFrom(clazz)) {
-                            result.add(clazz.cast(element.getAsJsonPrimitive().getAsLong()));
-                        } else if (Short.class.isAssignableFrom(clazz)) {
-                            result.add(clazz.cast(element.getAsJsonPrimitive().getAsShort()));
-                        } else if (Float.class.isAssignableFrom(clazz)) {
-                            result.add(clazz.cast(element.getAsJsonPrimitive().getAsFloat()));
-                        } else if (Double.class.isAssignableFrom(clazz)) {
-                            result.add(clazz.cast(element.getAsJsonPrimitive().getAsDouble()));
-                        } else if (Byte.class.isAssignableFrom(clazz)) {
-                            result.add(clazz.cast(element.getAsJsonPrimitive().getAsByte()));
-                        } else if (BigDecimal.class.isAssignableFrom(clazz)) {
-                            result.add(clazz.cast(element.getAsJsonPrimitive().getAsBigDecimal()));
-                        } else if (BigInteger.class.isAssignableFrom(clazz)) {
-                            result.add(clazz.cast(element.getAsJsonPrimitive().getAsBigInteger()));
-                        }
-                    } else if (String.class.isAssignableFrom(clazz)) {
+                    if (Integer.class.isAssignableFrom(clazz)) {
+                        result.add(clazz.cast(element.getAsJsonPrimitive().getAsInt()));
+                    } else if (Long.class.isAssignableFrom(clazz)) {
+                        result.add(clazz.cast(element.getAsJsonPrimitive().getAsLong()));
+                    } else if (Short.class.isAssignableFrom(clazz)) {
+                        result.add(clazz.cast(element.getAsJsonPrimitive().getAsShort()));
+                    } else if (Float.class.isAssignableFrom(clazz)) {
+                        result.add(clazz.cast(element.getAsJsonPrimitive().getAsFloat()));
+                    } else if (Double.class.isAssignableFrom(clazz)) {
+                        result.add(clazz.cast(element.getAsJsonPrimitive().getAsDouble()));
+                    } else if (Byte.class.isAssignableFrom(clazz)) {
+                        result.add(clazz.cast(element.getAsJsonPrimitive().getAsByte()));
+                    } else if (BigDecimal.class.isAssignableFrom(clazz)) {
+                        result.add(clazz.cast(element.getAsJsonPrimitive().getAsBigDecimal()));
+                    } else if (BigInteger.class.isAssignableFrom(clazz)) {
+                        result.add(clazz.cast(element.getAsJsonPrimitive().getAsBigInteger()));
+                    } else if (CharSequence.class.isAssignableFrom(clazz)) {
                         result.add(clazz.cast(element.getAsJsonPrimitive().getAsString()));
                     } else if (Date.class.isAssignableFrom(clazz)) {
                         result.add(clazz.cast(parseDate(element.getAsJsonPrimitive().getAsString())));
@@ -239,6 +236,6 @@ public class CouchDBRecord extends NoSqlDbRecord<JsonObject> {
     }
 
     private Date parseDate(String dateString) {
-        return Date.from(Instant.from(DateTimeFormatter.ISO_DATE_TIME.parse(dateString)));
+        return Date.from(Instant.from(DateTimeFormatter.ISO_OFFSET_DATE_TIME.parse(dateString)));
     }
 }

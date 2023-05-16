@@ -160,7 +160,9 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
         }
 
         public AbstractResponse runQuery(String db, Query query) throws IOException, CouchDBError {
-            if (query.isViewQuery()) {
+            if (query.isEmpty()) {
+                return allDocs(db);
+            } else if (query.isViewQuery()) {
                 return postView(db, query);
             } else {
                 return postFind(db, query);
@@ -261,6 +263,7 @@ public final class CouchDBConnector implements NoSqlDbConnector<CouchDBConnector
         }
 
         static class Row {
+            String id;
             JsonElement key;
             JsonElement value;
             JsonObject doc;

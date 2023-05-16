@@ -89,22 +89,20 @@ final class Query {
         return Integer.toString(hashCode());
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(filters, aggregates, sortFields, groupFields, valueFields, projectFields);
+    public boolean isReduce() {
+        return isReduce;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Query)) {
-            return false;
-        }
+    public boolean isGroup() {
+        return isGroup;
+    }
 
-        Query query = (Query) obj;
+    public boolean isEmpty() {
+        return !isViewQuery() && filters.isEmpty();
+    }
 
-        return query.filters.equals(this.filters) && query.aggregates.equals(this.aggregates) &&
-                query.sortFields.equals(this.sortFields) && query.groupFields.equals(this.groupFields) &&
-                query.valueFields.equals(this.valueFields) && query.projectFields.equals(this.projectFields);
+    public boolean isViewQuery() {
+        return isGroup || isReduce || !sortFields.isEmpty() || !groupFields.isEmpty() || !aggregates.isEmpty();
     }
 
     public String getMapFunction() {
@@ -206,12 +204,16 @@ final class Query {
                 body.addProperty("group_level", groupFields.size());
             }
         } else {
-            Map<String, Object> selector = Collections.singletonMap("$and",
-                    filters.stream().map(FilterStrategy::getMangoFilter).collect(Collectors.toList())
-            );
+            if (!filters.isEmpty()) {
+                Map<String, Object> selector = Collections.singletonMap("$and",
+                        filters.stream().map(FilterStrategy::getFindFilter).collect(Collectors.toList())
+                );
+                body.add("selector", gson.toJsonTree(selector));
+            }
 
-            body.add("selector", gson.toJsonTree(selector));
-            body.add("fields", gson.toJsonTree(projectFields));
+            if (!projectFields.isEmpty()) {
+                body.add("fields", gson.toJsonTree(projectFields));
+            }
         }
 
         if (limit >= 0) {
@@ -221,12 +223,22 @@ final class Query {
         return body;
     }
 
-    public boolean isViewQuery() {
-        return isGroup || isReduce || !sortFields.isEmpty();
+    @Override
+    public int hashCode() {
+        return Objects.hash(filters, aggregates, sortFields, groupFields, valueFields, projectFields);
     }
 
-    public boolean isReduce() {
-        return isReduce;
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Query)) {
+            return false;
+        }
+
+        Query query = (Query) obj;
+
+        return query.filters.equals(this.filters) && query.aggregates.equals(this.aggregates) &&
+                query.sortFields.equals(this.sortFields) && query.groupFields.equals(this.groupFields) &&
+                query.valueFields.equals(this.valueFields) && query.projectFields.equals(this.projectFields);
     }
 
     private boolean isSortDescending() {

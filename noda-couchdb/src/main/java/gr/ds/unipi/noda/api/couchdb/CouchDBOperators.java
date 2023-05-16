@@ -3,11 +3,11 @@ package gr.ds.unipi.noda.api.couchdb;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
-import gr.ds.unipi.noda.api.core.operators.Operator;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
+import gr.ds.unipi.noda.api.couchdb.filterOperators.FilterStrategy;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -39,7 +39,8 @@ final class CouchDBOperators extends NoSqlDbOperators {
     @Override
     public CouchDBOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
         Query query = new Query(this.query);
-        Stream.concat(Stream.of(filterOperator), Stream.of(filterOperators)).forEach(Operator::getOperatorExpression);
+        Stream.concat(Stream.of(filterOperator), Stream.of(filterOperators))
+                .forEach(op -> query.addFilter((FilterStrategy) op.getOperatorExpression()));
         return new CouchDBOperators(this, query);
     }
 
