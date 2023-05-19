@@ -75,10 +75,10 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public void printScreen() {
-        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         try {
-            CouchDBConnector.AbstractResponse response = connection.runQuery(getDataCollection(), query);
+            Connection.AbstractResponse response = connection.runQuery(getDataCollection(), query);
             System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(response));
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,7 +87,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> max(String fieldName) {
-        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorMax(fieldName);
 
@@ -97,7 +97,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
         query.setGroup(false);
 
         try {
-            CouchDBConnector.ViewResponse response = (CouchDBConnector.ViewResponse) connection.runQuery(
+            Connection.ViewResponse response = (Connection.ViewResponse) connection.runQuery(
                     getDataCollection(),
                     query
             );
@@ -113,7 +113,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> min(String fieldName) {
-        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorMin(fieldName);
 
@@ -123,7 +123,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
         query.setGroup(false);
 
         try {
-            CouchDBConnector.ViewResponse response = (CouchDBConnector.ViewResponse) connection.runQuery(
+            Connection.ViewResponse response = (Connection.ViewResponse) connection.runQuery(
                     getDataCollection(),
                     query
             );
@@ -139,7 +139,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> sum(String fieldName) {
-        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorSum(fieldName);
 
@@ -149,7 +149,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
         query.setGroup(false);
 
         try {
-            CouchDBConnector.ViewResponse response = (CouchDBConnector.ViewResponse) connection.runQuery(
+            Connection.ViewResponse response = (Connection.ViewResponse) connection.runQuery(
                     getDataCollection(),
                     query
             );
@@ -165,7 +165,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> avg(String fieldName) {
-        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         AggregateOperator<?> operator = AggregateOperator.aggregateOperator.newOperatorAvg(fieldName);
 
@@ -175,7 +175,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
         query.setGroup(false);
 
         try {
-            CouchDBConnector.ViewResponse response = (CouchDBConnector.ViewResponse) connection.runQuery(
+            Connection.ViewResponse response = (Connection.ViewResponse) connection.runQuery(
                     getDataCollection(),
                     query
             );
@@ -191,10 +191,10 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
     @Override
     public int count() {
-        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         try {
-            CouchDBConnector.AbstractResponse response = connection.runQuery(getDataCollection(), query);
+            Connection.AbstractResponse response = connection.runQuery(getDataCollection(), query);
             if (response != null) {
                 return response.getTotalRows();
             }
@@ -248,26 +248,26 @@ final class CouchDBOperators extends NoSqlDbOperators {
     @Override
     @Nullable
     public CouchDBResults getResults() {
-        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         try {
-            CouchDBConnector.AbstractResponse response = connection.runQuery(getDataCollection(), query);
+            Connection.AbstractResponse response = connection.runQuery(getDataCollection(), query);
 
-            if (response instanceof CouchDBConnector.ViewResponse) {
+            if (response instanceof Connection.ViewResponse) {
                 Stream<JsonObject> docsStream;
                 if (query.isReduce()) {
-                    docsStream = ((CouchDBConnector.ViewResponse) response).rows.stream().map(row -> {
+                    docsStream = ((Connection.ViewResponse) response).rows.stream().map(row -> {
                         JsonObject newRow = new JsonObject();
                         newRow.add(row.key.toString(), row.value);
                         return newRow;
                     });
                 } else {
-                    docsStream = ((CouchDBConnector.ViewResponse) response).rows.stream().map(row -> row.doc);
+                    docsStream = ((Connection.ViewResponse) response).rows.stream().map(row -> row.doc);
                 }
 
                 return new CouchDBResults(docsStream.iterator());
-            } else if (response instanceof CouchDBConnector.FindResponse) {
-                return new CouchDBResults(((CouchDBConnector.FindResponse) response).docs.iterator());
+            } else if (response instanceof Connection.FindResponse) {
+                return new CouchDBResults(((Connection.FindResponse) response).docs.iterator());
             }
         } catch (Exception e) {
             e.printStackTrace();

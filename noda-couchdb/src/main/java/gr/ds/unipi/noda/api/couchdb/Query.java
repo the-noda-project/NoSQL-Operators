@@ -2,10 +2,12 @@ package gr.ds.unipi.noda.api.couchdb;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.SerializedName;
 import gr.ds.unipi.noda.api.couchdb.filterOperators.FilterStrategy;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -105,7 +107,73 @@ final class Query {
         return isGroup || isReduce || !sortFields.isEmpty() || !groupFields.isEmpty() || !aggregates.isEmpty();
     }
 
-    public String getMapFunction() {
+    public void prepareViewQuery(GetDesignDocumentCall getDesignDocumentCall, UpdateDesignDocumentCall updateDesignDocumentCall) throws IOException, Connection.CouchDBError {
+        String viewName = getViewName();
+
+        DesignDocument designDocument = getDesignDocumentCall.getDesignDocument(DesignDocument.class);
+        if (designDocument == null) {
+            designDocument = new DesignDocument();
+        }
+
+        // Update the design document if the current view query does not exist.
+        if (!designDocument.hasView(viewName)) {
+            designDocument.addView(viewName, createMapFunction(), createReduceFunction());
+            updateDesignDocumentCall.updateDesignDocument(designDocument);
+        }
+    }
+
+    public JsonObject getRequestBody() {
+        JsonObject body = new JsonObject();
+        Gson gson = new Gson();
+
+        if (isViewQuery()) {
+            body.addProperty("reduce", isReduce);
+            body.addProperty("include_docs", !isReduce);
+            body.addProperty("descending", isSortDescending());
+
+            if (isGroup) {
+                body.addProperty("group", true);
+                body.addProperty("group_level", groupFields.size());
+            }
+        } else {
+            if (!filters.isEmpty()) {
+                Map<String, Object> selector = Collections.singletonMap("$and",
+                        filters.stream().map(FilterStrategy::asFindFilter).collect(Collectors.toList())
+                );
+                body.add("selector", gson.toJsonTree(selector));
+            }
+
+            if (!projectFields.isEmpty()) {
+                body.add("fields", gson.toJsonTree(projectFields));
+            }
+        }
+
+        if (limit >= 0) {
+            body.addProperty("limit", limit);
+        }
+
+        return body;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(filters, aggregates, sortFields, groupFields, valueFields, projectFields);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Query)) {
+            return false;
+        }
+
+        Query query = (Query) obj;
+
+        return query.filters.equals(this.filters) && query.aggregates.equals(this.aggregates) &&
+                query.sortFields.equals(this.sortFields) && query.groupFields.equals(this.groupFields) &&
+                query.valueFields.equals(this.valueFields) && query.projectFields.equals(this.projectFields);
+    }
+
+    private String createMapFunction() {
         StringBuilder sb = new StringBuilder(100);
         HashSet<String> keys = new HashSet<>();
         HashSet<String> values = new HashSet<>();
@@ -124,7 +192,7 @@ final class Query {
 
         if (!filters.isEmpty()) {
             String filter = filters.stream()
-                    .map(FilterStrategy::getMapFilter)
+                    .map(FilterStrategy::asMapFilter)
                     .collect(Collectors.joining(" && "));
 
             sb.append("if (").append(filter).append(") ");
@@ -165,7 +233,7 @@ final class Query {
         return sb.toString();
     }
 
-    public String getReduceFunction() {
+    private String createReduceFunction() {
         StringBuilder sb = new StringBuilder(150);
         StringBuilder reduce = new StringBuilder(50);
         StringBuilder rereduce = new StringBuilder(50);
@@ -190,57 +258,6 @@ final class Query {
         return sb.toString();
     }
 
-    public JsonObject getRequestBody() {
-        JsonObject body = new JsonObject();
-        Gson gson = new Gson();
-
-        if (isViewQuery()) {
-            body.addProperty("reduce", isReduce);
-            body.addProperty("include_docs", !isReduce);
-            body.addProperty("descending", isSortDescending());
-
-            if (isGroup) {
-                body.addProperty("group", true);
-                body.addProperty("group_level", groupFields.size());
-            }
-        } else {
-            if (!filters.isEmpty()) {
-                Map<String, Object> selector = Collections.singletonMap("$and",
-                        filters.stream().map(FilterStrategy::getFindFilter).collect(Collectors.toList())
-                );
-                body.add("selector", gson.toJsonTree(selector));
-            }
-
-            if (!projectFields.isEmpty()) {
-                body.add("fields", gson.toJsonTree(projectFields));
-            }
-        }
-
-        if (limit >= 0) {
-            body.addProperty("limit", limit);
-        }
-
-        return body;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(filters, aggregates, sortFields, groupFields, valueFields, projectFields);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Query)) {
-            return false;
-        }
-
-        Query query = (Query) obj;
-
-        return query.filters.equals(this.filters) && query.aggregates.equals(this.aggregates) &&
-                query.sortFields.equals(this.sortFields) && query.groupFields.equals(this.groupFields) &&
-                query.valueFields.equals(this.valueFields) && query.projectFields.equals(this.projectFields);
-    }
-
     private boolean isSortDescending() {
         boolean isSortDescending = sortFields.containsValue("descending");
 
@@ -249,5 +266,40 @@ final class Query {
         }
 
         return isSortDescending;
+    }
+
+    interface UpdateDesignDocumentCall {
+        void updateDesignDocument(DesignDocument designDocument) throws IOException, Connection.CouchDBError;
+    }
+
+    interface GetDesignDocumentCall {
+        DesignDocument getDesignDocument(Class<DesignDocument> clazz) throws IOException, Connection.CouchDBError;
+    }
+
+    static class DesignDocument {
+        public String _id;
+        public String _rev;
+
+        public Map<String, View> views = new HashMap<>();
+
+        public boolean hasView(String viewName) {
+            return views.containsKey(viewName);
+        }
+
+        public void addView(String viewName, String mapFunction, String reduceFunction) {
+            views.put(viewName, new View(mapFunction, reduceFunction));
+        }
+    }
+
+    static class View {
+        @SerializedName("map")
+        public String mapFunction;
+        @SerializedName("reduce")
+        public String reduceFunction;
+
+        View(String map, String reduce) {
+            mapFunction = map;
+            reduceFunction = reduce;
+        }
     }
 }

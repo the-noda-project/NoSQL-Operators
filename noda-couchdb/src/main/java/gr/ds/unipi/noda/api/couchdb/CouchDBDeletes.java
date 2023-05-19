@@ -36,13 +36,13 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
             return this;
         }
 
-        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         for (Delete delete : deletes) {
             try {
                 Stream<JsonObject> docs =
                         delete.query == null ? connection.allDocs(getDataCollection()).rows.stream().map(row -> row.doc)
-                                             : connection.postFind(getDataCollection(), delete.query).docs.stream();
+                                             : connection.queryFind(getDataCollection(), delete.query).docs.stream();
 
                 List<JsonObject> deletedDocs = docs.peek(doc -> {
                     if (delete.fields.isEmpty()) { // Delete the entire document if no fields were specified...

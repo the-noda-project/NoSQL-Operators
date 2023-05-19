@@ -20,7 +20,7 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
     public FilterStrategy getOperatorExpression() {
         return new FilterStrategy() {
             @Override
-            public String getMapFilter() {
+            public String asMapFilter() {
                 final String fieldName = "doc[\"" + StringEscapeUtils.escapeEcmaScript(getFieldName()) + "\"]";
                 final Object fieldValue = getFieldValue();
 
@@ -41,7 +41,7 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
             }
 
             @Override
-            public Map<String, Object> getFindFilter() {
+            public Map<String, Object> asFindFilter() {
                 return Collections.singletonMap(getFieldName(),
                         Collections.singletonMap(mangoOperatorSymbol(), getFieldValue())
                 );

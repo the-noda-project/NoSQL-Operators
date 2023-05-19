@@ -35,11 +35,11 @@ final class CouchDBUpdates extends NoSqlDbUpdates {
             return this;
         }
 
-        CouchDBConnector.Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
+        Connection connection = couchDBConnectionManager.getConnection(getNoSqlDbConnector());
 
         for (Update update : updates) {
             try {
-                List<JsonObject> docs = connection.postFind(getDataCollection(), update.query).docs;
+                List<JsonObject> docs = connection.queryFind(getDataCollection(), update.query).docs;
 
                 for (JsonObject doc : docs) {
                     for (FieldValue<?> fv : update.fieldValues) {
