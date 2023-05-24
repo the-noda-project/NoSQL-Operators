@@ -33,7 +33,7 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
                     right = Long.toString(((Date) fieldValue).toInstant().getEpochSecond());
                 } else if (fieldValue instanceof String) {
                     left = fieldName;
-                    right = '"' + String.valueOf(StringEscapeUtils.escapeEcmaScript((String) fieldValue)) + '"';
+                    right = '"' + StringEscapeUtils.escapeEcmaScript((String) fieldValue) + '"';
                 } else {
                     left = fieldName;
                     right = fieldValue.toString();
@@ -46,14 +46,14 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
             public Map<String, Object> asFindFilter() {
                 final Object fieldValue = getFieldValue();
 
-                String value;
+                Object value = fieldValue;
                 if (fieldValue instanceof Date) {
                     // Assuming dates saved in the CouchDB database are always in ISO format,
                     // convert the Java date to an ISO formatted date.
                     Instant instant = ((Date) fieldValue).toInstant();
                     value = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(instant);
-                } else {
-                    value = fieldValue.toString();
+                } else if (fieldValue instanceof String) {
+                    value = '"' + StringEscapeUtils.escapeEcmaScript((String) fieldValue) + '"';
                 }
 
                 return Collections.singletonMap(getFieldName(), Collections.singletonMap(mangoOperatorSymbol(), value));

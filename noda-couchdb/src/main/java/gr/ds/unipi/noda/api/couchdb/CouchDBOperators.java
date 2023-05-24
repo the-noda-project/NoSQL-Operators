@@ -211,7 +211,7 @@ final class CouchDBOperators extends NoSqlDbOperators {
 
         Stream.concat(Stream.of(sortOperator), Stream.of(sortingOperators))
                 .map(op -> (ImmutablePair<?, ?>) op.getOperatorExpression())
-                .forEach(op -> query.addSortField((String) op.getLeft(), (String) op.getRight()));
+                .forEach(op -> query.addSortField((ImmutablePair<String, String>) op));
 
         return new CouchDBOperators(this, query);
     }

@@ -59,8 +59,8 @@ final class Query {
         aggregates.put(alias, aggregate);
     }
 
-    public void addSortField(String field, String direction) {
-        sortFields.put(field, direction);
+    public void addSortField(ImmutablePair<String, String> sort) {
+        sortFields.put(sort.getLeft(), sort.getRight());
     }
 
     public void addGroupField(String field) {
@@ -97,10 +97,6 @@ final class Query {
 
     public boolean isGroup() {
         return isGroup;
-    }
-
-    public boolean isEmpty() {
-        return !isViewQuery() && filters.isEmpty();
     }
 
     public boolean isViewQuery() {
@@ -141,6 +137,8 @@ final class Query {
                         filters.stream().map(FilterStrategy::asFindFilter).collect(Collectors.toList())
                 );
                 body.add("selector", gson.toJsonTree(selector));
+            } else {
+                body.add("selector", gson.toJsonTree(Collections.emptyMap()));
             }
 
             if (!projectFields.isEmpty()) {

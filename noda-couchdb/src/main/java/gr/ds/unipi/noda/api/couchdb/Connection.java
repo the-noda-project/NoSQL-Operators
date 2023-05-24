@@ -30,9 +30,7 @@ final class Connection {
     }
 
     public AbstractResponse runQuery(String db, Query query) throws IOException, CouchDBError {
-        if (query.isEmpty()) {
-            return allDocs(db);
-        } else if (query.isViewQuery()) {
+        if (query.isViewQuery()) {
             return queryView(db, query);
         } else {
             return queryFind(db, query);
@@ -102,31 +100,11 @@ final class Connection {
         }
     }
 
-    public ViewResponse allDocs(String db) throws IOException, CouchDBError {
-        HttpUrl url = serverUrl.newBuilder()
-                .addPathSegment(db)
-                .addPathSegment("_all_docs")
-                .addQueryParameter("include_docs", "true")
-                .build();
-
-        Request request = new Request.Builder().url(url).get().build();
-
-        try (Response res = client.newCall(request).execute()) {
-            assert res.body() != null;
-
-            if (!res.isSuccessful()) {
-                throw new CouchDBError(res.body().charStream());
-            }
-
-            return GSON.fromJson(res.body().charStream(), ViewResponse.class);
-        }
-    }
-
-    public void bulkDocs(String db, Collection<JsonObject> docs) throws IOException, CouchDBError {
+    public void bulkDocs(String db, Collection<JsonObject> bulkDocs) throws IOException, CouchDBError {
         HttpUrl url = serverUrl.newBuilder().addPathSegment(db).addPathSegment("_bulk_docs").build();
 
-        Map<String, Collection<JsonObject>> asdf = Collections.singletonMap("docs", docs);
-        RequestBody body = RequestBody.create(GSON.toJson(asdf), JSON);
+        Map<String, Collection<JsonObject>> docs = Collections.singletonMap("docs", bulkDocs);
+        RequestBody body = RequestBody.create(GSON.toJson(docs), JSON);
         Request request = new Request.Builder().url(url).post(body).build();
 
         try (Response res = client.newCall(request).execute()) {

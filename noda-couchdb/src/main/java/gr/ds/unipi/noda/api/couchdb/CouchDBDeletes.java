@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 final class CouchDBDeletes extends NoSqlDbDeletes {
     private final CouchDBConnectionManager couchDBConnectionManager = CouchDBConnectionManager.getInstance();
@@ -40,11 +38,9 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
 
         for (Delete delete : deletes) {
             try {
-                Stream<JsonObject> docs =
-                        delete.query == null ? connection.allDocs(getDataCollection()).rows.stream().map(row -> row.doc)
-                                             : connection.queryFind(getDataCollection(), delete.query).docs.stream();
+                List<JsonObject> docs = connection.queryFind(getDataCollection(), delete.query).docs;
 
-                List<JsonObject> deletedDocs = docs.peek(doc -> {
+                for (JsonObject doc : docs) {
                     if (delete.fields.isEmpty()) { // Delete the entire document if no fields were specified...
                         // Marks the document as deleted in CouchDB
                         doc.addProperty("_deleted", true);
@@ -53,9 +49,9 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
                             doc.remove(field);
                         }
                     }
-                }).collect(Collectors.toList());
+                }
 
-                connection.bulkDocs(getDataCollection(), deletedDocs);
+                connection.bulkDocs(getDataCollection(), docs);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -68,7 +64,7 @@ final class CouchDBDeletes extends NoSqlDbDeletes {
     public NoSqlDbDeletes delete(String... fields) {
         List<Delete> deletes = new ArrayList<>(this.deletes);
 
-        deletes.add(new Delete(null, Arrays.asList(fields)));
+        deletes.add(new Delete(new Query(), Arrays.asList(fields)));
 
         return new CouchDBDeletes(this, deletes);
     }
