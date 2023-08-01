@@ -11,7 +11,10 @@ public class OperatorCountDistinct extends AggregateOperator {
     }
 
     public StringBuilder getOperatorExpression() {
-        throw new UnsupportedOperationException("The count distinct operation is not supported by Cassandra!");
+        StringBuilder operation = new StringBuilder("COUNTDISTINCT(");
+        operation.append(getFieldName());
+        operation.append(")");
+        return operation;
     }
 
 }

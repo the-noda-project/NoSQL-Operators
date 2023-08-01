@@ -12,4 +12,51 @@ public final class OperatorInGeoCircle extends GeographicalOperator<Circle> {
         return new OperatorInGeoCircle(fieldName, circle);
     }
 
+//    @Override
+//    public String[] getOperatorExpression (){
+//
+//        String[] operation = new String[2];
+//
+//        StringBuilder selectClause = new StringBuilder("INCIRCLE(");
+//        selectClause.append(getFieldName()).append(",").append(getGeometry().getCircleCenter().getLatitude()).append(",").append(getGeometry().getCircleCenter().getLongitude());
+//        selectClause.append(",").append(getGeometry().getRadius());
+//        operation[0] = selectClause.append(")").toString();
+//
+//        StringBuilder whereClause = new StringBuilder(getFieldName());
+//        double topLeftLat = getGeometry().getMbr().getUpperBound().getLatitude();
+//        double topLeftLon = getGeometry().getMbr().getLowerBound().getLongitude();
+//        double bottomRightLat = getGeometry().getMbr().getLowerBound().getLatitude();
+//        double bottomRightLon = getGeometry().getMbr().getUpperBound().getLongitude();
+//        Set<String> geoHashes = GeoHash.coverBoundingBox(topLeftLat, topLeftLon, bottomRightLat, bottomRightLon, geoHashLength).getHashes().stream().map( geoHashKey -> '\''+geoHashKey+'\'').collect(Collectors.toSet());
+//        whereClause.append(String.join(",", geoHashes)).append(")");
+//        operation[1] = whereClause.toString();
+//
+//        return operation;
+//    }
+
+    @Override
+    public String[] getOperatorExpression () {
+
+        String[] operation = new String[2];
+
+        StringBuilder selectClause = new StringBuilder("INCIRCLE(");
+        selectClause.append(getFieldName()).append(",").append(getGeometry().getCircleCenter().getLatitude()).append(",").append(getGeometry().getCircleCenter().getLongitude());
+        selectClause.append(",").append(getGeometry().getRadius());
+        operation[0] = selectClause.append(")").toString();
+
+        StringBuilder whereClause = new StringBuilder(getFieldName());
+        whereClause.append(">=[");
+        whereClause.append(getGeometry().getMbr().getLowerBound().getLatitude()-getGeometry().getRadius());
+        whereClause.append(",");
+        whereClause.append(getGeometry().getMbr().getLowerBound().getLongitude()-getGeometry().getRadius());
+        whereClause.append("] AND ").append(getFieldName()).append(" <= [");
+        whereClause.append(getGeometry().getMbr().getLowerBound().getLatitude()+getGeometry().getRadius());
+        whereClause.append(" , ");
+        whereClause.append(getGeometry().getMbr().getLowerBound().getLongitude()+getGeometry().getRadius());
+        whereClause.append("]");
+        operation[1] = whereClause.toString();
+
+        return operation;
+    }
+
 }

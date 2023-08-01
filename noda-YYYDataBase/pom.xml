@@ -17,7 +17,22 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-<!-- ADD THE DEPENDENCY OF YOUR DATABASE-->
+        <dependency>
+            <groupId>com.github.davidmoten</groupId>
+            <artifactId>geo</artifactId>
+            <version>0.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.davidmoten</groupId>
+            <artifactId>geo</artifactId>
+            <version>0.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.davidmoten</groupId>
+            <artifactId>geo</artifactId>
+            <version>0.8.0</version>
+        </dependency>
+        <!-- ADD THE DEPENDENCY OF YOUR DATABASE-->
 <!--        <dependency>-->
 <!--            <groupId></groupId>-->
 <!--            <artifactId></artifactId>-->

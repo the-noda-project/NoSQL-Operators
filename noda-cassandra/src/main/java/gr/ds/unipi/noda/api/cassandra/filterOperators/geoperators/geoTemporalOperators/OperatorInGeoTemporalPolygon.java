@@ -14,4 +14,17 @@ final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, Te
         return new OperatorInGeoTemporalPolygon(fieldName, polygon, temporalFieldName, temporalType);
     }
 
+    @Override
+    public String[] getOperatorExpression(){
+        String[] operation = new String[2];
+
+        // For the select clause
+        String[] geoOpExp = (String[]) getGeographicalOperator().getOperatorExpression();
+        operation[0] = geoOpExp[0];
+
+        //For the where clause
+        operation[1] = parseDates(getTemporalType().getLowerBound(), getTemporalType().getUpperBound());
+        return operation;
+    }
+
 }
