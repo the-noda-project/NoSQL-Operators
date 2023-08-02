@@ -1,7 +1,6 @@
 package gr.ds.unipi.noda.api.cassandra.filterOperators.textualOperators.conditionalTextualOperators;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 public final class OperatorAnyKeywords extends ConditionalTextualOperator {

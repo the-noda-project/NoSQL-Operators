@@ -5,8 +5,8 @@ import gr.ds.unipi.noda.api.cassandra.CassandraConnector;
 import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import com.datastax.oss.driver.api.core.auth.ProgrammaticPlainTextAuthProvider;
 import java.net.Inet4Address;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
+
 public class CassandraSystem extends NoSqlDbSystem {
 
     private final CassandraConnector connector;
