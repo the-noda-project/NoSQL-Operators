@@ -14,27 +14,11 @@ public final class OperatorInGeoCircle extends GeographicalOperator<Circle> {
 
 
     @Override
-    public String[] getOperatorExpression () {
-
-        String[] operation = new String[2];
-
-        StringBuilder selectClause = new StringBuilder("INCIRCLE(");
-        selectClause.append(getFieldName()).append(",").append(getGeometry().getCircleCenter().getLatitude()).append(",").append(getGeometry().getCircleCenter().getLongitude());
-        selectClause.append(",").append(getGeometry().getRadius());
-        operation[0] = selectClause.append(")").toString();
-
-        StringBuilder whereClause = new StringBuilder(getFieldName());
-        whereClause.append(">=[");
-        whereClause.append(getGeometry().getMbr().getLowerBound().getLatitude()-getGeometry().getRadius());
-        whereClause.append(",");
-        whereClause.append(getGeometry().getMbr().getLowerBound().getLongitude()-getGeometry().getRadius());
-        whereClause.append("] AND ").append(getFieldName()).append(" <= [");
-        whereClause.append(getGeometry().getMbr().getLowerBound().getLatitude()+getGeometry().getRadius());
-        whereClause.append(" , ");
-        whereClause.append(getGeometry().getMbr().getLowerBound().getLongitude()+getGeometry().getRadius());
-        whereClause.append("]");
-        operation[1] = whereClause.toString();
-
+    public StringBuilder getOperatorExpression () {
+        StringBuilder operation = new StringBuilder("INCIRCLE(");
+        operation.append(getFieldName()).append(",").append(getGeometry().getCircleCenter().getLatitude()).append(",").append(getGeometry().getCircleCenter().getLongitude());
+        operation.append(",").append(getGeometry().getRadius());
+        operation.append(")");
         return operation;
     }
 

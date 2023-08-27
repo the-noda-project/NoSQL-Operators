@@ -12,7 +12,7 @@ abstract class GeographicalOperator<T extends Geometry> extends gr.ds.unipi.noda
     }
 
     @Override
-    public String[] getOperatorExpression(){
+    public StringBuilder getOperatorExpression(){
         return null;
     }
 }

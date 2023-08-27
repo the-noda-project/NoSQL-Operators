@@ -15,32 +15,14 @@ public final class OperatorInGeoPolygon extends GeographicalOperator<Polygon> {
     }
 
     @Override
-    public String[] getOperatorExpression(){
-        String[] operation = new String[2];
-
-        StringBuilder selectClause = new StringBuilder("INPOLY(");
-        selectClause.append(getFieldName()).append(",[");
+    public StringBuilder getOperatorExpression(){
+        StringBuilder operation = new StringBuilder("INPOLY(");
+        operation.append(getFieldName()).append(",[");
         ArrayList<String> points = new ArrayList<>();
         for(Coordinates coordinate:getGeometry().getCoordinatesArray()){
            points.add("("+coordinate.getLatitude()+","+coordinate.getLongitude()+")");
         }
-        selectClause.append(String.join(",",points)).append("])");
-        operation[0] = selectClause.toString();
-
-
-
-        StringBuilder whereClause = new StringBuilder(getFieldName());
-        whereClause.append(">=[");
-        whereClause.append(getGeometry().getMbr().getLowerBound().getLatitude());
-        whereClause.append(",");
-        whereClause.append(getGeometry().getMbr().getLowerBound().getLongitude());
-        whereClause.append("] AND "+getFieldName()+" <= [");
-        whereClause.append(getGeometry().getMbr().getMbr().getUpperBound().getLatitude());
-        whereClause.append(",");
-        whereClause.append(getGeometry().getMbr().getUpperBound().getLongitude());
-        whereClause.append("]");
-        operation[1] = whereClause.toString();
-
+        operation.append(String.join(",",points)).append("])");
         return operation;
     }
 

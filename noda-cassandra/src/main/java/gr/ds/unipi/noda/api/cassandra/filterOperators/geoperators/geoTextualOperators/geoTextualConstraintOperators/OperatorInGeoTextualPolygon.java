@@ -9,11 +9,6 @@ public class OperatorInGeoTextualPolygon extends GeoTextualConstraintOperator<Po
         super(OperatorInGeoPolygon.newOperatorInGeoPolygon(fieldName, polygon), conditionalTextualOperator);
     }
 
-    @Override
-    public Object getOperatorExpression() {
-        return null;
-    }
-
     public static OperatorInGeoTextualPolygon newOperatorInGeoTextualPolygon(String fieldName, Polygon polygon, ConditionalTextualOperator conditionalTextualOperator){
         return new OperatorInGeoTextualPolygon(fieldName, polygon, conditionalTextualOperator);
     }

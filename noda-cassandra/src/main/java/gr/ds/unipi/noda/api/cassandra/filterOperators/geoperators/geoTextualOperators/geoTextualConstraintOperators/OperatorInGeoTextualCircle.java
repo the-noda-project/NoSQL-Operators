@@ -4,14 +4,11 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometrie
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator;
 import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geographicalOperators.OperatorInGeoCircle;
 
+import java.util.ArrayList;
+
 public class OperatorInGeoTextualCircle extends GeoTextualConstraintOperator<Circle> {
     protected OperatorInGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator) {
         super(OperatorInGeoCircle.newOperatorInGeoCircle(fieldName,circle), conditionalTextualOperator);
-    }
-
-    @Override
-    public Object getOperatorExpression() {
-        return null;
     }
 
     public static OperatorInGeoTextualCircle newOperatorInGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator conditionalTextualOperator){

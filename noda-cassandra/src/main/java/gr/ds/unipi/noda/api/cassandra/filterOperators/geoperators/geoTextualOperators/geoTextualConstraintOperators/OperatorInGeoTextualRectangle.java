@@ -10,11 +10,6 @@ public class OperatorInGeoTextualRectangle extends GeoTextualConstraintOperator<
         super(OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName,rectangle), conditionalTextualOperator);
     }
 
-    @Override
-    public Object getOperatorExpression() {
-        return null;
-    }
-
     public static OperatorInGeoTextualRectangle newOperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator conditionalTextualOperator){
         return new OperatorInGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
     }

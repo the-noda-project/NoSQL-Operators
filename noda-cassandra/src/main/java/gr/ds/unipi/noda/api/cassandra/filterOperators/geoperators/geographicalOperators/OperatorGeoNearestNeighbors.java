@@ -16,7 +16,7 @@ public final class OperatorGeoNearestNeighbors extends GeographicalOperator<Poin
     }
 
     @Override
-    public String[] getOperatorExpression (){
+    public StringBuilder getOperatorExpression (){
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

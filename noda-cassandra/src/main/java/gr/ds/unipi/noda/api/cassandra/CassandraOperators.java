@@ -5,6 +5,7 @@ import com.datastax.oss.driver.api.core.cql.ResultSet;
 import com.datastax.oss.driver.api.core.metadata.schema.ClusteringOrder;
 import com.datastax.oss.driver.api.core.metadata.schema.ColumnMetadata;
 import com.datastax.oss.driver.api.core.metadata.schema.TableMetadata;
+import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.GeoTextualConstraintOperator;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
@@ -12,6 +13,7 @@ import gr.ds.unipi.noda.api.core.operators.Operator;
 import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.GeoTemporalOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.GeoTextualOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
 import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
@@ -42,7 +44,7 @@ final class CassandraOperators extends NoSqlDbOperators {
 
     int USOLevel;
     private static String[] unsupportedServerOperators = {"OperatorNotEqual", "OperatorInGeoCircle", "OperatorInGeoPolygon", "OperatorInGeoRectangle", "OperatorInGeoTemporalCircle"
-    , "OperatorInGeoTemporalPolygon", "OperatorInGeoTemporalRectangle", "OperatorAllKeywords", "OperatorAnyKeywords"};
+    , "OperatorInGeoTemporalPolygon", "OperatorInGeoTemporalRectangle", "OperatorAllKeywords", "OperatorAnyKeywords", "OperatorInGeoTextualRectangle"};
 
 
     private CassandraOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession) {
@@ -75,15 +77,16 @@ final class CassandraOperators extends NoSqlDbOperators {
             if(fop.getClass().getSimpleName().equals("OperatorAnd")){
                 fops.addAll((ArrayList<FilterOperator>) fop.getOperatorExpression());
             }else if(Arrays.asList(unsupportedServerOperators).contains(fop.getClass().getSimpleName())){
-                if(fop instanceof GeographicalOperator || fop instanceof GeoTemporalOperator){
+                if(fop instanceof GeoTemporalOperator){
                     String[] geoOperatorExpression = (String[]) fop.getOperatorExpression();
-                    String geoColumn = geoOperatorExpression[0].split("\\(")[1].split(",")[0];
-                    String createMV = queryDirector.makeMVQuery(geoColumn, cassandraConnectionManager.getConnection(getNoSqlDbConnector()));
-                    cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(createMV);
-                    selectClauseListGeo.add(geoOperatorExpression[0]);
+                    selectClauseListUSO.add(geoOperatorExpression[0]);
                     whereClauseList.add(geoOperatorExpression[1]);
                 }else{
-                    selectClauseListUSO.add(fop.getOperatorExpression().toString());
+                    if(fop instanceof GeoTextualConstraintOperator){
+                        selectClauseListUSO.addAll((ArrayList<String>)fop.getOperatorExpression());
+                    }else {
+                        selectClauseListUSO.add(fop.getOperatorExpression().toString());
+                    }
                 }
             }else{
                whereClauseList.add(fop.getOperatorExpression().toString());
@@ -127,13 +130,15 @@ final class CassandraOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> min(String fieldName) {
-        selectClauseList[1].add("MIN("+fieldName+")");
+        String agrFieldName = fieldName+"_min";
+        selectClauseList[1].add("MIN("+fieldName+") AS "+agrFieldName);
         ResultSet results = createResults();
-        return Optional.of((Double)results.one().getObject(fieldName));
+        return Optional.of((Double)results.one().getObject(agrFieldName));
     }
 
     @Override
     public Optional<Double> sum(String fieldName) {
+        String agrFieldName = fieldName+"_sum";
         selectClauseList[1].add("SUM("+fieldName+")");
         ResultSet results = createResults();
         return Optional.of((Double)results.one().getObject(fieldName));
@@ -141,6 +146,7 @@ final class CassandraOperators extends NoSqlDbOperators {
 
     @Override
     public Optional<Double> avg(String fieldName) {
+        String agrFieldName = fieldName+"_avg";
         selectClauseList[1].add("AVG("+fieldName+")");
         ResultSet results = createResults();
         return Optional.of((Double)results.one().getObject(fieldName));
@@ -206,12 +212,8 @@ final class CassandraOperators extends NoSqlDbOperators {
         if ( selectClauseListUSO.isEmpty()  && selectClauseListGeo.isEmpty()){  // No USO operators
             String query = queryDirector.makeFullSelectQuery(selectClauseList[0], selectClauseList[1], whereClauseList, groupByClauseList, orderByClauseList, limit );
             results = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(query);
-        }else if ( selectClauseListGeo.size() == 0 ){ // No geo or geo-temporal operators
+        }else{ // USO operators
             String USOQuery = queryDirector.makeUsoQuery(selectClauseListUSO, whereClauseList, cassandraConnectionManager.getConnection(getNoSqlDbConnector()));
-            ResultSet USOResults = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(USOQuery);
-            results = postProcessResults(USOResults);
-        }else {
-            String USOQuery = queryDirector.makeGeoQuery(selectClauseListUSO, selectClauseListGeo, whereClauseList, cassandraConnectionManager.getConnection(getNoSqlDbConnector()));
             ResultSet USOResults = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(USOQuery);
             results = postProcessResults(USOResults);
         }
@@ -220,21 +222,14 @@ final class CassandraOperators extends NoSqlDbOperators {
 
     private ResultSet postProcessResults(ResultSet results){
         ResultSet postProcessedResults = null;
-        if (USOLevel == 1) {
-            TableMetadata tableMetadata = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).getMetadata().getKeyspace(cassandraConnectionManager.getConnection(getNoSqlDbConnector()).getKeyspace().get().asCql(true)).get().getTable(getDataCollection()).get();
-            Map<CqlIdentifier, ColumnMetadata> columns = tableMetadata.getColumns();
-            List<ColumnMetadata> partitionKeys = tableMetadata.getPartitionKey();
-            Map<ColumnMetadata, ClusteringOrder> clusteringKeys = tableMetadata.getClusteringColumns();
-            String createFilteredTableQuery = queryDirector.makeFilteredTableQuery(columns, partitionKeys, clusteringKeys);
-            cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(createFilteredTableQuery);
-            filterRows(results, tableMetadata.getColumns());
-            postProcessedResults = applyRestOfOperation();
-            cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute("DROP TABLE  IF EXISTS filteredTable");
-        }else if (USOLevel == 2) {
-
-        }else if(USOLevel == 3) {
-
-        }
+        TableMetadata tableMetadata = cassandraConnectionManager.getConnection(getNoSqlDbConnector()).getMetadata().getKeyspace(cassandraConnectionManager.getConnection(getNoSqlDbConnector()).getKeyspace().get().asCql(true)).get().getTable(getDataCollection()).get();
+        Map<CqlIdentifier, ColumnMetadata> columns = tableMetadata.getColumns();
+        List<ColumnMetadata> partitionKeys = tableMetadata.getPartitionKey();
+        Map<ColumnMetadata, ClusteringOrder> clusteringKeys = tableMetadata.getClusteringColumns();
+        String createFilteredTableQuery = queryDirector.makeFilteredTableQuery(columns, partitionKeys, clusteringKeys);
+        cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(createFilteredTableQuery);
+        filterRows(results, tableMetadata.getColumns());
+        postProcessedResults = applyRestOfOperation();
         return postProcessedResults;
     }
 
@@ -246,14 +241,6 @@ final class CassandraOperators extends NoSqlDbOperators {
                 cassandraConnectionManager.getConnection(getNoSqlDbConnector()).execute(insertQuery);
             }
         });
-    }
-
-    private void filterRows(ResultSet USOResults, List<com.datastax.oss.driver.api.core.cql.Row> rows){
-
-    }
-
-    private void filterRows(ResultSet rUSOResults, FileWriter fw){
-
     }
 
     private ResultSet applyRestOfOperation(){
