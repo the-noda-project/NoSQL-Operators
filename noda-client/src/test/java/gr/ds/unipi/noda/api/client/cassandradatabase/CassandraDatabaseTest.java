@@ -2,155 +2,172 @@ package gr.ds.unipi.noda.api.client.cassandradatabase;
 
 import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
-import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbRecord;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
-import gr.ds.unipi.noda.api.core.operators.SortOperators;
-import gr.ds.unipi.noda.api.core.operators.aggregateOperators.AggregateOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
 import org.junit.Test;
 
-import java.util.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.stream.Collectors;
+import java.util.Date;
 
-import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.*;
+import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
+import static gr.ds.unipi.noda.api.core.operators.SortOperators.asc;
+import static gr.ds.unipi.noda.api.core.operators.SortOperators.desc;
 
 
-public class CassandraDatabaseTest{
-
-    /*
-
-     * Testing for USOLevel = 1
-     *
-     */
-
+public class CassandraDatabaseTest {
     @Test
-    public void testA(){
-        NoSqlDbSystem cassandraUSOLevel1 = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").USOLevel(1).build();
-        NoSqlDbOperators cassandraOperators = cassandraUSOLevel1.operateOn("testtable");
-        cassandraOperators.filter(ne("short",90));
+    public void test1() {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder(
+                "/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf"
+        ).build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("testtable");
         cassandraOperators.printScreen();
-        cassandraUSOLevel1.closeConnection();
+        cassandra.closeConnection();
     }
 
     @Test
-    public void testB(){
-        NoSqlDbSystem cassandraUSOLevel1 = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").USOLevel(1).build();
-        NoSqlDbOperators cassandraOperators = cassandraUSOLevel1.operateOn("customers");
-        cassandraOperators.aggregate(max("customerId"));
-        cassandraOperators.filter(anyKeywords("contacttile","Manager"));
+    public void test2() {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder(
+                "/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf"
+        ).build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("testtable");
+        cassandraOperators.project("short", "int", "string", "long", "location_longitude", "location_latitude");
+        cassandraOperators.filter(and(ne("short", 90), inGeoCircleKm("location", Coordinates.newCoordinates(-50, 10), 10)));
+        NoSqlDbResults results = cassandraOperators.getResults();
+        try {
+            FileWriter resultsFile = new FileWriter("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/results2.csv");
+            while (results.hasNextRecord())
+                resultsFile.write(results.getRecord().toString() + '\n');
+            resultsFile.flush();
+            resultsFile.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        cassandra.closeConnection();
+    }
+
+    @Test
+    public void test3() {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder(
+                "/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf"
+        ).build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("testtable");
+        cassandraOperators.filter(and(gte("date", new Date(968579506000L)), lte("date", new Date(1599731506000L))));
+        double maxDouble = cassandraOperators.max("double").get();
+        System.out.println("The MAX(double) is :" + maxDouble);
+    }
+
+    @Test
+    public void test4() {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder(
+                "/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf"
+        ).build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("testtable");
+        cassandraOperators.aggregate(countDistinct("int"), countNonNull("int"));
+        cassandraOperators.filter(and(eq("short", 0), inGeoTextualCircleKm("location", Coordinates.newCoordinates(-50, 10), 10
+                , anyKeywords("string", "such", "hungry", "funny"))));
+        cassandraOperators.groupBy("short");
         cassandraOperators.printScreen();
-        cassandraUSOLevel1.closeConnection();
+        cassandra.closeConnection();
     }
 
     @Test
-    public void testC() throws UnknownHostException {
-        NoSqlDbSystem cassandraUSOLevel1 = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").USOLevel(1).ipv4Address("127.0.0.1").build();
-        NoSqlDbOperators noSqlDbOperators = cassandraUSOLevel1.operateOn("customers");
-        noSqlDbOperators.filter(inGeoCircleKm("location", Coordinates.newCoordinates(0, 0), 48));
-        noSqlDbOperators.filter(anyKeywords("city", "Sao"));
-        noSqlDbOperators.project("customerid","location");
-        noSqlDbOperators.printScreen();
-        cassandraUSOLevel1.closeConnection();
+    public void test5() {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder(
+                "/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf"
+        ).build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("testtable");
+        cassandraOperators.aggregate(avg("int"), count(), min("date"));
+        cassandraOperators.filter(and(
+                inGeoTemporalPolygon("location", "date", new Date(968579506000L), new Date(1599731506000L),
+                        Coordinates.newCoordinates(-50, 11), Coordinates.newCoordinates(-51, 9), Coordinates.newCoordinates(-49, 9)),
+                inGeoTextualPolygon("location", allKeywords("string", "hungry", "increase"),
+                        Coordinates.newCoordinates(-50, 11), Coordinates.newCoordinates(-51, 9), Coordinates.newCoordinates(-49, 9)),
+                eq("short", 0)
+        ));
+        cassandraOperators.groupBy("short");
+        cassandraOperators.sort(asc("int"));
+        NoSqlDbResults results = cassandraOperators.getResults();
+        try {
+            FileWriter resultsFile = new FileWriter("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/results5.csv");
+            while (results.hasNextRecord())
+                resultsFile.write(results.getRecord().toString() + '\n');
+            resultsFile.flush();
+            resultsFile.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        cassandra.closeConnection();
     }
 
     @Test
-    public void testD() throws UnknownHostException {
-        NoSqlDbSystem cassandraUSOLevel1 = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").USOLevel(1).ipv4Address("127.0.0.1").build();
-        NoSqlDbOperators noSqlDbOperators = cassandraUSOLevel1.operateOn("customers");
-        noSqlDbOperators.filter(and(allKeywords("contacttile", "Sales", "Manager"),inGeoPolygon("location", Coordinates.newCoordinates(0,0.5),Coordinates.newCoordinates(0.5,-0.5),Coordinates.newCoordinates(-0.5,-0.5))));
-        noSqlDbOperators.project("customerid","companyname");
-        noSqlDbOperators.printScreen();
-        cassandraUSOLevel1.closeConnection();
+    public void test6() {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder(
+                "/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf"
+        ).build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("testtable");
+        cassandraOperators.filter(and(gt("short", -80), lt("date", new Date(2294036994000L))));
+        double intAvg = cassandraOperators.avg("int").get();
+        System.out.println("The intAvg is :" + intAvg);
     }
 
     @Test
-    public void testE() throws UnknownHostException {
-        NoSqlDbSystem cassandraUSOLevel1 = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").USOLevel(1).ipv4Address("127.0.0.1").build();
-        NoSqlDbOperators noSqlDbOperators = cassandraUSOLevel1.operateOn("customers");
-        noSqlDbOperators.aggregate(countNonNull("region"));
-        noSqlDbOperators.filter(ne("customerid","WARTH"));
-        noSqlDbOperators.printScreen();
-        cassandraUSOLevel1.closeConnection();
+    public void test7() {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder(
+                "/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf"
+        ).build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("testtable");
+        cassandraOperators.filter(and(
+                inGeoPolygon("location", Coordinates.newCoordinates(-50, 11), Coordinates.newCoordinates(-51, 9), Coordinates.newCoordinates(-49, 9)),
+                allKeywords("string", "help", "bye", "hello"),
+                eq("short", 0)
+        ));
+        cassandraOperators.sort(desc("int"));
+        cassandraOperators.limit(500);
+        cassandraOperators.printScreen();
+        cassandra.closeConnection();
     }
 
     @Test
-    public void testF() throws UnknownHostException {
-        NoSqlDbSystem cassandraUSOLevel1 = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").USOLevel(1).ipv4Address("127.0.0.1").build();
-        NoSqlDbOperators noSqlDbOperators = cassandraUSOLevel1.operateOn("testtable");
-        noSqlDbOperators.project("short");
-        noSqlDbOperators.filter(ne("boolean", false));
-        noSqlDbOperators.limit(10);
-        noSqlDbOperators.printScreen();
-        cassandraUSOLevel1.closeConnection();
+    public void test8() {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder(
+                "/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf"
+        ).build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("testtable");
+        cassandraOperators.filter(and(
+                inGeoTemporalRectangle("location", Coordinates.newCoordinates(-51, 9), Coordinates.newCoordinates(-49, 11), "date", new Date(463761397000L), new Date(1599834997000L)),
+                inGeoTextualRectangle("location", Coordinates.newCoordinates(-51, 9), Coordinates.newCoordinates(-49, 11), anyKeywords("string", "hello", "bye", "help"))
+        ));
+        double doubleSum = cassandraOperators.sum("double").get();
+        System.out.println("The sum of the doubles are : " + doubleSum);
+        cassandra.closeConnection();
     }
 
     @Test
-    public void testG() throws UnknownHostException {
-        NoSqlDbSystem cassandraUSOLevel1 = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").USOLevel(1).ipv4Address("127.0.0.1").build();
-        NoSqlDbOperators noSqlDbOperators = cassandraUSOLevel1.operateOn("customers");
-        noSqlDbOperators.project("customerid","companyname");
-        noSqlDbOperators.filter(eq("customerid","WARTH"));
-        noSqlDbOperators.sort(SortOperators.asc("companyname"));
-        noSqlDbOperators.limit(3);
-        noSqlDbOperators.printScreen();
-        cassandraUSOLevel1.closeConnection();
+    public void test9() {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder(
+                "/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf"
+        ).build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("testtable");
+        cassandraOperators.filter(and(
+                anyKeywords("string", "help", "hello", "bye"),
+                inGeoCircleKm("location", Coordinates.newCoordinates(-50, 10), 50)
+        ));
+        cassandraOperators.printScreen();
+        cassandra.closeConnection();
     }
 
     @Test
-    public void testH() throws UnknownHostException {
-        NoSqlDbSystem cassandraUSOLevel1 = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").USOLevel(1).ipv4Address("127.0.0.1").build();
-        NoSqlDbOperators noSqlDbOperators = cassandraUSOLevel1.operateOn("customers");
-        noSqlDbOperators.project("customerid","companyname");
-        noSqlDbOperators.filter(eq("customerid","WARTH"));
-        noSqlDbOperators.sort(SortOperators.desc("companyname"));
-        noSqlDbOperators.limit(3);
-        noSqlDbOperators.printScreen();
-        cassandraUSOLevel1.closeConnection();
-    }
-
-    @Test
-    public void testI() throws UnknownHostException {
-        NoSqlDbSystem cassandraUSOLevel1 = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").USOLevel(1).ipv4Address("127.0.0.1").build();
-        NoSqlDbOperators noSqlDbOperators = cassandraUSOLevel1.operateOn("customers");
-        noSqlDbOperators.aggregate(min("date"));
-        noSqlDbOperators.filter(inGeoCircleKm("location",Coordinates.newCoordinates(0,0),200));
-        noSqlDbOperators.printScreen();
-        cassandraUSOLevel1.closeConnection();
-    }
-
-    @Test
-    public void testJ() throws UnknownHostException {
-        NoSqlDbSystem cassandraUSOLevel1 = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").USOLevel(1).ipv4Address("127.0.0.1").build();
-        NoSqlDbOperators noSqlDbOperators = cassandraUSOLevel1.operateOn("customers");
-        noSqlDbOperators.project("customerid","location","date");
-        noSqlDbOperators.filter(inGeoTemporalRectangle("location",Coordinates.newCoordinates(-1,-1),Coordinates.newCoordinates(1,1),"date",new Date(1596194531000L),new Date(3489650531000L)));
-        noSqlDbOperators.printScreen();
-        cassandraUSOLevel1.closeConnection();
-    }
-
-    @Test
-    public void testK() throws UnknownHostException {
-        NoSqlDbSystem cassandraUSOLevel1 = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").USOLevel(1).ipv4Address("127.0.0.1").build();
-        NoSqlDbOperators noSqlDbOperators = cassandraUSOLevel1.operateOn("customers");
-        noSqlDbOperators.aggregate(countDistinct("county"));
-        noSqlDbOperators.filter(inGeoTemporalPolygon("location", "date", new Date(1596194531000L), new Date(3489650531000L), Coordinates.newCoordinates(0, 0.5), Coordinates.newCoordinates(0.5, -0.5), Coordinates.newCoordinates(-0.5, -0.5)));
-        noSqlDbOperators.printScreen();
-        cassandraUSOLevel1.closeConnection();
-    }
-
-    @Test
-    public void testM() throws UnknownHostException {
-        NoSqlDbSystem cassandraUSOLevel1 = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").USOLevel(1).ipv4Address("127.0.0.1").build();
-        NoSqlDbOperators noSqlDbOperators = cassandraUSOLevel1.operateOn("customers");
-        noSqlDbOperators.project("customerid");
-        noSqlDbOperators.filter(gte("date", new Date(1596194531000L)), lte("date", new Date(3489650531000L)));
-        noSqlDbOperators.filter(inGeoRectangle("location",Coordinates.newCoordinates(-0.5,-0.5), Coordinates.newCoordinates(0.5,0.5)));
-        noSqlDbOperators.printScreen();
-        cassandraUSOLevel1.closeConnection();
+    public void test10() {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder(
+                "/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf"
+        ).build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("testtable");
+        cassandraOperators.filter(inGeoRectangle("location", Coordinates.newCoordinates(-51, 9), Coordinates.newCoordinates(-49, 11)));
+        int records = cassandraOperators.count();
+        System.out.println("The records are : " + records);
+        cassandra.closeConnection();
     }
 }

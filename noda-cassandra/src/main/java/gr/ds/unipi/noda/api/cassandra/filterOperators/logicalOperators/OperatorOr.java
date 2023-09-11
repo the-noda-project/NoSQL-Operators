@@ -7,7 +7,7 @@ import java.util.ArrayList;
 final class OperatorOr extends LogicalOperator {
 
     @Override
-    public ArrayList<FilterOperator> getOperatorExpression(){
+    public ArrayList<FilterOperator> getOperatorExpression() {
         throw new UnsupportedOperationException("The OR(∨) operation is not supported by Cassandra!");
     }
 

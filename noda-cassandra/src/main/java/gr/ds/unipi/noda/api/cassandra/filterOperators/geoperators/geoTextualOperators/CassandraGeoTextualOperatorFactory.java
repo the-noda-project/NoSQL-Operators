@@ -1,10 +1,5 @@
 package gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTextualOperators;
 
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.BaseGeoTextualOperatorFactory;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
-import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator;
 import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.GeoTextualApproximateOperator;
 import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.OperatorTopKInGeoTextualCircle;
 import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators.OperatorTopKInGeoTextualPolygon;
@@ -13,6 +8,11 @@ import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTextualOper
 import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.OperatorInGeoTextualCircle;
 import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.OperatorInGeoTextualPolygon;
 import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTextualOperators.geoTextualConstraintOperators.OperatorInGeoTextualRectangle;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.BaseGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Circle;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator;
 
 import java.util.Collection;
 

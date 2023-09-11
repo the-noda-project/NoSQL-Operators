@@ -204,4 +204,5 @@ public final class CassandraComparisonOperatorFactory extends BaseComparisonOper
     @Override
     public ComparisonOperator newOperatorNe(String fieldName, Date fieldValue) {
         return OperatorNotEqual.newOperatorNotEqual(fieldName, fieldValue);
-    }}
+    }
+}

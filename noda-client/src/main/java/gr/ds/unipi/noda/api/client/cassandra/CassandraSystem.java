@@ -1,9 +1,10 @@
 package gr.ds.unipi.noda.api.client.cassandra;
 
+import com.datastax.oss.driver.api.core.auth.ProgrammaticPlainTextAuthProvider;
 import gr.ds.unipi.noda.api.cassandra.CassandraConnectionFactory;
 import gr.ds.unipi.noda.api.cassandra.CassandraConnector;
 import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
-import com.datastax.oss.driver.api.core.auth.ProgrammaticPlainTextAuthProvider;
+
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 
@@ -21,7 +22,7 @@ public class CassandraSystem extends NoSqlDbSystem {
         return 9042;
     }
 
-    public static class Builder extends NoSqlDbSystem.Builder<Builder>{
+    public static class Builder extends NoSqlDbSystem.Builder<Builder> {
 
         private final ProgrammaticPlainTextAuthProvider authProvider;
         private final String keyspace;
@@ -29,25 +30,7 @@ public class CassandraSystem extends NoSqlDbSystem {
         private final String datacenter;
         private final String appConfigPath;
 
-        private int USOLevel = -1;
-
-        public Builder(String datacenter, String keyspace) throws UnknownHostException {
-            this.authProvider = new ProgrammaticPlainTextAuthProvider("cassandra","cassandra");
-            this.keyspace = keyspace;
-            this.ipv4 = (Inet4Address) Inet4Address.getByName("localhost");
-            this.datacenter = datacenter;
-            this.appConfigPath = "";
-        }
-
-        public Builder(String username, String password, String datacenter, String keyspace) throws UnknownHostException {
-            this.authProvider = new ProgrammaticPlainTextAuthProvider(username, password);
-            this.keyspace = keyspace;
-            this.ipv4 = (Inet4Address) Inet4Address.getByName("localhost");
-            this.datacenter = datacenter;
-            this.appConfigPath = "";
-        }
-
-        public Builder(String appConfigPath){
+        public Builder(String appConfigPath) {
             this.authProvider = null;
             this.keyspace = "";
             this.ipv4 = null;
@@ -57,11 +40,6 @@ public class CassandraSystem extends NoSqlDbSystem {
 
         public Builder ipv4Address(String ipv4) throws UnknownHostException {
             this.ipv4 = (Inet4Address) Inet4Address.getByName(ipv4);
-            return this;
-        }
-
-        public Builder USOLevel(int USOLevel){
-            this.USOLevel = USOLevel;
             return this;
         }
 
@@ -78,6 +56,6 @@ public class CassandraSystem extends NoSqlDbSystem {
 
     private CassandraSystem(Builder builder) {
         super(builder, new CassandraConnectionFactory());
-        connector = CassandraConnector.newCassandraConnector(builder.authProvider, builder.datacenter, builder.keyspace, builder.ipv4, builder.appConfigPath, builder.USOLevel);
+        connector = CassandraConnector.newCassandraConnector(builder.authProvider, builder.datacenter, builder.keyspace, builder.ipv4, builder.appConfigPath);
     }
 }

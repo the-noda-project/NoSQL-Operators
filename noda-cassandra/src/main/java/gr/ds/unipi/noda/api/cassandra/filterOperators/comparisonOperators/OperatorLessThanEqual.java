@@ -5,11 +5,11 @@ import java.util.Date;
 final class OperatorLessThanEqual<T> extends ComparisonOperator<T> {
 
     @Override
-    public StringBuilder getOperatorExpression(){
+    public StringBuilder getOperatorExpression() {
         StringBuilder operation = new StringBuilder();
         operation.append(getFieldName());
         operation.append("<=");
-        if (getFieldValue().getClass().getSimpleName().equals("Date")){
+        if (getFieldValue().getClass().getSimpleName().equals("Date")) {
             String stringDate = getFieldValue().toString();
             String year = stringDate.split(" ")[5];
             String month = monthInt.get(stringDate.split(" ")[1]);
@@ -21,7 +21,7 @@ final class OperatorLessThanEqual<T> extends ComparisonOperator<T> {
             operation.append('-');
             operation.append(day);
             operation.append('\'');
-        }else{
+        } else {
             operation.append(getFieldValue());
         }
         return operation;

@@ -1,5 +1,15 @@
 package gr.ds.unipi.noda.api.cassandra;
 
+import gr.ds.unipi.noda.api.cassandra.aggregateOperators.CassandraAggregateOperatorFactory;
+import gr.ds.unipi.noda.api.cassandra.dataframe.visualization.CassandraDataframeManipulator;
+import gr.ds.unipi.noda.api.cassandra.filterOperators.comparisonOperators.CassandraComparisonOperatorFactory;
+import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTemporalOperators.CassandraGeoTemporalOperatorFactory;
+import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTextualOperators.CassandraGeoTextualOperatorFactory;
+import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geographicalOperators.CassandraGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.cassandra.filterOperators.logicalOperators.CassandraLogicalOperatorFactory;
+import gr.ds.unipi.noda.api.cassandra.filterOperators.textualOperators.CassandraTextualOperatorFactory;
+import gr.ds.unipi.noda.api.cassandra.joinOperators.CassandraJoinOperatorFactory;
+import gr.ds.unipi.noda.api.cassandra.sortOperators.CassandraSortOperatorFactory;
 import gr.ds.unipi.noda.api.core.dataframe.visualization.BaseDataframeManipulator;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlConnectionFactory;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
@@ -16,16 +26,6 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.Base
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.joinOperators.BaseJoinOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.BaseSortOperatorFactory;
-import gr.ds.unipi.noda.api.cassandra.aggregateOperators.CassandraAggregateOperatorFactory;
-import gr.ds.unipi.noda.api.cassandra.dataframe.visualization.CassandraDataframeManipulator;
-import gr.ds.unipi.noda.api.cassandra.filterOperators.comparisonOperators.CassandraComparisonOperatorFactory;
-import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTemporalOperators.CassandraGeoTemporalOperatorFactory;
-import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTextualOperators.CassandraGeoTextualOperatorFactory;
-import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geographicalOperators.CassandraGeographicalOperatorFactory;
-import gr.ds.unipi.noda.api.cassandra.filterOperators.logicalOperators.CassandraLogicalOperatorFactory;
-import gr.ds.unipi.noda.api.cassandra.filterOperators.textualOperators.CassandraTextualOperatorFactory;
-import gr.ds.unipi.noda.api.cassandra.joinOperators.CassandraJoinOperatorFactory;
-import gr.ds.unipi.noda.api.cassandra.sortOperators.CassandraSortOperatorFactory;
 import org.apache.spark.sql.SparkSession;
 
 public final class CassandraConnectionFactory extends NoSqlConnectionFactory {

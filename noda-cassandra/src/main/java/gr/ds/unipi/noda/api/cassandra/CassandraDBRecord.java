@@ -2,6 +2,7 @@ package gr.ds.unipi.noda.api.cassandra;
 
 import com.datastax.oss.driver.api.core.cql.Row;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbRecord;
+
 import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.Date;
@@ -13,6 +14,7 @@ public class CassandraDBRecord extends NoSqlDbRecord<Row> {
     protected CassandraDBRecord(Row row) {
         super(row);
     }
+
     @Override
     public boolean containsField(String field) {
         return getObjectRecord().getColumnDefinitions().contains(field);

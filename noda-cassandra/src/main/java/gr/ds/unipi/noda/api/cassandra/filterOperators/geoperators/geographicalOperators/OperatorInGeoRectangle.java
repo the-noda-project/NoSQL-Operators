@@ -13,14 +13,15 @@ public final class OperatorInGeoRectangle extends GeographicalOperator<Rectangle
     }
 
     @Override
-    public StringBuilder getOperatorExpression(){
-        StringBuilder operation = new StringBuilder("INRECT(");
-        operation.append(getFieldName()).append(",(");
-        operation.append(getGeometry().getLowerBound().getLatitude());
-        operation.append(",").append(getGeometry().getLowerBound().getLongitude()).append("),(");
-        operation.append(getGeometry().getUpperBound().getLatitude()).append(",");
-        operation.append(getGeometry().getUpperBound().getLongitude()).append(")");
-        operation.append(")");
-        return operation;
+    public String getOperatorExpression() {
+        StringBuilder operation = new StringBuilder();
+        operation.append(getFieldName()).append("_longitude").append(">=").append(getGeometry().getLowerBound().getLongitude());
+        operation.append(" AND ");
+        operation.append(getFieldName()).append("_latitude").append(">=").append(getGeometry().getLowerBound().getLatitude());
+        operation.append(" AND ");
+        operation.append(getFieldName()).append("_longitude").append("<=").append(getGeometry().getUpperBound().getLongitude());
+        operation.append(" AND ");
+        operation.append(getFieldName()).append("_latitude").append("<=").append(getGeometry().getUpperBound().getLatitude());
+        return operation.toString();
     }
 }

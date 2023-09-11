@@ -1,7 +1,7 @@
 package gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geoTextualOperators.geoTextualApproximateOperators;
 
-import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon;
 import gr.ds.unipi.noda.api.cassandra.filterOperators.geoperators.geographicalOperators.OperatorInGeoPolygon;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon;
 
 import java.util.Collection;
 
@@ -10,7 +10,7 @@ public class OperatorTopKInGeoTextualPolygon extends GeoTextualApproximateOperat
 
     protected OperatorTopKInGeoTextualPolygon(String fieldName, Polygon polygon, String keywordFieldName, Collection<String> keywords, int topK) {
         super(OperatorInGeoPolygon.newOperatorInGeoPolygon(fieldName, polygon), keywordFieldName, keywords.toArray(new String[0]));
-        this.topK= topK;
+        this.topK = topK;
     }
 
     @Override
@@ -18,7 +18,7 @@ public class OperatorTopKInGeoTextualPolygon extends GeoTextualApproximateOperat
         return null;
     }
 
-    public static OperatorTopKInGeoTextualPolygon newOperatorTopKInGeoTextualPolygon(String fieldName, Polygon polygon, String keywordFieldName, Collection<String> keywords, int topK){
+    public static OperatorTopKInGeoTextualPolygon newOperatorTopKInGeoTextualPolygon(String fieldName, Polygon polygon, String keywordFieldName, Collection<String> keywords, int topK) {
         return new OperatorTopKInGeoTextualPolygon(fieldName, polygon, keywordFieldName, keywords, topK);
     }
 }

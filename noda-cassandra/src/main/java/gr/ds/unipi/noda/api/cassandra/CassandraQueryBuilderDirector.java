@@ -5,6 +5,7 @@ import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.Row;
 import com.datastax.oss.driver.api.core.metadata.schema.ClusteringOrder;
 import com.datastax.oss.driver.api.core.metadata.schema.ColumnMetadata;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,7 @@ public class CassandraQueryBuilderDirector {
     public CassandraQueryBuilderDirector(CassandraQueryBuilder queryBuilder, String keyspace, String table) {
         this.queryBuilder = queryBuilder;
         this.keyspace = keyspace;
-        this.table= table;
+        this.table = table;
     }
 
     public String makeAggregationFunctionQuery(ArrayList<String> selectClauseAggregate, ArrayList<String> whereClause) {
@@ -36,29 +37,29 @@ public class CassandraQueryBuilderDirector {
         queryBuilder.addTable(table);
         if (!whereClauseList.isEmpty())
             queryBuilder.addWhereClause(whereClauseList);
-        if(!groupByClauseList.isEmpty())
+        if (!groupByClauseList.isEmpty())
             queryBuilder.addGroupByClause(groupByClauseList);
-        if(!orderByClauseList.isEmpty())
+        if (!orderByClauseList.isEmpty())
             queryBuilder.addOrderByClause(orderByClauseList);
-        if ( limit > 0 )
+        if (limit > 0)
             queryBuilder.addLimit(limit);
         queryBuilder.addAllowFiltering();
         return queryBuilder.getQuery();
     }
 
-    public String makeUsoQuery(ArrayList<String> selectClauseListUSO , ArrayList<String> whereClauseList, CqlSession session){
+    public String makeUsoQuery(ArrayList<String> selectClauseListUSO, ArrayList<String> whereClauseList, CqlSession session) {
         queryBuilder.reset();
         ArrayList<String> tableColumns = (ArrayList<String>) session.getMetadata().getKeyspace(keyspace).get().getTable(table).get().getColumns().keySet().stream().map(column -> column.asCql(true)).collect(Collectors.toList());
         queryBuilder.addUSOSelectClause(tableColumns, selectClauseListUSO);
         queryBuilder.addTable(table);
-        if(!whereClauseList.isEmpty()) {
+        if (!whereClauseList.isEmpty()) {
             queryBuilder.addWhereClause(whereClauseList);
             queryBuilder.addAllowFiltering();
         }
         return queryBuilder.getQuery();
     }
 
-    public String makeFilteredTableQuery(Map<CqlIdentifier, ColumnMetadata> columns, List<ColumnMetadata> partitionKeys, Map<ColumnMetadata, ClusteringOrder> clusteringKeys){
+    public String makeFilteredTableQuery(Map<CqlIdentifier, ColumnMetadata> columns, List<ColumnMetadata> partitionKeys, Map<ColumnMetadata, ClusteringOrder> clusteringKeys) {
         queryBuilder.reset();
         queryBuilder.addCreateTableClause();
         queryBuilder.addTable("filteredTable");
@@ -66,7 +67,7 @@ public class CassandraQueryBuilderDirector {
         return queryBuilder.getQuery();
     }
 
-    public String makeInsertQuery(Map <CqlIdentifier, ColumnMetadata> columns, Row USORow){
+    public String makeInsertQuery(Map<CqlIdentifier, ColumnMetadata> columns, Row USORow) {
         queryBuilder.reset();
         queryBuilder.addInsertIntoClause();
         queryBuilder.addTable("filteredTable");
@@ -74,32 +75,34 @@ public class CassandraQueryBuilderDirector {
         return queryBuilder.getQuery();
     }
 
-    public String makeApplyRestOfOperationsQuery(ArrayList<String> selectClauseList, ArrayList<String> selectClauseAggregate, ArrayList<String> groupByClauseList, ArrayList<String> orderByClauseList, int limit) {
+    public String makeApplyRestOfOperationsQuery(ArrayList<String> selectClauseList, ArrayList<String> selectClauseAggregate, ArrayList<String> whereClauseList, ArrayList<String> groupByClauseList, ArrayList<String> orderByClauseList, int limit) {
         queryBuilder.reset();
         queryBuilder.addSelectClause(selectClauseList, selectClauseAggregate);
         queryBuilder.addTable("filteredTable");
-        if(!groupByClauseList.isEmpty())
+        if (!whereClauseList.isEmpty())
+            queryBuilder.addWhereClause(whereClauseList);
+        if (!groupByClauseList.isEmpty())
             queryBuilder.addGroupByClause(groupByClauseList);
-        if(!orderByClauseList.isEmpty())
+        if (!orderByClauseList.isEmpty())
             queryBuilder.addOrderByClause(orderByClauseList);
-        if ( limit > 0 )
+        if (limit > 0)
             queryBuilder.addLimit(limit);
         queryBuilder.addAllowFiltering();
         return queryBuilder.getQuery();
     }
 
-    public String makeMVQuery(String column, CqlSession session){
+    public String makeMVQuery(String column, CqlSession session) {
         queryBuilder.reset();
-        queryBuilder.addCreateMVClause(table+"_mv");
+        queryBuilder.addCreateMVClause(table + "_mv");
         queryBuilder.addSelectClause(new ArrayList<>(), new ArrayList<>());
         queryBuilder.addTable(table);
         ArrayList<String> mvWhereClause = new ArrayList<>();
-        mvWhereClause.add(column+" IS NOT NULL");
-        mvWhereClause.addAll(session.getMetadata().getKeyspace(keyspace).get().getTable(table).get().getPrimaryKey().stream().map( columnMetadata -> columnMetadata.getName().asCql(true)+" IS NOT NULL ").collect(Collectors.toList()));
+        mvWhereClause.add(column + " IS NOT NULL");
+        mvWhereClause.addAll(session.getMetadata().getKeyspace(keyspace).get().getTable(table).get().getPrimaryKey().stream().map(columnMetadata -> columnMetadata.getName().asCql(true) + " IS NOT NULL ").collect(Collectors.toList()));
         queryBuilder.addWhereClause(mvWhereClause);
         ArrayList<String> primaKeysMV = new ArrayList<>();
         primaKeysMV.add(column);
-        primaKeysMV.addAll(session.getMetadata().getKeyspace(keyspace).get().getTable(table).get().getPrimaryKey().stream().map( columnMetadata -> columnMetadata.getName().asCql(true)).collect(Collectors.toList()));
+        primaKeysMV.addAll(session.getMetadata().getKeyspace(keyspace).get().getTable(table).get().getPrimaryKey().stream().map(columnMetadata -> columnMetadata.getName().asCql(true)).collect(Collectors.toList()));
         queryBuilder.addMVPrimaryKeys(primaKeysMV);
         return queryBuilder.getQuery();
     }
@@ -107,9 +110,9 @@ public class CassandraQueryBuilderDirector {
     public String makeGeoQuery(ArrayList<String> selectClauseListUSO, ArrayList<String> selectClauseListGeo, ArrayList<String> whereClauseList, CqlSession session) {
         queryBuilder.reset();
         ArrayList<String> tableColumns = (ArrayList<String>) session.getMetadata().getKeyspace(keyspace).get().getTable(table).get().getColumns().keySet().stream().map(column -> column.asCql(true)).collect(Collectors.toList());
-        queryBuilder.addGeoSelectClause(tableColumns, selectClauseListUSO ,selectClauseListGeo);
-        queryBuilder.addTable(table+"_mv");
-        if(!whereClauseList.isEmpty())
+        queryBuilder.addGeoSelectClause(tableColumns, selectClauseListUSO, selectClauseListGeo);
+        queryBuilder.addTable(table + "_mv");
+        if (!whereClauseList.isEmpty())
             queryBuilder.addWhereClause(whereClauseList);
         queryBuilder.addAllowFiltering();
         return queryBuilder.getQuery();

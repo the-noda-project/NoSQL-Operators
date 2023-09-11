@@ -1,9 +1,9 @@
 package gr.ds.unipi.noda.api.cassandra.filterOperators.textualOperators;
 
-import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.cassandra.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator;
 import gr.ds.unipi.noda.api.cassandra.filterOperators.textualOperators.conditionalTextualOperators.OperatorAllKeywords;
 import gr.ds.unipi.noda.api.cassandra.filterOperators.textualOperators.conditionalTextualOperators.OperatorAnyKeywords;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 
 public final class CassandraTextualOperatorFactory extends BaseTextualOperatorFactory {
     @Override
