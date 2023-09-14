@@ -2,8 +2,11 @@ package gr.ds.unipi.noda.api.client.cassandradatabase;
 
 import gr.ds.unipi.noda.api.client.NoSqlDbSystem;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
+import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbRecord;
+import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.FieldValue;
 import gr.ds.unipi.noda.api.core.nosqldb.modifications.NoSqlDbInserts;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
 import org.junit.Ignore;
 import org.junit.Test;
 import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.*;
@@ -11,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
@@ -84,19 +88,23 @@ public class CassandraDatabaseTest{
 
     @Test
     public void testConnection() throws UnknownHostException, InterruptedException {
-        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").build();
-        cassandra.operateOn("").printScreen();
-        System.out.println("TIMER START");
-        TimeUnit.MINUTES.sleep(1);
-        System.out.println("TIMER FINISH");
-        cassandra.closeConnection();
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").ipv4Address("127.0.0.1").build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("testTable");
+        cassandraOperators.limit(10).printScreen();
+    }
+
+    @Test
+    public void testConnectionAppConfig(){
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("testTable");
+        cassandraOperators.limit(10).printScreen();
     }
 
     @Test
     public void testInsert() throws UnknownHostException, FileNotFoundException, ParseException {
         NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").ipv4Address("127.0.0.1").build();
-        NoSqlDbInserts cassandraInsert =  cassandra.insertionsOn("doublecluterkey");
-        SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+        NoSqlDbInserts cassandraInsert =  cassandra.insertionsOn("testtable");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy/mm/dd");
         Scanner scanner = new Scanner(new File("/home/george/Downloads/records.csv"));
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -111,8 +119,8 @@ public class CassandraDatabaseTest{
             long longValue = Long.parseLong(fields[6]);
             String stringValue = fields[7];
             cassandraInsert.insert(FieldValue.newFieldValue("short", shortValue), FieldValue.newFieldValue("integer", integerValue), FieldValue.newFieldValue("boolean",booleanValue), FieldValue.newFieldValue("date", dateValue), FieldValue.newFieldValue("double", doubleValue), FieldValue.newFieldValue("float", floatValue), FieldValue.newFieldValue("long", longValue), FieldValue.newOFieldValue("string", stringValue));
-            cassandra.closeConnection();
         }
+        cassandra.closeConnection();
     }
 
     @Test
@@ -193,5 +201,46 @@ public class CassandraDatabaseTest{
         NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").ipv4Address("127.0.0.1").build();
         NoSqlDbOperators  cassandraOperators = cassandra.operateOn("testtable");
         cassandraOperators.sort(desc("integer")).project("string").filter(eq("short", 6)).limit(10).printScreen();
+    }
+
+    @Test
+    public void testResultsOperator() throws UnknownHostException {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("datacenter1","testKeyspace").ipv4Address("127.0.0.1").build();
+        NoSqlDbOperators  cassandraOperators = cassandra.operateOn("testtable").filter(eq("short", 6 )).filter(eq("integer", 607)).limit(1);
+        NoSqlDbResults results = cassandraOperators.getResults();
+        System.out.println("THE RESULTS ARE: ");
+        while(results.hasNextRecord()){
+            NoSqlDbRecord record = results.getRecord();
+            System.out.println(record.toString());
+            System.out.println(record.containsValue(LocalDate.of(2113,3, 29)));
+        }
+        cassandra.closeConnection();
+    }
+
+    @Test
+    public void testGeoOperatorRectangle() throws InterruptedException {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("spatialTable");
+        cassandraOperators.filter(inGeoRectangle("geoHash", Coordinates.newCoordinates(-25.75,28.65), Coordinates.newCoordinates(28.3,-25.58)));
+        cassandraOperators.printScreen();
+    }
+
+    @Test
+    public void testGeoPolygonOperator() throws InterruptedException {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("spatialTable");
+        cassandraOperators.filter(inGeoPolygon("geoHash", Coordinates.newCoordinates(28.16956, -25.60), Coordinates.newCoordinates(28.15, -25.62), Coordinates.newCoordinates(28.20, -25.62)));
+        cassandraOperators.printScreen();
+    }
+
+    @Test
+    public void testGeoTemporalOperator() throws  InterruptedException {
+        NoSqlDbSystem cassandra = NoSqlDbSystem.Cassandra().Builder("/home/george/Projects/NoSQL-Operators/noda-client/src/test/java/gr/ds/unipi/noda/api/client/cassandradatabase/application.conf").build();
+        NoSqlDbOperators cassandraOperators = cassandra.operateOn("spatioTemporalTable");
+        Date startDate = new Date(Long.parseLong("1081185752000"));
+        Date endDate = new Date(Long.parseLong("1081963352000"));
+        cassandraOperators.filter(inGeoTemporalRectangle("geoHash",Coordinates.newCoordinates(-48.889,-39.749), Coordinates.newCoordinates(-48.801,-39.661), "date", startDate, endDate));
+        cassandraOperators.printScreen();
+        cassandra.closeConnection();
     }
 }

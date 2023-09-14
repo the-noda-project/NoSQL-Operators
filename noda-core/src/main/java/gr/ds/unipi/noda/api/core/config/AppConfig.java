@@ -28,4 +28,9 @@ public class AppConfig {
         return ConfigFactory.load()
                 .withFallback(ConfigFactory.parseResources("configs/hbase.conf")).getConfig("hbase");
     }
+
+    public static Config cassandra() {
+        return ConfigFactory.load()
+                .withFallback(ConfigFactory.parseResources("configs/cassandra.conf")).getConfig("cassandra");
+    }
 }

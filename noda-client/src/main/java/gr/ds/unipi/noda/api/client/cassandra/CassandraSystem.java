@@ -27,11 +27,14 @@ public class CassandraSystem extends NoSqlDbSystem {
         private final String keyspace;
         private Inet4Address ipv4;
         private final String datacenter;
+        private final String appConfigPath;
+
         public Builder(String datacenter, String keyspace) throws UnknownHostException {
             this.authProvider = new ProgrammaticPlainTextAuthProvider("cassandra","cassandra");
             this.keyspace = keyspace;
             this.ipv4 = (Inet4Address) Inet4Address.getByName("localhost");
             this.datacenter = datacenter;
+            this.appConfigPath = "";
         }
 
         public Builder(String username, String password, String datacenter, String keyspace) throws UnknownHostException {
@@ -39,6 +42,15 @@ public class CassandraSystem extends NoSqlDbSystem {
             this.keyspace = keyspace;
             this.ipv4 = (Inet4Address) Inet4Address.getByName("localhost");
             this.datacenter = datacenter;
+            this.appConfigPath = "";
+        }
+
+        public Builder(String appConfigPath){
+            this.authProvider = null;
+            this.keyspace = "";
+            this.ipv4 = null;
+            this.datacenter = "";
+            this.appConfigPath = appConfigPath;
         }
 
         public Builder ipv4Address(String ipv4) throws UnknownHostException {
@@ -59,6 +71,6 @@ public class CassandraSystem extends NoSqlDbSystem {
 
     private CassandraSystem(Builder builder) {
         super(builder, new CassandraConnectionFactory());
-        connector = CassandraConnector.newCassandraConnector(builder.authProvider, builder.datacenter, builder.keyspace, builder.ipv4);
+        connector = CassandraConnector.newCassandraConnector(builder.authProvider, builder.datacenter, builder.keyspace, builder.ipv4, builder.appConfigPath);
     }
 }

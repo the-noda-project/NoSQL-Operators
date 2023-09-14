@@ -10,4 +10,8 @@ public final class OperatorAllKeywords extends ConditionalTextualOperator {
         return new OperatorAllKeywords(fieldName, twoKeywordsAtLeastToArray(keyword1, keyword2, keywords));
     }
 
+    @Override
+    public Object getOperatorExpression() {
+        throw new UnsupportedOperationException("This operation is not supported by Cassandra!");
+    }
 }
