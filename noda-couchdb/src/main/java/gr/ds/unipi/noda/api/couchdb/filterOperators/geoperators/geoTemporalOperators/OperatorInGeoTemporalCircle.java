@@ -6,7 +6,7 @@ import gr.ds.unipi.noda.api.couchdb.filterOperators.geoperators.geographicalOper
 
 final class OperatorInGeoTemporalCircle extends GeoTemporalOperator<Circle, TemporalBounds> {
 
-    protected OperatorInGeoTemporalCircle(String fieldName, Circle circle, String temporalFieldName, TemporalBounds temporalType) {
+    private OperatorInGeoTemporalCircle(String fieldName, Circle circle, String temporalFieldName, TemporalBounds temporalType) {
         super(OperatorInGeoCircle.newOperatorInGeoCircle(fieldName, circle), temporalFieldName, temporalType);
     }
 

@@ -6,6 +6,11 @@ final class OperatorDesc extends SortOperator {
         super(fieldName);
     }
 
+    @Override
+    protected String orderName() {
+        return "descending";
+    }
+
     public static SortOperator newOperatorDesc(String fieldName) {
         return new OperatorDesc(fieldName);
     }

@@ -3,8 +3,7 @@ package gr.ds.unipi.noda.api.couchdb;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnectionManager;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 
-final class CouchDBConnectionManager extends NoSqlDbConnectionManager<Object> {
-
+final class CouchDBConnectionManager extends NoSqlDbConnectionManager<Connection> {
     private static final CouchDBConnectionManager INSTANCE = new CouchDBConnectionManager();
 
     private CouchDBConnectionManager() {
@@ -17,11 +16,17 @@ final class CouchDBConnectionManager extends NoSqlDbConnectionManager<Object> {
 
     @Override
     public boolean closeConnection(NoSqlDbConnector noSqlDbConnector) {
-        return false;
+        if (getConnections().containsKey(noSqlDbConnector)) {
+            getConnections().get(noSqlDbConnector).close();
+            getConnections().remove(noSqlDbConnector);
+        }
+        return true;
     }
 
     @Override
     public boolean closeConnections() {
-        return false;
+        getConnections().forEach((k, v) -> v.close());
+        getConnections().clear();
+        return true;
     }
 }
