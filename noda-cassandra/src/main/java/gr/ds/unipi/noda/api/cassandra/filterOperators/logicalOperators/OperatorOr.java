@@ -2,10 +2,12 @@ package gr.ds.unipi.noda.api.cassandra.filterOperators.logicalOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 
+import java.util.ArrayList;
+
 final class OperatorOr extends LogicalOperator {
 
     @Override
-    public StringBuilder getOperatorExpression(){
+    public ArrayList<FilterOperator> getOperatorExpression() {
         throw new UnsupportedOperationException("The OR(∨) operation is not supported by Cassandra!");
     }
 

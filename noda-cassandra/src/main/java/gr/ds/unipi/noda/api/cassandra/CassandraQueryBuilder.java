@@ -1,64 +1,135 @@
 package gr.ds.unipi.noda.api.cassandra;
-import java.lang.StringBuilder;
+
+import com.datastax.oss.driver.api.core.CqlIdentifier;
+import com.datastax.oss.driver.api.core.cql.Row;
+import com.datastax.oss.driver.api.core.metadata.schema.ClusteringOrder;
+import com.datastax.oss.driver.api.core.metadata.schema.ColumnMetadata;
+import com.datastax.oss.driver.shaded.guava.common.collect.Streams;
+
 import java.util.ArrayList;
-import java.util.StringJoiner;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class CassandraQueryBuilder {
 
+    public static final ArrayList<String> emptyClause = new ArrayList<>();
     private StringBuilder query;
 
     public CassandraQueryBuilder() {
         query = new StringBuilder();
-        query.append("SELECT ");
     }
 
-    public void addWildcard(){
-        query.append(" * ");
+    public void addSelectClause(ArrayList<String> selectClauseList, ArrayList<String> selectClauseAggregate) {
+        query.append("SELECT ");
+        if (selectClauseList.isEmpty() && selectClauseAggregate.isEmpty()) {
+            query.append(" * ");
+        } else {
+            ArrayList<String> selectClauseElements = new ArrayList<>();
+            selectClauseElements.addAll(selectClauseList);
+            selectClauseElements.addAll(selectClauseAggregate);
+            query.append(String.join(" , ", selectClauseElements));
+        }
+        query.append(" FROM ");
+    }
+
+    public void addUSOSelectClause(ArrayList<String> tableColumns, ArrayList<String> selectClauseListUSO) {
+        query.append("SELECT ");
+        ArrayList<String> selectClauseElements = new ArrayList<>();
+        selectClauseElements.addAll(tableColumns);
+        selectClauseElements.addAll(selectClauseListUSO);
+        query.append(String.join(" , ", selectClauseElements));
+        query.append(" FROM ");
+    }
+
+    public void addGeoSelectClause(ArrayList<String> tableColumns, ArrayList<String> selectClauseListUSO, ArrayList<String> selectClauseListGeo) {
+        query.append("SELECT ");
+        ArrayList<String> selectClauseElements = new ArrayList<>();
+        selectClauseElements.addAll(tableColumns);
+        selectClauseElements.addAll(selectClauseListUSO);
+        query.append(String.join(" , ", selectClauseElements));
+        query.append(" , ");
+        query.append(String.join(" , ", selectClauseListGeo));
+        query.append(" FROM ");
+    }
+
+    public void addCreateTableClause() {
+        query.append("CREATE TABLE ");
+    }
+
+    public void addInsertIntoClause() {
+        query.append("INSERT INTO ");
+    }
+
+    public void addCreateMVClause(String materializedViewName) {
+        query.append("CREATE MATERIALIZED VIEW IF NOT EXISTS ");
+        query.append(materializedViewName);
+        query.append(" AS ");
     }
 
     public void addTable(String table) {
-        query.append(" FROM ");
-        query.append(table);
+        query.append(" ").append(table).append(" ");
     }
 
-    public void addWhereClause(StringJoiner filterList){
-        query.append(" WHERE ");
-        query.append(filterList.toString());
+    public void addNewTableColumns(Map<CqlIdentifier, ColumnMetadata> columns, List<ColumnMetadata> partitionKeys, Map<ColumnMetadata, ClusteringOrder> clusteringKeys) {
+        query.append('(');
+        query.append(Streams.zip(columns.keySet().stream(), columns.values().stream(), (k, v) -> k.asCql(true) + " " + v.getType().asCql(true, true)).collect(Collectors.joining(",")));
+        query.append(", PRIMARY KEY ((");
+        query.append(partitionKeys.stream().map(partCol -> partCol.getName().asCql(true)).collect(Collectors.joining(",")));
+        query.append(')');
+        if (!clusteringKeys.isEmpty()) {
+            query.append(',');
+            query.append(clusteringKeys.keySet().stream().map(clusterKey -> clusterKey.getName().asCql(true)).collect(Collectors.joining(",")));
+        }
+        query.append(')');
+        query.append(')');
+        if (!clusteringKeys.isEmpty()) {
+            query.append("WITH CLUSTERING ORDER BY(");
+            query.append(Streams.zip(clusteringKeys.keySet().stream(), clusteringKeys.values().stream(), (k, v) -> k.getName().asCql(true) + " " + v.name()).collect(Collectors.joining(",")));
+            query.append(')');
+        }
     }
 
-    public void addAggregateFunctions(StringJoiner aggregateList){
-       query.append(aggregateList.toString());
+    public void addMVPrimaryKeys(List<String> primaryKeys) {
+        query.append("PRIMARY KEY (");
+        query.append(String.join(",", primaryKeys));
+        query.append(")");
     }
 
-    public void addAggregationFunction(String aggregateFunction){
-        query.append(aggregateFunction);
+    public void addWhereClause(List<String> whereClauseList) {
+        query.append(String.join(" ", " WHERE ", String.join(" AND ", whereClauseList)));
     }
 
-    public void addProjectionFields(StringJoiner projectionList){
-        query.append(projectionList.toString());
+    public void addGroupByClause(ArrayList<String> groupByClauseList) {
+        query.append(String.join(" ", " GROUP BY", String.join(",", groupByClauseList)));
     }
 
-    public void addGroupClause(StringJoiner groupList){
-        query.append(" GROUP BY ");
-        query.append(groupList.toString());
+    public void addOrderByClause(ArrayList<String> orderByClauseList) {
+        query.append(String.join(" ", " ORDER BY", String.join(",", orderByClauseList)));
     }
 
-    public void addLimitClause(int limit){
-        query.append(" LIMIT ");
-        query.append(limit);
+    public void addLimit(int limit) {
+        query.append(String.join(" ", " LIMIT ", String.valueOf(limit)));
     }
 
-    public void addOrderClause(StringJoiner orderList){
-        query.append(" ORDER BY ");
-        query.append(orderList.toString());
+    public void addInsertFilteredRow(Map<CqlIdentifier, ColumnMetadata> columns, Row USORow) {
+        query.append('(');
+        query.append(columns.keySet().stream().map(column -> column.asCql(true)).collect(Collectors.joining(",")));
+        query.append(") VALUES (");
+        query.append(IntStream.range(0, columns.size()).mapToObj(i -> USORow.getFormattedContents().split(", ")[i].split("^(.*?):")[1]).collect(Collectors.joining(",")));
+        query.append(')');
+    }
+
+    public void addAllowFiltering() {
+        query.append(" ALLOW FILTERING;");
     }
 
     public String getQuery() {
-        query.append(" ALLOW FILTERING;");
         return query.toString();
     }
 
     public void reset() {
-        query = new StringBuilder("SELECT ");
+        query = new StringBuilder();
     }
 }

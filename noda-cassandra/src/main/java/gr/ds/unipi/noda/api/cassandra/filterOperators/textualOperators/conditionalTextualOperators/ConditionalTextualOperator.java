@@ -5,7 +5,7 @@ public abstract class ConditionalTextualOperator extends gr.ds.unipi.noda.api.co
         super(fieldName, elements);
     }
 
-     public Object getOperatorExpression(){
+    public StringBuilder getOperatorExpression() {
         return null;
-     }
+    }
 }

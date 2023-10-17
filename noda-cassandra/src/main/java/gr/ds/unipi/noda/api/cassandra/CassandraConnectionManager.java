@@ -23,6 +23,7 @@ final class CassandraConnectionManager extends NoSqlDbConnectionManager<CqlSessi
             //write the command getConnections().get(noSqlDbConnector) to get the
             //object whose type is defined by the generic parameter of NoSqlDbConnectionManager
             // Get this object in order to close the connection.
+            getConnections().get(noSqlDbConnector).execute("DROP TABLE IF EXISTS filteredtable;");
             getConnections().get(noSqlDbConnector).close();
             getConnections().remove(noSqlDbConnector);
         }
