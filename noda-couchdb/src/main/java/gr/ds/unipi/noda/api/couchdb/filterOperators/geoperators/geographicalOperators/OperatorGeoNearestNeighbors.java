@@ -1,6 +1,7 @@
 package gr.ds.unipi.noda.api.couchdb.filterOperators.geoperators.geographicalOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Point;
+import gr.ds.unipi.noda.api.couchdb.filterOperators.FilterStrategy;
 
 public final class OperatorGeoNearestNeighbors extends GeographicalOperator<Point> {
 
@@ -15,4 +16,8 @@ public final class OperatorGeoNearestNeighbors extends GeographicalOperator<Poin
         return new OperatorGeoNearestNeighbors(fieldName, point, neighbors);
     }
 
+    @Override
+    public FilterStrategy getOperatorExpression() {
+        return null;
+    }
 }

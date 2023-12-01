@@ -3,8 +3,7 @@ package gr.ds.unipi.noda.api.couchdb.filterOperators.comparisonOperators;
 import gr.ds.unipi.noda.api.couchdb.filterOperators.FilterStrategy;
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
+import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
@@ -44,17 +43,9 @@ abstract class ComparisonOperator<U> extends gr.ds.unipi.noda.api.core.operators
 
             @Override
             public Map<String, Object> asFindFilter() {
-                final Object fieldValue = getFieldValue();
-
-                Object value = fieldValue;
-                if (fieldValue instanceof Date) {
-                    // Assuming dates saved in the CouchDB database are always in ISO format,
-                    // convert the Java date to an ISO formatted date.
-                    Instant instant = ((Date) fieldValue).toInstant();
-                    value = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(instant);
-                } else if (fieldValue instanceof String) {
-                    value = '"' + StringEscapeUtils.escapeEcmaScript((String) fieldValue) + '"';
-                }
+                final Object value = getFieldValue() instanceof Date
+                                     ? OffsetDateTime.from(((Date) getFieldValue()).toInstant()).toString()
+                                     : getFieldValue();
 
                 return Collections.singletonMap(getFieldName(), Collections.singletonMap(mangoOperatorSymbol(), value));
             }

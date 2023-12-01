@@ -4,7 +4,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTempor
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Polygon;
 import gr.ds.unipi.noda.api.couchdb.filterOperators.geoperators.geographicalOperators.OperatorInGeoPolygon;
 
-final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, TemporalBounds> {
+final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon> {
 
     private OperatorInGeoTemporalPolygon(String fieldName, Polygon polygon, String temporalFieldName, TemporalBounds temporalType) {
         super(OperatorInGeoPolygon.newOperatorInGeoPolygon(fieldName, polygon), temporalFieldName, temporalType);
@@ -13,5 +13,4 @@ final class OperatorInGeoTemporalPolygon extends GeoTemporalOperator<Polygon, Te
     public static OperatorInGeoTemporalPolygon newOperatorInGeoTemporalPolygon(String fieldName, Polygon polygon, String temporalFieldName, TemporalBounds temporalType) {
         return new OperatorInGeoTemporalPolygon(fieldName, polygon, temporalFieldName, temporalType);
     }
-
 }

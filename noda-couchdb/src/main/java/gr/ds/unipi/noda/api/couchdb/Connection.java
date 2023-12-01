@@ -38,15 +38,11 @@ final class Connection {
     }
 
     public ViewResponse queryView(String db, Query query) throws IOException, CouchDBError {
-        HttpUrl url = serverUrl.newBuilder()
-                .addPathSegment(db)
-                .addPathSegments("_design/NODA/_view")
-                .addPathSegment(query.getViewName())
-                .build();
-
         HttpUrl designDocUrl = serverUrl.newBuilder().addPathSegment(db).addPathSegments("_design/NODA").build();
-        query.prepareViewQuery(clazz -> {
-            Request prepareRequest = new Request.Builder().url(designDocUrl).get().build();
+
+        String viewName = query.prepareViewQuery(clazz -> {
+            // Get the Design Document from the DB
+            Request prepareRequest = new Request.Builder().url(designDocUrl.url()).get().build();
             try (Response res = client.newCall(prepareRequest).execute()) {
                 assert res.body() != null;
 
@@ -59,8 +55,9 @@ final class Connection {
                 return GSON.fromJson(res.body().charStream(), clazz);
             }
         }, designDocument -> {
+            // Update the Design Document
             RequestBody prepareBody = RequestBody.create(GSON.toJson(designDocument), JSON);
-            Request prepareRequest = new Request.Builder().url(designDocUrl).put(prepareBody).build();
+            Request prepareRequest = new Request.Builder().url(designDocUrl.url()).put(prepareBody).build();
             try (Response res = client.newCall(prepareRequest).execute()) {
                 if (!res.isSuccessful()) {
                     assert res.body() != null;
@@ -69,8 +66,14 @@ final class Connection {
             }
         });
 
+        HttpUrl url = serverUrl.newBuilder()
+                .addPathSegment(db)
+                .addPathSegments("_design/NODA/_view")
+                .addPathSegment(viewName)
+                .build();
+
         RequestBody body = RequestBody.create(GSON.toJson(query.getRequestBody()), JSON);
-        Request request = new Request.Builder().url(url).post(body).build();
+        Request request = new Request.Builder().url(url.url()).post(body).build();
 
         try (Response res = client.newCall(request).execute()) {
             assert res.body() != null;
@@ -87,7 +90,7 @@ final class Connection {
         HttpUrl url = serverUrl.newBuilder().addPathSegment(db).addPathSegment("_find").build();
 
         RequestBody body = RequestBody.create(GSON.toJson(query.getRequestBody()), JSON);
-        Request request = new Request.Builder().url(url).post(body).build();
+        Request request = new Request.Builder().url(url.url()).post(body).build();
 
         try (Response res = client.newCall(request).execute()) {
             assert res.body() != null;
@@ -105,7 +108,7 @@ final class Connection {
 
         Map<String, Collection<JsonObject>> docs = Collections.singletonMap("docs", bulkDocs);
         RequestBody body = RequestBody.create(GSON.toJson(docs), JSON);
-        Request request = new Request.Builder().url(url).post(body).build();
+        Request request = new Request.Builder().url(url.url()).post(body).build();
 
         try (Response res = client.newCall(request).execute()) {
             if (!res.isSuccessful()) {
