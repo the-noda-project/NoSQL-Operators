@@ -13,9 +13,4 @@ public class OperatorInGeoTextualPolygon extends GeoTextualConstraintOperator<Po
     public static OperatorInGeoTextualPolygon newOperatorInGeoTextualPolygon(String fieldName, Polygon polygon, ConditionalTextualOperator<FilterStrategy> conditionalTextualOperator) {
         return new OperatorInGeoTextualPolygon(fieldName, polygon, conditionalTextualOperator);
     }
-
-    @Override
-    public FilterStrategy getOperatorExpression() {
-        return null;
-    }
 }

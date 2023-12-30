@@ -15,12 +15,12 @@ final class OperatorAvg extends AggregateOperator {
     @Override
     protected String reduceStageExpression() {
         String escapedFieldName = StringEscapeUtils.escapeEcmaScript(getFieldName());
-        return "sum(values.map(a => a[\"" + escapedFieldName + "\"])) / values.length";
+        return "sum(values.map(a => a[\"" + escapedFieldName + "\"]))";
     }
 
     @Override
     protected String rereduceStageExpression() {
         String escapedAlias = StringEscapeUtils.escapeEcmaScript(getAlias());
-        return "values.reduce((a, b) => a + b[\"" + escapedAlias + "\"], 0) / values.length";
+        return "values.reduce((a, b) => a + b[\"" + escapedAlias + "\"], 0) / values.reduce((a, b) => a + b.__nodeLength, 0)";
     }
 }

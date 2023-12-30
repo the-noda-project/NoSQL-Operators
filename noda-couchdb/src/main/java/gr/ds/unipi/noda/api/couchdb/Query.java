@@ -87,10 +87,6 @@ final class Query {
         this.limit = limit;
     }
 
-    public String getViewName() {
-        return Integer.toString(hashCode());
-    }
-
     public boolean isReduce() {
         return isReduce;
     }
@@ -103,8 +99,10 @@ final class Query {
         return isGroup || isReduce || !sortFields.isEmpty() || !groupFields.isEmpty() || !aggregates.isEmpty();
     }
 
-    public void prepareViewQuery(GetDesignDocumentCall getDesignDocumentCall, UpdateDesignDocumentCall updateDesignDocumentCall) throws IOException, Connection.CouchDBError {
-        String viewName = getViewName();
+    public String prepareViewQuery(GetDesignDocumentCall getDesignDocumentCall, UpdateDesignDocumentCall updateDesignDocumentCall) throws IOException, Connection.CouchDBError {
+        String mapFunction = createMapFunction();
+        String reduceFunction = createReduceFunction();
+        String viewName = Integer.toString(Objects.hash(mapFunction, reduceFunction));
 
         DesignDocument designDocument = getDesignDocumentCall.getDesignDocument(DesignDocument.class);
         if (designDocument == null) {
@@ -113,9 +111,11 @@ final class Query {
 
         // Update the design document if the current view query does not exist.
         if (!designDocument.hasView(viewName)) {
-            designDocument.addView(viewName, createMapFunction(), createReduceFunction());
+            designDocument.addView(viewName, mapFunction, reduceFunction);
             updateDesignDocumentCall.updateDesignDocument(designDocument);
         }
+
+        return viewName;
     }
 
     public JsonObject getRequestBody() {
@@ -151,24 +151,6 @@ final class Query {
         }
 
         return body;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(filters, aggregates, sortFields, groupFields, valueFields, projectFields);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Query)) {
-            return false;
-        }
-
-        Query query = (Query) obj;
-
-        return query.filters.equals(this.filters) && query.aggregates.equals(this.aggregates) &&
-                query.sortFields.equals(this.sortFields) && query.groupFields.equals(this.groupFields) &&
-                query.valueFields.equals(this.valueFields) && query.projectFields.equals(this.projectFields);
     }
 
     private String createMapFunction() {
@@ -241,6 +223,9 @@ final class Query {
             reduce.append('"').append(escapedAlias).append("\": ").append(expression.getLeft()).append(",");
             rereduce.append('"').append(escapedAlias).append("\": ").append(expression.getRight()).append(",");
         });
+
+        // Add node length information that is useful in some aggregate operators
+        reduce.append("__nodeLength: values.length,");
 
         for (String field : projectFields) {
             reduce.append('"').append(field).append("\": values.map(a => a[\"").append(field).append("\"]),");

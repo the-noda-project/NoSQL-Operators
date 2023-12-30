@@ -7,15 +7,10 @@ import gr.ds.unipi.noda.api.couchdb.filterOperators.geoperators.geographicalOper
 
 public class OperatorInGeoTextualRectangle extends GeoTextualConstraintOperator<Rectangle> {
     protected OperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator<FilterStrategy> conditionalTextualOperator) {
-        super(OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName,rectangle), conditionalTextualOperator);
+        super(OperatorInGeoRectangle.newOperatorInGeoRectangle(fieldName, rectangle), conditionalTextualOperator);
     }
 
-    public static OperatorInGeoTextualRectangle newOperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator<FilterStrategy> conditionalTextualOperator){
+    public static OperatorInGeoTextualRectangle newOperatorInGeoTextualRectangle(String fieldName, Rectangle rectangle, ConditionalTextualOperator<FilterStrategy> conditionalTextualOperator) {
         return new OperatorInGeoTextualRectangle(fieldName, rectangle, conditionalTextualOperator);
-    }
-
-    @Override
-    public FilterStrategy getOperatorExpression() {
-        return null;
     }
 }
