@@ -8,8 +8,7 @@ import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbRecord;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -244,6 +243,6 @@ public class CouchDBRecord extends NoSqlDbRecord<JsonObject> {
     }
 
     private Date parseDate(String dateString) {
-        return Date.from(Instant.from(DateTimeFormatter.ISO_OFFSET_DATE_TIME.parse(dateString)));
+        return Date.from(OffsetDateTime.parse(dateString).toInstant());
     }
 }

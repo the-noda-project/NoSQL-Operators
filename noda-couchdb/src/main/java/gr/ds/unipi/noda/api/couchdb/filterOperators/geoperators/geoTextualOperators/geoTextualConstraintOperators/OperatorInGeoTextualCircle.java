@@ -13,9 +13,4 @@ public class OperatorInGeoTextualCircle extends GeoTextualConstraintOperator<Cir
     public static OperatorInGeoTextualCircle newOperatorInGeoTextualCircle(String fieldName, Circle circle, ConditionalTextualOperator<FilterStrategy> conditionalTextualOperator) {
         return new OperatorInGeoTextualCircle(fieldName, circle, conditionalTextualOperator);
     }
-
-    @Override
-    public FilterStrategy getOperatorExpression() {
-        return null;
-    }
 }

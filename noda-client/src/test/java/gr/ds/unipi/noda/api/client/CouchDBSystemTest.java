@@ -2,11 +2,13 @@ package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
 import gr.ds.unipi.noda.api.couchdb.aggregateOperators.OperatorCountDistinct;
 import org.junit.Test;
 
 import static gr.ds.unipi.noda.api.core.operators.AggregateOperators.avg;
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
+import static gr.ds.unipi.noda.api.core.operators.SortOperators.desc;
 
 public class CouchDBSystemTest {
     private NoSqlDbSystem getSystem() {
@@ -44,6 +46,7 @@ public class CouchDBSystemTest {
     public void groupByCombinedWithAggregationTest() {
         NoSqlDbSystem noSqlDbSystem = getSystem();
         NoSqlDbResults<?> res = noSqlDbSystem.operateOn("people")
+                .filter(or(eq("age", 18), eq("age", 20)))
                 .groupBy("eyeColor", "isActive")
                 .aggregate(avg("age"))
                 .getResults();
@@ -61,6 +64,15 @@ public class CouchDBSystemTest {
     }
 
     @Test
+    public void textualOperatorsTest() {
+        NoSqlDbSystem noSqlDbSystem = getSystem();
+        noSqlDbSystem.operateOn("people")
+                // .filter(allKeywords("tags", "dolor", "nulla"))
+                .filter(anyKeywords("tags", "dolor", "nulla")).sort(desc("age")).printScreen();
+        noSqlDbSystem.closeConnection();
+    }
+
+    @Test
     public void structuralSharingTest() {
         NoSqlDbSystem noSqlDbSystem = getSystem();
         NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("people");
@@ -70,6 +82,18 @@ public class CouchDBSystemTest {
         var.printScreen();
 
         noSqlDbSystem.closeConnection();
+    }
+
+    @Test
+    public void geometryTest() {
+        NoSqlDbSystem noSqlDbSystem = getSystem();
+        NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("people");
+
+        noSqlDbOperators.filter(inGeoTextualCircleKm("location",
+                Coordinates.newCoordinates(23.622549, 37.94739),
+                100,
+                anyKeywords("tags", "nulla")
+        )).printScreen();
     }
 
     @Test
