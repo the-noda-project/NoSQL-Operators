@@ -84,15 +84,13 @@ public class NoSqlDbSqlStatementListener extends SqlBaseBaseListener {
 //
 //    @Override public void enterInSubquery(SqlBaseParser.InSubqueryContext ctx) {
 //        System.out.println(source);
-//        System.out.println(filterOperatorsFirstStage.size());
-//        System.out.println(filterOperatorSecondStage.size());
 //        System.out.println("SUBQUERY");
+//
 //    }
 //
 //    @Override public void exitInSubquery(SqlBaseParser.InSubqueryContext ctx) {
 //        System.out.println("exit SUBQUERY");
 //        System.out.println(source);
-//
 //    }
 
     @Override public void enterQuerySpecification(SqlBaseParser.QuerySpecificationContext ctx) {
