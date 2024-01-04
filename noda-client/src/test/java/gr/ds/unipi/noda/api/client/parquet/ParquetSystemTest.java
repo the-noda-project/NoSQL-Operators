@@ -15,7 +15,6 @@ import org.junit.Test;
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 
 public class ParquetSystemTest {
-    //@Ignore
     @Test
     public void parquetTest() {
 
