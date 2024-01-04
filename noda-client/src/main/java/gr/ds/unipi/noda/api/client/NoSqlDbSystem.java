@@ -5,6 +5,7 @@ import gr.ds.unipi.noda.api.client.couchdb.CouchDBBuilderFactory;
 import gr.ds.unipi.noda.api.client.hbase.HBaseBuilderFactory;
 import gr.ds.unipi.noda.api.client.mongo.MongoDBBuilderFactory;
 import gr.ds.unipi.noda.api.client.neo4j.Neo4jBuilderFactory;
+import gr.ds.unipi.noda.api.client.parquet.ParquetBuilderFactory;
 import gr.ds.unipi.noda.api.client.redis.RedisBuilderFactory;
 import gr.ds.unipi.noda.api.client.redisearch.RediSearchBuilderFactory;
 import gr.ds.unipi.noda.api.client.sql.*;
@@ -173,6 +174,10 @@ public abstract class NoSqlDbSystem {
 
     public static CassandraBuilderFactory Cassandra() {
         return new CassandraBuilderFactory();
+    }
+
+    public static ParquetBuilderFactory Parquet() {
+        return new ParquetBuilderFactory();
     }
 
     public String getDefaultHost() {
