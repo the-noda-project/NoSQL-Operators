@@ -26,7 +26,6 @@ public class ParquetSystemTest {
 
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Parquet().Builder().host("filesystem").build();
 
-
         NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("points").filter(ne("",true));
 //        NoSqlDbSqlStatement a = noSqlDbSystem.sql("SELECT * FROM passengerCars WHERE GEO_RECTANGLE( location , ( (22.420005798339844, 37.06873843120686 ), ( 22.441120147705078 , 37.06873843120686 ) ) )");
 
