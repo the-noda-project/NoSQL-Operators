@@ -7,12 +7,12 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.trajector
 
 public final class  ParquetTrajectoryOperatorFactory extends BaseTrajectoryOperatorFactory {
     @Override
-    public TrajectoryOperator newOperatorTrajectoriesInGeoTemporalRectangle(String fieldName, Rectangle rectangle, String temporalFieldName, TemporalBounds temporalBounds) {
+    public TrajectoryOperator newOperatorTrajectoriesInGeoTemporalRectangle(String objectIdField, String segmentField, Rectangle rectangle, String temporalFieldName, TemporalBounds temporalBounds) {
         return null;
     }
 
     @Override
-    public TrajectoryOperator newOperatorTrajectoriesInGeoRectangle(String fieldName, Rectangle rectangle) {
+    public TrajectoryOperator newOperatorTrajectoriesInGeoRectangle(String objectIdField, String segmentField, Rectangle rectangle) {
         return null;
     }
 }

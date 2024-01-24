@@ -1,7 +1,5 @@
 package gr.ds.unipi.noda.api.parquet;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbConnector;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
@@ -10,25 +8,26 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import gr.ds.unipi.noda.api.parquet.classes.NoSqlDbReadSupport;
+import gr.ds.unipi.noda.api.parquet.classes.Record;
+import gr.ds.unipi.noda.api.parquet.filterOperators.geoperators.trajectoryOperators.ParquetTrajectoryOperatorFactory;
+import gr.ds.unipi.noda.api.parquet.filterOperators.geoperators.trajectoryOperators.trajectoryGeoTemporalOperators.OperatorInGeoTemporalRectangle;
+import gr.ds.unipi.noda.api.parquet.filterOperators.geoperators.trajectoryOperators.trajectoryGeoTemporalOperators.TrajectoryGeoTemporalOperator;
 import org.apache.hadoop.fs.Path;
-import org.apache.parquet.filter2.compat.FilterCompat;
-import org.apache.parquet.filter2.predicate.FilterApi;
 import org.apache.parquet.filter2.predicate.FilterPredicate;
 import org.apache.parquet.hadoop.ParquetReader;
-import org.apache.parquet.io.RecordReader;
-import org.apache.parquet.tools.json.JsonRecordFormatter;
-import org.apache.parquet.tools.read.SimpleReadSupport;
-import org.apache.parquet.tools.read.SimpleRecord;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.bson.Document;
+import org.bson.types.Binary;
+import shaded.parquet.com.fasterxml.jackson.core.Base64Variants;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+import java.util.stream.Collectors;
 
 final class ParquetOperators extends NoSqlDbOperators {
 
@@ -151,17 +150,17 @@ final class ParquetOperators extends NoSqlDbOperators {
 
         boolean hasFilter = true;
         try {
-            ParquetReader<ParquetRecord> data = ParquetReader.builder(new NoSqlDbReadSupport(project), new Path("/Users/nicholaskoutroumanis/Desktop/parquet-files"))
-    //                .withFilter(FilterCompat.get(FilterApi.and(
-    //                        FilterApi.and(
-    //                                FilterApi.gtEq(xColumn, xMin),
-    //                                FilterApi.ltEq(xColumn, xMax)
-    //                        ),
-    //                        FilterApi.and(
-    //                                FilterApi.gtEq(yColumn, yMin),
-    //                                FilterApi.ltEq(yColumn, yMax)
-    //                        )
-    //                )))
+            ParquetReader<Document> data = ParquetReader.builder(new NoSqlDbReadSupport(project), new Path("/Users/nicholaskoutroumanis/Desktop/trajparquet-noda"))
+//                    .withFilter(FilterCompat.get(FilterApi.and(
+//                            FilterApi.and(
+//                                    FilterApi.gtEq(xColumn, xMin),
+//                                    FilterApi.ltEq(xColumn, xMax)
+//                            ),
+//                            FilterApi.and(
+//                                    FilterApi.gtEq(yColumn, yMin),
+//                                    FilterApi.ltEq(yColumn, yMax)
+//                            )
+//                    )))
                     // - don't use record filters for x,y
                     // - only a custom filter for an entire geometry object
                     //   can be used instead.
@@ -173,17 +172,46 @@ final class ParquetOperators extends NoSqlDbOperators {
                     // use this to filter column blocks based on range
                     .useStatsFilter(hasFilter)
                     .build();
-            return new ParquetResults(data);
 
-//            ParquetRecord sr;
-//            while ((sr = data.read())!=null){
-//                for (ParquetRecord.NameValue value : sr.getValues()) {
-//                    System.out.println(value.getName() + "-"+ value.getValue());
-//                    System.out.println(value.getValue().getClass());
-////                    System.out.println(sr.toJsonObject());
+
+            OperatorInGeoTemporalRectangle.newOperatorInGeoTemporalRectangle("null","null",null,null).refinement(data);
+            List<Document> documentsList = new ArrayList<>();
+
+//            Document doc = null;
+//            while ((doc = data.read() ) != null ){
+////                System.out.println(doc.get("segment"));
+//
+//                Document document = (Document) doc.get("segment");
+//
+//                byte[] bytesS = Base64Variants.getDefaultVariant().decode(doc.getString("objectId").replaceAll(":","="));
+//                byte[] bytes = Base64Variants.getDefaultVariant().decode(document.getString("latitude").replaceAll(":","="));//document.getString("timestamps").replaceAll(":","=").getBytes();
+////                byte[] bytes = ((Binary)document.get("timestamps")).getData();
+//
+//                ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
+//                int cap = byteBuffer.capacity()/8;
+//                for (int i = 0; i < cap; i++) {
+//                    System.out.println(byteBuffer.getDouble() + " -" +cap +" - "+new String(bytesS));
 //                }
-//                break;
+//
+//                byte[] bytes1 = Base64Variants.getDefaultVariant().decode(document.getString("timestamps").replaceAll(":","="));//document.getString("timestamps").replaceAll(":","=").getBytes();
+////                byte[] bytes = ((Binary)document.get("timestamps")).getData();
+//
+//                ByteBuffer byteBuffer1 = ByteBuffer.wrap(bytes1);
+//                int cap1 = byteBuffer1.capacity()/8;
+//                for (int i = 0; i < cap1; i++) {
+//                    System.out.println(byteBuffer1.getLong() + " -" +cap1 +" - "+new String(bytesS));
+//                }
+//
+//                if(cap != cap1){
+//                    try {
+//                        throw new Exception("different size");
+//                    } catch (Exception e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                }
+//                documentsList.add(doc);
 //            }
+            return new ParquetResults(data);
 
 
         } catch (IOException e) {

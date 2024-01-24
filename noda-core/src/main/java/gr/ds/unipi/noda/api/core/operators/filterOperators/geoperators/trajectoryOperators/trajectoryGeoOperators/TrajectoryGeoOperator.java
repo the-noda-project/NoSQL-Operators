@@ -6,8 +6,8 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.trajector
 public abstract class TrajectoryGeoOperator<T, U extends Geometry> extends TrajectoryOperator<T> {
     private final U geometry;
 
-    protected TrajectoryGeoOperator(String fieldName, U geometry) {
-        super(fieldName);
+    protected TrajectoryGeoOperator(String objectIdField, String segmentField, U geometry) {
+        super(objectIdField, segmentField);
         this.geometry = geometry;
     }
 

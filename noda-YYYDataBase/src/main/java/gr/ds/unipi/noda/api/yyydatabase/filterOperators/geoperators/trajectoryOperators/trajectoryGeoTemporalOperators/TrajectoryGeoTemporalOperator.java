@@ -6,7 +6,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometrie
 
 public abstract class TrajectoryGeoTemporalOperator<U extends Geometry, S extends Temporal> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.trajectoryOperators.trajectoryGeoTemporalOperators.TrajectoryGeoTemporalOperator<Object, U, S> {
 
-    protected TrajectoryGeoTemporalOperator(String fieldName, U geometry, S temporalType) {
-        super(fieldName, geometry, temporalType);
+    protected TrajectoryGeoTemporalOperator(String fieldName, String segmentField, U geometry, S temporalType) {
+        super(fieldName, segmentField, geometry, temporalType);
     }
 }

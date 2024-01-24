@@ -3,8 +3,8 @@ package gr.ds.unipi.noda.api.parquet.filterOperators.geoperators.trajectoryOpera
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
 
 public final class OperatorInGeoRectangle extends TrajectoryGeoOperator<Rectangle> {
-    private OperatorInGeoRectangle(String fieldName, Rectangle geometry) {
-        super(fieldName, geometry);
+    private OperatorInGeoRectangle(String objectIdField, String segmentField, Rectangle geometry) {
+        super(objectIdField, segmentField, geometry);
     }
 
     @Override
@@ -12,7 +12,7 @@ public final class OperatorInGeoRectangle extends TrajectoryGeoOperator<Rectangl
         return null;
     }
 
-    public static OperatorInGeoRectangle newOperatorInGeoRectangle (String fieldName, Rectangle geometry){
-        return new OperatorInGeoRectangle(fieldName, geometry);
+    public static OperatorInGeoRectangle newOperatorInGeoRectangle (String objectIdField, String segmentField, Rectangle geometry){
+        return new OperatorInGeoRectangle(objectIdField, segmentField, geometry);
     }
 }

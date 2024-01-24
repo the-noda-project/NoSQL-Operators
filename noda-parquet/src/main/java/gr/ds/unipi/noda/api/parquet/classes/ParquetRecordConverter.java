@@ -1,6 +1,5 @@
 package gr.ds.unipi.noda.api.parquet.classes;
 
-import gr.ds.unipi.noda.api.parquet.ParquetRecord;
 import org.apache.parquet.io.api.Binary;
 import org.apache.parquet.io.api.Converter;
 import org.apache.parquet.io.api.GroupConverter;
@@ -11,6 +10,7 @@ import org.apache.parquet.schema.Type;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Base64;
 import java.util.Iterator;
 import java.util.Optional;
 
@@ -18,7 +18,7 @@ public class ParquetRecordConverter extends GroupConverter {
     private final Converter[] converters;
     private final String name;
     private final ParquetRecordConverter parent;
-    protected ParquetRecord record;
+    protected Record record;
 
     public ParquetRecordConverter(GroupType schema) {
         this(schema, (String)null, (ParquetRecordConverter)null);
@@ -68,12 +68,12 @@ public class ParquetRecordConverter extends GroupConverter {
         return this.converters[fieldIndex];
     }
 
-    ParquetRecord getCurrentRecord() {
+    Record getCurrentRecord() {
         return this.record;
     }
 
     public void start() {
-        this.record = new ParquetRecord();
+        this.record = new Record();
     }
 
     public void end() {

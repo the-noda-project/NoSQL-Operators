@@ -6,8 +6,8 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometrie
 
 public class OperatorInGeoTemporalRectangle extends TrajectoryGeoTemporalOperator<Rectangle, TemporalBounds>{
 
-    private OperatorInGeoTemporalRectangle(String fieldName, Rectangle geometry, TemporalBounds temporalType) {
-        super(fieldName, geometry, temporalType);
+    private OperatorInGeoTemporalRectangle(String fieldName, String segmentField, Rectangle geometry, TemporalBounds temporalType) {
+        super(fieldName, segmentField, geometry, temporalType);
     }
 
     @Override
@@ -15,7 +15,7 @@ public class OperatorInGeoTemporalRectangle extends TrajectoryGeoTemporalOperato
         return null;
     }
 
-    public static OperatorInGeoTemporalRectangle newOperatorInGeoTemporalRectangle(String fieldName, Rectangle geometry, TemporalBounds temporalType){
-        return new OperatorInGeoTemporalRectangle(fieldName, geometry, temporalType);
+    public static OperatorInGeoTemporalRectangle newOperatorInGeoTemporalRectangle(String fieldName, String segmentField, Rectangle geometry, TemporalBounds temporalType){
+        return new OperatorInGeoTemporalRectangle(fieldName, segmentField, geometry, temporalType);
     }
 }

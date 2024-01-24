@@ -1,17 +1,17 @@
 package gr.ds.unipi.noda.api.parquet.classes;
 
-import gr.ds.unipi.noda.api.parquet.ParquetRecord;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.parquet.hadoop.api.InitContext;
 import org.apache.parquet.hadoop.api.ReadSupport;
 import org.apache.parquet.io.api.RecordMaterializer;
 import org.apache.parquet.schema.MessageType;
 import org.apache.parquet.schema.MessageTypeParser;
+import org.bson.Document;
 
 import java.util.List;
 import java.util.Map;
 
-public class NoSqlDbReadSupport extends ReadSupport<ParquetRecord> {
+public class NoSqlDbReadSupport extends ReadSupport<Document> {
 
     private final List<String> project;
 
@@ -19,7 +19,7 @@ public class NoSqlDbReadSupport extends ReadSupport<ParquetRecord> {
         this.project = project;
     }
 
-    public RecordMaterializer<ParquetRecord> prepareForRead(Configuration conf, Map<String, String> metaData, MessageType schema, ReadSupport.ReadContext context) {
+    public RecordMaterializer<Document> prepareForRead(Configuration conf, Map<String, String> metaData, MessageType schema, ReadSupport.ReadContext context) {
         return new ParquetRecordMaterializer(schema);
     }
 

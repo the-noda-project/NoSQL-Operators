@@ -8,8 +8,8 @@ public abstract class TrajectoryGeoTemporalOperator<T, U extends Geometry, S ext
 
     private final S temporalType;
 
-    protected TrajectoryGeoTemporalOperator(String fieldName, U geometry, S temporalType) {
-        super(fieldName, geometry);
+    protected TrajectoryGeoTemporalOperator(String objectIdField, String segmentField, U geometry, S temporalType) {
+        super(objectIdField, segmentField, geometry);
         this.temporalType = temporalType;
     }
 

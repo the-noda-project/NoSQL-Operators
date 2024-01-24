@@ -8,6 +8,6 @@ public class ParquetListRecordConverter extends ParquetRecordConverter {
     }
 
     public void start() {
-        this.record = new ParquetListRecord();
+        this.record = new ListRecord();
     }
 }

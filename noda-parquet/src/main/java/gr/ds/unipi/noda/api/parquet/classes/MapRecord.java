@@ -1,15 +1,14 @@
 package gr.ds.unipi.noda.api.parquet.classes;
 
 import com.google.common.collect.Maps;
-import gr.ds.unipi.noda.api.parquet.ParquetRecord;
 import shaded.parquet.com.fasterxml.jackson.databind.node.BinaryNode;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ParquetMapRecord extends ParquetRecord {
-    public ParquetMapRecord() {
+public class MapRecord extends Record {
+    public MapRecord() {
     }
 
     protected Object toJsonObject() {
@@ -17,13 +16,13 @@ public class ParquetMapRecord extends ParquetRecord {
         Iterator var2 = this.getValues().iterator();
 
         while(var2.hasNext()) {
-            ParquetRecord.NameValue value = (ParquetRecord.NameValue)var2.next();
+            Record.NameValue value = (Record.NameValue)var2.next();
             String key = null;
             Object val = null;
-            Iterator var6 = ((ParquetRecord)value.getValue()).getValues().iterator();
+            Iterator var6 = ((Record)value.getValue()).getValues().iterator();
 
             while(var6.hasNext()) {
-                ParquetRecord.NameValue kv = (ParquetRecord.NameValue)var6.next();
+                Record.NameValue kv = (Record.NameValue)var6.next();
                 String kvName = kv.getName();
                 Object kvValue = kv.getValue();
                 if (kvName.equals("key")) {

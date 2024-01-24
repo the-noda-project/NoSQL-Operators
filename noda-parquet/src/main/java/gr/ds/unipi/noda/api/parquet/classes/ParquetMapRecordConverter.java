@@ -9,6 +9,6 @@ public class ParquetMapRecordConverter extends ParquetRecordConverter {
     }
 
     public void start() {
-        this.record = new ParquetMapRecord();
+        this.record = new MapRecord();
     }
 }

@@ -6,9 +6,9 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometrie
 
 public abstract class BaseTrajectoryOperatorFactory {
 
-    public abstract TrajectoryOperator newOperatorTrajectoriesInGeoTemporalRectangle(String fieldName, Rectangle rectangle, String temporalFieldName, TemporalBounds temporalBounds);
+    public abstract TrajectoryOperator newOperatorTrajectoriesInGeoTemporalRectangle(String objectIdField, String segmentField, Rectangle rectangle, String temporalFieldName, TemporalBounds temporalBounds);
 
-    public abstract TrajectoryOperator newOperatorTrajectoriesInGeoRectangle(String fieldName, Rectangle rectangle);
+    public abstract TrajectoryOperator newOperatorTrajectoriesInGeoRectangle(String objectIdField, String segmentField, Rectangle rectangle);
 
 
 }
