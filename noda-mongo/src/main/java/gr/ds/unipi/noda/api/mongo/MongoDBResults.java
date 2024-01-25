@@ -26,5 +26,4 @@ public class MongoDBResults extends NoSqlDbResults<MongoCursor<Document>> {
         getNoSqlDbResults().close();
     }
 
-
 }
