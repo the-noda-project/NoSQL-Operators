@@ -31,6 +31,7 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
     private Neo4jOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
+        s.split(";");
         this.sb = new StringBuilder().append("MATCH " + "(s:" + s + ")");
         this.isTypeOfResultsList = true;
         this.hasGroupBy = false;

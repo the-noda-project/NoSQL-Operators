@@ -5,12 +5,16 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometrie
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.roadNetworkOperators.roadNetworkGeoOperators.RoadNetworkGeoOperator;
 
 public abstract class RoadNetworkGeoTemporalOperator<T, U extends Geometry, S extends Temporal> extends RoadNetworkGeoOperator<T, U> {
-
+    private final String temporalField;
     private final S temporalType;
 
-    protected RoadNetworkGeoTemporalOperator(String objectIdField, String segmentField, U geometry, S temporalType) {
-        super(objectIdField, segmentField, geometry);
+    protected RoadNetworkGeoTemporalOperator(String locationField, U geometry, String temporalField, S temporalType) {
+        super(locationField, geometry);
+        this.temporalField = temporalField;
         this.temporalType = temporalType;
+    }
+    protected String getTemporalField() {
+        return temporalField;
     }
 
     protected S getTemporalType() {

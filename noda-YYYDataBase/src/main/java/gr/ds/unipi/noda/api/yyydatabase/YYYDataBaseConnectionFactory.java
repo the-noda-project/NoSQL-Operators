@@ -12,6 +12,8 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.B
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.BaseGeoTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.BaseGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.roadNetworkOperators.BaseRoadNetworkOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.trajectoryOperators.BaseTrajectoryOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.joinOperators.BaseJoinOperatorFactory;
@@ -22,6 +24,8 @@ import gr.ds.unipi.noda.api.yyydatabase.filterOperators.comparisonOperators.YYYD
 import gr.ds.unipi.noda.api.yyydatabase.filterOperators.geoperators.geoTemporalOperators.YYYDataBaseGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.yyydatabase.filterOperators.geoperators.geoTextualOperators.YYYDataBaseGeoTextualOperatorFactory;
 import gr.ds.unipi.noda.api.yyydatabase.filterOperators.geoperators.geographicalOperators.YYYDataBaseGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.yyydatabase.filterOperators.geoperators.roadNetworkOperators.YYYDataBaseRoadNetworkOperatorFactory;
+import gr.ds.unipi.noda.api.yyydatabase.filterOperators.geoperators.trajectoryOperators.YYYDataBaseTrajectoryOperatorFactory;
 import gr.ds.unipi.noda.api.yyydatabase.filterOperators.logicalOperators.YYYDataBaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.yyydatabase.filterOperators.textualOperators.YYYDataBaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.yyydatabase.joinOperators.YYYDataBaseJoinOperatorFactory;
@@ -98,6 +102,16 @@ public final class YYYDataBaseConnectionFactory extends NoSqlConnectionFactory {
     @Override
     protected BaseTextualOperatorFactory getBaseTextualOperatorFactory() {
         return new YYYDataBaseTextualOperatorFactory();
+    }
+
+    @Override
+    protected BaseTrajectoryOperatorFactory getBaseTrajectoryOperatorFactory() {
+        return new YYYDataBaseTrajectoryOperatorFactory();
+    }
+
+    @Override
+    protected BaseRoadNetworkOperatorFactory getBaseRoadNetworkOperatorFactory() {
+        return new YYYDataBaseRoadNetworkOperatorFactory();
     }
 
     @Override

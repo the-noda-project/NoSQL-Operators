@@ -12,6 +12,8 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.comparisonOperators.B
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.BaseGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.BaseGeoTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.BaseGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.roadNetworkOperators.BaseRoadNetworkOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.trajectoryOperators.BaseTrajectoryOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.joinOperators.BaseJoinOperatorFactory;
@@ -98,6 +100,16 @@ public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
     @Override
     protected BaseTextualOperatorFactory getBaseTextualOperatorFactory() {
         return new MongoDBTextualOperatorFactory();
+    }
+
+    @Override
+    protected BaseTrajectoryOperatorFactory getBaseTrajectoryOperatorFactory() {
+        return null;
+    }
+
+    @Override
+    protected BaseRoadNetworkOperatorFactory getBaseRoadNetworkOperatorFactory() {
+        return null;
     }
 
     @Override

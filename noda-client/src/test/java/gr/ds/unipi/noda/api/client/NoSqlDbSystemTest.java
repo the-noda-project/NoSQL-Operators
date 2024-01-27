@@ -1,6 +1,7 @@
 package gr.ds.unipi.noda.api.client;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Point;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -48,8 +49,9 @@ public class NoSqlDbSystemTest {
 
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Neo4j().Builder("neo4j", "nikos").host("localhost").port(7687).sparkSession(spark).build();
 
-//        noSqlDbSystem.operateOn("Ship").filter(inGeoTemporalRectangle("spatialPoint", Coordinates.newCoordinates( -118.54179, 33.82936), Coordinates.newCoordinates( -118.44566, 33.93083), "secondTimestamp",  datemin, datemax)).printScreen();
-//        noSqlDbSystem.operateOn("Ship").filter(inGeoTemporalCircleKm("spatialPoint", Coordinates.newCoordinates(-122.5993238, 37.7995747), 47.90,"secondTimestamp",  datemin, datemax)).printScreen();
+        noSqlDbSystem.operateOn("Ship").filter(inGeoTemporalRectangle("spatialPoint", Coordinates.newCoordinates( -118.54179, 33.82936), Coordinates.newCoordinates( -118.44566, 33.93083), "secondTimestamp",  datemin, datemax)).printScreen();
+
+        //        noSqlDbSystem.operateOn("Ship").filter(inGeoTemporalCircleKm("spatialPoint", Coordinates.newCoordinates(-122.5993238, 37.7995747), 47.90,"secondTimestamp",  datemin, datemax)).printScreen();
 
 //        noSqlDbSystem.operateOn("Ship")
 //                .filter(or(eq("LAT",-38.31416), eq("LON",145.004403333), gt("SPEED", 20)))

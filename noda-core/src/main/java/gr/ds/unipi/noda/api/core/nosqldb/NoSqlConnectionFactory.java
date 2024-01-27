@@ -15,6 +15,10 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextua
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTextualOperators.GeoTextualOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.BaseGeographicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geographicalOperators.GeographicalOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.roadNetworkOperators.BaseRoadNetworkOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.roadNetworkOperators.RoadNetworkOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.trajectoryOperators.BaseTrajectoryOperatorFactory;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.trajectoryOperators.TrajectoryOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.BaseLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.BaseTextualOperatorFactory;
@@ -49,12 +53,12 @@ public abstract class NoSqlConnectionFactory {
         GeographicalOperator.geoSpatialOperator = getBaseGeoSpatialOperatorFactory();
         GeoTemporalOperator.geoTemporalOperator = getBaseGeoTemporalOperatorFactory();
         GeoTextualOperator.geoTextualOperator = getBaseGeoTextualOperatorFactory();
-
         LogicalOperator.logicalOperator = getBaseLogicalOperatorFactory();
         AggregateOperator.aggregateOperator = getBaseAggregateOperatorFactory();
         SortOperator.sortOperator = getBaseSortOperatorFactory();
-
         TextualOperator.textualOperator = getBaseTextualOperatorFactory();
+        TrajectoryOperator.trajectoryOperator = getBaseTrajectoryOperatorFactory();
+        RoadNetworkOperator.roadNetworkOperator = getBaseRoadNetworkOperatorFactory();
 
         DataframeManipulator.baseDataframeManipulator = getBaseDataframeManipulator();
 
@@ -77,9 +81,12 @@ public abstract class NoSqlConnectionFactory {
 
     protected abstract BaseTextualOperatorFactory getBaseTextualOperatorFactory();
 
+    protected abstract BaseTrajectoryOperatorFactory getBaseTrajectoryOperatorFactory();
+
+    protected abstract BaseRoadNetworkOperatorFactory getBaseRoadNetworkOperatorFactory();
+
     protected abstract BaseDataframeManipulator getBaseDataframeManipulator();
 
     protected abstract BaseJoinOperatorFactory getBaseJoinOperatorFactory();
-
 
 }
