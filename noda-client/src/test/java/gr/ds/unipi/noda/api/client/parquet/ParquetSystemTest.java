@@ -31,14 +31,15 @@ public class ParquetSystemTest {
         NoSqlDbResults results = noSqlDbOperators.getResults();
         NoSqlDbRecord record;
 
-        while ((record = results.getRecord() ) != null ){
-            System.out.println(record.getString("objectId"));
+        int i=0;
+        while (results.hasNextRecord()){
+            record = results.getRecord();
+//            System.out.println(record.getString("objectId") +" - "+ i);
+            i++;
         }
 
         results.close();
-
         noSqlDbSystem.closeConnection();
-        
     }
 
 

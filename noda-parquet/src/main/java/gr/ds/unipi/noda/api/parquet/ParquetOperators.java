@@ -173,9 +173,8 @@ final class ParquetOperators extends NoSqlDbOperators {
                     .useStatsFilter(hasFilter)
                     .build();
 
-
-            OperatorInGeoTemporalRectangle.newOperatorInGeoTemporalRectangle("null","null",null,null).refinement(data);
-            List<Document> documentsList = new ArrayList<>();
+//            List<Document> documentsList = OperatorInGeoTemporalRectangle.newOperatorInGeoTemporalRectangle("null","null",null,null).refinement(data);
+//            List<Document> documentsList = new ArrayList<>();
 
 //            Document doc = null;
 //            while ((doc = data.read() ) != null ){
@@ -211,7 +210,8 @@ final class ParquetOperators extends NoSqlDbOperators {
 //                }
 //                documentsList.add(doc);
 //            }
-            return new ParquetResults(data);
+            return new ParquetResults(data, OperatorInGeoTemporalRectangle.newOperatorInGeoTemporalRectangle("null","null",null,null));
+//            return new ParquetResults(data);
 
 
         } catch (IOException e) {
