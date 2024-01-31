@@ -11,6 +11,7 @@ import org.apache.spark.sql.*;
 import org.neo4j.driver.Record;
 import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
+import org.neo4j.driver.SessionConfig;
 import org.neo4j.spark.*;
 import scala.Predef;
 import scala.Tuple2;
@@ -31,8 +32,21 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
     private Neo4jOperators(NoSqlDbConnector connector, String s, SparkSession sparkSession) {
         super(connector, s, sparkSession);
-        s.split(";");
-        this.sb = new StringBuilder().append("MATCH " + "(s:" + s + ")");
+        //System.out.println("aaaaaa"+s);
+        if(s.contains(";")){
+            String [] newS = s.split(";");
+            if(newS.length == 2){
+                this.sb = new StringBuilder().append("Call;"+newS[0]+";"+newS[1]);
+            }else{
+                this.sb = new StringBuilder().append("Call;"+newS[0]+";"+newS[1]+";"+newS[2]+";"+newS[3]);
+            }
+
+        }else{
+            this.sb = new StringBuilder().append("MATCH " + "(s:" + s + ")");
+        }
+
+       // s.split(";");
+
         this.isTypeOfResultsList = true;
         this.hasGroupBy = false;
         this.hasAlreadyAggregate = false;
@@ -59,19 +73,42 @@ final class Neo4jOperators extends NoSqlDbOperators {
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
         StringBuilder sbCopy = getStringBuilderCopy();
         filterOperator.getOperatorExpression();
-        sbCopy.append(" WHERE ");
 
-        if(filterOperators.length > 1) {
-            for (FilterOperator fops : filterOperators) {
 
-                sbCopy.append( fops.getOperatorExpression() + " WITH s");
+        if(sbCopy.toString().contains("Call")){
+            sbCopy.append(";");
+            sbCopy.append( filterOperator.getOperatorExpression());
+            String [] newSb = sbCopy.toString().split(";");
+
+            System.out.println(newSb.length);
+            System.out.println(sbCopy);
+            if(sbCopy.toString().contains("noda.roadnetwork.closestPath")){
+
+            sbCopy.replace(0,sbCopy.length(),"Call "+newSb[8]+"("+newSb[3]
+                    +","+newSb[4]+","+newSb[5]+","+newSb[6]+","+"\"" + newSb[1]+"\""+","+"\"" + newSb[2]+"\""+","+"\"" + newSb[7]+"\""+");");
+
+            }else if(sbCopy.toString().contains("noda.roadnetwork.nearest")){
+                sbCopy.replace(0,sbCopy.length(),"Call "+newSb[10]+"("+newSb[5]
+                        +","+newSb[6]+","+newSb[7]+","+newSb[8]+","+newSb[9]+","+"\"" + newSb[1]+"\""+","+"\"" + newSb[2]+"\""+","+"\"" + newSb[3]+"\""+","+"\"" + newSb[4]+"\""+");");
+            }
+
+        }else{
+            sbCopy.append(" WHERE ");
+
+            if(filterOperators.length > 1) {
+                for (FilterOperator fops : filterOperators) {
+
+                    sbCopy.append( fops.getOperatorExpression() + " WITH s");
+
+                }
+            } else {
+
+                sbCopy.append( filterOperator.getOperatorExpression() + " WITH s");
 
             }
-        } else {
-
-            sbCopy.append( filterOperator.getOperatorExpression() + " WITH s");
-
         }
+
+        System.out.println(sbCopy);
 
         return new Neo4jOperators(this, sbCopy, isTypeOfResultsList, hasGroupBy, hasAlreadyAggregate);
     }
@@ -238,6 +275,60 @@ final class Neo4jOperators extends NoSqlDbOperators {
     @Override
     public void printScreen() {
 
+        if (sb.toString().contains("Call")) {
+            System.out.println(sb);
+            //DANGER HAS CHANGED !!!!! (default : session without param)
+
+            if(sb.toString().contains("noda.roadnetwork.closestPath")){
+                try{
+                    Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session(SessionConfig.forDatabase("athens"));
+                    Result result = session.run(sb.toString());
+                    System.out.println(result.list());
+                    session.close();
+                }
+                finally {
+
+                }
+
+            }else{
+                try {
+
+                    Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session(SessionConfig.forDatabase("athens"));
+
+                    Result result = session.run(sb.toString());
+
+//                    List<Object> nodeList = new ArrayList<>();
+//
+//                    if (this.isTypeOfResultsList == true) {
+//                        while (result.hasNext()) {
+//                            Record record = result.next();
+//                            nodeList.add(record.fields().get(0).value().asMap());
+//                        }
+//                    } else {
+//                        while (result.hasNext()) {
+//                            Record record = result.next();
+//                            nodeList.add(record.fields());
+//                        }
+//                    }
+//
+                    System.out.println("Results: ");
+
+                    result.list().forEach((key) -> System.out.println(key));
+
+                    System.out.println("Number of results: " + result.list().size());
+                    session.close();
+
+
+
+                } finally {
+                }
+            }
+
+
+
+        }
+        else {
+
         sb.append(" RETURN *");
 
         System.out.println(sb);
@@ -250,7 +341,7 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
             List<Object> nodeList = new ArrayList<>();
 
-            if(this.isTypeOfResultsList == true){
+            if (this.isTypeOfResultsList == true) {
                 while (result.hasNext()) {
                     Record record = result.next();
                     nodeList.add(record.fields().get(0).value().asMap());
@@ -270,9 +361,11 @@ final class Neo4jOperators extends NoSqlDbOperators {
             System.out.println("Number of results: " + nodeList.size());
 
 
-        }finally {}
-
+        } finally {
+        }
     }
+    }
+
 
     @Override
     public NoSqlDbOperators project(String fieldName, String... fieldNames) {

@@ -1,5 +1,6 @@
 package gr.ds.unipi.noda.api.neo4j.filterOperators.geoperators.roadNetworkOperators.roadNetworkGeoOperators;
 
+import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Point;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.roadNetworkOperators.roadNetworkGeoOperators.RoadNetworkGeoOperator;
 
@@ -13,7 +14,20 @@ public class OperatorShortestPath extends RoadNetworkGeoOperator<StringBuilder, 
 
     @Override
     public StringBuilder getOperatorExpression() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        sb.append(getGeometry().getPoint().getLatitude());
+        sb.append(";");
+        sb.append(getGeometry().getPoint().getLongitude());
+        sb.append(";");
+        sb.append(getDestinationPoint().getPoint().getLatitude());
+        sb.append(";");
+        sb.append(getDestinationPoint().getPoint().getLongitude());
+        sb.append(";");
+        sb.append(getLocationField());
+        sb.append(";");
+        sb.append("noda.roadnetwork.closestPath");
+
+        return sb;
     }
 
     public Point getDestinationPoint(){
