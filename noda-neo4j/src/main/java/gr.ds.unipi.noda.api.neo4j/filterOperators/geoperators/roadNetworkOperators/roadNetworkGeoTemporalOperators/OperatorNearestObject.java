@@ -11,7 +11,19 @@ public class OperatorNearestObject extends RoadNetworkGeoTemporalOperator<String
 
     @Override
     public StringBuilder getOperatorExpression() {
-        return null;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(getGeometry().getPoint().getLatitude());
+        sb.append(";");
+        sb.append(getGeometry().getPoint().getLongitude());
+        sb.append(";");
+        sb.append(getTemporalType().getLowerBound().getTime());
+        sb.append(";");
+        sb.append(getTemporalType().getUpperBound().getTime());
+        sb.append(";");
+        sb.append("noda.roadnetwork.closestObject");
+
+        return sb;
     }
 
     public static OperatorNearestObject newOperatorNearestObject(String locationField, Point geometry, String temporalField, TemporalBounds temporalType){

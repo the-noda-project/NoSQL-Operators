@@ -80,8 +80,6 @@ final class Neo4jOperators extends NoSqlDbOperators {
             sbCopy.append( filterOperator.getOperatorExpression());
             String [] newSb = sbCopy.toString().split(";");
 
-            System.out.println(newSb.length);
-            System.out.println(sbCopy);
             if(sbCopy.toString().contains("noda.roadnetwork.closestPath")){
 
             sbCopy.replace(0,sbCopy.length(),"Call "+newSb[8]+"("+newSb[3]
@@ -90,6 +88,10 @@ final class Neo4jOperators extends NoSqlDbOperators {
             }else if(sbCopy.toString().contains("noda.roadnetwork.nearest")){
                 sbCopy.replace(0,sbCopy.length(),"Call "+newSb[10]+"("+newSb[5]
                         +","+newSb[6]+","+newSb[7]+","+newSb[8]+","+newSb[9]+","+"\"" + newSb[1]+"\""+","+"\"" + newSb[2]+"\""+","+"\"" + newSb[3]+"\""+","+"\"" + newSb[4]+"\""+");");
+            }
+            else if(sbCopy.toString().contains("noda.roadnetwork.closestObject")){
+                sbCopy.replace(0,sbCopy.length(),"Call "+newSb[9]+"("+newSb[5]
+                        +","+newSb[6]+","+newSb[7]+","+newSb[8]+","+"\"" + newSb[1]+"\""+","+"\"" + newSb[2]+"\""+","+"\"" + newSb[3]+"\""+","+"\"" + newSb[4]+"\""+");");
             }
 
         }else{
@@ -107,8 +109,6 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
             }
         }
-
-        System.out.println(sbCopy);
 
         return new Neo4jOperators(this, sbCopy, isTypeOfResultsList, hasGroupBy, hasAlreadyAggregate);
     }
@@ -297,20 +297,6 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
                     Result result = session.run(sb.toString());
 
-//                    List<Object> nodeList = new ArrayList<>();
-//
-//                    if (this.isTypeOfResultsList == true) {
-//                        while (result.hasNext()) {
-//                            Record record = result.next();
-//                            nodeList.add(record.fields().get(0).value().asMap());
-//                        }
-//                    } else {
-//                        while (result.hasNext()) {
-//                            Record record = result.next();
-//                            nodeList.add(record.fields());
-//                        }
-//                    }
-//
                     System.out.println("Results: ");
 
                     result.list().forEach((key) -> System.out.println(key));
