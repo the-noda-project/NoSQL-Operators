@@ -25,6 +25,8 @@ final class Neo4jOperators extends NoSqlDbOperators {
     private final Neo4jConnectionManager neo4jConnectionManager = Neo4jConnectionManager.getInstance();
 
     private final StringBuilder sb;
+
+    StringBuilder roadNetworksb = null;
     private final boolean isTypeOfResultsList;
     private final boolean hasGroupBy;
     private final boolean hasAlreadyAggregate;
@@ -36,9 +38,11 @@ final class Neo4jOperators extends NoSqlDbOperators {
         if(s.contains(";")){
             String [] newS = s.split(";");
             if(newS.length == 2){
-                this.sb = new StringBuilder().append("Call;"+newS[0]+";"+newS[1]);
+                this.roadNetworksb = new StringBuilder().append("Call;"+newS[0]+";"+newS[1]);
+                this.sb = null;
             }else{
-                this.sb = new StringBuilder().append("Call;"+newS[0]+";"+newS[1]+";"+newS[2]+";"+newS[3]);
+                this.roadNetworksb = new StringBuilder().append("Call;"+newS[0]+";"+newS[1]+";"+newS[2]+";"+newS[3]);
+                this.sb = null;
             }
 
         }else{
@@ -71,30 +75,42 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        StringBuilder sbCopy = getStringBuilderCopy();
-        filterOperator.getOperatorExpression();
+      //  StringBuilder sbCopy = getStringBuilderCopy(); BEFORE ROAD NETWORK
+       // filterOperator.getOperatorExpression();
+
+        ///////////////////////////////////////////////////////ROAD NETWORK CODE
+        StringBuilder sbCopy = null;
+
+       // System.out.println("Sbcopy : "+roadNetworksb.toString());
 
 
-        if(sbCopy.toString().contains("Call")){
-            sbCopy.append(";");
-            sbCopy.append( filterOperator.getOperatorExpression());
-            String [] newSb = sbCopy.toString().split(";");
+        if(roadNetworksb !=null){
+            roadNetworksb.append(";");
+            roadNetworksb.append( filterOperator.getOperatorExpression());
+            String [] newSb = roadNetworksb.toString().split(";");
 
-            if(sbCopy.toString().contains("noda.roadnetwork.closestPath")){
+            if(roadNetworksb.toString().contains("noda.roadnetwork.closestPath")){
 
-            sbCopy.replace(0,sbCopy.length(),"Call "+newSb[8]+"("+newSb[3]
+                roadNetworksb.replace(0,roadNetworksb.length(),"Call "+newSb[8]+"("+newSb[3]
                     +","+newSb[4]+","+newSb[5]+","+newSb[6]+","+"\"" + newSb[1]+"\""+","+"\"" + newSb[2]+"\""+","+"\"" + newSb[7]+"\""+");");
-
-            }else if(sbCopy.toString().contains("noda.roadnetwork.nearest")){
-                sbCopy.replace(0,sbCopy.length(),"Call "+newSb[10]+"("+newSb[5]
+                sbCopy = roadNetworksb;
+            }else if(roadNetworksb.toString().contains("noda.roadnetwork.nearest")){
+                roadNetworksb.replace(0,roadNetworksb.length(),"Call "+newSb[10]+"("+newSb[5]
                         +","+newSb[6]+","+newSb[7]+","+newSb[8]+","+newSb[9]+","+"\"" + newSb[1]+"\""+","+"\"" + newSb[2]+"\""+","+"\"" + newSb[3]+"\""+","+"\"" + newSb[4]+"\""+");");
-            }
-            else if(sbCopy.toString().contains("noda.roadnetwork.closestObject")){
-                sbCopy.replace(0,sbCopy.length(),"Call "+newSb[9]+"("+newSb[5]
-                        +","+newSb[6]+","+newSb[7]+","+newSb[8]+","+"\"" + newSb[1]+"\""+","+"\"" + newSb[2]+"\""+","+"\"" + newSb[3]+"\""+","+"\"" + newSb[4]+"\""+");");
-            }
+                sbCopy = roadNetworksb;
 
-        }else{
+            }
+            else if(roadNetworksb.toString().contains("noda.roadnetwork.closestObject")){
+                roadNetworksb.replace(0,roadNetworksb.length(),"Call "+newSb[9]+"("+newSb[5]
+                        +","+newSb[6]+","+newSb[7]+","+newSb[8]+","+"\"" + newSb[1]+"\""+","+"\"" + newSb[2]+"\""+","+"\"" + newSb[3]+"\""+","+"\"" + newSb[4]+"\""+");");
+                sbCopy = roadNetworksb;
+
+            }
+///////////////////////ROAD NETWORK ENDS
+        }else{////////////OLD CODE
+
+            sbCopy = getStringBuilderCopy();
+            filterOperator.getOperatorExpression();
             sbCopy.append(" WHERE ");
 
             if(filterOperators.length > 1) {
@@ -274,14 +290,15 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
     @Override
     public void printScreen() {
+//////////////////////////////ROAD NETWORK
 
-        if (sb.toString().contains("Call")) {
+        if (sb.toString().contains("noda.roadnetwork")) {
             System.out.println(sb);
-            //DANGER HAS CHANGED !!!!! (default : session without param)
+
 
             if(sb.toString().contains("noda.roadnetwork.closestPath")){
                 try{
-                    Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session(SessionConfig.forDatabase("athens"));
+                    Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session(SessionConfig.forDatabase("athens")); // (default : session without param)
                     Result result = session.run(sb.toString());
                     System.out.println(result.list());
                     session.close();
@@ -293,7 +310,7 @@ final class Neo4jOperators extends NoSqlDbOperators {
             }else{
                 try {
 
-                    Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session(SessionConfig.forDatabase("athens"));
+                    Session session = neo4jConnectionManager.getConnection(getNoSqlDbConnector()).session(SessionConfig.forDatabase("athens")); // (default : session without param)
 
                     Result result = session.run(sb.toString());
 
@@ -312,9 +329,9 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
 
 
-        }
+        }//////////////////////////////////////// END OF ROAD NETWORK
         else {
-
+    //////// OLD CODE
         sb.append(" RETURN *");
 
         System.out.println(sb);
@@ -346,7 +363,7 @@ final class Neo4jOperators extends NoSqlDbOperators {
 
             System.out.println("Number of results: " + nodeList.size());
 
-
+///////////////////// END OF OLD CODE
         } finally {
         }
     }

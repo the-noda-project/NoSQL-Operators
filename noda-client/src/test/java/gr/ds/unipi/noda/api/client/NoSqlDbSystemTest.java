@@ -40,7 +40,7 @@ public class NoSqlDbSystemTest {
         NoSqlDbSystem n = NoSqlDbSystem.Neo4j().Builder("neo4j", "12345678").host("localhost").port(7687).build();
 
         //Shortest Path
-       // n.operateOn("Intersection;ROAD_SEGMENT").filter(shortestPathInRoadNetwork("length",Point.newPoint(Coordinates.newCoordinates(23.7773689,38.00089)),Point.newPoint(Coordinates.newCoordinates(23.5287424,38.0599682)))).printScreen();//65470245
+        n.operateOn("Intersection;ROAD_SEGMENT").filter(shortestPathInRoadNetwork("length",Point.newPoint(Coordinates.newCoordinates(23.7773689,38.00089)),Point.newPoint(Coordinates.newCoordinates(23.5287424,38.0599682)))).printScreen();//65470245
 
         //Nearest in Range
 //        n.operateOn("Intersection;ROAD_SEGMENT;Vehicle;NEAREST_INTERSECTION").filter(nearestInRangeInRoadNetwork("",
@@ -49,10 +49,10 @@ public class NoSqlDbSystemTest {
 //        )).printScreen();
 
         //Nearest Object
-        n.operateOn("Intersection;ROAD_SEGMENT;Vehicle;NEAREST_INTERSECTION").filter(nearestObjectInRoadNetwork("",
-                Point.newPoint(Coordinates.newCoordinates(23.7773689,38.00089)),"timestamp"
-                ,new Date(1526250082000L),new Date(1526250273000L)
-        )).printScreen();
+//        n.operateOn("Intersection;ROAD_SEGMENT;Vehicle;NEAREST_INTERSECTION").filter(nearestObjectInRoadNetwork("",
+//                Point.newPoint(Coordinates.newCoordinates(23.7773689,38.00089)),"timestamp"
+//                ,new Date(1526250082000L),new Date(1526250273000L)
+//        )).printScreen();
 
 
 
