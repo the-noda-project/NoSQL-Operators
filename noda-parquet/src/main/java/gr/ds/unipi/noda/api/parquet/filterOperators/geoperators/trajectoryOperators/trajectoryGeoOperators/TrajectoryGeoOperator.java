@@ -1,6 +1,7 @@
 package gr.ds.unipi.noda.api.parquet.filterOperators.geoperators.trajectoryOperators.trajectoryGeoOperators;
 
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Geometry;
+import org.apache.parquet.filter2.predicate.FilterApi;
 
 public abstract class TrajectoryGeoOperator<U extends Geometry> extends gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.trajectoryOperators.trajectoryGeoOperators.TrajectoryGeoOperator<Object, U> {
 

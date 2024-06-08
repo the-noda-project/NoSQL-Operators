@@ -3,9 +3,11 @@ package gr.ds.unipi.noda.api.parquet.filterOperators.geoperators.trajectoryOpera
 import gr.ds.unipi.noda.api.core.hilbert.HilbertUtil;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
+import org.apache.parquet.filter2.compat.FilterCompat;
+import org.apache.parquet.filter2.predicate.FilterApi;
+import org.apache.parquet.filter2.predicate.FilterPredicate;
 import org.apache.parquet.hadoop.ParquetReader;
 import org.bson.Document;
-import org.w3c.dom.stylesheets.DocumentStyle;
 import scala.Tuple3;
 import shaded.parquet.com.fasterxml.jackson.core.Base64Variants;
 
@@ -21,8 +23,20 @@ public class OperatorInGeoTemporalRectangle extends TrajectoryGeoTemporalOperato
     }
 
     @Override
-    public Object getOperatorExpression() {
-        return null;
+    public FilterPredicate getOperatorExpression() {
+        return FilterApi.and(FilterApi.and(
+                FilterApi.and(
+                        FilterApi.gtEq(FilterApi.doubleColumn(getSegmentField()+"."+"minLongitude"), getGeometry().getLowerBound().getLongitude()),
+                        FilterApi.ltEq(FilterApi.doubleColumn(getSegmentField()+"."+"maxLongitude"), getGeometry().getUpperBound().getLongitude())
+                ),
+                FilterApi.and(
+                        FilterApi.gtEq(FilterApi.doubleColumn(getSegmentField()+"."+"minLatitude"), getGeometry().getLowerBound().getLatitude()),
+                        FilterApi.ltEq(FilterApi.doubleColumn(getSegmentField()+"."+"maxLatitude"), getGeometry().getUpperBound().getLatitude())
+                )
+        ), FilterApi.and(
+                FilterApi.gtEq(FilterApi.longColumn(getSegmentField()+"."+"minTimestamp"), getTemporalType().getLowerBound().getTime()),
+                FilterApi.ltEq(FilterApi.longColumn(getSegmentField()+"."+"maxTimestamp"), getTemporalType().getUpperBound().getTime())
+        ));
     }
 
     public static OperatorInGeoTemporalRectangle newOperatorInGeoTemporalRectangle(String objectIdField, String segmentField, Rectangle geometry, TemporalBounds temporalType){
@@ -35,9 +49,8 @@ public class OperatorInGeoTemporalRectangle extends TrajectoryGeoTemporalOperato
 
         Document doc = null;
         while ((doc = parquetReader.read() ) != null){
-//                System.out.println(doc.get("segment"));
 
-            Document document = (Document) doc.get("segment");
+            Document document = (Document) doc.get(getSegmentField());
             byte[] bytesObjectId = Base64Variants.getDefaultVariant().decode(doc.getString("objectId").replaceAll(":","="));
             byte[] bytesLongitude = Base64Variants.getDefaultVariant().decode(document.getString("longitude").replaceAll(":","="));
             byte[] bytesLatitude = Base64Variants.getDefaultVariant().decode(document.getString("latitude").replaceAll(":","="));
@@ -67,13 +80,12 @@ public class OperatorInGeoTemporalRectangle extends TrajectoryGeoTemporalOperato
             documentsList.add(doc);
         }
 
-        System.out.println("documents List size: "+documentsList.size());
         List<Document> trajectoryList = new ArrayList<>();
 
         documentsList.forEach(document -> {
-            List<Double> lon = (List<Double>)((Document)document.get("segment")).get("longitude");
-            List<Double> lat = (List<Double>)((Document)document.get("segment")).get("latitude");
-            List<Long> t = (List<Long>)((Document)document.get("segment")).get("timestamps");
+            List<Double> lon = (List<Double>)((Document)document.get(getSegmentField())).get("longitude");
+            List<Double> lat = (List<Double>)((Document)document.get(getSegmentField())).get("latitude");
+            List<Long> t = (List<Long>)((Document)document.get(getSegmentField())).get("timestamps");
 
             List<Tuple3<Double,Double,Long>> currentSpatioTemporalPoints = new ArrayList<>();
 
@@ -84,13 +96,13 @@ public class OperatorInGeoTemporalRectangle extends TrajectoryGeoTemporalOperato
 
                 Optional<Tuple3<Double,Double,Long>[]> stPoints = HilbertUtil.liangBarsky(lon.get(i), lat.get(i),t.get(i),
                         lon.get(i+1), lat.get(i+1),t.get(i+1)
-//                        ,this.getGeometry().getLowerBound().getLongitude(), this.getGeometry().getLowerBound().getLatitude(), this.getTemporalType().getLowerBound().getTime(), this.getGeometry().getUpperBound().getLongitude(), this.getGeometry().getUpperBound().getLatitude(), this.getTemporalType().getUpperBound().getTime());
-                        ,-180, -180, 0, 100, 100, 1900000000000l);
+                        ,this.getGeometry().getLowerBound().getLongitude(), this.getGeometry().getLowerBound().getLatitude(), this.getTemporalType().getLowerBound().getTime(), this.getGeometry().getUpperBound().getLongitude(), this.getGeometry().getUpperBound().getLatitude(), this.getTemporalType().getUpperBound().getTime());
+                        //,-180, -180, 0, 180, 180, 1900000000000l);
 
                 if(stPoints.isPresent()){
                     if(stPoints.get().length==2){
-                        if(stPoints.get()[0]._3() == t.get(i) &&
-                                stPoints.get()[1]._3() == t.get(i+1)){
+                        if(stPoints.get()[0]._3() == t.get(i).longValue() &&
+                                stPoints.get()[1]._3() == t.get(i+1).longValue()){
                             if(currentSpatioTemporalPoints.size()!=0){
                                 if(!currentSpatioTemporalPoints.get(currentSpatioTemporalPoints.size()-1).equals(new Tuple3<>(lon.get(i), lat.get(i), t.get(i)))){
                                     try {
@@ -106,14 +118,14 @@ public class OperatorInGeoTemporalRectangle extends TrajectoryGeoTemporalOperato
                             }
                             currentSpatioTemporalPoints.add(new Tuple3(lon.get(i+1), lat.get(i+1), t.get(i+1)));
 
-                        }else if(stPoints.get()[0]._3() == t.get(i)){
+                        }else if(stPoints.get()[0]._3() == t.get(i).longValue()){
                             if (currentSpatioTemporalPoints.size() == 0) {
                                 currentSpatioTemporalPoints.add(new Tuple3(lon.get(i), lat.get(i), t.get(i)));
                             }
                             currentSpatioTemporalPoints.add(new Tuple3(stPoints.get()[1]._1(), stPoints.get()[1]._2(), stPoints.get()[1]._3()));
                             trajectoryList.add( formDocument(new Document(document), currentSpatioTemporalPoints, segment));
                             currentSpatioTemporalPoints.clear();
-                        }else if(stPoints.get()[1]._3() == t.get(i+1)){
+                        }else if(stPoints.get()[1]._3() == t.get(i+1).longValue()){
                             if(currentSpatioTemporalPoints.size()==1){
                                 try {
                                     throw new Exception("Exception for the current list, it will be flushed and has only one element.");
@@ -161,30 +173,85 @@ public class OperatorInGeoTemporalRectangle extends TrajectoryGeoTemporalOperato
             }
         });
 
-//        Map<Object, List<Document>> segments = trajectoryList.stream().collect(Collectors.groupingBy(d-> d.getString("objectId")));
-//
-//        segments.forEach((key,v)->{
-//
-//            Comparator<Document> trajsSortByTime = Comparator.comparing(d -> ((List<Long>) ((Document) d.get("segment")).get("timestamps")).get(0));
-//            v.sort(trajsSortByTime);
-//                for (int i = 0; i < v.size()-1; i++) {
-////                    System.out.println(i);
-//                    int endIndex = ((List<Long>) ((Document) v.get(i).get("segment")).get("timestamps")).size()-1;
-//
-//                    if(((List<Long>) ((Document) v.get(i).get("segment")).get("timestamps")).get(endIndex).equals(((List<Long>) ((Document) v.get(i+1).get("segment")).get("timestamps")).get(0)) &&
-//                            ((List<Double>) ((Document) v.get(i).get("segment")).get("longitude")).get(endIndex).equals(((List<Double>) ((Document) v.get(i+1).get("segment")).get("longitude")).get(0)) &&
-//                            ((List<Double>) ((Document) v.get(i).get("segment")).get("latitude")).get(endIndex).equals(((List<Double>) ((Document) v.get(i+1).get("segment")).get("latitude")).get(0))){
-//                        System.out.println("CONTINUATION");
-//                    }
-//                }
-//        });
-//        System.out.println("trajectoryList.size()");
 
-return trajectoryList;
+        List<Document> concatenatedSegments = new ArrayList<>();
+
+        Map<Object, List<Document>> segments = trajectoryList.stream().collect(Collectors.groupingBy(d-> d.getString("objectId")));
+
+        segments.forEach((key,v)->{
+
+            Comparator<Document> trajsSortByTime = Comparator.comparing(d -> ((List<Long>) ((Document) d.get(getSegmentField())).get("timestamps")).get(0));
+            v.sort(trajsSortByTime);
+
+            int num = 1;
+            Document document =  v.get(0);
+            Document segmentDocument = (Document) document.get(getSegmentField());
+
+            List<Double> longitude = new ArrayList<>();
+            List<Double> latitude = new ArrayList<>();
+            List<Long> timestamps = new ArrayList<>();
+
+            longitude.addAll((List<Double>) ((Document) v.get(0).get(getSegmentField())).get("longitude"));
+            latitude.addAll((List<Double>) ((Document) v.get(0).get(getSegmentField())).get("latitude"));
+            timestamps.addAll((List<Long>) ((Document) v.get(0).get(getSegmentField())).get("timestamps"));
+
+            for (int i = 0; i < v.size()-1; i++) {
+                    int endIndex = ((List<Long>) ((Document) v.get(i).get(getSegmentField())).get("timestamps")).size()-1;
+
+                    if(((List<Long>) ((Document) v.get(i).get(getSegmentField())).get("timestamps")).get(endIndex).equals(((List<Long>) ((Document) v.get(i+1).get(getSegmentField())).get("timestamps")).get(0)) &&
+                            ((List<Double>) ((Document) v.get(i).get(getSegmentField())).get("longitude")).get(endIndex).equals(((List<Double>) ((Document) v.get(i+1).get(getSegmentField())).get("longitude")).get(0)) &&
+                            ((List<Double>) ((Document) v.get(i).get(getSegmentField())).get("latitude")).get(endIndex).equals(((List<Double>) ((Document) v.get(i+1).get(getSegmentField())).get("latitude")).get(0))){
+
+                        for (int i1 = 1; i1 < ((List<Double>) ((Document) v.get(i + 1).get(getSegmentField())).get("longitude")).size(); i1++) {
+                            longitude.add(((List<Double>) ((Document) v.get(i + 1).get(getSegmentField())).get("longitude")).get(i1));
+                        }
+
+                        for (int i1 = 1; i1 < ((List<Double>) ((Document) v.get(i + 1).get(getSegmentField())).get("latitude")).size(); i1++) {
+                            latitude.add(((List<Double>) ((Document) v.get(i + 1).get(getSegmentField())).get("latitude")).get(i1));
+
+                        }
+                        for (int i1 = 1; i1 < ((List<Long>) ((Document) v.get(i + 1).get(getSegmentField())).get("timestamps")).size(); i1++) {
+                            timestamps.add(((List<Long>) ((Document) v.get(i + 1).get(getSegmentField())).get("timestamps")).get(i1));
+                        }
+                    }else{
+
+                        segmentDocument.replace("num",num++);
+                        segmentDocument.replace("longitude",longitude);
+                        segmentDocument.replace("latitude",latitude);
+                        segmentDocument.replace("timestamps",timestamps);
+
+                        concatenatedSegments.add(document);
+
+                        longitude.clear();
+                        latitude.clear();
+                        timestamps.clear();
+
+                        longitude.addAll((List<Double>) ((Document) v.get(i+1).get(getSegmentField())).get("longitude"));
+                        latitude.addAll((List<Double>) ((Document) v.get(i+1).get(getSegmentField())).get("latitude"));
+                        timestamps.addAll((List<Long>) ((Document) v.get(i+1).get(getSegmentField())).get("timestamps"));
+                    }
+                }
+
+            if(!longitude.isEmpty()){
+
+                segmentDocument.replace("num",num++);
+                segmentDocument.replace("longitude",longitude);
+                segmentDocument.replace("latitude",latitude);
+                segmentDocument.replace("timestamps",timestamps);
+                concatenatedSegments.add(document);
+
+            }
+        });
+
+        System.out.println(trajectoryList.size()+ " "+ concatenatedSegments.size()+ " "+segments.size());
+        segments.clear();
+        trajectoryList.clear();
+
+        return concatenatedSegments;
     }
 
     private Document formDocument(Document doc, List<Tuple3<Double,Double,Long>> spatiotemporalPoints, long num){
-        Document document = (Document) doc.get("segment");
+        Document document = (Document) doc.get(getSegmentField());
 
         List<Double> longitude = new ArrayList<>(spatiotemporalPoints.size());
         List<Double> latitude = new ArrayList<>(spatiotemporalPoints.size());

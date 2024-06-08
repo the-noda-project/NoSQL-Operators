@@ -12,6 +12,8 @@ import org.apache.spark.sql.expressions.UserDefinedFunction;
 import org.apache.spark.sql.types.DataTypes;
 import org.junit.Test;
 
+import java.util.List;
+
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
 
 public class ParquetSystemTest {
@@ -34,10 +36,11 @@ public class ParquetSystemTest {
         int i=0;
         while (results.hasNextRecord()){
             record = results.getRecord();
-//            System.out.println(record.getString("objectId") +" - "+ i);
+            System.out.println(record.getString("objectId") +" - "+ i+" "+record.getDouble("minX"));
             i++;
         }
 
+        System.out.println(i);
         results.close();
         noSqlDbSystem.closeConnection();
     }
