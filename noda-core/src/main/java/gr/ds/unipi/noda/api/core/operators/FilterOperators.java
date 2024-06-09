@@ -14,6 +14,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometrie
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.roadNetworkOperators.RoadNetworkOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.roadNetworkOperators.roadNetworkGeoTemporalOperators.RoadNetworkGeoTemporalOperator;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.trajectoryOperators.TrajectoryOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.logicalOperators.LogicalOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.TextualOperator;
 import gr.ds.unipi.noda.api.core.operators.filterOperators.textualOperators.conditionalTextualOperators.ConditionalTextualOperator;
@@ -299,6 +300,12 @@ public class FilterOperators {
         return RoadNetworkOperator.roadNetworkOperator.newOperatorRoadNetworkShortestPath(locationField, point1, point2);
     }
 
+    public static FilterOperator trajectoriesInGeoTemporalRectangle(String objectIdField, String segmentField, Coordinates lowerBoundPoint, Coordinates upperBoundPoint, Date lowerBoundDate, Date upperBoundDate) {
+        return TrajectoryOperator.trajectoryOperator.newOperatorTrajectoriesInGeoTemporalRectangle(objectIdField, segmentField, Rectangle.newRectangle(lowerBoundPoint, upperBoundPoint), TemporalBounds.newTemporalBounds(lowerBoundDate, upperBoundDate));
+    }
 
+    public static FilterOperator trajectoriesinGeoRectangle(String objectIdField, String segmentField, Coordinates lowerBoundPoint, Coordinates upperBoundPoint) {
+        return TrajectoryOperator.trajectoryOperator.newOperatorTrajectoriesInGeoRectangle(objectIdField, segmentField, Rectangle.newRectangle(lowerBoundPoint, upperBoundPoint));
+    }
 
 }

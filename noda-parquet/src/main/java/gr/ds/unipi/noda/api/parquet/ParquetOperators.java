@@ -8,6 +8,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.FilterOperator;
 import gr.ds.unipi.noda.api.core.operators.joinOperators.JoinOperator;
 import gr.ds.unipi.noda.api.core.operators.sortOperators.SortOperator;
 import gr.ds.unipi.noda.api.parquet.classes.NoSqlDbReadSupport;
+import gr.ds.unipi.noda.api.parquet.filterOperators.geoperators.trajectoryOperators.trajectoryGeoTemporalOperators.OperatorInGeoTemporalRectangle;
 import org.apache.hadoop.fs.Path;
 import org.apache.parquet.filter2.compat.FilterCompat;
 import org.apache.parquet.filter2.predicate.FilterApi;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 
 final class ParquetOperators extends NoSqlDbOperators {
 
-    private final List<FilterPredicate> fp;
+    private final List<FilterOperator> fp;
     private final List<String> project;
     private final ParquetConnectionManager parquetConnectionManager = ParquetConnectionManager.getInstance();
     //to access the database's object for connectivity, call parquetConnectionManager.getConnection(getNoSqlDbConnector())
@@ -43,7 +44,7 @@ final class ParquetOperators extends NoSqlDbOperators {
         project = new ArrayList<>();
     }
 
-    private ParquetOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession, List<FilterPredicate> fp, List<String> project) {
+    private ParquetOperators(NoSqlDbConnector noSqlDbConnector, String dataCollection, SparkSession sparkSession, List<FilterOperator> fp, List<String> project) {
         super(noSqlDbConnector, dataCollection, sparkSession);
         this.fp = fp;
         this.project = project;
@@ -55,12 +56,12 @@ final class ParquetOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators filter(FilterOperator filterOperator, FilterOperator... filterOperators) {
-        List<FilterPredicate> fp =new ArrayList<>(this.fp);
+        List<FilterOperator> fp =new ArrayList<>(this.fp);
         List<String> project = new ArrayList<>(this.project);
 
-        fp.add((FilterPredicate) filterOperator.getOperatorExpression());
+        fp.add(/*(FilterPredicate)*/ filterOperator/*.getOperatorExpression()*/);
         for (FilterOperator operator : filterOperators) {
-            fp.add((FilterPredicate) operator.getOperatorExpression());
+            fp.add(/*(FilterPredicate)*/ operator/*.getOperatorExpression()*/);
         }
         return new ParquetOperators(getNoSqlDbConnector(), getDataCollection(), getSparkSession(), fp, project);
     }
@@ -122,7 +123,7 @@ final class ParquetOperators extends NoSqlDbOperators {
 
     @Override
     public NoSqlDbOperators project(String fieldName, String... fieldNames) {
-        List<FilterPredicate> fp =new ArrayList<>(this.fp);
+        List<FilterOperator> fp =new ArrayList<>(this.fp);
         List<String> project = new ArrayList<>(this.project);
 
         project.add(fieldName);
@@ -150,7 +151,7 @@ final class ParquetOperators extends NoSqlDbOperators {
         try {
             ParquetReader.Builder<Document> dataBuilder = ParquetReader.builder(new NoSqlDbReadSupport(project), new Path("/Users/nicholaskoutroumanis/Desktop/trajparquet-noda"));
             if(!fp.isEmpty()){
-                dataBuilder = dataBuilder.withFilter(FilterCompat.get(formFilter()));
+                dataBuilder = dataBuilder.withFilter(FilterCompat.get(formPushdownPredicateFilter()));
             }
              // - don't use record filters for x,y
                     // - only a custom filter for an entire geometry object
@@ -164,9 +165,8 @@ final class ParquetOperators extends NoSqlDbOperators {
                     .useStatsFilter(hasFilter)
                     .build();
 
-//            return new ParquetResults(data, OperatorInGeoTemporalRectangle.newOperatorInGeoTemporalRectangle("null","null",null,null));
-            return new ParquetResults(data);
-
+            return new ParquetResults(data, (OperatorInGeoTemporalRectangle) fp.get(0));
+//            return new ParquetResults(data);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -175,16 +175,16 @@ final class ParquetOperators extends NoSqlDbOperators {
 
     }
 
-    private FilterPredicate formFilter(){
+    private FilterPredicate formPushdownPredicateFilter(){
         if(fp.size()==1){
-            return fp.get(0);
+            return (FilterPredicate) fp.get(0).getOperatorExpression();
         }else{
-            FilterPredicate f = FilterApi.and(fp.get(0),fp.get(1));
+            FilterPredicate f = FilterApi.and((FilterPredicate) fp.get(0).getOperatorExpression(), (FilterPredicate) fp.get(1).getOperatorExpression());
             if(fp.size()==2){
                 return f;
             }
             for (int i = 2; i < fp.size(); i++) {
-                f = FilterApi.and(f, fp.get(i));
+                f = FilterApi.and(f, (FilterPredicate) fp.get(i).getOperatorExpression());
             }
             return f;
         }

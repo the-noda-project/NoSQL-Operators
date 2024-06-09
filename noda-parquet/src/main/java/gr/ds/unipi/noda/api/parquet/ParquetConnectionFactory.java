@@ -24,6 +24,7 @@ import gr.ds.unipi.noda.api.parquet.filterOperators.comparisonOperators.ParquetC
 import gr.ds.unipi.noda.api.parquet.filterOperators.geoperators.geoTemporalOperators.ParquetGeoTemporalOperatorFactory;
 import gr.ds.unipi.noda.api.parquet.filterOperators.geoperators.geoTextualOperators.ParquetGeoTextualOperatorFactory;
 import gr.ds.unipi.noda.api.parquet.filterOperators.geoperators.geographicalOperators.ParquetGeographicalOperatorFactory;
+import gr.ds.unipi.noda.api.parquet.filterOperators.geoperators.trajectoryOperators.ParquetTrajectoryOperatorFactory;
 import gr.ds.unipi.noda.api.parquet.filterOperators.logicalOperators.ParquetLogicalOperatorFactory;
 import gr.ds.unipi.noda.api.parquet.filterOperators.textualOperators.ParquetTextualOperatorFactory;
 import gr.ds.unipi.noda.api.parquet.joinOperators.ParquetJoinOperatorFactory;
@@ -104,7 +105,7 @@ public final class ParquetConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     protected BaseTrajectoryOperatorFactory getBaseTrajectoryOperatorFactory() {
-        return null;
+        return new ParquetTrajectoryOperatorFactory();
     }
 
     @Override

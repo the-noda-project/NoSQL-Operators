@@ -5,6 +5,9 @@ import gr.ds.unipi.noda.api.client.sql.NoSqlDbSqlStatement;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbOperators;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbRecord;
 import gr.ds.unipi.noda.api.core.nosqldb.NoSqlDbResults;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.Coordinates;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geoTemporalOperators.temporal.TemporalBounds;
+import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.geometries.Rectangle;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.spark.sql.*;
 import org.apache.spark.sql.api.java.UDF1;
@@ -12,6 +15,7 @@ import org.apache.spark.sql.expressions.UserDefinedFunction;
 import org.apache.spark.sql.types.DataTypes;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.List;
 
 import static gr.ds.unipi.noda.api.core.operators.FilterOperators.*;
@@ -27,7 +31,9 @@ public class ParquetSystemTest {
 
         NoSqlDbSystem noSqlDbSystem = NoSqlDbSystem.Parquet().Builder().host("filesystem").build();
 
-        NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("points").filter(ne("",true));
+//        NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("points").filter(ne("",true));
+        NoSqlDbOperators noSqlDbOperators = noSqlDbSystem.operateOn("points").filter(trajectoriesInGeoTemporalRectangle("objectId","segment", Coordinates.newCoordinates(-180,-90),Coordinates.newCoordinates(180,90), new Date(5), new Date()));
+
 //        NoSqlDbSqlStatement a = noSqlDbSystem.sql("SELECT * FROM passengerCars WHERE GEO_RECTANGLE( location , ( (22.420005798339844, 37.06873843120686 ), ( 22.441120147705078 , 37.06873843120686 ) ) )");
 
         NoSqlDbResults results = noSqlDbOperators.getResults();
@@ -36,7 +42,7 @@ public class ParquetSystemTest {
         int i=0;
         while (results.hasNextRecord()){
             record = results.getRecord();
-            System.out.println(record.getString("objectId") +" - "+ i+" "+record.getDouble("minX"));
+            System.out.println(record.getString("objectId") +" - "+ i);
             i++;
         }
 

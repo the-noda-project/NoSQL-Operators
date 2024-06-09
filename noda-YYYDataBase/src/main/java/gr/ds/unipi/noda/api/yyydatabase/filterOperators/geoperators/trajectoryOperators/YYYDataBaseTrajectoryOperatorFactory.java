@@ -8,7 +8,7 @@ import gr.ds.unipi.noda.api.core.operators.filterOperators.geoperators.trajector
 
 public final class  YYYDataBaseTrajectoryOperatorFactory extends BaseTrajectoryOperatorFactory {
     @Override
-    public TrajectoryOperator newOperatorTrajectoriesInGeoTemporalRectangle(String objectIdField, String segmentField, Rectangle rectangle, String temporalFieldName, TemporalBounds temporalBounds) {
+    public TrajectoryOperator newOperatorTrajectoriesInGeoTemporalRectangle(String objectIdField, String segmentField, Rectangle rectangle, TemporalBounds temporalBounds) {
         return null;
     }
 
