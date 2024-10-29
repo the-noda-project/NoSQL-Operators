@@ -19,7 +19,6 @@
         <module>noda-redis</module>
         <module>noda-couchdb</module>
         <module>noda-cassandra</module>
-        <module>noda-parquet</module>
         <module>noda-YYYDataBase</module>
     </modules>
     <properties>

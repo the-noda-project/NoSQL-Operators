@@ -98,21 +98,15 @@
         </dependency>
         <dependency>
             <groupId>gr.unipi.noda</groupId>
-            <artifactId>nosql-operators-parquet</artifactId>
-            <version>${project.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>gr.unipi.noda</groupId>
             <artifactId>nosql-operators-YYYDataBase</artifactId>
             <version>${project.version}</version>
             <optional>true</optional>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>gr.unipi.noda</groupId>-->
-<!--            <artifactId>nosql-operators-visualization</artifactId>-->
-<!--            <version>${project.version}</version>-->
-<!--            <optional>true</optional>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>gr.unipi.noda</groupId>-->
+        <!--            <artifactId>nosql-operators-visualization</artifactId>-->
+        <!--            <version>${project.version}</version>-->
+        <!--            <optional>true</optional>-->
+        <!--        </dependency>-->
     </dependencies>
 </project>

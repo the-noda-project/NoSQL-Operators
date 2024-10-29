@@ -5,7 +5,6 @@ import gr.ds.unipi.noda.api.client.couchdb.CouchDBBuilderFactory;
 import gr.ds.unipi.noda.api.client.hbase.HBaseBuilderFactory;
 import gr.ds.unipi.noda.api.client.mongo.MongoDBBuilderFactory;
 import gr.ds.unipi.noda.api.client.neo4j.Neo4jBuilderFactory;
-import gr.ds.unipi.noda.api.client.parquet.ParquetBuilderFactory;
 import gr.ds.unipi.noda.api.client.redis.RedisBuilderFactory;
 import gr.ds.unipi.noda.api.client.redisearch.RediSearchBuilderFactory;
 import gr.ds.unipi.noda.api.client.sql.*;
@@ -103,11 +102,11 @@ public abstract class NoSqlDbSystem {
 
     protected abstract NoSqlDbConnector getConnector();
 
-    public NoSqlDbSqlStatement sql(String sql){
+    public NoSqlDbSqlStatement sql(String sql) {
 
         CharStream s = CharStreams.fromString(sql);
-        CaseChangingCharStream upper = new CaseChangingCharStream(s,true);
-        SqlBaseLexer lexer =  new SqlBaseLexer(upper);
+        CaseChangingCharStream upper = new CaseChangingCharStream(s, true);
+        SqlBaseLexer lexer = new SqlBaseLexer(upper);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         SqlBaseParser parser = new SqlBaseParser(tokens);
 
@@ -115,7 +114,7 @@ public abstract class NoSqlDbSystem {
         ParseTreeWalker walker = new ParseTreeWalker();
 
         NoSqlDbSqlStatementListener listener = NoSqlDbSqlStatementListener.newNodaSqlListener();
-        walker.walk(listener,tree);
+        walker.walk(listener, tree);
 
         listener.setNoSqlDbOperators(nsdb.noSqlDbOperators(getConnector(), listener.getSource(), sparkSession));
         return NoSqlDbSqlStatement.newNodaSqlOperators(listener.getNoSqlDbOperators());
@@ -174,10 +173,6 @@ public abstract class NoSqlDbSystem {
 
     public static CassandraBuilderFactory Cassandra() {
         return new CassandraBuilderFactory();
-    }
-
-    public static ParquetBuilderFactory Parquet() {
-        return new ParquetBuilderFactory();
     }
 
     public String getDefaultHost() {

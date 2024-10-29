@@ -39,17 +39,17 @@ public final class MongoDBConnectionFactory extends NoSqlConnectionFactory {
 
     @Override
     public NoSqlDbInserts noSqlDbInserts(NoSqlDbConnector connector, String s) {
-        return null;
+        return MongoDbInserts.newMongoDbInserts(connector, s);
     }
 
     @Override
     public NoSqlDbUpdates noSqlDbUpdates(NoSqlDbConnector connector, String s) {
-        return null;
+        return MongoDbUpdates.newMongoUpdates(connector, s);
     }
 
     @Override
     public NoSqlDbDeletes noSqlDbDeletes(NoSqlDbConnector connector, String s) {
-        return null;
+        return MongoDbDeletes.newMongoDeletes(connector, s);
     }
 
     @Override
